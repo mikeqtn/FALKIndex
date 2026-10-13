@@ -38,3 +38,15 @@ test('every record page shows seven dimension rows and nothing that sums them', 
     assert.doesNotMatch(html, /\b(total|average|overall|aggregate) (score|profile)\b/i, f);
   }
 });
+
+test('published evidence repeats the strip scores; a draft gets its own section', { skip }, () => {
+  for (const f of files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f))) {
+    const html = read(f);
+    const strip = [...(html.match(/<table class="strip[^"]*">([\s\S]*?)<\/table>/)?.[1] ?? '').matchAll(/<span class="num"[^>]*>([^<]+)</g)].map(m => m[1]);
+    const section = html.match(/class="block evidence-section"[\s\S]*?<\/section>/)?.[0] ?? '';
+    const evidence = [...section.matchAll(/<span class="code"[^>]*>[A-Z]{2} ([^<]+)</g)].map(m => m[1]);
+    assert.deepEqual(evidence, strip, f);
+    assert.equal(html.includes('Draft under review'), html.includes('id="draft-evidence-ma"'), f);
+  }
+  assert.match(read(join(dist, 'records/fleming/series-1/index.html')), /Draft under review/);
+});

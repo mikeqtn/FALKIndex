@@ -11,13 +11,17 @@ export const methodology = methodologies.get('v0.2')!;
 
 export type Profile = Watch['profiles'][number];
 export type Scores = Profile['scores'];
-export type Record = Watch & { profile: Profile; brandName: string };
+export type Record = Watch & { profile: Profile; draft?: Profile; brandName: string };
 
-/** The profile readers see: the published one, else the latest draft. */
-const current = (w: Watch) => w.profiles.find(p => p.status === 'published') ?? w.profiles.at(-1)!;
-
+// A record is listed once it has a published profile. A newer draft is shown openly on the record page,
+// labelled "Draft under review", next to (never in place of) the published profile.
 export const records: Record[] = watches
-  .map(w => ({ ...w, profile: current(w), brandName: orgs.get(w.brand)!.name }))
+  .filter(w => w.profiles.some(p => p.status === 'published'))
+  .map(w => {
+    const profile = w.profiles.find(p => p.status === 'published')!;
+    const draft = w.profiles.findLast(p => p.status === 'draft'); // validate.ts guarantees drafts sit above the published version
+    return { ...w, profile, draft, brandName: orgs.get(w.brand)!.name };
+  })
   .sort((a, b) => a.brandName.localeCompare(b.brandName) || a.model.localeCompare(b.model));
 
 export const record = (id: string) => records.find(r => r.id === id)!;

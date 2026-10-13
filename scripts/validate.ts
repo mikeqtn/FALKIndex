@@ -96,6 +96,7 @@ export function check(raw: ReturnType<typeof load>) {
     // Invariant 7: versions run 1..n; one published at most; everything below it is superseded.
     const published = w.profiles.filter(p => p.status === 'published');
     if (published.length > 1) err(`${file}:profiles`, 'more than one published profile');
+    if (published.length === 0) warn(`${file}:profiles`, 'no published profile, so the record is left off the site');
     w.profiles.forEach((p, i) => {
       const at = `${file}:profiles.${i}`;
       if (p.version !== i + 1) err(`${at}.version`, `expected version ${i + 1}, found ${p.version}`);

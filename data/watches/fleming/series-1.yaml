@@ -1,9 +1,109 @@
 id: fleming/series-1
 brand: fleming
 model: Series 1
-notes: Handbook v0.2 §8 lists this record as "Fleming — Series 1".
-provenance: []
-claims: []
+notes: Handbook v0.2 §8 lists this record as "Fleming — Series 1". The brand's site could not be fetched (certificate error); evidence is secondary only.
+provenance:
+  - dimension: MA
+    component: Caliber FM-01, developed from the Chronode C101
+    performer: chronode
+    relationship: external_specialist
+    claims:
+      - fl-s1-c101
+      - fl-s1-modified
+      - fl-s1-mojon
+  - dimension: MM
+    component: Complete movement
+    performer: chronode
+    relationship: external_specialist
+    claims:
+      - fl-s1-chronode
+  - dimension: EX
+    component: Case (tantalum, platinum, rose gold)
+    relationship: unknown
+    note: Designed by the brand; maker not named.
+    claims:
+      - fl-s1-case-design
+  - dimension: DH
+    component: Dials
+    performer: comblemine
+    relationship: external_specialist
+    claims:
+      - fl-s1-dials
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No source says where or by whom.
+    claims: []
+  - dimension: PD
+    component: Product design and supplier direction
+    performer: fleming
+    relationship: internal
+    claims:
+      - fl-s1-case-design
+      - fl-s1-mojon
+claims:
+  - id: fl-s1-c101
+    statement: The FM-01 caliber is based on the Chronode C101.
+    excerpt: Fleming chose Chronode's C101 calibre as inspiration
+    source: timeandtide-fleming-series-1
+    dimensions:
+      - MA
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-modified
+    statement: The C101 was modified with a new balance bridge, click spring assembly and power reserve indication.
+    excerpt: modified it to their needs with a new, black-polished balance bridge and click spring assembly
+    source: timeandtide-fleming-series-1
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-mojon
+    statement: Jean-François Mojon of Chronode helped develop the movement.
+    excerpt: Chronode's Jean-François Mojon helped develop the highly decorated movement
+    source: timeandtide-fleming-series-1
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-chronode
+    statement: Chronode created the movement for Fleming.
+    excerpt: For this, Fleming turned to Chronode, who created a gem.
+    source: quillandpad-fleming-series-1
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-dials
+    statement: All dials are made by Comblémine, owned by Kari Voutilainen.
+    excerpt: All dials are made by the experts at Comblémine, a highly specialized company in Saint-Sulpice, Switzerland owned by Kari Voutilainen.
+    source: quillandpad-fleming-series-1
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-case-design
+    statement: The founder held the case to his original design through two years of development.
+    excerpt: As Fleming did not want to deviate from his original design, it took two years before the case in tantalum was finally up to par.
+    source: quillandpad-fleming-series-1
+    dimensions:
+      - PD
+      - EX
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: fl-s1-not-watchmaker
+    statement: The brand was not founded by a watchmaker.
+    excerpt: Fleming is not the brainchild of a watchmaker
+    source: timeandtide-fleming-series-1
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,5 +130,77 @@ profiles:
         value: 1
       PD:
         value: 5
+    classification:
+      - design_led_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile. Proposed: MA 4 → 3 (sources describe a modified Chronode C101, not a new caliber); EX 0 → U and WE 1 → U (no source on the case maker or assembly); PD 5 → 4 (the engineering is Chronode's). Confidence B → C: all evidence is secondary, and the brand site could not be read."
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 3
+        rationale: The FM-01 is Chronode's C101 with a new balance bridge, click spring assembly and power reserve indication, developed with Jean-François Mojon. That is more than a cosmetic change but not a new caliber. Level 2 is defensible; 4 would need a source showing broader re-engineering.
+        evidence:
+          - claim: fl-s1-c101
+            stance: supports
+            note: Base caliber.
+          - claim: fl-s1-modified
+            stance: supports
+            note: Extent of modification.
+          - claim: fl-s1-mojon
+            stance: context
+            note: Engineering partner.
+      MM:
+        value: 0
+        rationale: The movement is made by Chronode; no movement part is made by the brand.
+        evidence:
+          - claim: fl-s1-chronode
+            stance: supports
+            note: Movement created by Chronode.
+      EX:
+        value: null
+        rationale: The case is the brand's design, but no source names who makes it. U until a source is found (handbook score was 0).
+        evidence:
+          - claim: fl-s1-case-design
+            stance: context
+            note: Design only, not manufacture.
+      DH:
+        value: 0
+        rationale: All dials are made by Comblémine. Hands are not covered by any source.
+        evidence:
+          - claim: fl-s1-dials
+            stance: supports
+            note: External dial maker.
+      CF:
+        value: 0
+        rationale: No internal craft is documented; the hand finishing belongs to Comblémine and Chronode.
+        evidence:
+          - claim: fl-s1-dials
+            stance: supports
+            note: Dial craft is external.
+          - claim: fl-s1-not-watchmaker
+            stance: context
+            note: No in-house workshop is described.
+      WE:
+        value: null
+        rationale: No source says where the watch is assembled or regulated. U (handbook score was 1).
+        evidence:
+          - claim: fl-s1-not-watchmaker
+            stance: context
+            note: The brand has no described watchmaking team.
+      PD:
+        value: 4
+        rationale: The brand designed the watch, held the case to its design through two years of development, and commissioned the movement modifications. The deep engineering is Chronode's, so 5 is not supported on current evidence.
+        evidence:
+          - claim: fl-s1-case-design
+            stance: supports
+            note: Original design direction.
+          - claim: fl-s1-mojon
+            stance: supports
+            note: Commissioned technical development.
     classification:
       - design_led_etablisseur

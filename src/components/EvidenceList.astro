@@ -1,0 +1,66 @@
+---
+// One profile's evidence by dimension: rationale, then supporting, conflicting and context claims.
+import { DIMENSIONS, SOURCE_TYPE, correctionUrl, dimension, fmtDate, methodologies, sources, type Profile, type Record } from '../lib/data.ts';
+
+interface Props { profile: Profile; record: Record; idPrefix: string }
+const { profile, record, idPrefix } = Astro.props;
+const levels = Object.fromEntries(methodologies.get(profile.methodology)!.dimensions.map(d => [d.code, d.levels]));
+const claims = new Map(record.claims.map(c => [c.id, c]));
+const host = (url: string) => new URL(url).host.replace(/^www\./, '');
+const GROUPS = [['supports', 'Supporting evidence'], ['contradicts', 'Conflicting evidence'], ['context', 'Context']] as const;
+---
+<div class="evidence">
+  {DIMENSIONS.map(d => {
+    const s = profile.scores[d];
+    return (
+      <details id={`${idPrefix}-${d.toLowerCase()}`}>
+        <summary>
+          <span class="code">{d} {s.value ?? 'U'}</span>
+          <span><b>{dimension[d].label}</b><span class="muted">: {s.value === null ? 'Unknown' : levels[d][s.value]}</span></span>
+        </summary>
+        <div class="body stack">
+          {s.rationale && <div class="prose"><p>{s.rationale}</p></div>}
+          {!s.rationale && s.evidence.length === 0 && (
+            <p class="prose">
+              {profile.is_seed ? 'No evidence attached yet. This score comes from the v0.2 reference dataset.' : 'No rationale or evidence recorded for this score.'}{' '}
+              <a href={correctionUrl(record.id)}>Send evidence</a>
+            </p>
+          )}
+          {GROUPS.map(([stance, title]) => {
+            const es = s.evidence.filter(e => e.stance === stance);
+            return es.length > 0 && (
+              <div class="stack">
+                <h3 class="small-h">{title} ({es.length})</h3>
+                {es.map(e => {
+                  const c = claims.get(e.claim)!;
+                  const src = sources.get(c.source)!;
+                  return (
+                    <div class:list={['claim', stance]}>
+                      <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
+                      {c.excerpt && <blockquote class="excerpt">{c.excerpt}</blockquote>}
+                      <p class="small src">
+                        <a href={src.url}>{src.title ?? host(src.url)}</a>
+                        <span class:list={{ muted: src.tier === 'secondary' }}>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>
+                        {src.archived_url && <a href={src.archived_url}>Archived copy</a>}
+                        <span>Checked {fmtDate(c.date_checked)}</span>
+                        <span>Added by {c.editor}</span>
+                      </p>
+                      <p class="small muted">{e.note}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </details>
+    );
+  })}
+</div>
+
+<style>
+  .small-h { font-size: 16px; line-height: 23px; font-stretch: 100%; }
+  .claim > * + * { margin-top: var(--s-2); }
+  .claim.contradicts { border-left: 3px solid var(--c-gilt); padding-left: var(--s-4); }
+  .src { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+</style>

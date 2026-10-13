@@ -2,8 +2,141 @@ id: anordain/model-1-fume
 brand: anordain
 model: Model 1 Fumé
 notes: Handbook v0.2 §8 lists this record as "anOrdain — Model 1 Fumé".
-provenance: []
-claims: []
+provenance:
+  - dimension: MA
+    component: Movement (Swiss supplier caliber, modified)
+    relationship: external_specialist
+    note: La Joux-Perret, Sellita or ETA; the Model 1 caliber is not specified.
+    claims:
+      - ao-swiss-movements
+      - ao-glasgow-modified
+  - dimension: MM
+    component: Complete movement
+    relationship: external_specialist
+    claims:
+      - ao-swiss-movements
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: No source names the case maker.
+    claims: []
+  - dimension: DH
+    component: Dial blank, stamped from fine silver
+    performer: anordain
+    relationship: internal
+    claims:
+      - ao-blank
+  - dimension: DH
+    component: Vitreous (grand feu) fumé enamel, firing and printing
+    performer: anordain
+    relationship: internal
+    claims:
+      - ao-enamellers
+      - ao-fume
+      - ao-fired-printed
+  - dimension: DH
+    component: Hands, thermally treated
+    performer: anordain
+    relationship: internal
+    note: The page says "our" hands are heat-treated; whether this is done in-house should be confirmed.
+    claims:
+      - ao-hands
+  - dimension: WE
+    component: Movement testing, modification, assembly and regulation
+    performer: anordain
+    relationship: internal
+    claims:
+      - ao-glasgow-modified
+      - ao-six-watchmakers
+      - ao-regulated
+      - ao-amplitude
+claims:
+  - id: ao-swiss-movements
+    statement: Watches use Swiss movements from La Joux-Perret, Sellita and ETA.
+    excerpt: Our watches run on good quality Swiss movements from La Joux-Perret G101, Sellita and ETA
+    source: anordain-watchmaking
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-glasgow-modified
+    statement: Movements are modified, regulated and assembled into watches at the Glasgow workshop.
+    excerpt: We receive them at our Glasgow workshop, where they are modified to our needs, regulated and assembled into cased-up watches.
+    source: anordain-watchmaking
+    dimensions:
+      - WE
+      - MA
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-six-watchmakers
+    statement: Each watch is hand-assembled by one of six in-house watchmakers.
+    excerpt: Regardless of movement, each watch is carefully hand-assembled by one of our six in-house watchmakers.
+    source: anordain-watchmaking
+    dimensions:
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-regulated
+    statement: Every watch is regulated after assembly.
+    excerpt: Once assembled, every watch is regulated to suit the wearer.
+    source: anordain-watchmaking
+    dimensions:
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-amplitude
+    statement: Balance amplitude is checked on a timegraph before assembly.
+    excerpt: Before assembly, the amplitude – the swinging rate of the balance wheel – is checked with our timegraph
+    source: anordain-watchmaking
+    dimensions:
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-hands
+    statement: Hands are thermally treated to specific colours.
+    excerpt: Our watch hands are thermally treated to specific colours
+    source: anordain-watchmaking
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-enamellers
+    statement: Three named enamellers make the enamel dials.
+    excerpt: our three expert enamellers – Morna, Nicky and Sally – have spent years refining the practice of enamel dial making.
+    source: anordain-enamelling
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-blank
+    statement: Dial blanks are stamped from fine silver in the Glasgow studio.
+    excerpt: We start by stamping a dial from a sheet of fine silver using a hydraulic press and a custom-made die at our Glasgow studio.
+    source: anordain-enamelling
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-fume
+    statement: Fumé dials use the same vitreous enamel method on a domed silver base.
+    excerpt: With the fumé dial, we follow our existing enamel method, but using a domed silver base.
+    source: anordain-enamelling
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ao-fired-printed
+    statement: Dials are fired, printed and cured before going to the watchmakers.
+    excerpt: After enamelling, the dials are fired, printed and cured, then passed on to our watchmakers for assembly.
+    source: anordain-enamelling
+    dimensions:
+      - DH
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,6 +163,91 @@ profiles:
         value: 3
       PD:
         value: 3
+    classification:
+      - artisan_atelier
+      - watchmaking_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, from the maker's own watchmaking and enamel pages. Proposed: EX 0 → U (no source on the case maker). Other scores unchanged; confidence stays A."
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 0
+        rationale: A Swiss supplier caliber. The workshop modifies movements "to our needs", but the modifications are not described, so they are treated as adjustment rather than architecture.
+        evidence:
+          - claim: ao-swiss-movements
+            stance: supports
+            note: Supplier calibers.
+          - claim: ao-glasgow-modified
+            stance: context
+            note: Unspecified modification.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: ao-swiss-movements
+            stance: supports
+            note: External movements.
+      EX:
+        value: null
+        rationale: No source names the case maker. U until found (handbook score was 0).
+        evidence: []
+      DH:
+        value: 5
+        rationale: Dial blanks are stamped from fine silver in Glasgow, enamelled, fired and printed by three named in-house enamellers, and the hands are heat-coloured. Dialmaking defines the watch.
+        evidence:
+          - claim: ao-blank
+            stance: supports
+            note: In-house blanks.
+          - claim: ao-enamellers
+            stance: supports
+            note: Named in-house enamellers.
+          - claim: ao-fume
+            stance: supports
+            note: Fumé process.
+          - claim: ao-fired-printed
+            stance: supports
+            note: Firing and printing in-house.
+          - claim: ao-hands
+            stance: supports
+            note: Hand colouring.
+      CF:
+        value: 4
+        rationale: Vitreous enamelling is a métier d'art practised in-house by a dedicated team. It is a major capability, scored separately from dial manufacture.
+        evidence:
+          - claim: ao-enamellers
+            stance: supports
+            note: In-house enamel team.
+          - claim: ao-fume
+            stance: supports
+            note: Grand feu technique.
+      WE:
+        value: 3
+        rationale: Movements are tested, sometimes modified, assembled and regulated by six in-house watchmakers.
+        evidence:
+          - claim: ao-six-watchmakers
+            stance: supports
+            note: In-house assembly.
+          - claim: ao-amplitude
+            stance: supports
+            note: Movement testing.
+          - claim: ao-regulated
+            stance: supports
+            note: Regulation.
+          - claim: ao-glasgow-modified
+            stance: supports
+            note: Modification.
+      PD:
+        value: 3
+        rationale: Bespoke dials made with custom dies around conventional supplier movements.
+        evidence:
+          - claim: ao-blank
+            stance: supports
+            note: Custom-made die for the dial.
     classification:
       - artisan_atelier
       - watchmaking_atelier

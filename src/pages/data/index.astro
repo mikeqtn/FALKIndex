@@ -1,7 +1,7 @@
 ---
 import { execSync } from 'node:child_process';
 import Base from '../../layouts/Base.astro';
-import { fmtDate, records } from '../../lib/data.ts';
+import { fmtDate, records, watches } from '../../lib/data.ts';
 
 const commit = (() => { try { return execSync('git rev-parse --short HEAD').toString().trim(); } catch { return ''; } })();
 const built = new Date().toISOString().slice(0, 10);
@@ -15,7 +15,7 @@ const built = new Date().toISOString().slice(0, 10);
   <div class="prose sections">
     <h2>Full dataset</h2>
     <ul>
-      <li><a href="/data/falk.json">Download JSON</a>: all {records.length} records with provenance, claims and every profile version, plus organizations, sources and the methodology.</li>
+      <li><a href="/data/falk.json">Download JSON</a>: all {watches.length} records, including any not yet on the site, with provenance, claims and every profile version (drafts included), plus organizations, sources and the methodology.</li>
       <li><a href="/data/falk.csv">Download CSV</a>: one row per record with its current profile, classification and evidence grade. An unknown (U) score is an empty cell with a matching <code>_unknown</code> flag.</li>
     </ul>
     <p class="small">Built {fmtDate(built)}{commit && <> from commit <a href={`https://github.com/mikeqtn/FALKIndex/commit/${commit}`}>{commit}</a></>}.</p>

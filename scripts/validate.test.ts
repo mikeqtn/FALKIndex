@@ -34,3 +34,9 @@ test('version gaps are rejected', () => assert.match(broken(p => { p.version = 2
 
 test('unknown claim references are rejected', () =>
   assert.match(broken(p => { p.scores.MA.evidence = [{ claim: 'nope', stance: 'supports', note: 'x' }]; }), /unknown claim "nope"/));
+
+test('a record with no published profile is flagged', () => {
+  const d = structuredClone(data);
+  d.watches[0].value.profiles[0].status = 'draft';
+  assert.match(check(d).warnings.join('\n'), /no published profile/);
+});
