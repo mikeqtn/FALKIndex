@@ -1,9 +1,171 @@
 id: jn-shapiro/resurgence
 brand: jn-shapiro
 model: Resurgence
-notes: Handbook v0.2 §8 lists this record as "J.N. Shapiro — Resurgence".
-provenance: []
-claims: []
+notes: Handbook v0.2 §8 lists this record as "J.N. Shapiro — Resurgence". Workshop in Torrance, California (Watchonista, 2024).
+
+# ── Facts. Excerpts are AI-drafted from the live pages on 2026-10-13 and must be checked word for word before v2 is published.
+claims:
+  - id: jns-res-components-in-house
+    statement: The maker states that all components are made and finished in its workshop, except jewels and springs.
+    excerpt: All components made and finished in our workshop excluding jewels and springs.
+    source: jn-shapiro-watches
+    dimensions: [MM, EX, DH]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-dial-layers
+    statement: The dial is built from separate metal layers, each engine-turned, trimmed and milled to fit.
+    excerpt: Each layer is a different piece of metal, engine-turned separately, trimmed and painstakingly milled for a perfect fit.
+    source: jn-shapiro-watches
+    dimensions: [DH, CF]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-movement-options
+    statement: Clients choose between three free-sprung, hand-engraved movement designs.
+    excerpt: offers clients a choice of three free-sprung, hand-engraved movements with hacking seconds
+    source: jn-shapiro-watches
+    dimensions: [MA, CF]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-only-hairspring-bought
+    statement: Of the movement's regulating and escapement parts, only the hairspring is bought in; the rest are made in-house.
+    excerpt: J.N. Shapiro only buys the hairspring; the rest of its components are made in-house.
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [MM]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-hairspring-supplier
+    statement: Flat hairsprings are supplied by Precision Engineering of Neuhausen, Switzerland.
+    excerpt: The flat hairsprings are supplied by Precision Engineering, the Neuhausen-based sister company to H. Moser & Cie.
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [MM]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-overcoils-in-house
+    statement: Watchmakers on staff form the hairspring overcoils in-house.
+    excerpt: relies on two watchmakers on staff who form the overcoils in-house.
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [WE, MM]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-own-calibre
+    statement: The caliber was conceived as the brand's own American-made movement.
+    excerpt: Joshua’s vision was always to create his own, American-made calibre.
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [MA, PD]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-five-watchmakers
+    statement: Five full-time watchmakers work on the Resurgence, and the movement is signed with their initials.
+    excerpt: each of the five full-time watchmakers who work on the Resurgence
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [WE]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-anglage-staff
+    statement: Two watchmakers on staff perform anglage; one has an engraving background.
+    excerpt: There are two watchmakers on staff that do anglage, one of whom has a background in engraving.
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [CF]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-case-rose-engine
+    statement: The case band is engine-turned on the same rose engine as the dial.
+    excerpt: turned on the same rose engine as the dial
+    source: sjx-jn-shapiro-resurgence
+    dimensions: [EX, CF]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-movement-parts-listed
+    statement: The pinions, balance, screws, wheels and power fork are made in the workshop.
+    excerpt: all of its components, including the pinions, the balance, screws, wheels, and power fork, are made in the workshop
+    source: watchonista-inside-jn-shapiro-1
+    dimensions: [MM]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-cubist-bridge
+    statement: The Cubist bridge layout was designed by a watchmaker in the workshop.
+    excerpt: watchmaker Michael completed the cubist bridge design.
+    source: watchonista-inside-jn-shapiro-1
+    dimensions: [MA, PD]
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-res-engine-turning-machines
+    statement: The workshop runs three straight-line engine-turning machines and four rose engines.
+    excerpt: three machines dedicated to crafting straight patterns
+    source: watchonista-inside-jn-shapiro-1
+    dimensions: [DH, CF]
+    date_checked: 2026-10-13
+    editor: ai-draft
+
+provenance:
+  - dimension: MA
+    component: Caliber design, including the Cubist bridge layout
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-own-calibre, jns-res-cubist-bridge]
+  - dimension: MM
+    component: Plates, bridges, wheels, pinions, balance, screws, power fork
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-components-in-house, jns-res-movement-parts-listed, jns-res-only-hairspring-bought]
+  - dimension: MM
+    component: Hairspring (flat)
+    performer: precision-engineering
+    relationship: external_specialist
+    claims: [jns-res-hairspring-supplier]
+  - dimension: MM
+    component: Jewels
+    relationship: external_specialist
+    note: Bought in; supplier not disclosed.
+    claims: [jns-res-components-in-house]
+  - dimension: MM
+    component: Springs (mainspring and other springs)
+    relationship: external_specialist
+    note: Bought in; supplier not disclosed.
+    claims: [jns-res-components-in-house]
+  - dimension: EX
+    component: Case, including the engine-turned case band
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-components-in-house, jns-res-case-rose-engine]
+  - dimension: DH
+    component: Layered dial, engine-turned and milled
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-dial-layers, jns-res-components-in-house]
+  - dimension: DH
+    component: Hands
+    performer: jn-shapiro
+    relationship: internal
+    note: Covered only by the maker's general statement; no source describes hand making specifically.
+    claims: [jns-res-components-in-house]
+  - dimension: CF
+    component: Engine-turning (guilloché) of dial and case
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-engine-turning-machines, jns-res-dial-layers, jns-res-case-rose-engine]
+  - dimension: CF
+    component: Movement anglage and hand engraving
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-anglage-staff, jns-res-movement-options]
+  - dimension: WE
+    component: Hairspring overcoil forming
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-overcoils-in-house]
+  - dimension: WE
+    component: Movement and watch assembly
+    performer: jn-shapiro
+    relationship: internal
+    note: Inferred from the five named watchmakers; no source describes assembly and regulation directly.
+    claims: [jns-res-five-watchmakers]
+  - dimension: PD
+    component: Product and technical development
+    performer: jn-shapiro
+    relationship: internal
+    claims: [jns-res-own-calibre, jns-res-cubist-bridge]
+
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,5 +192,131 @@ profiles:
         value: 5
       PD:
         value: 5
+    classification:
+      - integrated_manufacture
+
+  # ── Draft for review. Publishing: set this to published and version 1 to superseded.
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: >-
+      First evidenced profile, from the maker's page and two specialist articles. Scores unchanged.
+      Confidence proposed A → B: the maker's primary statement is general, and component-level detail,
+      the hairspring source and the watchmaking staff come from secondary sources. Hands, assembly and
+      regulation are not described directly by any source.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 5
+        rationale: >-
+          The caliber is the brand's own design, and its Cubist bridge layout was completed by a watchmaker
+          in the workshop. Three movement designs are offered. No source names an outside engineering partner,
+          so the architecture is credited as substantially mastered internally.
+        evidence:
+          - claim: jns-res-own-calibre
+            stance: supports
+            note: Establishes the caliber as the brand's own design rather than a modified base movement.
+          - claim: jns-res-cubist-bridge
+            stance: supports
+            note: Names an in-house watchmaker as the designer of a bridge layout.
+          - claim: jns-res-movement-options
+            stance: context
+            note: Three proprietary movement variants, all free-sprung.
+      MM:
+        value: 5
+        rationale: >-
+          Wheels, pinions, balance, screws and power fork are made in the workshop, and the maker says every
+          component except jewels and springs is its own. Borderline: level 5 asks for difficult regulating and
+          escapement components, and the hairspring, the hardest of them, is bought flat from Precision
+          Engineering. It stays at 5 because the balance and escapement parts are made in-house and the overcoil
+          is formed in the workshop; a reviewer may reasonably argue for 4.
+        evidence:
+          - claim: jns-res-components-in-house
+            stance: supports
+            note: Primary statement covering every component except jewels and springs.
+          - claim: jns-res-movement-parts-listed
+            stance: supports
+            note: Names the balance, pinions and power fork, which are difficult regulating and escapement parts.
+          - claim: jns-res-only-hairspring-bought
+            stance: supports
+            note: Confirms the hairspring is the only bought-in part of that group.
+          - claim: jns-res-hairspring-supplier
+            stance: contradicts
+            note: The hairspring is external, which is the main argument against level 5.
+      EX:
+        value: 5
+        rationale: >-
+          The maker's statement covers all case components, and the case band is engine-turned on the workshop's
+          own rose engine. The watch has no bracelet, so the case, crown and lugs make up the exterior.
+          The score relies on the general statement for the crown and crystal.
+        evidence:
+          - claim: jns-res-components-in-house
+            stance: supports
+            note: Primary statement covering the case components.
+          - claim: jns-res-case-rose-engine
+            stance: supports
+            note: Shows case work done on in-house machines.
+      DH:
+        value: 5
+        rationale: >-
+          The dial is assembled from separate metal layers that are each engine-turned and milled in the workshop,
+          and engine-turning is the brand's founding craft. Hands are covered only by the maker's general
+          statement; if a source showed them to be bought in, DH would drop to 4.
+        evidence:
+          - claim: jns-res-dial-layers
+            stance: supports
+            note: Describes in-house dial fabrication in detail.
+          - claim: jns-res-engine-turning-machines
+            stance: supports
+            note: Seven engine-turning machines in the workshop.
+          - claim: jns-res-components-in-house
+            stance: supports
+            note: The only evidence covering the hands.
+      CF:
+        value: 5
+        rationale: >-
+          Engine-turning of dial and case, hand engraving of the movement and anglage are all done by named
+          workshop staff on the workshop's own machines, and they define the watch's appearance.
+        evidence:
+          - claim: jns-res-engine-turning-machines
+            stance: supports
+            note: In-house engine-turning capacity.
+          - claim: jns-res-anglage-staff
+            stance: supports
+            note: Anglage and engraving done by watchmakers on staff.
+          - claim: jns-res-movement-options
+            stance: supports
+            note: The movements are hand-engraved.
+          - claim: jns-res-dial-layers
+            stance: supports
+            note: Dial engine-turning is internal craft, not bought-in decoration.
+      WE:
+        value: 5
+        rationale: >-
+          Five full-time watchmakers work on the Resurgence and form the hairspring overcoils, which is
+          regulation-level work. No source describes assembly, adjustment or testing directly, so this score
+          rests on inference and should be the first one checked with the maker.
+        evidence:
+          - claim: jns-res-five-watchmakers
+            stance: supports
+            note: A dedicated watchmaking team on this model.
+          - claim: jns-res-overcoils-in-house
+            stance: supports
+            note: Overcoil forming is part of regulating the movement.
+      PD:
+        value: 5
+        rationale: >-
+          The brand designed its own caliber and bridge layout, and makes the case and dial in-house; the watch is
+          an original technical development from end to end.
+        evidence:
+          - claim: jns-res-own-calibre
+            stance: supports
+            note: Original caliber development.
+          - claim: jns-res-cubist-bridge
+            stance: supports
+            note: Original movement design work by staff.
     classification:
       - integrated_manufacture

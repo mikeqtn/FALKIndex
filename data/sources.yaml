@@ -1,5 +1,6 @@
 - id: jn-shapiro-watches
   url: https://jnshapirowatches.com/watches/
+  title: Resurgence (J.N. Shapiro)
   publisher: jn-shapiro
   source_type: manufacturer
   tier: primary
@@ -118,3 +119,15 @@
   title: Caliber Corner
   source_type: specialist_reference
   tier: secondary
+- id: sjx-jn-shapiro-resurgence
+  url: https://watchesbysjx.com/2023/05/jn-shapiro-resurgence.html
+  title: J.N. Shapiro Introduces the Resurgence (Brandon Moore, SJX)
+  source_type: press
+  tier: secondary
+  published_on: 2023-05-22
+- id: watchonista-inside-jn-shapiro-1
+  url: https://www.watchonista.com/editorial/in-depth/inside-j-n-shapiro-witnessing-the-resurgence-of-american-watchmaking-part-1/
+  title: "Inside J.N. Shapiro: Witnessing the Resurgence of American Watchmaking, Part 1 (Henri Lee, Watchonista)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-02-21
