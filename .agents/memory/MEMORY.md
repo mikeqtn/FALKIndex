@@ -1,0 +1,1 @@
+- [GitHub access checks](github-access-checks.md) — source-control connection health does not guarantee that repository fetches authenticate.
