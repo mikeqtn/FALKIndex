@@ -86,7 +86,7 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
                       <div class:list={['claim', stance]}>
                         <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
                         {c.excerpt && <blockquote class="excerpt">{c.excerpt}</blockquote>}
-                        <p class="small">
+                        <p class="small src">
                           <a href={src.url}>{src.title ?? host(src.url)}</a>{' '}
                           <span class:list={{ muted: src.tier === 'secondary' }}>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>{' '}
                           {src.archived_url && <a href={src.archived_url}>Archived copy</a>}{' '}
@@ -154,6 +154,7 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
   .h2-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); }
   .small-h { font-size: 16px; line-height: 23px; font-stretch: 100%; }
   .claim > * + * { margin-top: var(--s-2); }
+  .src { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
   .claim.contradicts { border-left: 3px solid var(--c-gilt); padding-left: var(--s-4); }
   .history { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
   .note { margin-top: var(--s-4); }
