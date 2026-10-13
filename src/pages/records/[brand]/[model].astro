@@ -5,7 +5,7 @@ import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import {
   DIMENSIONS, RELATIONSHIP, SOURCE_TYPE, brandUrl, classification, correctionUrl, dimension, fmtDate,
-  methodologies, orgs, records, sources, url, variant, type Record,
+  methodologies, orgs, records, sources, variant, type Record,
 } from '../../../lib/data.ts';
 
 export function getStaticPaths() {
@@ -50,7 +50,7 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
       )}
       {p.independent_watchmaker && <p>Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches.</p>}
       <div><p class="small muted">Evidence</p><ConfidenceMark grade={p.confidence} /></div>
-      <p class="small">Scored with <a href={url("/methodology/")}>{p.methodology}</a>, version {p.version}, updated {fmtDate(p.created_on)}.</p>
+      <p class="small">Scored with <a href="/methodology/">{p.methodology}</a>, version {p.version}, updated {fmtDate(p.created_on)}.</p>
       <p><a class="btn secondary" href={correctionUrl(r.id)}>Send a correction</a></p>
     </aside>
   </div>
@@ -141,7 +141,7 @@ const host = (url: string) => new URL(url).host.replace(/^www\./, '');
   <section class="block">
     <h2>Use this record</h2>
     <div class="actions">
-      <a href={url(`/records/${r.id}.json`)}>Download JSON</a>
+      <a href={`/records/${r.id}.json`}>Download JSON</a>
       <a href={correctionUrl(r.id)}>Send a correction</a>
     </div>
     {r.notes && <p class="small muted note">{r.notes}</p>}

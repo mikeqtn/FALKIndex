@@ -40,10 +40,8 @@ export const variant = (w: Watch) => [w.generation, w.reference && `Ref. ${w.ref
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const fmtDate = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
 
-/** Site-internal link, prefixed with the deploy base path ('/' locally, '/FALKIndex' on GitHub Pages). */
-export const url = (path: string) => import.meta.env.BASE_URL.replace(/\/$/, '') + path;
-export const recordUrl = (id: string) => url(`/records/${id}/`);
-export const brandUrl = (id: string) => url(`/brands/${id}/`);
+export const recordUrl = (id: string) => `/records/${id}/`;
+export const brandUrl = (id: string) => `/brands/${id}/`;
 // ponytail: corrections go to GitHub issues until the Phase 4 form (Q4) exists.
 export const correctionUrl = (id?: string) =>
   `https://github.com/mikeqtn/FALKIndex/issues/new?title=${encodeURIComponent(id ? `Correction: ${id}` : 'Correction')}`;

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import CompactStrip from '../components/CompactStrip.astro';
-import { DIMENSIONS, dimension, record, recordUrl, records, url } from '../lib/data.ts';
+import { DIMENSIONS, dimension, record, recordUrl, records } from '../lib/data.ts';
 
 const infinity = record('jn-shapiro/infinity-series');
 const resurgence = record('jn-shapiro/resurgence');
@@ -19,8 +19,8 @@ const tests = [
       <h1 class="hero-title">How a watch is actually made, and the evidence for it.</h1>
       <p class="lead">Seven measures of where the work happens: movement, case, dial, craft, assembly and development. Each one links to its sources.</p>
       <div class="actions">
-        <a class="btn" href={url("/records/")}>Browse {records.length} records</a>
-        <a href={url("/methodology/")}>Read the method</a>
+        <a class="btn" href="/records/">Browse {records.length} records</a>
+        <a href="/methodology/">Read the method</a>
       </div>
     </div>
     <div class="plate stack">
@@ -45,7 +45,7 @@ const tests = [
     <dl class="dims">
       {DIMENSIONS.map(d => (
         <div>
-          <dt><a href={url(`/methodology/#${d.toLowerCase()}`)}><b>{d}</b> {dimension[d].label}</a></dt>
+          <dt><a href={`/methodology/#${d.toLowerCase()}`}><b>{d}</b> {dimension[d].label}</a></dt>
           <dd class="muted">{dimension[d].question}</dd>
         </div>
       ))}
@@ -75,7 +75,7 @@ const tests = [
     <h2>How this was built</h2>
     <div class="prose">
       <p>This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
-      <p class="small">From the FALK Index v0.2 handbook. <a href={url("/about/")}>More about the project</a></p>
+      <p class="small">From the FALK Index v0.2 handbook. <a href="/about/">More about the project</a></p>
     </div>
   </section>
 </Base>

@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { fmtDate, methodology as m, records, url } from '../lib/data.ts';
+import { fmtDate, methodology as m, records } from '../lib/data.ts';
 
 const count = (code: string) => code === 'independent_watchmaker'
   ? records.filter(r => r.profile.independent_watchmaker).length
@@ -75,7 +75,7 @@ const contents = [
             <p class="small">
               {c.kind === 'descriptor'
                 ? `A descriptor, shown beside the classification. ${count(c.code)} records carry it.`
-                : <a href={url(`/records/?cls=${c.code}`)}>Records with this classification ({count(c.code)})</a>}
+                : <a href={`/records/?cls=${c.code}`}>Records with this classification ({count(c.code)})</a>}
             </p>
           </div>
         ))}
