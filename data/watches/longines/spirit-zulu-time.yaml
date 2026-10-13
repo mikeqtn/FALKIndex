@@ -1,0 +1,34 @@
+id: longines/spirit-zulu-time
+brand: longines
+model: Spirit Zulu Time
+notes: Handbook v0.2 §8 lists this record as "Longines — Spirit Zulu Time".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Industrial / In-group Supplier Model
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 1
+      MM:
+        value: 0
+      EX:
+        value: 1
+      DH:
+        value: 1
+      CF:
+        value: 1
+      WE:
+        value: 4
+      PD:
+        value: 3
+    classification:
+      - industrial_manufacture

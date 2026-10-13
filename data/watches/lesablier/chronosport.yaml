@@ -1,0 +1,34 @@
+id: lesablier/chronosport
+brand: lesablier
+model: Chronosport
+notes: Handbook v0.2 §8 lists this record as "Lesablier — Chronosport".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Contract / Microbrand
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 0
+      MM:
+        value: 0
+      EX:
+        value: 0
+      DH:
+        value: 0
+      CF:
+        value: 0
+      WE:
+        value: 0
+      PD:
+        value: 2
+    classification:
+      - contract_microbrand

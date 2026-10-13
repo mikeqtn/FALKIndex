@@ -1,0 +1,7 @@
+id: cartier
+name: Cartier
+kind: brand
+parent: richemont
+ownership: group
+scale: industrial
+country: FR

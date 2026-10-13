@@ -1,0 +1,42 @@
+# FALK Index: Decisions
+
+**Companion to:** `docs/PLAN.md` §7 (open questions) and Appendix A
+**Status:** Defaults adopted so Phase 1 can start. Each one is reversible until launch. Rows marked **provisional** still need sign-off from the methodology owner.
+
+---
+
+## Open questions
+
+| # | Decision | Status |
+|---|---|---|
+| Q1 | Git-backed YAML files under `data/`, validated by `npm run validate`. | Adopted |
+| Q2 | Controlled vocabulary of the 9 handbook classifications (8 archetypes + the Independent Watchmaker descriptor). The original free-text label is kept on each seed profile as `seed_label`. | Adopted |
+| Q3 | Secondary classification allowed. A profile's `classification` list is in rank order; the first entry is rank 1. | Adopted |
+| Q4 | Form service → email, triaged by hand. | Default, revisit in Phase 4 |
+| Q5 | Data CC BY-SA 4.0, code MIT. | Default |
+| Q6 | Scale bands `individual / small / medium / industrial / unknown`, defined loosely in `EDITORIAL.md` (Phase 3). Set only where obvious; otherwise `unknown`. | Default |
+| Q7 | Scores imported as the handbook records them. `relationship: in_group` is shown on provenance entries. Rule decided in v0.3. | Default |
+| Q8 | No MVP change for quartz / Spring Drive. | Default |
+| Q9 | Page 6 is blank in the extracted text; treated as a decorative figure. | Assumed |
+| Q10 | All 56 records published, the 50 unevidenced ones labelled provisional (`is_seed: true`). | Default |
+| Q11 | Domain, branding and publisher. | **Open** (blocks launch, not development) |
+
+## Appendix A owner decisions
+
+Where the plan offered alternatives, the first option is used. Every row here is **provisional**.
+
+| Records | Profile | Seed label | Adopted | Tension |
+|---|---|---|---|---|
+| Baltic Aquascaphe, Underd0g 01SERIES Gen3, Underd0g 03SERIES | 0/0/0/0/0/3/x | Microbrand with Internal Assembly | Contract / Microbrand | WE 3 shows real assembly; Watchmaking Atelier is arguable |
+| Kudoke 2 | 4/2/1/2/5/5/4 | Independent Watchmaker | Independent Manufacture + IW | Near-identical to Laine P37 (4/2/1/2/5/4/4), which is a Watchmaking Atelier |
+| Philippe Dufour Simplicity | 5/4/2/2/5/5/5 | Independent Watchmaker | Independent Manufacture + IW | None strong |
+| ZRC MN64 Metal | 1/1/1/1/0/2/3 | Industrial / Design-led Specialist | Design-led Établisseur | Low PD for "design-led" |
+| Longines Spirit Zulu Time | 1/0/1/1/1/4/3 | Industrial / In-group Supplier Model | Industrial Manufacture | MM 0 contradicts "meaningful internal movement manufacturing" |
+| Oris Aquis Calibre 400 | 4/1/0/0/1/4/4 | Independent Industrial / Proprietary Supplier Model | Industrial Manufacture | MM 1; Design-led Établisseur fits the definition better |
+
+## Data corrections at import
+
+- J.N. Shapiro Resurgence: the §8 table omits "Independent Watchmaker", the §6 example includes it. Imported with `independent_watchmaker: true` (F3).
+- Kurono Tokyo: "Designer-led Établisseur" normalised to Design-led Établisseur (F4).
+- "Integrated Haute Manufacture" → Integrated Manufacture (F2).
+- Truncated source URLs in handbook §10 (`.../`) are stored at the domain root with the handbook path in `notes`. Editors replace them with the exact page and add an archive link.

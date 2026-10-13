@@ -1,0 +1,35 @@
+id: tudor/black-bay-58
+brand: tudor
+model: Black Bay 58
+caliber: MT5402
+notes: Handbook v0.2 §8 lists this record as "Tudor — Black Bay 58 / MT5402".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Industrial Manufacture / In-group Network
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 4
+      MM:
+        value: 3
+      EX:
+        value: 2
+      DH:
+        value: 2
+      CF:
+        value: 1
+      WE:
+        value: 5
+      PD:
+        value: 4
+    classification:
+      - industrial_manufacture

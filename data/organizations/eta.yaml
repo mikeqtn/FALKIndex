@@ -1,0 +1,5 @@
+id: eta
+name: ETA
+kind: supplier
+parent: swatch-group
+country: CH

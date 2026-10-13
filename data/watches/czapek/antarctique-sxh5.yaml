@@ -1,0 +1,36 @@
+id: czapek/antarctique-sxh5
+brand: czapek
+model: Antarctique
+caliber: SXH5
+notes: Handbook v0.2 §8 lists this record as "Czapek — Antarctique SXH5".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Établisseur / Manufacture Hybrid
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 4
+      MM:
+        value: 1
+      EX:
+        value: 0
+      DH:
+        value: 0
+      CF:
+        value: 3
+      WE:
+        value: 4
+      PD:
+        value: 5
+    classification:
+      - design_led_etablisseur
+      - independent_manufacture

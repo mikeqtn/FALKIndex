@@ -1,0 +1,35 @@
+id: habring2/erwin
+brand: habring2
+model: Erwin
+route_label: A11 family
+notes: Handbook v0.2 §8 lists this record as "Habring² — Erwin / A11 family".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Independent Manufacture / Networked Fabrication
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 5
+      MM:
+        value: 2
+      EX:
+        value: 1
+      DH:
+        value: 1
+      CF:
+        value: 3
+      WE:
+        value: 5
+      PD:
+        value: 5
+    classification:
+      - independent_manufacture

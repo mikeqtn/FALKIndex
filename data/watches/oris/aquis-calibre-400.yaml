@@ -1,0 +1,35 @@
+id: oris/aquis-calibre-400
+brand: oris
+model: Aquis
+caliber: Calibre 400
+notes: Handbook v0.2 §8 lists this record as "Oris — Aquis Calibre 400".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Independent Industrial / Proprietary Supplier Model
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 4
+      MM:
+        value: 1
+      EX:
+        value: 0
+      DH:
+        value: 0
+      CF:
+        value: 1
+      WE:
+        value: 4
+      PD:
+        value: 4
+    classification:
+      - industrial_manufacture

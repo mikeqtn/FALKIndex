@@ -1,0 +1,35 @@
+id: cartier/santos-1847-mc
+brand: cartier
+model: Santos
+caliber: 1847 MC
+notes: Handbook v0.2 §8 lists this record as "Cartier — Santos / 1847 MC".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Industrial Manufacture
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 4
+      MM:
+        value: 3
+      EX:
+        value: 3
+      DH:
+        value: 3
+      CF:
+        value: 2
+      WE:
+        value: 5
+      PD:
+        value: 4
+    classification:
+      - industrial_manufacture

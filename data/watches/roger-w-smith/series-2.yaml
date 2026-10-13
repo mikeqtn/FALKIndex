@@ -1,0 +1,34 @@
+id: roger-w-smith/series-2
+brand: roger-w-smith
+model: Series 2
+notes: Handbook v0.2 §8 lists this record as "Roger W. Smith — Series 2".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: true
+    status: published
+    is_seed: true
+    seed_label: Integrated Independent Watchmaker
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 5
+      MM:
+        value: 5
+      EX:
+        value: 5
+      DH:
+        value: 5
+      CF:
+        value: 5
+      WE:
+        value: 5
+      PD:
+        value: 5
+    classification:
+      - integrated_manufacture

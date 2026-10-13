@@ -1,0 +1,8 @@
+id: grand-seiko
+name: Grand Seiko
+kind: brand
+parent: seiko-group
+ownership: group
+scale: industrial
+country: JP
+website: https://grand-seiko.com

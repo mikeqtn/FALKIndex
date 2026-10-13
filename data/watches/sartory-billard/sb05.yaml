@@ -1,0 +1,35 @@
+id: sartory-billard/sb05
+brand: sartory-billard
+model: SB05
+notes: Handbook v0.2 §8 lists this record as "Sartory Billard — SB05".
+provenance: []
+claims: []
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: true
+    seed_label: Artisan Atelier / Établisseur
+    editor: FALK v0.2 handbook
+    change_note: Imported from the FALK Index v0.2 handbook §8 reference dataset.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 1
+      MM:
+        value: 0
+      EX:
+        value: 0
+      DH:
+        value: 2
+      CF:
+        value: 3
+      WE:
+        value: 3
+      PD:
+        value: 4
+    classification:
+      - artisan_atelier
+      - artisan_etablisseur

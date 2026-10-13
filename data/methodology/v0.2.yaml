@@ -1,0 +1,140 @@
+# Transcribed from docs/FALK_Index_v0.2_Redesigned.pdf §2–§5. Single source of truth for dimension and level text.
+code: v0.2
+published_on: 2026-10-01
+notes: Replaces the four-letter prototype with seven descriptive dimensions and removes the aggregate score.
+
+rules:
+  - name: Model first
+    meaning: Score an exact reference, generation or production route whenever possible.
+  - name: Unknown is not zero
+    meaning: If reliable evidence is unavailable, use U. Non-disclosure is not proof of outsourcing.
+  - name: No double counting
+    meaning: Each activity belongs primarily to one dimension. Where an operation affects two dimensions, the rationale must distinguish the physical manufacture from the craft or engineering contribution.
+  - name: Internal means internal
+    meaning: External artisan work enriches the watch's provenance but does not become the brand's internal craft score.
+  - name: Authorship is not manufacture
+    meaning: A proprietary caliber can be designed for a brand and physically produced by partners. Architecture/development credit is separate from manufacturing credit.
+  - name: Group capability is disclosed
+    meaning: A sister company or group-owned supplier is recorded as in-group rather than silently treated as brand-internal.
+  - name: Marketing terms are claims
+    meaning: "'In-house', 'manufacture', 'handmade' and 'Swiss Made' are starting points for research, not self-proving classifications."
+  - name: Time matters
+    meaning: Suppliers and production routes change. Records should carry production dates or generations when relevant.
+  - name: Classification comes last
+    meaning: Do not choose 'microbrand', 'atelier' or 'manufacture' first and then bend the profile to fit.
+
+dimensions:
+  - code: MA
+    name: Movement Architecture
+    question: Who is responsible for the caliber's mechanical architecture and engineering?
+    levels:
+      0: Stock third-party caliber
+      1: Cosmetic/custom specification
+      2: Meaningful modification/module
+      3: Heavily re-engineered architecture
+      4: Proprietary caliber developed for brand; substantial external engineering possible
+      5: Deep proprietary caliber engineering substantially mastered internally
+  - code: MM
+    name: Movement Manufacturing
+    question: How much of the movement is physically manufactured by the brand or atelier?
+    levels:
+      0: Complete movement external
+      1: Minor/simple parts internal
+      2: Some meaningful components internal
+      3: Significant portion internal
+      4: Most major components internal
+      5: Exceptional integration including difficult regulating/escapement components or equivalent depth
+  - code: EX
+    name: Exterior Manufacturing
+    question: How much of the case, bracelet, crown and other exterior hardware is physically made internally?
+    levels:
+      0: Exterior external
+      1: Minor/simple exterior parts internal
+      2: One important component family internal
+      3: Several principal families internal
+      4: Most major exterior hardware internal
+      5: Exceptional vertical exterior manufacture
+  - code: DH
+    name: Dial & Hands Manufacturing
+    question: How much of dial and hand production is performed internally?
+    levels:
+      0: Dial and hands external
+      1: Minor internal operations
+      2: One meaningful production stage internal
+      3: Substantial dial or hand manufacture
+      4: Both major dial and hand processes deeply internal
+      5: Defining, highly integrated dial/hand manufacture
+  - code: CF
+    name: Craft & Finishing
+    question: What meaningful artisanal transformation is physically performed inside the brand or atelier?
+    levels:
+      0: No documented internal artisanal craft
+      1: Limited manual decorative operations
+      2: Regular skilled handwork, not central
+      3: Substantial hand finishing/craft
+      4: Advanced métiers d'art or haute-horlogerie finishing is a major capability
+      5: Exceptional master-level craft fundamentally defining the product
+  - code: WE
+    name: Watchmaking Execution
+    question: What watchmaking occurs after the components exist?
+    levels:
+      0: Complete/nearly complete watches supplied externally
+      1: Final QC, strap fitting, limited casing/adjustment
+      2: Complete casing/assembly and basic regulation
+      3: Movement preparation/adjustment plus full assembly, regulation and testing
+      4: Deep movement assembly, complication work and adjustment
+      5: End-to-end construction, assembly, adjustment and complex watchmaking
+  - code: PD
+    name: Product Development
+    question: How much original product design, supplier direction and technical development belongs to the brand?
+    levels:
+      0: Private-label/catalog product
+      1: Primarily cosmetic specification
+      2: Original design around conventional supplier architecture
+      3: Bespoke components and substantial supplier-directed development
+      4: Extensive original technical development/proprietary systems
+      5: Deep original engineering or invention defining the watch
+
+classifications:
+  - code: contract_microbrand
+    name: Contract / Microbrand
+    kind: archetype
+    definition: Original brand/design contribution, but physical production is overwhelmingly external. Product development can still be meaningful.
+  - code: design_led_etablisseur
+    name: Design-led Établisseur
+    kind: archetype
+    definition: Creates the watch by directing a network of suppliers. Internal fabrication may be low while development and movement authorship can be high.
+  - code: artisan_etablisseur
+    name: Artisan Établisseur
+    kind: archetype
+    definition: Major specialist craft is present, but much or all of that craft is performed by external named partners.
+  - code: artisan_atelier
+    name: Artisan Atelier
+    kind: archetype
+    definition: A defining métier such as engraving, enameling, guilloché, dialmaking or hand finishing is physically performed internally.
+  - code: watchmaking_atelier
+    name: Watchmaking Atelier
+    kind: archetype
+    definition: Meaningful internal assembly, regulation, modification and watchmaking without broad movement fabrication.
+  - code: independent_manufacture
+    name: Independent Manufacture
+    kind: archetype
+    definition: Proprietary technical authorship plus meaningful internal movement/component manufacture.
+  - code: integrated_manufacture
+    name: Integrated Manufacture
+    kind: archetype
+    definition: Broad internal production across movement and major exterior components, with deep internal watchmaking execution.
+  - code: industrial_manufacture
+    name: Industrial Manufacture
+    kind: archetype
+    definition: Scaled institutional production with meaningful internal movement/watch manufacturing. Ownership can be independent or group-based.
+  - code: independent_watchmaker
+    name: Independent Watchmaker
+    kind: descriptor
+    definition: "A human descriptor: an identifiable watchmaker personally performs substantial watchmaking/craft on the watches. It is not automatically generated by thresholds."
+
+confidence:
+  A: Strong primary evidence for essentially every scored dimension.
+  B: Good primary evidence with limited gaps; credible specialist reporting fills some gaps.
+  C: Material gaps remain; useful but provisional.
+  D: Sparse or conflicting evidence; publish provenance notes, but avoid a definitive profile.
