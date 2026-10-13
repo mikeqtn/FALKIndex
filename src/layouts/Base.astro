@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { correctionUrl, methodology } from '../lib/data.ts';
+import { correctionUrl, methodology, url } from '../lib/data.ts';
 
 interface Props { title: string; description?: string; nav?: 'records' | 'methodology' | 'data' | 'about' }
 const { title, description = 'An evidence database of where the work on a watch is actually done.', nav } = Astro.props;
@@ -23,11 +23,11 @@ const links = [
     <a class="sr-only" href="#main">Skip to content</a>
     <header class="site-nav">
       <nav class="wrap" aria-label="Main">
-        <a class="wordmark" href="/">FALK Index</a>
+        <a class="wordmark" href={url("/")}>FALK Index</a>
         <ul>
-          {links.map(([key, href, label]) => <li><a href={href} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
+          {links.map(([key, href, label]) => <li><a href={url(href)} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
         </ul>
-        <form class="nav-search" action="/records/" method="get" role="search">
+        <form class="nav-search" action={url("/records/")} method="get" role="search">
           <label class="sr-only" for="nav-q">Search records</label>
           <input id="nav-q" type="search" name="q" placeholder="Search records" />
         </form>
@@ -38,7 +38,7 @@ const links = [
     <footer class="site-footer">
       <div class="wrap stack small">
         <ul>
-          <li><a href="/methodology/">Methodology {methodology.code}</a></li>
+          <li><a href={url("/methodology/")}>Methodology {methodology.code}</a></li>
           <li>Data CC BY-SA 4.0, code MIT</li>
           <li>No paid placement or sponsored scores</li>
           <li><a href={correctionUrl()}>Send a correction</a></li>

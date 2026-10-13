@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
-import { correctionUrl, record, recordUrl } from '../lib/data.ts';
+import { correctionUrl, record, recordUrl, url } from '../lib/data.ts';
 
 const example = record('fleming/series-1');
 ---
@@ -31,7 +31,7 @@ const example = record('fleming/series-1');
     <p>Publisher details will be added before launch.</p>
 
     <h2>Data licence</h2>
-    <p>The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href="/data/">Download the dataset</a>.</p>
+    <p>The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href={url("/data/")}>Download the dataset</a>.</p>
 
     <h2>Contact and corrections</h2>
     <p>Brands, watchmakers and readers can submit evidence-based corrections. An editor checks every correction against its sources, and accepted changes appear in the record's history with a change note. <a href={correctionUrl()}>Send a correction</a></p>

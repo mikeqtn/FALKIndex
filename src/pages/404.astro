@@ -1,14 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import { url } from '../lib/data.ts';
 ---
 <Base title="Not found">
   <header class="page-head stack">
     <h1>Not found</h1>
     <p class="lead">There's no record at this address. It may have been renamed when a reference was split into generations.</p>
-    <form action="/records/" method="get" role="search" class="actions">
+    <form action={url("/records/")} method="get" role="search" class="actions">
       <label class="sr-only" for="q404">Search records</label>
       <input id="q404" type="search" name="q" placeholder="Search records" />
-      <a class="btn" href="/records/">Browse all records</a>
+      <a class="btn" href={url("/records/")}>Browse all records</a>
     </form>
   </header>
 </Base>
