@@ -20,3 +20,14 @@ Build before testing so the built-site checks are not skipped.
 
 This is a static website; no database, authentication, or external secrets
 are needed to run the imported MVP.
+
+## Publish
+
+Publishing uses the static deployment target:
+
+- Build command: `npm run build`.
+- Public directory: `dist`.
+- No production run command is needed; Replit serves the generated files.
+
+Preview and publishing are configured separately. Publish through Replit's
+Publishing tool after making changes you want to make public.
