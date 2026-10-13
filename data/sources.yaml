@@ -9,11 +9,13 @@
   publisher: anordain
   source_type: manufacturer
   tier: primary
+  title: Watchmaking (anOrdain)
 - id: anordain-enamelling
   url: https://anordain.com/pages/enamelling
   publisher: anordain
   source_type: manufacturer
   tier: primary
+  title: Enamel (anOrdain)
 - id: akmaev-home
   url: https://akmaev.com
   publisher: artur-akmaev
@@ -131,3 +133,62 @@
   source_type: press
   tier: secondary
   published_on: 2024-02-21
+- id: jns-infinity-page
+  url: https://www.jnshapirowatches.com/infinity-series/
+  title: Infinity Series (J.N. Shapiro)
+  publisher: jn-shapiro
+  source_type: manufacturer
+  tier: primary
+- id: sjx-jn-shapiro-infinity
+  url: https://watchesbysjx.com/2019/12/jn-shapiro-infinity-series-guilloche.html
+  title: "Up Close: J.N. Shapiro Infinity Series (JX Su, SJX)"
+  source_type: press
+  tier: secondary
+  published_on: 2019-12-13
+- id: quillandpad-fleming-series-1
+  url: https://quillandpad.com/2024/04/08/fleming-series-1-a-superb-new-six-eater/
+  title: "Fleming Series 1: A Superb New 'Six-Eater' (Martin Green, Quill & Pad)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-04-08
+- id: timeandtide-fleming-series-1
+  url: https://timeandtidewatches.com/?p=222167
+  title: The long-awaited Fleming Series 1 is finally here (Borna Bošnjak, Time+Tide)
+  source_type: press
+  tier: secondary
+  published_on: 2024-03-12
+- id: horologybythesea-akmaev-koi
+  url: https://horologybythesea.com/products/artur-akmaev-stainless-steel-blue-koi-hand-engraved-in-stock
+  title: Artur Akmaev Eternal Koi (retailer listing, Horology by the Sea)
+  source_type: other
+  tier: secondary
+- id: ablogtowatch-akmaev-2015
+  url: https://ablogtowatch.com/affordable-hand-engraved-watch-movements-artur-akmaev
+  title: Affordable Hand-Engraved Watch Movements By Artur Akmaev (Karel Bachand, aBlogtoWatch)
+  source_type: press
+  tier: secondary
+  published_on: 2015-02-24
+- id: awake-savoir-faire
+  url: https://awakewatches.com/pages/savoir-faire
+  title: Savoir-faire (AWAKE)
+  publisher: awake
+  source_type: manufacturer
+  tier: primary
+- id: awake-people
+  url: https://awakewatches.com/pages/people
+  title: People (AWAKE)
+  publisher: awake
+  source_type: manufacturer
+  tier: primary
+- id: awake-guilloche-main-alba
+  url: https://awakewatches.com/products/guilloche-main-alba
+  title: Guilloché Main Alba (AWAKE)
+  publisher: awake
+  source_type: manufacturer
+  tier: primary
+- id: monochrome-czapek-antarctique
+  url: https://monochrome-watches.com/czapek-antarctique-first-luxury-sports-watch-live-pics-price-review/
+  title: The Czapek Antarctique, the Brand's First Luxury Sports Watch (Xavier Markl, Monochrome)
+  source_type: press
+  tier: secondary
+  published_on: 2020-05-26

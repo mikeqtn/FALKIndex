@@ -1,9 +1,131 @@
 id: jn-shapiro/infinity-series
 brand: jn-shapiro
 model: Infinity Series
-notes: Handbook v0.2 §8 lists this record as "J.N. Shapiro — Infinity Series".
-provenance: []
-claims: []
+notes: 'Handbook v0.2 §8 lists this record as "J.N. Shapiro — Infinity Series". The series covers at least two movement routes: UWD 33.1 (2019 Infinity) and La Joux-Perret 5000-4 (Infinity Radiant). Model-first suggests splitting it.'
+provenance:
+  - dimension: MA
+    component: Movement (UWD 33.1; La Joux-Perret 5000-4 on the Radiant)
+    performer: uwd
+    relationship: external_specialist
+    note: The Radiant movement is from La Joux-Perret.
+    claims:
+      - jns-inf-uwd
+      - jns-inf-uwd-caliber
+      - jns-inf-radiant-ljp
+  - dimension: MM
+    component: Complete movement
+    performer: uwd
+    relationship: external_specialist
+    claims:
+      - jns-inf-uwd
+      - jns-inf-partner-movements
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: No source names the case maker.
+    claims: []
+  - dimension: DH
+    component: Dial, engine-turned
+    performer: jn-shapiro
+    relationship: internal
+    claims:
+      - jns-inf-own-guilloche
+      - jns-inf-dial-hours
+      - jns-inf-weave
+  - dimension: DH
+    component: Hands (rounded, polished and blued by hand)
+    relationship: unknown
+    note: Who finishes the hands is not stated.
+    claims:
+      - jns-inf-hands
+  - dimension: CF
+    component: Movement engraving
+    performer: jn-shapiro
+    relationship: internal
+    claims:
+      - jns-inf-engraver
+claims:
+  - id: jns-inf-uwd
+    statement: The 2019 Infinity uses a movement from Uhren-Werke Dresden (UWD).
+    excerpt: For the movement, Josh turned to Uhren-Werke-Dresden (UWD)
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-uwd-caliber
+    statement: The movement is the UWD 33.1.
+    excerpt: The UWD 33.1 used in the Infinity Series is a large, 33mm movement
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-radiant-ljp
+    statement: The Infinity Radiant uses the La Joux-Perret 5000-4.
+    excerpt: At the heart of the Infinity Radiant is the La Joux-Perret 5000-4,
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-partner-movements
+    statement: The maker states that Infinity movements come from partners.
+    excerpt: we pair our work with movements from partners whose standards match our own
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-own-guilloche
+    statement: Josh Shapiro does all of the engine-turning himself.
+    excerpt: Josh does all of his own guillochage
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-dial-hours
+    statement: Each dial takes about 150 hours from production to decoration.
+    excerpt: From production to decoration, it takes about 150 hours just to finish the dial
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-weave
+    statement: The Basket and Infinity Weave patterns are engine-turned directly into the dial.
+    excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
+    source: jns-infinity-page
+    dimensions:
+      - DH
+      - CF
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-hands
+    statement: Hand blanks are laser-cut, then rounded, polished and blued by hand.
+    excerpt: Then the blanks are rounded, polished and blued by hand
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-inf-engraver
+    statement: A watchmaker specialising in engraved movements works for the brand and engraved the movement plate.
+    excerpt: a Russian watchmaker who specialises in skeletonised, engraved movements and now works for Josh.
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - CF
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,5 +152,80 @@ profiles:
         value: 3
       PD:
         value: 3
+    classification:
+      - artisan_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: First evidenced profile. EX changed 0 → U (no source names the case maker). Independent watchmaker descriptor proposed (Josh Shapiro engine-turns every dial himself). WE kept at 3 on inference. The record mixes two movement routes and should probably be split.
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 0
+        rationale: "Both routes use a stock caliber from a movement maker: the UWD 33.1 and, on the Radiant, the La Joux-Perret 5000-4. No source describes modification beyond decoration."
+        evidence:
+          - claim: jns-inf-uwd-caliber
+            stance: supports
+            note: Stock caliber.
+          - claim: jns-inf-radiant-ljp
+            stance: supports
+            note: Stock caliber on the Radiant.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; the maker says it pairs its work with partner movements.
+        evidence:
+          - claim: jns-inf-partner-movements
+            stance: supports
+            note: Primary statement that movements come from partners.
+          - claim: jns-inf-uwd
+            stance: supports
+            note: Names the movement maker.
+      EX:
+        value: null
+        rationale: No source names the case maker or says the case is bought in. The handbook scored 0; under "Unknown is not zero" this becomes U until the case source is found.
+        evidence: []
+      DH:
+        value: 5
+        rationale: Josh Shapiro engine-turns every dial himself, around 150 hours each, including the patented Infinity Weave. Hands are finished by hand, though who does it is not stated. The dial is the defining internal manufacture of the watch.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: All engine-turning is done by Shapiro.
+          - claim: jns-inf-dial-hours
+            stance: supports
+            note: Depth of dial production.
+          - claim: jns-inf-weave
+            stance: supports
+            note: Primary statement on the dial work.
+          - claim: jns-inf-hands
+            stance: context
+            note: Hand finishing of hands; maker not named.
+      CF:
+        value: 5
+        rationale: Master-level engine-turning by Shapiro defines the watch, and a staff engraver decorates the movement. Both are internal.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: Defining craft performed by the watchmaker himself.
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Movement engraving done by a staff member.
+      WE:
+        value: 3
+        rationale: Movement engraving by a staff watchmaker implies the movement is stripped, decorated and reassembled in the workshop. No source describes casing, regulation or testing, so this rests on inference.
+        evidence:
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Engraving requires in-house disassembly and reassembly.
+      PD:
+        value: 3
+        rationale: Original dial design, including a patented engine-turning pattern, around a conventional supplier movement.
+        evidence:
+          - claim: jns-inf-weave
+            stance: supports
+            note: Bespoke dial patterns.
     classification:
       - artisan_atelier

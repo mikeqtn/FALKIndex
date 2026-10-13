@@ -1,9 +1,120 @@
 id: artur-akmaev/koi-tide
 brand: artur-akmaev
 model: Koi / Tide
-notes: Handbook v0.2 §8 lists this record as "Artur Akmaev — Koi / Tide".
-provenance: []
-claims: []
+notes: Handbook v0.2 §8 lists this record as "Artur Akmaev — Koi / Tide". Evidence covers the Eternal Koi (La Joux-Perret F200); the Tide is not yet researched. Akmaev is also credited with movement engraving on the J.N. Shapiro Infinity Series.
+provenance:
+  - dimension: MA
+    component: Movement (La Joux-Perret F200)
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - ak-koi-ljp
+  - dimension: MM
+    component: Complete movement
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - ak-koi-ljp
+  - dimension: EX
+    component: Case (stainless steel, 37 mm)
+    relationship: unknown
+    note: No source names the case maker.
+    claims: []
+  - dimension: DH
+    component: Dial blank
+    relationship: unknown
+    note: Who makes the spring-steel dial base is not stated.
+    claims: []
+  - dimension: CF
+    component: Dial engraving, silver and gold inlay, sculpted koi
+    performer: artur-akmaev
+    relationship: internal
+    claims:
+      - ak-koi-dial
+      - ak-koi-sculpted
+  - dimension: CF
+    component: Movement relief engraving
+    performer: artur-akmaev
+    relationship: internal
+    claims:
+      - ak-koi-movement-engraving
+  - dimension: WE
+    component: Movement strip-down, reassembly and testing
+    performer: artur-akmaev
+    relationship: internal
+    note: Described in 2015 for ETA-based pieces.
+    claims:
+      - ak-process-strip
+      - ak-process-reassembly
+claims:
+  - id: ak-koi-ljp
+    statement: The Eternal Koi uses the La Joux-Perret F200 manual-wind movement.
+    excerpt: The reverse side reveals the manual winding La Joux-Perret F200 calibre movement
+    source: horologybythesea-akmaev-koi
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-koi-movement-engraving
+    statement: Akmaev hand-relief engraves the bridges, barrel and balance bridge.
+    excerpt: Artur further extends his talents to fully hand-relief engraving the bridges, spring barrel and balance bridge.
+    source: horologybythesea-akmaev-koi
+    dimensions:
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-koi-dial
+    statement: The dial is a hand-engraved spring-steel surface with silver and gold inlays.
+    excerpt: Pure silver and gold inlays form the flowing waves on a hand-engraved spring steel surface.
+    source: horologybythesea-akmaev-koi
+    dimensions:
+      - CF
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-koi-sculpted
+    statement: The koi are sculpted from silver with gold and copper highlights.
+    excerpt: The koi themselves are sculpted from silver, with individual scales highlighted in pure yellow gold and copper.
+    source: horologybythesea-akmaev-koi
+    dimensions:
+      - CF
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-koi-hands
+    statement: The hands are heat-blued or purpled steel, finished by hand.
+    excerpt: Completing the composition is a set of traditionally heat-blued or purpled steel hands, finished by hand.
+    source: horologybythesea-akmaev-koi
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-process-strip
+    statement: Akmaev strips the movement and engraves each component individually.
+    excerpt: The movement is then stripped down to its bare bones where each component is then engraved and skeletonized individually.
+    source: ablogtowatch-akmaev-2015
+    dimensions:
+      - CF
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-process-reassembly
+    statement: The movement is reassembled and tested after engraving.
+    excerpt: The movement is then meticulously reassembled and tested to ensure everything runs smoothly.
+    source: ablogtowatch-akmaev-2015
+    dimensions:
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: ak-process-sketch
+    statement: Akmaev plans and sketches the whole design, from dial to movement parts.
+    excerpt: He begins by planning out and sketching everything from the dial and main plate to the crown wheel and drum barrel.
+    source: ablogtowatch-akmaev-2015
+    dimensions:
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,5 +141,71 @@ profiles:
         value: 3
       PD:
         value: 3
+    classification:
+      - artisan_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile. Proposed: EX 0 → U and DH 0 → U (no source on the case maker or the dial base; the dial art is credited under CF to avoid double counting). Independent watchmaker descriptor proposed. Confidence A → B: evidence is a retailer listing and a 2015 article; the maker site shows no text."
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret F200 movement.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; engraving changes its decoration, not its manufacture.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case maker. U until found (handbook score was 0).
+        evidence: []
+      DH:
+        value: null
+        rationale: The engraving and inlay on the dial are counted under CF. No source says who makes the dial base or the hands, so DH is U (handbook score was 0). If Akmaev fabricates the dial himself, DH would rise to 2–3.
+        evidence:
+          - claim: ak-koi-hands
+            stance: context
+            note: Hands finished by hand; maker not named.
+      CF:
+        value: 5
+        rationale: Akmaev personally engraves and inlays the dial, sculpts the koi, and relief-engraves the movement. This master-level craft defines the watch.
+        evidence:
+          - claim: ak-koi-dial
+            stance: supports
+            note: Dial engraving and inlay.
+          - claim: ak-koi-sculpted
+            stance: supports
+            note: Sculpted silver koi.
+          - claim: ak-koi-movement-engraving
+            stance: supports
+            note: Movement engraving.
+      WE:
+        value: 3
+        rationale: Movements are stripped, engraved, reassembled and tested by Akmaev. The process description dates from 2015 and ETA-based pieces, so it should be reconfirmed for the F200.
+        evidence:
+          - claim: ak-process-strip
+            stance: supports
+            note: Full strip-down in-house.
+          - claim: ak-process-reassembly
+            stance: supports
+            note: Reassembly and testing.
+      PD:
+        value: 3
+        rationale: Akmaev designs the whole watch, from dial to movement decoration, around a supplier movement.
+        evidence:
+          - claim: ak-process-sketch
+            stance: supports
+            note: Original design work.
     classification:
       - artisan_atelier

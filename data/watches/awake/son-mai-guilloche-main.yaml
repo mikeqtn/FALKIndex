@@ -2,8 +2,114 @@ id: awake/son-mai-guilloche-main
 brand: awake
 model: Sơn Mài / Guilloché Main
 notes: Handbook v0.2 §8 lists this record as "AWAKE — Sơn Mài / Guilloché Main".
-provenance: []
-claims: []
+provenance:
+  - dimension: MA
+    component: Movement (La Joux-Perret G101)
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - aw-gm-ljp
+  - dimension: MM
+    component: Complete movement
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - aw-gm-ljp
+  - dimension: EX
+    component: Case (316L steel, 38 mm)
+    relationship: unknown
+    note: No source names the case maker.
+    claims: []
+  - dimension: DH
+    component: Hand guilloché dial
+    performer: renzetti
+    relationship: external_specialist
+    claims:
+      - aw-gm-renzetti
+      - aw-gm-italy
+  - dimension: DH
+    component: Sơn Mài lacquer
+    relationship: external_specialist
+    note: Workshop in Hanoi, not named.
+    claims:
+      - aw-gm-hanoi
+      - aw-gm-lacquer-workshop
+  - dimension: WE
+    component: Assembly
+    relationship: unknown
+    note: No source says where or by whom.
+    claims: []
+  - dimension: PD
+    component: Design and direction of the artisan network
+    performer: awake
+    relationship: internal
+    claims:
+      - aw-artisans-network
+claims:
+  - id: aw-gm-ljp
+    statement: The Guilloché Main uses the La Joux-Perret G101 automatic movement.
+    excerpt: the G101 automatic movement from the Swiss manufacture La Joux-Perret
+    source: awake-guilloche-main-alba
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-gm-renzetti
+    statement: The hand guilloché dials are made by the Renzetti family workshop in Italy.
+    excerpt: we collaborate with the Renzetti family, one of the last European workshops dedicated to Guilloché Main
+    source: awake-guilloche-main-alba
+    dimensions:
+      - DH
+      - CF
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-gm-italy
+    statement: The guilloché is cut in Italy on a hand-guided rose engine.
+    excerpt: Crafted in Italy on a traditional rose engine, operated and guided entirely by the artisan's hand
+    source: awake-guilloche-main-alba
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-gm-hanoi
+    statement: The dial is sent to Hanoi for Sơn Mài lacquer.
+    excerpt: the dial is sent to Hanoi, where it is elevated through the application of Son Mài lacquer
+    source: awake-guilloche-main-alba
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-gm-lacquer-workshop
+    statement: The lacquer is applied by a partner workshop in Vietnam.
+    excerpt: We continue our collaboration with one of Vietnam's most prestigious workshops
+    source: awake-guilloche-main-alba
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-artisans-network
+    statement: The watches depend on external craftspeople in several countries.
+    excerpt: Without these passionate and talented craftspeople, not a single AWAKE watch would exist.
+    source: awake-people
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: aw-small-team
+    statement: AWAKE describes itself as a small team.
+    excerpt: AWAKE is a small team.
+    source: awake-people
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -30,5 +136,71 @@ profiles:
         value: 0
       PD:
         value: 4
+    classification:
+      - artisan_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile. Proposed: EX 0 → U and WE 0 → U (no source on the case maker or assembly). Confidence A → B: the movement, dial and lacquer partners are documented, but the case and assembly are not."
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret G101 movement.
+        evidence:
+          - claim: aw-gm-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: aw-gm-ljp
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case maker. U until found (handbook score was 0).
+        evidence: []
+      DH:
+        value: 0
+        rationale: The guilloché is cut by the Renzetti workshop in Italy and the lacquer applied by a workshop in Hanoi. No dial or hand work is done internally.
+        evidence:
+          - claim: aw-gm-renzetti
+            stance: supports
+            note: External guilloché.
+          - claim: aw-gm-lacquer-workshop
+            stance: supports
+            note: External lacquer.
+      CF:
+        value: 0
+        rationale: The defining craft is performed by named external partners, so under "Internal means internal" it does not count as AWAKE's CF.
+        evidence:
+          - claim: aw-gm-renzetti
+            stance: supports
+            note: External craft.
+          - claim: aw-gm-hanoi
+            stance: supports
+            note: External craft.
+      WE:
+        value: null
+        rationale: No source says where or by whom the watch is assembled. U (handbook score was 0).
+        evidence:
+          - claim: aw-small-team
+            stance: context
+            note: No watchmaking staff described.
+      PD:
+        value: 4
+        rationale: AWAKE designs the watches and directs an international network of artisans whose techniques it commissions. Level 5 would need original technical engineering, which is not described.
+        evidence:
+          - claim: aw-artisans-network
+            stance: supports
+            note: Direction of an external artisan network.
+          - claim: aw-gm-renzetti
+            stance: supports
+            note: Commissioned bespoke dial work.
     classification:
       - artisan_etablisseur

@@ -2,9 +2,115 @@ id: czapek/antarctique-sxh5
 brand: czapek
 model: Antarctique
 caliber: SXH5
-notes: Handbook v0.2 §8 lists this record as "Czapek — Antarctique SXH5".
-provenance: []
-claims: []
+notes: Handbook v0.2 §8 lists this record as "Czapek — Antarctique SXH5". The handbook source (czapek.com/new-antarctique) no longer mentions the SXH5; evidence comes from Monochrome's 2020 launch article.
+provenance:
+  - dimension: MA
+    component: Caliber SXH5 design
+    performer: czapek
+    relationship: internal
+    claims:
+      - cz-ant-martinez
+  - dimension: MM
+    component: Movement parts
+    performer: ab-product
+    relationship: external_specialist
+    claims:
+      - cz-ant-partners
+  - dimension: MM
+    component: Movement parts
+    performer: generale-ressorts
+    relationship: external_specialist
+    claims:
+      - cz-ant-partners
+  - dimension: MM
+    component: Movement parts
+    performer: atokalpa
+    relationship: external_specialist
+    claims:
+      - cz-ant-partners
+  - dimension: EX
+    component: Case and integrated bracelet
+    relationship: unknown
+    note: No source names the makers.
+    claims: []
+  - dimension: DH
+    component: Dial
+    performer: metalem
+    relationship: external_specialist
+    claims:
+      - cz-ant-dial
+  - dimension: CF
+    component: Movement hand finishing
+    relationship: unknown
+    note: Who performs it is not stated.
+    claims:
+      - cz-ant-finishing
+  - dimension: WE
+    component: Assembly
+    performer: czapek
+    relationship: internal
+    note: Shown for the prototype; series assembly not described.
+    claims:
+      - cz-ant-assembly
+claims:
+  - id: cz-ant-martinez
+    statement: The SXH5 was designed from scratch by Czapek's constructor, Dan Martinez.
+    excerpt: It was conceived from scratch by the brand's constructor Dan Martinez
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-partners
+    statement: SXH5 parts are made by partners including AB Product, Générale Ressorts and Atokalpa.
+    excerpt: "with parts manufactured by several partners: AB product, Générale de resort or Atokalpa"
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - MM
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-first-in-house
+    statement: The SXH5 is described as the brand's first in-house movement.
+    excerpt: the brand's first in-house movement
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - MA
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-assembly
+    statement: A Czapek watchmaker assembled the first Antarctique prototype.
+    excerpt: Czapek's watchmaker, Julian, assembling the first Antarctique prototype, equipped with the calibre SXH5.
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - WE
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-finishing
+    statement: The movement has hand-chamfered inward angles and drawn flanks.
+    excerpt: It is modern but elaborate with hand chamfering of the inward angles and drawing of the flanks.
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-dial
+    statement: The dial is made by Metalem in Le Locle.
+    excerpt: The dial of the Czapek Antarctique is made by Metalem (a Le Locle-based dial maker and long-standing Czapek partner).
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: cz-ant-chronode-past
+    statement: Before the SXH5, Czapek made its movements with Chronode.
+    excerpt: Until now, Czapek has been manufacturing its movements with Chronode
+    source: monochrome-czapek-antarctique
+    dimensions:
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
 profiles:
   - version: 1
     methodology: v0.2
@@ -31,6 +137,73 @@ profiles:
         value: 4
       PD:
         value: 5
+    classification:
+      - design_led_etablisseur
+      - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile. Proposed: MM 1 → 0 (all parts made by named partners), EX 0 → U and CF 3 → U (no source on the case maker or on who finishes the movement). Confidence A → B: one 2020 secondary article; the maker page no longer covers the SXH5."
+    created_on: 2026-10-13
+    scores:
+      MA:
+        value: 4
+        rationale: The SXH5 was designed from scratch by Czapek's own constructor, a proprietary caliber whose parts are made by partners ("designed in-house, made by partners"). Level 5 is arguable since the engineering is internal; it is held at 4 until the scope of partner engineering is known.
+        evidence:
+          - claim: cz-ant-martinez
+            stance: supports
+            note: In-house design.
+          - claim: cz-ant-first-in-house
+            stance: context
+            note: Marketing term; the design claim above carries the score.
+      MM:
+        value: 0
+        rationale: The movement parts are made by named partners, and no part is documented as made by Czapek.
+        evidence:
+          - claim: cz-ant-partners
+            stance: supports
+            note: External parts manufacture.
+          - claim: cz-ant-chronode-past
+            stance: context
+            note: Earlier calibers were also made with a partner.
+      EX:
+        value: null
+        rationale: No source names the case or bracelet maker. U until found (handbook score was 0).
+        evidence: []
+      DH:
+        value: 0
+        rationale: The dial is made by Metalem.
+        evidence:
+          - claim: cz-ant-dial
+            stance: supports
+            note: External dial maker.
+      CF:
+        value: null
+        rationale: The movement is hand-finished, but no source says whether Czapek or a partner does it. U (handbook score was 3).
+        evidence:
+          - claim: cz-ant-finishing
+            stance: context
+            note: Finishing exists; performer unknown.
+      WE:
+        value: 4
+        rationale: A Czapek watchmaker assembled the SXH5 prototype, and the movement is presented as assembled in-house. Series assembly and adjustment are not described directly.
+        evidence:
+          - claim: cz-ant-assembly
+            stance: supports
+            note: In-house assembly of the movement.
+      PD:
+        value: 5
+        rationale: Czapek conceived the caliber from scratch and directs a network of specialist suppliers.
+        evidence:
+          - claim: cz-ant-martinez
+            stance: supports
+            note: Original engineering.
+          - claim: cz-ant-partners
+            stance: supports
+            note: Supplier direction.
     classification:
       - design_led_etablisseur
       - independent_manufacture
