@@ -1,0 +1,9 @@
+---
+import { CONFIDENCE } from '../lib/data.ts';
+
+interface Props { grade: keyof typeof CONFIDENCE; short?: boolean }
+const { grade, short = false } = Astro.props;
+---
+{short
+  ? <span class="conf" title={CONFIDENCE[grade]}><b>{grade}</b><span class="sr-only">{CONFIDENCE[grade]}</span></span>
+  : <span class="conf"><b>{grade}</b>{CONFIDENCE[grade]}</span>}

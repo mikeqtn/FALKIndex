@@ -13,6 +13,7 @@ export const Methodology = z.object({
   published_on: date,
   notes: z.string().optional(),
   rules: z.array(z.object({ name: z.string(), meaning: z.string() }).strict()),
+  steps: z.array(z.object({ name: z.string(), detail: z.string() }).strict()),
   dimensions: z.array(z.object({
     code: dimension,
     name: z.string(),

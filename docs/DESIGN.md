@@ -107,9 +107,9 @@ Dark mode ("blued steel at night"). This uses the same structure, with the plate
     --c-ink:          #DCE2EA;
     --c-ink-2:        #9AA6B8;
     --c-ink-inverse:  #0E1726;
-    --c-action:       #E0566E;   /* 4.9:1 on page */
-    --c-action-hover: #EC7A8E;
-    --c-focus:        #E0566E;
+    --c-action:       #EC7A8E;   /* 5.5:1 on gilt tint, 5.9:1 on surface, 6.6:1 on page */
+    --c-action-hover: #F28A9B;
+    --c-focus:        #EC7A8E;
     --c-gilt:         #C9A25A;
     --c-gilt-tint:    #2E2715;
     --c-gilt-ink:     #D9B871;

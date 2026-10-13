@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import RecordTable from '../../components/RecordTable.astro';
+import { brandUrl, orgs, records } from '../../lib/data.ts';
+
+export function getStaticPaths() {
+  return [...new Set(records.map(r => r.brand))].map(brand => ({ params: { brand } }));
+}
+const org = orgs.get(Astro.params.brand!)!;
+const own = records.filter(r => r.brand === org.id);
+const partners = [...new Set(own.flatMap(r => r.provenance.map(e => e.performer)).filter(id => id && id !== org.id))].map(id => orgs.get(id!)!);
+const country = org.country && new Intl.DisplayNames(['en'], { type: 'region' }).of(org.country);
+const OWNERSHIP = { independent: 'Independent', group: 'Group-owned', unknown: 'Not recorded' };
+const parent = org.parent && orgs.get(org.parent);
+---
+<Base title={org.name} description={`FALK records for ${org.name}.`}>
+  <header class="page-head">
+    <h1>{org.name}</h1>
+    <dl class="pairs small">
+      <div><dt>Ownership</dt><dd>{OWNERSHIP[org.ownership]}{parent && `, ${parent.name}`}</dd></div>
+      {country && <div><dt>Country</dt><dd>{country}</dd></div>}
+      {org.website && <div><dt>Website</dt><dd><a href={org.website}>{new URL(org.website).host}</a></dd></div>}
+    </dl>
+    <p class="small muted">FALK profiles describe individual watches. This page lists them; it does not score the brand.</p>
+  </header>
+
+  <section class="block">
+    <h2>Records ({own.length})</h2>
+    <RecordTable records={own} caption={`Records for ${org.name}`} showBrand={false} />
+  </section>
+
+  {partners.length > 0 && (
+    <section class="block">
+      <h2>Suppliers and partners named in these records</h2>
+      <ul>{partners.map(o => <li>{records.some(r => r.brand === o.id) ? <a href={brandUrl(o.id)}>{o.name}</a> : o.name}</li>)}</ul>
+    </section>
+  )}
+</Base>

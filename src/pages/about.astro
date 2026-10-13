@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import ProfileStrip from '../components/ProfileStrip.astro';
+import { correctionUrl, record, recordUrl } from '../lib/data.ts';
+
+const example = record('fleming/series-1');
+---
+<Base title="About" nav="about">
+  <header class="page-head"><h1>About</h1></header>
+
+  <div class="grid-2">
+    <div class="prose">
+      <h2>What FALK is</h2>
+      <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
+      <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+    </div>
+    <div class="plate stack">
+      <ProfileStrip caption={`${example.brandName} ${example.model}`} columns={[{ scores: example.profile.scores }]} />
+      <p class="small"><a href={recordUrl(example.id)}>Open this record</a></p>
+    </div>
+  </div>
+
+  <div class="prose sections">
+    <h2>Editorial independence</h2>
+    <p>There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+
+    <h2>How AI was used</h2>
+    <p>This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
+
+    <h2>Who publishes this</h2>
+    <p>Publisher details will be added before launch.</p>
+
+    <h2>Data licence</h2>
+    <p>The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href="/data/">Download the dataset</a>.</p>
+
+    <h2>Contact and corrections</h2>
+    <p>Brands, watchmakers and readers can submit evidence-based corrections. An editor checks every correction against its sources, and accepted changes appear in the record's history with a change note. <a href={correctionUrl()}>Send a correction</a></p>
+  </div>
+</Base>
+
+<style>
+  .sections { margin-top: var(--s-8); }
+  .sections h2 { margin-top: var(--s-7); }
+  .prose h2 { font-size: 28px; line-height: 32px; }
+</style>

@@ -1,0 +1,42 @@
+---
+// Full strip: one row per dimension, one value column per profile. Never a total, average or summary row.
+import { DIMENSIONS, dimension, type Scores } from '../lib/data.ts';
+
+interface Props {
+  caption: string;
+  columns: { label?: string; scores: Scores }[];
+  linkRows?: boolean; // rows link to #evidence-xx on the record page
+  animate?: boolean;
+}
+const { caption, columns, linkRows = false, animate = false } = Astro.props;
+const showHead = columns.length > 1;
+---
+<table class:list={['strip', { animate }]}>
+  <caption>{caption}</caption>
+  {showHead && (
+    <thead><tr><td></td>{columns.map(c => <th scope="col">{c.label}</th>)}<td></td></tr></thead>
+  )}
+  <tbody>
+    {DIMENSIONS.map((d, i) => (
+      <tr class:list={{ link: linkRows }} style={`--i:${i}`}>
+        <th scope="row"><abbr title={dimension[d].label}>{d}</abbr></th>
+        {columns.map(({ label, scores }) => {
+          const v = scores[d].value;
+          return (
+            <td class="v">
+              <span class="segs" aria-hidden="true">
+                {[1, 2, 3, 4, 5].map(n => <span class:list={['seg', v === null ? 'lu' : n <= v && `l${v}`]} />)}
+              </span>
+              <span class="num">{v ?? 'U'}</span>
+              <span class="sr-only">{v === null ? ' unknown' : ' of 5'}{label && `, ${label}`}</span>
+            </td>
+          );
+        })}
+        <td class="name">
+          {linkRows ? <a href={`#evidence-${d.toLowerCase()}`}>{dimension[d].label}</a> : dimension[d].label}
+          {columns.length === 1 && columns[0].scores[d].value === null && <span class="muted"> unknown</span>}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

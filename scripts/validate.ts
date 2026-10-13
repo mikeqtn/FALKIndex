@@ -125,7 +125,11 @@ export function check(raw: ReturnType<typeof load>) {
       }
     });
   }
-  return { errors, warnings, counts: { organizations: orgs.size, sources: sources.size, watches: watchDocs.length } };
+  return {
+    errors, warnings,
+    counts: { organizations: orgs.size, sources: sources.size, watches: watchDocs.length },
+    parsed: { methodologies, orgs, sources, watches: watchDocs.map(d => d.data) },
+  };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

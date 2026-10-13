@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import { fmtDate, methodology as m, records } from '../lib/data.ts';
+
+const count = (code: string) => code === 'independent_watchmaker'
+  ? records.filter(r => r.profile.independent_watchmaker).length
+  : records.filter(r => r.profile.confidence !== 'D' && r.profile.classification.includes(code)).length;
+const contents = [
+  ['rules', 'Rules'], ['dimensions', 'Dimensions'], ['confidence', 'Confidence'],
+  ['classifications', 'Classifications'], ['how-to-use', 'How to use'], ['changelog', 'Changelog'],
+];
+---
+<Base title="Methodology" nav="methodology" description={`The FALK Index methodology, version ${m.code}.`}>
+  <header class="page-head">
+    <h1>Methodology</h1>
+    <p class="lead">Version {m.code}, published {fmtDate(m.published_on)}. Changes need a version bump; earlier profiles keep their original version.</p>
+  </header>
+
+  <div class="side-layout">
+    <aside>
+      <nav aria-label="Contents" class="toc">
+        <p class="small muted">Contents</p>
+        <ul>
+          {contents.map(([id, label]) => <li><a href={`#${id}`}>{label}</a>
+            {id === 'dimensions' && <ul class="dims">{m.dimensions.map(d => <li><a href={`#${d.code.toLowerCase()}`}>{d.code}</a></li>)}</ul>}
+          </li>)}
+        </ul>
+      </nav>
+    </aside>
+
+    <div>
+      <section id="rules" class="sec">
+        <h2>Foundational rules</h2>
+        {m.rules.map(r => <div class="item"><h3>{r.name}</h3><p class="prose">{r.meaning}</p></div>)}
+      </section>
+
+      <section id="dimensions" class="sec">
+        <h2>Dimensions</h2>
+        <p class="prose">Each dimension is scored 0 to 5, or U when evidence is insufficient. They are never added together.</p>
+        {m.dimensions.map(d => (
+          <div id={d.code.toLowerCase()} class="item">
+            <h3>{d.name} ({d.code})</h3>
+            <p class="lead">{d.question}</p>
+            <ol class="levels" start="0">
+              {Object.entries(d.levels).map(([n, text]) => (
+                <li>
+                  <span class="segs" aria-hidden="true">{[1, 2, 3, 4, 5].map(i => <span class:list={['seg', i <= Number(n) && `l${n}`]} />)}</span>
+                  <b>{n}</b> <span>{text}</span>
+                </li>
+              ))}
+              <li>
+                <span class="segs" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <span class="seg lu" />)}</span>
+                <b>U</b> <span>Unknown: reliable evidence is unavailable. Not the same as 0.</span>
+              </li>
+            </ol>
+          </div>
+        ))}
+      </section>
+
+      <section id="confidence" class="sec">
+        <h2>Evidence confidence</h2>
+        <dl class="defs">
+          {Object.entries(m.confidence).map(([g, text]) => <div><dt><span class="conf"><b>{g}</b></span></dt><dd class="prose">{text}</dd></div>)}
+        </dl>
+        <p class="prose">A D record shows provenance notes only, with no profile and no classification.</p>
+      </section>
+
+      <section id="classifications" class="sec">
+        <h2>Classifications</h2>
+        <p class="prose">Production archetypes, not status tiers. A classification is assigned after the profile and provenance review.</p>
+        {m.classifications.map(c => (
+          <div class="item">
+            <h3>{c.name}</h3>
+            <p class="prose">{c.definition}</p>
+            <p class="small">
+              {c.kind === 'descriptor'
+                ? `A descriptor, shown beside the classification. ${count(c.code)} records carry it.`
+                : <a href={`/records/?cls=${c.code}`}>Records with this classification ({count(c.code)})</a>}
+            </p>
+          </div>
+        ))}
+        <p class="prose">Ownership and scale are separate metadata. A brand can be independently owned and still operate as an industrial manufacture.</p>
+      </section>
+
+      <section id="how-to-use" class="sec">
+        <h2>How to use the FALK Index</h2>
+        <ol class="steps prose">{m.steps.map(s => <li><b>{s.name}</b> {s.detail}</li>)}</ol>
+      </section>
+
+      <section id="changelog" class="sec">
+        <h2>Changelog</h2>
+        <p class="prose"><b>{m.code}</b>, {fmtDate(m.published_on)}. {m.notes}</p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .sec { padding-bottom: var(--s-8); scroll-margin-top: var(--s-4); }
+  .sec > h2 { margin-bottom: var(--s-5); }
+  .item { margin-top: var(--s-6); scroll-margin-top: var(--s-4); }
+  .item > * + * { margin-top: var(--s-2); }
+  .toc ul { list-style: none; margin: 0; padding: 0; }
+  .toc li a { display: inline-flex; min-height: 44px; align-items: center; }
+  .toc .dims { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); padding-left: var(--s-4); }
+  .levels { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+  .levels li { display: flex; gap: var(--s-3); align-items: center; }
+  .levels b { font-stretch: 62%; font-size: 21px; min-width: 1.4ch; }
+  .segs { display: inline-flex; gap: 3px; flex: none; }
+  .seg { width: 12px; height: 18px; border: 1.5px solid var(--c-ink-2); }
+  .defs { margin: 0; display: grid; gap: var(--s-3); }
+  .defs div { display: flex; gap: var(--s-4); align-items: baseline; }
+  .defs dd { margin: 0; }
+  .steps { padding-left: 1.4em; }
+  .steps li + li { margin-top: var(--s-2); }
+  @media (max-width: 1023px) { .toc .dims { display: none; } .toc ul:first-of-type { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); } }
+</style>

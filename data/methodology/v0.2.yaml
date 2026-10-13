@@ -23,6 +23,23 @@ rules:
   - name: Classification comes last
     meaning: Do not choose 'microbrand', 'atelier' or 'manufacture' first and then bend the profile to fit.
 
+# §6 How to use the FALK Index (a real sequence, so numbered on the site).
+steps:
+  - name: Identify the exact watch.
+    detail: Record reference, generation and production period.
+  - name: Build the provenance sheet.
+    detail: Research movement, case/exterior, dial/hands, craft, assembly/regulation and development separately.
+  - name: Prefer primary evidence.
+    detail: Manufacturer/workshop documentation and named supplier disclosures come first. Technical interviews and specialist references such as Caliber Corner are useful secondary corroboration.
+  - name: Score each dimension independently.
+    detail: Use U rather than guessing. Explain borderline scores.
+  - name: Assign confidence.
+    detail: Confidence describes the evidence, not confidence in the brand.
+  - name: Assign the classification last.
+    detail: The archetype summarizes the profile; it does not control it.
+  - name: Preserve the audit trail.
+    detail: Every future change should carry a source, rationale, editor and date.
+
 dimensions:
   - code: MA
     name: Movement Architecture

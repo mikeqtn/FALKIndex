@@ -1,0 +1,13 @@
+---
+import { DIMENSIONS, dimension, type Scores } from '../lib/data.ts';
+
+interface Props { scores: Scores }
+const { scores } = Astro.props;
+const label = DIMENSIONS.map(d => `${dimension[d].label} ${scores[d].value ?? 'unknown'}`).join(', ');
+---
+<span class="cstrip" role="img" aria-label={`Profile: ${label}`}>
+  {DIMENSIONS.map(d => {
+    const v = scores[d].value;
+    return <span class:list={['cell', v === null ? 'lu' : `l${v}`]} title={`${d} ${dimension[d].label}`}><span>{v ?? 'U'}</span></span>;
+  })}
+</span>

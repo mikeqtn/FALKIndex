@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import ProfileStrip from '../components/ProfileStrip.astro';
+import CompactStrip from '../components/CompactStrip.astro';
+import { DIMENSIONS, dimension, record, recordUrl, records } from '../lib/data.ts';
+
+const infinity = record('jn-shapiro/infinity-series');
+const resurgence = record('jn-shapiro/resurgence');
+const tests = [
+  { ids: ['fleming/series-1'], note: 'High design and movement authorship, little made in-house.' },
+  { ids: ['artur-akmaev/koi-tide'], note: 'Master craft on an external movement.' },
+  { ids: ['awake/son-mai-guilloche-main', 'anordain/model-1-fume'], note: 'Artisan work done by partners, and artisan work done in-house.' },
+  { ids: ['czapek/antarctique-sxh5'], note: 'Designed in-house, made by partners.' },
+].map(t => ({ ...t, recs: t.ids.map(record) }));
+---
+<Base title="FALK Index">
+  <section class="hero">
+    <div class="stack">
+      <h1 class="hero-title">How a watch is actually made, and the evidence for it.</h1>
+      <p class="lead">Seven measures of where the work happens: movement, case, dial, craft, assembly and development. Each one links to its sources.</p>
+      <div class="actions">
+        <a class="btn" href="/records/">Browse {records.length} records</a>
+        <a href="/methodology/">Read the method</a>
+      </div>
+    </div>
+    <div class="plate stack">
+      <ProfileStrip caption="J.N. Shapiro" animate columns={[
+        { label: infinity.model, scores: infinity.profile.scores },
+        { label: resurgence.model, scores: resurgence.profile.scores },
+      ]} />
+      <p>Same maker. Different watches. Different routes.</p>
+      <p class="small"><a href={recordUrl(infinity.id)}>{infinity.model}</a> and <a href={recordUrl(resurgence.id)}>{resurgence.model}</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>A profile is not a ranking</h2>
+    <div class="prose">
+      <p>Outsourcing to a world-class specialist isn't inferior to making a part in-house. Darker means more of the work happens inside the brand, not that the watch is better. Scores are never added together.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>The seven dimensions</h2>
+    <dl class="dims">
+      {DIMENSIONS.map(d => (
+        <div>
+          <dt><a href={`/methodology/#${d.toLowerCase()}`}><b>{d}</b> {dimension[d].label}</a></dt>
+          <dd class="muted">{dimension[d].question}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2>Records that test the method</h2>
+    <ul class="tests">
+      {tests.map(t => (
+        <li>
+          <div class="stack">
+            {t.recs.map(r => (
+              <div class="test-rec">
+                <a href={recordUrl(r.id)}>{r.brandName} {r.model}</a>
+                <CompactStrip scores={r.profile.scores} />
+              </div>
+            ))}
+          </div>
+          <p class="prose">{t.note}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2>How this was built</h2>
+    <div class="prose">
+      <p>This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
+      <p class="small">From the FALK Index v0.2 handbook. <a href="/about/">More about the project</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { display: grid; gap: var(--s-7); padding: var(--s-8) 0; }
+  @media (min-width: 1024px) { .hero { grid-template-columns: 1fr auto; align-items: center; } }
+  .hero-title { font-size: 72px; line-height: 72px; font-stretch: 68%; font-weight: 640; letter-spacing: -0.01em; max-width: 12ch; }
+  @media (max-width: 639px) { .hero-title { font-size: 48px; line-height: 52px; } }
+  .hero > * { min-width: 0; }
+  .hero .plate { overflow-x: auto; }
+  .dims { display: grid; gap: var(--s-4) var(--s-6); margin: 0; }
+  @media (min-width: 1024px) { .dims { grid-template-columns: 1fr 1fr; } }
+  .dims dd { margin: var(--s-1) 0 0; }
+  .tests { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+  .tests li { display: grid; gap: var(--s-3) var(--s-6); }
+  @media (min-width: 1024px) { .tests li { grid-template-columns: 5fr 7fr; } }
+  .test-rec { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); align-items: center; justify-content: space-between; max-width: 32rem; }
+</style>

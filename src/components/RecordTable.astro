@@ -1,0 +1,45 @@
+---
+// Rows for Records, Brand and Home. Column order: model, profile, classification, confidence (classification comes last).
+// data-* attributes feed the client-side filters on /records/.
+import CompactStrip from './CompactStrip.astro';
+import ConfidenceMark from './ConfidenceMark.astro';
+import { DIMENSIONS, classification, orgs, recordUrl, variant, type Record } from '../lib/data.ts';
+
+interface Props { records: Record[]; caption: string; showBrand?: boolean; id?: string }
+const { records, caption, showBrand = true, id } = Astro.props;
+---
+<table class="table stack-sm" id={id}>
+  <caption class="sr-only">{caption}</caption>
+  <thead>
+    <tr>
+      <th scope="col">{showBrand ? 'Brand and model' : 'Model'}</th>
+      <th scope="col"><span class="sr-only">Profile</span><span class="codes" aria-hidden="true">{DIMENSIONS.map(d => <span>{d}</span>)}</span></th>
+      <th scope="col">Classification</th>
+      <th scope="col">Evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    {records.map(r => {
+      const p = r.profile;
+      const org = orgs.get(r.brand)!;
+      const dims = Object.fromEntries(DIMENSIONS.map(d => [`data-${d.toLowerCase()}`, p.scores[d].value ?? 'U']));
+      return (
+        <tr class="rec-row"
+          data-brand={r.brandName} data-model={r.model}
+          data-search={[r.brandName, r.model, r.reference, r.caliber, r.generation, r.route_label].filter(Boolean).join(' ').toLowerCase()}
+          data-cls={p.confidence === 'D' ? '' : p.classification.join(' ')} data-conf={p.confidence}
+          data-own={org.ownership} data-scale={org.scale} {...dims}>
+          <td>
+            {showBrand && <div class="small muted">{r.brandName}</div>}
+            <a class="rec" href={recordUrl(r.id)}>{r.model}</a>
+            {variant(r) && <div class="small muted">{variant(r)}</div>}
+            {p.is_seed && <div class="provisional-mark">Provisional</div>}
+          </td>
+          <td>{p.confidence === 'D' ? <span class="small muted">No profile yet</span> : <CompactStrip scores={p.scores} />}</td>
+          <td>{p.confidence === 'D' ? '' : p.classification.map((c, i) => <div class:list={{ 'small muted': i > 0 }}>{i > 0 && 'with '}{classification(c, p.methodology).name}{i > 0 && ' traits'}</div>)}</td>
+          <td><ConfidenceMark grade={p.confidence} short /></td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>

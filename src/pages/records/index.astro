@@ -1,0 +1,183 @@
+---
+import Base from '../../layouts/Base.astro';
+import RecordTable from '../../components/RecordTable.astro';
+import { DIMENSIONS, dimension, methodology, records } from '../../lib/data.ts';
+
+const archetypes = methodology.classifications.filter(c => c.kind === 'archetype');
+const levels = [0, 1, 2, 3, 4, 5];
+---
+<Base title="Records" nav="records" description="Every FALK record, filterable by profile, classification, evidence and ownership.">
+  <header class="page-head">
+    <h1>Records</h1>
+    <p class="lead">{records.length} watches, each profiled by model, reference or production route.</p>
+  </header>
+
+  <div class="side-layout">
+    <noscript><style>#filter-panel { display: none; }</style></noscript>
+    <aside id="filter-panel">
+      <details class="filter-sheet" id="filter-sheet">
+        <summary class="btn secondary">Filters <span id="filter-count"></span></summary>
+        <form id="filters" class="plate stack sunk" role="search">
+          <div class="field">
+            <label for="q">Search</label>
+            <input id="q" name="q" type="search" />
+          </div>
+
+          <fieldset>
+            <legend>Dimensions</legend>
+            {DIMENSIONS.map(d => {
+              const k = d.toLowerCase();
+              return (
+                <div class="range">
+                  <abbr title={dimension[d].label}>{d}</abbr>
+                  <label class="sr-only" for={`${k}_min`}>{dimension[d].label} minimum</label>
+                  <select id={`${k}_min`} name={`${k}_min`}>{levels.map(n => <option selected={n === 0}>{n}</option>)}</select>
+                  <span aria-hidden="true">to</span>
+                  <label class="sr-only" for={`${k}_max`}>{dimension[d].label} maximum</label>
+                  <select id={`${k}_max`} name={`${k}_max`}>{levels.map(n => <option selected={n === 5}>{n}</option>)}</select>
+                </div>
+              );
+            })}
+            <label class="check"><input type="checkbox" name="xu" value="1" /> Leave out unknown (U) in a narrowed dimension</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Classification</legend>
+            {archetypes.map(c => <label class="check"><input type="checkbox" name="cls" value={c.code} /> {c.name}</label>)}
+          </fieldset>
+
+          <fieldset>
+            <legend>Evidence</legend>
+            <div class="inline">{['A', 'B', 'C', 'D'].map(g => <label class="check"><input type="checkbox" name="conf" value={g} /> {g}</label>)}</div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Ownership</legend>
+            <label class="check"><input type="checkbox" name="own" value="independent" /> Independent</label>
+            <label class="check"><input type="checkbox" name="own" value="group" /> Group-owned</label>
+          </fieldset>
+
+          <div class="field">
+            <label for="scale">Scale</label>
+            <select id="scale" name="scale">
+              <option value="">Any</option>
+              {['individual', 'small', 'medium', 'industrial'].map(s => <option value={s}>{s[0].toUpperCase() + s.slice(1)}</option>)}
+            </select>
+          </div>
+
+          <button class="btn secondary" type="reset">Clear filters</button>
+        </form>
+      </details>
+    </aside>
+
+    <div class="stack">
+      <div class="toolbar">
+        <p id="count" aria-live="polite">{records.length} records</p>
+        <label>Sort
+          <select id="sort">
+            <option value="brand">Brand A–Z</option>
+            <option value="model">Model A–Z</option>
+          </select>
+        </label>
+      </div>
+      <RecordTable id="records" records={records} caption="All records" />
+      <div id="empty" class="plate stack" hidden>
+        <p>No records match these filters. Widen a dimension range or remove a classification.</p>
+        <p><button class="btn secondary" type="button" id="clear-empty">Clear filters</button></p>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .sunk { background: var(--c-surface-sunk); }
+  fieldset { border: 0; margin-inline: 0; padding: 0; display: grid; gap: var(--s-1); }
+  legend { font-weight: 560; padding: 0 0 var(--s-2); }
+  .field { display: grid; gap: var(--s-1); }
+  .check { display: flex; gap: var(--s-2); align-items: center; min-height: 44px; }
+  .check input { width: 20px; height: 20px; margin: 0; accent-color: var(--c-action); }
+  .inline { display: flex; gap: var(--s-4); }
+  .range { display: flex; gap: var(--s-2); align-items: center; }
+  .range abbr { font-weight: 700; font-stretch: 62%; width: 3ch; text-decoration: none; }
+  .range select { min-width: 3.5rem; }
+  .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); }
+  .toolbar label { display: flex; gap: var(--s-2); align-items: center; }
+  .filter-sheet summary { list-style: none; }
+  .filter-sheet summary::-webkit-details-marker { display: none; }
+  .filter-sheet[open] summary { margin-bottom: var(--s-3); }
+  @media (min-width: 1024px) { .filter-sheet summary { display: none; } }
+</style>
+
+<script>
+  const DIMS = ['ma', 'mm', 'ex', 'dh', 'cf', 'we', 'pd'];
+  const sheet = document.getElementById('filter-sheet') as HTMLDetailsElement;
+  const form = document.getElementById('filters') as HTMLFormElement;
+  const sort = document.getElementById('sort') as HTMLSelectElement;
+  const tbody = document.querySelector('#records tbody')!;
+  const rows = [...tbody.querySelectorAll<HTMLTableRowElement>('tr')];
+  const count = document.getElementById('count')!;
+  const empty = document.getElementById('empty')!;
+  const badge = document.getElementById('filter-count')!;
+
+  // Filters need JS; without it a noscript style hides the panel and the full table stays visible.
+  const wide = matchMedia('(min-width: 1024px)');
+  sheet.open = wide.matches;
+  wide.addEventListener('change', e => { sheet.open = e.matches; });
+
+  const isDefault = (k: string, v: string) => v === '' || (k.endsWith('_min') && v === '0') || (k.endsWith('_max') && v === '5');
+
+  function fromUrl() {
+    const p = new URLSearchParams(location.search);
+    for (const el of form.elements as unknown as HTMLInputElement[]) {
+      if (!el.name) continue;
+      if (el.type === 'checkbox') el.checked = p.getAll(el.name).includes(el.value);
+      else if (p.has(el.name)) el.value = p.get(el.name)!;
+    }
+    if (p.get('sort') === 'model') sort.value = 'model';
+  }
+
+  function apply() {
+    const f = new FormData(form);
+    const q = String(f.get('q') ?? '').trim().toLowerCase();
+    const all = (k: string) => f.getAll(k) as string[];
+    const cls = all('cls'), conf = all('conf'), own = all('own');
+    const scale = String(f.get('scale') ?? '');
+    const leaveOutU = f.get('xu') === '1';
+    const ranges = DIMS.map(d => [d, Number(f.get(`${d}_min`)), Number(f.get(`${d}_max`))] as const)
+      .filter(([, lo, hi]) => lo > 0 || hi < 5);
+
+    let shown = 0;
+    for (const r of rows) {
+      const ds = r.dataset;
+      const ok = (!q || ds.search!.includes(q))
+        && (!cls.length || cls.some(c => ds.cls!.split(' ').includes(c)))
+        && (!conf.length || conf.includes(ds.conf!))
+        && (!own.length || own.includes(ds.own!))
+        && (!scale || ds.scale === scale)
+        && ranges.every(([d, lo, hi]) => ds[d] === 'U' ? !leaveOutU : Number(ds[d]) >= lo && Number(ds[d]) <= hi);
+      r.hidden = !ok;
+      if (ok) shown++;
+    }
+    count.textContent = shown === rows.length ? `${rows.length} records` : `${shown} of ${rows.length} records`;
+    empty.hidden = shown > 0;
+
+    const key = sort.value === 'model' ? 'model' : 'brand';
+    rows.sort((a, b) => a.dataset[key]!.localeCompare(b.dataset[key]!) || a.dataset.model!.localeCompare(b.dataset.model!));
+    tbody.append(...rows);
+
+    const p = new URLSearchParams();
+    for (const [k, v] of f) if (!isDefault(k, String(v))) p.append(k, String(v));
+    const active = [...p.keys()].length;
+    if (sort.value !== 'brand') p.set('sort', sort.value);
+    badge.textContent = active ? `(${active})` : '';
+    history.replaceState(null, '', p.size ? `?${p}` : location.pathname);
+  }
+
+  fromUrl();
+  apply();
+  form.addEventListener('input', apply);
+  form.addEventListener('submit', e => { e.preventDefault(); apply(); });
+  form.addEventListener('reset', () => setTimeout(apply));
+  sort.addEventListener('change', apply);
+  document.getElementById('clear-empty')!.addEventListener('click', () => form.reset());
+</script>

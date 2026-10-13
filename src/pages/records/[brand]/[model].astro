@@ -1,0 +1,181 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ProfileStrip from '../../../components/ProfileStrip.astro';
+import ConfidenceMark from '../../../components/ConfidenceMark.astro';
+import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
+import {
+  DIMENSIONS, RELATIONSHIP, SOURCE_TYPE, brandUrl, classification, correctionUrl, dimension, fmtDate,
+  methodologies, orgs, records, sources, variant, type Record,
+} from '../../../lib/data.ts';
+
+export function getStaticPaths() {
+  return records.map(r => { const [brand, model] = r.id.split('/'); return { params: { brand, model }, props: { r } }; });
+}
+const { r } = Astro.props as { r: Record };
+const p = r.profile;
+const levels = Object.fromEntries(methodologies.get(p.methodology)!.dimensions.map(d => [d.code, d.levels]));
+const noProfile = p.confidence === 'D';
+const claims = new Map(r.claims.map(c => [c.id, c]));
+const details = [
+  ['Generation', r.generation], ['Reference', r.reference], ['Caliber', r.caliber], ['Production route', r.route_label],
+  ['Made', r.production_start && `${r.production_start} to ${r.production_end ?? 'present'}`],
+].filter(([, v]) => v) as [string, string | number][];
+const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
+const host = (url: string) => new URL(url).host.replace(/^www\./, '');
+---
+<Base title={`${r.brandName} ${r.model}`} description={`FALK profile and provenance evidence for the ${r.brandName} ${r.model}.`}>
+  {p.is_seed && <ProvisionalBanner slot="banner" />}
+
+  <header class="page-head">
+    <a class="small" href={brandUrl(r.brand)}>{r.brandName}</a>
+    <h1>{r.model}</h1>
+    {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+  </header>
+
+  <div class="grid-2">
+    <div class="stack">
+      {noProfile
+        ? <div class="no-profile"><p>Not enough evidence for a profile yet. Provenance notes are below.</p></div>
+        : <div class="plate scroll"><ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows /></div>}
+      <p class="small muted">Not a ranking. Darker means more of the work is done inside the brand.</p>
+    </div>
+
+    <aside class="plate stack" aria-label="Summary">
+      {!noProfile && (
+        <div>
+          <p class="small muted">Classification</p>
+          <h2 class="cls">{classification(p.classification[0], p.methodology).name}</h2>
+          {p.classification.slice(1).map(c => <p class="muted">with {classification(c, p.methodology).name} traits</p>)}
+        </div>
+      )}
+      {p.independent_watchmaker && <p>Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches.</p>}
+      <div><p class="small muted">Evidence</p><ConfidenceMark grade={p.confidence} /></div>
+      <p class="small">Scored with <a href="/methodology/">{p.methodology}</a>, version {p.version}, updated {fmtDate(p.created_on)}.</p>
+      <p><a class="btn secondary" href={correctionUrl(r.id)}>Send a correction</a></p>
+    </aside>
+  </div>
+
+  <section class="block evidence-section">
+    <div class="h2-row">
+      <h2>Evidence by dimension</h2>
+      <button class="btn secondary" type="button" id="open-all" hidden>Open all</button>
+    </div>
+    <div class="evidence">
+      {DIMENSIONS.map(d => {
+        const s = p.scores[d];
+        const by = (stance: string) => s.evidence.filter(e => e.stance === stance);
+        const groups = [['Supporting evidence', by('supports'), 'supports'], ['Conflicting evidence', by('contradicts'), 'contradicts'], ['Context', by('context'), 'context']] as const;
+        return (
+          <details id={`evidence-${d.toLowerCase()}`}>
+            <summary>
+              <span class="code">{d} {s.value ?? 'U'}</span>
+              <span><b>{dimension[d].label}</b><span class="muted">: {s.value === null ? 'Unknown' : levels[d][s.value]}</span></span>
+            </summary>
+            <div class="body stack">
+              {s.rationale ? <div class="prose"><p>{s.rationale}</p></div>
+                : s.evidence.length === 0 && (
+                  <p class="prose">No evidence attached yet. This score comes from the v0.2 reference dataset. <a href={correctionUrl(r.id)}>Send evidence</a></p>
+                )}
+              {groups.filter(([, es]) => es.length).map(([title, es, stance]) => (
+                <div class="stack">
+                  <h3 class="small-h">{title} ({es.length})</h3>
+                  {es.map(e => {
+                    const c = claims.get(e.claim)!;
+                    const src = sources.get(c.source)!;
+                    return (
+                      <div class:list={['claim', stance]}>
+                        <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
+                        {c.excerpt && <blockquote class="excerpt">{c.excerpt}</blockquote>}
+                        <p class="small">
+                          <a href={src.url}>{src.title ?? host(src.url)}</a>{' '}
+                          <span class:list={{ muted: src.tier === 'secondary' }}>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>{' '}
+                          {src.archived_url && <a href={src.archived_url}>Archived copy</a>}{' '}
+                          <span>Checked {fmtDate(c.date_checked)}</span> <span>Added by {c.editor}</span>
+                        </p>
+                        <p class="small muted">{e.note}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class:list={['block', { first: noProfile }]}>
+    <h2>Who makes what</h2>
+    {provenanceByDim.length === 0
+      ? <p class="prose">No provenance entries recorded yet.</p>
+      : (
+        <table class="table stack-sm">
+          <thead><tr><th scope="col">Area</th><th scope="col">Component</th><th scope="col">Made by</th><th scope="col">Relationship</th></tr></thead>
+          <tbody>
+            {provenanceByDim.flatMap(([d, es]) => es.map(e => (
+              <tr>
+                <td>{dimension[d].label}</td>
+                <td>{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</td>
+                <td>{e.performer ? (orgs.get(e.performer)?.name) : 'Unknown'}</td>
+                <td><span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span></td>
+              </tr>
+            )))}
+          </tbody>
+        </table>
+      )}
+  </section>
+
+  <section class="block">
+    <h2>History</h2>
+    <ol class="history">
+      {[...r.profiles].reverse().map(v => (
+        <li>
+          <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {v.editor}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
+          <p class="prose">{v.change_note}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="block">
+    <h2>Use this record</h2>
+    <div class="actions">
+      <a href={`/records/${r.id}.json`}>Download JSON</a>
+      <a href={correctionUrl(r.id)}>Send a correction</a>
+    </div>
+    {r.notes && <p class="small muted note">{r.notes}</p>}
+  </section>
+</Base>
+
+<style>
+  .scroll { overflow-x: auto; }
+  .cls { font-size: 24px; line-height: 30px; font-stretch: 90%; }
+  .h2-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); }
+  .small-h { font-size: 16px; line-height: 23px; font-stretch: 100%; }
+  .claim > * + * { margin-top: var(--s-2); }
+  .claim.contradicts { border-left: 3px solid var(--c-gilt); padding-left: var(--s-4); }
+  .history { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+  .note { margin-top: var(--s-4); }
+  .first { order: -1; }
+</style>
+
+<script>
+  const all = [...document.querySelectorAll<HTMLDetailsElement>('.evidence details')];
+  const openFromHash = () => {
+    const el = location.hash.startsWith('#evidence-') && document.getElementById(location.hash.slice(1));
+    if (el instanceof HTMLDetailsElement) { el.open = true; el.scrollIntoView({ block: 'start' }); }
+  };
+  addEventListener('hashchange', openFromHash);
+  openFromHash();
+  for (const d of all) d.addEventListener('toggle', () => {
+    if (d.open && location.hash !== `#${d.id}`) history.replaceState(null, '', `#${d.id}`);
+  });
+  const btn = document.getElementById('open-all')!;
+  btn.hidden = false;
+  btn.addEventListener('click', () => {
+    const open = !all.every(d => d.open);
+    all.forEach(d => { d.open = open; });
+    btn.textContent = open ? 'Close all' : 'Open all';
+  });
+</script>
