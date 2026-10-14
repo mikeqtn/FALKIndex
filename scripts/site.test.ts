@@ -28,8 +28,9 @@ test('the CSV has no aggregate column', { skip }, () => {
 });
 
 test('every record page shows seven dimension rows and nothing that sums them', { skip }, () => {
-  const pages = files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f));
-  assert.equal(pages.length, 56);
+  const pages = files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f) && !read(f).includes('http-equiv="refresh"'));
+  const published = JSON.parse(read(join(dist, 'data/falk.json'))).watches.filter((w: any) => w.profiles.some((p: any) => p.status === 'published'));
+  assert.equal(pages.length, published.length);
   for (const f of pages) {
     const html = read(f);
     const strip = html.match(/<table class="strip[^"]*">([\s\S]*?)<\/table>/)?.[1] ?? '';

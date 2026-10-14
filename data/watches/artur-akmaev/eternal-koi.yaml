@@ -1,7 +1,7 @@
-id: artur-akmaev/koi-tide
+id: artur-akmaev/eternal-koi
 brand: artur-akmaev
-model: Koi / Tide
-notes: Handbook v0.2 §8 lists this record as "Artur Akmaev — Koi / Tide". Evidence covers the Eternal Koi (La Joux-Perret F200); the Tide is not yet researched. Akmaev is also credited with movement engraving on the J.N. Shapiro Infinity Series.
+model: Eternal Koi
+notes: Handbook v0.2 §8 lists this record as "Artur Akmaev — Koi / Tide". Narrowed on 2026-10-14 to the Eternal Koi (La Joux-Perret F200), the only route with evidence. No source for a "Tide" by Akmaev was found; it can be added as its own record if one appears. Akmaev is also credited with movement engraving on the J.N. Shapiro Infinity.
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret F200)
@@ -147,7 +147,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: published
+    status: superseded
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: EX 0 → U and DH 0 → U (no source on the case maker or the dial base; the dial art is credited under CF to avoid double counting). Independent watchmaker descriptor proposed. Confidence A → B: evidence is a retailer listing and a 2015 article; the maker site shows no text. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
@@ -209,3 +209,70 @@ profiles:
             note: Original design work.
     classification:
       - artisan_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: published
+    editor: mikeqtn
+    change_note: Record narrowed from "Koi / Tide" to the Eternal Koi, the only model with evidence. Scores and evidence unchanged. Reviewed and approved by mikeqtn on 2026-10-14.
+    created_on: 2026-10-14
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret F200 movement.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; engraving changes its decoration, not its manufacture.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case maker. U until found (handbook score was 0).
+        evidence: []
+      DH:
+        value: null
+        rationale: The engraving and inlay on the dial are counted under CF. No source says who makes the dial base or the hands, so DH is U (handbook score was 0). If Akmaev fabricates the dial himself, DH would rise to 2–3.
+        evidence:
+          - claim: ak-koi-hands
+            stance: context
+            note: Hands finished by hand; maker not named.
+      CF:
+        value: 5
+        rationale: Akmaev personally engraves and inlays the dial, sculpts the koi, and relief-engraves the movement. This master-level craft defines the watch.
+        evidence:
+          - claim: ak-koi-dial
+            stance: supports
+            note: Dial engraving and inlay.
+          - claim: ak-koi-sculpted
+            stance: supports
+            note: Sculpted silver koi.
+          - claim: ak-koi-movement-engraving
+            stance: supports
+            note: Movement engraving.
+      WE:
+        value: 3
+        rationale: Movements are stripped, engraved, reassembled and tested by Akmaev. The process description dates from 2015 and ETA-based pieces, so it should be reconfirmed for the F200.
+        evidence:
+          - claim: ak-process-strip
+            stance: supports
+            note: Full strip-down in-house.
+          - claim: ak-process-reassembly
+            stance: supports
+            note: Reassembly and testing.
+      PD:
+        value: 3
+        rationale: Akmaev designs the whole watch, from dial to movement decoration, around a supplier movement.
+        evidence:
+          - claim: ak-process-sketch
+            stance: supports
+            note: Original design work.
+    classification:
+      - artisan_atelier
+caliber: La Joux-Perret F200

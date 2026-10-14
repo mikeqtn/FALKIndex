@@ -4,11 +4,11 @@ import ProfileStrip from '../components/ProfileStrip.astro';
 import CompactStrip from '../components/CompactStrip.astro';
 import { DIMENSIONS, dimension, record, recordUrl, records } from '../lib/data.ts';
 
-const infinity = record('jn-shapiro/infinity-series');
+const infinity = record('jn-shapiro/infinity');
 const resurgence = record('jn-shapiro/resurgence');
 const tests = [
   { ids: ['fleming/series-1'], note: 'High design and movement authorship, little made in-house.' },
-  { ids: ['artur-akmaev/koi-tide'], note: 'Master craft on an external movement.' },
+  { ids: ['artur-akmaev/eternal-koi'], note: 'Master craft on an external movement.' },
   { ids: ['awake/son-mai-guilloche-main', 'anordain/model-1-fume'], note: 'Artisan work done by partners, and artisan work done in-house.' },
   { ids: ['czapek/antarctique-sxh5'], note: 'Designed in-house, made by partners.' },
 ].map(t => ({ ...t, recs: t.ids.map(record) }));

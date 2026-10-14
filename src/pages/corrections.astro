@@ -132,7 +132,10 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
     if (msg && field) field.setAttribute('aria-describedby', id); else field?.removeAttribute('aria-describedby');
   };
 
-  const wanted = params.get('record');
+  // Records renamed when they were split by production route (2026-10-14).
+  const RENAMED: Record<string, string> = { 'jn-shapiro/infinity-series': 'jn-shapiro/infinity', 'artur-akmaev/koi-tide': 'artur-akmaev/eternal-koi' };
+  const asked = params.get('record');
+  const wanted = asked && (RENAMED[asked] ?? asked);
   if (wanted) {
     record.value = wanted;
     if (record.value !== wanted) show('record-err', 'The record in your link wasn’t found. Choose it from the list.');

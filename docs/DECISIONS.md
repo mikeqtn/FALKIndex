@@ -40,3 +40,14 @@ Where the plan offered alternatives, the first option is used. Every row here is
 - Kurono Tokyo: "Designer-led Établisseur" normalised to Design-led Établisseur (F4).
 - "Integrated Haute Manufacture" → Integrated Manufacture (F2).
 - Truncated source URLs in handbook §10 (`.../`) are stored at the domain root with the handbook path in `notes`. Editors replace them with the exact page and add an archive link.
+
+## Record splits (2026-10-14)
+
+Applied the "model first" rule to two handbook records that mixed production routes. Old URLs redirect.
+
+| Handbook record | Now | Why |
+|---|---|---|
+| J.N. Shapiro — Infinity Series | `jn-shapiro/infinity` (UWD 33.1, 2019) and `jn-shapiro/infinity-radiant` (La Joux-Perret 5000-4) | Two different movements; the 2019 evidence (SJX) does not cover the Radiant |
+| Artur Akmaev — Koi / Tide | `artur-akmaev/eternal-koi` (La Joux-Perret F200) | No source for an Akmaev "Tide" was found; add it as its own record if one appears |
+
+The narrowed records carry a version 3 with unchanged scores and a change note; the Radiant starts at version 1. All three were reviewed and published by mikeqtn on 2026-10-14.
