@@ -131,7 +131,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan Atelier
     editor: FALK v0.2 handbook
@@ -158,9 +158,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: First evidenced profile. EX changed 0 → U (no source names the case maker). Independent watchmaker descriptor proposed (Josh Shapiro engine-turns every dial himself). WE kept at 3 on inference. The record mixes two movement routes and should probably be split.
+    status: published
+    editor: mikeqtn
+    change_note: First evidenced profile. EX changed 0 → U (no source names the case maker). Independent watchmaker descriptor proposed (Josh Shapiro engine-turns every dial himself). WE kept at 3 on inference. The record mixes two movement routes and should probably be split. Reviewed and approved by mikeqtn on 2026-10-14.
     created_on: 2026-10-13
     scores:
       MA:

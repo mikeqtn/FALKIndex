@@ -115,7 +115,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan Établisseur
     editor: FALK v0.2 handbook
@@ -142,9 +142,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile. Proposed: EX 0 → U and WE 0 → U (no source on the case maker or assembly). Confidence A → B: the movement, dial and lacquer partners are documented, but the case and assembly are not."
+    status: published
+    editor: mikeqtn
+    change_note: "First evidenced profile. Proposed: EX 0 → U and WE 0 → U (no source on the case maker or assembly). Confidence A → B: the movement, dial and lacquer partners are documented, but the case and assembly are not. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
     scores:
       MA:

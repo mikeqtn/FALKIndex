@@ -109,7 +109,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Design-led Établisseur
     editor: FALK v0.2 handbook
@@ -136,9 +136,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile. Proposed: MA 4 → 3 (sources describe a modified Chronode C101, not a new caliber); EX 0 → U and WE 1 → U (no source on the case maker or assembly); PD 5 → 4 (the engineering is Chronode's). Confidence B → C: all evidence is secondary, and the brand site could not be read."
+    status: published
+    editor: mikeqtn
+    change_note: "First evidenced profile. Proposed: MA 4 → 3 (sources describe a modified Chronode C101, not a new caliber); EX 0 → U and WE 1 → U (no source on the case maker or assembly); PD 5 → 4 (the engineering is Chronode's). Confidence B → C: all evidence is secondary, and the brand site could not be read. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
     scores:
       MA:

@@ -116,7 +116,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Établisseur / Manufacture Hybrid
     editor: FALK v0.2 handbook
@@ -144,9 +144,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile. Proposed: MM 1 → 0 (all parts made by named partners), EX 0 → U and CF 3 → U (no source on the case maker or on who finishes the movement). Confidence A → B: one 2020 secondary article; the maker page no longer covers the SXH5."
+    status: published
+    editor: mikeqtn
+    change_note: "First evidenced profile. Proposed: MM 1 → 0 (all parts made by named partners), EX 0 → U and CF 3 → U (no source on the case maker or on who finishes the movement). Confidence A → B: one 2020 secondary article; the maker page no longer covers the SXH5. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
     scores:
       MA:

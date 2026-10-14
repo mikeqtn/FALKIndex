@@ -48,5 +48,6 @@ test('published evidence repeats the strip scores; a draft gets its own section'
     assert.deepEqual(evidence, strip, f);
     assert.equal(html.includes('Draft under review'), html.includes('id="draft-evidence-ma"'), f);
   }
-  assert.match(read(join(dist, 'records/fleming/series-1/index.html')), /Draft under review/);
+  const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
+  assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
 });
