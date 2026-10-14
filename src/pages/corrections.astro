@@ -32,7 +32,7 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
         <div class="field">
           <label for="body">What should change, and why?</label>
           <textarea id="body" name={endpoint ? "correction" : "body"} rows="7" required></textarea>
-          <noscript><p class="small muted">Without JavaScript, only this text reaches the issue: name the record and paste your evidence links here.</p></noscript>
+          {!endpoint && <noscript><p class="small muted">Without JavaScript, only this text reaches the issue: name the record and paste your evidence links here.</p></noscript>}
           <p class="err" id="body-err" hidden></p>
         </div>
 
@@ -60,6 +60,7 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
           : <p class="small muted">Corrections are currently sent as a public GitHub issue, so everything you write here, including your name, will be visible. A GitHub account is needed.</p>}
 
         {!endpoint && <input type="hidden" name="title" value="Correction" />}
+        {endpoint && <input type="hidden" name="_subject" value="FALK correction" />}
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <p><button class="btn" type="submit">Send correction</button></p>
         <p class="err" id="send-err" role="alert" hidden></p>
@@ -180,15 +181,23 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
       location.href = url;
       return;
     }
+    // Formspree payload: one field for all links, and a subject naming the record, so the email reads cleanly.
+    data.set('evidence', evidence.join('\n'));
+    data.set('_subject', `FALK correction: ${data.get('record')}`);
+    let res: Response;
     try {
-      const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-      if (!res.ok) throw new Error(String(res.status));
-      form.hidden = true;
-      const sent = document.getElementById('sent')!;
-      sent.hidden = false;
-      sent.focus();
+      res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
     } catch {
-      show('send-err', 'Correction not sent. The form service didn’t respond. Your text is still here; try again in a moment.');
+      return show('send-err', 'Correction not sent. The form service didn’t respond. Your text is still here; try again in a moment.');
     }
+    if (!res.ok) {
+      // A rejection (unconfirmed form, spam filter, bad field) won't succeed on retry, so say why and offer the fallback.
+      const reason = await res.json().then(j => j.errors?.map((e: { message: string }) => e.message).join(' ') || j.error).catch(() => '');
+      return show('send-err', `Correction not sent. The form service rejected it${reason ? `: ${reason.replace(/\.$/, '')}` : ` (error ${res.status})`}. Your text is still here. You can also send it as an issue at github.com/mikeqtn/FALKIndex/issues.`);
+    }
+    form.hidden = true;
+    const sent = document.getElementById('sent')!;
+    sent.hidden = false;
+    sent.focus();
   });
 </script>
