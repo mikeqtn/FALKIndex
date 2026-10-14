@@ -5,7 +5,7 @@ import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import {
-  DIMENSIONS, RELATIONSHIP, brandUrl, classification, correctionUrl, dimension, fmtDate, orgs, records, type Record,
+  DIMENSIONS, RELATIONSHIP, orgUrl, classification, correctionUrl, dimension, fmtDate, orgs, records, type Record,
 } from '../../../lib/data.ts';
 
 export function getStaticPaths() {
@@ -24,7 +24,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 
   <header class="page-head">
-    <a class="small" href={brandUrl(r.brand)}>{r.brandName}</a>
+    <a class="small" href={orgUrl(r.brand)}>{r.brandName}</a>
     <h1>{r.model}</h1>
     {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
   </header>
@@ -90,7 +90,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
               <tr>
                 <td>{dimension[d].label}</td>
                 <td>{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</td>
-                <td>{e.performer ? (orgs.get(e.performer)?.name) : 'Unknown'}</td>
+                <td>{e.performer ? <a href={orgUrl(e.performer)}>{orgs.get(e.performer)!.name}</a> : 'Unknown'}</td>
                 <td><span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span></td>
               </tr>
             )))}
@@ -102,12 +102,35 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   <section class="block">
     <h2>History</h2>
     <ol class="history">
-      {[...r.profiles].reverse().map(v => (
-        <li>
-          <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {v.editor}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
-          <p class="prose">{v.change_note}</p>
-        </li>
-      ))}
+      {[...r.profiles].reverse().map(v => {
+        const prev = r.profiles.find(x => x.version === v.version - 1);
+        const dims = prev ? DIMENSIONS.filter(d => prev.scores[d].value !== v.scores[d].value) : [];
+        const changes = prev ? [
+          ...dims.map(d => `${d} ${prev.scores[d].value ?? 'U'} → ${v.scores[d].value ?? 'U'}`),
+          ...(prev.confidence !== v.confidence ? [`evidence ${prev.confidence} → ${v.confidence}`] : []),
+          ...(prev.classification.join() !== v.classification.join() ? ['classification'] : []),
+        ] : [];
+        return (
+          <li>
+            <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {v.editor}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
+            <p class="prose">{v.change_note}</p>
+            {prev && (
+              <>
+                <p class="small">{changes.length ? `Changed from version ${prev.version}: ${changes.join(', ')}.` : `No changes to scores, evidence grade or classification from version ${prev.version}.`}</p>
+                <details class="compare">
+                  <summary>Compare with version {prev.version}</summary>
+                  <div class="plate scroll">
+                    <ProfileStrip caption={`Version ${prev.version} and version ${v.version}`} marked={dims} columns={[
+                      { label: `Version ${prev.version}`, scores: prev.scores },
+                      { label: `Version ${v.version}`, scores: v.scores },
+                    ]} />
+                  </div>
+                </details>
+              </>
+            )}
+          </li>
+        );
+      })}
     </ol>
   </section>
 
@@ -126,6 +149,9 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   .cls { font-size: 24px; line-height: 30px; font-stretch: 90%; }
   .h2-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); }
   .history { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+  .history li > * + * { margin-top: var(--s-2); }
+  .compare summary { cursor: pointer; color: var(--c-action); min-height: 44px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
+  .compare[open] summary { margin-bottom: var(--s-3); }
   .note { margin-top: var(--s-4); }
   .first { order: -1; }
   .draft-note { padding: var(--s-4) var(--s-5); margin-bottom: var(--s-5); max-width: var(--measure); }

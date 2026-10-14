@@ -1,0 +1,191 @@
+---
+// Corrections intake (Q4). With PUBLIC_CORRECTIONS_ENDPOINT set at build time (e.g. a Formspree form URL) the form
+// posts there and the submitter's email stays private. Without it, submitting opens a prefilled public GitHub issue.
+import Base from '../layouts/Base.astro';
+import { issueUrl, records } from '../lib/data.ts';
+
+const endpoint = import.meta.env.PUBLIC_CORRECTIONS_ENDPOINT as string | undefined;
+const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reader', 'A reader'], ['other', 'Other']];
+---
+<Base title="Send a correction" description="Send an evidence-based correction to a FALK record.">
+  <div class="layout">
+    <div>
+      <header class="page-head"><h1>Send a correction</h1></header>
+
+      <form id="correction" class="stack form" method={endpoint ? "post" : "get"} action={endpoint ?? issueUrl} data-endpoint={endpoint ?? ''} data-issue={issueUrl}>
+        <div class="field">
+          <label for="record">Which record?</label>
+          <select id="record" name="record" required>
+            <option value="">Choose a record</option>
+            {records.map(r => <option value={r.id}>{r.brandName} {r.model}</option>)}
+          </select>
+          <p class="err" id="record-err" hidden></p>
+        </div>
+
+        <fieldset class="field">
+          <legend>Who are you?</legend>
+          <div class="radios">
+            {ROLES.map(([v, label], i) => <label class="check"><input type="radio" name="role" value={v} checked={i === 2} /> {label}</label>)}
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="body">What should change, and why?</label>
+          <textarea id="body" name={endpoint ? "correction" : "body"} rows="7" required></textarea>
+          <noscript><p class="small muted">Without JavaScript, only this text reaches the issue: name the record and paste your evidence links here.</p></noscript>
+          <p class="err" id="body-err" hidden></p>
+        </div>
+
+        <div class="field" id="links">
+          <label for="link-0">Evidence links</label>
+          <input id="link-0" type="url" name="evidence" placeholder="https://" required />
+          <p class="err" id="links-err" hidden></p>
+          <button type="button" class="link-btn" id="add-link" hidden>Add another link</button>
+        </div>
+
+        <div class="pair">
+          <div class="field">
+            <label for="name">Name (optional)</label>
+            <input id="name" type="text" name="name" autocomplete="name" />
+          </div>
+          {endpoint && (
+            <div class="field">
+              <label for="email">Email (optional)</label>
+              <input id="email" type="email" name="email" autocomplete="email" />
+            </div>
+          )}
+        </div>
+        {endpoint
+          ? <p class="small muted">Your email is only used to reply. It's never published.</p>
+          : <p class="small muted">Corrections are currently sent as a public GitHub issue, so everything you write here, including your name, will be visible. A GitHub account is needed.</p>}
+
+        {!endpoint && <input type="hidden" name="title" value="Correction" />}
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <p><button class="btn" type="submit">Send correction</button></p>
+        <p class="err" id="send-err" role="alert" hidden></p>
+      </form>
+
+      <div id="sent" class="plate stack" role="status" tabindex="-1" hidden>
+        <p><b>Correction sent.</b> An editor will review it against the sources you linked. If you left an email, you'll hear back there.</p>
+        <p><a id="back" href="/records/">Back to the record</a></p>
+      </div>
+    </div>
+
+    <aside class="plate stack policy">
+      <h2>How corrections work</h2>
+      <div class="prose stack">
+        <p>An editor checks every correction against its sources. Accepted changes appear in the record's history with a change note, as a new profile version.</p>
+        <p>Brands and watchmakers have a right of reply. If a claim is disputed, it stays visible next to the evidence that contradicts it, rather than being silently overwritten.</p>
+        <p>We don't accept paid changes of any kind.</p>
+      </div>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .layout { display: grid; gap: var(--s-6); }
+  @media (min-width: 1024px) { .layout { grid-template-columns: 7fr 4fr; align-items: start; } .policy { margin-top: var(--s-9); } }
+  @media (max-width: 1023px) { .policy { order: -1; margin-top: var(--s-5); } }
+  .layout > * { min-width: 0; }
+  .form { max-width: 40rem; }
+  .field { display: grid; gap: var(--s-1); border: 0; margin: 0; padding: 0; min-width: 0; }
+  .field select, .field input, .field textarea { width: 100%; max-width: 100%; }
+  .field legend { padding: 0 0 var(--s-1); }
+  label, legend { font-weight: 560; }
+  .check { font-weight: 420; display: flex; gap: var(--s-2); align-items: center; min-height: 44px; }
+  .check input { width: 20px; height: 20px; margin: 0; accent-color: var(--c-action); }
+  .radios { display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
+  textarea { font: inherit; padding: var(--s-2) var(--s-3); resize: vertical; }
+  .pair { display: grid; gap: var(--s-4); }
+  @media (min-width: 640px) { .pair { grid-template-columns: 1fr 1fr; } }
+  .err { color: var(--c-ink); font-size: 14px; display: flex; gap: var(--s-2); align-items: baseline; }
+  .err::before { content: '!'; flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--c-action); color: var(--c-ink-inverse); font-weight: 700; font-size: 12px; }
+  [aria-invalid="true"] { border-color: var(--c-action); border-width: 2px; }
+  .link-btn { justify-self: start; min-height: 44px; padding: 0; border: 0; background: none; color: var(--c-action); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  .policy h2 { font-size: 24px; line-height: 30px; font-stretch: 90%; }
+</style>
+
+<script>
+  const form = document.getElementById('correction') as HTMLFormElement;
+  const endpoint = form.dataset.endpoint;
+  const links = document.getElementById('links')!;
+  const addLink = document.getElementById('add-link')!;
+  form.noValidate = true; // our messages replace the browser's
+  addLink.hidden = false;
+
+  const params = new URLSearchParams(location.search);
+  const record = form.elements.namedItem('record') as HTMLSelectElement;
+
+  let n = 1;
+  addLink.addEventListener('click', () => {
+    const input = Object.assign(document.createElement('input'), { type: 'url', name: 'evidence', placeholder: 'https://', id: `link-${n++}` });
+    input.setAttribute('aria-label', 'Another evidence link');
+    addLink.before(input);
+    input.focus();
+  });
+
+  const show = (id: string, msg: string, field?: Element | null) => {
+    const el = document.getElementById(id)!;
+    el.textContent = msg; el.hidden = !msg;
+    field?.setAttribute('aria-invalid', String(!!msg));
+    if (msg && field) field.setAttribute('aria-describedby', id); else field?.removeAttribute('aria-describedby');
+  };
+
+  const wanted = params.get('record');
+  if (wanted) {
+    record.value = wanted;
+    if (record.value !== wanted) show('record-err', 'The record in your link wasn’t found. Choose it from the list.');
+  }
+
+  const isWebUrl = (v: string) => { try { return /^https?:$/.test(new URL(v).protocol); } catch { return false; } };
+
+  function validate() {
+    const body = document.getElementById('body') as HTMLTextAreaElement;
+    const urls = [...links.querySelectorAll<HTMLInputElement>('input[type=url]')];
+    const filled = urls.filter(u => u.value.trim());
+    const bad = filled.find(u => !isWebUrl(u.value.trim()));
+    urls.forEach(u => { u.removeAttribute('aria-invalid'); u.removeAttribute('aria-describedby'); });
+    show('record-err', record.value ? '' : 'Choose the record this correction is about.', record);
+    show('body-err', body.value.trim() ? '' : 'Describe what should change.', body);
+    show('links-err',
+      !filled.length ? 'Add at least one link to evidence. Corrections without sources can’t be reviewed.'
+        : bad ? 'This link isn’t a full web address. Start it with https://.' : '',
+      bad ?? urls[0]);
+    const first = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+    first?.focus();
+    return !first;
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    show('send-err', '');
+    if (!validate()) return;
+    const data = new FormData(form);
+    const evidence = (data.getAll('evidence') as string[]).map(s => s.trim()).filter(Boolean);
+    const back = document.getElementById('back') as HTMLAnchorElement;
+    back.href = `/records/${data.get('record')}/`;
+
+    if (!endpoint) {
+      const body = [
+        `**Record:** ${data.get('record')}`, `**From:** ${data.get('role')}${data.get('name') ? ` (${data.get('name')})` : ''}`,
+        '', (document.getElementById('body') as HTMLTextAreaElement).value, '', '**Evidence**', ...evidence.map(u => `- ${u}`),
+      ].join('\n');
+      const url = `${form.dataset.issue}?${new URLSearchParams({ title: `Correction: ${data.get('record')}`, body })}`;
+      // GitHub and browsers reject very long URLs; keep the text on the page instead of losing it.
+      if (url.length > 7000) return show('send-err', 'This correction is too long to send as a GitHub link. Shorten it, or send the key points and paste the rest into the issue.');
+      location.href = url;
+      return;
+    }
+    try {
+      const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error(String(res.status));
+      form.hidden = true;
+      const sent = document.getElementById('sent')!;
+      sent.hidden = false;
+      sent.focus();
+    } catch {
+      show('send-err', 'Correction not sent. The form service didn’t respond. Your text is still here; try again in a moment.');
+    }
+  });
+</script>

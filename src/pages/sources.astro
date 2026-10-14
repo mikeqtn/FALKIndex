@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import { SOURCE_TYPE, citedBy, orgs, recordUrl, records, sources } from '../lib/data.ts';
+
+const host = (url: string) => new URL(url).host.replace(/^www\./, '');
+const publisherName = (s: { publisher?: string; url: string }) => s.publisher ? orgs.get(s.publisher)!.name : host(s.url);
+const groups = Object.entries(Object.groupBy([...sources.values()], publisherName)).sort(([a], [b]) => a.localeCompare(b));
+---
+<Base title="Sources" nav="sources" description="Every source cited by the FALK Index, with its tier and the records that cite it.">
+  <header class="page-head">
+    <h1>Sources</h1>
+    <p class="lead">Every claim on this site links to one of these. Primary sources come from the manufacturer, workshop or a named supplier; secondary sources corroborate them.</p>
+  </header>
+
+  <div class="tiers no-print" role="group" aria-label="Show sources" hidden>
+    {[['all', 'All'], ['primary', 'Primary'], ['secondary', 'Secondary']].map(([v, label]) =>
+      <button type="button" class="tier-btn" data-tier={v} aria-pressed={v === 'all' ? 'true' : 'false'}>{label}</button>)}
+  </div>
+
+  <div class="groups">
+    {groups.map(([name, list]) => (
+      <section class="group" data-group>
+        <h2 class="pub">{name}</h2>
+        <ul class="srcs">
+          {list!.map(s => {
+            const cites = citedBy(s.id);
+            return (
+              <li data-tier={s.tier}>
+                <div class="stack-s">
+                  <a href={s.url}>{s.title ?? host(s.url)}</a>
+                  <span class="small muted url">{host(s.url)}{new URL(s.url).pathname.replace(/\/$/, '')}</span>
+                  {s.notes && <span class="small muted">{s.notes}</span>}
+                  <span class="small cite">
+                    {s.archived_url ? <a href={s.archived_url}>Archived copy</a> : <span class="muted">No archived copy yet</span>}
+                    {cites.length > 0
+                      ? <span>Cited by {cites.length === 1 ? '1 record' : `${cites.length} records`}: {cites.map((w, i) => <>{i > 0 && ', '}{records.some(r => r.id === w.id) ? <a href={recordUrl(w.id)}>{orgs.get(w.brand)!.name} {w.model}</a> : <>{orgs.get(w.brand)!.name} {w.model} (not yet published)</>}</>)}</span>
+                      : <span class="muted">Not yet cited by a claim</span>}
+                  </span>
+                </div>
+                <span class:list={['small', 'tier', { muted: s.tier === 'secondary' }]}>{s.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[s.source_type]}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .tiers { display: inline-flex; margin-bottom: var(--s-6); border: 1.5px solid var(--c-action); border-radius: var(--r-control); overflow: hidden; }
+  .tier-btn { font: 560 16px/1 var(--f-sans); min-height: 44px; padding: 0 var(--s-4); border: 0; background: transparent; color: var(--c-action); cursor: pointer; }
+  .tier-btn + .tier-btn { border-left: 1.5px solid var(--c-action); }
+  .tier-btn[aria-pressed="true"] { background: var(--c-action); color: var(--c-ink-inverse); }
+  .group + .group { margin-top: var(--s-6); }
+  .pub { font-size: 24px; line-height: 30px; font-stretch: 90%; margin-bottom: var(--s-3); }
+  .srcs { list-style: none; margin: 0; padding: 0; background: var(--c-surface); border-radius: var(--r-plate); }
+  .srcs li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-5); padding: var(--s-4); border-bottom: var(--edge); }
+  .srcs li:last-child { border-bottom: 0; }
+  .stack-s { display: flex; flex-direction: column; gap: var(--s-1); min-width: 0; max-width: 60ch; overflow-wrap: anywhere; }
+  .cite { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+  .tier { white-space: nowrap; }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('.tiers')!;
+  const buttons = [...bar.querySelectorAll<HTMLButtonElement>('.tier-btn')];
+  bar.hidden = false;
+  bar.addEventListener('click', e => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.tier-btn');
+    if (!btn) return;
+    const tier = btn.dataset.tier!;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    document.querySelectorAll<HTMLElement>('.srcs li').forEach(li => { li.hidden = tier !== 'all' && li.dataset.tier !== tier; });
+    document.querySelectorAll<HTMLElement>('[data-group]').forEach(g => { g.hidden = !g.querySelector('li:not([hidden])'); });
+  });
+</script>

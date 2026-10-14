@@ -45,7 +45,17 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 export const fmtDate = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
 
 export const recordUrl = (id: string) => `/records/${id}/`;
-export const brandUrl = (id: string) => `/brands/${id}/`;
-// ponytail: corrections go to GitHub issues until the Phase 4 form (Q4) exists.
-export const correctionUrl = (id?: string) =>
-  `https://github.com/mikeqtn/FALKIndex/issues/new?title=${encodeURIComponent(id ? `Correction: ${id}` : 'Correction')}`;
+export const orgUrl = (id: string) => `/organizations/${id}/`;
+export const correctionUrl = (id?: string) => `/corrections/${id ? `?record=${encodeURIComponent(id)}` : ''}`;
+/** Public fallback for the corrections form when no form endpoint is configured. */
+export const issueUrl = 'https://github.com/mikeqtn/FALKIndex/issues/new';
+
+/** Provenance entries where an organization does work on another brand's watch ("where this supplier appears"). */
+export const appearances = (orgId: string) =>
+  records.flatMap(r => r.brand === orgId ? [] : r.provenance.filter(e => e.performer === orgId).map(entry => ({ record: r, entry })));
+
+/** Organizations with a page: every brand with a record, plus every organization named in a provenance entry. */
+export const orgPageIds = new Set([...records.map(r => r.brand), ...records.flatMap(r => r.provenance.flatMap(e => e.performer ?? []))]);
+
+/** Watches whose claims cite a source, published or not (matches falk.json). */
+export const citedBy = (sourceId: string) => watches.filter(w => w.claims.some(c => c.source === sourceId));

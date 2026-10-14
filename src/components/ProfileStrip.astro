@@ -7,8 +7,9 @@ interface Props {
   columns: { label?: string; scores: Scores }[];
   linkRows?: boolean; // rows link to #evidence-xx on the record page
   animate?: boolean;
+  marked?: string[]; // dimension codes to flag as changed (version comparison)
 }
-const { caption, columns, linkRows = false, animate = false } = Astro.props;
+const { caption, columns, linkRows = false, animate = false, marked = [] } = Astro.props;
 const showHead = columns.length > 1;
 ---
 <table class:list={['strip', { animate }]}>
@@ -18,7 +19,7 @@ const showHead = columns.length > 1;
   )}
   <tbody>
     {DIMENSIONS.map((d, i) => (
-      <tr class:list={{ link: linkRows }} style={`--i:${i}`}>
+      <tr class:list={{ link: linkRows, changed: marked.includes(d) }} style={`--i:${i}`}>
         <th scope="row"><abbr title={dimension[d].label}>{d}</abbr></th>
         {columns.map(({ label, scores }) => {
           const v = scores[d].value;
@@ -35,6 +36,7 @@ const showHead = columns.length > 1;
         <td class="name">
           {linkRows ? <a href={`#evidence-${d.toLowerCase()}`}>{dimension[d].label}</a> : dimension[d].label}
           {columns.length === 1 && columns[0].scores[d].value === null && <span class="muted"> unknown</span>}
+          {marked.includes(d) && <span class="small muted"> changed</span>}
         </td>
       </tr>
     ))}

@@ -2,11 +2,12 @@
 import '../styles/global.css';
 import { correctionUrl, methodology } from '../lib/data.ts';
 
-interface Props { title: string; description?: string; nav?: 'records' | 'methodology' | 'data' | 'about' }
+interface Props { title: string; description?: string; nav?: 'records' | 'methodology' | 'sources' | 'data' | 'about' }
 const { title, description = 'An evidence database of where the work on a watch is actually done.', nav } = Astro.props;
 const links = [
   ['records', '/records/', 'Records'],
   ['methodology', '/methodology/', 'Methodology'],
+  ['sources', '/sources/', 'Sources'],
   ['data', '/data/', 'Data'],
   ['about', '/about/', 'About'],
 ] as const;

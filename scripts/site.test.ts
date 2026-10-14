@@ -51,3 +51,13 @@ test('published evidence repeats the strip scores; a draft gets its own section'
   const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
   assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
 });
+
+test('sources, supplier and corrections pages are built', { skip }, () => {
+  const sourcesPage = read(join(dist, 'sources/index.html'));
+  const sourceIds = JSON.parse(read(join(dist, 'data/falk.json'))).sources.length;
+  assert.equal(sourcesPage.match(/<li data-tier=/g)?.length, sourceIds, 'every source is listed');
+  const ljp = read(join(dist, 'organizations/la-joux-perret/index.html'));
+  assert.match(ljp, /Where La Joux-Perret appears/);
+  assert.match(ljp, /records\/awake\/son-mai-guilloche-main\//);
+  assert.match(read(join(dist, 'corrections/index.html')), /<form id="correction"/);
+});
