@@ -4,191 +4,226 @@
   publisher: jn-shapiro
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015195103/https://www.jnshapirowatches.com/watches/
 - id: anordain-watchmaking
   url: https://anordain.com/pages/watchmaking
   publisher: anordain
   source_type: manufacturer
   tier: primary
   title: Watchmaking (anOrdain)
+  archived_url: https://web.archive.org/web/20261015195146/https://anordain.com/pages/watchmaking
 - id: anordain-enamelling
   url: https://anordain.com/pages/enamelling
   publisher: anordain
   source_type: manufacturer
   tier: primary
   title: Enamel (anOrdain)
+  archived_url: https://web.archive.org/web/20261015195221/https://anordain.com/pages/enamelling
 - id: akmaev-home
   url: https://akmaev.com
   publisher: artur-akmaev
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015195355/https://akmaev.com/
 - id: awake-home
   url: https://awakewatches.com
   publisher: awake
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261012084231/https://awakewatches.com/
 - id: mbandf-friends
   url: https://mbandf.com/people-spirit/the-friends
   publisher: mbandf
   source_type: manufacturer
   tier: primary
+  notes: The site blocks the Internet Archive crawler (capture failed on 2026-10-15); save a copy manually, e.g. with archive.today.
 - id: rolex-unique-approach
   url: https://rolex.com/watchmaking/a-unique-approach
   publisher: rolex
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20260912083528/https://www.rolex.com/watchmaking/a-unique-approach
 - id: tudor-manufacture-movement
   url: https://tudorwatch.com/
   publisher: tudor
   source_type: manufacturer
   tier: primary
-  notes: Handbook path is truncated ("tudorwatch.com/.../tudor-manufacture-movement"); replace with the exact page and add an archive link.
+  notes: Handbook path is truncated ("tudorwatch.com/.../tudor-manufacture-movement"). The site blocks automated access and no archived copy of a matching page was found; an editor needs to find the exact page in a browser.
 - id: kenissi-history
   url: https://kenissi.ch/History
   publisher: kenissi
   source_type: supplier_disclosure
   tier: primary
+  archived_url: https://web.archive.org/web/20261015200001/https://www.kenissi.ch/
 - id: grand-seiko-shinshu
-  url: https://grand-seiko.com/
+  url: https://www.grand-seiko.com/us-en/worldofgrandseiko/manufacture/shinshuwatchstudio
   publisher: grand-seiko
   source_type: manufacturer
   tier: primary
-  notes: Handbook path is truncated ("grand-seiko.com/.../manufacture/shinshuwatchstudio"); replace with the exact page and add an archive link.
+  title: The Shinshu Watch Studio (Grand Seiko)
+  notes: The site blocks the Internet Archive crawler (capture failed on 2026-10-15); save a copy manually, e.g. with archive.today.
 - id: nomos-production
   url: https://nomos-glashuette.com/en/watchmaking/production
   publisher: nomos
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015200315/https://nomos-glashuette.com/en/watchmaking/production
 - id: habring2-faqs
-  url: https://habring2.com/
+  url: https://www.habring2.com/index.php/en/service/faqs
   publisher: habring2
   source_type: manufacturer
   tier: primary
-  notes: Handbook path is truncated ("habring2.com/.../service/faqs"); replace with the exact page and add an archive link.
+  title: FAQs (Habring²)
+  archived_url: https://web.archive.org/web/20261015200610/https://www.habring2.com/index.php/en/service/faqs
 - id: rws-workshop
   url: https://rwsmithwatches.com/workshop
   publisher: roger-w-smith
   source_type: workshop
   tier: primary
+  archived_url: https://web.archive.org/web/20260924002323/https://rwsmithwatches.com/workshop
 - id: dufour-creations
   url: https://philippedufour.ch/en/mes-creations/
   publisher: philippe-dufour
   source_type: workshop
   tier: primary
+  archived_url: https://web.archive.org/web/20261015200933/https://philippedufour.ch/en/mes-creations/
 - id: czapek-new-antarctique
   url: https://czapek.com/new-antarctique
   publisher: czapek
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015201037/https://www.czapek.com/
 - id: baltic-about
   url: https://baltic-watches.com/en/about-us
   publisher: baltic
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015201115/https://baltic-watches.com/en/about-us
 - id: underd0g-about
   url: https://underd0g.com/pages/about-us
   publisher: studio-underd0g
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20260821055013/https://underd0g.com/pages/about-us
 - id: atelier-wen-perception
   url: https://atelierwen.com/products/perception
   publisher: atelier-wen
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015201200/https://us.atelierwen.com/products/perception?shpxid=07416acf-dc19-40f3-a194-9743d3016f13
 - id: ophion-index
   url: https://ophion-watches.com/oph-index
   publisher: ophion
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015201253/https://www.ophion-watches.com/oph-index
 - id: grossmann-manufacture
-  url: https://grossmann-uhren.com/manufacture/
+  url: https://en.grossmann-uhren.com/manufacture/
   publisher: moritz-grossmann
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015203252/https://en.grossmann-uhren.com/manufacture/
+  title: Manufacture (Moritz Grossmann)
 - id: lange-manufacture-movements
-  url: https://alange-soehne.com/
+  url: https://www.alange-soehne.com/eu-en/manufacture/art-of-watchmaking/manufacture-movements
   publisher: a-lange-sohne
   source_type: manufacturer
   tier: primary
-  notes: Handbook path is truncated ("alange-soehne.com/.../manufacture-movements"); replace with the exact page and add an archive link.
+  title: Manufacture Movements (A. Lange & Söhne)
+  archived_url: https://web.archive.org/web/20261015201446/https://www.alange-soehne.com/eu-en/manufacture/art-of-watchmaking/manufacture-movements
 - id: breitling-made-by-breitling
-  url: https://breitling.com/
+  url: https://www.breitling.com/us-en/about/madebybreitling/
   publisher: breitling
   source_type: manufacturer
   tier: primary
-  notes: Handbook path is truncated ("breitling.com/.../madebybreitling/"); replace with the exact page and add an archive link.
+  title: Precision Watches Made by Breitling (Breitling)
+  archived_url: https://web.archive.org/web/20261015201531/https://www.breitling.com/us-en/about/madebybreitling/
 - id: caliber-corner
   url: https://calibercorner.com
   title: Caliber Corner
   source_type: specialist_reference
   tier: secondary
+  archived_url: https://web.archive.org/web/20261006181541/https://calibercorner.com/
 - id: sjx-jn-shapiro-resurgence
   url: https://watchesbysjx.com/2023/05/jn-shapiro-resurgence.html
   title: J.N. Shapiro Introduces the Resurgence (Brandon Moore, SJX)
   source_type: press
   tier: secondary
   published_on: 2023-05-22
+  archived_url: https://web.archive.org/web/20261015201621/https://watchesbysjx.com/2023/05/jn-shapiro-resurgence.html
 - id: watchonista-inside-jn-shapiro-1
   url: https://www.watchonista.com/editorial/in-depth/inside-j-n-shapiro-witnessing-the-resurgence-of-american-watchmaking-part-1/
   title: "Inside J.N. Shapiro: Witnessing the Resurgence of American Watchmaking, Part 1 (Henri Lee, Watchonista)"
   source_type: press
   tier: secondary
   published_on: 2024-02-21
+  archived_url: https://web.archive.org/web/20261015201701/https://www.watchonista.com/editorial/in-depth/inside-j-n-shapiro-witnessing-the-resurgence-of-american-watchmaking-part-1/
 - id: jns-infinity-page
   url: https://www.jnshapirowatches.com/infinity-series/
   title: Infinity Series (J.N. Shapiro)
   publisher: jn-shapiro
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015201837/https://www.jnshapirowatches.com/infinity-series/
 - id: sjx-jn-shapiro-infinity
   url: https://watchesbysjx.com/2019/12/jn-shapiro-infinity-series-guilloche.html
   title: "Up Close: J.N. Shapiro Infinity Series (JX Su, SJX)"
   source_type: press
   tier: secondary
   published_on: 2019-12-13
+  archived_url: https://web.archive.org/web/20261015201933/https://watchesbysjx.com/2019/12/jn-shapiro-infinity-series-guilloche.html
 - id: quillandpad-fleming-series-1
   url: https://quillandpad.com/2024/04/08/fleming-series-1-a-superb-new-six-eater/
   title: "Fleming Series 1: A Superb New 'Six-Eater' (Martin Green, Quill & Pad)"
   source_type: press
   tier: secondary
   published_on: 2024-04-08
+  archived_url: https://web.archive.org/web/20261015202051/https://quillandpad.com/2024/04/08/fleming-series-1-a-superb-new-six-eater/
 - id: timeandtide-fleming-series-1
   url: https://timeandtidewatches.com/?p=222167
   title: The long-awaited Fleming Series 1 is finally here (Borna Bošnjak, Time+Tide)
   source_type: press
   tier: secondary
   published_on: 2024-03-12
+  archived_url: https://web.archive.org/web/20261015202133/https://timeandtidewatches.com/fleming-series-1-introducing-live-pics/
 - id: horologybythesea-akmaev-koi
   url: https://horologybythesea.com/products/artur-akmaev-stainless-steel-blue-koi-hand-engraved-in-stock
   title: Artur Akmaev Eternal Koi (retailer listing, Horology by the Sea)
   source_type: other
   tier: secondary
+  archived_url: https://web.archive.org/web/20261015202209/https://horologybythesea.com/products/artur-akmaev-stainless-steel-blue-koi-hand-engraved-in-stock
 - id: ablogtowatch-akmaev-2015
   url: https://ablogtowatch.com/affordable-hand-engraved-watch-movements-artur-akmaev
   title: Affordable Hand-Engraved Watch Movements By Artur Akmaev (Karel Bachand, aBlogtoWatch)
   source_type: press
   tier: secondary
   published_on: 2015-02-24
+  archived_url: https://web.archive.org/web/20261015202242/https://www.ablogtowatch.com/affordable-hand-engraved-watch-movements-artur-akmaev/
 - id: awake-savoir-faire
   url: https://awakewatches.com/pages/savoir-faire
   title: Savoir-faire (AWAKE)
   publisher: awake
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20260806151214/https://awakewatches.com/pages/savoir-faire
 - id: awake-people
   url: https://awakewatches.com/pages/people
   title: People (AWAKE)
   publisher: awake
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015202410/https://awakewatches.com/pages/people
 - id: awake-guilloche-main-alba
   url: https://awakewatches.com/products/guilloche-main-alba
   title: Guilloché Main Alba (AWAKE)
   publisher: awake
   source_type: manufacturer
   tier: primary
+  archived_url: https://web.archive.org/web/20261015202451/https://awakewatches.com/products/guilloche-main-alba
 - id: monochrome-czapek-antarctique
   url: https://monochrome-watches.com/czapek-antarctique-first-luxury-sports-watch-live-pics-price-review/
   title: The Czapek Antarctique, the Brand's First Luxury Sports Watch (Xavier Markl, Monochrome)
   source_type: press
   tier: secondary
   published_on: 2020-05-26
+  archived_url: https://web.archive.org/web/20261015202544/https://monochrome-watches.com/czapek-antarctique-first-luxury-sports-watch-live-pics-price-review/
