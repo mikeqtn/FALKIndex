@@ -2,3 +2,7 @@
 node_modules/
 dist/
 .astro/
+.env
+.replit
+.claude/
+.agents/

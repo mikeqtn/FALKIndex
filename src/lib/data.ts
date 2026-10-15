@@ -49,6 +49,8 @@ export const orgUrl = (id: string) => `/organizations/${id}/`;
 export const correctionUrl = (id?: string) => `/corrections/${id ? `?record=${encodeURIComponent(id)}` : ''}`;
 /** Public fallback for the corrections form when no form endpoint is configured. */
 export const issueUrl = 'https://github.com/mikeqtn/FALKIndex/issues/new';
+/** GitHub Discussions threads that mention a record: its talk page. */
+export const discussionUrl = (id: string) => `https://github.com/mikeqtn/FALKIndex/discussions?discussions_q=${encodeURIComponent(`"${id}"`)}`;
 
 /** Provenance entries where an organization does work on another brand's watch ("where this supplier appears"). */
 export const appearances = (orgId: string) =>

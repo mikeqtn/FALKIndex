@@ -5,7 +5,7 @@ import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, classification, correctionUrl, dimension, fmtDate, orgs, records, type Record,
+  DIMENSIONS, RELATIONSHIP, orgUrl, classification, correctionUrl, discussionUrl, dimension, fmtDate, orgs, records, type Record,
 } from '../../../lib/data.ts';
 
 export function getStaticPaths() {
@@ -139,6 +139,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     <div class="actions">
       <a href={`/records/${r.id}.json`}>Download JSON</a>
       <a href={correctionUrl(r.id)}>Send a correction</a>
+      <a href={discussionUrl(r.id)}>Discuss this record</a>
     </div>
     {r.notes && <p class="small muted note">{r.notes}</p>}
   </section>
