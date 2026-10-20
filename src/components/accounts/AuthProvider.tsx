@@ -3,12 +3,10 @@ import { publishableKeyFromHost } from '@clerk/react/internal';
 import type { ReactNode } from 'react';
 import '../../styles/accounts.css';
 
-const appearanceFor = (basePath: string) => ({
+const appearance = {
   theme: 'simple' as const,
   options: {
-    logoPlacement: 'inside' as const,
-    logoLinkUrl: basePath || '/',
-    logoImageUrl: `${window.location.origin}${basePath}/logo.svg`,
+    logoPlacement: 'none' as const,
   },
   variables: {
     colorPrimary: '#9C1A33',
@@ -37,19 +35,17 @@ const appearanceFor = (basePath: string) => ({
     identityPreviewEditButton: { color: '#9C1A33' },
     formFieldSuccessText: { color: '#365A45' },
     alertText: { color: '#14233F' },
-    logoBox: { height: '48px' },
-    logoImage: { maxHeight: '44px' },
     socialButtonsBlockButton: { border: '1px solid #C4CAD3', background: '#E3E6EA', color: '#14233F' },
     formButtonPrimary: { background: '#9C1A33', color: '#F6F7F8', borderRadius: '3px' },
-    formFieldInput: { border: '1px solid #7A8390', background: '#E3E6EA', color: '#14233F' },
+    formFieldInput: { minHeight: '44px', border: '1px solid #4A5361', background: '#FFFFFF', color: '#14233F', fontSize: '16px' },
     footerAction: { color: '#4A5361' },
     dividerLine: { background: '#C4CAD3' },
     alert: { background: '#F1E7D2' },
-    otpCodeFieldInput: { border: '1px solid #7A8390', background: '#E3E6EA', color: '#14233F' },
+    otpCodeFieldInput: { border: '1px solid #4A5361', background: '#FFFFFF', color: '#14233F' },
     formFieldRow: { color: '#14233F' },
     main: { color: '#14233F' },
   },
-});
+};
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const clerkPubKey = publishableKeyFromHost(
@@ -63,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <ClerkProvider
       publishableKey={clerkPubKey}
       proxyUrl={clerkProxyUrl}
-      appearance={appearanceFor(basePath)}
+      appearance={appearance}
       signInUrl={`${basePath}/sign-in`}
       signUpUrl={`${basePath}/sign-up`}
       localization={{
