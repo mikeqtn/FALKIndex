@@ -11,10 +11,26 @@ import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middl
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 
+// Baseline browser protections. Scripts are not restricted by CSP yet: Clerk loads its own.
+// Framing is blocked only in production, because Replit's preview pane shows the dev site in a frame.
+function securityHeaders(_req: express.Request,res: express.Response,next: express.NextFunction) {
+  const production = process.env.NODE_ENV === 'production';
+  res.setHeader('X-Content-Type-Options','nosniff');
+  res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=(), payment=()');
+  res.setHeader('Content-Security-Policy',`base-uri 'self'; object-src 'none'${production ? "; frame-ancestors 'none'" : ''}`);
+  if (production) {
+    res.setHeader('X-Frame-Options','DENY');
+    res.setHeader('Strict-Transport-Security','max-age=31536000');
+  }
+  next();
+}
+
 export function createApp() {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy',1);
+  app.use(securityHeaders);
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
   // API calls are same-origin only; Clerk's proxy handles its own transport.
   app.use(cors({credentials:true,origin:false}));
