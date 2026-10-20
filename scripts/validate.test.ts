@@ -40,3 +40,19 @@ test('a record with no published profile is flagged', () => {
   d.watches[0].value.profiles[0].status = 'draft';
   assert.match(check(d).warnings.join('\n'), /no published profile/);
 });
+
+test('a source behind a published profile needs an archived copy', () => {
+  const d = structuredClone(data);
+  const w = d.watches.find((w: any) => w.value.profiles.some((p: any) => p.status === 'published' && !p.is_seed))!.value;
+  const source: any = d.sources.find((s: any) => s.value.id === w.claims[0].source)!.value;
+  delete source.archived_url;
+  assert.match(check(d).errors.join('\n'), new RegExp(`"${source.id}" supports a published profile`));
+});
+
+test('any other source without an archived copy is only a warning', () => {
+  const d = structuredClone(data);
+  d.sources.push({ file: 'sources.yaml[new]', value: { id: 'uncited', url: 'https://example.com', source_type: 'manufacturer', tier: 'primary' } });
+  const { errors, warnings } = check(d);
+  assert.deepEqual(errors, []);
+  assert.match(warnings.join('\n'), /"uncited" has no archived copy/);
+});

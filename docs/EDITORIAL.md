@@ -23,7 +23,7 @@ Prefer, in this order:
 
 For each source in `data/sources.yaml`:
 - Use the exact page URL, never a home page.
-- Add `archived_url`: save the page at web.archive.org/save and paste the snapshot link. Brand pages move.
+- Add `archived_url`: save the page at web.archive.org/save and paste the snapshot link. Brand pages move. `npm run validate` fails when a source behind a published profile has none, and warns for the rest. If the Wayback Machine is blocked, use archive.today.
 - Add `title` and, for articles, `published_on`.
 
 Marketing words ("in-house", "manufacture", "handmade") are where research starts, not evidence on their own (handbook rule "Marketing terms are claims").

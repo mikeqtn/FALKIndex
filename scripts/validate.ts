@@ -67,6 +67,7 @@ export function check(raw: ReturnType<typeof load>) {
   }
 
   const claimIds = new Set<string>();
+  const evidencedSources = new Set<string>(); // cited by a published, non-seed profile
   for (const { file, data: w } of watchDocs) {
     if (file !== `watches/${w.id}.yaml`) err(file, `id "${w.id}" must match the file path`);
     if (w.id.split('/')[0] !== w.brand) err(`${file}:brand`, `brand "${w.brand}" must match the id prefix`);
@@ -116,8 +117,9 @@ export function check(raw: ReturnType<typeof load>) {
         const s = p.scores[d];
         s.evidence.forEach((e, k) => {
           const c = claims.get(e.claim);
-          if (!c) err(`${at}.scores.${d}.evidence.${k}`, `unknown claim "${e.claim}"`);
-          else if (!c.dimensions.includes(d)) warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is not tagged ${d}`);
+          if (!c) return err(`${at}.scores.${d}.evidence.${k}`, `unknown claim "${e.claim}"`);
+          if (p.status === 'published' && !p.is_seed) evidencedSources.add(c.source);
+          if (!c.dimensions.includes(d)) warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is not tagged ${d}`);
         });
         // Invariant 4: published, non-seed profiles carry a rationale and supporting evidence for every non-U score.
         if (p.status !== 'published' || p.is_seed || s.value === null) continue;
@@ -125,6 +127,13 @@ export function check(raw: ReturnType<typeof load>) {
         if (!s.evidence.some(e => e.stance === 'supports')) err(`${at}.scores.${d}`, 'at least one supporting claim required on a published profile');
       }
     });
+  }
+
+  // Brand pages move, so every source needs an archived copy; it is required once a published profile relies on it.
+  for (const { file, data: s } of srcDocs) {
+    if (s.archived_url) continue;
+    if (evidencedSources.has(s.id)) err(`${file}:archived_url`, `"${s.id}" supports a published profile and needs an archived copy`);
+    else warn(`${file}:archived_url`, `"${s.id}" has no archived copy`);
   }
   return {
     errors, warnings,

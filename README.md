@@ -44,6 +44,9 @@ npm run db:import    # loads data/ into an empty database
 npm run dev          # http://localhost:5000
 ```
 
+Set `PUBLIC_SITE_URL` (for example `https://example.com`) once the public
+domain is settled. It adds canonical links and full URLs to link previews.
+
 On Replit, the **FALK Index web** workflow does this for you. See
 [`replit.md`](replit.md) for Replit, publishing and first-admin setup.
 
