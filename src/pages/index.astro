@@ -25,10 +25,10 @@ const tests = [
       </div>
     </div>
     <div class="plate stack">
-      <ProfileStrip caption="J.N. Shapiro" animate columns={[
+      <div class="scroll"><ProfileStrip caption="J.N. Shapiro" animate columns={[
         { label: infinity.model, scores: infinity.profile.scores },
         { label: resurgence.model, scores: resurgence.profile.scores },
-      ]} />
+      ]} /></div>
       <p>Same maker. Different watches. Different routes.</p>
       <p class="small"><a href={recordUrl(infinity.id)}>{infinity.model}</a> and <a href={recordUrl(resurgence.id)}>{resurgence.model}</a></p>
     </div>

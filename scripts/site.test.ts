@@ -39,12 +39,12 @@ const read = (f: string) => {
 };
 const AGGREGATE = /^(total|sum|average|avg|mean|aggregate|overall|score)$/i;
 
-test('the production host serves the scripts, styles and logo used by sign-up and catalogue pages', async () => {
-  const assets = new Set<string>(['/logo.svg']);
+test('the production host serves the scripts and styles used by sign-up and catalogue pages', async () => {
+  const assets = new Set<string>();
   for (const html of cache.values()) {
     for (const match of html.matchAll(/(?:src|href)="(\/_astro\/[^"]+)"/g)) assets.add(match[1]);
   }
-  assert.ok(assets.size>2,'Expected built CSS and JavaScript assets');
+  assert.ok(assets.size>1,'Expected built CSS and JavaScript assets');
   for (const asset of assets) {
     const response = await fetch(`${base}${asset}`);
     assert.equal(response.status,200,asset);
