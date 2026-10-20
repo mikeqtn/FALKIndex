@@ -28,8 +28,9 @@ test('the CSV has no aggregate column', { skip }, () => {
 });
 
 test('every record page shows seven dimension rows and nothing that sums them', { skip }, () => {
-  const pages = files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f));
-  assert.equal(pages.length, 56);
+  const pages = files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f) && !read(f).includes('http-equiv="refresh"'));
+  const published = JSON.parse(read(join(dist, 'data/falk.json'))).watches.filter((w: any) => w.profiles.some((p: any) => p.status === 'published'));
+  assert.equal(pages.length, published.length);
   for (const f of pages) {
     const html = read(f);
     const strip = html.match(/<table class="strip[^"]*">([\s\S]*?)<\/table>/)?.[1] ?? '';
@@ -48,5 +49,16 @@ test('published evidence repeats the strip scores; a draft gets its own section'
     assert.deepEqual(evidence, strip, f);
     assert.equal(html.includes('Draft under review'), html.includes('id="draft-evidence-ma"'), f);
   }
-  assert.match(read(join(dist, 'records/fleming/series-1/index.html')), /Draft under review/);
+  const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
+  assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
+});
+
+test('sources, supplier and corrections pages are built', { skip }, () => {
+  const sourcesPage = read(join(dist, 'sources/index.html'));
+  const sourceIds = JSON.parse(read(join(dist, 'data/falk.json'))).sources.length;
+  assert.equal(sourcesPage.match(/<li data-tier=/g)?.length, sourceIds, 'every source is listed');
+  const ljp = read(join(dist, 'organizations/la-joux-perret/index.html'));
+  assert.match(ljp, /Where La Joux-Perret appears/);
+  assert.match(ljp, /records\/awake\/son-mai-guilloche-main\//);
+  assert.match(read(join(dist, 'corrections/index.html')), /<form id="correction"/);
 });

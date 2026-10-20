@@ -1,0 +1,77 @@
+---
+// Brands, suppliers, ateliers and groups. Lists records and appearances; never scores the organization.
+import Base from '../../layouts/Base.astro';
+import RecordTable from '../../components/RecordTable.astro';
+import { DIMENSIONS, RELATIONSHIP, appearances, dimension, orgPageIds, orgUrl, orgs, recordUrl, records, variant } from '../../lib/data.ts';
+
+export function getStaticPaths() {
+  return [...orgPageIds].map(id => ({ params: { id } }));
+}
+const org = orgs.get(Astro.params.id!)!;
+const own = records.filter(r => r.brand === org.id);
+const seen = appearances(org.id);
+const byDim = DIMENSIONS.map(d => [d, seen.filter(a => a.entry.dimension === d)] as const).filter(([, as]) => as.length);
+const partners = [...new Set(own.flatMap(r => r.provenance.flatMap(e => e.performer ?? [])).filter(id => id !== org.id))].map(id => orgs.get(id)!);
+const country = org.country && new Intl.DisplayNames(['en'], { type: 'region' }).of(org.country);
+const KIND = { brand: 'Brand', supplier: 'Supplier', group: 'Group', atelier: 'Atelier', individual: 'Individual' };
+const OWNERSHIP = { independent: 'Independent', group: 'Group-owned', unknown: 'Not recorded' };
+const parent = org.parent && orgs.get(org.parent);
+const pageOf = (id: string) => orgPageIds.has(id) ? orgUrl(id) : undefined;
+---
+<Base title={org.name} description={`Where ${org.name} appears in the FALK Index.`}>
+  <header class="page-head">
+    <h1>{org.name}</h1>
+    <dl class="pairs small">
+      <div><dt>Type</dt><dd>{KIND[org.kind]}</dd></div>
+      {org.kind !== 'supplier' && <div><dt>Ownership</dt><dd>{OWNERSHIP[org.ownership]}</dd></div>}
+      {parent && <div><dt>Part of</dt><dd>{pageOf(parent.id) ? <a href={pageOf(parent.id)}>{parent.name}</a> : parent.name}</dd></div>}
+      {country && <div><dt>Country</dt><dd>{country}</dd></div>}
+      {org.website && <div><dt>Website</dt><dd><a href={org.website}>{new URL(org.website).host}</a></dd></div>}
+    </dl>
+    {org.notes && <p class="prose">{org.notes}</p>}
+    <p class="small muted">FALK profiles describe individual watches. This page lists where {org.name} appears; it does not score the organization.</p>
+  </header>
+
+  {own.length > 0 && (
+    <section class="block">
+      <h2>Records ({own.length})</h2>
+      <RecordTable records={own} caption={`Records for ${org.name}`} showBrand={false} />
+    </section>
+  )}
+
+  {seen.length > 0 && (
+    <section class="block">
+      <h2>Where {org.name} appears</h2>
+      <p class="small muted">The same organization can be in-group for one brand and an external specialist for another, so each entry carries its own relationship.</p>
+      {byDim.map(([d, as]) => (
+        <div class="area">
+          <h3>{dimension[d].label}</h3>
+          <ul class="appear">
+            {as.map(({ record: r, entry: e }) => (
+              <li>
+                <span><a href={recordUrl(r.id)}>{r.brandName} {r.model}</a>{variant(r) && <span class="muted"> ({variant(r)})</span>}<br /><span class="small muted">{e.component}</span></span>
+                <span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  )}
+
+  {partners.length > 0 && (
+    <section class="block">
+      <h2>Suppliers and partners named in these records</h2>
+      <ul>{partners.map(o => <li>{pageOf(o.id) ? <a href={pageOf(o.id)}>{o.name}</a> : o.name}</li>)}</ul>
+    </section>
+  )}
+</Base>
+
+<style>
+  .area { margin-top: var(--s-5); }
+  .area + .area { margin-top: var(--s-6); }
+  .area h3 { margin-bottom: var(--s-3); }
+  .appear { list-style: none; margin: 0; padding: 0; background: var(--c-surface); border-radius: var(--r-plate); }
+  .appear li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); border-bottom: var(--edge); }
+  .appear li:last-child { border-bottom: 0; }
+</style>

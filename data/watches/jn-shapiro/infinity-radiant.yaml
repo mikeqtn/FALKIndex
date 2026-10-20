@@ -1,0 +1,150 @@
+id: jn-shapiro/infinity-radiant
+brand: jn-shapiro
+model: Infinity Radiant
+caliber: La Joux-Perret 5000-4
+notes: Split from the handbook's "Infinity Series" record on 2026-10-14. Evidence so far is the maker's Infinity Series page only.
+claims:
+  - id: jns-rad-ljp
+    statement: The Infinity Radiant uses the La Joux-Perret 5000-4.
+    excerpt: At the heart of the Infinity Radiant is the La Joux-Perret 5000-4,
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-rad-partner-movements
+    statement: The maker states that Infinity movements come from partners.
+    excerpt: we pair our work with movements from partners whose standards match our own
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-rad-weave
+    statement: The Basket and Infinity Weave patterns are engine-turned into the zirconium dial.
+    excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
+    source: jns-infinity-page
+    dimensions:
+      - DH
+      - CF
+      - PD
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-rad-our-weave
+    statement: The maker engine-turns its signature Infinity Weave directly into the dial metal.
+    excerpt: engine-turning our signature Infinity Weave directly onto the surface of the metal itself
+    source: jns-infinity-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: ai-draft
+  - id: jns-rad-hands
+    statement: The hands are sculpted in three dimensions.
+    excerpt: sculpted three dimensional hands
+    source: jns-infinity-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (La Joux-Perret 5000-4)
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - jns-rad-ljp
+  - dimension: MM
+    component: Complete movement
+    performer: la-joux-perret
+    relationship: external_specialist
+    claims:
+      - jns-rad-ljp
+      - jns-rad-partner-movements
+  - dimension: EX
+    component: Case (tantalum, 38 mm)
+    relationship: unknown
+    note: No source names the case maker.
+    claims: []
+  - dimension: DH
+    component: Dial engine-turning (Infinity Weave)
+    performer: jn-shapiro
+    relationship: internal
+    claims:
+      - jns-rad-our-weave
+      - jns-rad-weave
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: Who makes or finishes the hands is not stated.
+    claims:
+      - jns-rad-hands
+profiles:
+  - version: 1
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: mikeqtn
+    created_on: 2026-10-14
+    change_note: New record, split from the handbook's Infinity Series. First profile, from the maker's page only; no specialist source covers the Radiant yet. Scored lower than the 2019 Infinity on DH and CF because the depth of in-house dial work is not documented for this model. Reviewed and approved by mikeqtn on 2026-10-14.
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret 5000-4 caliber.
+        evidence:
+          - claim: jns-rad-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; the maker says it pairs its work with partner movements.
+        evidence:
+          - claim: jns-rad-partner-movements
+            stance: supports
+            note: Primary statement that movements come from partners.
+          - claim: jns-rad-ljp
+            stance: supports
+            note: Names the movement maker.
+      EX:
+        value: null
+        rationale: No source names the case maker. U until found.
+        evidence: []
+      DH:
+        value: 3
+        rationale: The maker engine-turns its patterns directly into the dial. Who makes the dial blank and the hands is not stated, so the score stops at substantial dial work rather than integrated dial and hand manufacture.
+        evidence:
+          - claim: jns-rad-our-weave
+            stance: supports
+            note: In-house dial engine-turning.
+          - claim: jns-rad-weave
+            stance: supports
+            note: Dial decoration described by the maker.
+          - claim: jns-rad-hands
+            stance: context
+            note: Hands described; maker not named.
+      CF:
+        value: 4
+        rationale: Engine-turning of the brand's own patterns is a major internal craft. Level 5 would need evidence of who performs it and to what depth on this model, as SJX documented for the 2019 Infinity.
+        evidence:
+          - claim: jns-rad-our-weave
+            stance: supports
+            note: Internal engine-turning.
+          - claim: jns-rad-weave
+            stance: supports
+            note: Defining dial craft.
+      WE:
+        value: null
+        rationale: No source describes assembly, casing or regulation of the Radiant. U until found.
+        evidence: []
+      PD:
+        value: 3
+        rationale: Original dial design, including the brand's signature engine-turned pattern, around a conventional supplier movement.
+        evidence:
+          - claim: jns-rad-weave
+            stance: supports
+            note: Bespoke dial patterns.
+    classification:
+      - artisan_atelier

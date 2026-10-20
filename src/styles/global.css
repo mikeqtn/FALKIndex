@@ -37,6 +37,7 @@
 
 /* ── Base ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--c-page); color: var(--c-ink);
@@ -214,3 +215,4 @@ abbr[title] { text-decoration: none; }
   .strip .num { margin-left: var(--s-2); }
   .strip td.v { padding-right: var(--s-2); }
 }
+.strip tr.changed > th { box-shadow: inset 3px 0 var(--c-gilt); padding-left: var(--s-2); }

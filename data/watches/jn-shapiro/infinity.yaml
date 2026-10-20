@@ -1,17 +1,15 @@
-id: jn-shapiro/infinity-series
+id: jn-shapiro/infinity
 brand: jn-shapiro
-model: Infinity Series
-notes: 'Handbook v0.2 §8 lists this record as "J.N. Shapiro — Infinity Series". The series covers at least two movement routes: UWD 33.1 (2019 Infinity) and La Joux-Perret 5000-4 (Infinity Radiant). Model-first suggests splitting it.'
+model: Infinity
+notes: 'Handbook v0.2 §8 lists this record as "J.N. Shapiro — Infinity Series". Split on 2026-10-14: this record is the Infinity with the UWD 33.1 (SJX, 2019); the Infinity Radiant (La Joux-Perret 5000-4) is jn-shapiro/infinity-radiant.'
 provenance:
   - dimension: MA
-    component: Movement (UWD 33.1; La Joux-Perret 5000-4 on the Radiant)
+    component: Movement (UWD 33.1)
     performer: uwd
     relationship: external_specialist
-    note: The Radiant movement is from La Joux-Perret.
     claims:
       - jns-inf-uwd
       - jns-inf-uwd-caliber
-      - jns-inf-radiant-ljp
   - dimension: MM
     component: Complete movement
     performer: uwd
@@ -31,7 +29,6 @@ provenance:
     claims:
       - jns-inf-own-guilloche
       - jns-inf-dial-hours
-      - jns-inf-weave
   - dimension: DH
     component: Hands (rounded, polished and blued by hand)
     relationship: unknown
@@ -88,6 +85,7 @@ claims:
     dimensions:
       - DH
       - CF
+      - PD
     date_checked: 2026-10-13
     editor: ai-draft
   - id: jns-inf-dial-hours
@@ -97,6 +95,7 @@ claims:
     dimensions:
       - DH
       - CF
+      - PD
     date_checked: 2026-10-13
     editor: ai-draft
   - id: jns-inf-weave
@@ -131,7 +130,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan Atelier
     editor: FALK v0.2 handbook
@@ -158,9 +157,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: First evidenced profile. EX changed 0 → U (no source names the case maker). Independent watchmaker descriptor proposed (Josh Shapiro engine-turns every dial himself). WE kept at 3 on inference. The record mixes two movement routes and should probably be split.
+    status: superseded
+    editor: mikeqtn
+    change_note: First evidenced profile. EX changed 0 → U (no source names the case maker). Independent watchmaker descriptor proposed (Josh Shapiro engine-turns every dial himself). WE kept at 3 on inference. The record mixes two movement routes and should probably be split. Reviewed and approved by mikeqtn on 2026-10-14.
     created_on: 2026-10-13
     scores:
       MA:
@@ -229,3 +228,79 @@ profiles:
             note: Bespoke dial patterns.
     classification:
       - artisan_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: published
+    editor: mikeqtn
+    change_note: Record split by production route. This record now covers the Infinity with the UWD 33.1; the Infinity Radiant (La Joux-Perret 5000-4) has its own record. Scores unchanged; Radiant-only evidence removed from the rationale; PD now cites the in-house dial claims (jns-inf-dial-hours, jns-inf-own-guilloche), which were tagged PD for this. Reviewed and approved by mikeqtn on 2026-10-14.
+    created_on: 2026-10-14
+    scores:
+      MA:
+        value: 0
+        rationale: Stock UWD 33.1 caliber from Uhren-Werke Dresden. No source describes modification beyond decoration.
+        evidence:
+          - claim: jns-inf-uwd-caliber
+            stance: supports
+            note: Stock caliber.
+          - claim: jns-inf-uwd
+            stance: supports
+            note: Names the movement maker.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; the maker says it pairs its work with partner movements.
+        evidence:
+          - claim: jns-inf-partner-movements
+            stance: supports
+            note: Primary statement that movements come from partners.
+          - claim: jns-inf-uwd
+            stance: supports
+            note: Names the movement maker.
+      EX:
+        value: null
+        rationale: No source names the case maker or says the case is bought in. The handbook scored 0; under "Unknown is not zero" this becomes U until the case source is found.
+        evidence: []
+      DH:
+        value: 5
+        rationale: Josh Shapiro engine-turns every dial himself, around 150 hours each. Hands are finished by hand, though who does it is not stated. The dial is the defining internal manufacture of the watch.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: All engine-turning is done by Shapiro.
+          - claim: jns-inf-dial-hours
+            stance: supports
+            note: Depth of dial production.
+          - claim: jns-inf-hands
+            stance: context
+            note: Hand finishing of hands; maker not named.
+      CF:
+        value: 5
+        rationale: Master-level engine-turning by Shapiro defines the watch, and a staff engraver decorates the movement. Both are internal.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: Defining craft performed by the watchmaker himself.
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Movement engraving done by a staff member.
+      WE:
+        value: 3
+        rationale: Movement engraving by a staff watchmaker implies the movement is stripped, decorated and reassembled in the workshop. No source describes casing, regulation or testing, so this rests on inference.
+        evidence:
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Engraving requires in-house disassembly and reassembly.
+      PD:
+        value: 3
+        rationale: Original dial design and in-house dial production around a conventional supplier movement.
+        evidence:
+          - claim: jns-inf-dial-hours
+            stance: supports
+            note: Bespoke dial production.
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: Original engine-turned patterns.
+    classification:
+      - artisan_atelier
+caliber: UWD 33.1
