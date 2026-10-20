@@ -53,6 +53,17 @@ test('the production host serves the scripts and styles used by sign-up and cata
   }
 });
 
+test('every published record has a PNG share image', async () => {
+  const PNG = [0x89, 0x50, 0x4e, 0x47];
+  for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published'))) {
+    const response = await fetch(`${base}/og/records/${watch.id}.png`);
+    assert.equal(response.status,200,watch.id);
+    assert.equal(response.headers.get('content-type'),'image/png',watch.id);
+    assert.deepEqual([...new Uint8Array(await response.arrayBuffer()).subarray(0,4)],PNG,watch.id);
+  }
+  assert.equal((await fetch(`${base}/og/records/nobody/nothing.png`)).status,404);
+});
+
 test('no exported JSON has an aggregate field', { skip }, () => {
   const walk = (v: unknown, at: string): void => {
     if (Array.isArray(v)) return v.forEach((x, i) => walk(x, `${at}[${i}]`));

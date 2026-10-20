@@ -19,7 +19,11 @@ const details = [
 ].filter(([, v]) => v) as [string, string | number][];
 const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
 ---
-<Base title={`${r.brandName} ${r.model}`} description={`FALK profile and provenance evidence for the ${r.brandName} ${r.model}.`}>
+<Base
+  title={`${r.brandName} ${r.model}`}
+  description={`FALK profile and provenance evidence for the ${r.brandName} ${r.model}.`}
+  image={{ path: `/og/records/${r.id}.png`, alt: `FALK profile of the ${r.brandName} ${r.model}: seven dimensions scored 0 to 5.` }}
+>
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 
   <header class="page-head">
