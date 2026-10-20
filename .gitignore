@@ -5,3 +5,4 @@ dist/
 .env
 .claude/
 .agents/
+attached_assets/
