@@ -2,7 +2,8 @@
 // Corrections intake (Q4). With PUBLIC_CORRECTIONS_ENDPOINT set at build time (e.g. a Formspree form URL) the form
 // posts there and the submitter's email stays private. Without it, submitting opens a prefilled public GitHub issue.
 import Base from '../layouts/Base.astro';
-import { issueUrl, records } from '../lib/data.ts';
+import { issueUrl, getCatalogue } from '../lib/data.ts';
+const { records } = await getCatalogue(Astro.locals);
 
 const endpoint = import.meta.env.PUBLIC_CORRECTIONS_ENDPOINT as string | undefined;
 const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reader', 'A reader'], ['other', 'Other']];

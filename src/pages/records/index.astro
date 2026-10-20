@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import RecordTable from '../../components/RecordTable.astro';
-import { DIMENSIONS, dimension, methodology, records } from '../../lib/data.ts';
+import { DIMENSIONS, getCatalogue } from '../../lib/data.ts';
+const { dimension, methodology, records } = await getCatalogue(Astro.locals);
 
 const archetypes = methodology.classifications.filter(c => c.kind === 'archetype');
 const levels = [0, 1, 2, 3, 4, 5];

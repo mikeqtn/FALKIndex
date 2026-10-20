@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SOURCE_TYPE, citedBy, orgs, recordUrl, records, sources } from '../lib/data.ts';
+import { SOURCE_TYPE, getCatalogue, recordUrl } from '../lib/data.ts';
+const { citedBy, orgs, records, sources } = await getCatalogue(Astro.locals);
 
 const host = (url: string) => new URL(url).host.replace(/^www\./, '');
 const publisherName = (s: { publisher?: string; url: string }) => s.publisher ? orgs.get(s.publisher)!.name : host(s.url);

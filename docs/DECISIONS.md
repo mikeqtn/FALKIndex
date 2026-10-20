@@ -23,7 +23,7 @@
 | Q12 | Corrections and contributions through accounts on the site; GitHub is no longer required. Anyone can edit any record, including scores, classification and confidence. | Adopted 2026-10-20 |
 | Q13 | Every edit is reviewed by an editor before it is published (like Wikipedia's pending changes). Editors cannot approve their own edits. Accounts carry a free-text background ("watch blogger", "hobbyist") shown on every edit; a separate "Do you work for a watch brand?" question records brand ties, and edits to those brands' records are flagged. | Adopted 2026-10-20 |
 | Q14 | Replit PostgreSQL replaces the `data/` YAML as the source of truth. `data/` remains as an exported copy. See PLAN.md Phase 5. | Adopted 2026-10-20 |
-| Q15 | Hosted on Replit (Autoscale deployment, Node server); all pages server-rendered from Replit PostgreSQL; logins via Replit Auth. Everything runs inside Replit. | Adopted 2026-10-20 |
+| Q15 | Hosted on Replit (Autoscale deployment, Astro/Node server); public catalogue pages read Replit PostgreSQL at request time. The owner explicitly chose independent FALK accounts via Replit-managed Clerk, not Replit accounts. App roles and private/public profile separation live in PostgreSQL. | Updated 2026-10-20 |
 
 ## Appendix A owner decisions
 

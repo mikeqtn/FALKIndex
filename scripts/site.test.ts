@@ -1,14 +1,57 @@
-// Checks the built site (dist/) for the "no sums" rule. Run after `npm run build`; skipped if dist/ is absent.
-import { test } from 'node:test';
+// Exercise the built SSR app anonymously, not obsolete static HTML on disk.
+import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { createServer } from 'node:http';
+import { createApp,attachProductionSite } from '../server/index.ts';
 
 const dist = 'dist';
-const skip = !existsSync(dist) && 'run npm run build first';
-const files = skip ? [] : readdirSync(dist, { recursive: true, encoding: 'utf8' }).map(f => join(dist, f));
-const read = (f: string) => readFileSync(f, 'utf8');
+assert.ok(existsSync('dist/server/entry.mjs'),'Run npm run build before npm test');
+const skip = false;
+const app = createApp();
+await attachProductionSite(app);
+const server = createServer(app);
+await new Promise<void>(resolve => server.listen(0,'127.0.0.1',resolve));
+after(() => new Promise<void>(resolve => server.close(() => resolve())));
+const address = server.address();
+assert.ok(address && typeof address !== 'string');
+const base = `http://127.0.0.1:${address.port}`;
+const cache = new Map<string,string>();
+async function snapshot(route: string, file: string) {
+  const response = await fetch(`${base}${route}`);
+  assert.equal(response.status,200,route);
+  cache.set(join(dist,file),await response.text());
+}
+await snapshot('/data/falk.json','data/falk.json');
+const dataset = JSON.parse(cache.get(join(dist,'data/falk.json'))!);
+await snapshot('/data/falk.csv','data/falk.csv');
+await snapshot('/data/schema.json','data/schema.json');
+for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published'))) {
+  await snapshot(`/records/${watch.id}/`,`records/${watch.id}/index.html`);
+  await snapshot(`/records/${watch.id}.json`,`records/${watch.id}.json`);
+}
+for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up']) await snapshot(`/${route}/`,`${route}/index.html`);
+const files = [...cache.keys()];
+const read = (f: string) => {
+  assert.ok(cache.has(f),`Missing rendered response ${f}`);
+  return cache.get(f)!;
+};
 const AGGREGATE = /^(total|sum|average|avg|mean|aggregate|overall|score)$/i;
+
+test('the production host serves the scripts, styles and logo used by sign-up and catalogue pages', async () => {
+  const assets = new Set<string>(['/logo.svg']);
+  for (const html of cache.values()) {
+    for (const match of html.matchAll(/(?:src|href)="(\/_astro\/[^"]+)"/g)) assets.add(match[1]);
+  }
+  assert.ok(assets.size>2,'Expected built CSS and JavaScript assets');
+  for (const asset of assets) {
+    const response = await fetch(`${base}${asset}`);
+    assert.equal(response.status,200,asset);
+    assert.doesNotMatch(response.headers.get('content-type') ?? '',/text\/html/,asset);
+    if (asset.endsWith('.css')) assert.match(response.headers.get('content-type') ?? '',/text\/css/);
+  }
+});
 
 test('no exported JSON has an aggregate field', { skip }, () => {
   const walk = (v: unknown, at: string): void => {

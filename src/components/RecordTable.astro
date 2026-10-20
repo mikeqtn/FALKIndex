@@ -3,7 +3,8 @@
 // data-* attributes feed the client-side filters on /records/.
 import CompactStrip from './CompactStrip.astro';
 import ConfidenceMark from './ConfidenceMark.astro';
-import { DIMENSIONS, classification, orgs, recordUrl, variant, type Record } from '../lib/data.ts';
+import { DIMENSIONS, getCatalogue, recordUrl, variant, type Record } from '../lib/data.ts';
+const { classification, orgs } = await getCatalogue(Astro.locals);
 
 interface Props { records: Record[]; caption: string; showBrand?: boolean; id?: string }
 const { records, caption, showBrand = true, id } = Astro.props;

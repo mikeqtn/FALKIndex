@@ -1,0 +1,9 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import PublicProfileApp from '../../components/accounts/PublicProfileApp';
+const { username } = Astro.params;
+---
+<Base title={username ? `@${username}` : 'Public profile'}>
+  <PublicProfileApp client:only="react" username={username ?? ''} />
+</Base>

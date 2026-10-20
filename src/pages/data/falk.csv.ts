@@ -1,12 +1,14 @@
 // One row per record, current profile only. U is an empty cell plus a <dim>_unknown flag. No total column, by rule.
-import { DIMENSIONS, records } from '../../lib/data.ts';
+import { DIMENSIONS, getCatalogue } from '../../lib/data.ts';
+import type { APIRoute } from 'astro';
 
 const cell = (v: unknown) => { const s = String(v ?? ''); return /[",\n]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s; };
 const dims = DIMENSIONS.map(d => d.toLowerCase());
 const header = ['id', 'brand', 'model', 'reference', 'caliber', 'generation', 'route', ...dims, ...dims.map(d => `${d}_unknown`),
   'classification', 'secondary_classification', 'independent_watchmaker', 'confidence', 'provisional', 'methodology', 'version'];
 
-export const GET = () => {
+export const GET: APIRoute = async ({locals}) => {
+  const {records} = await getCatalogue(locals);
   const rows = records.map(r => {
     const p = r.profile;
     const d = p.confidence !== 'D';

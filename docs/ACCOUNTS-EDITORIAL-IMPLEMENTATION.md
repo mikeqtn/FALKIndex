@@ -2,16 +2,18 @@
 
 ## Status and scope
 
-This is an implementation proposal based on the supplied “User Accounts,
-Contributions & Editorial System” brief. No application behavior, database
-schema, authentication, or publishing target has been changed by this plan.
+This staged implementation follows the supplied “User Accounts, Contributions
+& Editorial System” brief. Phase 1 supplies the server/database/account
+foundation in development. Contribution review, public record revision history,
+and methodology-administration UI remain later stages. Publishing and the first
+administrator's identity still require owner setup and verification.
 
 The brief expands the earlier Phase 5 sketch in `docs/PLAN.md`. Where they
 differ, this plan follows the new brief: three roles, preserved originals,
 public revision comparisons, professional verification, and private user data.
 It does not change FALK's scoring methodology or redesign the public site.
 
-## 1. Existing system and migration baseline
+## 1. Existing system and migration baseline (before implementation)
 
 - Astro 7 with Node 24; existing Astro components and CSS define the visual identity.
 - Static publishing builds `dist`; there is currently no production application server.
@@ -57,24 +59,18 @@ Public pages, evidence, sources, approved history, and downloads remain availabl
 without sign-in. Account, contribution, review, and administration routes are
 protected on the server. Account-specific responses are never publicly cached.
 
-### Authentication decision before Phase 1
+### Authentication decision confirmed for Phase 1
 
-`docs/DECISIONS.md` currently chooses Replit Auth. Keep that choice unless the
-owner explicitly changes it. Replit Auth means “Sign in with Replit,” not a
-separate FALK password account.
-
-If independent FALK registration is required, use Replit-managed Clerk after
-explicit approval. Do not implement a home-grown password system or silently
-switch providers. Confirm the supported integration path for the existing Astro
-project before installing or scaffolding authentication.
-
-Whichever provider is chosen:
+On 2026-10-20 the owner explicitly chose independent FALK accounts, not Replit
+accounts. Use Replit-managed Clerk, hosted sign-in components within FALK pages,
+the required same-origin production proxy, and server-verified identity.
+Do not introduce home-grown password storage or silently change providers.
 
 - Identify users by a stable, verified provider subject, not email or public username.
 - Require a trusted verified-email claim before accepting a contribution; test
   the actual provider claims and fail closed when verification is absent.
 - Keep usernames, roles, suspensions, disclosures, and public profiles in the app.
-- An app administrator manages app membership, not the underlying Replit identity.
+- An app administrator manages FALK membership; the provider owns credentials.
 - Development and production identities and administrator setup are separate.
 
 ## 3. Database design — support all phases from the beginning
@@ -308,8 +304,7 @@ editors and contributors cannot change core methodology through alternate APIs.
 
 ## 8. Decisions to confirm before their implementation
 
-- **Login experience:** keep the documented Replit Auth choice, or allow
-  independent FALK accounts with an explicitly selected provider?
+- **Login experience — resolved:** independent FALK accounts through managed Clerk.
 - **First administrator:** which trusted identity receives the initial grant,
   and who is the second independent reviewer?
 - **Public proposal visibility:** keep pending bodies private by default, and

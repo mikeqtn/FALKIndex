@@ -2,12 +2,11 @@
 // Brands, suppliers, ateliers and groups. Lists records and appearances; never scores the organization.
 import Base from '../../layouts/Base.astro';
 import RecordTable from '../../components/RecordTable.astro';
-import { DIMENSIONS, RELATIONSHIP, appearances, dimension, orgPageIds, orgUrl, orgs, recordUrl, records, variant } from '../../lib/data.ts';
+import { DIMENSIONS, RELATIONSHIP, getCatalogue, orgUrl, recordUrl, variant } from '../../lib/data.ts';
 
-export function getStaticPaths() {
-  return [...orgPageIds].map(id => ({ params: { id } }));
-}
-const org = orgs.get(Astro.params.id!)!;
+const { appearances,dimension,orgPageIds,orgs,records } = await getCatalogue(Astro.locals);
+const org = orgs.get(Astro.params.id!);
+if (!org || !orgPageIds.has(org.id)) return new Response('Organization not found',{status:404});
 const own = records.filter(r => r.brand === org.id);
 const seen = appearances(org.id);
 const byDim = DIMENSIONS.map(d => [d, seen.filter(a => a.entry.dimension === d)] as const).filter(([, as]) => as.length);

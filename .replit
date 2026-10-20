@@ -30,9 +30,15 @@ args = "npm run dev -- --ignore-lock"
 waitForPort = 5000
 
 [deployment]
-deploymentTarget = "static"
+deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
 publicDir = "dist"
+run = ["npm", "start"]
+
+[[ports]]
+localPort = 4321
+externalPort = 3000
+exposeLocalhost = true
 
 [[ports]]
 localPort = 5000

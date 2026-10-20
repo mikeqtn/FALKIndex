@@ -1,0 +1,8 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import { SignInPage } from '../../components/accounts/AuthPages';
+---
+<Base title="Sign in">
+  <SignInPage client:only="react" />
+</Base>

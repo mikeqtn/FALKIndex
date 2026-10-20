@@ -5,13 +5,12 @@ import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, classification, correctionUrl, discussionUrl, dimension, fmtDate, orgs, records, type Record,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, fmtDate,
 } from '../../../lib/data.ts';
 
-export function getStaticPaths() {
-  return records.map(r => { const [brand, model] = r.id.split('/'); return { params: { brand, model }, props: { r } }; });
-}
-const { r } = Astro.props as { r: Record };
+const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
+const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
+if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
 const noProfile = p.confidence === 'D';
 const details = [

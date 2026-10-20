@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import { fmtDate, methodology as m, records } from '../lib/data.ts';
+import { fmtDate, getCatalogue } from '../lib/data.ts';
+const { methodology:m, records } = await getCatalogue(Astro.locals);
 
 const count = (code: string) => code === 'independent_watchmaker'
   ? records.filter(r => r.profile.independent_watchmaker).length

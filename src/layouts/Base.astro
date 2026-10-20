@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
-import { correctionUrl, methodology } from '../lib/data.ts';
+import { correctionUrl, getCatalogue } from '../lib/data.ts';
+import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
+const { methodology } = await getCatalogue(Astro.locals);
 
 interface Props { title: string; description?: string; nav?: 'records' | 'methodology' | 'sources' | 'data' | 'about' }
 const { title, description = 'An evidence database of where the work on a watch is actually done.', nav } = Astro.props;
@@ -32,6 +34,7 @@ const links = [
           <label class="sr-only" for="nav-q">Search records</label>
           <input id="nav-q" type="search" name="q" placeholder="Search records" />
         </form>
+        <AccountNavigation client:only="react" />
       </nav>
     </header>
     <slot name="banner" />

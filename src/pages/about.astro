@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
-import { correctionUrl, record, recordUrl } from '../lib/data.ts';
+import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
+const { record } = await getCatalogue(Astro.locals);
 
 const example = record('fleming/series-1');
 ---

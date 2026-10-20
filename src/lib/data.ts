@@ -1,13 +1,8 @@
-// Build-time data access for pages. Reuses the validator, so an invalid data/ fails the build.
-import { check, load } from '../../scripts/validate.ts';
+// Request-scoped approved catalogue. No startup snapshot or silent YAML fallback.
+import { loadCatalogue } from '../../server/catalogue.ts';
 import { DIMENSIONS, type Watch } from '../schema.ts';
 
-const result = check(load('data'));
-if (result.errors.length) throw new Error(`data/ is invalid:\n${result.errors.join('\n')}`);
-
 export { DIMENSIONS };
-export const { methodologies, orgs, sources, watches } = result.parsed;
-export const methodology = methodologies.get('v0.2')!;
 
 export type Profile = Watch['profiles'][number];
 export type Scores = Profile['scores'];
@@ -15,7 +10,10 @@ export type Record = Watch & { profile: Profile; draft?: Profile; brandName: str
 
 // A record is listed once it has a published profile. A newer draft is shown openly on the record page,
 // labelled "Draft under review", next to (never in place of) the published profile.
-export const records: Record[] = watches
+function catalogue(parsed: Awaited<ReturnType<typeof loadCatalogue>>) {
+const { methodologies,orgs,sources,watches } = parsed;
+const methodology = methodologies.get('v0.2')!;
+const records: Record[] = watches
   .filter(w => w.profiles.some(p => p.status === 'published'))
   .map(w => {
     const profile = w.profiles.find(p => p.status === 'published')!;
@@ -24,12 +22,22 @@ export const records: Record[] = watches
   })
   .sort((a, b) => a.brandName.localeCompare(b.brandName) || a.model.localeCompare(b.model));
 
-export const record = (id: string) => records.find(r => r.id === id)!;
+const record = (id: string) => records.find(r => r.id === id)!;
 
 const sentence = (s: string) => s[0] + s.slice(1).toLowerCase();
-export const dimension = Object.fromEntries(methodology.dimensions.map(d => [d.code, { ...d, label: sentence(d.name) }]));
-export const classification = (code: string, m = methodology.code) =>
+const dimension = Object.fromEntries(methodology.dimensions.map(d => [d.code, { ...d, label: sentence(d.name) }]));
+const classification = (code: string, m = methodology.code) =>
   methodologies.get(m)!.classifications.find(c => c.code === code)!;
+const appearances = (orgId: string) =>
+  records.flatMap(r => r.brand === orgId ? [] : r.provenance.filter(e => e.performer === orgId).map(entry => ({ record: r, entry })));
+const orgPageIds = new Set([...records.map(r => r.brand), ...records.flatMap(r => r.provenance.flatMap(e => e.performer ?? []))]);
+const citedBy = (sourceId: string) => watches.filter(w => w.claims.some(c => c.source === sourceId));
+return {methodologies,orgs,sources,watches,methodology,records,record,dimension,classification,appearances,orgPageIds,citedBy};
+}
+type Catalogue = ReturnType<typeof catalogue>;
+export async function getCatalogue(locals: {catalogue?:Promise<Catalogue>} = {}): Promise<Catalogue> {
+  return locals.catalogue ??= loadCatalogue().then(catalogue);
+}
 
 export const CONFIDENCE = { A: 'Strong primary evidence', B: 'Good evidence, limited gaps', C: 'Material gaps remain', D: 'Sparse or conflicting' } as const;
 export const RELATIONSHIP = { internal: 'Internal', in_group: 'In-group', external_specialist: 'External specialist', contract: 'Contract', unknown: 'Unknown' } as const;
@@ -51,13 +59,3 @@ export const correctionUrl = (id?: string) => `/corrections/${id ? `?record=${en
 export const issueUrl = 'https://github.com/mikeqtn/FALKIndex/issues/new';
 /** GitHub Discussions threads that mention a record: its talk page. */
 export const discussionUrl = (id: string) => `https://github.com/mikeqtn/FALKIndex/discussions?discussions_q=${encodeURIComponent(`"${id}"`)}`;
-
-/** Provenance entries where an organization does work on another brand's watch ("where this supplier appears"). */
-export const appearances = (orgId: string) =>
-  records.flatMap(r => r.brand === orgId ? [] : r.provenance.filter(e => e.performer === orgId).map(entry => ({ record: r, entry })));
-
-/** Organizations with a page: every brand with a record, plus every organization named in a provenance entry. */
-export const orgPageIds = new Set([...records.map(r => r.brand), ...records.flatMap(r => r.provenance.flatMap(e => e.performer ?? []))]);
-
-/** Watches whose claims cite a source, published or not (matches falk.json). */
-export const citedBy = (sourceId: string) => watches.filter(w => w.claims.some(c => c.source === sourceId));

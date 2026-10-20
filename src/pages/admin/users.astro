@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminUsersApp from '../../components/accounts/AdminUsersApp';
+---
+<Base title="People and access">
+  <AdminUsersApp client:only="react" />
+</Base>

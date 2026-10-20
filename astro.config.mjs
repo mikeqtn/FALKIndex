@@ -1,9 +1,14 @@
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
+import react from '@astrojs/react';
 
 export default defineConfig({
   trailingSlash: 'ignore',
+  output: 'server',
+  adapter: node({mode:'middleware'}),
+  integrations: [react()],
   server: { host: '0.0.0.0', port: 5000 },
-  vite: { server: { allowedHosts: true } },
+  vite: { envPrefix:['PUBLIC_','VITE_'], server: { allowedHosts: true } },
   // Brand pages moved in Phase 4; keep old links working.
   redirects: {
     '/brands/[id]': '/organizations/[id]',

@@ -1,0 +1,58 @@
+import { createHash } from 'node:crypto';
+import { Router } from 'express';
+import { z } from 'zod';
+import { getAuth } from '@clerk/express';
+import { profileInput, qualificationOptions } from '../src/accounts/contracts.ts';
+import { pool } from './db.ts';
+import { authenticatedAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
+import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
+import admin from './admin.ts';
+
+export const api = Router();
+api.use((_req,res,next) => { res.set('Cache-Control','no-store'); next(); });
+export function requireSameOrigin(origin: string | undefined, host: string | undefined, protocol = 'https') {
+  let valid = false;
+  try {
+    const parsed = origin && new URL(origin);
+    valid = !!parsed && parsed.host === host && parsed.protocol === `${protocol}:` && /^https?:$/.test(parsed.protocol);
+  } catch {}
+  if (!valid) throw new HttpError(403,'This request must come from the FALK website.');
+}
+api.use(async (req,_res,next) => {
+  if (!['GET','HEAD','OPTIONS'].includes(req.method)) {
+    requireSameOrigin(req.get('origin'),getClerkProxyHost(req),req.protocol);
+    if (!req.is('application/json')) throw new HttpError(415,'Send application/json.');
+  }
+  const bucket = Math.floor(Date.now()/60000);
+  const write = !['GET','HEAD','OPTIONS'].includes(req.method);
+  const key = createHash('sha256').update(`${process.env.SESSION_SECRET ?? 'falk-rate-limit'}:${write ? 'write' : 'read'}:${getAuth(req).userId ?? req.ip}`).digest('hex');
+  const hits = await pool.query(`INSERT INTO falk_rate_limit(key,bucket) VALUES($1,$2)
+    ON CONFLICT(key,bucket) DO UPDATE SET hits=falk_rate_limit.hits+1 RETURNING hits`, [key,bucket]);
+  if (hits.rows[0].hits > (write ? 30 : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
+  next();
+});
+api.get('/health', async (_req,res) => {
+  const rows = await pool.query('SELECT count(*)::int AS records FROM falk_watch');
+  if (!rows.rows[0].records) throw new HttpError(503,'The catalogue has not been imported.');
+  res.json({ok:true,records:rows.rows[0].records});
+});
+api.get('/accounts/meta', async (_req,res) => {
+  const rows = await pool.query("SELECT id,payload->>'name' AS name FROM falk_organization ORDER BY name");
+  res.json({qualificationOptions,organizations:rows.rows});
+});
+api.get('/account', async (req,res) => { res.json(await authenticatedAccount(req)); });
+api.patch('/account', async (req,res) => {
+  const { account } = await authenticatedAccount(req);
+  const input = profileInput.parse(req.body);
+  await saveProfile(account,input);
+  const { username,...profile } = input;
+  res.json({account:{...account,username,onboarded:true,profile}});
+});
+api.get('/profiles/:username', async (req,res) => {
+  const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/).parse(req.params.username);
+  const profile = await publicProfile(username);
+  if (!profile) throw new HttpError(404,'Public profile not found.');
+  res.json({profile});
+});
+api.use('/admin',admin);
+api.use((_req,_res) => { throw new HttpError(404,'API route not found.'); });

@@ -311,6 +311,13 @@ Accessibility: the profile strip must show numbers and letters as text, not colo
 
 ### Phase 5: Accounts and community editing (decided 2026-10-20)
 
+**Updated scope:** `docs/ACCOUNTS-EDITORIAL-IMPLEMENTATION.md` supersedes this
+initial short sketch, including its illustrative schema, required profile fields,
+and pending-proposal visibility assumptions. The owner selected independent
+FALK accounts through Replit-managed Clerk; retain exactly three app roles and
+review every catalogue change. Phase 1 supplies the account/database foundation;
+the contribution workflow and public revision-history UI remain later stages.
+
 Anyone can create an account and edit any record (scores included). Every edit is reviewed by an editor before it goes live. GitHub is no longer part of contributing. See `docs/DECISIONS.md` Q12–Q14.
 
 **Storage.** Replit's built-in PostgreSQL is the source of truth, replacing `data/` YAML. Each record, organization, and source is one JSONB document, validated by the existing Zod schemas in `src/schema.ts` and the invariants in `scripts/validate.ts`. Nothing is redesigned. The relational tables in §4.1 are not needed until a query demands them.
@@ -321,7 +328,7 @@ revision  (id bigserial PRIMARY KEY, kind text, entity_id text, data jsonb,     
            author text REFERENCES account, summary text NOT NULL,                     -- edit summary, as on Wikipedia
            status text CHECK (status IN ('pending','approved','rejected')),
            reviewer text REFERENCES account, review_note text, created_at timestamptz, reviewed_at timestamptz)
-account   (id text PRIMARY KEY,                                                         -- Replit Auth user id
+account   (id text PRIMARY KEY,                                                         -- illustrative provider identity; actual app uses UUID + Clerk subject
            display_name text NOT NULL,
            role text CHECK (role IN ('contributor','editor','admin')) DEFAULT 'contributor',
            background text NOT NULL,                                                     -- free text, e.g. 'watch blogger', 'hobbyist since 2010'; shown on every edit
@@ -331,7 +338,7 @@ account   (id text PRIMARY KEY,                                                 
 Revisions are append-only, so history, diffs, and reverts all come from `revision`. The server checks roles on every write: contributors can create only `pending` revisions, and only editors can approve them.
 
 **Flow.**
-1. Sign up with Replit Auth (Google, email, and others). A display name and a short background are required: free text describing what gives the person credibility ("watch blogger", "hobbyist", "retired watchmaker"). It is not tied to a brand. A separate question asks "Do you work for a watch brand?"; if yes, the person picks the brand(s) from the organization list.
+1. Sign up with an independent FALK account via managed Clerk and verify an email address. A unique public username is required; display name, bio and self-reported qualifications are optional. A real name is private by default, and a separate disclosure records organization ties. Qualifications do not grant permissions.
 2. Use **Edit** on any record. This is a form for scores (0–5 or U), rationale, classification, confidence, claims, sources, and provenance. An edit summary is required.
 3. On save, the document is validated with the same rules as CI. Invalid edits are refused with the specific rule that failed. Changing a score requires a rationale and a supporting claim (invariant 4).
 4. The record page shows "N pending edits". Anyone can see the diff.
@@ -342,7 +349,7 @@ Revisions are append-only, so history, diffs, and reverts all come from `revisio
 **Site.** Hosted on Replit as one Node server (Astro with `@astrojs/node`, Replit Autoscale deployment). All pages are server-rendered from the database, so an approved edit is live at once with no rebuild step. Public pages send cache headers that are purged on approval. History pages and per-record talk pages replace the GitHub Discussions links.
 
 **Steps.**
-1. Set up the Replit app: add `@astrojs/node`, enable Replit PostgreSQL (`DATABASE_URL`) and Replit Auth, and track `.replit` again. Production domain is blocked on Q11; development uses the Replit URL.
+1. Set up the Replit app: add `@astrojs/node`, enable Replit PostgreSQL (`DATABASE_URL`) and independent accounts via managed Clerk, and track `.replit` again. Production domain is blocked on Q11; development uses the Replit URL.
 2. Write a migration script that loads `data/` into `entity` with one approved seed revision per entity. Keep `data/` as a nightly JSON/CSV export so open data (F13) and the git trail continue.
 3. Point `src/lib/data.ts` at the database at request time. The page templates don't change.
 4. Accounts, the edit form, server-side validation, and pending revisions.
@@ -350,7 +357,9 @@ Revisions are append-only, so history, diffs, and reverts all come from `revisio
 6. History and talk pages; the corrections form stays for people without an account.
 - **Validate:** a contributor edit with a missing rationale is refused; a pending edit is not visible on the public page until approved; a contributor cannot approve; an editor cannot approve their own edit; an edit by a brand-tied author is flagged.
 
-**Ceiling.** Every edit is reviewed, so throughput is limited by editor time. If the queue grows, add a "trusted contributor" role whose fact-only edits publish directly.
+**Ceiling.** Every edit is reviewed, so throughput is limited by editor time.
+If the queue grows, improve review tooling and recruit editors; do not add an
+automatic-publishing role or bypass review.
 
 ### After the MVP
 - Evidence the remaining 50 records (ongoing editorial work).

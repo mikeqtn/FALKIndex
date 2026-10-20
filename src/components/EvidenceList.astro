@@ -1,6 +1,7 @@
 ---
 // One profile's evidence by dimension: rationale, then supporting, conflicting and context claims.
-import { DIMENSIONS, SOURCE_TYPE, correctionUrl, dimension, fmtDate, methodologies, sources, type Profile, type Record } from '../lib/data.ts';
+import { DIMENSIONS, SOURCE_TYPE, correctionUrl, getCatalogue, fmtDate, type Profile, type Record } from '../lib/data.ts';
+const { dimension, methodologies, sources } = await getCatalogue(Astro.locals);
 
 interface Props { profile: Profile; record: Record; idPrefix: string }
 const { profile, record, idPrefix } = Astro.props;

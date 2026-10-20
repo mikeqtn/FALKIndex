@@ -1,7 +1,8 @@
 ---
 import { execSync } from 'node:child_process';
 import Base from '../../layouts/Base.astro';
-import { fmtDate, records, watches } from '../../lib/data.ts';
+import { fmtDate, getCatalogue } from '../../lib/data.ts';
+const { records, watches } = await getCatalogue(Astro.locals);
 
 const commit = (() => { try { return execSync('git rev-parse --short HEAD').toString().trim(); } catch { return ''; } })();
 const built = new Date().toISOString().slice(0, 10);

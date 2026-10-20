@@ -1,6 +1,7 @@
 ---
 // Full strip: one row per dimension, one value column per profile. Never a total, average or summary row.
-import { DIMENSIONS, dimension, type Scores } from '../lib/data.ts';
+import { DIMENSIONS, getCatalogue, type Scores } from '../lib/data.ts';
+const { dimension } = await getCatalogue(Astro.locals);
 
 interface Props {
   caption: string;
