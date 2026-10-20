@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { useAuth } from '@clerk/react';
 import type { AdminMember, Role, Verification } from '../../accounts/contracts';
 import { ROLES } from '../../accounts/contracts';
 import { api, dateLabel, handleAccountError } from './api';
@@ -34,10 +35,12 @@ function AdminConsole() {
   async function loadMembers() {
     setLoading(true);
     try {
-      const params = new URLSearchParams({ search, role, status, page: String(page) });
+      const params = new URLSearchParams({ search, page: String(page) });
+      if (role) params.set('role', role);
+      if (status) params.set('status', status);
       setResult(await api<MemberPage>(`/api/admin/accounts?${params}`));
       setError('');
-    } catch (reasonValue) { setError(handleAccountError(reasonValue)); }
+    } catch (reasonValue) { setResult(null); setError(handleAccountError(reasonValue)); }
     finally { setLoading(false); }
   }
   async function loadDetail(id: string) {
@@ -51,8 +54,8 @@ function AdminConsole() {
   }, []);
   function applySearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setPage(1);
-    loadMembers();
+    if (page === 1) loadMembers();
+    else setPage(1);
   }
   async function updateMember(id: string, patch: { role?: Role; status?: 'active' | 'suspended' }) {
     if (reason.trim().length < 10) { setError('Provide a reason of at least 10 characters before changing access.'); return; }
@@ -123,8 +126,8 @@ function AdminConsole() {
             <div className="account-field"><label htmlFor="status-filter">Status</label><select id="status-filter" value={status} onChange={e => { setStatus(e.target.value); setPage(1); }}><option value="">All statuses</option><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
             <button className="account-button" type="submit" disabled={loading}>Search</button>
           </form>
-          {loading ? <div className="account-loading" aria-label="Loading accounts"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div> : result?.accounts.length ? <div className="account-table-wrap"><table className="account-table"><thead><tr><th>Account</th><th>Role</th><th>Status</th><th>Email</th><th>Joined</th><th>Manage</th></tr></thead><tbody>{result.accounts.map(member => <tr key={member.id}><td><strong>{member.displayName || member.username || member.email}</strong><div className="account-help">{member.username ? `@${member.username}` : 'Profile setup incomplete'}</div></td><td>{member.role}</td><td>{member.status}</td><td>{member.emailVerified ? 'Verified' : 'Unverified'}</td><td>{dateLabel(member.createdAt)}</td><td><button className="account-button secondary" type="button" onClick={() => loadDetail(member.id)}>{selected === member.id ? 'Selected' : 'Manage'}</button></td></tr>)}</tbody></table></div> : <p className="account-empty">No matching accounts.</p>}
-          <div className="account-pagination"><span className="account-help">{result ? `${result.total} accounts · page ${result.page}` : ''}</span><div className="account-actions"><button className="account-button secondary" type="button" disabled={page <= 1 || loading} onClick={() => setPage(value => Math.max(1, value - 1))}>Previous</button><button className="account-button secondary" type="button" disabled={!result || result.page * result.accounts.length >= result.total || loading} onClick={() => setPage(value => value + 1)}>Next</button></div></div>
+          {loading ? <div className="account-loading" aria-label="Loading accounts"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div> : result?.accounts.length ? <div className="account-table-wrap"><table className="account-table"><thead><tr><th>Account</th><th>Role</th><th>Status</th><th>Email</th><th>Joined</th><th>Manage</th></tr></thead><tbody>{result.accounts.map(member => <tr key={member.id}><td><strong>{member.displayName || member.username || member.email}</strong><div className="account-help">{member.username ? `@${member.username}` : 'Profile setup incomplete'}</div></td><td>{member.role}</td><td>{member.status}</td><td>{member.emailVerified ? 'Verified' : 'Unverified'}</td><td>{dateLabel(member.createdAt)}</td><td><button className="account-button secondary" type="button" onClick={() => loadDetail(member.id)}>{selected === member.id ? 'Selected' : 'Manage'}</button></td></tr>)}</tbody></table></div> : result ? <p className="account-empty">No matching accounts.</p> : <p className="account-empty">The account list could not be loaded. <button className="account-button secondary" type="button" onClick={loadMembers}>Retry</button></p>}
+          <div className="account-pagination"><span className="account-help">{result ? `${result.total} accounts · page ${result.page}` : ''}</span><div className="account-actions"><button className="account-button secondary" type="button" disabled={page <= 1 || loading} onClick={() => setPage(value => Math.max(1, value - 1))}>Previous</button><button className="account-button secondary" type="button" disabled={!result || result.page * 25 >= result.total || loading} onClick={() => setPage(value => value + 1)}>Next</button></div></div>
         </section>
         {selected && <section className="account-panel account-stack" aria-live="polite">
           <div className="account-heading"><div><p className="account-kicker">Account detail</p><h2>{detail?.account.displayName || detail?.account.email || 'Loading account…'}</h2></div><button type="button" className="account-button secondary" onClick={() => { setSelected(null); setDetail(null); }}>Close</button></div>
@@ -152,6 +155,13 @@ function AdminConsole() {
   );
 }
 
+function AdminSession() {
+  const { isLoaded, isSignedIn } = useAuth();
+  if (!isLoaded) return <main className="account-shell"><p role="status">Checking your session…</p></main>;
+  if (!isSignedIn) return <main className="account-shell"><h1 className="account-title">Administration</h1><p>Sign in with an administrator account to manage people and access.</p><a className="account-button" href="/sign-in?redirect_url=%2Fadmin%2Fusers">Sign in</a></main>;
+  return <AdminConsole />;
+}
+
 export default function AdminUsersApp() {
-  return <AuthProvider><AdminConsole /></AuthProvider>;
+  return <AuthProvider><AdminSession /></AuthProvider>;
 }

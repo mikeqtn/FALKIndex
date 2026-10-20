@@ -7,6 +7,12 @@ import { authenticatedAccount, audit, enforceAccount, HttpError, normalizeEmail,
 
 const reason = z.string().trim().min(10, 'Explain the reason in at least 10 characters').max(2000);
 const uuid = z.uuid();
+export const adminAccountQuery = z.object({
+  search:z.string().max(100).default(''),
+  role:z.preprocess(value => value === '' ? undefined : value,z.enum(ROLES).optional()),
+  status:z.preprocess(value => value === '' ? undefined : value,z.enum(['active','suspended']).optional()),
+  page:z.coerce.number().int().min(1).max(100000).default(1),
+});
 const selection = `SELECT a.id,a.username,a.role,a.status,a.email_verified AS "emailVerified",
   a.created_at AS "createdAt",p.display_name AS "displayName",x.email
   FROM falk_account a JOIN falk_member_profile p ON p.account_id=a.id
@@ -24,10 +30,7 @@ admin.use(async (req,res,next) => {
   next();
 });
 admin.get('/accounts', async (req,res) => {
-  const query = z.object({
-    search:z.string().max(100).default(''),role:z.enum(ROLES).optional(),
-    status:z.enum(['active','suspended']).optional(),page:z.coerce.number().int().min(1).max(100000).default(1),
-  }).parse(req.query);
+  const query = adminAccountQuery.parse(req.query);
   const values = [realm(),`%${query.search}%`,query.role ?? null,query.status ?? null];
   const where = `WHERE a.realm=$1 AND (coalesce(a.username,'') ILIKE $2 OR p.display_name ILIKE $2 OR x.email ILIKE $2)
     AND ($3::text IS NULL OR a.role=$3) AND ($4::text IS NULL OR a.status=$4)`;

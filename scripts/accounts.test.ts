@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
 import { enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
-import { protectLastAdmin } from '../server/admin.ts';
+import { adminAccountQuery, protectLastAdmin } from '../server/admin.ts';
 import { requireSameOrigin } from '../server/api.ts';
 import { profileInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
@@ -36,6 +36,19 @@ test('last active administrator cannot be suspended or demoted', () => {
   assert.throws(() => protectLastAdmin(current,{role:'editor',status:'active'},1),/last active/);
   assert.throws(() => protectLastAdmin(current,{role:'admin',status:'suspended'},1),/last active/);
   assert.doesNotThrow(() => protectLastAdmin(current,{role:'editor',status:'active'},2));
+});
+test('admin account filters accept omitted and empty all-values but reject invalid filters', () => {
+  const defaults = {search:'',page:1};
+  assert.deepEqual(adminAccountQuery.parse({}),defaults);
+  const all = adminAccountQuery.parse({search:'',role:'',status:'',page:'1'});
+  assert.equal(all.role,undefined);
+  assert.equal(all.status,undefined);
+  assert.equal(all.page,1);
+  assert.deepEqual(adminAccountQuery.parse({role:'admin',status:'active',page:'2'}),
+    {...defaults,role:'admin',status:'active',page:2});
+  for (const query of [{role:'owner'},{status:'deleted'},{page:'0'},{role:['admin','contributor']}]) {
+    assert.equal(adminAccountQuery.safeParse(query).success,false);
+  }
 });
 test('an invitation cannot replay a weaker role over an existing staff grant', () => {
   assert.equal(invitationRole('admin','contributor'),'admin');
