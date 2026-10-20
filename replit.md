@@ -43,6 +43,10 @@ They fail, rather than skip, when a server build is missing.
   restore revoked roles. Production and development have separate auth realms.
 - Existing admin accounts invite members and manage roles/status at
   `/admin/users`; credentials are independently verified, never self-granted.
+- Public correction forms save evidence-backed submissions to `falk_submission`
+  in PostgreSQL. Guests may submit without accounts; optional name/email stay
+  private. Corrections are not sent to GitHub or another form service. The
+  editorial review UI is not yet implemented.
 - The detailed staged scope is `docs/ACCOUNTS-EDITORIAL-IMPLEMENTATION.md`.
   Phase 1 is the account foundation; contribution review, public record history,
   and methodology administration are subsequent phases, not implemented UI.

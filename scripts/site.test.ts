@@ -103,5 +103,8 @@ test('sources, supplier and corrections pages are built', { skip }, () => {
   const ljp = read(join(dist, 'organizations/la-joux-perret/index.html'));
   assert.match(ljp, /Where La Joux-Perret appears/);
   assert.match(ljp, /records\/awake\/son-mai-guilloche-main\//);
-  assert.match(read(join(dist, 'corrections/index.html')), /<form id="correction"/);
+  const corrections = read(join(dist, 'corrections/index.html'));
+  assert.match(corrections, /<form id="correction"[^>]*action="\/api\/corrections"/);
+  assert.match(corrections, /stored privately for editors/);
+  assert.doesNotMatch(corrections, /github\.com\/mikeqtn\/FALKIndex\/issues\/new|PUBLIC_CORRECTIONS_ENDPOINT/);
 });

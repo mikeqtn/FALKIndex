@@ -1,11 +1,9 @@
 ---
-// Corrections intake (Q4). With PUBLIC_CORRECTIONS_ENDPOINT set at build time (e.g. a Formspree form URL) the form
-// posts there and the submitter's email stays private. Without it, submitting opens a prefilled public GitHub issue.
+// Public correction intake. Submissions are stored in PostgreSQL for editorial review.
 import Base from '../layouts/Base.astro';
-import { issueUrl, getCatalogue } from '../lib/data.ts';
+import { getCatalogue } from '../lib/data.ts';
 const { records } = await getCatalogue(Astro.locals);
 
-const endpoint = import.meta.env.PUBLIC_CORRECTIONS_ENDPOINT as string | undefined;
 const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reader', 'A reader'], ['other', 'Other']];
 ---
 <Base title="Send a correction" description="Send an evidence-based correction to a FALK record.">
@@ -13,7 +11,7 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
     <div>
       <header class="page-head"><h1>Send a correction</h1></header>
 
-      <form id="correction" class="stack form" method={endpoint ? "post" : "get"} action={endpoint ?? issueUrl} data-endpoint={endpoint ?? ''} data-issue={issueUrl}>
+      <form id="correction" class="stack form" method="post" action="/api/corrections">
         <div class="field">
           <label for="record">Which record?</label>
           <select id="record" name="record" required>
@@ -32,8 +30,8 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
 
         <div class="field">
           <label for="body">What should change, and why?</label>
-          <textarea id="body" name={endpoint ? "correction" : "body"} rows="7" required></textarea>
-          {!endpoint && <noscript><p class="small muted">Without JavaScript, only this text reaches the issue: name the record and paste your evidence links here.</p></noscript>}
+          <textarea id="body" name="correction" rows="7" required></textarea>
+          <noscript><p class="small muted">JavaScript is required to send this correction securely.</p></noscript>
           <p class="err" id="body-err" hidden></p>
         </div>
 
@@ -49,26 +47,20 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
             <label for="name">Name (optional)</label>
             <input id="name" type="text" name="name" autocomplete="name" />
           </div>
-          {endpoint && (
-            <div class="field">
-              <label for="email">Email (optional)</label>
-              <input id="email" type="email" name="email" autocomplete="email" />
-            </div>
-          )}
+          <div class="field">
+            <label for="email">Email (optional)</label>
+            <input id="email" type="email" name="email" autocomplete="email" />
+          </div>
         </div>
-        {endpoint
-          ? <p class="small muted">Your email is only used to reply. It's never published.</p>
-          : <p class="small muted">Corrections are currently sent as a public GitHub issue, so everything you write here, including your name, will be visible. A GitHub account is needed.</p>}
+        <p class="small muted">Your name and email are optional and are stored privately for editors. They are not shown publicly. You can send a correction without an account.</p>
 
-        {!endpoint && <input type="hidden" name="title" value="Correction" />}
-        {endpoint && <input type="hidden" name="_subject" value="FALK correction" />}
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <p><button class="btn" type="submit">Send correction</button></p>
         <p class="err" id="send-err" role="alert" hidden></p>
       </form>
 
       <div id="sent" class="plate stack" role="status" tabindex="-1" hidden>
-        <p><b>Correction sent.</b> An editor will review it against the sources you linked. If you left an email, you'll hear back there.</p>
+        <p><b>Correction saved.</b> Your correction and evidence links are now stored in FALK’s database for editorial review.</p>
         <p><a id="back" href="/records/">Back to the record</a></p>
       </div>
     </div>
@@ -110,7 +102,6 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
 
 <script>
   const form = document.getElementById('correction') as HTMLFormElement;
-  const endpoint = form.dataset.endpoint;
   const links = document.getElementById('links')!;
   const addLink = document.getElementById('add-link')!;
   form.noValidate = true; // our messages replace the browser's
@@ -121,9 +112,11 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
 
   let n = 1;
   addLink.addEventListener('click', () => {
+    if (n >= 10) return;
     const input = Object.assign(document.createElement('input'), { type: 'url', name: 'evidence', placeholder: 'https://', id: `link-${n++}` });
     input.setAttribute('aria-label', 'Another evidence link');
     addLink.before(input);
+    if (n >= 10) addLink.hidden = true;
     input.focus();
   });
 
@@ -155,7 +148,8 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
     show('body-err', body.value.trim() ? '' : 'Describe what should change.', body);
     show('links-err',
       !filled.length ? 'Add at least one link to evidence. Corrections without sources can’t be reviewed.'
-        : bad ? 'This link isn’t a full web address. Start it with https://.' : '',
+        : filled.length > 10 ? 'Add no more than 10 evidence links.'
+          : bad ? 'This link isn’t a full web address. Start it with https://.' : '',
       bad ?? urls[0]);
     const first = form.querySelector<HTMLElement>('[aria-invalid="true"]');
     first?.focus();
@@ -170,31 +164,31 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
     const evidence = (data.getAll('evidence') as string[]).map(s => s.trim()).filter(Boolean);
     const back = document.getElementById('back') as HTMLAnchorElement;
     back.href = `/records/${data.get('record')}/`;
-
-    if (!endpoint) {
-      const body = [
-        `**Record:** ${data.get('record')}`, `**From:** ${data.get('role')}${data.get('name') ? ` (${data.get('name')})` : ''}`,
-        '', (document.getElementById('body') as HTMLTextAreaElement).value, '', '**Evidence**', ...evidence.map(u => `- ${u}`),
-      ].join('\n');
-      const url = `${form.dataset.issue}?${new URLSearchParams({ title: `Correction: ${data.get('record')}`, body })}`;
-      // GitHub and browsers reject very long URLs; keep the text on the page instead of losing it.
-      if (url.length > 7000) return show('send-err', 'This correction is too long to send as a GitHub link. Shorten it, or send the key points and paste the rest into the issue.');
-      location.href = url;
-      return;
-    }
-    // Formspree payload: one field for all links, and a subject naming the record, so the email reads cleanly.
-    data.set('evidence', evidence.join('\n'));
-    data.set('_subject', `FALK correction: ${data.get('record')}`);
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    submit.disabled = true;
+    submit.textContent = 'Sending…';
     let res: Response;
     try {
-      res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      res = await fetch('/api/corrections', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          record: data.get('record'), role: data.get('role'),
+          correction: (document.getElementById('body') as HTMLTextAreaElement).value,
+          evidence, name: data.get('name'), email: data.get('email'),
+          _gotcha: data.get('_gotcha'),
+        }),
+      });
     } catch {
-      return show('send-err', 'Correction not sent. The form service didn’t respond. Your text is still here; try again in a moment.');
+      submit.disabled = false;
+      submit.textContent = 'Send correction';
+      return show('send-err', 'Correction not sent. The database could not be reached. Your text is still here; try again in a moment.');
     }
     if (!res.ok) {
-      // A rejection (unconfirmed form, spam filter, bad field) won't succeed on retry, so say why and offer the fallback.
-      const reason = await res.json().then(j => j.errors?.map((e: { message: string }) => e.message).join(' ') || j.error).catch(() => '');
-      return show('send-err', `Correction not sent. The form service rejected it${reason ? `: ${reason.replace(/\.$/, '')}` : ` (error ${res.status})`}. Your text is still here. You can also send it as an issue at github.com/mikeqtn/FALKIndex/issues.`);
+      const reason = await res.json().then(j => typeof j.error === 'string' ? j.error : '').catch(() => '');
+      submit.disabled = false;
+      submit.textContent = 'Send correction';
+      return show('send-err', `Correction not sent${reason ? `: ${reason}` : ` (error ${res.status})`}. Your text is still here; please try again.`);
     }
     form.hidden = true;
     const sent = document.getElementById('sent')!;

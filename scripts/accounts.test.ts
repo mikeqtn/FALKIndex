@@ -9,6 +9,7 @@ import { requireSameOrigin } from '../server/api.ts';
 import { profileInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { check, load } from './validate.ts';
+import { correctionInput, saveCorrection } from '../server/corrections.ts';
 
 test('database catalogue exactly preserves the validated YAML corpus and profile versions', async () => {
   const actual = await loadCatalogue();
@@ -104,6 +105,35 @@ test('audit events and original submission bodies are protected by database guar
     await db.query("UPDATE falk_submission SET status='needs_info' WHERE id=$1", [submitted.rows[0].id]);
   } finally { await db.query('ROLLBACK'); db.release(); }
 });
+test('anonymous evidence-backed corrections persist in PostgreSQL with contact details kept private', async () => {
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    const record = (await loadCatalogue()).watches[0].id;
+    const input = correctionInput.parse({
+      record, role:'brand', correction:'Please review this specific claim.',
+      evidence:['https://example.com/evidence'],
+      name:'Private Submitter', email:'contact@example.invalid', _gotcha:'',
+    });
+    const submission = await saveCorrection(input,db);
+    assert.match(submission.id,/^[0-9a-f-]{36}$/i);
+    const stored = await db.query(`SELECT author_id,target_kind,watch_id,base_revision_id,original_proposal,
+      explanation,evidence,submitter_name,submitter_email FROM falk_submission WHERE id=$1`,[submission.id]);
+    assert.equal(stored.rowCount,1);
+    assert.equal(stored.rows[0].author_id,null);
+    assert.equal(stored.rows[0].target_kind,'watch');
+    assert.equal(stored.rows[0].watch_id,record);
+    assert.ok(stored.rows[0].base_revision_id);
+    assert.deepEqual(stored.rows[0].original_proposal,{type:'correction',submitterRole:'brand'});
+    assert.equal(stored.rows[0].explanation,input.correction);
+    assert.deepEqual(stored.rows[0].evidence,input.evidence);
+    assert.equal(stored.rows[0].submitter_name,input.name);
+    assert.equal(stored.rows[0].submitter_email,input.email);
+    assert.deepEqual(Object.keys(submission).sort(),['createdAt','id']);
+    assert.equal(correctionInput.safeParse({...input,submitter_email:'leak@example.invalid'}).success,false);
+    await assert.rejects(saveCorrection(correctionInput.parse({...input,record:'not-a-real-watch'}),db),/Choose a record/);
+  } finally { await db.query('ROLLBACK'); db.release(); }
+});
 
 const server = createApp().listen(0,'127.0.0.1');
 await new Promise<void>(resolve => server.once('listening',resolve));
@@ -122,4 +152,6 @@ test('anonymous requests cannot read accounts or use administrator controls', as
   assert.equal(csrf.status,403);
   const unauthorized = await fetch(`${base}/api/account`,{method:'PATCH',headers:{'Content-Type':'application/json',Origin:base},body:'{}'});
   assert.equal(unauthorized.status,401);
+  const correctionCsrf = await fetch(`${base}/api/corrections`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+  assert.equal(correctionCsrf.status,403);
 });

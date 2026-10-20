@@ -12,7 +12,7 @@
 | Q1 | Git-backed YAML files under `data/`, validated by `npm run validate`. | Adopted |
 | Q2 | Controlled vocabulary of the 9 handbook classifications (8 archetypes + the Independent Watchmaker descriptor). The original free-text label is kept on each seed profile as `seed_label`. | Adopted |
 | Q3 | Secondary classification allowed. A profile's `classification` list is in rank order; the first entry is rank 1. | Adopted |
-| Q4 | The /corrections/ form posts to Formspree (`PUBLIC_CORRECTIONS_ENDPOINT` in `.env`), which emails the editor; the submitter's email is the reply-to and is never published. If the variable is removed, the form falls back to a prefilled public GitHub issue. | Adopted |
+| Q4 | The public /corrections/ form saves evidence-backed submissions directly to PostgreSQL. No GitHub issue or external form service is used. Guests may submit without an account; optional name and email are stored privately for editorial review. | Adopted 2026-10-20 |
 | Q5 | Data CC BY-SA 4.0 (`data/LICENSE`), code MIT (`LICENSE`). | Adopted |
 | Q6 | Scale bands `individual / small / medium / industrial / unknown`, defined loosely in `EDITORIAL.md` (Phase 3). Set only where obvious; otherwise `unknown`. | Default |
 | Q7 | Scores imported as the handbook records them. `relationship: in_group` is shown on provenance entries. Rule decided in v0.3. | Default |

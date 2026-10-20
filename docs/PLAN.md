@@ -303,7 +303,7 @@ Accessibility: the profile strip must show numbers and letters as text, not colo
 - **Validate:** the 6 pilot records pass invariant 4 (no seed exemption).
 
 ### Phase 4: Corrections + history + suppliers
-1. Correction form → moderation queue (per Q4). Acceptance becomes a PR that references the correction id.
+1. Public correction form writes evidence-backed submissions to PostgreSQL (no GitHub issue or external form service). The moderation/review interface remains a later stage; approved changes are not automatically published.
 2. Version history and diffs between profile versions on the watch page.
 3. Sources page; supplier/organization pages showing "where this supplier appears" (F14).
 4. Right-of-reply process for brands (see §8).
@@ -320,7 +320,7 @@ the contribution workflow and public revision-history UI remain later stages.
 
 Anyone can create an account and edit any record (scores included). Every edit is reviewed by an editor before it goes live. GitHub is no longer part of contributing. See `docs/DECISIONS.md` Q12–Q14.
 
-**Storage.** Replit's built-in PostgreSQL is the source of truth, replacing `data/` YAML. Each record, organization, and source is one JSONB document, validated by the existing Zod schemas in `src/schema.ts` and the invariants in `scripts/validate.ts`. Nothing is redesigned. The relational tables in §4.1 are not needed until a query demands them.
+**Storage.** Replit's built-in PostgreSQL is the source of truth, replacing `data/` YAML. The implemented account/editorial foundation uses relational tables and preserves the original validated catalogue. This supersedes the earlier JSONB sketch in §4.1.
 
 ```sql
 entity    (kind text, id text, data jsonb, current_rev bigint, PRIMARY KEY (kind, id))  -- kind: watch | organization | source
@@ -376,7 +376,7 @@ automatic-publishing role or bypass review.
 | Q1 | **Storage:** git-backed files (recommended) or Postgres + admin UI from day one? Who are the editors, and are they comfortable with GitHub? | Git-backed |
 | Q2 | **Classification vocabulary:** adopt the 9 archetypes plus structured modifiers (Appendix A), or keep the 31 free-text labels? | 9 + modifiers |
 | Q3 | **Hybrids:** allow a secondary classification (`rank = 2`) for genuine hybrids such as anOrdain "Artisan / Watchmaking Atelier", or force a single archetype? | Allow secondary |
-| Q4 | **Corrections intake:** a GitHub Issue form (free, but requires a GitHub account), a form service (Formspree/Netlify Forms → email), or a small serverless endpoint writing to a store? | Form service → email + manual triage |
+| Q4 | **Corrections intake:** resolved. The public form saves evidence-backed submissions to PostgreSQL, accepts guests, and keeps optional contact details private. | PostgreSQL; no GitHub issue or external form |
 | Q5 | **Data licence:** CC BY-SA 4.0 for the data (keeps derivatives open) and MIT for the code? | CC BY-SA 4.0 + MIT |
 | Q6 | **Scale definitions:** the handbook treats scale as metadata but doesn't define bands. Use output per year? Headcount? | individual / small / medium / industrial, defined loosely in EDITORIAL.md |
 | Q7 | **In-group scoring:** does work by a group-owned supplier count toward internal MM/EX/DH scores (with disclosure), or is it scored as external? | Score as recorded today; flag `in_group` visibly; decide in v0.3 |

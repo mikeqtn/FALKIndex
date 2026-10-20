@@ -135,7 +135,7 @@ DO $$ BEGIN
 END $$;
 CREATE TABLE IF NOT EXISTS falk_submission (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  author_id uuid NOT NULL REFERENCES falk_account(id),
+  author_id uuid REFERENCES falk_account(id),
   target_kind text NOT NULL CHECK (target_kind IN ('watch','organization','evidence')),
   watch_id text REFERENCES falk_watch(id),
   organization_id text REFERENCES falk_organization(id),
@@ -143,9 +143,17 @@ CREATE TABLE IF NOT EXISTS falk_submission (
   original_proposal jsonb NOT NULL,
   explanation text NOT NULL,
   evidence jsonb NOT NULL,
+  submitter_name text CHECK (char_length(submitter_name) <= 150),
+  submitter_email text CHECK (char_length(submitter_email) <= 254),
   status text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','needs_info','approved','rejected','withdrawn')),
   created_at timestamptz NOT NULL DEFAULT now()
 );
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname='falk_submission_guest_watch_only' AND conrelid='falk_submission'::regclass) THEN
+    ALTER TABLE falk_submission ADD CONSTRAINT falk_submission_guest_watch_only
+      CHECK (author_id IS NOT NULL OR target_kind='watch');
+  END IF;
+END $$;
 CREATE TABLE IF NOT EXISTS falk_submission_amendment (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   submission_id uuid NOT NULL REFERENCES falk_submission(id),

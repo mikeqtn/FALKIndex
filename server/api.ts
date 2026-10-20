@@ -7,6 +7,8 @@ import { pool } from './db.ts';
 import { authenticatedAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
 import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import admin from './admin.ts';
+import { correctionInput, saveCorrection } from './corrections.ts';
+import { transaction } from './db.ts';
 
 export const api = Router();
 api.use((_req,res,next) => { res.set('Cache-Control','no-store'); next(); });
@@ -53,6 +55,11 @@ api.get('/profiles/:username', async (req,res) => {
   const profile = await publicProfile(username);
   if (!profile) throw new HttpError(404,'Public profile not found.');
   res.json({profile});
+});
+api.post('/corrections', async (req,res) => {
+  const input = correctionInput.parse(req.body);
+  const submission = await transaction(db => saveCorrection(input,db));
+  res.status(201).json({submission});
 });
 api.use('/admin',admin);
 api.use((_req,_res) => { throw new HttpError(404,'API route not found.'); });

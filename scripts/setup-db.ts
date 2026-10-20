@@ -5,6 +5,8 @@ if (process.env.NODE_ENV === 'production' || process.env.REPLIT_DEPLOYMENT) {
   throw new Error('Production schema changes must use Replit Publish, not this script.');
 }
 try {
-  await pool.query(await readFile(new URL('../db/001-foundation.sql', import.meta.url), 'utf8'));
-  console.log('Development database foundation is ready.');
+  for (const migration of ['001-foundation.sql','002-guest-corrections.sql']) {
+    await pool.query(await readFile(new URL(`../db/${migration}`, import.meta.url), 'utf8'));
+  }
+  console.log('Development database schema is ready.');
 } finally { await pool.end(); }
