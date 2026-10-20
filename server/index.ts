@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
 import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -31,6 +32,7 @@ export function createApp() {
   app.disable('x-powered-by');
   app.set('trust proxy',1);
   app.use(securityHeaders);
+  app.use(compression());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
   // API calls are same-origin only; Clerk's proxy handles its own transport.
   app.use(cors({credentials:true,origin:false}));

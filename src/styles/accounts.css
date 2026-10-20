@@ -71,6 +71,8 @@
 :root[data-theme="dark"] .account-auth-page { --auth-field: var(--c-surface-sunk); --auth-success: #8CC3A0; }
 .account-auth-page { min-height: 70vh; display: grid; grid-template-columns: minmax(0,1fr); place-items: center; width: 100%; min-width: 0; padding: 36px 0; }
 .account-auth-page > * { min-width: 0; max-width: 100%; }
+/* The sign-in/up island renders only in the browser; hold its height so the footer doesn't jump. */
+.account-auth-slot { min-height: 760px; }
 .account-auth-intro { max-width: 460px; margin: 0 auto 18px; text-align: center; }
 .account-brand { display: inline-block; margin-bottom: 18px; font: 700 34px/1 var(--f-sans); font-stretch: 68%; color: var(--c-ink); text-decoration: none; }
 .account-brand:hover { color: var(--c-ink); }

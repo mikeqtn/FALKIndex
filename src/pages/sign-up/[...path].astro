@@ -4,5 +4,5 @@ import Base from '../../layouts/Base.astro';
 import { SignUpPage } from '../../components/accounts/AuthPages';
 ---
 <Base title="Create account">
-  <SignUpPage client:only="react" />
+  <div class="account-auth-slot"><SignUpPage client:only="react" /></div>
 </Base>

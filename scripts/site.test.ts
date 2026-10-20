@@ -90,6 +90,17 @@ test('pages carry baseline security headers, and production also blocks framing'
   } finally { process.env.NODE_ENV = env; }
 });
 
+test('only readers with a Clerk session load the account menu; everyone else gets plain links', async () => {
+  const page = async (cookie?: string) => (await fetch(`${base}/methodology/`,{headers:cookie ? {cookie} : {}})).text();
+  for (const html of [await page(), await page('__client_uat=0')]) {
+    assert.match(html,/<a href="\/sign-in">Sign in<\/a>/);
+    assert.doesNotMatch(html,/AccountNavigation/);
+  }
+  for (const cookie of ['__client_uat=1791917601','__client_uat_Ab1-x=1791917601; theme=dark']) {
+    assert.match(await page(cookie),/<astro-island[^>]*AccountNavigation/,cookie);
+  }
+});
+
 test('no exported JSON has an aggregate field', { skip }, () => {
   const walk = (v: unknown, at: string): void => {
     if (Array.isArray(v)) return v.forEach((x, i) => walk(x, `${at}[${i}]`));

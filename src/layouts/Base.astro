@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '../styles/accounts.css';
+import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import { correctionUrl, getCatalogue } from '../lib/data.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 const { methodology } = await getCatalogue(Astro.locals);
@@ -14,6 +16,10 @@ const pageTitle = title === 'FALK Index' ? title : `${title}, FALK Index`;
 const site = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
 const canonical = site && `${site}${Astro.url.pathname}`;
 const imageUrl = site && image && `${site}${image.path}`;
+// Clerk sets __client_uat (possibly with a suffix) to a timestamp after sign-in and 0 after sign-out.
+// Signed-out readers get plain links, so Clerk's scripts load only for people with an account session.
+const signedIn = (Astro.request.headers.get('cookie') ?? '').split(/;\s*/)
+  .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
 const links = [
   ['records', '/records/', 'Records'],
   ['methodology', '/methodology/', 'Methodology'],
@@ -29,6 +35,8 @@ const links = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <!-- Fetch the heading face up front so headings don't reflow when it arrives. -->
+    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:site_name" content="FALK Index" />
@@ -64,7 +72,11 @@ const links = [
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
         </button>
-        <AccountNavigation client:only="react" />
+        {signedIn
+          ? <AccountNavigation client:only="react">
+              <span slot="fallback" class="account-nav" aria-label="Loading account navigation"><span class="account-skeleton" style="width: 84px" /></span>
+            </AccountNavigation>
+          : <span class="account-nav"><a href="/sign-in">Sign in</a><a class="account-button" href="/sign-up">Create account</a></span>}
       </nav>
     </header>
     <slot name="banner" />
