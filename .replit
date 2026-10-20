@@ -30,7 +30,7 @@ args = "npm run dev -- --ignore-lock"
 waitForPort = 5000
 
 [deployment]
-deploymentTarget = "cloudrun"
+deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
 run = ["npm", "start"]
 

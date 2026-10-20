@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { clerkMiddleware } from '@clerk/express';
 import { publishableKeyFromHost } from '@clerk/shared/keys';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { HttpError } from './accounts.ts';
@@ -72,6 +72,7 @@ export async function attachProductionSite(app: express.Express) {
 export async function start() {
   const app = createApp();
   let child: ReturnType<typeof spawn> | undefined;
+  let devProxy: ReturnType<typeof createFixedProxyMiddleware> | undefined;
   let stopping = false;
   if (process.env.NODE_ENV === 'production') {
     await attachProductionSite(app);
@@ -81,14 +82,11 @@ export async function start() {
     child.on('exit',code => {
       if (!stopping) { console.error('Astro stopped unexpectedly',code); process.exit(1); }
     });
-    app.use(createProxyMiddleware({
-      target:`http://127.0.0.1:${internalPort}`,ws:true,
-      on:{error:(_error,_req,res) => {
-        if ('writeHead' in res && !res.headersSent) { res.writeHead(503,{'Content-Type':'text/plain'}); res.end('FALK Index is starting. Please refresh shortly.'); }
-      }},
-    }));
+    devProxy = createFixedProxyMiddleware({ target:`http://127.0.0.1:${internalPort}` });
+    app.use(devProxy);
   }
   const server = app.listen(Number(process.env.PORT ?? 5000),'0.0.0.0',() => console.log('FALK Index web is listening'));
+  if (devProxy) server.on('upgrade', devProxy.upgrade);
   const stop = () => { stopping=true; child?.kill('SIGTERM'); server.close(() => process.exit(0)); setTimeout(() => process.exit(0),5000).unref(); };
   process.on('SIGTERM',stop); process.on('SIGINT',stop);
   return server;
