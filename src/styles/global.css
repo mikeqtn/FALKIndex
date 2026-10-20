@@ -220,8 +220,17 @@ abbr[title] { text-decoration: none; }
   .strip td.v { padding-right: var(--s-2); }
   .strip td.name { font-size: 14px; line-height: 1.3; -webkit-hyphens: auto; hyphens: auto; }
 }
+/* Comparisons have no room for a name column on phones, so each name drops below its bars. */
+@media (max-width: 639px) {
+  .strip.multi, .strip.multi caption, .strip.multi thead, .strip.multi tbody { display: block; }
+  .strip.multi tr { display: grid; grid-template-columns: 2.6em repeat(var(--cols), 6.5rem); align-items: center; }
+  .strip.multi thead td:last-child { display: none; }
+  .strip.multi thead th { padding-right: var(--s-2); }
+  .strip.multi td.name { grid-column: 2 / -1; height: auto; padding: 0 0 var(--s-3); hyphens: manual; }
+  .strip.multi tbody td.v, .strip.multi tbody th[scope="row"] { height: 32px; }
+}
 @media (max-width: 420px) {
-  .strip .seg { width: 9px; }
+  .strip:not(.multi) .seg { width: 9px; }
   .strip td.v { padding-right: 6px; }
   .strip th[scope="row"] { padding-right: var(--s-2); }
 }

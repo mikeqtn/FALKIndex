@@ -13,7 +13,7 @@ interface Props {
 const { caption, columns, linkRows = false, animate = false, marked = [] } = Astro.props;
 const showHead = columns.length > 1;
 ---
-<table class:list={['strip', { animate }]}>
+<table class:list={['strip', { animate, multi: showHead }]} style={showHead ? `--cols:${columns.length}` : undefined}>
   <caption>{caption}</caption>
   {showHead && (
     <thead><tr><td></td>{columns.map(c => <th scope="col">{c.label}</th>)}<td></td></tr></thead>
