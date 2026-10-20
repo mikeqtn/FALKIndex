@@ -64,6 +64,32 @@ test('every published record has a PNG share image', async () => {
   assert.equal((await fetch(`${base}/og/records/nobody/nothing.png`)).status,404);
 });
 
+test('the sitemap lists every record and no private page; robots.txt points to it', async () => {
+  const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
+  for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published'))) {
+    assert.ok(sitemap.includes(`/records/${watch.id}/</loc>`),watch.id);
+  }
+  assert.doesNotMatch(sitemap,/\/(account|admin|editor|sign-in|sign-up)/);
+  const robots = await (await fetch(`${base}/robots.txt`)).text();
+  assert.match(robots,/^Disallow: \/admin\/$/m);
+  assert.match(robots,/^Sitemap: .+\/sitemap\.xml$/m);
+});
+
+test('pages carry baseline security headers, and production also blocks framing', async () => {
+  const dev = await fetch(`${base}/`);
+  assert.equal(dev.headers.get('x-content-type-options'),'nosniff');
+  assert.equal(dev.headers.get('referrer-policy'),'strict-origin-when-cross-origin');
+  assert.equal(dev.headers.get('x-frame-options'),null,'the Replit preview frame must keep working in development');
+  const env = process.env.NODE_ENV;
+  process.env.NODE_ENV = 'production';
+  try {
+    const prod = await fetch(`${base}/`);
+    assert.equal(prod.headers.get('x-frame-options'),'DENY');
+    assert.match(prod.headers.get('content-security-policy') ?? '',/frame-ancestors 'none'/);
+    assert.match(prod.headers.get('strict-transport-security') ?? '',/max-age=\d+/);
+  } finally { process.env.NODE_ENV = env; }
+});
+
 test('no exported JSON has an aggregate field', { skip }, () => {
   const walk = (v: unknown, at: string): void => {
     if (Array.isArray(v)) return v.forEach((x, i) => walk(x, `${at}[${i}]`));

@@ -52,6 +52,8 @@ export const variant = (w: Watch) => [w.generation, w.reference && `Ref. ${w.ref
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const fmtDate = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
 
+// Absolute links need the public domain (PUBLIC_SITE_URL, set at build time); fall back to the request's own origin.
+export const siteOrigin = (url: URL) => import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '') ?? url.origin;
 export const recordUrl = (id: string) => `/records/${id}/`;
 export const orgUrl = (id: string) => `/organizations/${id}/`;
 export const correctionUrl = (id?: string) => `/corrections/${id ? `?record=${encodeURIComponent(id)}` : ''}`;
