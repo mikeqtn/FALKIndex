@@ -9,6 +9,7 @@ import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
 import { transaction } from './db.ts';
+import review from './review.ts';
 
 export const api = Router();
 api.use((_req,res,next) => { res.set('Cache-Control','no-store'); next(); });
@@ -62,4 +63,5 @@ api.post('/corrections', async (req,res) => {
   res.status(201).json({submission});
 });
 api.use('/admin',admin);
+api.use('/review',review);
 api.use((_req,_res) => { throw new HttpError(404,'API route not found.'); });

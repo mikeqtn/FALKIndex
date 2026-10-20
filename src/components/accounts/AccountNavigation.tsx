@@ -1,22 +1,23 @@
 import { useAuth, useClerk } from '@clerk/react';
 import { useEffect, useState } from 'react';
+import type { Role } from '../../accounts/contracts';
 import { api } from './api';
 import { AuthProvider } from './AuthProvider';
 
 function AccountNavigationInner() {
   const { isLoaded, isSignedIn } = useAuth();
   const { signOut } = useClerk();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [role, setRole] = useState<Role | null>(null);
 
   useEffect(() => {
     let active = true;
     if (isLoaded && isSignedIn) {
       if (window.location.pathname === '/') window.location.assign('/account');
-      api<{ account: { role: string } }>('/api/account')
-        .then(({ account }) => { if (active) setIsAdmin(account.role === 'admin'); })
-        .catch(() => { if (active) setIsAdmin(false); });
+      api<{ account: { role: Role } }>('/api/account')
+        .then(({ account }) => { if (active) setRole(account.role); })
+        .catch(() => { if (active) setRole(null); });
     } else {
-      setIsAdmin(false);
+      setRole(null);
     }
     return () => { active = false; };
   }, [isLoaded, isSignedIn]);
@@ -30,7 +31,8 @@ function AccountNavigationInner() {
   );
   return (
     <span className="account-nav">
-      {isAdmin && <a href="/admin/users">Administration</a>}
+      {(role === 'editor' || role === 'admin') && <a href="/editor/review">Review</a>}
+      {role === 'admin' && <a href="/admin/users">Administration</a>}
       <a href="/account">Account</a>
       <button type="button" onClick={() => signOut({ redirectUrl: '/' })}>Sign out</button>
     </span>

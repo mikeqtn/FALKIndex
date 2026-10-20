@@ -45,11 +45,17 @@ They fail, rather than skip, when a server build is missing.
   `/admin/users`; credentials are independently verified, never self-granted.
 - Public correction forms save evidence-backed submissions to `falk_submission`
   in PostgreSQL. Guests may submit without accounts; optional name/email stay
-  private. Corrections are not sent to GitHub or another form service. The
-  editorial review UI is not yet implemented.
+  private. Corrections are not sent to GitHub or another form service.
+- Editors and administrators review submissions at `/editor/review`. Each
+  accept/reject/request-information decision needs a note and is appended to
+  `falk_review_event` and the audit log. Editors cannot review their own
+  submissions or records tied to their disclosed organizations. Accepting a
+  correction does not change the public record; that still needs a new
+  profile version (`docs/EDITORIAL.md` §7).
 - The detailed staged scope is `docs/ACCOUNTS-EDITORIAL-IMPLEMENTATION.md`.
-  Phase 1 is the account foundation; contribution review, public record history,
-  and methodology administration are subsequent phases, not implemented UI.
+  Phase 1 is the account foundation plus the correction review queue; member
+  edit proposals, publishing from review, public record history, and
+  methodology administration are subsequent phases, not implemented UI.
 
 ## Publish
 

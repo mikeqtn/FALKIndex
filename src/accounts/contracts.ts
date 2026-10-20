@@ -41,3 +41,25 @@ export interface AdminMember {
   id: string; username: string | null; displayName: string; email: string;
   role: Role; status: 'active' | 'suspended'; emailVerified: boolean; createdAt: string;
 }
+export const REVIEW_STATUSES = ['pending', 'needs_info', 'approved', 'rejected', 'withdrawn'] as const;
+export type ReviewStatus = typeof REVIEW_STATUSES[number];
+export const REVIEW_ACTIONS = ['approve', 'reject', 'request_info'] as const;
+export type ReviewAction = typeof REVIEW_ACTIONS[number];
+export const reviewStatusLabels: Record<ReviewStatus, string> = {
+  pending: 'Pending', needs_info: 'Information requested', approved: 'Accepted',
+  rejected: 'Rejected', withdrawn: 'Withdrawn',
+};
+export interface ReviewSummary {
+  id: string; status: ReviewStatus; createdAt: string; targetKind: string;
+  record: { id: string; name: string } | null; subject: string;
+  submitter: { kind: 'guest' | 'member'; label: string };
+  excerpt: string; evidenceCount: number;
+}
+/** Editor-only view. Guest contact details never leave the review API. */
+export interface ReviewDetail extends ReviewSummary {
+  explanation: string; evidence: string[]; submitterRole: string | null;
+  contact: { name: string | null; email: string | null } | null;
+  authorUsername: string | null; staleBase: boolean;
+  conflicts: string[]; selfAuthored: boolean;
+  events: { id: string; action: ReviewAction; note: string; createdAt: string; actor: string }[];
+}

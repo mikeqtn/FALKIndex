@@ -4,8 +4,11 @@
 
 This staged implementation follows the supplied “User Accounts, Contributions
 & Editorial System” brief. Phase 1 supplies the server/database/account
-foundation in development. Contribution review, public record revision history,
-and methodology-administration UI remain later stages. Publishing and the first
+foundation in development. The first slice of Phase 2 is in place: an editor
+review queue at `/editor/review` for guest corrections, with append-only
+decisions, self-review and conflict-of-interest blocks, and stale-review
+conflicts. Member proposals, publishing approved changes, public record revision
+history, and methodology-administration UI remain later stages. Publishing and the first
 administrator's identity still require owner setup and verification.
 
 The brief expands the earlier Phase 5 sketch in `docs/PLAN.md`. Where they
