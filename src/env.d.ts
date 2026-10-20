@@ -4,3 +4,6 @@ declare namespace App {
     catalogue?: ReturnType<typeof import('./lib/data.ts').getCatalogue>;
   }
 }
+interface ImportMetaEnv {
+  readonly PUBLIC_SITE_URL?: string;
+}

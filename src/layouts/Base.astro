@@ -6,6 +6,10 @@ const { methodology } = await getCatalogue(Astro.locals);
 
 interface Props { title: string; description?: string; nav?: 'records' | 'methodology' | 'sources' | 'data' | 'about' }
 const { title, description = 'An evidence database of where the work on a watch is actually done.', nav } = Astro.props;
+const pageTitle = title === 'FALK Index' ? title : `${title}, FALK Index`;
+// Absolute URLs need the public domain, which is not settled yet; set PUBLIC_SITE_URL once it is.
+const site = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
+const canonical = site && `${site}${Astro.url.pathname}`;
 const links = [
   ['records', '/records/', 'Records'],
   ['methodology', '/methodology/', 'Methodology'],
@@ -19,8 +23,16 @@ const links = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title === 'FALK Index' ? title : `${title}, FALK Index`}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:site_name" content="FALK Index" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
     <script is:inline>
       // Apply a saved theme before first paint; with no saved choice the system setting applies.
       try { const t = localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
