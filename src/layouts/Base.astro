@@ -12,7 +12,7 @@ interface Props {
 }
 const { title, description = 'An evidence database of where the work on a watch is actually done.', nav, image } = Astro.props;
 const pageTitle = title === 'FALK Index' ? title : `${title}, FALK Index`;
-// Absolute URLs need the public domain, which is not settled yet; set PUBLIC_SITE_URL once it is.
+// Absolute URLs need the public domain; the published build sets PUBLIC_SITE_URL (see .replit).
 const site = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
 const canonical = site && `${site}${Astro.url.pathname}`;
 const imageUrl = site && image && `${site}${image.path}`;

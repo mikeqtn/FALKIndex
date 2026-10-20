@@ -19,7 +19,7 @@
 | Q8 | No MVP change for quartz / Spring Drive. | Default |
 | Q9 | Page 6 is blank in the extracted text; treated as a decorative figure. | Assumed |
 | Q10 | All 56 records published, the 50 unevidenced ones labelled provisional (`is_seed: true`). | Default |
-| Q11 | Domain, branding and publisher. | **Open** (blocks launch, not development) |
+| Q11 | Domain, branding and publisher. Domain: `falkindex.com` (bought and linked in Replit 2026-10-20). | **Open** for branding and publisher (blocks launch, not development) |
 | Q12 | Corrections and contributions through accounts on the site; GitHub is no longer required. Anyone can edit any record, including scores, classification and confidence. | Adopted 2026-10-20 |
 | Q13 | Every edit is reviewed by an editor before it is published (like Wikipedia's pending changes). Editors cannot approve their own edits. Accounts carry a free-text background ("watch blogger", "hobbyist") shown on every edit; a separate "Do you work for a watch brand?" question records brand ties, and edits to those brands' records are flagged. | Adopted 2026-10-20 |
 | Q14 | Replit PostgreSQL replaces the `data/` YAML as the source of truth. `data/` remains as an exported copy. See PLAN.md Phase 5. | Adopted 2026-10-20 |
