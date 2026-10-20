@@ -1,1 +1,2 @@
 - [GitHub access checks](github-access-checks.md) — source-control connection health does not guarantee that repository fetches authenticate.
+- [Astro preview host checks](astro-preview-hosts.md) — verify the actual preview Host header; Vite-only configuration may not control Astro's allowlist.

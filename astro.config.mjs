@@ -7,7 +7,7 @@ export default defineConfig({
   output: 'server',
   adapter: node({mode:'middleware'}),
   integrations: [react()],
-  server: { host: '0.0.0.0', port: 5000 },
+  server: { host: '0.0.0.0', port: 5000, allowedHosts: true },
   vite: { envPrefix:['PUBLIC_','VITE_'], server: { allowedHosts: true } },
   // Brand pages moved in Phase 4; keep old links working.
   redirects: {
