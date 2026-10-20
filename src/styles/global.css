@@ -33,6 +33,17 @@
     --n-3: var(--c-ink-inverse); --n-4: var(--c-ink-inverse); --n-5: var(--c-ink-inverse);
   }
 }
+/* The header toggle stamps data-theme; these mirror the system dark tokens above. */
+:root[data-theme="dark"] {
+  --c-page: #0E1726; --c-surface: #16223A; --c-surface-sunk: #0A1220; --c-edge: #2A3A57;
+  --c-ink: #DCE2EA; --c-ink-2: #9AA6B8; --c-ink-inverse: #0E1726;
+  --c-action: #EC7A8E; --c-action-hover: #F28A9B; --c-focus: #EC7A8E;
+  --c-gilt: #C9A25A; --c-gilt-tint: #2E2715; --c-gilt-ink: #D9B871;
+  --c-level-1: #26375A; --c-level-2: #3C5482; --c-level-3: #6680AE; --c-level-4: #9DB1D3; --c-level-5: #DCE2EA;
+  --n-3: var(--c-ink-inverse); --n-4: var(--c-ink-inverse); --n-5: var(--c-ink-inverse);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 @media (min-width: 1024px) { :root { --gutter: 32px; } }
 
 /* ── Base ─────────────────────────────────────────────── */
@@ -89,6 +100,12 @@ dl.pairs dd { margin: 0; }
 .site-nav ul a { display: inline-flex; align-items: center; min-height: 44px; color: var(--c-ink); text-decoration: none; border-bottom: 2px solid transparent; }
 .site-nav ul a:hover { color: var(--c-action); }
 .site-nav ul a[aria-current="page"] { border-bottom-color: var(--c-action); }
+.theme-toggle { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--c-edge); border-radius: var(--r-control); background: transparent; color: var(--c-ink); cursor: pointer; }
+.theme-toggle:hover { border-color: var(--c-action); color: var(--c-action); }
+.theme-toggle:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.theme-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .icon-sun, .theme-toggle[aria-pressed="true"] .icon-moon { display: none; }
+.theme-toggle[aria-pressed="true"] .icon-sun { display: block; }
 .nav-search input { width: 12rem; }
 @media (max-width: 639px) { .nav-search { width: 100%; } .nav-search input { width: 100%; } }
 input[type="search"], input[type="text"], input[type="url"], input[type="email"], select, textarea {
