@@ -38,7 +38,7 @@ const appearance = {
     alertText: { color: 'var(--c-ink)' },
     socialButtonsBlockButton: { border: 'var(--edge)', background: 'var(--c-page)', color: 'var(--c-ink)' },
     formButtonPrimary: { background: 'var(--c-action)', color: 'var(--c-ink-inverse)', borderRadius: '3px' },
-    formFieldInput: { minHeight: '44px', border: '1px solid var(--c-ink-2)', background: 'var(--auth-field)', color: 'var(--c-ink)', fontSize: '16px' },
+    formFieldInput: { minHeight: '44px', border: '1px solid var(--c-ink-2)', background: 'var(--auth-field)', color: 'var(--c-ink)', font: '400 16px/1.3 var(--f-sans)', paddingInlineStart: '12px' },
     footerAction: { color: 'var(--c-ink-2)' },
     dividerLine: { background: 'var(--c-edge)' },
     alert: { background: 'var(--c-gilt-tint)' },
