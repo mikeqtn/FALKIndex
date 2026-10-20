@@ -32,7 +32,6 @@ waitForPort = 5000
 [deployment]
 deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
-publicDir = "dist"
 run = ["npm", "start"]
 
 [[ports]]
