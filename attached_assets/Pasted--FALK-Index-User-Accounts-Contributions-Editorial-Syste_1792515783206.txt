@@ -1,0 +1,347 @@
+# FALK Index — User Accounts, Contributions & Editorial System
+
+## Project objective
+
+Expand the existing FALK Index website with a user account system, community contributions, editorial review, and transparent revision history.
+
+FALK Index is a public reference database documenting how watches are designed, manufactured, finished, and assembled. Its primary purpose is to provide evidence-based classifications rather than subjective quality rankings.
+
+**Preserve the existing website's design, methodology, seven-dimensional scoring system, model records, sources, and public browsing functionality.** Build the following features into the existing architecture rather than redesigning the application.
+
+All database records must remain publicly accessible without requiring an account. Accounts are only required to contribute or participate in editing.
+
+## 1. Account roles and permissions
+
+Implement three account roles:
+
+### Administrator
+- Full access to all records and editorial functions.
+- Create, suspend, and manage user accounts.
+- Appoint and remove editors.
+- Manage site settings and permissions.
+- Publish, modify, or revert database records.
+- Manage methodology versions and classification definitions.
+- Access the full editorial audit history.
+
+### Editor
+- Edit and publish watch records.
+- Review user-submitted changes through an editorial dashboard.
+- Approve, reject, or modify submissions.
+- Create new brand and model records.
+- View pending submissions, previous decisions, and revision history.
+- Cannot appoint editors, modify administrator permissions, or change the core methodology.
+
+### Contributor (regular user)
+- Register with a verified email address.
+- Submit proposed corrections to any watch record.
+- Propose new brands and watch models.
+- Provide sources and supporting explanations.
+- Track the status of their submissions.
+- View their own submission history and editorial feedback.
+- Cannot directly publish changes to the public database.
+
+Use role-based access control enforced on the backend, not just through hidden interface elements.
+
+## 2. User registration and profiles
+
+Each account should contain:
+
+**Required:**
+- Unique public username
+- Email address, verified before submitting contributions
+- Password or secure authentication method
+- Account creation date
+
+**Optional:**
+- Real name, private by default
+- Public display name
+- Biography
+- Qualifications
+- Professional affiliations
+- Personal website
+- Public profile image
+
+Qualifications should support multiple selections:
+
+- Watch collector
+- Watch dealer
+- Watchmaker
+- Brand employee or representative
+- Journalist / author
+- Blogger / content creator
+- Watch industry professional
+- Enthusiast
+- Other
+
+Allow users to describe their qualifications in greater detail.
+
+Qualifications are self-reported unless independently verified. Provide a separate verification status for confirmed professional credentials or brand affiliations.
+
+Do not automatically grant editing permissions based on qualifications.
+
+### Public user profiles
+
+Every username should link to a public profile displaying:
+
+- Username and optional public name
+- Account age / join date
+- Qualifications and verified affiliations
+- Biography, if provided
+- Total accepted contributions
+- Pending submissions (count only)
+- Rejected submissions (count only)
+- List of published contributions and affected watch records
+- Editorial actions for users with editor privileges
+
+Do not publicly expose email addresses, private real names, authentication information, or private moderation details.
+
+Avoid a single reputation score or leaderboard. Contribution quality is more important than contribution quantity.
+
+## 3. Community edit submission system
+
+Add a "Suggest an Edit" action to every watch model page.
+
+Unauthenticated visitors should be prompted to register or log in.
+
+Authenticated contributors should be able to submit changes to individual fields, including:
+
+- Brand or model information
+- Movement architecture
+- Movement manufacturing
+- Exterior manufacturing
+- Dial and hands manufacturing
+- Craft and finishing
+- Watchmaking execution
+- Product development
+- Provenance information
+- Sources and citations
+- FALK classification
+- Evidence confidence
+
+Each submission should contain:
+
+1. Field or section being changed
+2. Current value
+3. Proposed value
+4. Explanation for the change
+5. Supporting source URL(s), or an explanation of firsthand knowledge
+6. Optional additional notes
+
+Allow users to propose changes without changing numerical scores. For example, a contributor might add a newly discovered case supplier without requesting a score change.
+
+Support proposals for entirely new watch models and brands.
+
+Submissions must never directly alter published records.
+
+## 4. Editorial review dashboard
+
+Create a dashboard accessible to editors and administrators.
+
+Include a submission queue with:
+
+- Pending submissions
+- Recently approved submissions
+- Rejected submissions
+- Submissions requiring additional information
+- Filters by brand, model, contributor, submission date, and type of change
+
+When reviewing a submission, editors should see a clear comparison between the existing record and proposed changes.
+
+Editors must be able to:
+
+**Approve:** Publish the proposed changes.
+
+**Reject:** Reject the submission and provide an explanation.
+
+**Modify and approve:** Adjust the proposed changes before publishing, while preserving the original submission and attributing the modification to the editor.
+
+**Request information:** Return the submission to the contributor for clarification or additional sources.
+
+**The original submission must remain permanently preserved**, even when an editor modifies it.
+
+Contributors should be able to see the status and editorial feedback for their submissions.
+
+## 5. Public revision history
+
+Every watch model page should have a publicly accessible "History" tab.
+
+This is a fundamental feature of FALK Index and should be treated as a priority.
+
+Each published revision should record:
+
+- Date and time
+- Username of the contributor who proposed the change
+- Username of the editor who approved it
+- Fields changed
+- Previous and new values
+- Explanation for the change
+- Supporting sources
+- Editorial notes
+- Revision identifier
+
+Users should be able to compare historical versions of a watch record.
+
+Allow administrators to revert to previous versions without deleting the revision history.
+
+Approved changes should always be publicly attributable.
+
+Substantive rejected proposals and editorial explanations should also be viewable where appropriate, but spam, abusive submissions, private information, and sensitive moderation records should not be publicly exposed.
+
+Revision records should be append-only. Correcting or reverting a change should create a new revision rather than erase the old one.
+
+## 6. Source-level transparency
+
+FALK's most important long-term feature is the ability to trace every factual claim and numerical score to supporting evidence.
+
+Structure the database so that watch records, provenance claims, sources, and FALK scores are related but distinct entities.
+
+For example:
+
+**Model:** Czapek Antarctique
+
+**Claim:** The movement architecture was developed for Czapek, while physical movement manufacturing involves external specialist partners.
+
+**Source:** Direct manufacturer documentation
+
+**Affected dimensions:** Movement Architecture, Movement Manufacturing, Product Development
+
+**Editorial interpretation:** The documented arrangement supports the assigned scores.
+
+Each evidence record should support:
+
+- Factual claim
+- Source URL
+- Source title
+- Source type (primary, secondary, firsthand testimony, etc.)
+- Relevant quotation or excerpt
+- Publication date, if known
+- Date verified
+- Contributor
+- Editor
+- Related models and scoring dimensions
+
+Separate factual evidence from editorial interpretation.
+
+A source can support multiple claims or watch models without being duplicated unnecessarily.
+
+Eventually, users should be able to click any individual FALK dimension and see the evidence explaining its score.
+
+Use Caliber Corner and other technical references as secondary sources where appropriate, while prioritizing manufacturer documentation, workshop disclosures, and named supplier statements.
+
+## 7. Conflicts of interest
+
+Users should be able to disclose professional affiliations with watch brands, suppliers, retailers, or publications.
+
+Brand representatives are encouraged to submit corrections about their own products, but their submissions must be identified as manufacturer-affiliated.
+
+Editors must not approve their own submissions.
+
+Editors must not approve submissions involving brands with which they have a material commercial relationship.
+
+Administrator override should be possible only with a documented justification and a visible audit record.
+
+Brand statements should be treated as evidence requiring evaluation, not automatically accepted as definitive.
+
+No paid score improvements, sponsored classifications, or hidden commercial influence.
+
+## 8. Methodology governance
+
+Keep changes to individual watch records separate from changes to the FALK methodology itself.
+
+Editors may update watch records using the currently published methodology.
+
+Only administrators may approve changes to:
+
+- Scoring definitions
+- Classification definitions
+- Evidence confidence standards
+- Methodology rules
+
+Methodology changes should create a new version, such as v0.3, rather than silently changing existing definitions.
+
+Existing scores should retain a reference to the methodology version under which they were assigned.
+
+## 9. Design and user experience
+
+Maintain the existing FALK Index visual identity and minimalist editorial style.
+
+New features should feel integrated with the current site.
+
+Add:
+
+- Login / Register
+- User profile pages
+- Suggest an Edit on model pages
+- History tab on model pages
+- My Contributions dashboard
+- Editorial Dashboard for editors
+- User Management for administrators
+
+Use clear submission statuses and readable before/after comparisons.
+
+The public browsing experience should remain fast and unrestricted.
+
+## 10. Technical and security requirements
+
+Use the existing application's framework, database, and authentication infrastructure wherever possible.
+
+Implement:
+
+- Secure authentication and email verification
+- Server-side authorization for every protected action
+- Password hashing if password authentication is used
+- Rate limits and spam protection on submissions
+- Input validation and safe rendering of user-provided text
+- Atomic publication of approved changes
+- Immutable revision/audit records
+- Database migrations that preserve all existing records
+- Protection against simultaneous editors overwriting each other's work
+- Account suspension and moderation tools
+- Appropriate privacy controls for user information
+
+Ensure that deleting or deactivating an account does not destroy the historical integrity of published contributions. Public attribution should follow a documented privacy and account-deletion policy.
+
+## 11. Implementation priorities
+
+Build in stages:
+
+**Phase 1 — Accounts and permissions**
+- Authentication and verified email registration
+- Three roles
+- User profiles
+- Administrator role management
+
+**Phase 2 — Community contributions**
+- Suggest an Edit forms
+- New model proposals
+- Submission tracking
+- Editorial review queue
+
+**Phase 3 — Transparency**
+- Public revision history
+- Before/after comparisons
+- Contributor attribution
+- Reversion tools
+
+**Phase 4 — Evidence infrastructure**
+- Claim-level provenance records
+- Source management
+- Dimension-specific evidence
+- Methodology version tracking
+- Conflict-of-interest enforcement
+
+Design the database for all four phases from the beginning, even if implementation is incremental.
+
+## Final instruction
+
+Before making changes, inspect the existing Replit project, identify the current technology stack, database schema, authentication setup, and record structure.
+
+Create an implementation plan that preserves existing functionality and data.
+
+Do not replace the existing scoring methodology or redesign the public website.
+
+Prioritize maintainability, transparency, and traceability over unnecessary features.
+
+The guiding principle is:
+
+**Every published FALK classification should ultimately be explainable through evidence, attributable editorial decisions, and a public revision history.**
