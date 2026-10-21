@@ -205,7 +205,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 2 → U and DH 2 → U (dials and cases are fitted in-house, but no source names who makes them); WE 5 → 4; confidence A → B, since the parts evidence is press reporting. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 2 → U and DH 2 → U (dials and cases are fitted in-house, but no source names who makes them); WE 5 → 4; confidence A → B, since the parts evidence is press reporting. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 3 → 2. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -222,8 +222,8 @@ profiles:
             stance: supports
             note: Five years of development.
       MM:
-        value: 3
-        rationale: Base plates and bridges are made at the Chronométrie, and Breitling has started making its own balance wheel. By count only 30–40 of 346 parts are in-house, so this is borderline with 2; the structural parts carry it to 3.
+        value: 2
+        rationale: Base plates and bridges are made at the Chronométrie, and Breitling has started making its own balance wheel, but only 30–40 of 346 parts are made in-house. Some meaningful components internal.
         evidence:
           - claim: brb01-plates-bridges
             stance: supports

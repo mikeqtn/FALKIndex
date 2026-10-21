@@ -178,7 +178,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist sources only. Proposed: MA 4 → 1 (cal. 32111 is a variant of a ValFleurier calibre, recorded in-group); MM, EX, DH, CF and WE → U (IWC's Merishausen capabilities are documented, but none is tied to this model); PD 4 → 2; confidence B → D. The industrial_manufacture label is not confirmed by this profile. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist sources only. Proposed: MA 4 → 1 (cal. 32111 is a variant of a ValFleurier calibre, recorded in-group); MM, EX, DH, CF and WE → U (IWC's Merishausen capabilities are documented, but none is tied to this model); PD 4 → 2; confidence B → D. The industrial_manufacture label is not confirmed by this profile. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): PD 2 → U. The industrial_manufacture label is provisional. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -236,11 +236,11 @@ profiles:
             stance: context
             note: Not tied to this model.
       PD:
-        value: 2
-        rationale: The model reworks Gérald Genta's 1976 Ingenieur SL around a group calibre. No source describes the development team or bespoke engineering.
+        value: null
+        rationale: The only design claim is that Gérald Genta designed the 1976 original; nothing describes IWC's own design work on this model.
         evidence:
           - claim: iwci40-genta
-            stance: supports
-            note: Rework of the Genta design.
+            stance: context
+            note: About the 1976 original.
     classification:
       - industrial_manufacture

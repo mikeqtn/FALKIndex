@@ -162,11 +162,11 @@ profiles:
       - design_led_etablisseur
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: 'AI-drafted first evidenced profile. Proposed: EX 0 → U, DH 0 → U, CF 1 → U and WE 1 → U (makers of case, dial and hands not named; the inspecting "factory" is not identified); PD 4 → 3. Confidence stays C. The record id says Miyota, but the brand names the Seiko NE86. Needs review.'
+    change_note: 'AI-drafted first evidenced profile. Proposed: EX 0 → U, DH 0 → U, CF 1 → U and WE 1 → U (makers of case, dial and hands not named; the inspecting "factory" is not identified); PD 4 → 3. Confidence stays C. The record id says Miyota, but the brand names the Seiko NE86. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): confidence C → D. Needs review.'
     created_on: 2026-10-21
     scores:
       MA:

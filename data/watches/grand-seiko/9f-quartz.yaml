@@ -197,7 +197,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 5 → 4 and DH 5 → 4 (the studio statement covers cases, dials and hands but not the bracelet or crown); confidence A → B. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 5 → 4 and DH 5 → 4 (the studio statement covers cases, dials and hands but not the bracelet or crown); confidence A → B. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 5 → 4. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -251,8 +251,8 @@ profiles:
             stance: supports
             note: Zaratsu polishing.
       WE:
-        value: 5
-        rationale: The 9F is assembled and adjusted by hand at the studio, with oscillators aged and selected before assembly. That is end-to-end watchmaking.
+        value: 4
+        rationale: The 9F is assembled and adjusted by hand, with oscillators aged and selected first. A quartz calibre involves no complex mechanical watchmaking, so this is 4.
         evidence:
           - claim: gs9f-hand-assembled
             stance: supports

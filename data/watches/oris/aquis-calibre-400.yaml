@@ -140,16 +140,16 @@ profiles:
       - industrial_manufacture
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MM 1 → U, EX 0 → U, DH 0 → U, CF 1 → U and WE 4 → U (no source says who makes the movement parts, case, dial or hands, or who assembles and regulates the movement). MA 4 and PD 4 unchanged; confidence B → C. The industrial_manufacture label is not confirmed by this profile. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MM 1 → U, EX 0 → U, DH 0 → U, CF 1 → U and WE 4 → U (no source says who makes the movement parts, case, dial or hands, or who assembles and regulates the movement). MA 4 and PD 4 unchanged; confidence B → C. The industrial_manufacture label is not confirmed by this profile. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 4 → 5; confidence C → D. The industrial_manufacture label is provisional. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 4
-        rationale: Oris says Calibre 400 is a new movement it conceived, with twin barrels and over 30 non-ferrous parts. No source covers external engineering partners, so this is 4 rather than 5.
+        value: 5
+        rationale: Oris says Calibre 400 is a new movement it conceived, and its COO says the Oris team developed it in-house. That is the evidence pattern credited 5 for Habring², Akrivia and Breitling.
         evidence:
           - claim: oris-c400-conceived
             stance: supports

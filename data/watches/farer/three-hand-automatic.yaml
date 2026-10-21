@@ -144,7 +144,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only. Proposed: WE 1 → 0 (a 2016 article says the watches are produced by the contract maker Roventa-Henex); CF 0 → U (no source); PD 3 → 2; confidence A → C. The Roventa-Henex source predates the Sellita generation. Needs review."
+    change_note: "AI-drafted first evidenced profile, from press only. Proposed: WE 1 → 0 (a 2016 article says the watches are produced by the contract maker Roventa-Henex); CF 0 → U (no source); PD 3 → 2; confidence A → C. The Roventa-Henex source predates the Sellita generation. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): EX 0 → U; DH 0 → U. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -168,25 +168,25 @@ profiles:
             stance: supports
             note: External movement.
       EX:
-        value: 0
-        rationale: The watches are produced by Roventa-Henex, a contract manufacturer for several brands. The case maker is not named, but nothing is made by Farer.
+        value: null
+        rationale: Roventa-Henex produces the watches, but no claim says who makes the case, crown or crystal.
         evidence:
-          - claim: far3h-roventa-henex
-            stance: supports
-            note: Contract production.
           - claim: far3h-case-2021
             stance: context
             note: Specification only.
           - claim: far3h-bronze-crown
             stance: context
             note: Specification only.
+          - claim: far3h-roventa-henex
+            stance: context
+            note: Producer, not case maker.
       DH:
-        value: 0
-        rationale: Dials and hands are part of the watches produced by Roventa-Henex.
+        value: null
+        rationale: Roventa-Henex produces the watches, but no claim says who makes the dial or hands.
         evidence:
           - claim: far3h-roventa-henex
-            stance: supports
-            note: Contract production.
+            stance: context
+            note: Producer, not dial maker.
       CF:
         value: null
         rationale: No source documents any craft work.

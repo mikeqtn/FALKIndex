@@ -189,11 +189,11 @@ profiles:
       - integrated_manufacture
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (an 1861-lineage calibre with Lemania roots, updated with a co-axial escapement); MM 4 → U (the in-group ETA Master Co-Axial factory is not tied to cal. 3861); EX, DH and CF → U (no maker named); WE 5 → 3; PD 5 → U (no claim tagged PD); confidence B → C. The industrial_manufacture label is not confirmed by this profile. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (an 1861-lineage calibre with Lemania roots, updated with a co-axial escapement); MM 4 → U (the in-group ETA Master Co-Axial factory is not tied to cal. 3861); EX, DH and CF → U (no maker named); WE 5 → 3; PD 5 → U (no claim tagged PD); confidence B → C. The industrial_manufacture label is not confirmed by this profile. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 3 → 2; confidence C → D. The industrial_manufacture label is provisional. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -244,8 +244,8 @@ profiles:
         rationale: No source describes who finishes the movement.
         evidence: []
       WE:
-        value: 3
-        rationale: Movements are cased into complete watches at Omega in Bienne, and Omega staff run the Master Chronometer tests under METAS supervision. No source describes movement assembly, so this is 3.
+        value: 2
+        rationale: Movements are cased into complete watches at Bienne, and Omega staff run Master Chronometer tests. No claim describes movement assembly or adjustment, so this is casing and testing.
         evidence:
           - claim: omega-bienne-casing
             stance: supports

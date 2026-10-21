@@ -135,11 +135,11 @@ profiles:
       - contract_microbrand
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX, DH, CF and WE 0 → U (no source names any maker or the assembler); confidence A → C. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX, DH, CF and WE 0 → U (no source names any maker or the assembler); confidence A → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): confidence C → D. Needs review."
     created_on: 2026-10-21
     scores:
       MA:

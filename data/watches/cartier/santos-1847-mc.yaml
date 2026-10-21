@@ -157,11 +157,11 @@ profiles:
       - industrial_manufacture
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MM 3 → U, EX 3 → U, DH 3 → U and WE 5 → U (the only source is a general statement that Cartier makes movements in La Chaux-de-Fonds, with no breakdown for the 1847 MC); CF 2 → 0 (stamped decoration); confidence B → C. The industrial_manufacture label is kept but not yet confirmed by the profile. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MM 3 → U, EX 3 → U, DH 3 → U and WE 5 → U (the only source is a general statement that Cartier makes movements in La Chaux-de-Fonds, with no breakdown for the 1847 MC); CF 2 → 0 (stamped decoration); confidence B → C. The industrial_manufacture label is kept but not yet confirmed by the profile. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 0 → U; confidence C → D. The industrial_manufacture label is provisional. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -202,12 +202,12 @@ profiles:
             stance: context
             note: Makers not named.
       CF:
-        value: 0
-        rationale: The movement decoration is basic, with stamped rather than polished Geneva stripes. No internal handwork is documented.
+        value: null
+        rationale: The decoration is basic and stamped, but no source says who applies it, so U rather than 0.
         evidence:
           - claim: cs1847-decoration
-            stance: supports
-            note: Stamped decoration.
+            stance: context
+            note: Stamped; performer unknown.
       WE:
         value: null
         rationale: No source describes 1847 MC assembly or regulation; the La Chaux-de-Fonds statement is general.

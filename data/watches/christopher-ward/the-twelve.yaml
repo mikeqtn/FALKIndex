@@ -19,6 +19,7 @@ claims:
     dimensions:
       - CF
       - PD
+      - MA
     date_checked: 2026-10-21
     editor: ai-draft
   - id: cw12-swiss-made-brand
@@ -135,16 +136,19 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: EX 0 → U, DH 0 → U and CF 0 → U (no maker named); PD 3 → 2 (the customised rotor is cosmetic); confidence A → C. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: EX 0 → U, DH 0 → U and CF 0 → U (no maker named); PD 3 → 2 (the customised rotor is cosmetic); confidence A → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 0 → 1; PD 2 → 1. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 0
-        rationale: A stock Sellita SW200-1 with a customised rotor.
+        value: 1
+        rationale: "A Sellita SW200-1 with a customised Christopher Ward rotor: a cosmetic specification."
         evidence:
           - claim: cw12-sw200
             stance: supports
             note: Sellita SW200-1.
+          - claim: cw12-rotor
+            stance: supports
+            note: Custom rotor.
       MM:
         value: 0
         rationale: The complete movement is bought in.
@@ -184,12 +188,9 @@ profiles:
             stance: supports
             note: Swiss assembly.
       PD:
-        value: 2
-        rationale: Original design around a conventional supplier movement; the custom rotor is cosmetic.
+        value: 1
+        rationale: The only design claim is the customised rotor, a cosmetic specification. The review's description of a British-based, Swiss-made brand does not say who designs the watch.
         evidence:
-          - claim: cw12-swiss-made-brand
-            stance: supports
-            note: Brand design.
           - claim: cw12-rotor
             stance: supports
             note: Custom rotor.

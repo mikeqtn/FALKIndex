@@ -170,7 +170,7 @@ profiles:
     independent_watchmaker: true
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and interview sources. Proposed: MM 3 → 0 (a 2018 profile says plates and bridges were not yet made in-house and most components came from suppliers); EX 2 → U and DH 2 → U (no source); CF 5 → 4; WE 5 → 4; confidence A → C; independent_manufacture → design_led_etablisseur + artisan_atelier. A newer source on the planned CNC machine could restore MM. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist and interview sources. Proposed: MM 3 → 0 (a 2018 profile says plates and bridges were not yet made in-house and most components came from suppliers); EX 2 → U and DH 2 → U (no source); CF 5 → 4; WE 5 → 4; confidence A → C; independent_manufacture → design_led_etablisseur + artisan_atelier. A newer source on the planned CNC machine could restore MM. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 0 → U; WE 4 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -187,21 +187,21 @@ profiles:
             stance: supports
             note: Basis of a later in-house calibre.
       MM:
-        value: 0
-        rationale: In 2018 Akrivia designed and finished its bridges and plates but did not have the facilities to make them, and most components came from suppliers. That is level 0 for physical manufacture. The same profile mentions a plan to buy a CNC machine, so this may be out of date.
+        value: null
+        rationale: In 2018 Akrivia did not make its plates and bridges, and "most" components came from suppliers. That leaves room for some internal parts, so this is U rather than 0. A CNC machine was planned.
         evidence:
-          - claim: ak06-bridges-plates-external
-            stance: supports
-            note: Plates and bridges not made in-house.
-          - claim: ak06-outsourced-components
-            stance: supports
-            note: Components outsourced.
-          - claim: ak06-family-suppliers
-            stance: supports
-            note: Most components from suppliers.
           - claim: ak06-cnc-plan
             stance: context
             note: Planned in-house machining.
+          - claim: ak06-bridges-plates-external
+            stance: context
+            note: Plates and bridges not made in-house.
+          - claim: ak06-outsourced-components
+            stance: context
+            note: Components outsourced.
+          - claim: ak06-family-suppliers
+            stance: context
+            note: Most components from suppliers.
       EX:
         value: null
         rationale: Case materials and dimensions are published, but no source names who makes the case.
@@ -227,8 +227,8 @@ profiles:
             stance: supports
             note: Supplier parts finished in Geneva.
       WE:
-        value: 4
-        rationale: The calibre is assembled in-house. No source describes regulation or testing, so this stops short of 5.
+        value: 3
+        rationale: The calibre is assembled in-house. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: ak06-inhouse-caliber
             stance: supports

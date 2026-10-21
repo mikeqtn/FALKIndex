@@ -206,7 +206,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 0 and DH 3 → 0 (a 2024 visit report says case, dial, hands, strap and clasp are sourced externally); CF 2 → 1 (the decoration is listed, but no handwork is described); PD 5 → 4; confidence A → B; integrated_manufacture → independent_manufacture. The calibre (DUW 3001) is assumed from the 35 mm references and needs a model page. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 0 and DH 3 → 0 (a 2024 visit report says case, dial, hands, strap and clasp are sourced externally); CF 2 → 1 (the decoration is listed, but no handwork is described); PD 5 → 4; confidence A → B; integrated_manufacture → independent_manufacture. The calibre (DUW 3001) is assumed from the 35 mm references and needs a model page. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 1 → 0; PD 4 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -253,8 +253,8 @@ profiles:
             stance: supports
             note: Dial and hands external.
       CF:
-        value: 1
-        rationale: The movement carries rhodium plating, Glashütte ribbing and NOMOS perlage, made on site. No source describes this as handwork, so it is limited decoration rather than skilled craft.
+        value: 0
+        rationale: The movement carries rhodium plating, Glashütte ribbing and perlage, but no claim describes manual work. No documented internal handwork.
         evidence:
           - claim: ntn-finish
             stance: supports
@@ -273,8 +273,8 @@ profiles:
             stance: supports
             note: Six-position adjustment.
       PD:
-        value: 4
-        rationale: NOMOS has its own design department, Berlinerblau. The calibre and escapement engineering is credited under MA and MM, so this is 4 rather than 5.
+        value: 3
+        rationale: NOMOS has its own design department, Berlinerblau. The calibre and escapement engineering is credited under MA and MM, and no claim describes the department's technical development, so this is 3.
         evidence:
           - claim: ntn-berlinerblau
             stance: supports

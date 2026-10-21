@@ -192,7 +192,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 4 → 2 (the Peseux 7001 layout is kept); MM 2 → 3 (bridges, screws and gears made in-house); EX 1 → U and WE 4 → U (no source); DH 2 → 4 (dial guilloché and hands made in-house); PD 4 → 3; confidence stays B; watchmaking_atelier → artisan_atelier. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 4 → 2 (the Peseux 7001 layout is kept); MM 2 → 3 (bridges, screws and gears made in-house); EX 1 → U and WE 4 → U (no source); DH 2 → 4 (dial guilloché and hands made in-house); PD 4 → 3; confidence stays B; watchmaking_atelier → artisan_atelier. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): no score changes. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -221,6 +221,9 @@ profiles:
           - claim: lp37-structural-parts
             stance: supports
             note: Own structural parts.
+          - claim: lp37-decoration-not-manufacture
+            stance: contradicts
+            note: Focus is decoration, not manufacture.
       EX:
         value: null
         rationale: No source names the P37 case maker. The workshop shows some case machining, but not for this model.

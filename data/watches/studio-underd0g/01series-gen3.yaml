@@ -11,6 +11,7 @@ claims:
     dimensions:
       - MA
       - MM
+      - PD
     date_checked: 2026-10-21
     editor: ai-draft
   - id: ud01g3-st1901b
@@ -198,7 +199,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: MA 0 → 1 (exclusive modified Seagull ST-1901B); EX, DH and CF 0 → U (no maker named); WE 3 → 2. PD 3 unchanged; confidence A → C. Horologium, the assembler, was a partner until Studio Underd0g took full ownership on 3 December 2025. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: MA 0 → 1 (exclusive modified Seagull ST-1901B); EX, DH and CF 0 → U (no maker named); WE 3 → 2. PD 3 unchanged; confidence A → C. Horologium, the assembler, was a partner until Studio Underd0g took full ownership on 3 December 2025. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): no score changes. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -262,5 +263,8 @@ profiles:
           - claim: ud01g3-case-height
             stance: supports
             note: Case re-specified.
+          - claim: ud01g3-seagull-deal
+            stance: supports
+            note: Exclusive movement negotiated.
     classification:
       - contract_microbrand

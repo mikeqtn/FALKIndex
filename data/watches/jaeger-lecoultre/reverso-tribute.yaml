@@ -162,7 +162,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MM 5 → 4, EX 4 → 3, CF 4 → 3 and PD 5 → 4 (the brand sources are general where a higher level would need specifics); DH 4 → U (the dial process is described, but not who makes it); confidence A → B. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MM 5 → 4, EX 4 → 3, CF 4 → 3 and PD 5 → 4 (the brand sources are general where a higher level would need specifics); DH 4 → U (the dial process is described, but not who makes it); confidence A → B. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): EX 3 → 2; WE 5 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -186,8 +186,8 @@ profiles:
             stance: supports
             note: Produced in-house.
       EX:
-        value: 3
-        rationale: A 2012 visit report says the Le Sentier site makes Reverso cases. It concerns the Grande Reverso and is not current, and the Milanese bracelet's maker is not stated, so this is 3 rather than 4.
+        value: 2
+        rationale: A 2012 report says the Le Sentier site makes Reverso cases. Only the case family is evidenced, from an older report on another Reverso, and the bracelet maker is not stated.
         evidence:
           - claim: jlcrt-cases-made
             stance: supports
@@ -216,8 +216,8 @@ profiles:
             stance: supports
             note: Crafts under one roof.
       WE:
-        value: 5
-        rationale: Calibres are assembled within the manufacture, which brings its watchmaking crafts under one roof.
+        value: 3
+        rationale: Calibres are assembled within the manufacture. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: jlcrt-822-inhouse
             stance: supports

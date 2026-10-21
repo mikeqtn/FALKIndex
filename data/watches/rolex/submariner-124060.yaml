@@ -202,11 +202,11 @@ profiles:
       - integrated_manufacture
   - version: 2
     methodology: v0.2
-    confidence: B
+    confidence: C
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only (the site report dates from 2014). Proposed: EX 5 → 4 (bezel insert and crystal makers not named); DH 5 → 3 (hands bought from a specialist in 2014); CF 2 → U (no source); confidence A → B. Needs review."
+    change_note: "AI-drafted first evidenced profile, from press only (the site report dates from 2014). Proposed: EX 5 → 4 (bezel insert and crystal makers not named); DH 5 → 3 (hands bought from a specialist in 2014); CF 2 → U (no source); confidence A → B. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 5 → 3; confidence B → C. The Bienne, Plan-les-Ouates and Chêne-Bourg claims are kept as evidence because they describe where all Rolex movements, cases and dials are made, not a capability; confidence lowered because every source is secondary. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -266,8 +266,8 @@ profiles:
         rationale: No source describes who finishes the movement or case.
         evidence: []
       WE:
-        value: 5
-        rationale: Movements are manufactured and assembled at Bienne, and each watch is finally assembled at the Geneva headquarters.
+        value: 3
+        rationale: Movements are manufactured and assembled at Bienne, and watches finally assembled in Geneva. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: rolex-bienne
             stance: supports

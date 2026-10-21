@@ -181,39 +181,39 @@ profiles:
       - independent_manufacture
   - version: 2
     methodology: v0.2
-    confidence: B
+    confidence: C
     independent_watchmaker: true
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 2 → 0 (the maker calls the CC II case its first in-house one); DH 2 → U (the 2018 enamel dial is by an external Geneva enameller; hands unattributed). Other scores unchanged; confidence stays B. The maker's claim that every component is made in-house sits uneasily with the 2018 AK-06 sources; see that record. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 2 → 0 (the maker calls the CC II case its first in-house one); DH 2 → U (the 2018 enamel dial is by an external Geneva enameller; hands unattributed). Other scores unchanged; confidence stays B. The maker's claim that every component is made in-house sits uneasily with the 2018 AK-06 sources; see that record. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 5 → 4; MM 3 → U; EX 0 → U; WE 5 → 3; confidence B → C. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 5
-        rationale: The maker says every component is conceived in-house, and the RRCC-01 derives from Akrivia's own AK-06 calibre. The statement is general rather than about this calibre.
+        value: 4
+        rationale: The maker says every component is conceived in-house. No claim in this record describes the calibre's design, and a general statement cannot show the engineering is mastered internally, so 4.
         evidence:
           - claim: rrcc-ateliers-in-house
             stance: supports
             note: Conceived in-house.
       MM:
-        value: 3
-        rationale: The maker says every RRCC-01 component is crafted and hand-finished at Atelier Akrivia. That is a brand statement only, and 2018 sources on the AK-06 report most components came from suppliers. A significant portion is credited pending independent confirmation.
+        value: null
+        rationale: The maker says every RRCC-01 component is crafted in-house, but 2018 sources in the AK-06 record report that most parts came from suppliers. With the brand claim contested, U until an independent source settles it.
         evidence:
           - claim: rrcc-crafted-finished-akrivia
-            stance: supports
-            note: Crafted at Akrivia.
+            stance: context
+            note: Brand claim, contested.
           - claim: rrcc-ateliers-in-house
-            stance: supports
-            note: Made in-house.
+            stance: context
+            note: Brand claim, contested.
       EX:
-        value: 0
-        rationale: Akrivia opened its case workshop in 2019, after the CC I launched, and calls the CC II case its first in-house conventional case. The CC I case maker is not named.
+        value: null
+        rationale: The maker calls the CC II case its first in-house conventional case, which implies, but does not state, that the CC I case was external. The case maker is not named.
         evidence:
           - claim: rrcc2-first-in-house-case
-            stance: supports
-            note: CC I case not in-house.
+            stance: context
+            note: Implies CC I case external.
           - claim: rrcc-case-workshop-2019
-            stance: supports
+            stance: context
             note: Case workshop from 2019.
       DH:
         value: null
@@ -242,8 +242,8 @@ profiles:
             stance: supports
             note: Hand-finished in-house.
       WE:
-        value: 5
-        rationale: Each watchmaker completes an entire watch from start to finish. The first watches were chronometer-tested at Besançon, an external body.
+        value: 3
+        rationale: Each watchmaker completes a whole watch from start to finish. No claim mentions regulation or adjustment, which caps this at 3. The chronometer trials were external.
         evidence:
           - claim: rrcc-one-watchmaker
             stance: supports

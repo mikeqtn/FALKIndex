@@ -186,11 +186,11 @@ profiles:
       - integrated_manufacture
   - version: 2
     methodology: v0.2
-    confidence: B
+    confidence: C
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 4 (wholly owned case maker, recorded as in-group); CF 5 → U (the decoration is specified, but no claim says where it is done); PD 5 → U (the calibre claim is tagged MA, not PD). Confidence stays B. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 4 (wholly owned case maker, recorded as in-group); CF 5 → U (the decoration is specified, but no claim says where it is done); PD 5 → U (the calibre claim is tagged MA, not PD). Confidence stays B. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): DH 3 → U; confidence B → C. Confidence lowered because MM, EX and DH rest on press reporting. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -221,7 +221,7 @@ profiles:
             note: Hairspring maker not named.
       EX:
         value: 4
-        rationale: Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe. It is wholly owned, so this is in-group capability, disclosed as such; the source is general to the brand.
+        rationale: Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe and is recorded as in-group. A dedicated sister company is credited, with disclosure; the source is general to the brand.
         evidence:
           - claim: fpjcs-bdg-cases
             stance: supports
@@ -230,15 +230,15 @@ profiles:
             stance: supports
             note: Components in-house.
       DH:
-        value: 3
-        rationale: The dial is made by Les Cadraniers de Genève, F.P. Journe's own (in-group) dial maker. The hand maker is not named, so this is substantial dial manufacture rather than 4.
+        value: null
+        rationale: The dial is made by Les Cadraniers de Genève, F.P. Journe's dial maker, which also works for third-party clients, so it is not credited as internal. The hand maker is not named.
         evidence:
           - claim: fpjcs-cadraniers-havana
-            stance: supports
+            stance: context
             note: Own dial makers.
           - claim: fpjcs-cdg-dials
-            stance: supports
-            note: In-group dial maker.
+            stance: context
+            note: Also serves third parties.
       CF:
         value: null
         rationale: The technical sheet specifies the decoration, but no collected claim says where or by whom it is applied. U until a source places it.

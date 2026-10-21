@@ -175,11 +175,11 @@ profiles:
       - design_led_etablisseur
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 1 → 0 and MM 1 → 0 (a stock Sellita SW300-1); EX 1 → U, DH 1 → U and WE 2 → U (the maker names no workshops, and its case-making is historical). PD 3 unchanged; confidence B → C. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 1 → 0 and MM 1 → 0 (a stock Sellita SW300-1); EX 1 → U, DH 1 → U and WE 2 → U (the maker names no workshops, and its case-making is historical). PD 3 unchanged; confidence B → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): confidence C → D. The earlier note omitted CF 0 → U from the seed. Needs review."
     created_on: 2026-10-21
     scores:
       MA:

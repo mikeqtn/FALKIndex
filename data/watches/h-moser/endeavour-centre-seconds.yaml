@@ -200,23 +200,23 @@ profiles:
       - integrated_manufacture
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, mostly from specialist and interview sources. Proposed: EX 3 → 0 (the CEO said in 2019 that cases are not made in-house); DH 3 → U and CF 4 → U (dials and anglage are external, but hands and the rest of the decoration are unattributed); WE 5 → U and PD 5 → U (no source); confidence A → C; integrated_manufacture → independent_manufacture. Hairsprings and escapements come from the in-group sister company Precision Engineering. Needs review."
+    change_note: "AI-drafted first evidenced profile, mostly from specialist and interview sources. Proposed: EX 3 → 0 (the CEO said in 2019 that cases are not made in-house); DH 3 → U and CF 4 → U (dials and anglage are external, but hands and the rest of the decoration are unattributed); WE 5 → U and PD 5 → U (no source); confidence A → C; integrated_manufacture → independent_manufacture. Hairsprings and escapements come from the in-group sister company Precision Engineering. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 5 → 4; MM 5 → 4; confidence C → D. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 5
-        rationale: Specialist reporting describes the HMC 200 as Moser's in-house automatic calibre, with an interchangeable regulating organ.
+        value: 4
+        rationale: Specialist reporting describes the HMC 200 as Moser's in-house calibre. A single secondary claim cannot show the engineering is substantially mastered internally, so 4.
         evidence:
           - claim: hmecs-hmc200-inhouse
             stance: supports
             note: In-house calibre.
       MM:
-        value: 5
-        rationale: The regulating organ, Straumann hairspring and escape wheels are made by Precision Engineering, a sister company on Moser's site under Meylan family control. This is in-group capability, disclosed as such. The split of other parts between Moser and Precision Engineering is not published.
+        value: 4
+        rationale: The regulating organ, hairspring and escape wheels come from the sister company Precision Engineering, credited as in-group. The split of plates, bridges and wheels is not published, so this is 4 rather than 5.
         evidence:
           - claim: hmecs-pe-regulating
             stance: supports

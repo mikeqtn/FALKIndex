@@ -184,7 +184,7 @@ profiles:
     independent_watchmaker: true
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MM 4 → 1 (an external CNC firm made plates and wheels; specialised parts came from suppliers); EX 2 → U (no case maker named); DH 2 → 0 (dial, hands and indices by Metalem); WE 5 → 4; confidence A → B; independent_manufacture → design_led_etablisseur + artisan_atelier. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MM 4 → 1 (an external CNC firm made plates and wheels; specialised parts came from suppliers); EX 2 → U (no case maker named); DH 2 → 0 (dial, hands and indices by Metalem); WE 5 → 4; confidence A → B; independent_manufacture → design_led_etablisseur + artisan_atelier. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 4 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -219,7 +219,7 @@ profiles:
             note: Maker not named.
       DH:
         value: 0
-        rationale: The dial, hands, numerals and indices are by Metalem, whose name is on the dial.
+        rationale: The dial, hands, numerals and indices are by Metalem, whose name is on the dial. Dufour's statement that he did not outsource casing, dial and hands conflicts with this; the Metalem credits are more specific.
         evidence:
           - claim: dufour-simp-metalem-dial
             stance: supports
@@ -241,8 +241,8 @@ profiles:
             stance: supports
             note: Gentian-wood bevels.
       WE:
-        value: 4
-        rationale: Dufour made the watch himself rather than outsource the build. No source describes regulation or testing, so this is 4.
+        value: 3
+        rationale: Dufour made the watch himself rather than outsource the build. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: dufour-simp-from-scratch
             stance: supports

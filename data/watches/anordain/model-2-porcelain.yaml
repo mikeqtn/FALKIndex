@@ -167,7 +167,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U (no source on the case maker); DH 5 → 4 (dial printing and hands not attributed); confidence A → B, since the dial evidence is specialist press rather than a brand page. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U (no source on the case maker); DH 5 → 4 (dial printing and hands not attributed); confidence A → B, since the dial evidence is specialist press rather than a brand page. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): DH 4 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -195,8 +195,8 @@ profiles:
         rationale: No source names the case maker.
         evidence: []
       DH:
-        value: 4
-        rationale: Porcelain dials are formed, glazed and fired in the studio's own pottery space by an in-house porcelain artist. That is deep dial manufacture. It is not 5 because no source attributes the dial printing or the hand manufacture.
+        value: 3
+        rationale: "Porcelain dials are formed, glazed and fired in the studio's own pottery space by an in-house porcelain artist: substantial dial manufacture. Level 4 needs the hands as well, and their maker is not named."
         evidence:
           - claim: am2p-dial-inhouse
             stance: supports

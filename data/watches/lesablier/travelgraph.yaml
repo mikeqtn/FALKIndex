@@ -165,7 +165,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (world-time modification of the Miyota 9075); CF 0 → U (who engraves the rotor is not stated); WE 0 → 2 (the brand says it builds, tests and regulates in the D.C. area); confidence A → B. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (world-time modification of the Miyota 9075); CF 0 → U (who engraves the rotor is not stated); WE 0 → 2 (the brand says it builds, tests and regulates in the D.C. area); confidence A → B. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 2 → U. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -213,17 +213,17 @@ profiles:
             stance: context
             note: Maker not stated.
       WE:
-        value: 2
-        rationale: The brand says the Travelgraph is built, quality-controlled, pressure-tested and regulated in the D.C. area. Whether by its own staff or a local contractor is not stated.
+        value: null
+        rationale: The brand says the Travelgraph is built, tested and regulated in the D.C. area, but not by whom; it may be a local contractor.
         evidence:
           - claim: lstg-built-dc
-            stance: supports
-            note: Built and regulated in the D.C. area.
+            stance: context
+            note: Performer not stated.
           - claim: lstg-assembled-usa
-            stance: supports
-            note: Assembled in the US.
+            stance: context
+            note: Country only.
           - claim: lstg-parts-overseas
-            stance: supports
+            stance: context
             note: Final assembly in D.C.
       PD:
         value: 2

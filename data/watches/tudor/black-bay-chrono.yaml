@@ -217,7 +217,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: MA 3 → 2 (a Breitling B01 base with Tudor's own regulating parts); MM 2 → 3 (now made at in-group Kenissi; Breitling made it at launch); EX 2 → 0; DH 2 → U and CF 1 → U; WE 5 → 4; PD 4 → 3; confidence B → C. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: MA 3 → 2 (a Breitling B01 base with Tudor's own regulating parts); MM 2 → 3 (now made at in-group Kenissi; Breitling made it at launch); EX 2 → 0; DH 2 → U and CF 1 → U; WE 5 → 4; PD 4 → 3; confidence B → C. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 3 → 0; EX 0 → U; WE 4 → 2. industrial_manufacture → design_led_etablisseur, since the movement maker is not credited. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -231,15 +231,9 @@ profiles:
             stance: supports
             note: MT5813.
       MM:
-        value: 3
-        rationale: Breitling made the MT5813 for Tudor at launch (2017); by 2026 it is made at Tudor's Kenissi. The changeover date is not stated, and who makes the balance and silicon hairspring is unknown. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal.
+        value: 0
+        rationale: Breitling made the MT5813 at launch, and Kenissi makes it now. Neither is credited as Tudor's own, since Kenissi supplies other brands. Tudor specified its own regulating parts.
         evidence:
-          - claim: tbbc-kenissi-2026
-            stance: supports
-            note: Now made at Kenissi.
-          - claim: tbbc-made-by-breitling
-            stance: context
-            note: Made by Breitling at launch.
           - claim: tbbc-tudor-additions
             stance: supports
             note: Own regulating parts.
@@ -249,16 +243,22 @@ profiles:
           - claim: tbbc-silicon
             stance: context
             note: Maker not stated.
-      EX:
-        value: 0
-        rationale: Orolux is named as a Tudor case supplier, not tied to this model. Borderline with U.
-        evidence:
-          - claim: tbbc-cases-orolux
+          - claim: tbbc-made-by-breitling
             stance: supports
-            note: External case maker.
+            note: Made by Breitling at launch.
+          - claim: tbbc-kenissi-2026
+            stance: supports
+            note: Now made at Kenissi.
+      EX:
+        value: null
+        rationale: Orolux is named as a Tudor case supplier, but not tied to this model.
+        evidence:
           - claim: tbbc-case
             stance: context
             note: Specification.
+          - claim: tbbc-cases-orolux
+            stance: context
+            note: Not tied to this model.
       DH:
         value: null
         rationale: Montremo is named as a Tudor dial maker, not tied to this model, and no source names the hand maker.
@@ -274,15 +274,15 @@ profiles:
             stance: context
             note: Specified finishes.
       WE:
-        value: 4
-        rationale: The movement is now made at Kenissi, and Tudor assembles and tests the watches in Le Locle. Not 5, as several component families are bought in.
+        value: 2
+        rationale: Tudor assembles and tests the watches in Le Locle; the movement is made at Kenissi and not credited. No claim mentions regulation or adjustment by Tudor.
         evidence:
           - claim: tbbc-watch-assembly
             stance: supports
             note: Watch assembly and testing.
           - claim: tbbc-kenissi-2026
-            stance: supports
-            note: Movement made in-group.
+            stance: context
+            note: Movement made at Kenissi.
       PD:
         value: 3
         rationale: Tudor specified its own regulating parts and finishes on a partner's base, designed a new dial, and traded its MT5612 in exchange. Bespoke components and supplier-directed development.
@@ -297,4 +297,4 @@ profiles:
             stance: supports
             note: Movement exchange.
     classification:
-      - industrial_manufacture
+      - design_led_etablisseur

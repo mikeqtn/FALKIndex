@@ -34,6 +34,7 @@ claims:
     source: underd0g-oracleoftime-03series-salm0n
     dimensions:
       - CF
+      - PD
     date_checked: 2026-10-21
     editor: ai-draft
   - id: ud03-assembled-gb
@@ -179,7 +180,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: EX, DH and CF 0 → U (no maker named; who applies the custom bridge decoration is not stated); WE 3 → 2; PD 3 → U (no claim about design is tagged PD); confidence B → C. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: EX, DH and CF 0 → U (no maker named; who applies the custom bridge decoration is not stated); WE 3 → 2; PD 3 → U (no claim about design is tagged PD); confidence B → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): PD U → 2. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -240,8 +241,11 @@ profiles:
             stance: supports
             note: Ownership timeline.
       PD:
-        value: null
-        rationale: The design is evidently the brand's, but no collected claim about it is tagged PD.
-        evidence: []
+        value: 2
+        rationale: The brand specified a custom ruthenium and Côtes de Genève bridge finish on a stock Sellita. Original design around a conventional supplier movement.
+        evidence:
+          - claim: ud03-custom-decoration
+            stance: supports
+            note: Specified custom finish.
     classification:
       - contract_microbrand

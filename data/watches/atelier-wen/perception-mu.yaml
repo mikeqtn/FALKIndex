@@ -154,23 +154,23 @@ profiles:
       - artisan_etablisseur
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist reviews only. Proposed: MA 0 → 1 (customised Peacock movement); EX 0 → U, DH 0 → U, CF 0 → U and WE 2 → U (no source on the case maker, hands, movement finishing or assembly); PD 4 → 3; confidence A → C. A reviewer noted public questions about the guilloché claims. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist reviews only. Proposed: MA 0 → 1 (customised Peacock movement); EX 0 → U, DH 0 → U, CF 0 → U and WE 2 → U (no source on the case maker, hands, movement finishing or assembly); PD 4 → 3; confidence A → C. A reviewer noted public questions about the guilloché claims. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 1 → 0; confidence C → D. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 1
-        rationale: The Mù uses the Peacock SL1588A, described for this platform as customised for Atelier Wen. The extent of the customisation is not documented, so this is custom specification rather than modification.
+        value: 0
+        rationale: The Mù uses the stock Peacock SL1588A. The customisation claim concerns the original Perception, not the Mù, so it is context only.
         evidence:
           - claim: awmu-sl1588a
             stance: supports
             note: Peacock SL1588A.
           - claim: awmu-peacock-customised
-            stance: supports
-            note: Customised movement.
+            stance: context
+            note: About the original Perception.
       MM:
         value: 0
         rationale: The complete movement comes from Liaoning Peacock.

@@ -209,7 +209,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: MM 1 → 0 (main plate, bridges and special wheels are all named external suppliers' work); EX 0 → U, DH 0 → U and CF 1 → U (case maker, hands and any internal finishing unattributed; the dial-side graining is Chronode's); confidence A → C. Assembly rests on a 2016 description of the in-group Synergies workshop, not this model. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: MM 1 → 0 (main plate, bridges and special wheels are all named external suppliers' work); EX 0 → U, DH 0 → U and CF 1 → U (case maker, hands and any internal finishing unattributed; the dial-side graining is Chronode's); confidence A → C. Assembly rests on a 2016 description of the in-group Synergies workshop, not this model. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 3 → 2; PD 5 → 4. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -266,8 +266,8 @@ profiles:
             stance: context
             note: External finishing.
       WE:
-        value: 3
-        rationale: Synergies Horlogères in Biel, which merged with Christopher Ward, assembles and inspects the brand's more complicated models. The 2016 source does not name the Bel Canto, so this is borderline and in-group rather than internal.
+        value: 2
+        rationale: Synergies Horlogères, which merged with Christopher Ward, assembles and inspects the more complicated models. No claim covers movement adjustment or regulation, and the 2016 source does not name the Bel Canto.
         evidence:
           - claim: cwbc-swiss-assembly
             stance: supports
@@ -276,8 +276,8 @@ profiles:
             stance: supports
             note: In-group workshop.
       PD:
-        value: 5
-        rationale: The brand engineered a chiming module, directed four named specialist suppliers and designed the dial. The chime defines the watch.
+        value: 4
+        rationale: The brand engineered a chiming module on a Sellita base, directed four named specialist suppliers and designed the dial. Extensive original development; not 5, as the base architecture is a supplier's.
         evidence:
           - claim: cwbc-fs01-stelzer
             stance: supports

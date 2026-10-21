@@ -41,8 +41,8 @@ claims:
     date_checked: 2026-10-21
     editor: ai-draft
   - id: tbb58-kenissi-all
-    statement: A factory-visit report states that Kenissi produces all of Tudor's in-house movements.
-    excerpt: Kenissi produces all of Tudor’s in-house movements.
+    statement: A factory-visit report states that Kenissi produces all of Tudor's in-house movements and also supplies movements to Chanel, Breitling and TAG Heuer, among others.
+    excerpt: Kenissi produces all of Tudor’s in-house movements and also supplies movements to Chanel, Breitling, and TAG Heuer, amongst others.
     source: tudor-sjx-le-locle-2023
     dimensions:
       - MM
@@ -226,12 +226,12 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: MM 3 → 4 (Kenissi, in-group, makes the movement and its blanks, oscillators and stamped parts); EX 2 → 0 (named external case and bracelet suppliers, not model-specific); DH 2 → U and CF 1 → U (hands and finishing unattributed); WE 5 → 4; confidence A → C, since no primary source was reached. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: MM 3 → 4 (Kenissi, in-group, makes the movement and its blanks, oscillators and stamped parts); EX 2 → 0 (named external case and bracelet suppliers, not model-specific); DH 2 → U and CF 1 → U (hands and finishing unattributed); WE 5 → 4; confidence A → C, since no primary source was reached. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 4 → 0; EX 0 → U; WE 4 → 2; PD 4 → 3. industrial_manufacture → design_led_etablisseur, since the movement maker is not credited. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
         value: 4
-        rationale: The MT5402 is a Tudor manufacture calibre developed by Kenissi, founded in 2016 for that purpose. A proprietary calibre developed for the brand by its in-group movement maker.
+        rationale: The MT5402 is a Tudor calibre developed by Kenissi, which was founded in 2016 for that purpose. A proprietary calibre developed for the brand by an external, if majority-owned, maker.
         evidence:
           - claim: tbb58-mt5402
             stance: supports
@@ -240,37 +240,37 @@ profiles:
             stance: supports
             note: Developed by Kenissi.
       MM:
-        value: 4
-        rationale: Kenissi makes and assembles all of Tudor's in-house movements, and companies in its holding make movement blanks, oscillators and stamped parts. Silicon parts come from an external specialist or one Tudor owns. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed rather than treated as brand-internal. Borderline with 3.
+        value: 0
+        rationale: Kenissi, majority-owned by Tudor, makes and assembles the MT5402, with blanks, oscillators and stamped parts from its holding companies. It also supplies Chanel, Breitling and TAG Heuer, so under the house rule it is not credited as Tudor's own, and the complete movement is external to Tudor.
         evidence:
           - claim: tbb58-kenissi-all
             stance: supports
             note: Kenissi makes the movements.
-          - claim: tbb58-kenissi-holding
-            stance: supports
-            note: Blanks, oscillators, stamped parts.
-          - claim: tbb58-kenissi-assembly
-            stance: supports
-            note: Made and assembled at Le Locle.
           - claim: tbb58-silicon-supplier
             stance: context
             note: External silicon.
           - claim: tbb58-silicon-two-specialists
             stance: context
             note: Owns one specialist.
+          - claim: tbb58-kenissi-holding
+            stance: context
+            note: Holding companies.
+          - claim: tbb58-kenissi-assembly
+            stance: context
+            note: Made at Kenissi.
       EX:
-        value: 0
-        rationale: Orolux and Joseph Baume are named as Tudor case and case-blank suppliers, and Detech makes bracelet components. None is tied to this model, so this is borderline with U.
+        value: null
+        rationale: Orolux, Joseph Baume and Detech are named as Tudor exterior suppliers, but none is tied to this model.
         evidence:
-          - claim: tbb58-cases-orolux
-            stance: supports
-            note: External case makers.
-          - claim: tbb58-bracelet-detech
-            stance: supports
-            note: External bracelet parts.
           - claim: tbb58-case-39
             stance: context
             note: Specification.
+          - claim: tbb58-cases-orolux
+            stance: context
+            note: Not tied to this model.
+          - claim: tbb58-bracelet-detech
+            stance: context
+            note: Not tied to this model.
       DH:
         value: null
         rationale: Montremo is named as a Tudor dial maker, not tied to this model, and no source names the hand maker. At most 2 if the hands are internal, otherwise 0.
@@ -283,24 +283,24 @@ profiles:
         rationale: No source describes who finishes the movement or case.
         evidence: []
       WE:
-        value: 4
-        rationale: Kenissi assembles the movements, and Tudor assembles and tests the watches in Le Locle before shipping. COSC testing is external. Deep movement assembly via the in-group maker; not 5, as several component families are bought in.
+        value: 2
+        rationale: Tudor assembles and tests the watches in Le Locle. Movement assembly is Kenissi's and not credited, and no claim mentions regulation or adjustment by Tudor.
         evidence:
           - claim: tbb58-watch-assembly
             stance: supports
             note: Watch assembly and testing.
-          - claim: tbb58-kenissi-assembly
-            stance: supports
-            note: Movement assembly.
           - claim: tbb58-silicon-cosc
             stance: context
             note: External COSC.
+          - claim: tbb58-kenissi-assembly
+            stance: context
+            note: Movement assembly at Kenissi.
       PD:
-        value: 4
-        rationale: Tudor set up Kenissi to develop its own movements. Extensive original technical development, partly through an in-group company.
+        value: 3
+        rationale: Tudor set up Kenissi to develop its movements, which is substantial supplier-directed development. Kenissi is not credited as internal, so this is 3.
         evidence:
           - claim: tbb58-kenissi-founded
             stance: supports
             note: Movement development.
     classification:
-      - industrial_manufacture
+      - design_led_etablisseur

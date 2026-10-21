@@ -228,12 +228,12 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 1 → U and DH 1 → U (no source names the case, dial or hand maker); confidence A → B. Other scores unchanged. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 1 → U and DH 1 → U (no source names the case, dial or hand maker); confidence A → B. Other scores unchanged. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 5 → 4; WE 5 → 4. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
-        value: 5
-        rationale: Habring² has developed its own A11 movement since 2011, and the Erwin's jumping-seconds A11S is a variant of it.
+        value: 4
+        rationale: Habring² began developing its own A11 movement in 2011. The claim shows development, but not how much of the architecture is original, so 4.
         evidence:
           - claim: h2erw-a11-development
             stance: supports
@@ -282,8 +282,8 @@ profiles:
             stance: supports
             note: Hand finishing.
       WE:
-        value: 5
-        rationale: Escapement parts are hand-mounted and adjusted, hairsprings scaled and paired with balances, and every movement is regulated to chronometer standard.
+        value: 4
+        rationale: Escapement parts are hand-mounted and adjusted, hairsprings scaled and paired with balances, and every movement is regulated to chronometer standard. Not 5, as most movement parts are bought in.
         evidence:
           - claim: h2erw-escapement
             stance: supports

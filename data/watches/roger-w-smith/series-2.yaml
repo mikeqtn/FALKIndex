@@ -211,7 +211,7 @@ profiles:
     independent_watchmaker: true
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from the maker's own pages with specialist corroboration. Proposed: EX 5 → 4 (sapphire crystals, seals and straps are bought in). Other scores unchanged; confidence stays A. Needs review."
+    change_note: "AI-drafted first evidenced profile, from the maker's own pages with specialist corroboration. Proposed: EX 5 → 4 (sapphire crystals, seals and straps are bought in). Other scores unchanged; confidence stays A. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 5 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -280,8 +280,8 @@ profiles:
             stance: context
             note: Some engraving in London.
       WE:
-        value: 5
-        rationale: Watches are designed, manufactured and assembled by hand in the Isle of Man workshop.
+        value: 3
+        rationale: Each watch is assembled by hand in the Isle of Man workshop, on movements made largely from raw materials. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: rws2-assembled-by-hand
             stance: supports

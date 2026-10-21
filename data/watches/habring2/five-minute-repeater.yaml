@@ -191,11 +191,11 @@ profiles:
       - independent_manufacture
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (the repeater module is bought from Dubois-Depraz); MM 2 → U, EX 1 → U and DH 1 → U (base parts, case, dial and hands unattributed); PD 5 → U (no claim tagged PD); confidence B → C. The independent_manufacture label rests on the Erwin record and needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (the repeater module is bought from Dubois-Depraz); MM 2 → U, EX 1 → U and DH 1 → U (base parts, case, dial and hands unattributed); PD 5 → U (no claim tagged PD); confidence B → C. The independent_manufacture label rests on the Erwin record and needs review. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 5 → 4; confidence C → D. independent_manufacture → watchmaking_atelier, since MM is U. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -249,8 +249,8 @@ profiles:
             stance: supports
             note: Finished in-house.
       WE:
-        value: 5
-        rationale: The movement is assembled in-house, Richard Habring does the final assembly and sound tuning, and hairsprings are scaled and paired in-house. That is complex watchmaking.
+        value: 4
+        rationale: The movement is assembled in-house, Richard Habring does the final assembly and sound tuning, and hairsprings are scaled in-house. Complication work with adjustment; not 5, because the movement's own manufacture is unknown.
         evidence:
           - claim: h2rep-buys-module
             stance: supports
@@ -266,4 +266,4 @@ profiles:
         rationale: No collected claim is tagged PD; the base movement is credited under MA.
         evidence: []
     classification:
-      - independent_manufacture
+      - watchmaking_atelier

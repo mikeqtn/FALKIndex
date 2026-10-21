@@ -238,7 +238,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → U (case maker not named; the CEO says the rest of the watch is not held to the movement's in-house standard); DH 3 → 2 (hands in-house, dial unattributed); confidence A → B; integrated_manufacture → independent_manufacture. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → U (case maker not named; the CEO says the rest of the watch is not held to the movement's in-house standard); DH 3 → 2 (hands in-house, dial unattributed); confidence A → B; integrated_manufacture → independent_manufacture. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 4 → 3; DH 2 → 3; WE 5 → 3. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -255,12 +255,9 @@ profiles:
             stance: supports
             note: Self-developed movements.
       MM:
-        value: 4
-        rationale: The brand aims for over 90% integration in the movement and makes the balance rim in-house. Jewels, the balance spring and mainsprings are bought in, so this is 4 rather than 5.
+        value: 3
+        rationale: The brand aimed for over 90% movement integration and makes the balance rim in-house; jewels, balance spring and mainsprings are bought in. The integration figure is an aim, not a measured outcome, so this is 3.
         evidence:
-          - claim: mgbenu-integration
-            stance: supports
-            note: Over 90% target.
           - claim: mgbenu-balance-rim
             stance: supports
             note: Balance rim in-house.
@@ -270,6 +267,9 @@ profiles:
           - claim: mgbenu-bought-parts
             stance: context
             note: Bought-in springs and jewels.
+          - claim: mgbenu-integration
+            stance: context
+            note: An aim, not an outcome.
       EX:
         value: null
         rationale: The case is specified, but no source names its maker, and the CEO says the rest of the watch is not held to the movement's in-house standard.
@@ -281,8 +281,8 @@ profiles:
             stance: context
             note: Exterior less integrated.
       DH:
-        value: 2
-        rationale: The annealed steel hands are made entirely in-house. The brand makes only "a few" of its own dials, and no source says whether the Benu's silver dial is one. One meaningful internal stage; borderline with 3.
+        value: 3
+        rationale: The hands are made entirely in-house, which is substantial hand manufacture. The brand makes only a few of its own dials, and the Benu's is unattributed.
         evidence:
           - claim: mgbenu-hands-inhouse
             stance: supports
@@ -306,12 +306,9 @@ profiles:
           - claim: mgbenu-finishing
             stance: supports
             note: Hand finishing.
-          - claim: mgbenu-hands-spec
-            stance: supports
-            note: Hand-crafted hands.
       WE:
-        value: 5
-        rationale: The bought-in balance spring is bent and shaped by hand in-house, the calibre is adjusted in five positions, and each watch is rate-tested for at least 30 days.
+        value: 3
+        rationale: The bought-in balance spring is shaped by hand in-house, and each watch is rate-tested for at least 30 days. No claim says who assembles the movement, so this is 3.
         evidence:
           - claim: mgbenu-spring-shaping
             stance: supports

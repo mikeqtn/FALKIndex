@@ -186,7 +186,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: CF 3 → U (who finishes the movement and polishes the hands is not stated); WE 3 → 0 (Comblémine assembles each watch); PD 4 → 3; confidence B → C; artisan_atelier dropped, since the only internal craft (dial treatments) is inferred from the SB04. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: CF 3 → U (who finishes the movement and polishes the hands is not stated); WE 3 → 0 (Comblémine assembles each watch); PD 4 → 3; confidence B → C; artisan_atelier dropped, since the only internal craft (dial treatments) is inferred from the SB04. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): DH 2 → U. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -220,18 +220,18 @@ profiles:
             stance: supports
             note: Made by Voutilainen-Cattin.
       DH:
-        value: 2
-        rationale: Billard creates most dial treatments and materials himself, though this is described for the SB04 and applied by inference. Guilloché options are by Comblémine, and the hand maker is not named. One meaningful internal stage; borderline with U.
+        value: null
+        rationale: Billard's own dial treatments are described for the SB04, not the SB05. The guilloché is Comblémine's, and the hand maker is not named.
         evidence:
-          - claim: sbsb05-dials-billard
-            stance: supports
-            note: Own dial treatments.
           - claim: sbsb05-guilloche
             stance: context
             note: External guilloché.
           - claim: sbsb05-hands
             stance: context
             note: Hand maker not named.
+          - claim: sbsb05-dials-billard
+            stance: context
+            note: Described for the SB04.
       CF:
         value: null
         rationale: Hands can be hand-polished on request and the movement is NAC-treated, but no source says who does either.

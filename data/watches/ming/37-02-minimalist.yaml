@@ -186,11 +186,11 @@ profiles:
       - design_led_etablisseur
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (customised Sellita SW300.M1); EX, DH, CF and WE → U (no source names the makers, who applies the coating and openworking, or the assembler). PD 4 unchanged; confidence A → C. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (customised Sellita SW300.M1); EX, DH, CF and WE → U (no source names the makers, who applies the coating and openworking, or the assembler). PD 4 unchanged; confidence A → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): PD 4 → 3; confidence C → D. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -254,8 +254,8 @@ profiles:
             stance: context
             note: Produced by Horologer Ming SA.
       PD:
-        value: 4
-        rationale: The 37.02 was designed, engineered and managed internally by Horologer Ming SA, which also developed a proprietary luminous material. Extensive original development around a supplier movement.
+        value: 3
+        rationale: Horologer Ming SA is reported to design, engineer and manage the watch, and developed a proprietary lume. Bespoke components and supplier-directed development around a Sellita movement; 4 would need proprietary technical systems beyond the lume.
         evidence:
           - claim: ming3702-internal-design
             stance: supports

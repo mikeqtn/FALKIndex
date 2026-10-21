@@ -210,7 +210,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and press sources only. Proposed: EX 3 → 0 (cases are made outside the manufacture, possibly in-group at Donzé Baume); DH 3 → U (most dials come from outside; the Overseas dial maker and the hands are unattributed); CF 5 → 4; confidence B → C; integrated_manufacture → independent_manufacture. Ownership is not part of the archetype. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist and press sources only. Proposed: EX 3 → 0 (cases are made outside the manufacture, possibly in-group at Donzé Baume); DH 3 → U (most dials come from outside; the Overseas dial maker and the hands are unattributed); CF 5 → 4; confidence B → C; integrated_manufacture → independent_manufacture. Ownership is not part of the archetype. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 4 → 3; WE 5 → 3; PD 5 → 4. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -260,8 +260,8 @@ profiles:
             stance: context
             note: Third-party dial makers.
       CF:
-        value: 4
-        rationale: The Overseas carries the Hallmark of Geneva, and finishing is organised in-house by component type. Haute-horlogerie finishing is a major capability; 5 would need a source on hand finishing defining this model.
+        value: 3
+        rationale: The Overseas carries the Hallmark of Geneva, and finishing is organised in-house by component type. Substantial finishing; the claims do not describe handwork, so this is 3.
         evidence:
           - claim: vco-geneva-hallmark
             stance: supports
@@ -270,8 +270,8 @@ profiles:
             stance: supports
             note: In-house finishing.
       WE:
-        value: 5
-        rationale: Movement assembly, casing-up and final controls take place at Plan-les-Ouates, on movements made in-house.
+        value: 3
+        rationale: Movement assembly, casing-up and final controls take place at Plan-les-Ouates. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: vco-casing-plan-les-ouates
             stance: supports
@@ -286,14 +286,11 @@ profiles:
             stance: supports
             note: Hallmark of Geneva.
       PD:
-        value: 5
-        rationale: Vacheron Constantin designed and developed the calibre and the tool-free strap change system.
+        value: 4
+        rationale: Vacheron Constantin designed and developed the calibre. The tool-free strap change is described, but not credited to VC's own development, so this is 4.
         evidence:
           - claim: vco-5100-designed
             stance: supports
             note: Designed and developed.
-          - claim: vco-bracelet-system
-            stance: supports
-            note: Own interchange system.
     classification:
       - independent_manufacture

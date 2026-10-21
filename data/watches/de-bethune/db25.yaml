@@ -37,6 +37,7 @@ claims:
     dimensions:
       - MA
       - MM
+      - PD
     date_checked: 2026-10-21
     editor: ai-draft
   - id: db25-qp-dbcaliber
@@ -197,7 +198,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only. Proposed: MM 4 → 5 (balance springs made in-house); EX 3 → U (no source names the case maker); DH 3 → 2; CF 5 → 3; WE 5 → 4; PD 5 → U (the engineering claims are tagged MA and MM, not PD); confidence A → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Needs review."
+    change_note: "AI-drafted first evidenced profile, from press only. Proposed: MM 4 → 5 (balance springs made in-house); EX 3 → U (no source names the case maker); DH 3 → 2; CF 5 → 3; WE 5 → 4; PD 5 → U (the engineering claims are tagged MA and MM, not PD); confidence A → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 5 → 4; CF 3 → 2; WE 4 → 3; PD U → 4. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -214,8 +215,8 @@ profiles:
             stance: supports
             note: Redesigned escapement.
       MM:
-        value: 5
-        rationale: De Bethune makes almost all components in-house, including balances and balance springs, and is integrating hairspring production from wire drawing to colleting. Where the silicon escape wheel is made is not stated.
+        value: 4
+        rationale: De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5.
         evidence:
           - claim: db25-almost-all-inhouse
             stance: supports
@@ -250,8 +251,8 @@ profiles:
             stance: context
             note: Location not stated.
       CF:
-        value: 3
-        rationale: Movement decoration is finished by hand, though a reviewer thinks it is machine-applied first. That is substantial hand finishing; 4 or 5 would need a source on the depth and location of the craft.
+        value: 2
+        rationale: The movement decoration is finished by hand, but the reviewer thinks it is machine-applied first. Regular handwork, not established as substantial.
         evidence:
           - claim: db25-mono-finishing
             stance: supports
@@ -260,15 +261,18 @@ profiles:
             stance: context
             note: Hand-operated guilloché, location unknown.
       WE:
-        value: 4
-        rationale: De Bethune does the final adjustment with its own balance wheel. No source describes the rest of the assembly, so this is 4 rather than 5.
+        value: 3
+        rationale: De Bethune does the final adjustment with its own balance wheel. No claim describes movement assembly, so this is 3.
         evidence:
           - claim: db25-hairspring-integration
             stance: supports
             note: Final adjustment in-house.
       PD:
-        value: null
-        rationale: The escapement redesign and in-house calibres are credited under MA; no collected claim is tagged PD. U until one is.
-        evidence: []
+        value: 4
+        rationale: De Bethune redesigned the Swiss lever escapement itself. Extensive original technical development; 5 would need a source on engineering that defines this model.
+        evidence:
+          - claim: db25-escapement-redesign
+            stance: supports
+            note: Own escapement redesign.
     classification:
       - independent_manufacture

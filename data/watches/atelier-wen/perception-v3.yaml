@@ -174,11 +174,11 @@ profiles:
       - artisan_etablisseur
   - version: 2
     methodology: v0.2
-    confidence: C
+    confidence: D
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist press only. Proposed: MA 0 → 1 (heavily customised Pequignet EPM03); EX 0 → U, DH 0 → U, CF 0 → U and WE 2 → U (no source on the case maker, hands, who executes the bridge decoration, or assembly); PD 4 → 3; confidence A → C. Needs review."
+    change_note: "AI-drafted first evidenced profile, from specialist press only. Proposed: MA 0 → 1 (heavily customised Pequignet EPM03); EX 0 → U, DH 0 → U, CF 0 → U and WE 2 → U (no source on the case maker, hands, who executes the bridge decoration, or assembly); PD 4 → 3; confidence A → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): confidence C → D. Needs review."
     created_on: 2026-10-21
     scores:
       MA:

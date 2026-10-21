@@ -188,7 +188,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, mostly from brand launch text as republished by the press. Proposed: MM 4 → 3; EX 3 → U, CF 5 → U and WE 5 → U (no source says who makes the case or bracelet, where the movement is finished, or describes assembly); DH 3 unchanged; confidence B → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Needs review."
+    change_note: "AI-drafted first evidenced profile, mostly from brand launch text as republished by the press. Proposed: MM 4 → 3; EX 3 → U, CF 5 → U and WE 5 → U (no source says who makes the case or bracelet, where the movement is finished, or describes assembly); DH 3 unchanged; confidence B → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): no score changes. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -239,7 +239,7 @@ profiles:
             note: Dial production in-house since about 2012.
       CF:
         value: null
-        rationale: The movement finishes are listed, including machine bevelling, and the case is described as hand-finished, but no source says where either is done. U until a source places the finishing.
+        rationale: The movement finishes are listed, including machine bevelling, and the case is described as hand-finished, but no source says where either is done. The in-house guilloché dial is credited under DH; no claim describes it as handwork, so it is not counted again here.
         evidence:
           - claim: ro16202-movement-finish
             stance: context

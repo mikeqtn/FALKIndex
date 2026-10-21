@@ -164,7 +164,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U, DH 1 → U and CF 0 → U (no source on the case, hand maker or any internal craft). The Cador dial attribution comes from a retailer and needs a brand source. Confidence B → C. Needs review."
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U, DH 1 → U and CF 0 → U (no source on the case, hand maker or any internal craft). The Cador dial attribution comes from a retailer and needs a brand source. Confidence B → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): no score changes. Needs review."
     created_on: 2026-10-21
     scores:
       MA:
@@ -220,7 +220,7 @@ profiles:
             note: In-house assembly.
       PD:
         value: 3
-        rationale: anOrdain designed and prototyped its own hands and directed the Fabrik dial with a specialist supplier around a conventional movement. Borderline with 2, since the dial collaboration is reported only by a retailer.
+        rationale: anOrdain designed and prototyped its own hands around a conventional movement, a bespoke component. The Cador dial collaboration is reported only by a retailer and is not relied on. Borderline with 2.
         evidence:
           - claim: am1f-hands-designed
             stance: supports
