@@ -37,6 +37,7 @@
   source_type: manufacturer
   tier: primary
   notes: The site blocks the Internet Archive crawler (capture failed on 2026-10-15); save a copy manually, e.g. with archive.today.
+  archived_url: https://web.archive.org/web/20261013180009/https://www.mbandf.com/people-spirit/the-friends
 - id: rolex-unique-approach
   url: https://rolex.com/watchmaking/a-unique-approach
   publisher: rolex
@@ -62,6 +63,7 @@
   tier: primary
   title: The Shinshu Watch Studio (Grand Seiko)
   notes: The site blocks the Internet Archive crawler (capture failed on 2026-10-15); save a copy manually, e.g. with archive.today.
+  archived_url: https://web.archive.org/web/20260308030311/https://www.grand-seiko.com/us-en/worldofgrandseiko/manufacture/shinshuwatchstudio
 - id: nomos-production
   url: https://nomos-glashuette.com/en/watchmaking/production
   publisher: nomos
@@ -227,3 +229,1061 @@
   tier: secondary
   published_on: 2020-05-26
   archived_url: https://web.archive.org/web/20261015202544/https://monochrome-watches.com/czapek-antarctique-first-luxury-sports-watch-live-pics-price-review/
+- id: monochrome-akrivia-ak06
+  url: https://monochrome-watches.com/akrivia-ak-06-hands-on/
+  title: Akrivia AK-06 hands-on (Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2017-05-29
+  notes: Wayback availability API unreachable from this environment; archived_url not set.
+- id: deployant-akrivia-rexhepi
+  url: https://deployant.com/in-conversation-rexhep-rexhepi-of-akrivia/
+  title: "In Conversation: Rexhep Rexhepi of Akrivia (Deployant)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2018-12-12
+- id: sjx-akrivia-chronometre-contemporain-prototype
+  url: https://watchesbysjx.com/2018/03/a-very-detailed-look-at-the-akrivia-chronometre-contemporain-prototype.html
+  title: A Very Detailed Look at the Akrivia Chronomètre Contemporain Prototype (SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-03-26
+  notes: About the AK-06-derived movement, used as context for AK-06 component sourcing.
+- id: sjx-lange-1-2015
+  url: https://watchesbysjx.com/2015/05/explaining-the-new-lange-1-the-same-but-better-with-original-photos-prices.html
+  title: Explaining The New Lange 1 – The Same But Better (SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2015-05-31
+- id: worldtempus-lange-1-four-models
+  url: https://en.worldtempus.com/article/watches/trends-and-style/a-lange-et-sohne-focus-on-four-lange-1-models-22139.html
+  title: "A. Lange & Söhne: focus on four Lange 1 models (WorldTempus)"
+  source_type: press
+  tier: secondary
+  published_on: 2016-07-24
+- id: sjx-lange-hairsprings
+  url: https://watchesbysjx.com/2011/01/explaining-how-hairsprings-are-made-at-a-lange-sohne.html
+  title: Explaining How Hairsprings are Made at A. Lange & Söhne (SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2011-01-08
+- id: ch24-lange-road-trip
+  url: https://ch24.pl/road-trip-to-glashutte-a-lange-sohne/
+  title: "Road Trip to Glashütte: A. Lange & Söhne (CH24.pl, Polish)"
+  source_type: press
+  tier: secondary
+  published_on: 2014-09-05
+  notes: Polish-language manufacture visit report; excerpts are verbatim Polish. Updated 2017-07-07.
+- id: europastar-ap-jumbo-extra-thin
+  url: https://www.europastar.com/time-keeper/1004093301-an-introduction-to-the-new-royal-oak-jumbo-extra.html
+  title: An introduction to the new Royal Oak "Jumbo" Extra-Thin (Europa Star, press release)
+  source_type: press
+  tier: secondary
+  notes: Reproduces the Audemars Piguet press release (March 2022); exact day not shown.
+- id: timeandtide-ap-16202
+  url: https://timeandtidewatches.com/?p=65370
+  title: 'HANDS-ON: The Audemars Piguet Royal Oak "Jumbo" Extra-Thin ref. 16202 with new in-house calibre 7121 (Time+Tide)'
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-01-27
+- id: professionalwatches-ap-7121
+  url: https://professionalwatches.com/audemars-piguet-caliber-7121/
+  title: Audemars Piguet caliber 7121 (Professional Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-02-06
+- id: watchonista-ap-royal-oak-50
+  url: https://www.watchonista.com/articles/novelties/audemars-piguet-celebrates-royal-oaks-jubilee-anniversary-new-movements-updated-design
+  title: Audemars Piguet celebrates Royal Oak's jubilee anniversary with new movements and updated design (Watchonista)
+  source_type: press
+  tier: secondary
+  published_on: 2022-01-26
+- id: fratello-ap-16202-gold
+  url: https://www.fratellowatches.com/gold-ap-royal-oak-jumbo-16202/
+  title: Happy Birthday, Royal Oak! Hands-On With The Gold Royal Oak 'Jumbo' 16202 (Fratello)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-04-15
+- id: ap-16202st-page
+  url: https://www.audemarspiguet.com/com/en/watch-collection/royal-oak/16202ST.OO.1240ST.01.html
+  title: Royal Oak "Jumbo" Extra-Thin 16202ST.OO.1240ST.01 (Audemars Piguet)
+  publisher: audemars-piguet
+  source_type: manufacturer
+  tier: primary
+- id: wornandwound-baltic-aquascaphe
+  url: https://wornandwound.com/introducing-the-aquascaphe-baltics-first-vintage-inspired-dive-watch/
+  title: Introducing the Aquascaphe, Baltic's First Vintage-Inspired Dive Watch (Worn & Wound)
+  source_type: press
+  tier: secondary
+  published_on: 2018-11-21
+- id: sjx-baltic-aquascaphe
+  url: https://watchesbysjx.com/2018/11/baltic-aquascaphe-dive-watch.html
+  title: Introducing the Baltic Aquascaphe Dive Watch (SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-11-21
+- id: timeandtide-baltic-aquascaphe
+  url: https://timeandtidewatches.com/why-the-baltic-aquascaphe-continues-to-sell-out-on-a-regular-basis/
+  title: The Baltic Aquascaphe continues to sell out on a regular basis. Here's why (Time+Tide)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-01-01
+- id: wornandwound-atelier-wen-mu
+  url: https://wornandwound.com/review/hands-on-the-atelier-wen-perception-mu/
+  title: "Hands-On: the Atelier Wen Perception Mù (Worn & Wound)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-10-17
+- id: deployant-atelier-wen-perception
+  url: https://deployant.com/review-the-new-atelier-wen-perception-with-handmade-guilloche-dial/
+  title: "Review: The New Atelier Wen Perception, with Handmade Guilloché Dial (Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-04-18
+- id: ablogtowatch-atelier-wen-v3
+  url: https://www.ablogtowatch.com/atelier-wen-updates-the-perception-with-a-new-movement-and-dial-color/
+  title: Atelier Wen Updates The Perception With A New Movement And Dial Color (aBlogtoWatch)
+  source_type: press
+  tier: secondary
+  published_on: 2026-06-04
+- id: monochrome-atelier-wen-v3
+  url: https://monochrome-watches.com/atelier-wen-perception-v3-integrated-sports-watch-guilloche-dial-bamboo-green-pequignet-movement-review-price/
+  title: Atelier Wen Perception V3 (Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-05-19
+- id: coveted-anordain-fabrik-model-1
+  url: https://www.coveted.com/watches/collections/anordain-fabrik-model-1
+  title: About Fabrik Model 1 Collection (Coveted)
+  source_type: other
+  tier: secondary
+  notes: Retailer collection copy; used for Cador dial attribution pending a brand page (anordain.com rate-limited during research).
+- id: acquire-anordain-fabrik-gmt
+  url: https://acquiremag.com/style/anordain-fabrik-model-1-gmt/
+  title: anOrdain Fabrik Model 1 GMT (Acquire)
+  source_type: press
+  tier: secondary
+  published_on: 2023-03-20
+  notes: Covers the GMT variant of the Fabrik Model 1.
+- id: deployant-anordain-model-2-mkii
+  url: https://deployant.com/?p=66332
+  title: "Hands-on Review: New anOrdain Model 2 mkII (Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-06-24
+- id: crownwatchblog-anordain-model-2-porcelain
+  url: https://www.crownwatchblog.com/news/introducing-the-anordain-model-2-porcelain
+  title: Introducing the anOrdain Model 2 Porcelain (Crown & Caliber blog)
+  source_type: press
+  tier: secondary
+  published_on: 2025-03-06
+- id: timeandtide-anordain-model-2-porcelain
+  url: https://timeandtidewatches.com/anordain-model-2-porcelain-introducing/
+  title: anOrdain Model 2 Porcelain introducing (Time+Tide)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2025-03-04
+- id: europastar-breitling-140-years
+  url: https://www.europastar.com/the-watch-files/archives-heritage/1004114703-breitling-140-years-of-acceleration.html
+  title: Breitling, 140 years of acceleration (Europa Star)
+  source_type: press
+  tier: secondary
+  published_on: 2024-10-01
+  notes: Day of publication not shown (October 2024). Wayback API unreachable from research environment; archived_url not checked.
+- id: europastar-swiss-watch-planet-10
+  url: https://www.europastar.com/magazine/features/1004082918-the-swiss-watch-planet-in-movement-part-10.html
+  title: The Swiss watch planet in movement – Part 10 (Europa Star)
+  source_type: press
+  tier: secondary
+  published_on: 2010-12-01
+  notes: Article from the Oct–Nov 2010 issue, so the exact date is approximate. Wayback API unreachable; archived_url not checked.
+- id: watchadvice-breitling-chronometrie
+  url: https://www.watchadvice.com.au/55561/breitling2025-manufacture-visit/
+  title: Watch Advice Visits The Breitling Chronometrie in Switzerland
+  source_type: press
+  tier: secondary
+  published_on: 2025-10-28
+- id: calibercorner-breitling-b01
+  url: https://calibercorner.com/breitling-caliber-b01
+  title: Breitling Caliber B01 Watch Movement (Caliber Corner)
+  source_type: specialist_reference
+  tier: secondary
+- id: cartier-movements-page
+  url: https://www.cartier.com/en-de/collections/watchmaking/innovation-and-know-how/movements
+  title: Movements – Innovation and know-how (Cartier)
+  publisher: cartier
+  source_type: manufacturer
+  tier: primary
+- id: cartier-santos-wssa0018
+  url: https://www.cartier.com/en-us/watches/collections/santos-de-cartier/santos-de-cartier-watch-CRWSSA0018.html
+  title: Santos de Cartier watch WSSA0018 (Cartier)
+  publisher: cartier
+  source_type: manufacturer
+  tier: primary
+- id: sjx-cle-de-cartier-1847mc
+  url: https://watchesbysjx.com/2015/04/up-close-with-the-cle-de-cartier-a-completely-new-case-style-with-a-fresh-entry-level-in-house-movement-with-original-photos-price.html
+  title: Up Close with the Clé de Cartier, a Completely New Case Style with a Fresh Entry-Level In-House Movement (SJX)
+  source_type: press
+  tier: secondary
+  published_on: 2015-04-07
+- id: swisswatches-cartier-automatic
+  url: https://swisswatches-magazine.com/cartier-the-jeweller-to-kings-and-the-automatic-movement/
+  title: "Cartier: The Jeweller to Kings and the Automatic Movement (Swisswatches Magazine)"
+  source_type: press
+  tier: secondary
+  published_on: 2025-06-11
+- id: timeandtide-cw-bel-canto
+  url: https://timeandtidewatches.com/?p=118988
+  title: "The Independedit: The Christopher Ward Bel Canto could prove the bargain of the year (Time+Tide)"
+  source_type: press
+  tier: secondary
+  published_on: 2023-02-02
+  notes: Shortlink form; canonical slug not captured.
+- id: watchonista-cw-bel-canto
+  url: https://www.watchonista.com/watches/christopher-ward-london-c1-bel-canto/
+  title: Christopher Ward London C1 Bel Canto (Watchonista)
+  source_type: specialist_reference
+  tier: secondary
+- id: sfwatchlover-cw-bel-canto
+  url: https://sfwatchlover.substack.com/p/review-christopher-ward-c1-bel-canto
+  title: "Review: Christopher Ward C1 Bel Canto 41mm Azzurro Blue (SF Watch Lover)"
+  source_type: press
+  tier: secondary
+  published_on: 2023-02-14
+  notes: Independent blog review.
+- id: watchtime-de-christopher-ward
+  url: https://www.watchtime.net/brands/dreizeigeruhr/christopher-ward-eine-marke-wird-erwachsen
+  title: "Christopher Ward: Eine Marke wird erwachsen (WatchTime.net)"
+  source_type: press
+  tier: secondary
+  published_on: 2016-09-29
+  notes: German-language; excerpts are verbatim German.
+- id: gearpatrol-cw-twelve
+  url: https://www.gearpatrol.com/watches/a44179557/christopher-ward-the-twelve-review/
+  title: "Christopher Ward The Twelve Review: Get the Genta Look for Less (Gear Patrol)"
+  source_type: press
+  tier: secondary
+  published_on: 2023-06-16
+- id: ablogtowatch-db25-qp
+  url: https://ablogtowatch.com/hands-on-de-bethune-db25-perpetual-calendar-green-watch
+  title: "Hands-On: De Bethune DB25 Perpetual Calendar Green Watch (aBlogtoWatch)"
+  source_type: press
+  tier: secondary
+  published_on: 2022-05-19
+- id: sjx-db25-monopusher
+  url: https://watchesbysjx.com/2025/08/de-bethune-db25-monopusher-chronograph-review.html
+  title: "Hands On: De Bethune DB25 Monopusher Chronograph (SJX)"
+  source_type: press
+  tier: secondary
+  published_on: 2025-08-15
+- id: watchprosite-debethune-workshops
+  url: https://www.watchprosite.com/digest/de-bethune-auberson-workshop-visit-manufacture/
+  title: Inside De Bethune's Innovative Workshops (WatchProSite)
+  source_type: press
+  tier: secondary
+  published_on: 2017-04-19
+  notes: Its staff figure (about 12) looks low; treat its details with care.
+- id: europastar-debethune-chronometrie
+  url: https://www.europastar.com/time-keeper/1004115699-de-bethune-s-new-chronometrie-atelier.html
+  title: De Bethune's new Chronométrie atelier (Europa Star)
+  source_type: press
+  tier: secondary
+  published_on: 2026-01-01
+  notes: Republished press release from January 2026, exact day unknown.
+- id: monochrome-farer-automatics-2016
+  url: https://monochrome-watches.com/farer-automatic-watches-british-design-swiss-made-price/
+  title: Farer Automatic Watches – British design, Swiss made (Monochrome)
+  source_type: press
+  tier: secondary
+  published_on: 2016-09-22
+- id: wornandwound-farer-three-hand-2021
+  url: https://wornandwound.com/farer-reveals-trio-of-three-hand-automatics-in-full-farer-style/
+  title: Farer Reveals Trio Of Three Hand Automatics In Full Farer Style (Worn & Wound)
+  source_type: press
+  tier: secondary
+  published_on: 2021-12-07
+- id: fpjourne-chronometre-souverain
+  url: https://www.fpjourne.com/en/collection/classique-collection/chronometre-souverain
+  title: F.P.Journe Chronomètre Souverain
+  publisher: fp-journe
+  source_type: manufacturer
+  tier: primary
+- id: fpjourne-cs-havana-press
+  url: https://www.fpjourne.com/sites/default/files/2019-08/Cadran%20Havana%20F.P.Journe-CS-A.pdf
+  title: New Havana Dial for the Chronomètre Souverain (F.P.Journe press release and technical specifications)
+  publisher: fp-journe
+  source_type: manufacturer
+  tier: primary
+  published_on: 2019-08-01
+  notes: PDF metadata gives August 2019 only.
+- id: sjx-fp-journe-manufacture
+  url: https://watchesbysjx.com/2023/10/inside-f-p-journe.html
+  title: Visiting the F.P. Journe Manufacture (SJX)
+  source_type: press
+  tier: secondary
+  published_on: 2023-10-10
+- id: grand-seiko-quartz-9f
+  url: https://www.grand-seiko.com/global-en/about/movement/quartz
+  title: Caliber 9F Quartz (Grand Seiko)
+  publisher: grand-seiko
+  source_type: manufacturer
+  tier: primary
+- id: sjx-seiko-9f-explained
+  url: https://watchesbysjx.com/?p=1103
+  title: "EXPLAINED: Seiko 9F Quartz Movements – Definitive Proof That High-End Quartz Exists (SJX)"
+  source_type: press
+  tier: secondary
+  published_on: 2013-05-18
+  notes: Shortlink form; canonical slug not captured.
+- id: grand-seiko-spring-drive-page
+  url: https://www.grand-seiko.com/us-en/about/movement/springdrive
+  title: 9R Spring Drive (Grand Seiko)
+  publisher: grand-seiko
+  source_type: manufacturer
+  tier: primary
+- id: grand-seiko-nagano-vol1
+  url: https://www.grand-seiko.com/global-en/worldofgrandseiko/sustainability/nagano/vol1/index
+  title: "Nagano vol.1: Spring Drive (Grand Seiko)"
+  publisher: grand-seiko
+  source_type: manufacturer
+  tier: primary
+- id: watchonista-grand-seiko-visit
+  url: https://www.watchonista.com/editorial/manufactures/inside-grand-seiko-our-unbelievable-visit-to-the-brands-workshops/
+  title: "Inside Grand Seiko: Our Unbelievable Visit to the Brand's Workshops (Josh Shanks, Watchonista)"
+  source_type: press
+  tier: secondary
+  published_on: 2019-04-27
+- id: habring2-erwin-page
+  url: https://habring2.com/index.php/en/collection/erwin-en
+  title: Erwin (Habring²)
+  publisher: habring2
+  source_type: manufacturer
+  tier: primary
+- id: habring2-technical-data
+  url: https://habring2.com/index.php/en/collection/technical-data
+  title: Technical Data (Habring²)
+  publisher: habring2
+  source_type: manufacturer
+  tier: primary
+- id: habring2-repeater-page
+  url: https://habring2.com/index.php/en/archive/repeater-en1
+  title: Repeater (Habring² archive)
+  publisher: habring2
+  source_type: manufacturer
+  tier: primary
+- id: hsny-habring2-a11
+  url: https://hs-ny.org/news/2019/10/10/meeting-recap-project-a11-how-can-a-small-family-business-afford-to-design-and-produce-a-proprietary-watch-movement
+  title: "Meeting Recap: Project A11 (Horological Society of New York)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2019-10-10
+- id: ablogtowatch-habring2-felix-visit
+  url: https://www.ablogtowatch.com/habring2-felix-watch-review-manufacture-visit/
+  title: Habring2 Felix Watch Review & Manufacture Visit (David Bredan, aBlogtoWatch)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2014-10-12
+- id: monochrome-habring2-erwin
+  url: https://monochrome-watches.com/introducing-habring%c2%b2-erwin-first-jumping-second-with-in-house-movement/
+  title: Introducing the Habring² Erwin (Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2016-10-24
+- id: deployant-habring2-repeater
+  url: https://deployant.com/review-habring2-five-minute-repeater/
+  title: "Review: Habring2 Five Minute Repeater (Peter Chong, Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2017-08-03
+- id: h-moser-ecs-vantablack-page
+  url: https://h-moser.com/en/endeavour/endeavour-centre-seconds-concept-vantablack-1200-1239
+  title: Endeavour Centre Seconds Concept Vantablack 1200-1239 (H. Moser & Cie.)
+  publisher: h-moser
+  source_type: manufacturer
+  tier: primary
+- id: monochrome-h-moser-ecs-2017
+  url: https://monochrome-watches.com/moser-endeavour-centre-seconds-automatic-baselworld-2017-review-price/
+  title: H. Moser & Cie. Endeavour Centre Seconds Automatic (Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2017-04-13
+- id: sjx-h-moser-seconde-seconde
+  url: https://watchesbysjx.com/2021/04/h-moser-endeavour-centre-seconds-x-seconde-seconde.html
+  title: H. Moser & Cie. and Minimalist Humour with Seconde/Seconde/ (Qi Le Wah, SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2021-04-06
+- id: sjx-h-moser-meylan-2019
+  url: https://watchesbysjx.com/2019/12/interview-edouard-meylan-ceo-h-moser.html
+  title: "Interview: Edouard Meylan, CEO of H. Moser & Cie. (SJX)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2019-12-04
+- id: sjx-h-moser-meylan-2024
+  url: https://watchesbysjx.com/2024/08/interview-edouard-meylan-ceo-h-moser-cie.html
+  title: "Interview: Edouard Meylan on Building H. Moser & Cie. for the Long Term (SJX)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2024-08-01
+- id: options-h-moser-manufacture
+  url: https://www.optionstheedge.com/topic/watches/behind-scenes-h-moser-cies-fully-integrated-manufacture
+  title: Behind the scenes of H Moser & Cie's fully integrated manufacture (Emily Yap, Options)
+  source_type: press
+  tier: secondary
+  published_on: 2026-09-08
+- id: sjx-iwc-ingenieur-40-intro
+  url: https://watchesbysjx.com/2023/03/iwc-ingenieur-automatic-40-iw3289.html
+  title: IWC Introduces the Ingenieur Automatic 40 (Brandon Moore, SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-03-27
+- id: sjx-iwc-ingenieur-40-review
+  url: https://watchesbysjx.com/2023/05/iwc-ingenieur-40-review.html
+  title: "Up Close: The IWC Ingenieur 40 (SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-05-08
+- id: sjx-iwc-merishausen
+  url: https://watchesbysjx.com/2018/08/iwc-opens-a-new-manufacture-in-merishausen.html
+  title: IWC Opens a New Manufacture For Watch Movements (SJX)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-08-27
+- id: timeandtide-longines-zulu-time
+  url: https://timeandtidewatches.com/longines-spirit-zulu-time/
+  title: Longines Spirit Zulu Time (Borna Bošnjak, Time+Tide)
+  source_type: press
+  tier: secondary
+  published_on: 2023-09-09
+- id: deployant-longines-zulu-time
+  url: https://deployant.com/longines-spirit-zulu-time/
+  title: "Review: the new Longines Spirit Zulu Time (Chester Lau, Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-06-11
+- id: europastar-longines-von-kanel
+  url: https://www.europastar.com/the-watch-files/swatch-group/1004090021-giving-the-orders-walter-von-kanel-ceo-of.html
+  title: Giving the orders… Walter Von Känel, CEO of Longines (Europa Star)
+  source_type: technical_interview
+  tier: secondary
+  notes: Published September 2018 (exact day not shown).
+- id: mbandf-lm-sequential-evo-page
+  url: https://www.mbandf.com/en/machines/legacy-machines/lmsequential-evo
+  title: Legacy Machine Sequential EVO (MB&F)
+  publisher: mbandf
+  source_type: manufacturer
+  tier: primary
+- id: mbandf-lm-sequential-evo-press
+  url: https://www.mbandf.com/fileadmin/Media_Center/legacy-machines/lmsequential-evo/texts/MBandF_LM_Sequential_EVO_EN.pdf
+  title: LM Sequential EVO press release, incl. 'Friends' responsible (MB&F)
+  publisher: mbandf
+  source_type: manufacturer
+  tier: primary
+  notes: 2022 launch press kit PDF; the 'Friends responsible for LM Sequential EVO' list names the suppliers per component.
+- id: monochrome-ming-37-02
+  url: https://monochrome-watches.com/introducing-ming-37-02-minimalist-ming-thein-independent-watchmaking-sellita-sw300-specs-price-pics
+  title: Introducing the MING 37.02 Minimalist (Robin Nooy, Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-10-23
+- id: oracleoftime-ming-37-02
+  url: https://oracleoftime.com/ming-37-02-minimalist-watch-review/
+  title: MING 37.02 Minimalist review (Thor Svaboe, Oracle of Time)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-10-29
+- id: europastar-ming-37-02
+  url: https://www.europastar.com/time-keeper/1004114701-ming-37-02-minimalist-in-polar-white.html
+  title: Ming 37.02 Minimalist in Polar White (Europa Star)
+  source_type: press
+  tier: secondary
+  notes: Published November 2024 (exact day not shown).
+- id: grossmann-benu-page
+  url: https://en.grossmann-uhren.com/watch/benu/
+  title: BENU (Moritz Grossmann)
+  publisher: moritz-grossmann
+  source_type: manufacturer
+  tier: primary
+  notes: Lists calibre 100.0, refs MG-000001/2/3. Wayback availability API unreachable from this environment (connection timeout), so no archived_url.
+- id: grossmann-swisswatches-ten-facts
+  url: https://swisswatches-magazine.com/moritz-grossmann-ten-distinctive-features/
+  title: Ten Interesting Facts You (Probably) Didn't Know About The Independent Brand Moritz Grossmann
+  source_type: press
+  tier: secondary
+  published_on: 2026-07-27
+  notes: Author Nico Bandl.
+- id: grossmann-robbreport-hutter
+  url: https://robbreport.com.my/style/watches/ceo-christine-hutter-moritz-grossman/
+  title: CEO And Founder Christine Hutter On Bringing Moritz Grossman Back To Life
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2023-12-21
+  notes: Robb Report Malaysia, author Wei-Yu Wang.
+- id: nomos-duw3001-page
+  url: https://nomos-glashuette.com/en-us/caliber/duw-3001-duw-3001
+  title: DUW 3001 (NOMOS Glashütte)
+  publisher: nomos
+  source_type: manufacturer
+  tier: primary
+- id: nomos-swisswatches-visit
+  url: https://swisswatches-magazine.com/a-visit-to-the-nomos-glashutte-manufacture/
+  title: "A Visit to the Nomos Glashütte Manufacture: Where Tradition and Transformation Tick in Harmony"
+  source_type: press
+  tier: secondary
+  published_on: 2024-11-05
+  notes: Author Philipp Riehr.
+- id: nomos-quillandpad-2014
+  url: https://quillandpad.com/2014/04/09/bravo-nomos-how-the-metro-will-change-the-watch-game/
+  title: Bravo, Nomos Glashütte! How The Metro Will Change The Watch Game
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2014-04-09
+  notes: Author Elizabeth Doerr.
+- id: omega-sjx-3861-launch
+  url: https://watchesbysjx.com/2021/01/omega-speedmaster-moonwatch-master-chronometer-3861.html
+  title: Omega Introduces the Speedmaster Moonwatch Master Chronometer with Cal. 3861
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2021-01-05
+- id: omega-wornandwound-3861
+  url: https://wornandwound.com/introducing-the-new-omega-speedmaster/
+  title: Introducing The New Omega Speedmaster with Caliber 3861
+  source_type: press
+  tier: secondary
+  published_on: 2021-01-05
+- id: omega-sjx-movement-2016
+  url: https://watchesbysjx.com/2016/07/the-pursuit-of-the-perfect-watch-movement-at-omega.html
+  title: The Pursuit of the Perfect Watch Movement at Omega
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2016-07-12
+- id: rolex-professionalwatches-124060
+  url: https://professionalwatches.com/review-rolex-submariner-ref-124060/
+  title: "Review: Rolex Submariner Ref. 124060"
+  source_type: press
+  tier: secondary
+  published_on: 2020-12-31
+  notes: Author Jason Pitsch; updated 2026-02-13. rolex.com and Rolex brochure PDFs returned 403, so no primary 124060 page was read.
+- id: rolex-hautetime-silent-giant
+  url: https://www.hautetime.com/silent-giant-look-inside-inner-sanctum-rolex-empire/
+  title: "Silent Giant: A Look Inside The Inner Sanctum Of The Rolex Empire"
+  source_type: press
+  tier: secondary
+  published_on: 2014-08-06
+  notes: Author Adrienne Faurote. Site-level description, not model-specific.
+- id: ophion-monochrome-velos
+  url: https://monochrome-watches.com/ophion-oph-786-velos-value-proposition-price/
+  title: Accessible Brand Ophion Launches the OPH 786 Velos with Superb Dials and Cases by Voutilainen
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2019-09-20
+- id: ophion-sjx-velos-upclose
+  url: https://watchesbysjx.com/2021/06/ophion-786-velos-review.html
+  title: "Up Close: Ophion OPH 786 Vélos"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2021-06-22
+- id: ophion-wornandwound-intro
+  url: https://wornandwound.com/introducing-the-ophion-786-velos/
+  title: Introducing the Ophion OPH 786 Vélos
+  source_type: press
+  tier: secondary
+  published_on: 2019-09-23
+- id: ophion-wornandwound-review
+  url: https://wornandwound.com/review/review-ophion-oph-786-velos/
+  title: "Review: Ophion OPH 786 Vélos"
+  source_type: press
+  tier: secondary
+  published_on: 2020-07-31
+- id: sartory-billard-phillips-indie-insider
+  url: https://www.phillips.com/article/118474606/the-indie-insider-sartory-billard/
+  title: "The Indie Insider: The Bespoke World Of Sartory Billard"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-03-28
+  notes: Phillips in association with Bacs & Russo; author Logan Baker. Caption names caliber 7381 while body says 7380.
+- id: sartory-billard-quillandpad-sb05
+  url: https://quillandpad.com/2023/08/31/collector-commissions-bespoke-sartory-billard-sb05-with-exotic-meteorite-aventurine-and-lapis-lazuli-dial-reprise/
+  title: "Collector Commissions: Bespoke Sartory Billard SB05 with Exotic Meteorite, Aventurine, and Lapis Lazuli Dial (Reprise)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-08-31
+  notes: Reprise; first published 2022-07-30. Author GaryG.
+- id: serica-history
+  url: https://serica-watches.com/en/pages/our-history
+  title: Our history (Serica)
+  publisher: serica
+  source_type: manufacturer
+  tier: primary
+- id: serica-fratello-cosc-2024
+  url: https://www.fratellowatches.com/elegance-meets-accuracy-going-forward-all-of-sericas-watches-will-be-cosc-certified-chronometers/
+  title: Going Forward, All Of Serica's Watches Will Be COSC Certified
+  source_type: press
+  tier: secondary
+  published_on: 2024-02-01
+  notes: Author Daan de Groot.
+- id: serica-fratello-5303-m100
+  url: https://www.fratellowatches.com/serica-introduces-the-updated-version-of-its-5303-diver-with-a-new-soprod-movement/
+  title: Serica Introduces The Updated Version Of Its 5303 Diver
+  source_type: press
+  tier: secondary
+  published_on: 2023-04-25
+  notes: Author Jorg Weppelink.
+- id: serica-wornandwound-5303
+  url: https://wornandwound.com/serica-bolsters-the-5303-cosc-antimagnetic-diving-chronometer-from-within/
+  title: Serica Bolsters the 5303 COSC Antimagnetic Diving Chronometer from Within
+  source_type: press
+  tier: secondary
+  published_on: 2023-04-26
+- id: tudor-tt-bb58-2018
+  url: https://timeandtidewatches.com/hands-on-the-tudor-black-bay-fifty-eight-with-thinner-smaller-case-and-brand-new-movement/
+  title: "HANDS-ON: The Tudor Black Bay Fifty-Eight, with thinner, smaller case and brand-new movement"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-03-27
+  notes: Wayback availability API unreachable from this environment; archived_url not checked.
+- id: tudor-sjx-le-locle-2023
+  url: https://watchesbysjx.com/2023/05/tudor-kenissi-le-locle-factory-visit.html
+  title: "Inside Tudor Manufacture: The Pursuit of Mechanical and Industrial Perfection"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-05-01
+- id: tudor-monochrome-kenissi-ecosystem
+  url: https://monochrome-watches.com/inside-tudor-watch-manufacture-visiting-kenissi-and-all-key-industrial-partners-and-suppliers
+  title: Inside Tudor Watch, Kenissi and the Industrial Ecosystem Behind the Brand
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-02-20
+  notes: Author Xavier Markl. Names Montremo (dials), Orolux (cases), Joseph Baume (case blanks), Detech (bracelet/clasp components), and Kenissi holding companies EMP, Kenitec, Golay-Tec.
+- id: tudor-wornandwound-bb-chrono-2017
+  url: https://wornandwound.com/introducing-tudor-black-bay-chronograph-new-mt5813-caliber/
+  title: Introducing the Tudor Black Bay Chronograph with new MT5813 Caliber
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2017-03-27
+- id: tudor-sjx-mt5813-2017
+  url: https://watchesbysjx.com/2017/03/all-you-need-to-know-about-the-tudor-mt5813-chronograph-movement.html
+  title: All You Need to Know About the Tudor MT5813 Chronograph Movement
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2017-03-23
+- id: tudor-sjx-bb-chrono-39-2026
+  url: https://watchesbysjx.com/2026/06/tudor-black-bay-chrono-39-bumblebee.html
+  title: Tudor Scales Down Black Bay Chrono with the "Bumblebee"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-06-03
+- id: underd0g-tt-01series-gen3
+  url: https://timeandtidewatches.com/studio-underd0g-01series-gen-3-chronograph-introducing/
+  title: Studio Underd0g signs exclusive deal with Seagull, launching the third generation of the "iconic" 01Series
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-11-15
+- id: underd0g-wornandwound-01series-gen3
+  url: https://wornandwound.com/studio-underd0g-introduces-the-third-generation-of-the-01series-chronograph/
+  title: Studio Underd0g Introduces the Third Generation of the 01SERIES Chronograph
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-11-18
+- id: underd0g-monochrome-03series-salm0n
+  url: https://monochrome-watches.com/introducing-studio-underd0g-salm0n-03series-monopusher-chronograph-sellita-specs-price
+  title: The Studio Underd0g Salm0n, The First Model in the Swiss-Powered 03SERIES
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-09-15
+- id: underd0g-oracleoftime-03series-salm0n
+  url: https://oracleoftime.com/studio-underd0g-03series-salm0n-watch-review/
+  title: Studio Underd0g 03SERIES Salm0n review
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-09-15
+- id: underd0g-oracleoftime-horologium
+  url: https://oracleoftime.com/studio-underd0g-acquires-horologium/
+  title: Studio Underd0g Acquires Horologium Watch Workshop
+  source_type: press
+  tier: secondary
+  published_on: 2025-12-08
+- id: underd0g-europastar-horologium
+  url: https://www.europastar.com/time-business/1004115711-studio-underd0g-invests-in-british-watchmaking.html
+  title: Studio Underd0g invests in British watchmaking with acquisition of watch workshop Horologium
+  source_type: press
+  tier: secondary
+  notes: Press release published December 2025; exact day not shown.
+- id: unimatic-ablogtowatch-u1s-m
+  url: https://www.ablogtowatch.com/hands-on-unimatic-modello-uno-u1s-m-watch/
+  title: "Hands-On: Unimatic Modello Uno U1S-M Watch"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-02-25
+- id: unimatic-fratello-s-series
+  url: https://www.fratellowatches.com/new-unimatic-s-series/
+  title: Unimatic Takes Its Design Philosophy To The Next Level With The New S-Series
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-01-17
+- id: unimatic-monocle-eureka-397
+  url: https://monocle.com/radio/shows/the-entrepreneurs/eureka-397/
+  title: "Eureka 397: Unimatic (The Entrepreneurs)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2024-07-05
+  notes: Only the episode summary was read; audio not reviewed.
+- id: vacheron-deployant-sihh-2016
+  url: https://deployant.com/sihh-2016-vacheron-constantin/
+  title: "SIHH 2016: Vacheron Constantin reveals its new Overseas Collection"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2016-01-18
+- id: vacheron-deployant-overseas-4500v
+  url: https://deployant.com/review-vacheron-constatin-overseas-4500v/
+  title: "Review: Vacheron Constantin Overseas 4500V"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2016-11-30
+- id: vacheron-sjx-manufacture-visit
+  url: https://watchesbysjx.com/2024/07/vacheron-constantin-manufacture-visit.html
+  title: Visiting the Vacheron Constantin Manufacture
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-07-19
+- id: vacheron-worldtempus-le-brassus
+  url: https://en.worldtempus.com/article/industry-news/brands/vacheron-constantin-new-component-manufacturing-facility-15917.html
+  title: "Vacheron Constantin: new component manufacturing facility"
+  source_type: press
+  tier: secondary
+  published_on: 2013-10-16
+- id: zrc-mn64-metal-page
+  url: https://zrc1904.com/product/gf4211121113-mn64-metal/
+  title: MN64 Metal
+  publisher: zrc
+  source_type: manufacturer
+  tier: primary
+- id: zrc-family-history
+  url: https://zrc1904.com/since-1904-a-brand-story/zrc-a-long-standing-family-history/
+  title: "ZRC: a long-standing family history"
+  publisher: zrc
+  source_type: manufacturer
+  tier: primary
+- id: zrc-monochrome-mn64-titanium
+  url: https://monochrome-watches.com/first-look-zrc-grands-fonds-mn64-3000-titanium-edition-dive-watch-specs-price-live-pics-review/
+  title: The New ZRC Grands Fonds MN64 Titanium Editions, in Full Titanium and Titanium Rubber
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-05-12
+- id: ablogtowatch-jlc-grande-reverso-duoface
+  url: https://www.ablogtowatch.com/jaeger-lecoultre-grande-reverso-duoface-watch-review/
+  title: Jaeger-LeCoultre Grande Reverso Duoface Watch Review (aBlogtoWatch)
+  source_type: press
+  tier: secondary
+  published_on: 2012-03-12
+  archived_url: https://web.archive.org/web/20250818081010/https://www.ablogtowatch.com/jaeger-lecoultre-grande-reverso-duoface-watch-review/
+  notes: Ariel Adams. Excerpt confirmed on page.
+- id: ablogtowatch-lesablier-travelgraph
+  url: https://www.ablogtowatch.com/watch-review-lesablier-ls-04-travelgraph/
+  title: "Watch Review: Lesablier LS-04 Travelgraph (aBlogtoWatch)"
+  source_type: press
+  tier: secondary
+  published_on: 2025-02-13
+  archived_url: https://web.archive.org/web/20250726081816/https://www.ablogtowatch.com/watch-review-lesablier-ls-04-travelgraph/
+  notes: Excerpt confirmed verbatim.
+- id: calibratedwrist-torsti-laine
+  url: https://thecalibratedwrist.com/2025/09/24/torsti-laine-from-finlands-workshop-to-the-edge-of-independent-watchmaking/
+  title: "Torsti Laine: From Finland's Workshop to the Edge of Independent Watchmaking (The Calibrated Wrist)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2025-09-24
+  notes: Brent Robillard; interview-based profile. Excerpt confirmed in section 'The P37 and Beyond'. Wayback lookup failed (archive.org throttled this session); archive status unknown.
+- id: deployant-dufour-simplicity
+  url: https://deployant.com/review-the-pinnacle-of-watchmaking-the-philippe-dufour-simplicity/
+  title: "Review: The Pinnacle of Watchmaking – The Philippe Dufour Simplicity (Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2019-01-07
+  archived_url: https://web.archive.org/web/20260711145649/https://deployant.com/review-the-pinnacle-of-watchmaking-the-philippe-dufour-simplicity/
+  notes: Frank Chuo. Both excerpts (external CNC house; AutoCAD) confirmed.
+- id: deployant-kudoke-2
+  url: https://deployant.com/review-kudoke-2-germanys-best-kept-watchmaking-secret/
+  title: "Review: Kudoke 2 – Is It Germany's Best Watchmaking Secret? (Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2020-08-13
+  archived_url: https://web.archive.org/web/20260409135206/https://deployant.com/review-kudoke-2-germanys-best-kept-watchmaking-secret/
+  notes: Robin Lim. Both excerpts (Felix components; disc engraved by artisan in Glashütte) confirmed.
+- id: deployant-rws-series-2
+  url: https://deployant.com/review-roger-smith-series-2/
+  title: "Review: Roger Smith Series 2 (Deployant)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2015-08-07
+  archived_url: https://web.archive.org/web/20260613033431/https://deployant.com/review-roger-smith-series-2/
+  notes: Peter Chong. Both excerpts confirmed (dial excerpt continues 'from the reverse').
+- id: fratello-lesablier-travelgraph
+  url: https://www.fratellowatches.com/introducing-the-lesablier-ls-04-travelgraph-hands-on-with-a-new-affordable-compact-and-feature-packed-worldtimer/
+  title: "Hands-On: The New Lesablier LS-04 Travelgraph (Fratello)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-05-10
+  archived_url: https://web.archive.org/web/20260311135018/https://www.fratellowatches.com/introducing-the-lesablier-ls-04-travelgraph-hands-on-with-a-new-affordable-compact-and-feature-packed-worldtimer/
+  notes: Daan de Groot. Both excerpts confirmed.
+- id: jlc-reverso-tribute-duoface-page
+  url: https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-duoface-small-seconds-q3988481
+  title: Reverso Tribute Duoface Small Seconds Q3988481 (Jaeger-LeCoultre)
+  publisher: jaeger-lecoultre
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261015180359/https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-duoface-small-seconds-q3988481
+  notes: Calibre 854 excerpt confirmed in the archived copy; live site showed a maintenance page on 2026-10-21.
+- id: jlc-reverso-tribute-monoface-page
+  url: https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-monoface-small-seconds-q713216j
+  title: Reverso Tribute Monoface Small Seconds Q713216J (Jaeger-LeCoultre)
+  publisher: jaeger-lecoultre
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260617133203/https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-monoface-small-seconds-q713216j
+  notes: Pink-gold Milanese-bracelet reference Q713216J, not Q7132521; the Q7132521 page lacks these excerpts. Calibre 822, single-roof, STEP 1/STEP 3, hand-applied indexes and 'link by link' excerpts confirmed in the archived copy (live site in maintenance on 2026-10-21).
+- id: kudoke-2-page
+  url: https://www.kudoke.eu/en/kudoke-2-2/
+  title: KUDOKE 2 (Kudoke)
+  publisher: kudoke
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260422181407/https://www.kudoke.eu/en/kudoke-2-2/
+  notes: Both excerpts confirmed in the Wayback copy. kudoke.eu refused connections on 2026-10-21, and kudoke.com is a parked domain.
+- id: kudoke-story
+  url: https://www.kudoke.eu/en/about-kudoke/
+  title: About Kudoke (Kudoke)
+  publisher: kudoke
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260515224838/https://www.kudoke.eu/en/about-kudoke/
+  notes: "UNVERIFIED: excerpt ('Bringing design, development, watchmaking and hand finishing together under one roof...') not found on this page's May 2026 snapshot, and not found by web search. kudoke.eu refused connections on 2026-10-21. Kudoke appears to have relaunched its site around May 2026 (e.g. /kollektionen/handwerk/), so the excerpt may come from a new 'story' page with an unknown URL."
+- id: kurono-begins-with-asaoka
+  url: https://kuronotokyo.com/pages/every-kurono-begins-with-hajime-asaoka
+  title: Every Kurono Begins With Hajime Asaoka (Kurono Tokyo)
+  publisher: kurono-tokyo
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260915081634/https://kuronotokyo.com/pages/every-kurono-begins-with-hajime-asaoka
+  notes: Excerpt confirmed (live site rate-limited; checked in the archived copy).
+- id: kurono-chronograph-1-mk2-page
+  url: https://kuronotokyo.com/pages/chronograph-1-mk-2
+  title: Kurono Chronograph 1 Mk.2 (Kurono Tokyo)
+  publisher: kurono-tokyo
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260825071054/https://kuronotokyo.com/pages/chronograph-1-mk-2
+  notes: Both NE86 excerpts confirmed in the archived copy.
+- id: kurono-chronograph-3-page
+  url: https://kuronotokyo.com/pages/chronograph-3
+  title: Kurono Chronograph 3 HISUI (Kurono Tokyo)
+  publisher: kurono-tokyo
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260528144123/https://kuronotokyo.com/pages/chronograph-3
+  notes: Inspection and sapphire box crystal excerpts confirmed on the live page.
+- id: laine-about
+  url: https://www.lainewatches.com/about
+  title: Laine Watches - About
+  publisher: laine
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260514004549/https://www.lainewatches.com/about
+  notes: Excerpt is an image caption ('Case making_ Milling and drilling the case back'); confirmed on the live page.
+- id: laine-p37-page
+  url: https://www.lainewatches.com/p37
+  title: Laine Watches - P37
+  publisher: laine
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260617070636/https://www.lainewatches.com/p37
+  notes: Guilloche-machine and hand-chamfering excerpts confirmed on the live page.
+- id: laurent-ferrier-classic-micro-rotor-page
+  url: https://laurentferrier.ch/collections/micro-rotor/products/classic-micro-rotor-silver
+  title: Classic Micro-Rotor Silver (Laurent Ferrier)
+  publisher: laurent-ferrier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20251005212241/https://laurentferrier.ch/collections/micro-rotor/products/classic-micro-rotor-silver
+  notes: Finishing and silicon double-direct-impulse excerpts confirmed in the archived copy (live site rate-limited). The same product is also served at /collections/all/products/classic-micro-rotor-silver.
+- id: laurent-ferrier-our-story
+  url: https://laurentferrier.ch/pages/our-story
+  title: Our Story (Laurent Ferrier)
+  publisher: laurent-ferrier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260109152528/https://laurentferrier.ch/pages/our-story
+  notes: Creative Department excerpt confirmed in the archived copy.
+- id: laurent-ferrier-team
+  url: https://laurentferrier.ch/pages/team
+  title: Team (Laurent Ferrier)
+  publisher: laurent-ferrier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260414063235/https://laurentferrier.ch/pages/team
+  notes: Supplier-inspection and complete-assembly excerpts confirmed in the archived copy.
+- id: lesablier-chronosport-page
+  url: https://www.lesablierwatches.com/product-page/chronosport
+  title: Chronosport (Lesablier)
+  publisher: lesablier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260415012631/https://www.lesablierwatches.com/product-page/chronosport
+  notes: Three-layer dial and case-prototype excerpts confirmed in the archived copy. These are from the old lesablierwatches.com site; the new lesablier.com no longer lists the Chronosport.
+- id: lesablier-our-story
+  url: https://www.lesablierwatches.com/our-story
+  title: About Lesablier | Our Watch Brand (Lesablier)
+  publisher: lesablier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260415000553/https://www.lesablierwatches.com/our-story
+  notes: Both excerpts confirmed in the archived copy. The new site has a different story page at lesablier.com/pages/the-story.
+- id: lesablier-travelgraph-page
+  url: https://www.lesablierwatches.com/product-page/ls-04-travelgraph
+  title: Travelgraph (Lesablier)
+  publisher: lesablier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260518122650/https://www.lesablierwatches.com/product-page/ls-04-travelgraph
+  notes: Washington, D.C. assembly and 'Miyota 9075 w/ custom rotor and WT modification' excerpts confirmed in the archived copy. They are not on /travelgraph.
+- id: monochrome-laine-10th
+  url: https://monochrome-watches.com/laine-watches-celebrates-its-10th-anniversary-with-a-new-33mm-model-and-evolutions-of-its-p37/
+  title: Laine Watches Celebrates its 10th Anniversary with a New 33mm Model and Evolutions of its P37 (Monochrome Watches)
+  source_type: press
+  tier: secondary
+  published_on: 2026-07-29
+  notes: Both excerpts confirmed. Wayback lookup failed (archive.org throttled); archive status unknown.
+- id: monochrome-lf-natural-escapement
+  url: https://monochrome-watches.com/video-review-in-depth-laurent-ferrier-natural-escapement-and-micro-rotor-movement/
+  title: A Closer Look at Laurent Ferrier's Natural Escapement and the Micro-Rotor Movement (Monochrome Watches)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-07-17
+  archived_url: https://web.archive.org/web/20260915084345/https://monochrome-watches.com/video-review-in-depth-laurent-ferrier-natural-escapement-and-micro-rotor-movement/
+  notes: La Fabrique du Temps and LIGA excerpts confirmed.
+- id: oris-calibre-400-page
+  url: https://www.oris.ch/en-US/worldoforis/movements/calibre-400
+  title: Calibre 400 (Oris)
+  publisher: oris
+  source_type: manufacturer
+  tier: primary
+  notes: "'independently conceived by Oris' and '30 non-ferrous' excerpts confirmed on the live page. Wayback lookup failed (archive.org throttled); archive status unknown."
+- id: quillandpad-dufour-simplicity
+  url: https://quillandpad.com/2023/12/16/philippe-dufour-simplicity-reviewed-by-tim-mosso-photofest/
+  title: "Philippe Dufour Simplicity Reviewed by Tim Mosso: Photofest! (Quill & Pad)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2023-12-16
+  notes: Both excerpts confirmed. Republished at quillandpad.com/2025/08/10/philippe-dufour-simplicity-reviewed-by-tim-mosso-photofest/. Wayback lookup failed; archive status unknown.
+- id: quillandpad-lf-classic-micro-rotor
+  url: https://quillandpad.com/2024/03/09/laurent-ferrier-classic-micro-rotor-with-salmon-dial-reviewed-by-tim-mosso/
+  title: Laurent Ferrier Classic Micro-Rotor with Salmon Dial Reviewed by Tim Mosso (Quill & Pad)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-03-09
+  notes: Both excerpts confirmed. Wayback lookup failed; archive status unknown.
+- id: rexhepi-ateliers
+  url: https://www.rexheprexhepi.com/ateliers
+  title: Ateliers (Rexhep Rexhepi)
+  publisher: rexhep-rexhepi
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260616142320/https://www.rexheprexhepi.com/ateliers
+  notes: 2019 micro-mechanics workshop and start-to-finish excerpts confirmed. The page is JS-rendered, and a plain curl does not show the text.
+- id: rexhepi-cc2-page
+  url: https://www.rexheprexhepi.com/collections/chronometre-contemporain-ii-rose-gold
+  title: Chronomètre Contemporain II Rose Gold (RRCC II) (Rexhep Rexhepi)
+  publisher: rexhep-rexhepi
+  source_type: manufacturer
+  tier: primary
+  notes: Hagmann case excerpt confirmed. A platinum variant page also exists at /collections/chronometre-contemporain-ii-platine. Wayback lookup failed; archive status unknown.
+- id: rexhepi-cc-page
+  url: https://www.rexheprexhepi.com/collections/chronometre-contemporain-platine
+  title: Chronomètre Contemporain Platinum (RRCC I) (Rexhep Rexhepi)
+  publisher: rexhep-rexhepi
+  source_type: manufacturer
+  tier: primary
+  notes: Both excerpts confirmed on the platinum page. The rose-gold page (/collections/chronometre-contemporain-rose-gold) has different intro wording ('to capture classic forms'). Wayback lookup failed; archive status unknown.
+- id: rws-evolution
+  url: https://rwsmithwatches.com/evolution
+  title: Roger W Smith | Evolution
+  publisher: roger-w-smith
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260924002323/https://rwsmithwatches.com/evolution
+  notes: Raw-materials excerpt confirmed on the live page.
+- id: rws-philosophy
+  url: https://rwsmithwatches.com/philosophy
+  title: Roger W Smith | Philosophy
+  publisher: roger-w-smith
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260924002323/https://rwsmithwatches.com/philosophy
+  notes: "'400 components' and Isle of Man workshop excerpts confirmed on the live page."
+- id: rws-watches
+  url: https://rwsmithwatches.com/watches
+  title: Roger W Smith | Watches
+  publisher: roger-w-smith
+  source_type: manufacturer
+  tier: primary
+  notes: Daniels Method and co-axial production-movement excerpts confirmed on the live page. Wayback lookup failed; archive status unknown.
+- id: sjx-kudoke-1-2
+  url: https://watchesbysjx.com/2020/03/kudoke-1-kudoke-2-review.html
+  title: "Hands-On: The Kudoke 1 and Kudoke 2 (Watches by SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2020-03-09
+  archived_url: https://web.archive.org/web/20260517144002/https://watchesbysjx.com/2020/03/kudoke-1-kudoke-2-review.html
+  notes: All four excerpts confirmed. The page writes 'Habring2' with no space, while the YAML excerpts write 'Habring 2'.
+- id: sjx-rexhepi-cc-2018
+  url: https://watchesbysjx.com/2018/12/rexhep-rexhepi-chronometre-contemporain-comparison.html
+  title: "Up Close: Rexhep Rexhepi's Improved Chronomètre Contemporain (Watches by SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-12-06
+  notes: Besançon excerpt confirmed in the body; Dominique Baron excerpt is an image caption. Wayback lookup failed; archive status unknown.
+- id: timeandtide-laine-p37
+  url: https://timeandtidewatches.com/laine-p37-introducing/
+  title: The Laine P37 reworks the Peseux 7001 and adorns it with stunning hand guilloché (Time+Tide)
+  source_type: press
+  tier: secondary
+  published_on: 2024-11-29
+  notes: Borna Bošnjak. Excerpt confirmed. Wayback lookup failed; archive status unknown.
+- id: timebum-lesablier-chronosport
+  url: https://www.thetimebum.com/2022/03/lesablier-chronosport.html
+  title: Lesablier Chronosport (The Time Bum)
+  source_type: press
+  tier: secondary
+  published_on: 2022-03-04
+  archived_url: https://web.archive.org/web/20220520051325/https://www.thetimebum.com/2022/03/lesablier-chronosport.html
+  notes: VK64 battery and service excerpt confirmed via thetimebum.com/?p=6585. Permalink taken from Wayback CDX.
+- id: timebum-lesablier-travelgraph
+  url: https://www.thetimebum.com/2024/04/lesablier-travelgraph.html
+  title: Lesablier Travelgraph (The Time Bum)
+  source_type: press
+  tier: secondary
+  published_on: 2024-04-10
+  archived_url: https://web.archive.org/web/20240414043558/https://www.thetimebum.com/2024/04/lesablier-travelgraph.html
+  notes: Loren Sciurba. 'assembled right here in the U.S.A.' confirmed via thetimebum.com/?p=12274. Permalink taken from Wayback CDX.
+- id: watchclicker-lesablier-chronosport
+  url: https://watchclicker.com/lesablier-chronosport-review/
+  title: Lesablier Chronosport Review (Watchclicker)
+  source_type: press
+  tier: secondary
+  published_on: 2022-09-26
+  archived_url: https://web.archive.org/web/20251224163217/https://watchclicker.com/lesablier-chronosport-review/
+  notes: Frank Affronti. VK64A excerpt confirmed.
+- id: watchonista-oris-calibre-400
+  url: https://www.watchonista.com/articles/technology/confessions-watchmaker-producing-house-movement
+  title: "Confessions Of A Watchmaker: Producing An In-House Movement (Watchonista)"
+  source_type: press
+  tier: secondary
+  published_on: 2020-12-16
+  archived_url: https://web.archive.org/web/20260512184005/https://www.watchonista.com/articles/technology/confessions-watchmaker-producing-house-movement
+  notes: Josh Shanks. Both excerpts confirmed via watchonista.com/?p=150641, which serves the full article. A direct fetch of the slug URL returned only a teaser shell.
+- id: wornandwound-oris-aquis-calibre-400
+  url: https://wornandwound.com/introducing-the-aquis-date-calibre-400-the-first-watch-featuring-a-new-in-house-movement-from-oris/
+  title: Introducing the Aquis Date Calibre 400, the First Watch Featuring a New In-House Movement from Oris (Worn & Wound)
+  source_type: press
+  tier: secondary
+  published_on: 2020-10-29
+  notes: Zach Kazan. Excerpt confirmed. Wayback lookup failed; archive status unknown.

@@ -2,8 +2,135 @@ id: lesablier/travelgraph
 brand: lesablier
 model: Travelgraph
 notes: Handbook v0.2 §8 lists this record as "Lesablier — Travelgraph".
-provenance: []
-claims: []
+claims:
+  - id: lstg-miyota-9075
+    statement: The brand lists the movement as a Miyota 9075 with a custom rotor and a world-time modification.
+    excerpt: Movement Miyota 9075 w/ custom rotor and WT modification
+    source: lesablier-travelgraph-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-wt-modification
+    statement: A review reports that the GMT function of the Miyota 9075 was modified to drive a 24-hour disc for the world-time display.
+    excerpt: This is originally a GMT movement, but the GMT complication has been modified to fit a 24-hour disc, which turns the Travelgraph into a worldtimer.
+    source: fratello-lesablier-travelgraph
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-rotor
+    statement: A review reports that the GMT hand is replaced by the 24-hour disc and that the brand fitted a custom engraved rotor.
+    excerpt: Of course, the movement has been modified such that the GMT hand is replaced by the 24-hour disc, and Lesablier has also used a beautifully engraved custom gold-tone rotor.
+    source: ablogtowatch-lesablier-travelgraph
+    dimensions:
+      - MA
+      - CF
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-parts-overseas
+    statement: The brand says parts, including the Miyota movement, are sourced from overseas and that final assembly happens in the D.C. area.
+    excerpt: '*Parts, such as the Miyota movement, are sourced from overseas. Final assembly will happen in the D.C. Area'
+    source: lesablier-travelgraph-page
+    dimensions:
+      - MM
+      - EX
+      - DH
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-built-dc
+    statement: The brand says the Travelgraph is built, quality-controlled, pressure-tested and regulated in the greater Washington, D.C. area.
+    excerpt: LS-04 Travelgraph will be built*, quality-controlled, pressure-tested and regulated in the greater Washington, D.C. area.
+    source: lesablier-travelgraph-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-assembled-usa
+    statement: A review states that the Travelgraph is assembled in the United States.
+    excerpt: It’s attractive, innovative, and assembled right here in the U.S.A.
+    source: timebum-lesablier-travelgraph
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-founder-design
+    statement: The founder states that he designs the watches himself, based on his own design preferences.
+    excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
+    source: lesablier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lstg-case-finish
+    statement: A review describes the case and 12-sided bezel as brushed and polished.
+    excerpt: Both the case and its 12-sided bezel have been lightly brushed and polished.
+    source: fratello-lesablier-travelgraph
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Base caliber (Miyota 9075)
+    performer: miyota
+    relationship: external_specialist
+    claims:
+      - lstg-miyota-9075
+  - dimension: MA
+    component: World-time modification (24-hour disc in place of GMT hand)
+    relationship: unknown
+    note: Sources describe the modification but do not say who engineered or executed it.
+    claims:
+      - lstg-wt-modification
+      - lstg-rotor
+  - dimension: MM
+    component: Movement and parts
+    performer: miyota
+    relationship: external_specialist
+    note: The brand says parts, including the movement, are sourced from overseas.
+    claims:
+      - lstg-miyota-9075
+      - lstg-parts-overseas
+  - dimension: EX
+    component: Case and bracelet
+    relationship: unknown
+    note: No source names the case or bracelet maker; the brand says parts are sourced from overseas.
+    claims:
+      - lstg-parts-overseas
+      - lstg-case-finish
+  - dimension: DH
+    component: Dial, city ring, 24-hour disc and hands
+    relationship: unknown
+    note: Maker not named; the brand says parts are sourced from overseas.
+    claims:
+      - lstg-parts-overseas
+  - dimension: CF
+    component: Custom engraved rotor
+    relationship: unknown
+    note: Who engraves or makes the custom rotor is not stated.
+    claims:
+      - lstg-rotor
+  - dimension: WE
+    component: Final assembly, quality control, pressure testing and regulation
+    performer: lesablier
+    relationship: internal
+    note: Brand statement that this happens in the greater Washington, D.C. area; the page does not say whether it is the brand's own staff or a local contractor.
+    claims:
+      - lstg-built-dc
+      - lstg-parts-overseas
+      - lstg-assembled-usa
+  - dimension: PD
+    component: Product design
+    performer: lesablier
+    relationship: internal
+    claims:
+      - lstg-founder-design
+      - lstg-wt-modification
 profiles:
   - version: 1
     methodology: v0.2

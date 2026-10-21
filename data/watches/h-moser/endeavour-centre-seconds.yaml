@@ -2,8 +2,174 @@ id: h-moser/endeavour-centre-seconds
 brand: h-moser
 model: Endeavour Centre Seconds
 notes: Handbook v0.2 §8 lists this record as "H. Moser & Cie. — Endeavour Centre Seconds".
-provenance: []
-claims: []
+claims:
+  - id: hmecs-hmc200-inhouse
+    statement: A specialist site describes the HMC 200 as Moser's in-house automatic movement.
+    excerpt: at least the use for the first time of the in-house automatic movement in a classical watch
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-pe-regulating
+    statement: A specialist site reports the HMC 200 regulating organ is made by Precision Engineering AG, Moser's sister company.
+    excerpt: regulating organ manufactured by Precision Engineering AG, H. Moser & Cie.’s sister company
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-straumann
+    statement: The same source lists a Straumann hairspring with flat overcoil and an interchangeable regulating organ.
+    excerpt: Straumann Hairspring with flat overcoil and interchangeable regulating organ (to facilitate service operations).
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-finishing
+    statement: The same source describes Moser double stripes, polished angles and perlage on the movement.
+    excerpt: The finishing is pleasant, as usual, with Moser double stripes, polished angles and perlage on the main-plate.
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-sjx-hairspring
+    statement: A specialist site reports the HMC 200 uses a Straumann hairspring made by Precision Engineering.
+    excerpt: The calibre utilises a proprietary Straumann hairspring manufactured by the brand's sister company, Precision Engineering
+    source: sjx-h-moser-seconde-seconde
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-double-hairspring
+    statement: Moser's product page says the HMC 200 in this model has a double hairspring.
+    excerpt: the blue balance bridge signifies the double hairspring, consisting of two identical balance springs
+    source: h-moser-ecs-vantablack-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-pe-components
+    statement: An interview article reports Precision Engineering makes hairsprings and other movement parts such as escape wheels.
+    excerpt: The component specialist produces hairsprings, as well as other key movement components like escape wheels,
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-meylan-control
+    statement: The same article reports the Meylan family controls both Moser and Precision Engineering.
+    excerpt: The Meylan family interests also control its sister company Precision Engineering,
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-cases-dials-external
+    statement: In 2019 Moser's CEO said hairsprings and escapements are made in the group but cases and dials are not.
+    excerpt: We do our own hairsprings and escapements, but cases and dials are another investment that we cannot afford today.
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-anglage-external
+    statement: In 2024 Moser's CEO said anglage is done externally while staff are trained to do it internally.
+    excerpt: is now done externally, but we are training people to do it internally.
+    source: sjx-h-moser-meylan-2024
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-dials-2024
+    statement: In 2024 Moser's CEO said the company is looking into making dials.
+    excerpt: We're looking into dials also.
+    source: sjx-h-moser-meylan-2024
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: hmecs-pe-site
+    statement: A 2026 article reports Precision Engineering shares Moser's site and makes hairsprings from wire.
+    excerpt: Sharing its space is sister company Precision Engineering AG, which transforms delicate spools of wire into perfectly calibrated hairsprings.
+    source: options-h-moser-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: HMC 200 automatic caliber
+    performer: h-moser
+    relationship: internal
+    claims:
+      - hmecs-hmc200-inhouse
+  - dimension: MM
+    component: Plates, bridges, wheels and other movement parts
+    performer: h-moser
+    relationship: internal
+    note: Described as in-house at the movement level; a part-by-part split between Moser and Precision Engineering is not published.
+    claims:
+      - hmecs-hmc200-inhouse
+      - hmecs-pe-components
+  - dimension: MM
+    component: Regulating organ, Straumann double hairspring and escapement
+    performer: precision-engineering
+    relationship: in_group
+    note: Precision Engineering AG is a sister company under Meylan family control (MELB Holding).
+    claims:
+      - hmecs-pe-regulating
+      - hmecs-straumann
+      - hmecs-sjx-hairspring
+      - hmecs-double-hairspring
+      - hmecs-pe-components
+      - hmecs-meylan-control
+      - hmecs-pe-site
+  - dimension: EX
+    component: Case
+    relationship: external_specialist
+    note: CEO said in 2019 that cases are not made in-house; the case maker is not named.
+    claims:
+      - hmecs-cases-dials-external
+  - dimension: DH
+    component: Fumé dial
+    relationship: external_specialist
+    note: CEO said in 2019 that dials are not made in-house and in 2024 that dial making is being explored; the dial maker is not named.
+    claims:
+      - hmecs-cases-dials-external
+      - hmecs-dials-2024
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    claims: []
+  - dimension: CF
+    component: Movement decoration (double stripes, perlage)
+    relationship: unknown
+    note: Decoration is described, but the performer is not stated.
+    claims:
+      - hmecs-finishing
+  - dimension: CF
+    component: Anglage (bevelling)
+    relationship: external_specialist
+    valid_to: 2024
+    note: CEO said in 2024 that anglage is done externally while staff are trained to bring it in-house.
+    claims:
+      - hmecs-anglage-external
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No fetched source explicitly describes who assembles and regulates the HMC 200.
+    claims: []
+  - dimension: PD
+    component: Design and movement development
+    performer: h-moser
+    relationship: internal
+    claims:
+      - hmecs-hmc200-inhouse
 profiles:
   - version: 1
     methodology: v0.2

@@ -2,8 +2,109 @@ id: lesablier/chronosport
 brand: lesablier
 model: Chronosport
 notes: Handbook v0.2 §8 lists this record as "Lesablier — Chronosport".
-provenance: []
-claims: []
+claims:
+  - id: lschrono-vk64
+    statement: The brand lists the Seiko VK64A Mecaquartz as the Chronosport's movement.
+    excerpt: 'Movement: Seiko VK64A Mecaquartz'
+    source: lesablier-chronosport-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-vk64-review
+    statement: A review identifies the movement as the Seiko VK64A, a quartz chronograph with a mechanical chronograph module.
+    excerpt: The quartz movement in the watch is the Seiko VK64A Mechaquartz movement.
+    source: watchclicker-lesablier-chronosport
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-vk64-service
+    statement: A review states that servicing the VK64 involves replacing the whole movement.
+    excerpt: With a 3-year battery life and service that involves swapping the entire movement, the Seiko VK64 is reliable and keeps owners’ costs low.
+    source: timebum-lesablier-chronosport
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-case-prototypes
+    statement: The brand says the case finishing took over a year and several case prototypes to develop.
+    excerpt: It took us over a year and mutliple case prototypes to get this right
+    source: lesablier-chronosport-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-dial-layers
+    statement: The brand describes a three-layer dial with applied faceted indices and a serial number on each dial.
+    excerpt: 'Each dial has 3 layers: The base, recessed subdials, and elevated rehault tachymeter ring.'
+    source: lesablier-chronosport-page
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-founder-design
+    statement: The founder states that he designs the watches himself, based on his own design preferences.
+    excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
+    source: lesablier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lschrono-production
+    statement: The brand says 50 Chronosport watches were produced in each colour.
+    excerpt: 50 were produced in each color.
+    source: lesablier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement design (Seiko VK64A)
+    performer: seiko-group
+    relationship: external_specialist
+    note: Stock Seiko (SII / Time Module) quartz chronograph caliber.
+    claims:
+      - lschrono-vk64
+      - lschrono-vk64-review
+  - dimension: MM
+    component: Complete movement
+    performer: seiko-group
+    relationship: external_specialist
+    claims:
+      - lschrono-vk64
+      - lschrono-vk64-review
+  - dimension: EX
+    component: Case and integrated bracelet
+    relationship: unknown
+    note: The brand describes developing the case over several prototypes; no source names the case or bracelet maker.
+    claims:
+      - lschrono-case-prototypes
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: The dial construction is described by the brand; the dial and hand maker is not named.
+    claims:
+      - lschrono-dial-layers
+  - dimension: WE
+    component: Assembly and casing
+    relationship: unknown
+    note: No source says where the Chronosport is assembled. The brand says the later Travelgraph is assembled in the Washington, D.C. area, but does not say this for the Chronosport.
+    claims: []
+  - dimension: PD
+    component: Product design
+    performer: lesablier
+    relationship: internal
+    claims:
+      - lschrono-founder-design
+      - lschrono-case-prototypes
+      - lschrono-dial-layers
 profiles:
   - version: 1
     methodology: v0.2

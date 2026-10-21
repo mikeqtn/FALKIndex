@@ -3,8 +3,166 @@ brand: de-bethune
 model: DB25
 route_label: manufacture caliber
 notes: Handbook v0.2 §8 lists this record as "De Bethune — DB25 / manufacture caliber".
-provenance: []
-claims: []
+claims:
+  - id: db25-almost-all-inhouse
+    statement: A 2017 workshop visit report says De Bethune makes almost all components of its watches in-house, including balances and balance springs.
+    excerpt: De Bethune makes almost all the components of its watches inhouse, including balance and balance springs!
+    source: watchprosite-debethune-workshops
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-cnc-screws-dials
+    statement: The same report says CNC machines in the workshop cut and mill components, including screws and dials.
+    excerpt: the CNC machines cut and mill the components, including screws and dials.
+    source: watchprosite-debethune-workshops
+    dimensions:
+      - MM
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-hairspring-integration
+    statement: A 2026 Europa Star report says De Bethune is integrating all hairspring production in-house, from wire drawing to colleting, and does final adjustment with its own balance wheel.
+    excerpt: integrating the entire hairspring production in-house
+    source: europastar-debethune-chronometrie
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-escapement-redesign
+    statement: The same report says De Bethune redesigned the Swiss lever escapement and uses a silicon escape wheel.
+    excerpt: De Bethune redesigned the Swiss lever escapement
+    source: europastar-debethune-chronometrie
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-qp-dbcaliber
+    statement: A hands-on review of the DB25 Perpetual Calendar identifies the in-house caliber DB2324 automatic movement.
+    excerpt: There, you'll see the truly interesting-looking in-house De Bethune caliber DB2324 automatic movement.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-qp-balance
+    statement: The same review says the balance wheel is titanium with platinum weights and the escapement uses silicon parts.
+    excerpt: the balance wheel is produced from titanium with platinum weights.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-qp-guilloche
+    statement: The same review says the dial's main section is engraved on a hand-operated guilloché machine, without saying where.
+    excerpt: The main section is first engraved using a hand-operated guilloché machine and then hued green.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-mono-entirely-inhouse
+    statement: A 2025 review of the DB25 Monopusher Chronograph (caliber DB3000) says De Bethune moved entirely to in-house movements.
+    excerpt: De Bethune rapidly went entirely in-house with a large stable of movements.
+    source: sjx-db25-monopusher
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-mono-hairspring
+    statement: The same review describes a proprietary flat hairspring and a titanium balance with white gold weights.
+    excerpt: proprietary flat hairspring that breathes like an overcoil
+    source: sjx-db25-monopusher
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-mono-finishing
+    statement: The same review says the movement decoration is finished by hand but likely machine-applied first.
+    excerpt: The decoration is clearly finished off by hand, but likely applied by machine to begin with.
+    source: sjx-db25-monopusher
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: db25-mono-case
+    statement: The same review lists a titanium case and does not name its maker.
+    excerpt: "Material: Titanium"
+    source: sjx-db25-monopusher
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Manufacture calibers (e.g. DB2324 perpetual calendar, DB3000 monopusher)
+    performer: de-bethune
+    relationship: internal
+    note: The DB25 is a family with several calibers; sources cover the DB25 QP and DB25 Monopusher.
+    claims:
+      - db25-qp-dbcaliber
+      - db25-mono-entirely-inhouse
+      - db25-escapement-redesign
+  - dimension: MM
+    component: Movement components (plates, bridges, wheels, screws)
+    performer: de-bethune
+    relationship: internal
+    note: Described as "almost all" in-house; exceptions are not named.
+    claims:
+      - db25-almost-all-inhouse
+      - db25-cnc-screws-dials
+  - dimension: MM
+    component: Balance wheel and hairspring
+    performer: de-bethune
+    relationship: internal
+    note: In-house hairspring production reported in 2017 and being fully integrated per a 2026 report.
+    claims:
+      - db25-almost-all-inhouse
+      - db25-hairspring-integration
+      - db25-qp-balance
+      - db25-mono-hairspring
+  - dimension: MM
+    component: Silicon escape wheel
+    relationship: unknown
+    note: De Bethune designs the escapement geometry; no source says where the silicon parts are made.
+    claims:
+      - db25-escapement-redesign
+  - dimension: EX
+    component: Titanium case
+    relationship: unknown
+    note: No DB25 source names the case maker.
+    claims:
+      - db25-mono-case
+  - dimension: DH
+    component: Dial (incl. guilloché)
+    performer: de-bethune
+    relationship: internal
+    note: Workshop report says dials are milled in-house; DB25-specific dial maker not confirmed.
+    claims:
+      - db25-cnc-screws-dials
+      - db25-qp-guilloche
+  - dimension: CF
+    component: Movement finishing
+    performer: de-bethune
+    relationship: internal
+    claims:
+      - db25-mono-finishing
+  - dimension: WE
+    component: Assembly and final adjustment
+    performer: de-bethune
+    relationship: internal
+    claims:
+      - db25-hairspring-integration
+  - dimension: PD
+    component: Design and technical development
+    performer: de-bethune
+    relationship: internal
+    claims:
+      - db25-escapement-redesign
+      - db25-mono-entirely-inhouse
 profiles:
   - version: 1
     methodology: v0.2

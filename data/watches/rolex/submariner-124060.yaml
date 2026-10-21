@@ -3,8 +3,175 @@ brand: rolex
 model: Submariner
 reference: "124060"
 notes: Handbook v0.2 §8 lists this record as "Rolex — Submariner 124060".
-provenance: []
-claims: []
+claims:
+  - id: rsub-3230
+    statement: A specialist review describes calibre 3230 as a new in-house Rolex calibre.
+    excerpt: Driving the time only Submariner is Rolex’s all-new in-house caliber 3230
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rsub-chronergy
+    statement: The same review says calibre 3230 uses the Chronergy escapement patented by Rolex.
+    excerpt: Rolex engineered caliber 3230 and 3235 to utilize the Chronergy escapement, patented by Rolex
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rsub-parachrom
+    statement: The same review says the blue Parachrom hairspring is manufactured by Rolex.
+    excerpt: fitted with an optimized blue Parachrom hairspring, manufactured by Rolex in an exclusive paramagnetic alloy
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rsub-steel
+    statement: The same review says the case steel is 904L.
+    excerpt: The stainless steel alloy used is still 904L
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rsub-bracelet
+    statement: The same review says the Oyster bracelet was redesigned for the new case.
+    excerpt: Naturally, the Oyster bracelet has also been redesigned to match the new case proportions.
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rsub-lume
+    statement: The same review says Chromalight lume is used on the hands and markers.
+    excerpt: Chromalight lume is used for the hands and markers, with a blue glow, same as before.
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rolex-plo-cases
+    statement: A 2014 site report says the Plan-les-Ouates site manufactures Rolex cases and bracelets.
+    excerpt: The center specializes in manufacturing the cases and bracelets for Rolex watches.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rolex-chene-bourg
+    statement: The same report says the Chêne-Bourg site produces dials and does gem-setting.
+    excerpt: Built in 2000, this facility specializes in the production of dials and inlaying with precious stones.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rolex-bienne
+    statement: The same report says the Bienne site handles manufacture and assembly of Rolex movements.
+    excerpt: houses all activities related to the manufacture and assembly of Rolex's movements
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rolex-geneva-assembly
+    statement: The same report says final assembly of each watch takes place at the Geneva headquarters.
+    excerpt: The final assembly of each Rolex watch is carried out at the brand's Geneva headquarters.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rolex-hands-bought
+    statement: The same report says Rolex buys its hands from a specialist producer.
+    excerpt: The brand also purchases the hands for its timepieces from a specialized producer.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 3230 architecture
+    performer: rolex
+    relationship: internal
+    claims:
+      - rsub-3230
+      - rsub-chronergy
+  - dimension: MM
+    component: Movement parts
+    performer: rolex
+    relationship: internal
+    note: Site description dates from 2014 and is not model-specific.
+    claims:
+      - rsub-3230
+      - rolex-bienne
+  - dimension: MM
+    component: Chronergy escapement and Parachrom hairspring
+    performer: rolex
+    relationship: internal
+    claims:
+      - rsub-chronergy
+      - rsub-parachrom
+  - dimension: EX
+    component: Case (904L steel, 41 mm)
+    performer: rolex
+    relationship: internal
+    note: Site description dates from 2014 and is not model-specific.
+    claims:
+      - rolex-plo-cases
+      - rsub-steel
+  - dimension: EX
+    component: Oyster bracelet
+    performer: rolex
+    relationship: internal
+    claims:
+      - rolex-plo-cases
+      - rsub-bracelet
+  - dimension: EX
+    component: Bezel insert and crystal
+    relationship: unknown
+    note: No source reached names who makes the ceramic bezel insert or the crystal.
+    claims: []
+  - dimension: DH
+    component: Dial
+    performer: rolex
+    relationship: internal
+    claims:
+      - rolex-chene-bourg
+      - rsub-lume
+  - dimension: DH
+    component: Hands
+    relationship: external_specialist
+    valid_from: 2014
+    note: A 2014 report says hands are bought from a specialist producer (not named); current sourcing not confirmed.
+    claims:
+      - rolex-hands-bought
+      - rsub-lume
+  - dimension: CF
+    component: Movement and case finishing
+    relationship: unknown
+    note: No source reached describes who finishes the 124060.
+    claims: []
+  - dimension: WE
+    component: Movement assembly and final watch assembly
+    performer: rolex
+    relationship: internal
+    claims:
+      - rolex-bienne
+      - rolex-geneva-assembly
+  - dimension: PD
+    component: Design and technical development
+    performer: rolex
+    relationship: internal
+    claims:
+      - rsub-chronergy
 profiles:
   - version: 1
     methodology: v0.2

@@ -3,8 +3,157 @@ brand: audemars-piguet
 model: Royal Oak
 reference: "16202"
 notes: Handbook v0.2 §8 lists this record as "Audemars Piguet — Royal Oak 16202".
-provenance: []
-claims: []
+claims:
+  - id: ro16202-7121-conceived
+    statement: The brand's launch text, as published by Europa Star, says Calibre 7121 was conceived and produced by Audemars Piguet engineers and watchmakers to fit the 8.1 mm case.
+    excerpt: has been specifically conceived and produced by Audemars Piguet engineers and watchmakers
+    source: europastar-ap-jumbo-extra-thin
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-7121-development
+    statement: The same text states the calibre took five years to develop.
+    excerpt: Five years of development were necessary for the realisation of the new Calibre 7121
+    source: europastar-ap-jumbo-extra-thin
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-dial-atelier
+    statement: The same text says Audemars Piguet developed guilloché techniques internally and that the guilloché dials of the Jumbo models are entirely produced in its atelier.
+    excerpt: Today, the guilloché dials of the "Jumbo" models are entirely produced in this atelier.
+    source: europastar-ap-jumbo-extra-thin
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-case-bracelet-spec
+    statement: The launch text lists a steel case with sapphire crystal and caseback and a steel bracelet with AP folding clasp, without naming who makes them.
+    excerpt: Stainless steel bracelet with AP folding clasp.
+    source: europastar-ap-jumbo-extra-thin
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-replaces-2121
+    statement: A review notes the 7121 replaces calibre 2121, a Jaeger-LeCoultre-designed movement used in the Jumbo since 1972.
+    excerpt: the new calibre 7121 replacing the JLC designed calibre 2121 used for the last 50 years
+    source: timeandtide-ap-16202
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-movement-finish
+    statement: A review lists Côtes de Genève, straight graining and circular graining on the 7121.
+    excerpt: well-executed Côtes de Genève, traits tirés, and circular graining
+    source: timeandtide-ap-16202
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-finish-list
+    statement: A caliber summary lists the 7121's finishes, including machine bevelling, and 268 components.
+    excerpt: Geneva stripes, machine beveling, polishing, circular satin finishing, circular graining, perlage.
+    source: professionalwatches-ap-7121
+    dimensions:
+      - CF
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-barrel
+    statement: A specialist site reports the 7121 has a larger bidirectionally wound barrel and is 3.2 mm thick.
+    excerpt: The new calibre is just 3.2mm thin, allowing for a case thickness of just 8.1mm.
+    source: watchonista-ap-royal-oak-50
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-dial-back-inhouse
+    statement: A reviewer reports the Tapisserie dial was outsourced on an older Jumbo and that AP brought dial production back in-house around 2012.
+    excerpt: However, since 2012 or so, Audemars Piguet has brought the craftsmanship and production of these dials back in-house.
+    source: fratello-ap-16202-gold
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ro16202-case-hand-finished
+    statement: The brand's product page describes the case as hand-finished steel and names Calibre 7121 as the movement.
+    excerpt: with its body of hand-finished steel
+    source: ap-16202st-page
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 7121 design
+    performer: audemars-piguet
+    relationship: internal
+    valid_from: 2022
+    note: Replaced the JLC-designed calibre 2121 used in the earlier 15202/5402.
+    claims:
+      - ro16202-7121-conceived
+      - ro16202-7121-development
+      - ro16202-replaces-2121
+      - ro16202-barrel
+  - dimension: MM
+    component: Movement parts production
+    performer: audemars-piguet
+    relationship: internal
+    note: Brand text says "conceived and produced" by AP; no part-by-part breakdown found.
+    claims:
+      - ro16202-7121-conceived
+  - dimension: MM
+    component: Hairspring, escapement and mainspring
+    relationship: unknown
+    note: No source found naming the hairspring or escapement supplier for the 7121.
+    claims: []
+  - dimension: EX
+    component: Case and bracelet
+    relationship: unknown
+    note: Case hand-finishing is stated; the case and bracelet maker is not named.
+    claims:
+      - ro16202-case-bracelet-spec
+      - ro16202-case-hand-finished
+  - dimension: DH
+    component: Petite Tapisserie guilloché dial
+    performer: audemars-piguet
+    relationship: internal
+    valid_from: 2012
+    note: Brand text says Jumbo guilloché dials are fully produced in its atelier; a reviewer dates the move in-house to about 2012.
+    claims:
+      - ro16202-dial-atelier
+      - ro16202-dial-back-inhouse
+  - dimension: DH
+    component: Hands and applied indices
+    relationship: unknown
+    note: No source found.
+    claims: []
+  - dimension: CF
+    component: Movement decoration
+    relationship: unknown
+    note: Finishes are listed (including machine bevelling) but no source says where they are applied.
+    claims:
+      - ro16202-movement-finish
+      - ro16202-finish-list
+  - dimension: WE
+    component: Assembly and regulation
+    performer: audemars-piguet
+    relationship: internal
+    note: Inferred from "produced by Audemars Piguet engineers and watchmakers"; no explicit assembly statement found.
+    claims:
+      - ro16202-7121-conceived
+  - dimension: PD
+    component: Design and technical development
+    performer: audemars-piguet
+    relationship: internal
+    claims:
+      - ro16202-7121-development
 profiles:
   - version: 1
     methodology: v0.2

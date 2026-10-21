@@ -2,8 +2,160 @@ id: a-lange-sohne/lange-1
 brand: a-lange-sohne
 model: Lange 1
 notes: Handbook v0.2 §8 lists this record as "A. Lange & Söhne — Lange 1".
-provenance: []
-claims: []
+claims:
+  - id: l1-free-sprung-balance
+    statement: A specialist site reports that the L121.1 (2015) has an in-house free-sprung balance with adjustable rim weights.
+    excerpt: To start with it has an in-house, free-sprung balance wheel, a feature that promises more stable timekeeping
+    source: sjx-lange-1-2015
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-three-quarter-plate
+    statement: The same article describes the L121.1 layout as a simplified three-quarter plate.
+    excerpt: The new L121.1 is simplified visually, with a three quarter plate that has no plates set into it.
+    source: sjx-lange-1-2015
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-balance-spring-inhouse
+    statement: A specialist site describes the Lange 1 calibre L121.1 as having a balance spring made in-house, under a hand-engraved balance bridge.
+    excerpt: a freely oscillating balance-spring crafted in-house
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-engraved-bridge
+    statement: The same article states the balance sits beneath a hand-engraved balance bridge.
+    excerpt: beneath a hand-engraved balance bridge
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-double-assembly
+    statement: The article describes systematic double assembly of movements as a Lange manufacture practice.
+    excerpt: This systematic double movement assembly procedure is a specific characteristic of the Manufacture A. Lange & Söhne.
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-hairspring-since-2003
+    statement: A specialist site reports that Lange has made hairsprings at its Glashütte manufacture since 2003.
+    excerpt: Since 2003, starting with the Double Split, Lange has been making hairsprings in its manufacture in Glashütte.
+    source: sjx-lange-hairsprings
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-nivarox-alloy
+    statement: The same article reports that the raw hairspring alloy is Nivarox, bought from a supplier, then drawn, rolled, coiled and tempered by Lange.
+    excerpt: The hairspring begins with the raw Nivarox alloy which Lange buys from a supplier (below).
+    source: sjx-lange-hairsprings
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-dial-case-external
+    statement: A 2014 manufacture visit report (in Polish) states that the dial and case are the two elements Lange does not make itself.
+    excerpt: (dwoma elementami, których Lange nie wykonuje we własnym zakresie)
+    source: ch24-lange-road-trip
+    dimensions:
+      - DH
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-parts-machinery
+    statement: The same report describes a machine park producing individual movement parts at the manufacture.
+    excerpt: przez park maszyn wytwarzających poszczególne części
+    source: ch24-lange-road-trip
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-engraved-cock-all
+    statement: The report states every balance in a Lange watch receives a hand-engraved bridge.
+    excerpt: każdy balans tykający w zegarku z logo marki otrzymuje ręcznie grawerowany mostek.
+    source: ch24-lange-road-trip
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: l1-assembly-two-stages
+    statement: The report states movement assembly at Lange has two stages, the second into the finished watch with dial and case.
+    excerpt: W Lange montaż ten ma dwa etapy.
+    source: ch24-lange-road-trip
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre L121.1 architecture
+    performer: a-lange-sohne
+    relationship: internal
+    valid_from: 2015
+    note: L121.1 replaced the original L901.0 in 2015.
+    claims:
+      - l1-free-sprung-balance
+      - l1-three-quarter-plate
+  - dimension: MM
+    component: Movement parts (plates, bridges, wheels)
+    performer: a-lange-sohne
+    relationship: internal
+    note: Based on a 2014 visit report describing in-house parts machining in general, not specific to the L121.1. Needs a model-specific source.
+    claims:
+      - l1-parts-machinery
+  - dimension: MM
+    component: Balance and balance spring
+    performer: a-lange-sohne
+    relationship: internal
+    claims:
+      - l1-free-sprung-balance
+      - l1-balance-spring-inhouse
+      - l1-hairspring-since-2003
+  - dimension: MM
+    component: Balance-spring alloy (raw Nivarox wire)
+    performer: nivarox
+    relationship: external_specialist
+    note: Reported in 2011; the alloy is bought in, then processed into springs by Lange.
+    claims:
+      - l1-nivarox-alloy
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: A 2014 visit report says Lange does not make cases itself; the maker, and whether it is a Richemont group company, is not disclosed.
+    claims:
+      - l1-dial-case-external
+  - dimension: DH
+    component: Dial
+    relationship: unknown
+    note: A 2014 visit report says Lange does not make dials itself; the maker is not disclosed.
+    claims:
+      - l1-dial-case-external
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: No source found.
+    claims: []
+  - dimension: CF
+    component: Movement finishing and hand-engraved balance bridge
+    performer: a-lange-sohne
+    relationship: internal
+    claims:
+      - l1-engraved-bridge
+      - l1-engraved-cock-all
+  - dimension: WE
+    component: Assembly (two-stage) and regulation
+    performer: a-lange-sohne
+    relationship: internal
+    claims:
+      - l1-double-assembly
+      - l1-assembly-two-stages
 profiles:
   - version: 1
     methodology: v0.2

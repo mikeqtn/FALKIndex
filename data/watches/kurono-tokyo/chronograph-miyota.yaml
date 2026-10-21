@@ -3,8 +3,135 @@ brand: kurono-tokyo
 model: Chronograph
 route_label: Miyota-based lines
 notes: Handbook v0.2 §8 lists this record as "Kurono Tokyo — Chronograph / Miyota-based lines".
-provenance: []
-claims: []
+claims:
+  - id: kurchr-ne86-ch1
+    statement: The brand says the Chronograph 1 used the Seiko NE86, a 7.65 mm thick automatic chronograph movement.
+    excerpt: which leveraged the Seiko NE86 that was by itself a thick movement at 7.65mm
+    source: kurono-chronograph-1-mk2-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-ne86-all
+    statement: The brand describes the NE86 as the caliber used by Kurono chronographs.
+    excerpt: The NE86 caliber used by Kurono chronographs is renowned for its reliability and excellent accuracy.
+    source: kurono-chronograph-1-mk2-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-ne86-sii
+    statement: The brand states that the Chronograph 3 uses the NE86, described as SII's flagship chronograph movement, with column wheel and vertical clutch.
+    excerpt: Positioned by SII as its newest flagship chronograph movement - it is a premium caliber.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-mk2-case
+    statement: Hajime Asaoka designed the Mk.2 three-part chronograph case to reduce the visual thickness of the NE86.
+    excerpt: The Mk.2 is now a three-part case that has a much thinner visual profile, but is also built more robustly and allows for better repairability.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-dial-construction
+    statement: The brand says the cylinder-shaped dial is made with the main dial and subdials manufactured separately and fitted together, with diamond-cut subdial rings.
+    excerpt: To create a three-dimensional effect, the main dial and the subdials are manufactured separately and then fitted together, with the subdials' steel surround ring being diamond-cut.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-hands-bent
+    statement: The brand says the tips of the minute and chronograph seconds hands are bent by hand.
+    excerpt: The tips of the minute and chronograph seconds hands are bent by hand to match the curves of the dial and glass.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-inspection
+    statement: The brand says all items are inspected by watchmakers before leaving the factory.
+    excerpt: All items are thoroughly inspected by watchmakers before they leave the factory for shipping.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-made-japan
+    statement: The specification lists the Chronograph 3 as made in Japan.
+    excerpt: 'Glass: sapphire box crystal Made in Japan'
+    source: kurono-chronograph-3-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kurchr-asaoka-design
+    statement: The brand says Hajime Asaoka personally makes the initial sketches and prototypes, refining dial, typography, colour, case proportions and finishing.
+    excerpt: He personally creates its initial sketches and prototypes, refining the dial architecture, typography, color, case proportions and finishing until every element reflects his intended vision.
+    source: kurono-begins-with-asaoka
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement design (Seiko NE86)
+    performer: seiko-group
+    relationship: external_specialist
+    note: The brand's chronograph pages name the Seiko/SII NE86, not a Miyota caliber.
+    claims:
+      - kurchr-ne86-ch1
+      - kurchr-ne86-all
+      - kurchr-ne86-sii
+  - dimension: MM
+    component: Complete movement (NE86)
+    performer: seiko-group
+    relationship: external_specialist
+    claims:
+      - kurchr-ne86-ch1
+      - kurchr-ne86-sii
+  - dimension: EX
+    component: Mk.2 three-part case
+    relationship: unknown
+    note: Designed by Hajime Asaoka; the case maker is not named.
+    claims:
+      - kurchr-mk2-case
+  - dimension: DH
+    component: Dial (separately made main dial and subdials)
+    relationship: unknown
+    note: Dial maker not named.
+    claims:
+      - kurchr-dial-construction
+  - dimension: DH
+    component: Hands (tips bent by hand)
+    relationship: unknown
+    note: Who makes and bends the hands is not stated.
+    claims:
+      - kurchr-hands-bent
+  - dimension: WE
+    component: Final inspection
+    relationship: unknown
+    note: The brand says watchmakers inspect watches before they leave "the factory"; the factory and assembler are not named.
+    claims:
+      - kurchr-inspection
+      - kurchr-made-japan
+  - dimension: PD
+    component: Product design (dial, case, hands)
+    performer: kurono-tokyo
+    relationship: internal
+    note: Design by Hajime Asaoka.
+    claims:
+      - kurchr-asaoka-design
+      - kurchr-mk2-case
 profiles:
   - version: 1
     methodology: v0.2

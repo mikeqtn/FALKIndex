@@ -2,8 +2,165 @@ id: habring2/five-minute-repeater
 brand: habring2
 model: Five Minute Repeater
 notes: Handbook v0.2 §8 lists this record as "Habring² — Five Minute Repeater".
-provenance: []
-claims: []
+claims:
+  - id: h2rep-a11-d90
+    statement: A review reports the current repeater uses Habring²'s A11 base with a Dubois-Depraz D90 five-minute repeater module.
+    excerpt: The base movement is the in-house A11, with the D90 5 minute repeater module by Dubuis-Depraz.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-earlier-eta
+    statement: The same review says an earlier Habring² five-minute repeater used an ETA base with a Dubois-Depraz module.
+    excerpt: the base movement used was the ubiquitious ETA with a Dubuis Depraz module.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-buys-module
+    statement: The review reports Habring² buys the module and finishes and assembles the movement in-house.
+    excerpt: Habring2 buys the module from DD, and completely finish and assemble the movement in-house.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MM
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-final-assembly
+    statement: The review reports Richard Habring does final assembly, and understands he does the final tuning of the sound.
+    excerpt: Further final assembly is done by Richard himself, and we understanding the final tuning of the sound too.
+    source: deployant-habring2-repeater
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-hands
+    statement: The review describes hand-blued steel hands, without naming their maker.
+    excerpt: A set of very elegant, swallow hands, made in hand blued steel graces the dial side.
+    source: deployant-habring2-repeater
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-module-spec
+    statement: Habring² lists the Dubois-Depraz D90 module in the A11B/D90 movement.
+    excerpt: Dubois-Depraz 5-minutes-repeater module D90 (measuring 36 mm in diameter and 3.75 mm in height)
+    source: habring2-repeater-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-carl-haas
+    statement: Habring² lists a Carl Haas hairspring for the repeater's escapement.
+    excerpt: Anti-magnetic escapement with a Carl Haas hairspring in chronometer quality
+    source: habring2-repeater-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-finishing
+    statement: Habring² says the movement is finished by hand with polished edges, engravings and perlage.
+    excerpt: Elaborately refined by hand with polished edges, decorative engravings, perlage, etc.
+    source: habring2-repeater-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-case
+    statement: Habring² lists a titanium case (grade 2 middle, grade 5 back and bezel), without naming its maker.
+    excerpt: Titan Grade 2 (middle part) and Grade 5 (caseback and bezel polished)
+    source: habring2-repeater-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-25-suppliers
+    statement: A lecture recap reports that about 25 suppliers work with Habring².
+    excerpt: There are about 25 suppliers that work with the brand
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2rep-hairspring-scaling
+    statement: A manufacture visit reports that Habring² scales hairsprings and pairs them with individually adjusted balance wheels.
+    excerpt: the scaling of hairsprings, as well as the pairing of those springs with individually adjusted balance wheels.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: A11B base movement
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2rep-a11-d90
+  - dimension: MA
+    component: Five-minute repeater module (D90)
+    performer: dubois-depraz
+    relationship: external_specialist
+    note: Bought-in striking module. An earlier Habring² repeater combined an ETA base with a Dubois-Depraz module (years not stated).
+    claims:
+      - h2rep-a11-d90
+      - h2rep-module-spec
+      - h2rep-buys-module
+      - h2rep-earlier-eta
+  - dimension: MM
+    component: Balance spring
+    performer: carl-haas
+    relationship: external_specialist
+    claims:
+      - h2rep-carl-haas
+      - h2rep-hairspring-scaling
+  - dimension: MM
+    component: Base movement parts
+    relationship: unknown
+    note: Habring² works with ~25 suppliers; the parts split for the A11B is not stated.
+    claims:
+      - h2rep-25-suppliers
+  - dimension: EX
+    component: Titanium case
+    relationship: unknown
+    claims:
+      - h2rep-case
+  - dimension: DH
+    component: Dial ring and hands
+    relationship: unknown
+    claims:
+      - h2rep-hands
+  - dimension: CF
+    component: Movement finishing
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2rep-buys-module
+      - h2rep-finishing
+  - dimension: WE
+    component: Assembly, sound tuning and regulation
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2rep-buys-module
+      - h2rep-final-assembly
+      - h2rep-hairspring-scaling
+  - dimension: PD
+    component: Design and integration
+    performer: habring2
+    relationship: internal
+    note: No source describes the design process directly; inferred from the in-house A11 base.
+    claims:
+      - h2rep-a11-d90
 profiles:
   - version: 1
     methodology: v0.2

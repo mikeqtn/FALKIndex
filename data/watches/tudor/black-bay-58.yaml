@@ -3,8 +3,195 @@ brand: tudor
 model: Black Bay 58
 caliber: MT5402
 notes: Handbook v0.2 §8 lists this record as "Tudor — Black Bay 58 / MT5402".
-provenance: []
-claims: []
+claims:
+  - id: tbb58-mt5402
+    statement: A launch review reports that the Black Bay Fifty-Eight introduced a new Tudor manufacture movement, calibre MT5402.
+    excerpt: It's also now powered by a brand-new Tudor manufacture movement, the calibre MT5402.
+    source: tudor-tt-bb58-2018
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-silicon-cosc
+    statement: The same review lists a silicon balance spring and COSC certification for the MT5402.
+    excerpt: a silicon balance spring, and COSC accuracy
+    source: tudor-tt-bb58-2018
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-case-39
+    statement: The same review gives a 39 mm case diameter.
+    excerpt: The case of the Black Bay Fifty-Eight measures a very friendly 39mm across.
+    source: tudor-tt-bb58-2018
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-kenissi-founded
+    statement: A specialist site reports that Kenissi was founded in 2016 to develop and produce Tudor's movements.
+    excerpt: In 2016, Kenissi was founded to handle the development and production of Tudor's movements
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-kenissi-all
+    statement: A factory-visit report states that Kenissi produces all of Tudor's in-house movements.
+    excerpt: Kenissi produces all of Tudor’s in-house movements.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-kenissi-assembly
+    statement: The specialist site says Kenissi manufactures and assembles movements at its Le Locle facility.
+    excerpt: Kenissi focuses on the manufacturing and assembly of movements at its Le Locle facility
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-kenissi-holding
+    statement: The specialist site names Kenissi holding companies making movement blanks (EMP), oscillators (Kenitec) and stamped movement parts (Golay-Tec).
+    excerpt: EMP manufactures movement blanks, Kenitec oscillators, and Golay-Tec small-stamped movement components.
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-silicon-supplier
+    statement: The specialist site says the silicon components come from an external Swiss supplier.
+    excerpt: These silicon components are produced by a specialised external Swiss supplier dedicated to silicon micro-components.
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-silicon-two-specialists
+    statement: A 2023 factory-visit report says Tudor uses two silicon hairspring specialists and owns one of them.
+    excerpt: Tudor relies on two specialists for silicon hairsprings, but owns one of them outright.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-cases-orolux
+    statement: The specialist site names Orolux (Le Noirmont) as a case maker and Joseph Baume (Le Noirmont) as a case-blank maker among the suppliers visited; it does not tie them to a specific model.
+    excerpt: Orolux in Le Noirmont, which manufactures watch cases
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-dials-montremo
+    statement: The specialist site names Montremo (La Chaux-de-Fonds) as a dial maker among the suppliers visited; it does not tie it to a specific model.
+    excerpt: Montremo in La Chaux-de-Fonds, which manufactures dials
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-bracelet-detech
+    statement: The specialist site says Detech produces components for Tudor bracelets and clasps.
+    excerpt: Detech, a company specialising in bar milling and screw machining, which produces components for Tudor bracelets and clasps
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbb58-watch-assembly
+    statement: The factory-visit report says Tudor watches are assembled and tested in the Tudor building in Le Locle before shipping.
+    excerpt: where Tudor watches are assembled and tested before being despatched to retailers.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre MT5402 architecture and development
+    performer: kenissi
+    relationship: in_group
+    note: Kenissi is majority-owned by Tudor. Sources call the MT5402 a Tudor manufacture calibre; Kenissi handles development and production.
+    claims:
+      - tbb58-mt5402
+      - tbb58-kenissi-founded
+  - dimension: MM
+    component: Movement manufacture and movement assembly
+    performer: kenissi
+    relationship: in_group
+    claims:
+      - tbb58-kenissi-all
+      - tbb58-kenissi-assembly
+      - tbb58-kenissi-founded
+  - dimension: MM
+    component: Movement blanks, oscillators and stamped parts
+    performer: kenissi
+    relationship: in_group
+    note: Made by companies in the Kenissi holding (EMP, Kenitec, Golay-Tec), per Monochrome; not stated per model.
+    claims:
+      - tbb58-kenissi-holding
+  - dimension: MM
+    component: Silicon balance spring
+    relationship: unknown
+    note: Monochrome (2026) says silicon parts come from an external Swiss specialist; SJX (2023) says Tudor uses two specialists and owns one. Which supplies the MT5402 is not stated.
+    claims:
+      - tbb58-silicon-cosc
+      - tbb58-silicon-supplier
+      - tbb58-silicon-two-specialists
+  - dimension: EX
+    component: Case (39 mm steel)
+    performer: orolux
+    relationship: external_specialist
+    note: Orolux and Joseph Baume are named as Tudor case and case-blank suppliers, but not tied to the Black Bay 58 specifically.
+    claims:
+      - tbb58-case-39
+      - tbb58-cases-orolux
+  - dimension: EX
+    component: Bracelet and clasp components
+    performer: detech
+    relationship: external_specialist
+    note: Detech makes bracelet and clasp components; bracelet assembler not stated.
+    claims:
+      - tbb58-bracelet-detech
+  - dimension: DH
+    component: Dial
+    performer: montremo
+    relationship: external_specialist
+    note: Montremo is named as a Tudor dial supplier, not tied to this model specifically.
+    claims:
+      - tbb58-dials-montremo
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: No source names the hand maker.
+    claims: []
+  - dimension: CF
+    component: Movement and case finishing
+    relationship: unknown
+    note: No source describes who finishes MT5402 components or cases.
+    claims: []
+  - dimension: WE
+    component: Watch assembly, testing and COSC certification
+    performer: tudor
+    relationship: internal
+    note: Watch assembly and testing at the Tudor manufacture in Le Locle; COSC testing is done by the external COSC.
+    claims:
+      - tbb58-watch-assembly
+      - tbb58-silicon-cosc
+  - dimension: PD
+    component: Product design and movement development
+    performer: tudor
+    relationship: internal
+    claims:
+      - tbb58-mt5402
+      - tbb58-kenissi-founded
 profiles:
   - version: 1
     methodology: v0.2

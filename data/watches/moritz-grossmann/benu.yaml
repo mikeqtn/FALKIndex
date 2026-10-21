@@ -2,8 +2,208 @@ id: moritz-grossmann/benu
 brand: moritz-grossmann
 model: Benu
 notes: Handbook v0.2 §8 lists this record as "Moritz Grossmann — Benu".
-provenance: []
-claims: []
+claims:
+  - id: mgbenu-cal100
+    statement: The maker lists the Benu movement as its manufacture calibre 100.0, hand-wound and adjusted in five positions.
+    excerpt: manufacture calibre 100.0, manually wound, adjusted in 5 positions
+    source: grossmann-benu-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-plate
+    statement: The maker describes a 2/3 plate movement with frame pillars in untreated German silver.
+    excerpt: Plate movement with 2/3 plate and frame pillars made of untreated German silver
+    source: grossmann-benu-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-engraving
+    statement: The maker says the 2/3 plate and the balance and escape-wheel cocks are engraved by hand.
+    excerpt: 2/3 plate as well as balance and escape-wheel cocks manually engraved
+    source: grossmann-benu-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-hands-spec
+    statement: The maker lists the Benu hands as hand-crafted steel, annealed to a brown-violet colour.
+    excerpt: Hand-crafted steel, annealed to a brown-violet hue
+    source: grossmann-benu-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-dial-spec
+    statement: The maker lists a solid silver dial with Arabic numerals, without naming the dial maker.
+    excerpt: Solid silver, with Arabic numerals
+    source: grossmann-benu-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-case-spec
+    statement: The maker lists a three-part gold or platinum case of 41.0 mm by 11.1 mm, without naming the case maker.
+    excerpt: "Diameter: 41.0 mm, height: 11.1 mm"
+    source: grossmann-benu-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-integration
+    statement: A specialist magazine reports that the brand aimed from the start for over 90 per cent vertical integration in the movement.
+    excerpt: From the very beginning, the aim was to achieve a vertical integration rate of over 90 per cent in the movement.
+    source: grossmann-swisswatches-ten-facts
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-bought-parts
+    statement: The same article names jewels, the balance spring and mainsprings as components the brand buys in.
+    excerpt: With the exception of a few components such as the jewels, the balance spring and the mainsprings
+    source: grossmann-swisswatches-ten-facts
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-balance-rim
+    statement: The same article says the balance wheel rim is made entirely in-house.
+    excerpt: Moritz Grossmann manufactures the balance wheel rim entirely in-house.
+    source: grossmann-swisswatches-ten-facts
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-spring-shaping
+    statement: The same article says the bought-in balance spring is bent and shaped by hand in the company workshops.
+    excerpt: At Moritz Grossmann, the delicate balance spring is bent and shaped by hand in the company's own workshops.
+    source: grossmann-swisswatches-ten-facts
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-hands-inhouse
+    statement: The same article says the hands are made entirely in-house.
+    excerpt: Whilst even luxury brands source their hands from specialist suppliers, in Glashütte they are manufactured entirely in-house from scratch.
+    source: grossmann-swisswatches-ten-facts
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-dials-some
+    statement: A profile of the CEO reports that the manufacture makes a few of its own dials and produces its own hands.
+    excerpt: the manufacture does make a few of its own dials, and produces its own hands as well
+    source: grossmann-robbreport-hutter
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-rest-of-watch
+    statement: The same profile says the rest of the watch is not held to the same in-house standard as the movements.
+    excerpt: Although Hutter does not hold the rest of the watch to quite the same in-house standards as the movements
+    source: grossmann-robbreport-hutter
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-develop
+    statement: The CEO is quoted saying the brand set out to construct and develop its movements itself.
+    excerpt: we had to be a real manufacture, to construct and develop the movements ourselves.
+    source: grossmann-robbreport-hutter
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-finishing
+    statement: The maker says raw parts are deburred and then finished by hand with bevelling, polishing and decoration.
+    excerpt: The raw parts are first deburred and then meticulously finished by expert hands that bevel edges, polish surfaces, and apply a diversity of decorative patterns.
+    source: grossmann-manufacture
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: mgbenu-rate-test
+    statement: The maker says each complete watch undergoes a rate test of at least 30 days.
+    excerpt: The complete watch is then subjected to another rate accuracy test lasting at least 30 days.
+    source: grossmann-manufacture
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 100.0 architecture
+    performer: moritz-grossmann
+    relationship: internal
+    claims:
+      - mgbenu-cal100
+      - mgbenu-plate
+      - mgbenu-develop
+  - dimension: MM
+    component: Plates, bridges, wheels and balance rim
+    performer: moritz-grossmann
+    relationship: internal
+    note: Brand-level statements, not specific to calibre 100.0; stated as a goal of over 90 per cent integration in the movement.
+    claims:
+      - mgbenu-integration
+      - mgbenu-balance-rim
+      - mgbenu-plate
+  - dimension: MM
+    component: Jewels, balance spring and mainspring
+    relationship: external_specialist
+    note: Bought in per a specialist magazine; suppliers not named.
+    claims:
+      - mgbenu-bought-parts
+  - dimension: EX
+    component: Case (three-part gold or platinum, 41 mm)
+    relationship: unknown
+    note: Case maker not named in any source reached.
+    claims:
+      - mgbenu-case-spec
+      - mgbenu-rest-of-watch
+  - dimension: DH
+    component: Dial (solid silver)
+    relationship: unknown
+    note: The brand makes "a few" of its own dials; no source says whether the Benu dial is one of them.
+    claims:
+      - mgbenu-dial-spec
+      - mgbenu-dials-some
+  - dimension: DH
+    component: Hands (annealed steel)
+    performer: moritz-grossmann
+    relationship: internal
+    claims:
+      - mgbenu-hands-spec
+      - mgbenu-hands-inhouse
+      - mgbenu-dials-some
+  - dimension: CF
+    component: Movement finishing and hand engraving
+    performer: moritz-grossmann
+    relationship: internal
+    claims:
+      - mgbenu-engraving
+      - mgbenu-finishing
+  - dimension: WE
+    component: Balance-spring shaping, assembly and regulation
+    performer: moritz-grossmann
+    relationship: internal
+    claims:
+      - mgbenu-spring-shaping
+      - mgbenu-rate-test
+  - dimension: PD
+    component: Design and technical development
+    performer: moritz-grossmann
+    relationship: internal
+    claims:
+      - mgbenu-develop
 profiles:
   - version: 1
     methodology: v0.2

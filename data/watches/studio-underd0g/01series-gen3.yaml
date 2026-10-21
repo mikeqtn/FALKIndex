@@ -3,8 +3,167 @@ brand: studio-underd0g
 model: 01SERIES
 generation: Gen3
 notes: Handbook v0.2 §8 lists this record as "Studio Underd0g — 01SERIES Gen3".
-provenance: []
-claims: []
+claims:
+  - id: ud01g3-seagull-deal
+    statement: A specialist site reports an exclusive movement agreement between Studio Underd0g and Seagull for the Gen 3.
+    excerpt: thanks to an exclusive agreement signed with Seagull, which comes with a host of other improvements
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-st1901b
+    statement: A second report says Seagull makes an exclusive, modified version of its calibre, the ST-1901B, for the brand.
+    excerpt: to create an exclusive and enhanced version of their caliber called the ST-1901B.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-swan-neck
+    statement: The report says the ST-1901B is a hand-wound column-wheel chronograph with an upgraded swan-neck regulator.
+    excerpt: The new ST-1901B manually wound column-wheel chronograph movement will feature an upgraded Swan neck regulating system,
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-black-plate
+    statement: The specialist site says the Gen 3 baseplate is black.
+    excerpt: the baseplate is now in black to give the bridges better contrast
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-regulation
+    statement: The specialist site says the movements are regulated by UK-based Horologium to -10/+15 s/day.
+    excerpt: regulated by UK-based Horologium to -10/+15 seconds per day
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-assembled-gb
+    statement: The report says the Gen 3 dial carries the text "Assembled in Great Britain".
+    excerpt: proudly added the phrase “Assembled in Great Britain” to the dial.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - WE
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-case
+    statement: The report lists a 316L stainless steel case, water-resistant to 50 m, without naming its maker.
+    excerpt: Made from 316L stainless steel, they are water-resistant to 50 meters.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-case-height
+    statement: The report says the founder reduced the case height from 13.6 mm to 12.9 mm for Gen 3.
+    excerpt: he reduced the case height from 13.6mm to 12.9mm.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-horologium-scope
+    statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
+    excerpt: assembling watches including dials, hands and third-party movements.
+    source: underd0g-oracleoftime-horologium
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-horologium-volume
+    statement: A trade report says Horologium assembles 1,000 to 1,200 Studio Underd0g watches each month.
+    excerpt: Horologium currently assembles between 1,000 and 1,200 Studio Underd0g watches each month.
+    source: underd0g-europastar-horologium
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ud01g3-horologium-stake
+    statement: The trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
+    excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
+    source: underd0g-europastar-horologium
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement architecture (Seagull ST-1901B, Venus 175 lineage)
+    performer: seagull
+    relationship: external_specialist
+    claims:
+      - ud01g3-st1901b
+      - ud01g3-seagull-deal
+  - dimension: MM
+    component: Movement manufacture, incl. swan-neck regulator and black baseplate
+    performer: seagull
+    relationship: external_specialist
+    note: Exclusive version made by Seagull; the brand specifies changes.
+    claims:
+      - ud01g3-st1901b
+      - ud01g3-swan-neck
+      - ud01g3-black-plate
+      - ud01g3-seagull-deal
+  - dimension: EX
+    component: Case (316L steel, 38.5 mm)
+    relationship: unknown
+    note: Case maker not named; the brand specifies dimensions.
+    claims:
+      - ud01g3-case
+      - ud01g3-case-height
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Dial and hand makers not named.
+    claims:
+      - ud01g3-assembled-gb
+  - dimension: CF
+    component: Movement finishing
+    performer: seagull
+    relationship: external_specialist
+    note: "Inferred: the finished movement is supplied by Seagull; no source describes further finishing."
+    claims:
+      - ud01g3-black-plate
+  - dimension: WE
+    component: Watch assembly and regulation (Horologium, partner period)
+    performer: horologium
+    relationship: external_specialist
+    valid_to: 2025
+    note: Studio Underd0g held a minority stake from July 2024.
+    claims:
+      - ud01g3-regulation
+      - ud01g3-horologium-scope
+      - ud01g3-assembled-gb
+      - ud01g3-horologium-stake
+  - dimension: WE
+    component: Watch assembly and regulation (Horologium, owned)
+    performer: horologium
+    relationship: in_group
+    valid_from: 2025
+    note: Horologium fully owned by Studio Underd0g from 3 December 2025.
+    claims:
+      - ud01g3-horologium-stake
+      - ud01g3-horologium-volume
+      - ud01g3-horologium-scope
+  - dimension: PD
+    component: Design and movement specification
+    performer: studio-underd0g
+    relationship: internal
+    claims:
+      - ud01g3-case-height
+      - ud01g3-seagull-deal
 profiles:
   - version: 1
     methodology: v0.2

@@ -2,8 +2,178 @@ id: christopher-ward/c1-bel-canto
 brand: christopher-ward
 model: C1 Bel Canto
 notes: Handbook v0.2 §8 lists this record as "Christopher Ward — C1 Bel Canto".
-provenance: []
-claims: []
+claims:
+  - id: cwbc-fs01-stelzer
+    statement: A specialist site reports the FS01 chiming calibre is named after its creator, technical director Frank Stelzer, and modifies Christopher Ward's existing jumping-hour module on a modular Sellita base.
+    excerpt: Using a modular Sellita base and modifying an existing in-house jumping hour module
+    source: timeandtide-cw-bel-canto
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-50-components
+    statement: The same article says the rework of the JJ01 jump-hour movement required 50 new components.
+    excerpt: This re-imagination of the JJ01 jump hour movement required 50 new components
+    source: timeandtide-cw-bel-canto
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-armin-strom-platine
+    statement: The same article says Armin Strom was a manufacturing partner, making the Bel Canto's main plate.
+    excerpt: the avant-garde independent was one of the manufacturing partners on this project, making the platine of the Bel Canto.
+    source: timeandtide-cw-bel-canto
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-chronode-dialside
+    statement: The same article says the dial-side elements, with graining and anglage, were produced by Chronode.
+    excerpt: the dial-side elements, complete with fine graining and anglage, were produced by Chronode
+    source: timeandtide-cw-bel-canto
+    dimensions:
+      - MM
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-synergies
+    statement: The same article says Christopher Ward began working with Synergies Horlogères of Biel in 2008 and later merged with it.
+    excerpt: By 2008, they began working with Synergies Horlogères of Biel, owned by Jörg Bader
+    source: timeandtide-cw-bel-canto
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-suppliers-list
+    statement: A second specialist site names Armin Strom (platine), Chronode (bridges, hammer and gong) and Viquodeco (special wheels) as suppliers.
+    excerpt: Chronode (the bridges, hammer and gong) and "Viquodeco" (the special wheels required) were also crucial suppliers.
+    source: watchonista-cw-bel-canto
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-case
+    statement: The same listing gives a brushed titanium case, 41 mm by 13 mm, without naming its maker.
+    excerpt: Titanium, Brushed, 13.00mm (thinness) x 41.00mm (diameter)
+    source: watchonista-cw-bel-canto
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-designer
+    statement: The same listing credits designer Will Brackfield with the dial layout.
+    excerpt: a challenge to designer Will Brackfield in achieving visual balance across the entire face
+    source: watchonista-cw-bel-canto
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-sw200-base
+    statement: A review confirms the base is a Sellita SW200-1 automatic with a chiming module, together called caliber FS01.
+    excerpt: It consists of a Sellita SW200-1 automatic base movement and a chiming module.
+    source: sfwatchlover-cw-bel-canto
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-swiss-assembly
+    statement: A 2016 WatchTime article says Synergies Horlogères in Biel handles assembly and inspection for Christopher Ward, focusing on the more complicated mechanical models.
+    excerpt: wobei man sich in Biel eher auf die etwas komplizierteren mechanischen Modelle konzentriert
+    source: watchtime-de-christopher-ward
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cwbc-external-suppliers
+    statement: The same article says Christopher Ward relies on several external suppliers for components in its Swiss-made watches.
+    excerpt: bei der Wahl einzelner Komponenten und bei der Fertigung der Swiss-Made-Uhren somit auf mehrere externe Zulieferer
+    source: watchtime-de-christopher-ward
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Base movement (Sellita SW200-1)
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - cwbc-sw200-base
+  - dimension: MA
+    component: FS01 chiming module design
+    performer: christopher-ward
+    relationship: internal
+    note: Designed by technical director Frank Stelzer, extending the earlier JJ01 jumping-hour module.
+    claims:
+      - cwbc-fs01-stelzer
+      - cwbc-50-components
+  - dimension: MM
+    component: Main plate (platine)
+    performer: armin-strom
+    relationship: external_specialist
+    claims:
+      - cwbc-armin-strom-platine
+      - cwbc-suppliers-list
+  - dimension: MM
+    component: Bridges, hammer and gong
+    performer: chronode
+    relationship: external_specialist
+    claims:
+      - cwbc-suppliers-list
+      - cwbc-chronode-dialside
+  - dimension: MM
+    component: Special wheels for the chiming module
+    performer: viquodeco
+    relationship: external_specialist
+    claims:
+      - cwbc-suppliers-list
+  - dimension: MM
+    component: Base movement parts (escapement, balance, hairspring, mainspring)
+    performer: sellita
+    relationship: external_specialist
+    note: Inferred from the SW200-1 base; not stated part by part.
+    claims:
+      - cwbc-sw200-base
+  - dimension: EX
+    component: Titanium case
+    relationship: unknown
+    note: Case maker not named; WatchTime says the brand uses several external component suppliers.
+    claims:
+      - cwbc-case
+      - cwbc-external-suppliers
+  - dimension: DH
+    component: Openworked dial-side elements
+    performer: chronode
+    relationship: external_specialist
+    claims:
+      - cwbc-chronode-dialside
+  - dimension: CF
+    component: Graining and anglage of dial-side parts
+    performer: chronode
+    relationship: external_specialist
+    claims:
+      - cwbc-chronode-dialside
+  - dimension: WE
+    component: Assembly and quality control
+    performer: synergies-horlogeres
+    relationship: in_group
+    note: WatchTime (2016) describes Synergies Horlogères in Biel assembling Christopher Ward's more complicated mechanical models; no source names the Bel Canto's assembler specifically.
+    claims:
+      - cwbc-synergies
+      - cwbc-swiss-assembly
+  - dimension: PD
+    component: Design and technical development
+    performer: christopher-ward
+    relationship: internal
+    claims:
+      - cwbc-fs01-stelzer
+      - cwbc-designer
 profiles:
   - version: 1
     methodology: v0.2

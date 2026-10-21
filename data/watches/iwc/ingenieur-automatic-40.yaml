@@ -2,8 +2,148 @@ id: iwc/ingenieur-automatic-40
 brand: iwc
 model: Ingenieur Automatic 40
 notes: Handbook v0.2 §8 lists this record as "IWC Schaffhausen — Ingenieur Automatic 40".
-provenance: []
-claims: []
+claims:
+  - id: iwci40-valfleurier
+    statement: A specialist site reports cal. 32111 is a variant of a movement created by ValFleurier, the Richemont-owned movement factory.
+    excerpt: The cal. 32111 is proprietary but not exactly in-house, rather it is a variant of a movement created by ValFleurier, the movement factory owned by Richemont
+    source: sjx-iwc-ingenieur-40-intro
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-32000-family
+    statement: A specialist review says cal. 32111 is produced by ValFleurier, the movement maker owned by IWC's parent company.
+    excerpt: Because the cal. 32111 is produced by ValFleurier, the movement maker owned by IWC’s parent company
+    source: sjx-iwc-ingenieur-40-review
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-silicon
+    statement: The review reports a silicon escape wheel and pallet lever.
+    excerpt: The movement sports an escape wheel and pallet lever in silicon
+    source: sjx-iwc-ingenieur-40-review
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-dial
+    statement: The review reports the dial is soft iron, stamped with the grid pattern and then galvanised.
+    excerpt: Made of soft iron, the dial is first stamped to create the pattern and then galvanised to give it colour.
+    source: sjx-iwc-ingenieur-40-review
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-bracelet
+    statement: The review describes an integrated bracelet with a hidden butterfly clasp, without naming its maker.
+    excerpt: The Ingenieur 40 has an integrated bracelet with a hidden butterfly clasp
+    source: sjx-iwc-ingenieur-40-review
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-case
+    statement: A specialist site reports a 40 mm case containing a soft-iron inner cage, without naming its maker.
+    excerpt: all sharing the same case measuring 40 mm wide and 10.8 mm thick that contains a soft-iron inner cage.
+    source: sjx-iwc-ingenieur-40-intro
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-genta
+    statement: The same site notes the original Ingenieur SL of 1976 was designed by Gérald Genta.
+    excerpt: the original Ingenieur SL from 1976 that was famously designed by Gérald Genta
+    source: sjx-iwc-ingenieur-40-intro
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-merishausen-cases
+    statement: A 2018 report says IWC's Merishausen manufacture includes case production (not tied to this model).
+    excerpt: Raw materials (primarily bars of metal) and case production are located at the basement.
+    source: sjx-iwc-merishausen
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-merishausen-parts
+    statement: The same report says about 1,500 different parts for IWC's calibres are made there (not tied to cal. 32111).
+    excerpt: a total of 1500 different parts for IWC's range of calibres are made
+    source: sjx-iwc-merishausen
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: iwci40-merishausen-assembly
+    statement: The same report describes a movement assembly department at Merishausen.
+    excerpt: That's followed by the movement assembly department.
+    source: sjx-iwc-merishausen
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Cal. 32111 base architecture
+    performer: valfleurier
+    relationship: in_group
+    note: ValFleurier is owned by Richemont, IWC's parent.
+    claims:
+      - iwci40-valfleurier
+      - iwci40-32000-family
+  - dimension: MM
+    component: Movement parts
+    performer: valfleurier
+    relationship: in_group
+    note: Inferred from the ValFleurier origin; no source says where each 32111 part is made. IWC's own Merishausen parts production is described for its in-house calibre families, not this one.
+    claims:
+      - iwci40-valfleurier
+      - iwci40-merishausen-parts
+  - dimension: MM
+    component: Silicon escape wheel and pallet lever
+    relationship: unknown
+    claims:
+      - iwci40-silicon
+  - dimension: EX
+    component: Case with soft-iron inner cage
+    relationship: unknown
+    note: IWC produces cases at Merishausen, but no source ties this model's case to that workshop.
+    claims:
+      - iwci40-case
+      - iwci40-merishausen-cases
+  - dimension: EX
+    component: Integrated bracelet
+    relationship: unknown
+    claims:
+      - iwci40-bracelet
+  - dimension: DH
+    component: Stamped soft-iron grid dial
+    relationship: unknown
+    claims:
+      - iwci40-dial
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    claims: []
+  - dimension: CF
+    component: Finishing
+    relationship: unknown
+    claims: []
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: IWC has a movement assembly department, but no source says where cal. 32111 or this model is assembled.
+    claims:
+      - iwci40-merishausen-assembly
+  - dimension: PD
+    component: Product design (reworking of the Genta Ingenieur SL)
+    performer: iwc
+    relationship: internal
+    note: No source names the design team; the model is an IWC reworking of the 1976 Genta design.
+    claims:
+      - iwci40-genta
 profiles:
   - version: 1
     methodology: v0.2

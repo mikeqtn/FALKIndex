@@ -2,8 +2,105 @@ id: christopher-ward/the-twelve
 brand: christopher-ward
 model: The Twelve
 notes: Handbook v0.2 §8 lists this record as "Christopher Ward — The Twelve".
-provenance: []
-claims: []
+claims:
+  - id: cw12-sw200
+    statement: A review says the steel Twelve uses a Swiss-made Sellita SW200-1 automatic movement.
+    excerpt: The watch is powered by a Swiss-made Sellita SW200-1 automatic movement
+    source: gearpatrol-cw-twelve
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cw12-rotor
+    statement: The same review says the movement carries a customised Christopher Ward rotor, visible through a sapphire caseback.
+    excerpt: The Sellita SW200-1 movement with customized Christopher Ward rotor is visible through the sapphire exhibition caseback.
+    source: gearpatrol-cw-twelve
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cw12-swiss-made-brand
+    statement: The same review describes Christopher Ward as a British-based, Swiss-made brand; it does not say who makes the case or dial.
+    excerpt: The British-based, Swiss-made brand
+    source: gearpatrol-cw-twelve
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cw12-assembly-switzerland
+    statement: A 2016 WatchTime article says all Christopher Ward models can be assembled and shipped from Switzerland, via Synergies Horlogères in Biel and a second site in Italian-speaking Switzerland.
+    excerpt: können so sämtliche Uhrenmodelle von Christopher Ward in der Schweiz assembliert und ausgeliefert werden
+    source: watchtime-de-christopher-ward
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cw12-synergies-tasks
+    statement: The same article says Synergies Horlogères is responsible for assembly and inspection, among other tasks.
+    excerpt: Synergies Horlogères verantwortet neben Assemblage und Kontrolle unter anderem auch das Setzen der Steine
+    source: watchtime-de-christopher-ward
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cw12-external-suppliers
+    statement: The same article says the brand relies on several external suppliers for components of its Swiss-made watches.
+    excerpt: bei der Wahl einzelner Komponenten und bei der Fertigung der Swiss-Made-Uhren somit auf mehrere externe Zulieferer
+    source: watchtime-de-christopher-ward
+    dimensions:
+      - EX
+      - DH
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (Sellita SW200-1)
+    performer: sellita
+    relationship: external_specialist
+    note: Titanium versions reportedly use a Sellita SW300-1; not verified here.
+    claims:
+      - cw12-sw200
+  - dimension: MM
+    component: Movement components
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - cw12-sw200
+  - dimension: EX
+    component: Case and bracelet
+    relationship: unknown
+    note: Maker not named; the brand uses several external component suppliers.
+    claims:
+      - cw12-external-suppliers
+  - dimension: DH
+    component: Textured dial and hands
+    relationship: unknown
+    note: Maker not named.
+    claims:
+      - cw12-external-suppliers
+  - dimension: CF
+    component: Custom rotor
+    relationship: unknown
+    note: Rotor design is brand-specific; who makes or decorates it is not stated.
+    claims:
+      - cw12-rotor
+  - dimension: WE
+    component: Assembly and inspection
+    performer: synergies-horlogeres
+    relationship: in_group
+    note: Based on a 2016 description of Christopher Ward's Swiss operations; no source ties The Twelve to a specific assembly site.
+    claims:
+      - cw12-assembly-switzerland
+      - cw12-synergies-tasks
+  - dimension: PD
+    component: Product design
+    performer: christopher-ward
+    relationship: internal
+    claims:
+      - cw12-swiss-made-brand
 profiles:
   - version: 1
     methodology: v0.2

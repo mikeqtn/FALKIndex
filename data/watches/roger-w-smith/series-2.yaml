@@ -2,8 +2,181 @@ id: roger-w-smith/series-2
 brand: roger-w-smith
 model: Series 2
 notes: Handbook v0.2 §8 lists this record as "Roger W. Smith — Series 2".
-provenance: []
-claims: []
+claims:
+  - id: rws2-new-watch-daniels
+    statement: Smith says he designed and built the Series Two as a completely new watch using the Daniels Method, finishing the prototype in 2006.
+    excerpt: I realised that the only way forward was to design and build a completely new watch using the Daniels Method
+    source: rws-watches
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-coaxial-design
+    statement: The maker states that the Series Two was the first production movement designed around the Daniels co-axial escapement.
+    excerpt: This was the first time that a production movement had been specifically designed around the Daniels co-axial escapement.
+    source: rws-watches
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-raw-materials
+    statement: The maker states that, unlike the Series One, the Series Two was planned to be made from raw materials in the workshop.
+    excerpt: Unlike Series One, which used parts from a Swiss ebauche, this new approach would have raw materials entering one end of the workshop and a finished watch exiting the other*.
+    source: rws-evolution
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-in-house-components
+    statement: The maker states that all but the most specialised components are made in-house from raw materials.
+    excerpt: All but the most specialised components are made in-house from raw materials*
+    source: rws-workshop
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-sourced-parts
+    statement: The maker lists the balance spring, mainspring, jewels, sapphire crystals, seals and straps as bought from specialist manufacturers.
+    excerpt: Balance spring, mainspring, jewels, sapphire crystals, seals, and straps are sourced from specialist manufacturers.
+    source: rws-workshop
+    dimensions:
+      - MM
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-hand-finishing
+    statement: The maker states that traditional hand finishing is applied throughout the movement by the watchmaker.
+    excerpt: Throughout the movement, traditional hand finishing is applied by the watchmaker.
+    source: rws-workshop
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-engine-turned-dials
+    statement: The maker lists hand engine-turned dials among the characteristics of Smith's work.
+    excerpt: frosted and gilded plates, black polished steelwork, flame-blued screws and hand engine turned dials
+    source: rws-workshop
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-designed-built-iom
+    statement: The maker states that its watches are designed, manufactured and built in its Isle of Man workshop.
+    excerpt: Today his watches are designed, manufactured and built within his workshop on the Isle of Man.
+    source: rws-philosophy
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-assembled-by-hand
+    statement: The maker states that each watch is assembled by hand by individual watchmakers.
+    excerpt: Every watch comprises up to 400 components assembled by hand by individual watchmakers
+    source: rws-philosophy
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-case-dial-hands
+    statement: Deployant reports that Smith makes the case, hands and dial in his own workshops, with some engraving done in London.
+    excerpt: Roger makes his own case, hands and dial in his own ateliers. He does do some of the engraving work in London, but the rest of these are made in Isle of Man.
+    source: deployant-rws-series-2
+    dimensions:
+      - EX
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-escapement-iom
+    statement: Deployant reports that the escape wheel and escapement are made on the Isle of Man, except the purchased hairspring.
+    excerpt: the entire wheel and escapement is made in Isle of Man, with the exception of the hairspring which is purchased
+    source: deployant-rws-series-2
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rws2-dial-construction
+    statement: Deployant describes the dial as hand-made from parts joined by silver soldering and screws.
+    excerpt: The dial is also hand made from components assembled by a combination of silver soldering and screws from the reverse.
+    source: deployant-rws-series-2
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Series Two calibre design (co-axial escapement)
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-new-watch-daniels
+      - rws2-coaxial-design
+  - dimension: MM
+    component: Plates, wheels and escapement
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-raw-materials
+      - rws2-in-house-components
+      - rws2-escapement-iom
+  - dimension: MM
+    component: Balance spring, mainspring and jewels
+    relationship: external_specialist
+    note: The maker says these are bought from specialist manufacturers, not named.
+    claims:
+      - rws2-sourced-parts
+  - dimension: EX
+    component: Case
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-case-dial-hands
+      - rws2-in-house-components
+  - dimension: EX
+    component: Sapphire crystals, seals and straps
+    relationship: external_specialist
+    claims:
+      - rws2-sourced-parts
+  - dimension: DH
+    component: Dial and hands
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-case-dial-hands
+      - rws2-dial-construction
+      - rws2-engine-turned-dials
+  - dimension: CF
+    component: Engraving (part)
+    relationship: external_specialist
+    note: Deployant (2015) says some engraving is done in London; who does it is not stated.
+    claims:
+      - rws2-case-dial-hands
+  - dimension: CF
+    component: Movement hand finishing and dial engine-turning
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-hand-finishing
+      - rws2-engine-turned-dials
+  - dimension: WE
+    component: Assembly
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-assembled-by-hand
+      - rws2-designed-built-iom
+  - dimension: PD
+    component: Product design
+    performer: roger-w-smith
+    relationship: internal
+    claims:
+      - rws2-new-watch-daniels
+      - rws2-designed-built-iom
 profiles:
   - version: 1
     methodology: v0.2

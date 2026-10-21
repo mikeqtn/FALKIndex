@@ -3,8 +3,174 @@ brand: breitling
 model: Chronomat
 caliber: B01
 notes: Handbook v0.2 §8 lists this record as "Breitling — Chronomat B01".
-provenance: []
-claims: []
+claims:
+  - id: brb01-first-manufacture
+    statement: Breitling says the Manufacture Caliber 01, introduced in 2009, was its first in-house movement.
+    excerpt: "In 2009, we introduced our first in-house movement: the Breitling Manufacture Caliber 01."
+    source: breitling-made-by-breitling
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-chronometrie-role
+    statement: Breitling says its Chronométrie in La Chaux-de-Fonds handles design, development and assembly of its watches.
+    excerpt: the Breitling Chronometrie is dedicated to the design, development and meticulous assembly of our watches.
+    source: breitling-made-by-breitling
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-assembled-by-hand
+    statement: Breitling says the Caliber 01 contains up to 346 components, which are assembled and calibrated at the Chronométrie.
+    excerpt: that are carefully assembled and calibrated by hand at the Breitling Chronometrie.
+    source: breitling-made-by-breitling
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-cosc
+    statement: Breitling says all of its calibers are COSC-certified chronometers.
+    excerpt: every single one of our calibers had the status of COSC-certified chronometer
+    source: breitling-made-by-breitling
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-30-40-parts
+    statement: Europa Star reports that 30 to 40 of the 346 components in a B01 are produced in-house, depending on the version.
+    excerpt: Of the 346 components that make up a B01 calibre, between 30 and 40 (depending on the version) are produced in-house
+    source: europastar-breitling-140-years
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-own-balance
+    statement: Europa Star reports that Breitling has started producing its own five-spoke balance wheel, first used in the Navitimer and Chronomat.
+    excerpt: the brand has launched production of its own five-spoke balance wheel
+    source: europastar-breitling-140-years
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-volume
+    statement: Europa Star reports ten production lines made 85,000 movements in 2023.
+    excerpt: In 2023, ten lines produced 85,000 movements.
+    source: europastar-breitling-140-years
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-development
+    statement: A 2010 Europa Star feature reports five years of development before the B01 launch and a La Chaux-de-Fonds capacity of about 50,000 B01 movements a year.
+    excerpt: Five years of development (and millions of francs of investment) have allowed Breitling
+    source: europastar-swiss-watch-planet-10
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-plates-bridges
+    statement: A 2025 manufacture visit reports that base plates and bridges are made at the Chronométrie and hand-checked and finished there.
+    excerpt: This is where the base plates and bridges are made.
+    source: watchadvice-breitling-chronometrie
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-plates-finish
+    statement: The same visit reports that milled plates and bridges are checked and hand-finished by watchmakers.
+    excerpt: the milled base plates and bridges are checked and hand-finished by expert watchmakers
+    source: watchadvice-breitling-chronometrie
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-casing
+    statement: The same visit reports that dials are fitted and movements cased by watchmakers at the Chronométrie; it does not say who makes the dials or cases.
+    excerpt: Before each watch is cased, the dials are applied to the front side of the movement
+    source: watchadvice-breitling-chronometrie
+    dimensions:
+      - WE
+      - DH
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: brb01-architecture
+    statement: A caliber reference describes the B01 as a column-wheel chronograph with vertical coupling, introduced by Breitling Chronométrie in 2009 and first used in the Chronomat B01.
+    excerpt: The chronograph complication in the Breitling B01 is a column wheel style.
+    source: calibercorner-breitling-b01
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Caliber B01 design (column wheel, vertical clutch chronograph)
+    performer: breitling
+    relationship: internal
+    valid_from: 2009
+    claims:
+      - brb01-first-manufacture
+      - brb01-development
+      - brb01-architecture
+  - dimension: MM
+    component: Base plates and bridges
+    performer: breitling
+    relationship: internal
+    claims:
+      - brb01-plates-bridges
+      - brb01-30-40-parts
+  - dimension: MM
+    component: Balance wheel (five-spoke)
+    performer: breitling
+    relationship: internal
+    note: Europa Star (2024) says in-house balance production has started; not confirmed for every B01 Chronomat version.
+    claims:
+      - brb01-own-balance
+  - dimension: MM
+    component: Remaining movement components (about 306–316 of 346 parts, incl. hairspring, escapement, jewels, mainspring)
+    relationship: external_specialist
+    note: Europa Star says only 30–40 parts are made in-house, so the rest are bought in. No source names the suppliers.
+    claims:
+      - brb01-30-40-parts
+  - dimension: EX
+    component: Case and bracelet
+    relationship: unknown
+    note: Casing is done at the Chronométrie, but no source names who makes Chronomat cases or bracelets.
+    claims:
+      - brb01-casing
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Dials are fitted in-house; their maker is not named.
+    claims:
+      - brb01-casing
+  - dimension: CF
+    component: Movement finishing (plates and bridges)
+    performer: breitling
+    relationship: internal
+    claims:
+      - brb01-plates-finish
+  - dimension: WE
+    component: Assembly, regulation, casing and testing
+    performer: breitling
+    relationship: internal
+    note: COSC certification is done by the external COSC body.
+    claims:
+      - brb01-chronometrie-role
+      - brb01-assembled-by-hand
+      - brb01-cosc
+      - brb01-volume
+  - dimension: PD
+    component: Design and technical development
+    performer: breitling
+    relationship: internal
+    claims:
+      - brb01-chronometrie-role
+      - brb01-development
 profiles:
   - version: 1
     methodology: v0.2

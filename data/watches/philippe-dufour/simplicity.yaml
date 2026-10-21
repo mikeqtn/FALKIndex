@@ -2,8 +2,154 @@ id: philippe-dufour/simplicity
 brand: philippe-dufour
 model: Simplicity
 notes: Handbook v0.2 §8 lists this record as "Philippe Dufour — Simplicity".
-provenance: []
-claims: []
+claims:
+  - id: dufour-simp-from-scratch
+    statement: Dufour says he chose to make the Simplicity himself rather than order a branded movement and outsource casing, dial and hands.
+    excerpt: the second way, the most difficult one, was to make this watch myself from scratch, a solution I obviously chose
+    source: dufour-creations
+    dimensions:
+      - PD
+      - MA
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-built-movement
+    statement: Dufour designed a movement of about 12 lines for the Simplicity, inspired by 1950s to 1970s watches he had restored.
+    excerpt: I built a movement of about 12 lines (which will be in 34 or 37 mm) inspired by watches that had been made in the 1950s to 1970s that I had restored
+    source: dufour-creations
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-dial-spec
+    statement: The maker lists a silver guilloché dial with white gold indices and Dauphine hands.
+    excerpt: 'En argent, guilloché, index et aiguilles Dauphine en or blanc'
+    source: dufour-creations
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-designed-by-dufour
+    statement: Deployant states that Dufour designed the Simplicity movement himself, using AutoCAD to prepare drawings for CNC operators.
+    excerpt: Dufour taught himself AutoCAD to aid in the design process and to be able to prepare drawings for CNC operators to prepare parts.
+    source: deployant-dufour-simplicity
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-external-cnc
+    statement: Deployant reports that an external CNC firm made movement components such as plates and wheels.
+    excerpt: Dufour depended on an external CNC house to make components like movement plates and wheels.
+    source: deployant-dufour-simplicity
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-hand-finished
+    statement: Deployant states that Dufour finishes the movement entirely by hand.
+    excerpt: the movement is entirely finished by Dufour and by hand
+    source: deployant-dufour-simplicity
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-metalem-dial
+    statement: Deployant reports that Metalem made the dial, which carries Metalem's name.
+    excerpt: Metalem, as it turns out, was the dial manufacturer (the dial was not in-house).
+    source: deployant-dufour-simplicity
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-third-party
+    statement: Quill & Pad reports that Dufour uses electro-spark erosion to cut raw components and third-party suppliers for specialised components.
+    excerpt: Dufour is open about using third-party suppliers for specialized components
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-gentian-bevels
+    statement: Quill & Pad describes broad rounded bevels finished with gentian wood.
+    excerpt: These bevels are broad, round, and finished on the final pass with gentian wood harvested locally in Dufour’s native Vallée de Joux.
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-welded-lugs
+    statement: Quill & Pad reports that the lugs are made separately and welded to the case, with the joint finished by hand; the case maker is not named.
+    excerpt: Lugs are created separate from the case, the two are welded together, and the residual “clag” from the welded joint is removed by hand
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: dufour-simp-qp-metalem
+    statement: Quill & Pad's specification lists the dial, hands, numerals and indices as by Metalem.
+    excerpt: silver guilloche with rose hands, numerals, and indices by Metalem
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement design
+    performer: philippe-dufour
+    relationship: internal
+    claims:
+      - dufour-simp-built-movement
+      - dufour-simp-designed-by-dufour
+  - dimension: MM
+    component: Plates and wheels (CNC cutting)
+    relationship: contract
+    note: Deployant names an external CNC firm but not which one.
+    claims:
+      - dufour-simp-external-cnc
+  - dimension: MM
+    component: Specialised components
+    relationship: external_specialist
+    note: Quill & Pad says third-party suppliers make specialised components; none are named.
+    claims:
+      - dufour-simp-third-party
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: Lug construction is described but no source names who makes the case.
+    claims:
+      - dufour-simp-welded-lugs
+  - dimension: DH
+    component: Dial, indices and hands
+    performer: metalem
+    relationship: external_specialist
+    claims:
+      - dufour-simp-metalem-dial
+      - dufour-simp-qp-metalem
+      - dufour-simp-dial-spec
+  - dimension: CF
+    component: Movement hand finishing
+    performer: philippe-dufour
+    relationship: internal
+    claims:
+      - dufour-simp-hand-finished
+      - dufour-simp-gentian-bevels
+  - dimension: WE
+    component: Assembly
+    performer: philippe-dufour
+    relationship: internal
+    note: Inferred from the maker's statement that he made the watch himself; no source describes regulation or testing specifically.
+    claims:
+      - dufour-simp-from-scratch
+  - dimension: PD
+    component: Product design
+    performer: philippe-dufour
+    relationship: internal
+    claims:
+      - dufour-simp-from-scratch
+      - dufour-simp-built-movement
 profiles:
   - version: 1
     methodology: v0.2

@@ -3,8 +3,123 @@ brand: unimatic
 model: Modello Uno
 route_label: Sellita
 notes: Handbook v0.2 §8 lists this record as "Unimatic — Modello Uno Sellita".
-provenance: []
-claims: []
+claims:
+  - id: um1s-sw200
+    statement: A hands-on review reports a Sellita SW200-1 automatic movement in the Modello Uno U1S.
+    excerpt: Inside the brushed steel case is a Swiss Made Sellita caliber SW200-1 automatic movement that operates at 4Hz
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-switch
+    statement: A specialist site reports that the S-series moved from Seiko NH35 to Sellita movements.
+    excerpt: the upgrade in movements from the Seiko NH35 movements to Sellita movements will probably please many enthusiasts.
+    source: unimatic-fratello-s-series
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-all-sw200
+    statement: The specialist site says all four S-series launch models use the Sellita SW200-1.
+    excerpt: All four models are powered by automatic Sellita SW200-1 movements for this series
+    source: unimatic-fratello-s-series
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-case-new
+    statement: The hands-on review says the S Series has a new, thinner case design.
+    excerpt: The S Series also has a new case design that is slightly thinner than previous Unimatic cases.
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-case-height
+    statement: The specialist site gives an 11.6 mm case height, down from 13.6 mm.
+    excerpt: The height has been reduced to 11.6mm compared to the 13.6mm of previous models.
+    source: unimatic-fratello-s-series
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-designers
+    statement: The specialist site describes the founders as industrial designers by trade.
+    excerpt: industrial designers by trade
+    source: unimatic-fratello-s-series
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-italy-based
+    statement: The hands-on review describes Unimatic as Italy-based.
+    excerpt: Italy-based Unimatic has just released a new "S Series" of watches
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: um1s-italy-production
+    statement: A radio-programme summary says co-founder Giovanni Moro discusses manufacturing in Italy; no details are given.
+    excerpt: Giovanni Moro talks about keeping production close to home by manufacturing in Italy
+    source: unimatic-monocle-eureka-397
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement architecture (Sellita SW200-1)
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - um1s-sw200
+      - um1s-all-sw200
+      - um1s-switch
+  - dimension: MM
+    component: Movement manufacture
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - um1s-sw200
+      - um1s-all-sw200
+  - dimension: EX
+    component: Case (S Series steel case)
+    relationship: unknown
+    note: Case maker not named; the brand designed a new case. Production is said to be in Italy, without detail.
+    claims:
+      - um1s-case-new
+      - um1s-case-height
+      - um1s-italy-production
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: No source names dial or hand makers.
+    claims: []
+  - dimension: CF
+    component: Finishing
+    relationship: unknown
+    note: No source describes movement or case finishing beyond the supplier standard.
+    claims: []
+  - dimension: WE
+    component: Assembly
+    relationship: unknown
+    note: Production in Italy is mentioned only in a programme summary; who assembles is not stated.
+    claims:
+      - um1s-italy-production
+  - dimension: PD
+    component: Design
+    performer: unimatic
+    relationship: internal
+    claims:
+      - um1s-designers
+      - um1s-case-new
+      - um1s-italy-based
 profiles:
   - version: 1
     methodology: v0.2

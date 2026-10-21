@@ -2,8 +2,231 @@ id: mbandf/lm-sequential-evo
 brand: mbandf
 model: LM Sequential EVO
 notes: Handbook v0.2 §8 lists this record as "MB&F — LM Sequential EVO".
-provenance: []
-claims: []
+claims:
+  - id: lmseq-mcdonnell-page
+    statement: MB&F says the dual chronograph caliber was developed for MB&F by Stephen McDonnell.
+    excerpt: The fully integrated dual chronograph calibre developed for MB&F by Stephen McDonnell features the signature Legacy Machine flying balance wheel
+    source: mbandf-lm-sequential-evo-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-movement-dev
+    statement: MB&F's press release credits movement development to Stephen McDonnell and MB&F.
+    excerpt: "Movement development: Stephen McDonnell, MB&F"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-concept-mgmt
+    statement: The press release credits technical and production management to MB&F.
+    excerpt: "Technical and production management: Serge Kriknoff / MB&F"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-product-design
+    statement: The press release credits product design to Eric Giroud / Through the Looking Glass.
+    excerpt: "Product design: Eric Giroud / Through the Looking Glass"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-wheels
+    statement: The press release lists external makers for wheels, bridges, pinions and arbors, including Chronode, Bandi and Decobar Swiss.
+    excerpt: "Wheels, bridges, pinions and axis: Jean-François Mojon / Chronode, Paul-André Tendon / Bandi, Daniel Gumy / Decobar"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-balance
+    statement: The press release lists Atokalpa, AMECAP and 2B8 for the balance wheel.
+    excerpt: "Balance wheel: Sébastien Jeanneret / Atokalpa, Benjamin Signoud / AMECAP and Marc Bolis / 2B8"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-barrel
+    statement: The press release lists Schwab-Feller for the barrel and Elefil Swiss for springs and jumpers.
+    excerpt: "Barrel: Stefan Schwab / Schwab-Feller"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-finishing
+    statement: The press release credits hand-finishing of movement components to C-L Rochat and DSMI Electronics SA, and engraving to Glypto.
+    excerpt: "Hand-finishing of movement components: Jacques-Adrien Rochat and Denis Garcia / C-L Rochat and DSMI Electronics SA"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-assembly
+    statement: The press release credits movement assembly to MB&F staff.
+    excerpt: "Movement assemblage : Didier Dumas, Georges Veisy, Anne Guiter, Emmanuel Maitre"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-case-components
+    statement: The press release credits 'case and movements components' to MB&F staff, without saying whether this is fabrication or sourcing.
+    excerpt: "Case and movements components: Alain Lemarchand, Jean-Baptiste Prétot and Romain Camplo / MB&F"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - EX
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-case-decoration
+    statement: The press release credits case decoration to Bripoli.
+    excerpt: "Case decoration: Sandra Lambert / Bripoli"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-dial
+    statement: The press release credits the dial and its Super-LumiNova to Cadramont SA.
+    excerpt: "Dial and Super-LumiNova on the dials: Cadramont SA"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-hands
+    statement: The press release credits the hands to Waeber HMS.
+    excerpt: "Hands: Waeber HMS"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-crown
+    statement: The press release credits crown and correctors to Boninchi.
+    excerpt: "Crown and correctors: Boninchi"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-crystal
+    statement: The press release credits sapphire crystals to Novocristal.
+    excerpt: "Sapphire crystals: Novocristal"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lmseq-qc
+    statement: The press release credits quality control and after-sales service to MB&F staff.
+    excerpt: "Quality control: Cyril Fallet and Jennifer Longuepez / MB&F"
+    source: mbandf-lm-sequential-evo-press
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Dual chronograph caliber design and development
+    performer: stephen-mcdonnell
+    relationship: external_specialist
+    note: Independent watchmaker credited jointly with MB&F R&D.
+    claims:
+      - lmseq-mcdonnell-page
+      - lmseq-movement-dev
+  - dimension: MM
+    component: Wheels, bridges, pinions and arbors
+    performer: chronode
+    relationship: external_specialist
+    note: "Also credited: Bandi, Decobar Swiss, HorloFab, DMP, Le Temps Retrouvé and Roud'Hor SA."
+    claims:
+      - lmseq-wheels
+  - dimension: MM
+    component: Balance wheel
+    performer: atokalpa
+    relationship: external_specialist
+    note: "Also credited: AMECAP and 2B8. The hairspring maker is not named."
+    claims:
+      - lmseq-balance
+  - dimension: MM
+    component: Barrel, springs and jumpers
+    performer: schwab-feller
+    relationship: external_specialist
+    note: Springs and jumpers credited to Elefil Swiss; jewels to Pierhor / Crelier.
+    claims:
+      - lmseq-barrel
+  - dimension: EX
+    component: Zirconium case
+    relationship: unknown
+    note: Credits list MB&F staff for 'case and movements components', which may mean sourcing rather than fabrication; no case maker is named.
+    claims:
+      - lmseq-case-components
+  - dimension: EX
+    component: Crown and correctors
+    performer: boninchi
+    relationship: external_specialist
+    claims:
+      - lmseq-crown
+  - dimension: EX
+    component: Sapphire crystals
+    performer: novocristal
+    relationship: external_specialist
+    claims:
+      - lmseq-crystal
+  - dimension: DH
+    component: Dial and luminous material
+    performer: cadramont
+    relationship: external_specialist
+    claims:
+      - lmseq-dial
+  - dimension: DH
+    component: Hands
+    performer: waeber-hms
+    relationship: external_specialist
+    claims:
+      - lmseq-hands
+  - dimension: CF
+    component: Hand-finishing of movement components
+    performer: c-l-rochat
+    relationship: external_specialist
+    note: "Also credited: DSMI Electronics SA; movement hand-engraving by Glypto."
+    claims:
+      - lmseq-finishing
+  - dimension: CF
+    component: Case decoration
+    performer: bripoli
+    relationship: external_specialist
+    claims:
+      - lmseq-case-decoration
+  - dimension: WE
+    component: Movement assembly, quality control and after-sales
+    performer: mbandf
+    relationship: internal
+    claims:
+      - lmseq-assembly
+      - lmseq-qc
+  - dimension: PD
+    component: Concept, technical and production management
+    performer: mbandf
+    relationship: internal
+    claims:
+      - lmseq-concept-mgmt
+      - lmseq-movement-dev
+  - dimension: PD
+    component: Product design
+    performer: eric-giroud
+    relationship: external_specialist
+    claims:
+      - lmseq-product-design
 profiles:
   - version: 1
     methodology: v0.2

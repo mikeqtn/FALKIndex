@@ -4,8 +4,188 @@ model: Spring Drive
 caliber: 9R
 route_label: Shinshu
 notes: Handbook v0.2 §8 lists this record as "Grand Seiko — Spring Drive 9R (Shinshu)".
-provenance: []
-claims: []
+claims:
+  - id: gs9r-studio-scope
+    statement: Grand Seiko says the Shinshu Watch Studio makes all its Spring Drive and quartz watches in-house.
+    excerpt: makes all Grand Seiko’s Spring Drive and quartz watches in-house
+    source: grand-seiko-shinshu
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-studio-functions
+    statement: Grand Seiko says the studio covers movement development, design and production, and the manufacture, assembly and adjustment of complete watches including cases, dials, hands and indexes.
+    excerpt: from the development, design and production of movements to the manufacture, assembly and adjustment of complete watches, including cases, dials, hands and indexes
+    source: grand-seiko-shinshu
+    dimensions:
+      - MA
+      - MM
+      - EX
+      - DH
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-epson-facility
+    statement: Grand Seiko says the Shinshu Watch Studio is located in a Seiko Epson facility in Shiojiri, Nagano.
+    excerpt: The Shinshu Watch Studio is located in a Seiko Epson facility in the town of Shiojiri in Nagano Prefecture
+    source: grand-seiko-shinshu
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-dial-assembly
+    statement: Grand Seiko says studio staff plate and coat dial base plates and set the indexes and hands by hand.
+    excerpt: they assemble each part, including the indexes and hands, by hand
+    source: grand-seiko-shinshu
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-zaratsu
+    statement: Grand Seiko says the studio carries out Zaratsu polishing of cases.
+    excerpt: The studio is also expert in Zaratsu polishing.
+    source: grand-seiko-shinshu
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-made-assembled
+    statement: Grand Seiko says the 9R Spring Drive movement is manufactured and hand-assembled at the Shinshu Watch Studio.
+    excerpt: manufactured and hand-assembled at the Shinshu Watch Studio
+    source: grand-seiko-spring-drive-page
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-ic-regulation
+    statement: "Grand Seiko describes the 9R regulator: an IC compares a quartz reference signal with the rotation speed of the glide wheel."
+    excerpt: The IC compares this reference signal with the actual rotation speed of the glide wheel.
+    source: grand-seiko-spring-drive-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-ic-development
+    statement: A Grand Seiko feature on Spring Drive says the studio worked with an IC Development Division to develop the integrated circuits.
+    excerpt: we teamed up with the IC Development Division in moving to develop package integrated circuits
+    source: grand-seiko-nagano-vol1
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-craftsman-studio
+    statement: A Grand Seiko feature says movement assembly, adjustment, casing and inspection are handled by the Craftsman Studio.
+    excerpt: It likewise oversees movement assembly, adjustment, casing, and inspections by the Craftsman Studio
+    source: grand-seiko-nagano-vol1
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-epson-plant
+    statement: A visit report says Seiko Epson's Shiojiri plant houses most of Seiko's watch operation.
+    excerpt: With over 800 employee's, Seiko Epson's Shiojiri Plant houses the bulk of Seiko's watch operation.
+    source: watchonista-grand-seiko-visit
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-dials-cases
+    statement: A visit report says cases and dials are produced at the Shiojiri plant.
+    excerpt: At the brand's Shiojiri plant everything from cases to dials are produced
+    source: watchonista-grand-seiko-visit
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9r-spron
+    statement: A visit report says a cobalt-nickel alloy (Spron) is used for the balance springs and mainsprings in all Grand Seiko watches.
+    excerpt: This Cobalt-Nickel alloy is used for the balance and main springs in all Grand Seiko timepieces.
+    source: watchonista-grand-seiko-visit
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Spring Drive 9R caliber architecture and Tri-synchro regulator
+    performer: seiko-epson
+    relationship: contract
+    note: Grand Seiko presents the Shinshu Watch Studio as its own in-house studio; it operates inside a Seiko Epson facility. Seiko Epson is a separately listed company historically affiliated with Seiko; reviewer to confirm whether in_group is more appropriate.
+    claims:
+      - gs9r-studio-scope
+      - gs9r-studio-functions
+      - gs9r-epson-facility
+      - gs9r-made-assembled
+      - gs9r-ic-regulation
+  - dimension: MM
+    component: Movement parts, including IC, quartz oscillator and glide wheel
+    performer: seiko-epson
+    relationship: contract
+    note: Brand says movements are produced at the studio; component-level breakdown (e.g. jewels) is not published.
+    claims:
+      - gs9r-studio-functions
+      - gs9r-made-assembled
+      - gs9r-ic-development
+      - gs9r-epson-plant
+  - dimension: MM
+    component: Mainspring and balance-spring alloy (Spron)
+    relationship: unknown
+    note: Source says the alloy is used in all Grand Seiko watches but does not say which entity draws and forms the springs.
+    claims:
+      - gs9r-spron
+  - dimension: EX
+    component: Case
+    performer: seiko-epson
+    relationship: contract
+    note: Brand and a visit report say cases are produced and Zaratsu-polished at Shiojiri. Bracelet, crown and crystal makers are not named.
+    claims:
+      - gs9r-studio-functions
+      - gs9r-dials-cases
+      - gs9r-zaratsu
+  - dimension: DH
+    component: Dial, indexes and hands
+    performer: seiko-epson
+    relationship: contract
+    claims:
+      - gs9r-studio-functions
+      - gs9r-dial-assembly
+      - gs9r-dials-cases
+  - dimension: CF
+    component: Case polishing (Zaratsu)
+    performer: seiko-epson
+    relationship: contract
+    note: No source fetched describes 9R movement decoration specifically.
+    claims:
+      - gs9r-zaratsu
+  - dimension: WE
+    component: Movement assembly, adjustment, casing and inspection
+    performer: seiko-epson
+    relationship: contract
+    claims:
+      - gs9r-made-assembled
+      - gs9r-craftsman-studio
+      - gs9r-studio-functions
+  - dimension: PD
+    component: Technical development (Spring Drive, IC)
+    performer: seiko-epson
+    relationship: contract
+    note: Exterior/product design for Grand Seiko references is not attributed in the sources gathered.
+    claims:
+      - gs9r-studio-functions
+      - gs9r-ic-development
 profiles:
   - version: 1
     methodology: v0.2

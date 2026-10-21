@@ -2,8 +2,155 @@ id: rexhep-rexhepi/chronometre-contemporain
 brand: rexhep-rexhepi
 model: Chronomètre Contemporain
 notes: Handbook v0.2 §8 lists this record as "Rexhep Rexhepi — Chronomètre Contemporain".
-provenance: []
-claims: []
+claims:
+  - id: rrcc-crafted-finished-akrivia
+    statement: The maker states that every component of the RRCC-01 movement is crafted and hand-finished at Atelier Akrivia.
+    excerpt: Every component of the RRCC-01 is meticulously crafted and finished by hand at ATELIER AKRIVIA.
+    source: rexhepi-cc-page
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-finishing-techniques
+    statement: The maker lists anglage, black polish and Côtes de Genève among the hand-finishing techniques on the RRCC-01.
+    excerpt: Techniques such as anglage , black polish and Côtes de Genève are applied with precision
+    source: rexhepi-cc-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-design
+    statement: Rexhep Rexhepi designed the Chronomètre Contemporain I.
+    excerpt: Rexhep Rexhepi created the REXHEP REXHEPI Chronomètre Contemporain I (RRCC I) to capture classical watchmaking in a contemporary design.
+    source: rexhepi-cc-page
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-enamel-dial
+    statement: The RRCC I dial is grand feu enamel; the maker's page does not say who enamels it.
+    excerpt: The dial of the RRCC I showcases traditional Genevan enamelling
+    source: rexhepi-cc-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-ateliers-in-house
+    statement: The maker states that every component of its watches is conceived, made and hand-finished in-house.
+    excerpt: every component is conceived, crafted, and hand-finished in-house
+    source: rexhepi-ateliers
+    dimensions:
+      - MA
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-one-watchmaker
+    statement: The maker states that each watchmaker completes an entire watch from start to finish.
+    excerpt: each watchmaker is entrusted with completing an entire timepiece, working on it from start to finish
+    source: rexhepi-ateliers
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-case-workshop-2019
+    statement: Atelier Akrivia opened its case-making workshop in 2019, after the Chronomètre Contemporain was introduced in 2018.
+    excerpt: ATELIER AKRIVIA marked a milestone in 2019 with the inauguration of its micro-mechanics workshop with a specialty in case making.
+    source: rexhepi-ateliers
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-enamel-workshop-2024
+    statement: The maker opened a grand feu enamel dial workshop in spring 2024.
+    excerpt: In spring 2024, Rexhep Rexhepi opened a workshop dedicated to the art of grand feu enamel.
+    source: rexhepi-ateliers
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc2-first-in-house-case
+    statement: The maker says the Chronomètre Contemporain II case is now produced in-house, which implies the first model's case was not.
+    excerpt: The case of the RRCC II was developed under the direction of renowned case maker Jean-Pierre Hagmann and is now produced in-house.
+    source: rexhepi-cc2-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-sjx-enameller
+    statement: SJX reports that the dial is made by a Geneva enameller, not named, who trained under Dominique Baron.
+    excerpt: The dial is made by a Geneva enameller who was once a student of the late Dominique Baron of Van Cleef & Arpels
+    source: sjx-rexhepi-cc-2018
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: rrcc-besancon
+    statement: SJX reports that the first watches underwent chronometer trials at the Besançon observatory before delivery.
+    excerpt: after they have completed chronometer trials at the Besançon observatory
+    source: sjx-rexhepi-cc-2018
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre RRCC-01 design
+    performer: akrivia
+    relationship: internal
+    note: The maker's general statement covers conception of every component; no source describes the design work on this calibre specifically.
+    claims:
+      - rrcc-ateliers-in-house
+  - dimension: MM
+    component: Movement components
+    performer: akrivia
+    relationship: internal
+    note: Brand statement only; no independent source on which parts are machined in-house.
+    claims:
+      - rrcc-crafted-finished-akrivia
+      - rrcc-ateliers-in-house
+  - dimension: EX
+    component: Case (Chronomètre Contemporain I)
+    relationship: unknown
+    valid_from: 2018
+    note: The case workshop opened in 2019 and the maker calls the CC II case its first in-house conventional case; the CC I case maker is not named.
+    claims:
+      - rrcc-case-workshop-2019
+      - rrcc2-first-in-house-case
+  - dimension: DH
+    component: Grand feu enamel dial
+    relationship: external_specialist
+    note: SJX (2018) names an unnamed Geneva enameller. The in-house enamel workshop opened only in 2024.
+    claims:
+      - rrcc-sjx-enameller
+      - rrcc-enamel-dial
+      - rrcc-enamel-workshop-2024
+  - dimension: CF
+    component: Movement hand finishing
+    performer: akrivia
+    relationship: internal
+    claims:
+      - rrcc-crafted-finished-akrivia
+      - rrcc-finishing-techniques
+  - dimension: WE
+    component: Assembly
+    performer: akrivia
+    relationship: internal
+    claims:
+      - rrcc-one-watchmaker
+  - dimension: WE
+    component: Chronometer testing
+    relationship: external_specialist
+    note: Chronometer trials at the Besançon observatory (no organization record yet).
+    claims:
+      - rrcc-besancon
+  - dimension: PD
+    component: Product design
+    performer: rexhep-rexhepi
+    relationship: internal
+    claims:
+      - rrcc-design
 profiles:
   - version: 1
     methodology: v0.2

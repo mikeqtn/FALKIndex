@@ -3,8 +3,113 @@ brand: oris
 model: Aquis
 caliber: Calibre 400
 notes: Handbook v0.2 §8 lists this record as "Oris — Aquis Calibre 400".
-provenance: []
-claims: []
+claims:
+  - id: oris-c400-conceived
+    statement: Oris states that the Calibre 400 is a new movement conceived by Oris itself.
+    excerpt: Calibre 400 is an entirely new movement, independently conceived by Oris
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-twin-barrels
+    statement: The Calibre 400 uses twin barrels for a five-day power reserve.
+    excerpt: It uses twin barrels with extended mainsprings, each storing two-and-a-half days of power.
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-antimagnetic
+    statement: Oris says the Calibre 400 uses more than 30 non-ferrous components for magnetic resistance.
+    excerpt: engineered with over 30 non-ferrous, anti-magnetic components
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-accuracy
+    statement: Oris states an accuracy of -3/+5 seconds a day for the Calibre 400.
+    excerpt: It’s highly accurate, to -3/+5 seconds a day, surpassing a chronometer.
+    source: oris-calibre-400-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-dev-crew
+    statement: Oris's COO says the Calibre 400 was developed in-house by the Oris team.
+    excerpt: '"It''s truly developed in house with our crew,"'
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-fischli
+    statement: Watchonista reports that COO Beat Fischli led the Calibre 400 project.
+    excerpt: Fischli was the person chiefly responsible for this revolutionary new movement.
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-adjusted
+    statement: Oris's COO says the Calibre 400 is adjusted in five positions to within 8 seconds.
+    excerpt: The accuracy is within 8 seconds, adjusted in five positions
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oris-c400-made-in-house-press
+    statement: Worn & Wound describes the Calibre 400 as made in-house, without saying who manufactures the parts.
+    excerpt: Oris dropped some big news in the form of a brand new movement, made in-house, featuring some impressive specs.
+    source: wornandwound-oris-aquis-calibre-400
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 400 design
+    performer: oris
+    relationship: internal
+    claims:
+      - oris-c400-conceived
+      - oris-c400-dev-crew
+      - oris-c400-twin-barrels
+      - oris-c400-antimagnetic
+  - dimension: MM
+    component: Calibre 400 parts manufacture
+    relationship: unknown
+    note: Press calls the movement "made in-house", but no source found says who manufactures the plates, wheels, escapement or hairspring.
+    claims:
+      - oris-c400-made-in-house-press
+  - dimension: EX
+    component: Case and bracelet
+    relationship: unknown
+    note: No source names the case or bracelet maker.
+    claims: []
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: No source names the dial or hand maker.
+    claims: []
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: The COO describes the five-position adjustment standard, but no source found says who assembles and regulates the movement or where.
+    claims:
+      - oris-c400-adjusted
+      - oris-c400-accuracy
+  - dimension: PD
+    component: Movement development
+    performer: oris
+    relationship: internal
+    claims:
+      - oris-c400-dev-crew
+      - oris-c400-fischli
 profiles:
   - version: 1
     methodology: v0.2

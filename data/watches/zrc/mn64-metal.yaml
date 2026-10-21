@@ -2,8 +2,149 @@ id: zrc/mn64-metal
 brand: zrc
 model: MN64 Metal
 notes: Handbook v0.2 §8 lists this record as "ZRC — MN64 Metal".
-provenance: []
-claims: []
+claims:
+  - id: zmn64-sw300
+    statement: The maker lists a Sellita SW300-1 in "Elaborated" grade.
+    excerpt: SELLITA “Elaborated” SW300-1
+    source: zrc-mn64-metal-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-case
+    statement: The maker lists a monobloc case in non-magnetic 316L steel with screwed case back and crown, without naming its maker.
+    excerpt: Nonmagnetic 316L Steel
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-cps
+    statement: The maker describes a Crown Protection System with the crown at 6 o'clock.
+    excerpt: The Crown Protection System™ provides a secure watertight seal.
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-bracelet
+    statement: The maker lists a steel bracelet with an expandable "Diver" link.
+    excerpt: Stainless Steel metal band equipped with a “Diver” expandable link for both a city & dive use
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-clasp
+    statement: The maker lists a ZRC-specific clasp on metal-band models.
+    excerpt: Exclusif ZRC® clasp
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-swiss
+    statement: The maker states its watches are designed and produced in Switzerland, without naming workshops.
+    excerpt: DESIGNED AND PRODUCED IN SWITZERLAND
+    source: zrc-mn64-metal-page
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-assembled
+    statement: The maker says its watches are assembled with attention to detail, without saying by whom or where.
+    excerpt: They are assembled with the utmost attention to every detail.
+    source: zrc-mn64-metal-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-family
+    statement: The maker's history page says Georges and Charles Brunet, great-grandsons of the founder, head the family business.
+    excerpt: Georges & Charles Brunet, at the head of the family business (great-grandsons of Joseph Rochet)
+    source: zrc-family-history
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-historic-cases
+    statement: The history page says the company historically made waterproof dive-watch cases for customers; this is historical context, not the current MN64.
+    excerpt: commission it to make waterproof cases for dive watches
+    source: zrc-family-history
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: zmn64-revival
+    statement: A specialist site says ZRC was revived in the mid-2010s under Georges Brunet and focuses on dive watches.
+    excerpt: Revived in the mid-2010s under Georges Brunet, ZRC has since focused almost exclusively on diving watches,
+    source: zrc-monochrome-mn64-titanium
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement architecture (Sellita SW300-1)
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - zmn64-sw300
+  - dimension: MM
+    component: Movement manufacture
+    performer: sellita
+    relationship: external_specialist
+    claims:
+      - zmn64-sw300
+  - dimension: EX
+    component: Monobloc case and Crown Protection System
+    relationship: unknown
+    note: Case maker not named. ZRC made cases historically, but no source says it makes the current MN64 case.
+    claims:
+      - zmn64-case
+      - zmn64-cps
+      - zmn64-historic-cases
+  - dimension: EX
+    component: Bracelet and clasp
+    relationship: unknown
+    note: Bracelet and clasp makers not named.
+    claims:
+      - zmn64-bracelet
+      - zmn64-clasp
+  - dimension: EX
+    component: Crystal (sapphire)
+    relationship: unknown
+    claims: []
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: No source names dial or hand makers.
+    claims: []
+  - dimension: CF
+    component: Finishing
+    relationship: unknown
+    claims: []
+  - dimension: WE
+    component: Assembly
+    relationship: unknown
+    note: The maker says watches are assembled and produced in Switzerland, but not by whom.
+    claims:
+      - zmn64-assembled
+      - zmn64-swiss
+  - dimension: PD
+    component: Design and product development
+    performer: zrc
+    relationship: internal
+    claims:
+      - zmn64-swiss
+      - zmn64-cps
+      - zmn64-family
+      - zmn64-revival
 profiles:
   - version: 1
     methodology: v0.2

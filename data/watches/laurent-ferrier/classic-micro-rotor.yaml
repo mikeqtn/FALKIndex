@@ -2,8 +2,169 @@ id: laurent-ferrier/classic-micro-rotor
 brand: laurent-ferrier
 model: Classic Micro-Rotor
 notes: Handbook v0.2 §8 lists this record as "Laurent Ferrier — Classic Micro-Rotor".
-provenance: []
-claims: []
+claims:
+  - id: lfcmr-fbn229
+    statement: The Classic Micro-Rotor uses calibre FBN229.01, an automatic movement with a pawl-fitted micro-rotor and a silicon double direct impulse escapement.
+    excerpt: Silicon escapement with double direct impulse on the balance
+    source: laurent-ferrier-classic-micro-rotor-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-lft
+    statement: Quill & Pad reports that La Fabrique du Temps did much of the engineering to bring the movement to market.
+    excerpt: La Fabrique du Temps, the haute horlogerie arm of Louis Vuitton watchmaking, provided much of the mental muscle to bring this engine to market.
+    source: quillandpad-lf-classic-micro-rotor
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-lft-mono
+    statement: Monochrome reports that the micro-rotor movement was developed together with La Fabrique du Temps.
+    excerpt: Developed together with movement specialist La Fabrique du Temps (now owned by LV), the Laurent Ferrier micro-rotor returned to the original idea of A.L.
+    source: monochrome-lf-natural-escapement
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-liga
+    statement: Monochrome reports that the escape wheels are LIGA-made nickel-phosphorus parts and the detent lever is silicon.
+    excerpt: It relies on LIGA technology ( Lithographie, Galvanoformung, Abformung ) to create escape wheels made from nickel-phosphorus as a single part on two planes.
+    source: monochrome-lf-natural-escapement
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-etablisseur
+    statement: Quill & Pad describes Laurent Ferrier as an établisseur rather than a manufacture, with movement components finished in-house.
+    excerpt: While an établisseur , not a manufacture, Laurent Ferrier is responsible for finishing these movement components in-house
+    source: quillandpad-lf-classic-micro-rotor
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-suppliers
+    statement: A workshop staff member says they inspect components arriving from the brand's suppliers.
+    excerpt: At the same time, I carry out the aesthetic and functional inspection of components arriving from our suppliers.
+    source: laurent-ferrier-team
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-finishing
+    statement: The brand describes the FBN229.01 finishing, including hand-drawn flanks, bevelled wheel spokes, polished screw heads and burin-crafted interior angles on the balance cock.
+    excerpt: In addition to a Côtes de Genève pattern on the bridges and the circular graining on the mainplate, the flanks are hand-drawn, the wheel spokes are bevelled, the screw heads are polished, and the interior angles of the balance-cock are hand crafted with a burin.
+    source: laurent-ferrier-classic-micro-rotor-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-decoration-workshop
+    statement: The brand has a decoration workshop whose head chamfers components with a file.
+    excerpt: My work mainly involves chamfering components with a file.
+    source: laurent-ferrier-team
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-assembly
+    statement: A workshop staff member says the brand's watchmakers decorate, assemble and adjust the pieces they work on from start to finish.
+    excerpt: Unlike other watch manufacturers, here watchmakers are lucky enough to be able to assemble, decorate and adjust the pieces we work on, from A to Z.
+    source: laurent-ferrier-team
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-head-workshop
+    statement: The head of workshop says he does the complete assembly of all the company's calibres.
+    excerpt: I do the complete assembly of all the calibres of the company as well as the pre-assembly of certain components.
+    source: laurent-ferrier-team
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-case-design
+    statement: A staff member credits Laurent Ferrier with designing the case curves.
+    excerpt: I think I would rather talk about the soft and strong curves of the cases designed by Laurent.
+    source: laurent-ferrier-team
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lfcmr-creative-dept
+    statement: The brand says Laurent Ferrier and his son Christian Ferrier work together in the Creative Department.
+    excerpt: Today, Laurent Ferrier and his son, Christian Ferrier, work together at the Creative Department
+    source: laurent-ferrier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre FBN229.01 (micro-rotor, natural escapement)
+    performer: la-fabrique-du-temps
+    relationship: external_specialist
+    note: Co-developed with La Fabrique du Temps per Quill & Pad and Monochrome; the brand's own pages do not name a development partner.
+    claims:
+      - lfcmr-fbn229
+      - lfcmr-lft
+      - lfcmr-lft-mono
+  - dimension: MM
+    component: Movement components (incl. LIGA escape wheels, silicon parts)
+    relationship: external_specialist
+    note: Components arrive from suppliers who are not named; Quill & Pad calls the brand an établisseur.
+    claims:
+      - lfcmr-suppliers
+      - lfcmr-etablisseur
+      - lfcmr-liga
+  - dimension: EX
+    component: Case (Classic, 40 mm)
+    relationship: unknown
+    note: Case design is credited to Laurent Ferrier; no source names the case maker.
+    claims:
+      - lfcmr-case-design
+  - dimension: DH
+    component: Dial, indices and hands
+    relationship: unknown
+    note: The product page lists materials and finishes; no source names the dial or hand maker.
+    claims: []
+  - dimension: CF
+    component: Movement decoration and hand finishing
+    performer: laurent-ferrier
+    relationship: internal
+    claims:
+      - lfcmr-finishing
+      - lfcmr-decoration-workshop
+      - lfcmr-etablisseur
+      - lfcmr-assembly
+  - dimension: WE
+    component: Assembly, adjustment, casing and component inspection
+    performer: laurent-ferrier
+    relationship: internal
+    claims:
+      - lfcmr-head-workshop
+      - lfcmr-assembly
+      - lfcmr-suppliers
+  - dimension: PD
+    component: Design
+    performer: laurent-ferrier
+    relationship: internal
+    claims:
+      - lfcmr-creative-dept
+      - lfcmr-case-design
+  - dimension: PD
+    component: Movement development
+    performer: la-fabrique-du-temps
+    relationship: external_specialist
+    claims:
+      - lfcmr-lft
+      - lfcmr-lft-mono
 profiles:
   - version: 1
     methodology: v0.2

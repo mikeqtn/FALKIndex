@@ -3,8 +3,162 @@ brand: omega
 model: Speedmaster Moonwatch
 caliber: "3861"
 notes: Handbook v0.2 §8 lists this record as "Omega — Speedmaster Moonwatch 3861".
-provenance: []
-claims: []
+claims:
+  - id: osm3861-base
+    statement: A specialist site describes calibre 3861 as essentially the 1861 fitted with a co-axial escapement.
+    excerpt: essentially the 1861 fitted with a co-axial escapement
+    source: omega-wornandwound-3861
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-lemania
+    statement: The same article traces the lineage to Omega calibre 321, which has roots with Lemania.
+    excerpt: to Omega's Caliber 321, which itself has roots with Lemania
+    source: omega-wornandwound-3861
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-escapement
+    statement: A specialist site reports the 3861 uses a co-axial escapement, Si14 silicon hairspring and non-ferrous escapement alloys.
+    excerpt: features a Daniels Co-Axial escapement, Si14 silicon hairspring, as well as non-ferrous alloys for the escapement
+    source: omega-sjx-3861-launch
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-metas
+    statement: The same article says the watch passed timing and functional testing overseen by METAS.
+    excerpt: passed comprehensive timing and functional testing overseen by METAS.
+    source: omega-sjx-3861-launch
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-case
+    statement: The same article describes a 42 mm case with a double-step case back; it does not name the case maker.
+    excerpt: The case remains the traditional 42 mm, but with a double-step case back like the vintage original.
+    source: omega-sjx-3861-launch
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-dial
+    statement: The same article describes an applied Omega emblem and a step along the chapter ring; the dial maker is not named.
+    excerpt: an applied Omega emblem as well as small step along the chapter ring
+    source: omega-sjx-3861-launch
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-bracelet
+    statement: A specialist site says the steel bracelet follows that of the gold Apollo 11 anniversary model; the maker is not named.
+    excerpt: The bracelet is a steel version of the gold Apollo 11 anniversary watch
+    source: omega-wornandwound-3861
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: osm3861-crystal
+    statement: The same article lists a Hesalite-crystal reference alongside a sapphire version.
+    excerpt: the traditional Hesalite crystal Moonwatch
+    source: omega-wornandwound-3861
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: omega-eta-factory
+    statement: A 2016 specialist article reports that the Master Co-Axial movement factory is operated by ETA exclusively for Omega.
+    excerpt: Operated by ETA exclusively for Omega, the Master Co-Axial factory is the cutting edge of movement production.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: omega-bienne-casing
+    statement: The same article says movements are sent to Omega headquarters in Bienne and assembled into complete watches.
+    excerpt: The movements are sent to Omega's headquarters in Bienne and assembled into complete watches.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: omega-metas-staff
+    statement: The same article says Master Chronometer tests are run by Omega employees under METAS supervision.
+    excerpt: All the tests are conducted by Omega employees, but watchful eyes are behind the next wall, literally.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 3861 architecture (1861 lineage with co-axial escapement)
+    performer: omega
+    relationship: internal
+    note: Derived from the 1861/321 family with Lemania roots; Omega developed the co-axial update.
+    claims:
+      - osm3861-base
+      - osm3861-lemania
+      - osm3861-escapement
+  - dimension: MM
+    component: Movement parts production
+    performer: eta
+    relationship: in_group
+    note: A 2016 article says ETA runs the Master Co-Axial factory exclusively for Omega. It does not name calibre 3861; needs confirmation for this calibre.
+    claims:
+      - omega-eta-factory
+  - dimension: MM
+    component: Co-axial escapement and Si14 silicon hairspring
+    relationship: unknown
+    note: Components are named, but no source reached says who makes them.
+    claims:
+      - osm3861-escapement
+  - dimension: EX
+    component: Case (42 mm steel)
+    relationship: unknown
+    note: Case maker not named in sources reached.
+    claims:
+      - osm3861-case
+  - dimension: EX
+    component: Bracelet
+    relationship: unknown
+    claims:
+      - osm3861-bracelet
+  - dimension: EX
+    component: Crystal (Hesalite or sapphire)
+    relationship: unknown
+    claims:
+      - osm3861-crystal
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Dial and hand makers not named in sources reached.
+    claims:
+      - osm3861-dial
+  - dimension: CF
+    component: Movement finishing
+    relationship: unknown
+    note: No source reached describes who finishes the 3861.
+    claims: []
+  - dimension: WE
+    component: Casing and Master Chronometer testing
+    performer: omega
+    relationship: internal
+    note: METAS supervises; Omega staff perform the tests in Bienne.
+    claims:
+      - omega-bienne-casing
+      - omega-metas-staff
+      - osm3861-metas
+  - dimension: PD
+    component: Design and technical development
+    performer: omega
+    relationship: internal
+    claims:
+      - osm3861-base
+      - osm3861-escapement
 profiles:
   - version: 1
     methodology: v0.2

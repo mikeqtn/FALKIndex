@@ -4,8 +4,165 @@ model: Quartz
 caliber: 9F
 route_label: Shinshu
 notes: Handbook v0.2 §8 lists this record as "Grand Seiko — 9F Quartz (Shinshu)".
-provenance: []
-claims: []
+claims:
+  - id: gs9f-origin
+    statement: Grand Seiko says Caliber 9F is an exclusive Grand Seiko quartz movement first made in 1993.
+    excerpt: Caliber 9F is an exclusive Grand Seiko quartz movement born in 1993.
+    source: grand-seiko-quartz-9f
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-shinshu-made
+    statement: Grand Seiko says the 9F is manufactured and assembled into complete watches at the Shinshu Watch Studio in Shiojiri.
+    excerpt: It is manufactured and assembled into complete timepieces at the Shinshu Watch Studio, located in Shiojiri, Nagano Prefecture.
+    source: grand-seiko-quartz-9f
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-oscillators
+    statement: Grand Seiko says the quartz oscillators are made in-house and aged for three months before testing and selection.
+    excerpt: As part of the process, quartz oscillators made in-house are first 'aged' for three months,
+    source: grand-seiko-quartz-9f
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-twin-pulse
+    statement: Grand Seiko describes a Twin Pulse Control Motor and a Backlash Auto-Adjust Mechanism in the 9F.
+    excerpt: The 9F quartz movement makes this possible through its Twin Pulse Control Motor,
+    source: grand-seiko-quartz-9f
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-studio-epson
+    statement: Grand Seiko says the Shinshu Watch Studio is located in a Seiko Epson facility in Shiojiri.
+    excerpt: The Shinshu Watch Studio is located in a Seiko Epson facility in the town of Shiojiri in Nagano Prefecture
+    source: grand-seiko-shinshu
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-studio-complete
+    statement: Grand Seiko says the studio handles manufacture, assembly and adjustment of complete watches including cases, dials, hands and indexes.
+    excerpt: the manufacture, assembly and adjustment of complete watches, including cases, dials, hands and indexes
+    source: grand-seiko-shinshu
+    dimensions:
+      - EX
+      - DH
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-hand-assembled
+    statement: Grand Seiko says the 9F is assembled and adjusted by hand.
+    excerpt: Hand assembled and adjusted, Caliber 9F is the ultimate quartz movement.
+    source: grand-seiko-shinshu
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-zaratsu
+    statement: Grand Seiko says the studio does Zaratsu case polishing.
+    excerpt: The studio is also expert in Zaratsu polishing.
+    source: grand-seiko-shinshu
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-autoclaves
+    statement: A specialist article says Seiko grows its quartz crystals in-house in large autoclaves.
+    excerpt: Seiko makes its quartz crystals in-house, growing them in massive autoclaves that are some four stories high.
+    source: sjx-seiko-9f-explained
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-ic-paired
+    statement: The same article says each oscillator is paired with an integrated circuit programmed for that oscillator's behaviour.
+    excerpt: Each quartz oscillator is then paired with an integrated circuit specially programmed for that particular oscillator's frequency and behaviour.
+    source: sjx-seiko-9f-explained
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: gs9f-epson-assembly
+    statement: The same article says all 9F movements are hand-assembled at Seiko Epson in Shiojiri.
+    excerpt: All 9F movements are hand-assembled at Seiko Epson in Shiojiri, not far from Nagano.
+    source: sjx-seiko-9f-explained
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Caliber 9F design (twin pulse motor, backlash auto-adjust)
+    performer: grand-seiko
+    relationship: internal
+    valid_from: 1993
+    note: Grand Seiko presents the 9F as its own caliber; the engineering team's employer (Seiko Watch or Seiko Epson) is not specified.
+    claims:
+      - gs9f-origin
+      - gs9f-twin-pulse
+  - dimension: MM
+    component: Quartz crystals and oscillators
+    performer: seiko-epson
+    relationship: contract
+    note: Grand Seiko says oscillators are "made in-house"; SJX says Seiko grows crystals in its own autoclaves. Which Seiko-family company runs the autoclaves is not stated; Seiko Epson is assumed from the studio's location and needs confirmation.
+    claims:
+      - gs9f-oscillators
+      - gs9f-autoclaves
+  - dimension: MM
+    component: Movement parts and integrated circuit
+    performer: seiko-epson
+    relationship: contract
+    note: Movement is made at the Shinshu Watch Studio inside a Seiko Epson facility; IC origin is not stated.
+    claims:
+      - gs9f-shinshu-made
+      - gs9f-ic-paired
+  - dimension: EX
+    component: Case (incl. Zaratsu polishing)
+    performer: seiko-epson
+    relationship: contract
+    note: Grand Seiko says the Shinshu studio makes cases for its quartz and Spring Drive watches.
+    claims:
+      - gs9f-studio-complete
+      - gs9f-zaratsu
+  - dimension: DH
+    component: Dial, hands and indexes
+    performer: seiko-epson
+    relationship: contract
+    claims:
+      - gs9f-studio-complete
+  - dimension: CF
+    component: Case polishing (Zaratsu)
+    performer: seiko-epson
+    relationship: contract
+    claims:
+      - gs9f-zaratsu
+  - dimension: WE
+    component: Hand assembly, oscillator selection and adjustment
+    performer: seiko-epson
+    relationship: contract
+    note: Grand Seiko describes the work as in-house at its Shinshu Watch Studio; Seiko Epson is a separate company from Seiko Group, so the record uses contract until the corporate relationship is reviewed.
+    claims:
+      - gs9f-hand-assembled
+      - gs9f-epson-assembly
+      - gs9f-studio-epson
+      - gs9f-oscillators
+  - dimension: PD
+    component: Product design and development
+    performer: grand-seiko
+    relationship: internal
+    claims:
+      - gs9f-origin
 profiles:
   - version: 1
     methodology: v0.2

@@ -2,8 +2,130 @@ id: longines/spirit-zulu-time
 brand: longines
 model: Spirit Zulu Time
 notes: Handbook v0.2 §8 lists this record as "Longines — Spirit Zulu Time".
-provenance: []
-claims: []
+claims:
+  - id: lgzt-l8444-eta
+    statement: A specialist site reports cal. L844.4 is exclusive to Longines and based on the ETA A31.411, derived from the ETA 2892-A2.
+    excerpt: The L844.4 is exclusive to Longines, based on an ETA A31.411, which is in turn a derivation of the ETA 2892-A2
+    source: timeandtide-longines-zulu-time
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-silicon-cosc
+    statement: The same source lists a silicon balance spring, COSC certification and 72-hour power reserve.
+    excerpt: with a silicon balance spring, COSC certification, and a 72-hour power reserve
+    source: timeandtide-longines-zulu-time
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-a31l01
+    statement: A review reports cal. L844.4 is derived from the ETA A31.L01.
+    excerpt: It is derived from the ETA caliber A31.L01 and beats at 25,200 Vph with 72 hours power reserve.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-silicon
+    statement: The review reports a silicon balance spring and COSC certification.
+    excerpt: The movement is fitted with a silicon balance spring for additional anti-magnetism and is COSC certified.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-case
+    statement: The review describes a 42 mm stainless steel case, without naming its maker.
+    excerpt: Sized at 42.00 mm with a thickness of 13.90 mm, the stainless steel cased watch comes in both strap and bracelet variants.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-dial
+    statement: The review describes applied numerals on the dial, without naming its maker.
+    excerpt: The dial uses applied numeral indicators with a periphery seconds track.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-eta-only
+    statement: Longines' CEO said that after 1988 the company stopped making movements and worked solely with ETA movements.
+    excerpt: took the decision to stop manufacturing movements in-house and work solely with ETA movements.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lgzt-no-dials-hands
+    statement: Longines' CEO said that until 1988 Longines made cases and movements but no dials or hands.
+    excerpt: producing in-house cases and movements, including chronographs, but no dials or hands.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Cal. L844.4 (ETA A31-family GMT base)
+    performer: eta
+    relationship: in_group
+    note: ETA and Longines are both Swatch Group. Sources differ on the base reference (A31.411 vs A31.L01).
+    claims:
+      - lgzt-l8444-eta
+      - lgzt-a31l01
+      - lgzt-eta-only
+  - dimension: MM
+    component: Movement parts
+    performer: eta
+    relationship: in_group
+    claims:
+      - lgzt-l8444-eta
+      - lgzt-eta-only
+  - dimension: MM
+    component: Silicon balance spring
+    relationship: unknown
+    note: No source names the maker of the silicon balance spring.
+    claims:
+      - lgzt-silicon-cosc
+      - lgzt-silicon
+  - dimension: EX
+    component: Case, ceramic bezel insert and bracelet
+    relationship: unknown
+    claims:
+      - lgzt-case
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Historically Longines did not make dials or hands; no source names the current makers.
+    claims:
+      - lgzt-dial
+      - lgzt-no-dials-hands
+  - dimension: CF
+    component: Finishing
+    relationship: unknown
+    claims: []
+  - dimension: WE
+    component: Assembly, regulation and chronometer certification
+    relationship: unknown
+    note: COSC certification is stated; who assembles and regulates the movement and watch is not stated.
+    claims:
+      - lgzt-silicon-cosc
+      - lgzt-silicon
+  - dimension: PD
+    component: Product design and caliber specification
+    performer: longines
+    relationship: internal
+    note: The caliber is described as exclusive to Longines; no source describes the design process.
+    claims:
+      - lgzt-l8444-eta
 profiles:
   - version: 1
     methodology: v0.2

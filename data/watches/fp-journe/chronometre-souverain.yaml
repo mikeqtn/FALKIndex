@@ -2,8 +2,160 @@ id: fp-journe/chronometre-souverain
 brand: fp-journe
 model: Chronomètre Souverain
 notes: Handbook v0.2 §8 lists this record as "F.P. Journe — Chronomètre Souverain".
-provenance: []
-claims: []
+claims:
+  - id: fpjcs-calibre-1304
+    statement: F.P. Journe's technical sheet lists the exclusive calibre 1304, manually wound, with the movement in 18K rose gold.
+    excerpt: Exclusive F.P.Journe calibre 1304
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-gold-plates
+    statement: F.P. Journe's product page says the base plate and bridges are in 18K rose gold.
+    excerpt: its base plate and bridges are in 18K rose Gold.
+    source: fpjourne-chronometre-souverain
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-balance-spring
+    statement: The technical sheet lists a free-sprung balance with four inertia weights and a flat Anachron hairspring, Nivatronic laser-welded to the collet; the hairspring maker is not named.
+    excerpt: Flat Anachron microflamed spring
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-decoration
+    statement: The technical sheet lists the movement decoration as partly circular-grained baseplate, polished screw heads with chamfered slots and pegs with polished rounded ends.
+    excerpt: Polished screw heads, chamfered slots
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-cadraniers-havana
+    statement: F.P. Journe says the Havana dial was developed by its own dial makers, Les Cadraniers de Genève.
+    excerpt: It was developed by Journe’s own dial makers, Les Cadraniers de Genève, in a process lasting several months.
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-95-percent
+    statement: A 2023 manufacture visit report says F.P. Journe makes about 95% of its watch components in-house.
+    excerpt: F.P. Journe makes approximately 95% of the components of its watches in-house
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-bought-in
+    statement: The same report says the bought-in exceptions are essentially straps, jewels, springs and certain escapement components.
+    excerpt: essentially everything except straps, jewels, springs, and certain escapement components.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-movement-parts
+    statement: The same report describes the Geneva workshop turning gold, aluminium and steel rods into plates, bridges, wheels, pinions and other components.
+    excerpt: turning rods of gold, aluminium, and steel into movement plates, bridges, wheels, pinions, and other components
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-bdg-cases
+    statement: The same report says Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe.
+    excerpt: BDG makes cases and bracelets exclusively for F.P. Journe.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-cdg-dials
+    statement: The same report says Les Cadraniers de Genève makes dials for F.P. Journe and for third-party clients.
+    excerpt: CDG makes dials for F.P. Journe as well as third-party clients like Vacheron Constantin
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: fpjcs-one-watchmaker
+    statement: The same report says each watch is assembled and adjusted by a single watchmaker.
+    excerpt: each watch is assembled and adjusted by a single watchmaker from start to finish.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 1304 design
+    performer: fp-journe
+    relationship: internal
+    claims:
+      - fpjcs-calibre-1304
+      - fpjcs-gold-plates
+  - dimension: MM
+    component: Plates, bridges, wheels and pinions
+    performer: fp-journe
+    relationship: internal
+    claims:
+      - fpjcs-movement-parts
+      - fpjcs-95-percent
+      - fpjcs-gold-plates
+  - dimension: MM
+    component: Springs, jewels and certain escapement components (incl. hairspring)
+    relationship: external_specialist
+    note: The report names these as bought-in but not the suppliers. Anachron and Nivatronic are hairspring alloy names on the spec sheet; supplier not confirmed.
+    claims:
+      - fpjcs-bought-in
+      - fpjcs-balance-spring
+  - dimension: EX
+    component: Case
+    performer: les-boitiers-de-geneve
+    relationship: in_group
+    note: Wholly owned case-maker; source is general to the brand, not this reference.
+    claims:
+      - fpjcs-bdg-cases
+  - dimension: DH
+    component: Dial
+    performer: les-cadraniers-de-geneve
+    relationship: in_group
+    claims:
+      - fpjcs-cadraniers-havana
+      - fpjcs-cdg-dials
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: No source names the hand maker.
+    claims: []
+  - dimension: CF
+    component: Movement decoration
+    performer: fp-journe
+    relationship: internal
+    note: Decoration is specified by the brand; the visit report describes finishing after in-house fabrication.
+    claims:
+      - fpjcs-decoration
+      - fpjcs-movement-parts
+  - dimension: WE
+    component: Assembly and adjustment
+    performer: fp-journe
+    relationship: internal
+    claims:
+      - fpjcs-one-watchmaker
+  - dimension: PD
+    component: Design and development
+    performer: fp-journe
+    relationship: internal
+    claims:
+      - fpjcs-calibre-1304
 profiles:
   - version: 1
     methodology: v0.2

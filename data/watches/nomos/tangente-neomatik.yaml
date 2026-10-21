@@ -2,8 +2,176 @@ id: nomos/tangente-neomatik
 brand: nomos
 model: Tangente neomatik
 notes: Handbook v0.2 §8 lists this record as "NOMOS Glashütte — Tangente neomatik".
-provenance: []
-claims: []
+claims:
+  - id: ntn-duw3001
+    statement: The maker describes calibre DUW 3001 as an in-house built automatic neomatik calibre.
+    excerpt: in-house built NOMOS neomatik caliber with automatic winding
+    source: nomos-duw3001-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-swing
+    statement: The maker calls the NOMOS swing system its proprietary escapement.
+    excerpt: The NOMOS swing system, our proprietary escapement, also known as a caliber's heart
+    source: nomos-duw3001-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-finish
+    statement: The maker lists rhodium-plated surfaces with Glashütte ribbing and NOMOS perlage.
+    excerpt: rhodium-plated surfaces with Glashütte ribbing and NOMOS perlage
+    source: nomos-duw3001-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-six-positions
+    statement: The maker says the calibre is adjusted in six positions.
+    excerpt: adjusted in six positions
+    source: nomos-duw3001-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-onsite
+    statement: The maker says its watches are made almost entirely on site, from parts to final quality control.
+    excerpt: Watches from NOMOS Glashütte are made almost entirely on site—from the first cog to the final quality control.
+    source: nomos-production
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-assembly
+    statement: The maker describes parts being pre-assembled, assembled, regulated and fitted with strap or bracelet.
+    excerpt: "Step by step, the finest parts are turned into a mechanical watch: pre-assembled, assembled, regulated, and finally fitted with a bracelet or strap."
+    source: nomos-production
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-95pct
+    statement: A specialist magazine reports the brand cites an in-house rate of about 95 per cent for movement components.
+    excerpt: an in-house manufacturing rate of approximately 95 percent
+    source: nomos-swisswatches-visit
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-schlottwitz
+    statement: The same article says the Schlottwitz facility produces turned parts such as wheels, pinions and shafts.
+    excerpt: turned components such as wheels, pinions, and shafts
+    source: nomos-swisswatches-visit
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-external
+    statement: The same article says the case, hands, dial, strap and clasp are sourced externally.
+    excerpt: everything outside of the movement – meaning the case, hands, dial, strap, and clasp – is sourced externally
+    source: nomos-swisswatches-visit
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-berlinerblau
+    statement: The same article describes an in-house design department, Berlinerblau.
+    excerpt: The in-house creative department Berlinerblau is located in an old industrial loft that was once used for button production.
+    source: nomos-swisswatches-visit
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-escapement-2014
+    statement: At the swing system launch, a specialist site reported that all balance and escapement parts came from NOMOS except the balance spring.
+    excerpt: all the parts of this new balance and escapement come from Nomos.
+    source: nomos-quillandpad-2014
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ntn-hairspring-2014
+    statement: The same 2014 article reported the blued balance spring was supplied from within Germany.
+    excerpt: the blued balance spring, which is supplied from inside Germany (and not Switzerland)
+    source: nomos-quillandpad-2014
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre DUW 3001 architecture
+    performer: nomos
+    relationship: internal
+    note: Tangente neomatik is assumed to use DUW 3001 (35 mm references); a model page confirming this could not be fetched in this pass.
+    claims:
+      - ntn-duw3001
+  - dimension: MM
+    component: Plates, bridges, wheels and pinions
+    performer: nomos
+    relationship: internal
+    claims:
+      - ntn-onsite
+      - ntn-95pct
+      - ntn-schlottwitz
+  - dimension: MM
+    component: Swing system escapement and balance
+    performer: nomos
+    relationship: internal
+    claims:
+      - ntn-swing
+      - ntn-escapement-2014
+  - dimension: MM
+    component: Balance spring
+    relationship: external_specialist
+    valid_from: 2014
+    note: A 2014 report says the balance spring came from a German supplier (not named). No later source on current sourcing was found.
+    claims:
+      - ntn-hairspring-2014
+  - dimension: EX
+    component: Case, strap and clasp
+    relationship: external_specialist
+    note: Sourced externally per a 2024 visit report; suppliers not named.
+    claims:
+      - ntn-external
+  - dimension: DH
+    component: Dial
+    relationship: external_specialist
+    note: Sourced externally per a 2024 visit report; supplier not named.
+    claims:
+      - ntn-external
+  - dimension: DH
+    component: Hands
+    relationship: external_specialist
+    note: Sourced externally per a 2024 visit report; supplier not named.
+    claims:
+      - ntn-external
+  - dimension: CF
+    component: Movement finishing (Glashütte ribbing, perlage)
+    performer: nomos
+    relationship: internal
+    claims:
+      - ntn-finish
+      - ntn-onsite
+  - dimension: WE
+    component: Assembly and regulation
+    performer: nomos
+    relationship: internal
+    claims:
+      - ntn-assembly
+      - ntn-onsite
+      - ntn-six-positions
+  - dimension: PD
+    component: Design (Berlinerblau) and technical development
+    performer: nomos
+    relationship: internal
+    claims:
+      - ntn-berlinerblau
+      - ntn-duw3001
 profiles:
   - version: 1
     methodology: v0.2

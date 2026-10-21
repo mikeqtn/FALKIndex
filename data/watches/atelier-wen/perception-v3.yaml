@@ -3,8 +3,147 @@ brand: atelier-wen
 model: Perception
 generation: V3
 notes: Handbook v0.2 §8 lists this record as "Atelier Wen — Perception V3".
-provenance: []
-claims: []
+claims:
+  - id: awv3-pequignet
+    statement: A specialist site reports the V3 uses the Pequignet EPM03, heavily customised for Atelier Wen.
+    excerpt: the new iteration of the Perception is powered by the Pequignet EPM03, which Atelier Wen has heavily customized.
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-pequignet-morteau
+    statement: The same article describes Pequignet as an independent movement maker in Morteau, France.
+    excerpt: One of the last independent movement manufactures in France, Pequignet is based in Morteau, near the Swiss border.
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-movement-design
+    statement: The article reports the movement's decoration was designed in collaboration with Pequignet to bring Chinese motifs to the bridges.
+    excerpt: brought traditional Chinese design to the movement itself.
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - PD
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-bridges
+    statement: The article describes fan-shaped bridges filled with blue aventurine lacquer.
+    excerpt: mirror-polished blue aventurine lacquer adorns each zephyr-like bridge
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-dial-cheng
+    statement: The article names Cheng Yucai, based in Xinmi, Henan, as the guilloché craftsman.
+    excerpt: Master Cheng Yucai, a Master Guillocheur based in Xinmi, Henan province.
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-dial-process
+    statement: The article reports each dial is cut on a hand-operated rose engine and takes eight hours.
+    excerpt: Using a diamond-tipped chisel on the hand-operated rose engine, each dial takes eight hours to complete
+    source: ablogtowatch-atelier-wen-v3
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-dial-workshop
+    statement: A second specialist site reports the dials are produced by the workshop of Cheng Yucai.
+    excerpt: hand-guilloché dials produced by the workshop of Cheng Yucai, China's first guilloché master craftsman.
+    source: monochrome-atelier-wen-v3
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-customised-calibre
+    statement: The same site describes the movement as a highly customised Pequignet calibre.
+    excerpt: a highly customised Pequignet calibre
+    source: monochrome-atelier-wen-v3
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-case
+    statement: The site lists a 40 mm 904L steel case, without naming the case maker.
+    excerpt: The case is still made of 904L stainless steel, measuring 40mm in diameter.
+    source: monochrome-atelier-wen-v3
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awv3-bracelet
+    statement: The site lists a tapering 904L steel bracelet, without naming its maker.
+    excerpt: All Perception V3 models are worn on a 904L steel bracelet, tapering from 22mm at the lugs to 18mm at the clasp.
+    source: monochrome-atelier-wen-v3
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Base movement (Pequignet EPM03)
+    performer: pequignet
+    relationship: external_specialist
+    valid_from: 2026
+    note: Replaces the Peacock SL1588-family movement of earlier Perception generations.
+    claims:
+      - awv3-pequignet
+      - awv3-customised-calibre
+  - dimension: MM
+    component: Movement components
+    performer: pequignet
+    relationship: external_specialist
+    claims:
+      - awv3-pequignet
+      - awv3-pequignet-morteau
+  - dimension: EX
+    component: Case and bracelet (904L steel)
+    relationship: unknown
+    note: Case and bracelet maker not named.
+    claims:
+      - awv3-case
+      - awv3-bracelet
+  - dimension: DH
+    component: Guilloché dial (engine-turning)
+    performer: cheng-yucai
+    relationship: external_specialist
+    note: Dial plating and other dial layers are not attributed.
+    claims:
+      - awv3-dial-cheng
+      - awv3-dial-process
+      - awv3-dial-workshop
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: No source found.
+    claims: []
+  - dimension: CF
+    component: Movement decoration (lacquered bridges)
+    relationship: unknown
+    note: Designed with Pequignet; no source says who executes the decoration.
+    claims:
+      - awv3-movement-design
+      - awv3-bridges
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No source found on where the V3 is assembled.
+    claims: []
+  - dimension: PD
+    component: Design and movement customisation brief
+    performer: atelier-wen
+    relationship: internal
+    claims:
+      - awv3-movement-design
+      - awv3-pequignet
 profiles:
   - version: 1
     methodology: v0.2

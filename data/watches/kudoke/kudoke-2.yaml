@@ -2,8 +2,148 @@ id: kudoke/kudoke-2
 brand: kudoke
 model: Kudoke 2
 notes: Handbook v0.2 §8 lists this record as "Kudoke — Kudoke 2".
-provenance: []
-claims: []
+claims:
+  - id: kud2-kaliber1-24h
+    statement: The maker describes the Kudoke 2 movement as its in-house Kaliber 1 with a dial-side modification for the 24-hour indication.
+    excerpt: A dial-side modification of the inhouse Kaliber 1 facilitates the unusual 24-hour indication at 12 o’clock.
+    source: kudoke-2-page
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-habring-dev
+    statement: SJX reports that the Kaliber 1 was developed with Habring², which also produces many of its components, and that Kudoke finishes and assembles it.
+    excerpt: Both watches are powered by the hand-wound Kaliber 1 that was developed with the help of Habring 2 , which also produces many of the components, but finished and assembled by Kudoke.
+    source: sjx-kudoke-1-2
+    dimensions:
+      - MA
+      - MM
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-7750-architecture
+    statement: SJX reports that the Kaliber 1 follows the Valjoux 7750 gear-train architecture through its Habring² roots, while using Habring² components not made by ETA.
+    excerpt: However, it is important to note that the Kaliber 1 (and by extension the Habring 2 movements it is derived from), is a proprietary movement developed by Habring 2 with its own, unique components that are not made by ETA.
+    source: sjx-kudoke-1-2
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-felix-parts
+    statement: A review reports that the movement shares many components with the Habring² Felix and that finishing and assembly are done by Kudoke and a small team.
+    excerpt: Notably, the movement shares many components with Habring2’s Felix movement, but the finishing and assembly is done all in-house by Kudoke and his small team.
+    source: deployant-kudoke-2
+    dimensions:
+      - MM
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-disc-engraved
+    statement: The 24-hour disc is hand-engraved and electroplated in gold, white rhodium and black rhodium.
+    excerpt: Making one revolution a day in sync with the hour hand, the 24-hour disc is hand-engraved and electroplated in three colours – gold for daytime, as well as white and black rhodium for the night.
+    source: sjx-kudoke-1-2
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-disc-artisan
+    statement: A review states that the 24-hour disc is hand-engraved by an artisan in Glashütte, without naming the person.
+    excerpt: The disc is plated in gold and rhodium, and it is hand-engraved by an artisan in Glashütte.
+    source: deployant-kudoke-2
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-balance-cock
+    statement: The maker lists the movement as finished by hand with a raised hand-engraved balance cock.
+    excerpt: finished by hand – raised hand-engraved balance cock
+    source: kudoke-2-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-case
+    statement: SJX describes the steel case as fully polished and simple; no source names the case maker.
+    excerpt: The case is simple and effective – it’s entirely polished front and back – but not elaborate; the key features of the watch inside the case.
+    source: sjx-kudoke-1-2
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: kud2-manufactory
+    statement: The maker says its manufactory in Weifa, completed in 2023, brings design, development, watchmaking and hand finishing under one roof.
+    excerpt: Bringing design, development, watchmaking and hand finishing together under one roof, it creates a dedicated space for KUDOKE’s vision of independent watchmaking.
+    source: kudoke-story
+    dimensions:
+      - PD
+      - WE
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Kaliber 1 base movement
+    performer: habring2
+    relationship: external_specialist
+    note: Developed in collaboration with Habring²; 7750-derived gear-train architecture.
+    claims:
+      - kud2-habring-dev
+      - kud2-7750-architecture
+  - dimension: MA
+    component: 24-hour dial-side modification (Kaliber 1-24H)
+    performer: kudoke
+    relationship: internal
+    claims:
+      - kud2-kaliber1-24h
+  - dimension: MM
+    component: Movement components
+    performer: habring2
+    relationship: external_specialist
+    note: Sources say Habring² produces many of the components; which parts, if any, Kudoke makes is not stated.
+    claims:
+      - kud2-habring-dev
+      - kud2-felix-parts
+  - dimension: EX
+    component: Case (steel, 39 mm)
+    relationship: unknown
+    note: No source names the case maker.
+    claims:
+      - kud2-case
+  - dimension: DH
+    component: 24-hour disc (hand-engraved, electroplated)
+    relationship: unknown
+    note: SJX attributes the engraving to Kudoke's signature hand-engraving; Deployant says an artisan in Glashütte. Unresolved who engraves the disc and who makes the dial blank and hands.
+    claims:
+      - kud2-disc-engraved
+      - kud2-disc-artisan
+  - dimension: CF
+    component: Movement finishing and balance-cock engraving
+    performer: kudoke
+    relationship: internal
+    claims:
+      - kud2-habring-dev
+      - kud2-felix-parts
+      - kud2-balance-cock
+  - dimension: WE
+    component: Movement assembly
+    performer: kudoke
+    relationship: internal
+    claims:
+      - kud2-habring-dev
+      - kud2-felix-parts
+  - dimension: PD
+    component: Design and development
+    performer: kudoke
+    relationship: internal
+    claims:
+      - kud2-kaliber1-24h
+      - kud2-manufactory
 profiles:
   - version: 1
     methodology: v0.2

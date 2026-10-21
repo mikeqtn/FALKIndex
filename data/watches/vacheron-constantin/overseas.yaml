@@ -3,8 +3,179 @@ brand: vacheron-constantin
 model: Overseas
 route_label: manufacture caliber
 notes: Handbook v0.2 §8 lists this record as "Vacheron Constantin — Overseas / manufacture caliber".
-provenance: []
-claims: []
+claims:
+  - id: vco-5100-designed
+    statement: A launch report states the Overseas Calibre 5100 was designed, developed and made by Vacheron Constantin.
+    excerpt: the new Calibre 5100 entirely designed, developed and crafted by Vacheron Constantin
+    source: vacheron-deployant-sihh-2016
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-5100-172
+    statement: A review describes the 5100 as a 172-part calibre developed and manufactured by Vacheron Constantin.
+    excerpt: The 172-part Calibre 5100, developed and manufactured by Vacheron Constantin
+    source: vacheron-deployant-overseas-4500v
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-geneva-hallmark
+    statement: The review says the Overseas earned the Hallmark of Geneva.
+    excerpt: Another big step forward that the new Overseas took was earning the coveted Hallmark of Geneva.
+    source: vacheron-deployant-overseas-4500v
+    dimensions:
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-bracelet-system
+    statement: The review describes a tool-free strap and bracelet change by pulling a tab on the case back side.
+    excerpt: Just by pulling on a tab on the case back
+    source: vacheron-deployant-overseas-4500v
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-movement-production
+    statement: A manufacture-visit report says the Plan-les-Ouates building carries out the complete production of all in-house movements.
+    excerpt: including the complete production of all in-house movements
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-hairspring
+    statement: The report lists hairspring production among operations carried out in the building.
+    excerpt: several unusual operations like hairspring production, gem-setting, engraving
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-le-brassus-parts
+    statement: A 2013 report says the Le Brassus site runs the production chain for movement parts.
+    excerpt: The entire production chain for the parts required to make Vacheron Constantin mechanical movements
+    source: vacheron-worldtempus-le-brassus
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-casing-plan-les-ouates
+    statement: The 2013 report says movement assembly, casing-up and final controls take place at Plan-les-Ouates.
+    excerpt: movement assembly, casing-up and final controls are handled in the Manufacture in Plan-les-Ouates.
+    source: vacheron-worldtempus-le-brassus
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-cases-elsewhere
+    statement: The visit report says cases and most dials are made elsewhere, possibly by in-group suppliers such as Donzé Baume for cases.
+    excerpt: Cases and most dials are made elsewhere, and may come from in-group suppliers like Donze Baume, for cases
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-dials-third-party
+    statement: The visit report names third parties such as Les Cadraniers de Genève for certain dials.
+    excerpt: or third-parties like Les Cadraniers de Genève for certain dials
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-finishing
+    statement: The visit report says finishing is organised by component type with dedicated tools.
+    excerpt: Finishing work is organized by component type, with special tools provided for each type of work.
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: vco-assembly
+    statement: The visit report says watch assembly takes place in workshops at the manufacture.
+    excerpt: The assembly of each Vacheron Constantin watch takes place in a series of spacious and well-appointed workshops.
+    source: vacheron-sjx-manufacture-visit
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Calibre 5100 design and development
+    performer: vacheron-constantin
+    relationship: internal
+    claims:
+      - vco-5100-designed
+      - vco-5100-172
+  - dimension: MM
+    component: Movement components
+    performer: vacheron-constantin
+    relationship: internal
+    note: Parts made at Le Brassus (2013 report) and production at Plan-les-Ouates (2024 report); not stated per part for the 5100.
+    claims:
+      - vco-5100-172
+      - vco-movement-production
+      - vco-le-brassus-parts
+  - dimension: MM
+    component: Hairspring
+    performer: vacheron-constantin
+    relationship: internal
+    note: Hairspring production is reported at the manufacture; not confirmed for the 5100 specifically.
+    claims:
+      - vco-hairspring
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: SJX says cases are made outside the manufacture and "may" come from in-group supplier Donzé Baume (Richemont). Not confirmed for the Overseas.
+    claims:
+      - vco-cases-elsewhere
+  - dimension: EX
+    component: Bracelet and quick-change system
+    relationship: unknown
+    note: Bracelet maker not named.
+    claims:
+      - vco-bracelet-system
+  - dimension: DH
+    component: Dial
+    relationship: unknown
+    note: Most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève; Overseas dial maker not named.
+    claims:
+      - vco-cases-elsewhere
+      - vco-dials-third-party
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    claims: []
+  - dimension: CF
+    component: Movement finishing (Hallmark of Geneva)
+    performer: vacheron-constantin
+    relationship: internal
+    claims:
+      - vco-finishing
+      - vco-geneva-hallmark
+  - dimension: WE
+    component: Movement assembly, casing-up, regulation and final control
+    performer: vacheron-constantin
+    relationship: internal
+    claims:
+      - vco-casing-plan-les-ouates
+      - vco-assembly
+      - vco-geneva-hallmark
+  - dimension: PD
+    component: Design and development
+    performer: vacheron-constantin
+    relationship: internal
+    claims:
+      - vco-5100-designed
+      - vco-bracelet-system
 profiles:
   - version: 1
     methodology: v0.2

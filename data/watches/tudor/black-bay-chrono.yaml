@@ -3,8 +3,186 @@ brand: tudor
 model: Black Bay Chrono
 caliber: MT5813
 notes: Handbook v0.2 §8 lists this record as "Tudor — Black Bay Chrono / MT5813".
-provenance: []
-claims: []
+claims:
+  - id: tbbc-mt5813
+    statement: A launch report says the Black Bay Chrono uses the MT5813 automatic chronograph movement.
+    excerpt: At the heart of the Black Bay Chrono sits the new MT5813 automatic chronograph movement
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-b01-template
+    statement: The launch report says the MT5813 uses Breitling's B01 chronograph as a template.
+    excerpt: using Breitling's top-of-the-line B01 chronograph movement as a template
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-tudor-additions
+    statement: The launch report says Tudor added new regulating parts, hairspring and finishes to the B01 base.
+    excerpt: before adding new regulating parts, hairspring and finishes.
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - MM
+      - CF
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-exchange
+    statement: The launch report says Breitling adapts its own version of the Tudor MT5612 in exchange.
+    excerpt: In exchange, Breitling will adapt its own version of the Tudor MT5612
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-made-by-breitling
+    statement: A 2017 technical article reports that the MT5813 is manufactured by Breitling for Tudor.
+    excerpt: It's made by Breitling for Tudor,
+    source: tudor-sjx-mt5813-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-regulator
+    statement: "The 2017 article describes a Tudor regulator: a free-sprung balance with four adjustable masses."
+    excerpt: More significant is the Tudor regulator, made up of a free sprung balance wheel with four adjustable masses,
+    source: tudor-sjx-mt5813-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-silicon
+    statement: The 2017 article says the balance carries a silicon hairspring.
+    excerpt: And the balance wheel is fitted with a silicon hairspring,
+    source: tudor-sjx-mt5813-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-kenissi-2026
+    statement: A 2026 article reports that the MT5813 has been reworked by Tudor and is made at Tudor's Kenissi facility.
+    excerpt: the MT5813 has been reworked by Tudor and is made inside Tudor's own Kenissi facility.
+    source: tudor-sjx-bb-chrono-39-2026
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-case
+    statement: The launch report describes a 41 mm case with a fixed steel tachymeter bezel and screw-down pushers.
+    excerpt: the Black Bay Chrono adds a fixed stainless steel tachymeter bezel and classic Tudor/Rolex fluted screw-down pushers.
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-dial-design
+    statement: The launch report says the dial design is new for the Black Bay Chrono.
+    excerpt: The dial design, however, is brand-new for the Black Bay Chrono
+    source: tudor-wornandwound-bb-chrono-2017
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-cases-orolux
+    statement: A specialist site names Orolux as a Tudor case maker and Montremo as a dial maker among the suppliers visited; it does not tie them to a specific model.
+    excerpt: Orolux in Le Noirmont, which manufactures watch cases
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: tbbc-watch-assembly
+    statement: A factory-visit report says Tudor watches are assembled and tested in the Tudor building in Le Locle.
+    excerpt: where Tudor watches are assembled and tested before being despatched to retailers.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Chronograph architecture (Breitling B01 base)
+    performer: breitling
+    relationship: external_specialist
+    note: The MT5813 is built on the Breitling B01 architecture under a movement exchange with Breitling (which received a version of the MT5612).
+    claims:
+      - tbbc-b01-template
+      - tbbc-mt5813
+      - tbbc-exchange
+  - dimension: MM
+    component: Movement manufacture (launch period)
+    performer: breitling
+    relationship: external_specialist
+    valid_from: 2017
+    note: SJX (2017) reports the MT5813 was made by Breitling for Tudor.
+    claims:
+      - tbbc-made-by-breitling
+  - dimension: MM
+    component: Movement manufacture (current)
+    performer: kenissi
+    relationship: in_group
+    note: SJX (2026) reports the MT5813 is now made at Kenissi. The changeover date is not stated.
+    claims:
+      - tbbc-kenissi-2026
+  - dimension: MM
+    component: Regulating organ (free-sprung balance, silicon hairspring)
+    relationship: unknown
+    note: Tudor specified its own regulating parts; who manufactures the balance and silicon hairspring is not stated.
+    claims:
+      - tbbc-regulator
+      - tbbc-silicon
+      - tbbc-tudor-additions
+  - dimension: EX
+    component: Case (steel, fixed tachymeter bezel)
+    performer: orolux
+    relationship: external_specialist
+    note: Orolux is named as a Tudor case supplier, not tied to this model specifically.
+    claims:
+      - tbbc-case
+      - tbbc-cases-orolux
+  - dimension: EX
+    component: Bracelet
+    relationship: unknown
+    note: No source ties a bracelet maker to this model.
+    claims: []
+  - dimension: DH
+    component: Dial
+    performer: montremo
+    relationship: external_specialist
+    note: Montremo is named as a Tudor dial supplier, not tied to this model specifically.
+    claims:
+      - tbbc-cases-orolux
+      - tbbc-dial-design
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    claims: []
+  - dimension: CF
+    component: Movement finishing
+    relationship: unknown
+    note: Tudor-specified finishes; who applies them is not stated.
+    claims:
+      - tbbc-tudor-additions
+  - dimension: WE
+    component: Watch assembly and testing
+    performer: tudor
+    relationship: internal
+    claims:
+      - tbbc-watch-assembly
+  - dimension: PD
+    component: Product design and movement specification
+    performer: tudor
+    relationship: internal
+    claims:
+      - tbbc-dial-design
+      - tbbc-tudor-additions
+      - tbbc-exchange
 profiles:
   - version: 1
     methodology: v0.2

@@ -2,8 +2,132 @@ id: jaeger-lecoultre/reverso-tribute
 brand: jaeger-lecoultre
 model: Reverso Tribute
 notes: Handbook v0.2 §8 lists this record as "Jaeger-LeCoultre — Reverso Tribute".
-provenance: []
-claims: []
+claims:
+  - id: jlcrt-822-inhouse
+    statement: The brand says the Calibre 822 used in the Reverso Tribute Monoface Small Seconds is designed, produced, decorated and assembled within the manufacture.
+    excerpt: Entirely designed, produced, decorated and assembled within the Manufacture, the manual-winding Calibre 822 is emblematic for being the one giving the first tick of the Reverso in 1931.
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - MA
+      - MM
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-854-inhouse
+    statement: The brand says the Calibre 854 used in the Reverso Tribute Duoface Small Seconds is conceived, developed and produced in-house.
+    excerpt: The manually wound Calibre 854, entirely conceived, developed and produced in-house within the Manufacture, is an uncommon rectangular movement shaped to fit the rectangular Reverso case.
+    source: jlc-reverso-tribute-duoface-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-crafts
+    statement: The brand says it brought its watchmaking crafts under a single roof in its Manufacture-Atelier.
+    excerpt: All watchmaking skills were brought under a single roof to create the Manufacture-Atelier.
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-design-step
+    statement: The brand says designers work with technical designers and movement constructors in the design step.
+    excerpt: 'STEP 1: DESIGN Designers sketch out ideas in a process that draws on the past, present and future, in collaboration with technical designers and movement constructors.'
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-finish-step
+    statement: The brand says it attaches importance to the hand decoration of movements, including parts that are not visible.
+    excerpt: 'STEP 3: FINISH Great importance is attached to the fine finishing and hand decoration of watch movements, beautiful not only on the outside but also in parts not immediately visible.'
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-dial-indexes
+    statement: The brand says the Monoface dial texture is made by stamping and the indexes are applied by hand one by one; the dial maker is not named.
+    excerpt: Contrasting with the matte grained finish of the dial, the polished indexes are hand-applied one by one and aligned to the nearest precision to be aligned with the minute track line.
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-cases-made
+    statement: A 2012 visit report on the Grande Reverso says the Le Sentier site makes both cases and movements, including Reverso cases.
+    excerpt: In the watch industry the Jaeger-LeCoultre manufacture is considered a special place because it is a serious factory where both cases and movements are made – which is a rare combo.
+    source: ablogtowatch-jlc-grande-reverso-duoface
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: jlcrt-milanese
+    statement: The brand describes the Milanese bracelet links as stamped and hand-soldered link by link; where this is done is not stated.
+    excerpt: The final steps involve stamping the links to their precise dimensions and hand-soldering each side, link by link.
+    source: jlc-reverso-tribute-monoface-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement design (Calibres 822 and 854)
+    performer: jaeger-lecoultre
+    relationship: internal
+    note: The Reverso Tribute line uses several calibres; 822 (Monoface Small Seconds) and 854 (Duoface Small Seconds) are documented here.
+    claims:
+      - jlcrt-822-inhouse
+      - jlcrt-854-inhouse
+  - dimension: MM
+    component: Movement production
+    performer: jaeger-lecoultre
+    relationship: internal
+    claims:
+      - jlcrt-822-inhouse
+      - jlcrt-854-inhouse
+  - dimension: EX
+    component: Reverso case
+    performer: jaeger-lecoultre
+    relationship: internal
+    note: Secondary source from 2012, about the Grande Reverso; no current source specific to the Tribute names the case maker.
+    claims:
+      - jlcrt-cases-made
+  - dimension: EX
+    component: Milanese bracelet (Monoface pink gold)
+    relationship: unknown
+    note: Process described by the brand; where it is made is not stated.
+    claims:
+      - jlcrt-milanese
+  - dimension: DH
+    component: Dial and applied indexes
+    relationship: unknown
+    note: The brand describes the dial process but does not say whether dials are made in-house.
+    claims:
+      - jlcrt-dial-indexes
+  - dimension: CF
+    component: Movement decoration
+    performer: jaeger-lecoultre
+    relationship: internal
+    claims:
+      - jlcrt-822-inhouse
+      - jlcrt-finish-step
+  - dimension: WE
+    component: Movement assembly
+    performer: jaeger-lecoultre
+    relationship: internal
+    claims:
+      - jlcrt-822-inhouse
+      - jlcrt-crafts
+  - dimension: PD
+    component: Design and technical development
+    performer: jaeger-lecoultre
+    relationship: internal
+    claims:
+      - jlcrt-design-step
+      - jlcrt-854-inhouse
 profiles:
   - version: 1
     methodology: v0.2

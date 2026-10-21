@@ -3,8 +3,130 @@ brand: cartier
 model: Santos
 caliber: 1847 MC
 notes: Handbook v0.2 §8 lists this record as "Cartier — Santos / 1847 MC".
-provenance: []
-claims: []
+claims:
+  - id: cs1847-in-santos
+    statement: Cartier says the automatic 1847 MC movement is used in its classic models such as the Santos de Cartier.
+    excerpt: This automatic movement, designed for everyday use, is featured in the Maison’s classic watches such as the Santos de Cartier.
+    source: cartier-movements-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-specs
+    statement: Cartier's product page for a steel Santos de Cartier lists caliber 1847 MC, a steel case, sapphire crystal, a seven-sided crown with synthetic spinel, steel sword hands and a SmartLink steel bracelet; makers are not named.
+    excerpt: 7-sided crown set with a faceted synthetic spinel
+    source: cartier-santos-wssa0018
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-new-calibre
+    statement: A 2015 specialist report describes the 1847 MC as a newly developed calibre intended as Cartier's most affordable in-house movement.
+    excerpt: a newly developed calibre that is intended to be the most affordable in-house movement offered by Cartier.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-decoration
+    statement: The same report says the movement decoration is basic, with stamped rather than polished Geneva stripes.
+    excerpt: The decoration is basic, with stamped Geneva stripes instead of the traditional polished finish.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-construction
+    statement: The same report notes a Magic Lever bidirectional winding system and a balance bridge secured on both sides.
+    excerpt: the balance wheel is mounted on a bridge (secured on both sides) for stability.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-lcdf-manufacture
+    statement: A 2025 magazine article says Cartier opened a manufacture in La Chaux-de-Fonds in 2001 and began developing and producing its own mechanical movements there.
+    excerpt: began developing and producing its own mechanical movements
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-components
+    statement: The same article gives the 1847 MC as 165 components and 25.6 mm in diameter, and says it is used in the Santos and Ballon Bleu.
+    excerpt: The 165 components result in a diameter of 25.6 millimetres
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: cs1847-richemont
+    statement: The same article notes Cartier has been owned by Richemont since 1997.
+    excerpt: the modern Richemont-owned brand (since 1997)
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Caliber 1847 MC design
+    performer: cartier
+    relationship: internal
+    valid_from: 2015
+    note: Introduced in the Clé de Cartier (2015) and later used in the Santos de Cartier.
+    claims:
+      - cs1847-new-calibre
+      - cs1847-in-santos
+      - cs1847-construction
+      - cs1847-components
+  - dimension: MM
+    component: Movement components (plates, bridges, wheels)
+    relationship: unknown
+    note: Cartier says it produces its own movements in La Chaux-de-Fonds, but no source breaks down which 1847 MC parts are made there versus by Richemont group or outside suppliers.
+    claims:
+      - cs1847-lcdf-manufacture
+  - dimension: MM
+    component: Hairspring, escapement, mainspring, jewels
+    relationship: unknown
+    note: No source names suppliers for regulating-organ parts.
+    claims: []
+  - dimension: EX
+    component: Case, crown and SmartLink bracelet
+    relationship: unknown
+    note: Product page describes the parts but not who makes them.
+    claims:
+      - cs1847-specs
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    claims:
+      - cs1847-specs
+  - dimension: CF
+    component: Movement decoration (stamped Côtes de Genève)
+    relationship: unknown
+    note: Decoration is described as basic and stamped; who applies it is not stated.
+    claims:
+      - cs1847-decoration
+  - dimension: WE
+    component: Movement production and assembly
+    performer: cartier
+    relationship: internal
+    note: Based on Cartier's La Chaux-de-Fonds manufacture producing its own movements; no source specifically describes 1847 MC assembly.
+    claims:
+      - cs1847-lcdf-manufacture
+  - dimension: PD
+    component: Design and development
+    performer: cartier
+    relationship: internal
+    note: Cartier is part of Richemont.
+    claims:
+      - cs1847-new-calibre
+      - cs1847-richemont
 profiles:
   - version: 1
     methodology: v0.2

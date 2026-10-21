@@ -2,8 +2,128 @@ id: atelier-wen/perception-mu
 brand: atelier-wen
 model: Perception Mù
 notes: Handbook v0.2 §8 lists this record as "Atelier Wen — Perception Mù (SL1588A)".
-provenance: []
-claims: []
+claims:
+  - id: awmu-sl1588a
+    statement: A hands-on review reports the Mù uses caliber SL1588A made by the Liaoning Peacock Watch Company.
+    excerpt: Made by the Liaoning Peacock Watch Company, the caliber SL1588A will simply be unfamiliar to many
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-dial-cheng
+    statement: The review quotes the brand crediting the dial to guilloché craftsman Cheng Yucai.
+    excerpt: turned by China’s sole guilloche master craftsman, Cheng Yucai.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-rose-engine
+    statement: The brand, as quoted in the review, says the dials are hand-turned on rose engines in Cheng's workshop.
+    excerpt: hand turned on rose engines in the workshop of China’s sole guilloche master craftsman.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-not-stamped
+    statement: The reviewer concludes the Mù dial is not stamped, while noting Cheng says he built his machines largely himself.
+    excerpt: It’s clear, in other words, that the Mù’s dial is not stamped.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-titanium
+    statement: The review describes a titanium case and bracelet, without naming the case maker.
+    excerpt: one of the great attributes of this particular Perception is its lightweight titanium case and bracelet
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-peacock-customised
+    statement: A review of the original Perception (same platform) reports a customised Dandong Peacock self-winding movement.
+    excerpt: The Perception is powered by a customised self-winding Dandong Peacock movement.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-thinness
+    statement: The same review says the brand chose the movement for its 3.3 mm thickness.
+    excerpt: Atelier Wen had notably selected the movement for its thinness, which is at 3.3mm.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: awmu-dial-hours
+    statement: The same review reports each Perception dial takes about 8 hours of work by Master Cheng.
+    excerpt: each dial requires approximately 8 man-hours of work.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (SL1588A, Peacock)
+    performer: liaoning-peacock
+    relationship: external_specialist
+    note: The Perception platform movement is described as customised for Atelier Wen; the extent of customisation is not documented.
+    claims:
+      - awmu-sl1588a
+      - awmu-peacock-customised
+  - dimension: MM
+    component: Movement components
+    performer: liaoning-peacock
+    relationship: external_specialist
+    claims:
+      - awmu-sl1588a
+  - dimension: EX
+    component: Titanium case and bracelet
+    relationship: unknown
+    note: Case maker not named.
+    claims:
+      - awmu-titanium
+  - dimension: DH
+    component: Guilloché dial (engine-turning)
+    performer: cheng-yucai
+    relationship: external_specialist
+    note: Attribution comes from brand statements quoted by reviewers; the reviewer notes public questions have been raised about the brand's guilloché claims. Dial plating and other dial layers are not attributed.
+    claims:
+      - awmu-dial-cheng
+      - awmu-rose-engine
+      - awmu-not-stamped
+      - awmu-dial-hours
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: No source found.
+    claims: []
+  - dimension: CF
+    component: Movement finishing
+    relationship: unknown
+    note: No source found on who decorates the SL1588A.
+    claims: []
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No source found on where the Mù is assembled.
+    claims: []
+  - dimension: PD
+    component: Design and movement selection
+    performer: atelier-wen
+    relationship: internal
+    claims:
+      - awmu-thinness
+      - awmu-peacock-customised
 profiles:
   - version: 1
     methodology: v0.2

@@ -2,8 +2,130 @@ id: baltic/aquascaphe
 brand: baltic
 model: Aquascaphe
 notes: Handbook v0.2 §8 lists this record as "Baltic — Aquascaphe".
-provenance: []
-claims: []
+claims:
+  - id: aqs-miyota-9039
+    statement: A launch article reports the Aquascaphe uses the Miyota 9039, a no-date variant of the 9015.
+    excerpt: The Miyota 9039, as a slimmed-down, no-date variant of the ubiquitous 9015 automatic, should put those fears to rest.
+    source: wornandwound-baltic-aquascaphe
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-made-japan
+    statement: A specialist site reports the movement is made in Japan and tested and adjusted in Besançon.
+    excerpt: While made in Japan, the movement is tested and adjusted in Besançon
+    source: sjx-baltic-aquascaphe
+    dimensions:
+      - MA
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-final-assembly
+    statement: A review reports final assembly, adjustment and regulation take place at Baltic's Besançon atelier.
+    excerpt: Final assembly takes place at the atelier in Besançon, France, including adjustment and regulation of movements.
+    source: timeandtide-baltic-aquascaphe
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-parts-asia
+    statement: The same review reports cases and movements come from Asia, straps from France and accessories from Italy.
+    excerpt: cases and movements from Asia, straps from France, and accessories from Italy.
+    source: timeandtide-baltic-aquascaphe
+    dimensions:
+      - EX
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-hk-components
+    statement: The brand says the majority of its components are produced in Hong Kong.
+    excerpt: In Hong Kong for the production of the majority of our components
+    source: baltic-about
+    dimensions:
+      - EX
+      - DH
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-besancon-atelier
+    statement: The brand says components are sent to its Besançon atelier to be assembled and adjusted.
+    excerpt: Once the various components are manufactured, we send them to our atelier in Besançon, France to be assembled and adjusted.
+    source: baltic-about
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-designed-france
+    statement: The brand describes its watches as conceived, assembled and adjusted in France.
+    excerpt: Thought, assembled and adjusted in France
+    source: baltic-about
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-dial
+    statement: A specialist site describes a semi-sandwich dial construction, without naming the dial maker.
+    excerpt: Reminiscent of more famous dive watches, the dial has a "semi-sandwich" construction.
+    source: sjx-baltic-aquascaphe
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: aqs-bezel-crystal
+    statement: The same article describes a sapphire-covered five-minute bezel and a domed sapphire crystal.
+    excerpt: It's also fitted with a domed sapphire crystal that has an anti-reflective coating on its underside.
+    source: sjx-baltic-aquascaphe
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (Miyota 9039)
+    performer: miyota
+    relationship: external_specialist
+    note: Applies to the standard time-only Aquascaphe; GMT and other variants use different calibres.
+    claims:
+      - aqs-miyota-9039
+      - aqs-made-japan
+  - dimension: MM
+    component: Movement components
+    performer: miyota
+    relationship: external_specialist
+    claims:
+      - aqs-miyota-9039
+      - aqs-parts-asia
+  - dimension: EX
+    component: Case, bezel and crystal
+    relationship: contract
+    note: Sources say cases come from Asia and most components from Hong Kong; the supplier is not named.
+    claims:
+      - aqs-parts-asia
+      - aqs-hk-components
+      - aqs-bezel-crystal
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Brand says most components are made in Hong Kong, but no source names the dial or hand maker.
+    claims:
+      - aqs-hk-components
+      - aqs-dial
+  - dimension: WE
+    component: Assembly, adjustment and regulation (Besançon)
+    performer: baltic
+    relationship: internal
+    claims:
+      - aqs-final-assembly
+      - aqs-besancon-atelier
+      - aqs-made-japan
+  - dimension: PD
+    component: Design
+    performer: baltic
+    relationship: internal
+    claims:
+      - aqs-designed-france
 profiles:
   - version: 1
     methodology: v0.2

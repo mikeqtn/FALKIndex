@@ -3,8 +3,197 @@ brand: habring2
 model: Erwin
 route_label: A11 family
 notes: Handbook v0.2 §8 lists this record as "Habring² — Erwin / A11 family".
-provenance: []
-claims: []
+claims:
+  - id: h2erw-escapement
+    statement: Habring² says the Erwin's escapement parts are made in-house and hand-mounted and adjusted.
+    excerpt: Erwin‘s heartbeat is determined by hand-mounted and adjusted escapement parts that is made in-house
+    source: habring2-erwin-page
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-carl-haas
+    statement: Habring² lists an antimagnetic escapement with a Carl Haas balance spring for the A11S movement.
+    excerpt: Amagnetic escapement with a Carl Haas balance spring in chronometer quality
+    source: habring2-erwin-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-finishing
+    statement: Habring² says the movement is finished by hand with polished bevels, decorative grinding and perlage.
+    excerpt: Elaborately refined by hand with polished bevels, decorative grinding, perlage, etc.
+    source: habring2-erwin-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-case-spec
+    statement: Habring² lists a three-part stainless steel case, 38.5 mm by 9.0 mm, without naming its maker.
+    excerpt: Stainless steel, three-part, 38.5 mm in diameter, 9.0 mm in height
+    source: habring2-erwin-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-dial-hands
+    statement: Habring² describes a silver-white dial and black oxidised steel hands, without naming their makers.
+    excerpt: The fine-grained, silver-white dial with its discreet minimalist print and the black oxidised steel hands in thread form
+    source: habring2-erwin-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-regulation
+    statement: Habring² says all its movements are regulated to chronometer standard.
+    excerpt: All HABRING²-movements are shockprotected according to industry standard and will be regulated to chronometer quality standard
+    source: habring2-technical-data
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-case-steel
+    statement: Habring² specifies 316L steel from Böhler for its cases.
+    excerpt: Watersealed stainless steel watchcase with 38,5mm Diameter of quality 316L (Böhler A200/A220)
+    source: habring2-technical-data
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-case-austria
+    statement: A specialist site reports the Erwin case is manufactured in Austria from Böhler steel.
+    excerpt: The case is manufactured in Austria from raw material of famous steel specialist Böhler of Kapfenberg.
+    source: monochrome-habring2-erwin
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-a11-development
+    statement: A specialist site reports Habring² began developing its own A11 movement in 2011.
+    excerpt: In 2011, they launched the development of their proprietary movement, the A11
+    source: monochrome-habring2-erwin
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-supplier-network
+    statement: A specialist site reports Habring² built its manufacturing with a network of suppliers mostly in Austria and Switzerland.
+    excerpt: developed their manufacturing ateliers together with a network of suppliers, mostly based in Austria and Switzerland.
+    source: monochrome-habring2-erwin
+    dimensions:
+      - MM
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-ultra-pinions
+    statement: A lecture recap reports that a supplier called Ultra makes all of Habring²'s rotating parts such as pinions.
+    excerpt: Ultra now makes all of Habring²'s rotating parts such as the pinions.
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-25-suppliers
+    statement: A lecture recap reports that about 25 suppliers work with Habring².
+    excerpt: There are about 25 suppliers that work with the brand
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-base-materials
+    statement: A manufacture visit reports that Habring² receives base materials for plates, balance wheels and balance springs.
+    excerpt: the Habring2 manufacture receives base materials for movement plates, balance wheels and balance springs
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: h2erw-hairspring-scaling
+    statement: A manufacture visit reports that Habring² scales hairsprings and pairs them with individually adjusted balance wheels.
+    excerpt: the scaling of hairsprings, as well as the pairing of those springs with individually adjusted balance wheels.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: A11 movement architecture (A11S jumping-seconds variant)
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2erw-a11-development
+      - h2erw-escapement
+  - dimension: MM
+    component: Escapement parts
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2erw-escapement
+      - h2erw-base-materials
+  - dimension: MM
+    component: Balance spring
+    performer: carl-haas
+    relationship: external_specialist
+    note: Supplied by Carl Haas; scaled and paired with the balance in-house.
+    claims:
+      - h2erw-carl-haas
+      - h2erw-hairspring-scaling
+  - dimension: MM
+    component: Pinions and other rotating parts
+    relationship: external_specialist
+    note: HSNY recap names the supplier only as 'Ultra'; not tied to a specific model.
+    claims:
+      - h2erw-ultra-pinions
+  - dimension: MM
+    component: Plates, bridges and other movement parts
+    relationship: unknown
+    note: Habring² receives base materials and works with ~25 suppliers; which parts are machined in-house is not stated.
+    claims:
+      - h2erw-base-materials
+      - h2erw-25-suppliers
+      - h2erw-supplier-network
+  - dimension: EX
+    component: Case (316L steel, 38.5 mm)
+    relationship: unknown
+    note: Made in Austria from Böhler steel; the case maker is not named.
+    claims:
+      - h2erw-case-spec
+      - h2erw-case-steel
+      - h2erw-case-austria
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: No source names the dial or hand maker.
+    claims:
+      - h2erw-dial-hands
+  - dimension: CF
+    component: Movement finishing (bevels, grinding, perlage)
+    performer: habring2
+    relationship: internal
+    note: Brand states the hand finishing; the workshop is not named explicitly, inferred to be Habring².
+    claims:
+      - h2erw-finishing
+  - dimension: WE
+    component: Assembly, hairspring scaling and regulation
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2erw-escapement
+      - h2erw-hairspring-scaling
+      - h2erw-regulation
+  - dimension: PD
+    component: Design and technical development
+    performer: habring2
+    relationship: internal
+    claims:
+      - h2erw-a11-development
 profiles:
   - version: 1
     methodology: v0.2

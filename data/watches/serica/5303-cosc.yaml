@@ -2,8 +2,142 @@ id: serica/5303-cosc
 brand: serica
 model: 5303 COSC
 notes: Handbook v0.2 §8 lists this record as "Serica — 5303 COSC".
-provenance: []
-claims: []
+claims:
+  - id: ser5303-m100
+    statement: A specialist site says the 5303 uses the Soprod M100, replacing the Newton.
+    excerpt: For the 5303 and 6190 references, Serica now uses the Soprod M100 instead of the Newton.
+    source: serica-fratello-cosc-2024
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-m100-spec
+    statement: A specialist site lists a glucydur balance and Incabloc shock protection in the Soprod M100.
+    excerpt: The Soprod Caliber M100 is buoyed by a glucydur balance, incabloc shock system, a 42 hour power reserve
+    source: serica-wornandwound-5303
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-cosc-route
+    statement: A specialist site says movements return from COSC in Saint-Imier to Soprod after certification.
+    excerpt: once the Soprod movements are certified, they are moved by truck from the COSC testing lab in Saint-Imier back to the Soprod manufacture.
+    source: serica-fratello-cosc-2024
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-casing
+    statement: The same article says dials and hands are fitted and movements cased at Soprod.
+    excerpt: There, they are fitted with dials and the right set of hands and put into Serica watch cases.
+    source: serica-fratello-cosc-2024
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-testing
+    statement: The same article says the finished 5303 is tested for four days in five positions.
+    excerpt: For the Serica 5303 and 8315, this means that the accuracy is tested over four days in five different positions.
+    source: serica-fratello-cosc-2024
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-softiron
+    statement: A specialist site says Serica added a soft-iron movement holder, dial and inner case back for magnetic resistance.
+    excerpt: Serica has built in several antimagnetic pieces including a soft iron movement holder, soft iron dial
+    source: serica-wornandwound-5303
+    dimensions:
+      - PD
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-case
+    statement: A specialist site gives a 39 mm by 12.2 mm steel case; the case maker is not named.
+    excerpt: The Serica 5303 features a 39mm stainless steel case that is 12.2mm thick
+    source: serica-fratello-5303-m100
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-swiss
+    statement: The brand says its watches are made in Switzerland.
+    excerpt: "SERICA creates mechanical watches made in Switzerland and designed as instruments: precise, robust, and refined."
+    source: serica-history
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ser5303-founders
+    statement: The brand says it was founded in Paris in 2019 by Jérôme Burgert and Gabriel Vachette.
+    excerpt: Founded in Paris in 2019 by Jérôme Burgert and Gabriel Vachette
+    source: serica-history
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (Soprod M100)
+    performer: soprod
+    relationship: external_specialist
+    claims:
+      - ser5303-m100
+  - dimension: MM
+    component: Movement parts
+    performer: soprod
+    relationship: external_specialist
+    claims:
+      - ser5303-m100
+      - ser5303-m100-spec
+  - dimension: EX
+    component: Case (39 mm steel, soft-iron inner parts)
+    relationship: unknown
+    note: Case maker not named in sources reached.
+    claims:
+      - ser5303-case
+      - ser5303-softiron
+  - dimension: DH
+    component: Dial
+    relationship: unknown
+    note: Dial maker not named; dials are fitted at Soprod.
+    claims:
+      - ser5303-softiron
+      - ser5303-casing
+  - dimension: DH
+    component: Hands
+    relationship: unknown
+    note: Hand maker not named; hands are fitted at Soprod.
+    claims:
+      - ser5303-casing
+  - dimension: CF
+    component: Finishing
+    relationship: unknown
+    note: No source reached describes finishing work for the 5303.
+    claims: []
+  - dimension: WE
+    component: Casing and final assembly
+    performer: soprod
+    relationship: contract
+    claims:
+      - ser5303-casing
+      - ser5303-cosc-route
+  - dimension: WE
+    component: Final accuracy testing
+    relationship: unknown
+    note: Fratello describes the tests; who performs them is not stated in the quoted text.
+    claims:
+      - ser5303-testing
+  - dimension: PD
+    component: Design and specification (soft-iron antimagnetic build)
+    performer: serica
+    relationship: internal
+    claims:
+      - ser5303-founders
+      - ser5303-swiss
+      - ser5303-softiron
 profiles:
   - version: 1
     methodology: v0.2

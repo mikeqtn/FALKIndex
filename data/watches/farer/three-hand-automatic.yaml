@@ -2,8 +2,114 @@ id: farer/three-hand-automatic
 brand: farer
 model: Three-hand automatic
 notes: Handbook v0.2 §8 lists this record as "Farer — Three-hand automatic".
-provenance: []
-claims: []
+claims:
+  - id: far3h-london-design
+    statement: A 2016 specialist article says Farer watches are designed and developed in London.
+    excerpt: Watches by Farer are designed and developed in London
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: far3h-roventa-henex
+    statement: The same article says the watches are produced in Switzerland by Roventa-Henex, a manufacturer that works for multiple brands.
+    excerpt: are produced in Switzerland, by Roventa-Henex, a Swiss manufacturer that works behind the scenes for multiple brands.
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - WE
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: far3h-eta-2016
+    statement: The same article says the first Farer automatics use an ETA 2824-2 movement.
+    excerpt: Inside the cases of the Farer Automatic Watches is a known and reliable movement, an ETA 2824-2,
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: far3h-bronze-crown
+    statement: The same article notes a contrasting bronze crown on the 2016 automatics.
+    excerpt: A nice detail is the contrasting crown, made out of bronze
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: far3h-sw200-2021
+    statement: A 2021 review says Farer's three-hand automatic trio uses the Sellita SW200-1.
+    excerpt: The stainless cases house the now very familiar workhorse Sellita cal. SW200-1.
+    source: wornandwound-farer-three-hand-2021
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: far3h-case-2021
+    statement: The same review describes polished 316L stainless steel cases, water resistant to 50 m, with a box sapphire crystal; no case maker is named.
+    excerpt: The cases are 316L stainless, polished and water resistant to 50m.
+    source: wornandwound-farer-three-hand-2021
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Movement (ETA 2824-2)
+    performer: eta
+    relationship: external_specialist
+    valid_from: 2016
+    note: First-generation automatics (Beagle, Hopewell, Endurance).
+    claims:
+      - far3h-eta-2016
+  - dimension: MA
+    component: Movement (Sellita SW200-1)
+    performer: sellita
+    relationship: external_specialist
+    valid_from: 2021
+    note: 2021 three-hand automatic trio; exact changeover date not confirmed.
+    claims:
+      - far3h-sw200-2021
+  - dimension: MM
+    component: Movement components
+    relationship: external_specialist
+    note: Supplied as complete ETA or Sellita calibers.
+    claims:
+      - far3h-eta-2016
+      - far3h-sw200-2021
+  - dimension: EX
+    component: Case, crown and crystal
+    relationship: unknown
+    note: Watches are produced by Roventa-Henex, but no source names the case or crown maker.
+    claims:
+      - far3h-case-2021
+      - far3h-bronze-crown
+      - far3h-roventa-henex
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: Makers not named.
+    claims:
+      - far3h-roventa-henex
+  - dimension: CF
+    component: Movement finishing
+    relationship: unknown
+    claims: []
+  - dimension: WE
+    component: Production and assembly
+    performer: roventa-henex
+    relationship: contract
+    note: Source dates from 2016; not confirmed for later models.
+    claims:
+      - far3h-roventa-henex
+  - dimension: PD
+    component: Design and development
+    performer: farer
+    relationship: internal
+    claims:
+      - far3h-london-design
 profiles:
   - version: 1
     methodology: v0.2

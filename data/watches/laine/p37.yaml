@@ -2,8 +2,162 @@ id: laine/p37
 brand: laine
 model: P37
 notes: Handbook v0.2 §8 lists this record as "Laine — P37".
-provenance: []
-claims: []
+claims:
+  - id: lp37-peseux-base
+    statement: The maker says the P37 is based on the gear train of the Peseux 7001, with its own bridges, screws, dials and hands.
+    excerpt: Laine P37 is based on the gear train of classic Peseux 7001 movement, with in-house bridges, screws, dials, hands and considerable amount of black polishing unheard of in this price category.
+    source: laine-p37-page
+    dimensions:
+      - MA
+      - MM
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-structural-parts
+    statement: A review reports that the 7001 layout is kept but nearly all structural components are replaced with parts made and decorated by Laine.
+    excerpt: The architecture is clearly recognisable as a Peseux 7001 , but nearly all the structural components have been replaced for in-house manufactured and decorated ones.
+    source: timeandtide-laine-p37
+    dimensions:
+      - MA
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-gears
+    statement: In an interview, Torsti Laine says the original bridges are discarded and the gears are made by the workshop.
+    excerpt: “We throw away all the bridges … we do all the gears … the black polished pieces …”
+    source: calibratedwrist-torsti-laine
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-hands
+    statement: The maker says the hands are made in-house from 0.2 mm steel plate, filed by hand and polished.
+    excerpt: Vintage syringe inspired hands are made from steel by us, cut from 0.2mm steel plate, then filed by hand to have a round profile and polished to mirror polish.
+    source: laine-p37-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-guilloche-dial
+    statement: The maker says the dial guilloché is cut in-house on a hand-operated guilloché machine.
+    excerpt: Diamond guilloche pattern cut by hand operated 110 years old guilloche machine, in-house of course.
+    source: laine-p37-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-movement-finish
+    statement: The maker describes a guilloché bridge, two black-polished steel bridges, 17 hand-polished steel parts and hand-finished internal angles.
+    excerpt: Internal sharp angles, like all chamfering are done by hand.
+    source: laine-p37-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-atelier-role
+    statement: A specialist site reports that Torsti Laine remains directly involved in technical development, guilloché and finishing at the atelier.
+    excerpt: Laine Watches is an independent watchmaking atelier founded in 2016 by Finnish watchmaker Torsti Laine, who remains directly involved in technical development, guilloché, and finishing while directing the atelier.
+    source: monochrome-laine-10th
+    dimensions:
+      - PD
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-decoration-not-manufacture
+    statement: A specialist site characterises Laine's focus as movement decoration rather than movement manufacturing.
+    excerpt: with its focus on finishing, movement decoration (not manufacturing), and highly respectable guillochage skills
+    source: monochrome-laine-10th
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-case
+    statement: The maker lists a polished stainless steel case, 37 mm by 8 mm, without naming its maker.
+    excerpt: Polished stainless steel, diameter 37 mm, lug width 18 mm, buckle 16mm, thickness 8 mm.
+    source: laine-p37-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: lp37-case-workshop
+    statement: The maker's about page shows case-making work in the workshop (milling and drilling a case back), not tied to a specific model.
+    excerpt: Case making_ Milling and drilling the case back
+    source: laine-about
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Base gear train (Peseux 7001)
+    performer: eta
+    relationship: external_specialist
+    note: The Peseux 7001 is an ETA caliber; the P37 keeps its gear train and layout.
+    claims:
+      - lp37-peseux-base
+      - lp37-structural-parts
+      - lp37-decoration-not-manufacture
+  - dimension: MM
+    component: Bridges, screws and gears
+    performer: laine
+    relationship: internal
+    note: Maker says bridges and screws are in-house; in interview Laine says "we do all the gears".
+    claims:
+      - lp37-peseux-base
+      - lp37-structural-parts
+      - lp37-gears
+  - dimension: MM
+    component: Base movement components (escapement, balance, hairspring, mainspring)
+    performer: eta
+    relationship: external_specialist
+    note: Not stated explicitly; inferred from the Peseux 7001 base. Needs confirmation.
+    claims:
+      - lp37-peseux-base
+  - dimension: EX
+    component: Case (polished steel, 37 mm)
+    relationship: unknown
+    note: The P37 case maker is not named. The about page shows some case machining in the workshop, but not for this model.
+    claims:
+      - lp37-case
+      - lp37-case-workshop
+  - dimension: DH
+    component: Guilloché dial
+    performer: laine
+    relationship: internal
+    claims:
+      - lp37-guilloche-dial
+      - lp37-peseux-base
+  - dimension: DH
+    component: Hands
+    performer: laine
+    relationship: internal
+    claims:
+      - lp37-hands
+  - dimension: CF
+    component: Movement finishing (guilloché bridge, black polish, hand chamfering)
+    performer: laine
+    relationship: internal
+    claims:
+      - lp37-movement-finish
+      - lp37-gears
+      - lp37-atelier-role
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No source explicitly describes who assembles and regulates the P37.
+    claims: []
+  - dimension: PD
+    component: Design and technical development
+    performer: laine
+    relationship: internal
+    claims:
+      - lp37-atelier-role
 profiles:
   - version: 1
     methodology: v0.2

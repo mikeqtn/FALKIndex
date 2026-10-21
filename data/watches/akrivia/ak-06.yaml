@@ -2,8 +2,140 @@ id: akrivia/ak-06
 brand: akrivia
 model: AK-06
 notes: Handbook v0.2 §8 lists this record as "Akrivia — AK-06".
-provenance: []
-claims: []
+claims:
+  - id: ak06-inhouse-caliber
+    statement: A specialist site lists the hand-wound Caliber AK-06 as developed, decorated, assembled and finished in-house.
+    excerpt: 'Movement: 30mm diameter – handwound Caliber AK-06 – developed, decorated, assembled and finished in-house'
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - MA
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-new-caliber
+    statement: The same article describes the AK-06 caliber as newly developed in-house, showing hours, minutes, small seconds and power reserve.
+    excerpt: The newly developed, in-house caliber of the AkriviA AK-06 displays hours and minutes, small seconds and a power reserve.
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-hand-anglage
+    statement: The article reports hand-applied anglage with a rounded (bombé) cross-section on various parts.
+    excerpt: hand applied anglage to various parts, with a bombé cross section; something that can only be achieved by hand!
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-case
+    statement: The article lists a 41 mm by 9.9 mm case in steel, titanium, 5N rose gold or platinum, without naming the case maker.
+    excerpt: 'Case: 41mm diameter – 9.9mm thickness – stainless steel, titanium 5N rose gold or platinum'
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-outsourced-components
+    statement: A 2018 interview profile reports that Rexhepi still regularly outsources components.
+    excerpt: Having said that, he still regularly outsource components.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-bridges-plates-external
+    statement: The same profile reports that bridges and plates are designed and finished in-house, but that Akrivia did not yet own the facilities to manufacture them.
+    excerpt: Akrivia does not own the facilities to manufacture them yet.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-cnc-plan
+    statement: The profile reports a plan (in 2018) to buy a CNC machine to bring bridge and plate manufacture in-house.
+    excerpt: He is planning to buy a CNC machine to bring the manufacture of bridges and plates in-house.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-caliber-basis
+    statement: A specialist site reports that the later Chronomètre Contemporain movement was designed in-house and based on the calibre that debuted in the AK-06.
+    excerpt: It was designed and constructed in-house, and based on the calibre that made its debut inside the AK-06 launched last year.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: ak06-family-suppliers
+    statement: Writing about the AK-06-derived movement, the same site reports that most components are produced by suppliers and finished at the Akrivia workshop in Geneva.
+    excerpt: Most of the components are produced by suppliers, and then finished at the Akrivia workshop in Geneva's Old Town
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Caliber AK-06 design
+    performer: akrivia
+    relationship: internal
+    claims:
+      - ak06-inhouse-caliber
+      - ak06-new-caliber
+      - ak06-caliber-basis
+  - dimension: MM
+    component: Bridges and plates (manufacture)
+    relationship: external_specialist
+    valid_to: 2018
+    note: Designed and finished in-house; a 2018 profile says Akrivia did not yet have the facilities to make them and planned a CNC machine. Supplier not named; current status not confirmed.
+    claims:
+      - ak06-bridges-plates-external
+      - ak06-cnc-plan
+  - dimension: MM
+    component: Other movement components (wheels, escapement, balance, hairspring, mainspring)
+    relationship: unknown
+    note: Sources say components are regularly outsourced and that most parts of the AK-06-derived calibre come from suppliers; no supplier or part list is named for the AK-06.
+    claims:
+      - ak06-outsourced-components
+      - ak06-family-suppliers
+  - dimension: EX
+    component: Case
+    relationship: unknown
+    note: Materials and dimensions published; case maker not named.
+    claims:
+      - ak06-case
+  - dimension: DH
+    component: Dial and hands
+    relationship: unknown
+    note: No source found naming who makes the AK-06 dial or hands.
+    claims: []
+  - dimension: CF
+    component: Movement finishing (hand anglage, decoration)
+    performer: akrivia
+    relationship: internal
+    claims:
+      - ak06-inhouse-caliber
+      - ak06-hand-anglage
+      - ak06-bridges-plates-external
+      - ak06-family-suppliers
+  - dimension: WE
+    component: Assembly
+    performer: akrivia
+    relationship: internal
+    claims:
+      - ak06-inhouse-caliber
+  - dimension: PD
+    component: Design and technical development
+    performer: akrivia
+    relationship: internal
+    claims:
+      - ak06-new-caliber
 profiles:
   - version: 1
     methodology: v0.2

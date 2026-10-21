@@ -2,8 +2,166 @@ id: ophion/oph-786-velos
 brand: ophion
 model: OPH 786 Vélos
 notes: Handbook v0.2 §8 lists this record as "Ophion — OPH 786 Vélos".
-provenance: []
-claims: []
+claims:
+  - id: oph786-soprod
+    statement: A specialist site says the Vélos uses a movement made by Soprod for Ophion.
+    excerpt: proprietary movement made by Soprod
+    source: ophion-monochrome-velos
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-technotime
+    statement: A specialist site says Ophion has used the TT 718, a hand-wound calibre developed by Technotime.
+    excerpt: Since its founding, Ophion has relied on the TT 718, a hand-wind calibre developed by Technotime.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-custom
+    statement: The same article says Soprod produces a customised TT 718 for Ophion.
+    excerpt: Soprod produces a customised version of the TT 718 for Ophion.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-plate
+    statement: The same article says Ophion's version removes most of the two-thirds plate.
+    excerpt: Ophion's version of the movement removes most of the two-thirds plate to reveal more of the mechanics.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-machine-finish
+    statement: The same article says the movement finishing is done by machine.
+    excerpt: And it has been extensively customised for Ophion, with its finishing done by machine, just as with the dial.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-mhvj
+    statement: A specialist site says the movement is made in collaboration with MHVJ.
+    excerpt: made in collaboration with Manufacture Horlogère du Vallée de Joux, or MHVJ.
+    source: ophion-wornandwound-intro
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-hammered
+    statement: The same article says the bridge finish is hammered by hand and polished chamfers are machine-assisted.
+    excerpt: the beautiful finish on the bridges is hammered by hand.
+    source: ophion-wornandwound-intro
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-hands-estima
+    statement: The same article names Estima AG in Switzerland as the hand maker.
+    excerpt: the hands by Estima AG in Switzerland,
+    source: ophion-wornandwound-intro
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-case
+    statement: A specialist review names Voutilainen-Cattin S.A. as the case maker.
+    excerpt: the case is made by Voutilainen-Cattin S.A.,
+    source: ophion-wornandwound-review
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-dial-cador
+    statement: A specialist site says the dials are produced by Cador in Eimeldingen.
+    excerpt: The dials for the Vélos are produced by Cador, a dial maker based in Eimeldingen.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: ai-draft
+  - id: oph786-dial-cnc
+    statement: A specialist site says the guilloché pattern is cut by a CNC machine.
+    excerpt: a CNC machine removes some material from a blank to obtain the guilloché pattern.
+    source: ophion-monochrome-velos
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: ai-draft
+provenance:
+  - dimension: MA
+    component: Base calibre (TT 718)
+    performer: technotime
+    relationship: external_specialist
+    note: Technotime developed the TT 718; Soprod later took over its assets.
+    claims:
+      - oph786-technotime
+  - dimension: MA
+    component: Movement customisation (reduced plate, pocket-watch layout)
+    performer: soprod
+    relationship: external_specialist
+    claims:
+      - oph786-custom
+      - oph786-plate
+      - oph786-soprod
+  - dimension: MM
+    component: Movement parts and production
+    performer: soprod
+    relationship: external_specialist
+    claims:
+      - oph786-soprod
+      - oph786-custom
+  - dimension: MM
+    component: Movement production collaboration
+    performer: mhvj
+    relationship: external_specialist
+    claims:
+      - oph786-mhvj
+  - dimension: EX
+    component: Case (steel, welded lugs)
+    performer: voutilainen-cattin
+    relationship: external_specialist
+    claims:
+      - oph786-case
+  - dimension: DH
+    component: Guilloché dial
+    performer: cador
+    relationship: external_specialist
+    claims:
+      - oph786-dial-cador
+      - oph786-dial-cnc
+  - dimension: DH
+    component: Hands
+    performer: estima
+    relationship: external_specialist
+    claims:
+      - oph786-hands-estima
+  - dimension: CF
+    component: Movement finishing (machine chamfers, hand-hammered bridges)
+    relationship: unknown
+    note: Sources describe the finishing but not who performs it.
+    claims:
+      - oph786-machine-finish
+      - oph786-hammered
+  - dimension: WE
+    component: Assembly and regulation
+    relationship: unknown
+    note: No source reached says where or by whom the Vélos is assembled.
+    claims: []
+  - dimension: PD
+    component: Design and supplier direction
+    performer: ophion
+    relationship: internal
+    note: Ophion specifies the customised movement and directs the named suppliers.
+    claims:
+      - oph786-plate
 profiles:
   - version: 1
     methodology: v0.2
