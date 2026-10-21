@@ -12,7 +12,6 @@ function AccountNavigationInner() {
   useEffect(() => {
     let active = true;
     if (isLoaded && isSignedIn) {
-      if (window.location.pathname === '/') window.location.assign('/account');
       api<{ account: { role: Role } }>('/api/account')
         .then(({ account }) => { if (active) setRole(account.role); })
         .catch(() => { if (active) setRole(null); });

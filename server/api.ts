@@ -31,6 +31,8 @@ api.use(async (req,_res,next) => {
   const key = createHash('sha256').update(`${process.env.SESSION_SECRET ?? 'falk-rate-limit'}:${write ? 'write' : 'read'}:${getAuth(req).userId ?? req.ip}`).digest('hex');
   const hits = await pool.query(`INSERT INTO falk_rate_limit(key,bucket) VALUES($1,$2)
     ON CONFLICT(key,bucket) DO UPDATE SET hits=falk_rate_limit.hits+1 RETURNING hits`, [key,bucket]);
+  // Only the current minute counts; clear past buckets now and then so the table stays small.
+  if (Math.random() < 0.01) await pool.query('DELETE FROM falk_rate_limit WHERE bucket<$1', [bucket]);
   if (hits.rows[0].hits > (write ? 30 : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
   next();
 });

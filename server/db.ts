@@ -13,11 +13,14 @@ export async function transaction<T>(fn: (client: pg.PoolClient) => Promise<T>, 
     await client.query(readOnly ? 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY' : 'BEGIN');
     const result = await fn(client);
     await client.query('COMMIT');
+    client.release();
     return result;
   } catch (error) {
-    await client.query('ROLLBACK');
+    // A dead connection fails the rollback too: keep the original error and let the pool drop the client.
+    const failed = await client.query('ROLLBACK').then(() => undefined, (e: Error) => e);
+    client.release(failed);
     throw error;
-  } finally { client.release(); }
+  }
 }
 
 /** pg clients must not receive concurrent query() calls (pg 9 removes queuing). */

@@ -52,15 +52,20 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
   if (!primary || identity.banned || identity.locked) throw new HttpError(403, 'A verified, active email identity is required.');
   const verified = primary.verification?.status === 'verified';
   const email = normalizeEmail(primary.emailAddress);
+  const bootstrapEmail = process.env.FALK_BOOTSTRAP_ADMIN_EMAIL;
+  const bootstrap = !!bootstrapEmail && normalizeEmail(bootstrapEmail) === email;
   const account = await transaction(async db => {
-    await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
+    // All privileged role changes share this lock. Most sign-ins have no grant to apply,
+    // so take it only then, and before any row lock, in the same order as the admin routes.
+    const grant = verified && (bootstrap || !!(await db.query(`SELECT 1 FROM falk_invitation WHERE realm=$1 AND email=$2
+      AND accepted_by IS NULL AND expires_at>now() LIMIT 1`, [realm(),email])).rowCount);
+    if (grant) await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
     await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,$3) ON CONFLICT(clerk_id) DO UPDATE SET email_verified=EXCLUDED.email_verified', [realm(),userId,verified]);
     const row = (await db.query('SELECT * FROM falk_account WHERE clerk_id=$1 AND realm=$2 FOR UPDATE', [userId,realm()])).rows[0];
     if (!row) throw new HttpError(403, 'This identity belongs to a different authentication environment.');
     await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2) ON CONFLICT(account_id) DO UPDATE SET email=EXCLUDED.email', [row.id,email]);
     await db.query('INSERT INTO falk_member_profile(account_id) VALUES($1) ON CONFLICT DO NOTHING', [row.id]);
-    if (verified && row.status === 'active') {
-      // All privileged role changes share this lock, including invitation acceptance.
+    if (grant && row.status === 'active') {
       const invite = (await db.query(`SELECT * FROM falk_invitation WHERE realm=$1 AND email=$2 AND accepted_by IS NULL
         AND expires_at>now() ORDER BY created_at DESC LIMIT 1 FOR UPDATE`, [realm(),email])).rows[0];
       if (invite) {
@@ -75,8 +80,7 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
           await audit(db,invite.created_by,row.id,'invitation_accepted','Verified email matched an administrator invitation',{invitedRole:invite.role,role:grantedRole});
         }
       }
-      const bootstrapEmail = process.env.FALK_BOOTSTRAP_ADMIN_EMAIL;
-      if (bootstrapEmail && normalizeEmail(bootstrapEmail) === email) {
+      if (bootstrap) {
         const seeded = await db.query('INSERT INTO falk_bootstrap(realm,account_id) VALUES($1,$2) ON CONFLICT DO NOTHING RETURNING realm', [realm(),row.id]);
         if (seeded.rowCount) {
           await db.query("UPDATE falk_account SET role='admin' WHERE id=$1", [row.id]);
