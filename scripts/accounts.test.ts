@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
 import { enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
-import { adminAccountQuery, protectLastAdmin } from '../server/admin.ts';
+import { adminAccountQuery, createInvitation, protectLastAdmin } from '../server/admin.ts';
 import { CORRECTIONS_PER_HOUR, rateLimitKey, requireSameOrigin } from '../server/api.ts';
 import { profileInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
@@ -167,6 +167,40 @@ test('anonymous requests cannot read accounts or use administrator controls', as
   assert.equal(unauthorized.status,401);
   const correctionCsrf = await fetch(`${base}/api/corrections`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
   assert.equal(correctionCsrf.status,403);
+});
+test('an invitation email that cannot be recorded is revoked; a refused inviter sends none', async () => {
+  const calls: string[] = [];
+  const provider = {
+    createInvitation: async () => { calls.push('create'); return {id:'inv_test'}; },
+    revokeInvitation: async (id: string) => { calls.push(`revoke:${id}`); return {}; },
+  } as unknown as Parameters<typeof createInvitation>[3];
+  // Runs the invitation inside a transaction that is always rolled back, with a throwaway inviter.
+  const sandbox = (role: string, commitFails: boolean, saved: string[] = []) => (async (fn: (db: any) => Promise<unknown>) => {
+    const db = await pool.connect();
+    try {
+      await db.query('BEGIN');
+      await db.query('INSERT INTO falk_account(id,realm,clerk_id,role,email_verified) VALUES($1,$2,$3,$4,true)', [inviter,realm(),`test-${randomUUID()}`,role]);
+      const result = await fn(db);
+      saved.push(...(await db.query("SELECT provider_id FROM falk_invitation WHERE provider_id='inv_test'")).rows.map(r => r.provider_id));
+      if (commitFails) throw new Error('commit failed');
+      return result;
+    } finally { await db.query('ROLLBACK'); db.release(); }
+  }) as unknown as Parameters<typeof createInvitation>[4];
+  const inviter = randomUUID();
+  const input = {email:'invitee@example.invalid',role:'editor' as const,reason:'Joining the editorial team.'};
+
+  const saved: string[] = [];
+  await createInvitation(inviter,input,'https://falk.example/sign-up',provider,sandbox('admin',false,saved));
+  assert.deepEqual(calls,['create']);
+  assert.deepEqual(saved,['inv_test']);
+
+  calls.length = 0;
+  await assert.rejects(createInvitation(inviter,input,'https://falk.example/sign-up',provider,sandbox('admin',true)),/commit failed/);
+  assert.deepEqual(calls,['create','revoke:inv_test']);
+
+  calls.length = 0;
+  await assert.rejects(createInvitation(inviter,input,'https://falk.example/sign-up',provider,sandbox('contributor',false)),/permission/);
+  assert.deepEqual(calls,[]);
 });
 test('guest corrections are capped per hour, counting invalid attempts', async () => {
   // Invalid bodies, so nothing permanent is stored; the counter is cleared either side.

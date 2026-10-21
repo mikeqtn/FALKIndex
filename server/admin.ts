@@ -1,7 +1,7 @@
 import { clerkClient } from '@clerk/express';
 import { Router } from 'express';
 import { z } from 'zod';
-import { ROLES } from '../src/accounts/contracts.ts';
+import { ROLES, type Role } from '../src/accounts/contracts.ts';
 import { pool, transaction } from './db.ts';
 import { authenticatedAccount, audit, enforceAccount, HttpError, normalizeEmail, realm } from './accounts.ts';
 
@@ -79,21 +79,33 @@ admin.post('/invitations', async (req,res) => {
   const existing = await pool.query(`SELECT 1 FROM falk_account_private p JOIN falk_account a ON a.id=p.account_id
     WHERE p.email=$1 AND a.realm=$2`, [email,realm()]);
   if (existing.rowCount) throw new HttpError(409,'This person already has a FALK account. Change their role using the account controls.');
-  const host = req.get('origin');
-  await transaction(async db => {
-    await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
-    const actor = (await db.query('SELECT role,status,email_verified AS "emailVerified" FROM falk_account WHERE id=$1 FOR UPDATE', [res.locals.account.id])).rows[0];
-    enforceAccount(actor,['admin']);
-    // Send the email only once the inviter is confirmed; a Clerk failure rolls the row back.
-    const invitation = await clerkClient.invitations.createInvitation({
-      emailAddress:email,redirectUrl:`${host}/sign-up`,expiresInDays:7,
-    });
-    await db.query(`INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at)
-      VALUES($1,$2,$3,$4,$5,now()+interval '7 days')`, [realm(),email,input.role,res.locals.account.id,invitation.id]);
-    await audit(db,res.locals.account.id,null,'invitation_created',input.reason,{role:input.role});
-  });
+  await createInvitation(res.locals.account.id,{...input,email},`${req.get('origin')}/sign-up`);
   res.status(201).json({ok:true});
 });
+type InvitationProvider = Pick<typeof clerkClient.invitations,'createInvitation'|'revokeInvitation'>;
+/**
+ * The email can only go out once the inviter is confirmed inside the role lock, so it is sent
+ * before the row is saved. If saving or committing then fails, the email has already gone with
+ * no role behind it: revoke it, so its link stops working and the admin can simply invite again.
+ */
+export async function createInvitation(actorId: string, input: {email: string; role: Role; reason: string}, redirectUrl: string,
+  provider: InvitationProvider = clerkClient.invitations, run: typeof transaction = transaction) {
+  let sent: string | undefined;
+  try {
+    await run(async db => {
+      await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
+      const actor = (await db.query('SELECT role,status,email_verified AS "emailVerified" FROM falk_account WHERE id=$1 FOR UPDATE', [actorId])).rows[0];
+      enforceAccount(actor,['admin']);
+      sent = (await provider.createInvitation({emailAddress:input.email,redirectUrl,expiresInDays:7})).id;
+      await db.query(`INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at)
+        VALUES($1,$2,$3,$4,$5,now()+interval '7 days')`, [realm(),input.email,input.role,actorId,sent]);
+      await audit(db,actorId,null,'invitation_created',input.reason,{role:input.role});
+    });
+  } catch (error) {
+    if (sent) await provider.revokeInvitation(sent).catch(() => console.error('Could not revoke an unrecorded invitation',sent));
+    throw error;
+  }
+}
 const verificationInput = z.object({
   label:z.string().trim().min(3).max(150),organizationId:z.string().max(100).nullable(),
   evidenceUrl:z.url().max(2000).refine(s => /^https?:\/\//i.test(s),'Use an http(s) evidence URL'),reason,
