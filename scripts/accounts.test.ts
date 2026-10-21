@@ -5,7 +5,7 @@ import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
 import { enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
 import { adminAccountQuery, protectLastAdmin } from '../server/admin.ts';
-import { requireSameOrigin } from '../server/api.ts';
+import { CORRECTIONS_PER_HOUR, rateLimitKey, requireSameOrigin } from '../server/api.ts';
 import { profileInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { check, load } from './validate.ts';
@@ -167,4 +167,17 @@ test('anonymous requests cannot read accounts or use administrator controls', as
   assert.equal(unauthorized.status,401);
   const correctionCsrf = await fetch(`${base}/api/corrections`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
   assert.equal(correctionCsrf.status,403);
+});
+test('guest corrections are capped per hour, counting invalid attempts', async () => {
+  // Invalid bodies, so nothing permanent is stored; the counter is cleared either side.
+  const key = rateLimitKey('correction','127.0.0.1');
+  const clear = () => pool.query('DELETE FROM falk_rate_limit WHERE key=$1',[key]);
+  await clear();
+  try {
+    const send = () => fetch(`${base}/api/corrections`,{method:'POST',headers:{'Content-Type':'application/json',Origin:base},body:'{}'});
+    for (let i = 0; i < CORRECTIONS_PER_HOUR; i++) assert.equal((await send()).status,400);
+    const limited = await send();
+    assert.equal(limited.status,429);
+    assert.match((await limited.json()).error,/last hour/);
+  } finally { await clear(); }
 });
