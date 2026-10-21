@@ -184,3 +184,78 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist and press sources only (no Lange page reached). Proposed: EX 3 → 0 (a 2014 visit report says Lange does not make cases); DH 3 → U (dial external per the same report, hands unattributed); CF 5 → 4; PD 5 → U (no source on product development); confidence A → C; integrated_manufacture → independent_manufacture by definition, since the exterior is external. Ownership is not part of the archetype. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Specialist reporting describes the L121.1 as a Lange calibre with its own free-sprung balance and a three-quarter-plate layout. That is deep proprietary engineering, but no Lange source was reached to confirm the design work was internal.
+        evidence:
+          - claim: l1-free-sprung-balance
+            stance: supports
+            note: In-house free-sprung balance.
+          - claim: l1-three-quarter-plate
+            stance: supports
+            note: Calibre layout.
+      MM:
+        value: 4
+        rationale: Lange makes its own balance springs from bought-in Nivarox alloy, and a 2014 visit report describes in-house parts machining. Hairspring work points at 5, but the parts evidence is general rather than specific to the L121.1, so this stays at 4 until a model-specific source is found.
+        evidence:
+          - claim: l1-balance-spring-inhouse
+            stance: supports
+            note: Balance spring made in-house.
+          - claim: l1-hairspring-since-2003
+            stance: supports
+            note: Hairspring production since 2003.
+          - claim: l1-parts-machinery
+            stance: supports
+            note: General in-house parts machining.
+          - claim: l1-nivarox-alloy
+            stance: context
+            note: Raw alloy bought in.
+      EX:
+        value: 0
+        rationale: A 2014 visit report says the case is one of the two elements Lange does not make itself. This rests on a single secondary source; the case maker, and whether it is a group company, is not disclosed.
+        evidence:
+          - claim: l1-dial-case-external
+            stance: supports
+            note: Case made outside Lange.
+      DH:
+        value: null
+        rationale: The same report says the dial is made outside Lange, but no source covers the hands. U until the hands are attributed; it would be 0 if they are external too.
+        evidence:
+          - claim: l1-dial-case-external
+            stance: context
+            note: Dial external; hands not covered.
+      CF:
+        value: 4
+        rationale: Every balance bridge is hand-engraved in-house, and the movement is finished at the manufacture. Engraving is the only craft operation the sources document, so this is 4 rather than 5.
+        evidence:
+          - claim: l1-engraved-bridge
+            stance: supports
+            note: Hand-engraved balance bridge.
+          - claim: l1-engraved-cock-all
+            stance: supports
+            note: Every balance bridge engraved.
+      WE:
+        value: 5
+        rationale: Movements are assembled twice, the second time into the finished watch with dial and case. Two-stage assembly and regulation at the manufacture is end-to-end watchmaking execution.
+        evidence:
+          - claim: l1-double-assembly
+            stance: supports
+            note: Systematic double assembly.
+          - claim: l1-assembly-two-stages
+            stance: supports
+            note: Two-stage assembly into the watch.
+      PD:
+        value: null
+        rationale: No collected source is about product development as such. The calibre design is credited under MA; U until a development source is added.
+        evidence: []
+    classification:
+      - independent_manufacture

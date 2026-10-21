@@ -187,3 +187,78 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (an 1861-lineage calibre with Lemania roots, updated with a co-axial escapement); MM 4 → U (the in-group ETA Master Co-Axial factory is not tied to cal. 3861); EX, DH and CF → U (no maker named); WE 5 → 3; PD 5 → U (no claim tagged PD); confidence B → C. The industrial_manufacture label is not confirmed by this profile. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 4
+        rationale: Cal. 3861 is essentially the 1861, from the calibre 321 lineage with Lemania roots, fitted with Omega's co-axial escapement and Si14 hairspring. An exclusive calibre with significant inherited architecture; borderline with 3.
+        evidence:
+          - claim: osm3861-base
+            stance: supports
+            note: 1861 with co-axial.
+          - claim: osm3861-lemania
+            stance: supports
+            note: Lemania lineage.
+          - claim: osm3861-escapement
+            stance: supports
+            note: Co-axial escapement.
+      MM:
+        value: null
+        rationale: A 2016 article says ETA runs the Master Co-Axial factory exclusively for Omega, but it does not name cal. 3861, and no source says who makes the escapement or hairspring.
+        evidence:
+          - claim: omega-eta-factory
+            stance: context
+            note: In-group factory, not tied to 3861.
+          - claim: osm3861-escapement
+            stance: context
+            note: Maker not stated.
+      EX:
+        value: null
+        rationale: No source names the case, bracelet or crystal maker.
+        evidence:
+          - claim: osm3861-case
+            stance: context
+            note: Maker not named.
+          - claim: osm3861-bracelet
+            stance: context
+            note: Maker not named.
+          - claim: osm3861-crystal
+            stance: context
+            note: Specification only.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: osm3861-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: null
+        rationale: No source describes who finishes the movement.
+        evidence: []
+      WE:
+        value: 3
+        rationale: Movements are cased into complete watches at Omega in Bienne, and Omega staff run the Master Chronometer tests under METAS supervision. No source describes movement assembly, so this is 3.
+        evidence:
+          - claim: omega-bienne-casing
+            stance: supports
+            note: Casing in Bienne.
+          - claim: omega-metas-staff
+            stance: supports
+            note: Testing by Omega staff.
+          - claim: osm3861-metas
+            stance: supports
+            note: METAS testing.
+      PD:
+        value: null
+        rationale: No collected claim is tagged PD; the co-axial update is credited under MA.
+        evidence: []
+    classification:
+      - industrial_manufacture

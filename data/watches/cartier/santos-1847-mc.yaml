@@ -155,3 +155,75 @@ profiles:
         value: 4
     classification:
       - industrial_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MM 3 → U, EX 3 → U, DH 3 → U and WE 5 → U (the only source is a general statement that Cartier makes movements in La Chaux-de-Fonds, with no breakdown for the 1847 MC); CF 2 → 0 (stamped decoration); confidence B → C. The industrial_manufacture label is kept but not yet confirmed by the profile. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 4
+        rationale: The 1847 MC was newly developed as Cartier's most affordable in-house calibre, with its own construction choices. Cartier is part of Richemont, and how much engineering came from group partners is not disclosed, so this is 4 rather than 5.
+        evidence:
+          - claim: cs1847-new-calibre
+            stance: supports
+            note: Newly developed calibre.
+          - claim: cs1847-construction
+            stance: supports
+            note: Construction details.
+          - claim: cs1847-in-santos
+            stance: supports
+            note: Used in the Santos.
+          - claim: cs1847-components
+            stance: context
+            note: Component count.
+      MM:
+        value: null
+        rationale: Cartier has produced movements in La Chaux-de-Fonds since 2001, but no source says which 1847 MC parts are made there, by the group, or by outside suppliers. A general statement cannot place a level.
+        evidence:
+          - claim: cs1847-lcdf-manufacture
+            stance: context
+            note: General manufacture statement.
+      EX:
+        value: null
+        rationale: The case, crown and SmartLink bracelet are specified, but no source names their maker.
+        evidence:
+          - claim: cs1847-specs
+            stance: context
+            note: Makers not named.
+      DH:
+        value: null
+        rationale: Dial and hands are specified, but no source names their maker.
+        evidence:
+          - claim: cs1847-specs
+            stance: context
+            note: Makers not named.
+      CF:
+        value: 0
+        rationale: The movement decoration is basic, with stamped rather than polished Geneva stripes. No internal handwork is documented.
+        evidence:
+          - claim: cs1847-decoration
+            stance: supports
+            note: Stamped decoration.
+      WE:
+        value: null
+        rationale: No source describes 1847 MC assembly or regulation; the La Chaux-de-Fonds statement is general.
+        evidence:
+          - claim: cs1847-lcdf-manufacture
+            stance: context
+            note: General statement.
+      PD:
+        value: 4
+        rationale: Cartier developed a new calibre as an affordable in-house base for its classic models. That is extensive original technical development.
+        evidence:
+          - claim: cs1847-new-calibre
+            stance: supports
+            note: New calibre.
+          - claim: cs1847-richemont
+            stance: context
+            note: Group ownership.
+    classification:
+      - industrial_manufacture

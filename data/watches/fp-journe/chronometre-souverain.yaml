@@ -184,3 +184,78 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 4 (wholly owned case maker, recorded as in-group); CF 5 → U (the decoration is specified, but no claim says where it is done); PD 5 → U (the calibre claim is tagged MA, not PD). Confidence stays B. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: The exclusive manually wound calibre 1304 with rose-gold plates and bridges is F.P. Journe's own design.
+        evidence:
+          - claim: fpjcs-calibre-1304
+            stance: supports
+            note: Exclusive calibre.
+          - claim: fpjcs-gold-plates
+            stance: supports
+            note: Gold plates and bridges.
+      MM:
+        value: 4
+        rationale: The Geneva workshop turns rods into plates, bridges, wheels and pinions, and about 95% of components are made in-house. Springs, jewels and certain escapement parts, including the hairspring, are bought in, so this is 4 rather than 5.
+        evidence:
+          - claim: fpjcs-movement-parts
+            stance: supports
+            note: In-house parts machining.
+          - claim: fpjcs-95-percent
+            stance: supports
+            note: About 95% in-house.
+          - claim: fpjcs-bought-in
+            stance: context
+            note: Bought-in springs and escapement parts.
+          - claim: fpjcs-balance-spring
+            stance: context
+            note: Hairspring maker not named.
+      EX:
+        value: 4
+        rationale: Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe. It is wholly owned, so this is in-group capability, disclosed as such; the source is general to the brand.
+        evidence:
+          - claim: fpjcs-bdg-cases
+            stance: supports
+            note: Owned case maker.
+          - claim: fpjcs-95-percent
+            stance: supports
+            note: Components in-house.
+      DH:
+        value: 3
+        rationale: The dial is made by Les Cadraniers de Genève, F.P. Journe's own (in-group) dial maker. The hand maker is not named, so this is substantial dial manufacture rather than 4.
+        evidence:
+          - claim: fpjcs-cadraniers-havana
+            stance: supports
+            note: Own dial makers.
+          - claim: fpjcs-cdg-dials
+            stance: supports
+            note: In-group dial maker.
+      CF:
+        value: null
+        rationale: The technical sheet specifies the decoration, but no collected claim says where or by whom it is applied. U until a source places it.
+        evidence:
+          - claim: fpjcs-decoration
+            stance: context
+            note: Decoration specified.
+      WE:
+        value: 5
+        rationale: Each watch is assembled and adjusted by a single watchmaker, on a movement made almost entirely in-house.
+        evidence:
+          - claim: fpjcs-one-watchmaker
+            stance: supports
+            note: One watchmaker per watch.
+      PD:
+        value: null
+        rationale: The calibre design is credited under MA; no collected claim is tagged PD.
+        evidence: []
+    classification:
+      - integrated_manufacture

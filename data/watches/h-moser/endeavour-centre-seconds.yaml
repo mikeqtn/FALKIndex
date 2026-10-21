@@ -198,3 +198,84 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, mostly from specialist and interview sources. Proposed: EX 3 → 0 (the CEO said in 2019 that cases are not made in-house); DH 3 → U and CF 4 → U (dials and anglage are external, but hands and the rest of the decoration are unattributed); WE 5 → U and PD 5 → U (no source); confidence A → C; integrated_manufacture → independent_manufacture. Hairsprings and escapements come from the in-group sister company Precision Engineering. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Specialist reporting describes the HMC 200 as Moser's in-house automatic calibre, with an interchangeable regulating organ.
+        evidence:
+          - claim: hmecs-hmc200-inhouse
+            stance: supports
+            note: In-house calibre.
+      MM:
+        value: 5
+        rationale: The regulating organ, Straumann hairspring and escape wheels are made by Precision Engineering, a sister company on Moser's site under Meylan family control. This is in-group capability, disclosed as such. The split of other parts between Moser and Precision Engineering is not published.
+        evidence:
+          - claim: hmecs-pe-regulating
+            stance: supports
+            note: Sister company makes the regulating organ.
+          - claim: hmecs-sjx-hairspring
+            stance: supports
+            note: Hairspring made by Precision Engineering.
+          - claim: hmecs-pe-components
+            stance: supports
+            note: Hairsprings and escape wheels.
+          - claim: hmecs-pe-site
+            stance: supports
+            note: Same site, from wire.
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Hairsprings and escapements in the group.
+          - claim: hmecs-meylan-control
+            stance: supports
+            note: Common control.
+          - claim: hmecs-straumann
+            stance: context
+            note: Straumann hairspring.
+          - claim: hmecs-double-hairspring
+            stance: context
+            note: Double hairspring.
+      EX:
+        value: 0
+        rationale: In 2019 Moser's CEO said cases are not made in-house. The case maker is not named.
+        evidence:
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Cases external.
+      DH:
+        value: null
+        rationale: Dials are not made in-house, per the CEO in 2019, and dial making was only being explored in 2024. No source covers the hands. At most 2 if the hands are internal, otherwise 0.
+        evidence:
+          - claim: hmecs-cases-dials-external
+            stance: context
+            note: Dials external.
+          - claim: hmecs-dials-2024
+            stance: context
+            note: Dial making explored.
+      CF:
+        value: null
+        rationale: Anglage was done externally in 2024 while staff were being trained. No source says who applies the stripes and perlage, so U rather than 0.
+        evidence:
+          - claim: hmecs-anglage-external
+            stance: context
+            note: Anglage external.
+          - claim: hmecs-finishing
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: null
+        rationale: No source describes who assembles and regulates the HMC 200.
+        evidence: []
+      PD:
+        value: null
+        rationale: The calibre is credited under MA; no collected claim is tagged PD.
+        evidence: []
+    classification:
+      - independent_manufacture

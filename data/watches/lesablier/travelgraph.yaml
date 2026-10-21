@@ -159,3 +159,81 @@ profiles:
         value: 2
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (world-time modification of the Miyota 9075); CF 0 → U (who engraves the rotor is not stated); WE 0 → 2 (the brand says it builds, tests and regulates in the D.C. area); confidence A → B. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: A Miyota 9075 whose GMT function is modified to drive a 24-hour world-time disc. Who engineered the change is not stated, so this is custom specification; borderline with 2.
+        evidence:
+          - claim: lstg-miyota-9075
+            stance: supports
+            note: Miyota 9075, modified.
+          - claim: lstg-wt-modification
+            stance: supports
+            note: World-time modification.
+      MM:
+        value: 0
+        rationale: The movement and parts are sourced from overseas.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+          - claim: lstg-miyota-9075
+            stance: supports
+            note: External movement.
+      EX:
+        value: 0
+        rationale: The brand says its parts are sourced from overseas. The case maker is not named.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+          - claim: lstg-case-finish
+            stance: context
+            note: Finish only.
+      DH:
+        value: 0
+        rationale: Dial, city ring, disc and hands are among the parts sourced from overseas.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+      CF:
+        value: null
+        rationale: A custom engraved rotor is fitted, but no source says who makes or engraves it.
+        evidence:
+          - claim: lstg-rotor
+            stance: context
+            note: Maker not stated.
+      WE:
+        value: 2
+        rationale: The brand says the Travelgraph is built, quality-controlled, pressure-tested and regulated in the D.C. area. Whether by its own staff or a local contractor is not stated.
+        evidence:
+          - claim: lstg-built-dc
+            stance: supports
+            note: Built and regulated in the D.C. area.
+          - claim: lstg-assembled-usa
+            stance: supports
+            note: Assembled in the US.
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Final assembly in D.C.
+      PD:
+        value: 2
+        rationale: The founder designs the watches and specified a world-time modification and a custom rotor on a stock base. Borderline with 3.
+        evidence:
+          - claim: lstg-founder-design
+            stance: supports
+            note: Founder design.
+          - claim: lstg-wt-modification
+            stance: supports
+            note: Specified modification.
+    classification:
+      - contract_microbrand

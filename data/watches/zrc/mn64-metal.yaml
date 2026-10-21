@@ -173,3 +173,69 @@ profiles:
         value: 3
     classification:
       - design_led_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 1 → 0 and MM 1 → 0 (a stock Sellita SW300-1); EX 1 → U, DH 1 → U and WE 2 → U (the maker names no workshops, and its case-making is historical). PD 3 unchanged; confidence B → C. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Sellita SW300-1 in Elaborated grade.
+        evidence:
+          - claim: zmn64-sw300
+            stance: supports
+            note: Sellita SW300-1.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: zmn64-sw300
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: The monobloc case, bracelet and clasp are specified, but no maker is named. ZRC's own case-making is historical.
+        evidence:
+          - claim: zmn64-case
+            stance: context
+            note: Maker not named.
+          - claim: zmn64-historic-cases
+            stance: context
+            note: Historical.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: The maker says its watches are assembled and produced in Switzerland, without naming the workshop.
+        evidence:
+          - claim: zmn64-assembled
+            stance: context
+            note: No workshop named.
+          - claim: zmn64-swiss
+            stance: context
+            note: Country only.
+      PD:
+        value: 3
+        rationale: ZRC specifies a Crown Protection System with the crown at 6 o'clock, an own clasp and an expandable dive link. Bespoke components around a stock movement.
+        evidence:
+          - claim: zmn64-cps
+            stance: supports
+            note: Crown Protection System.
+          - claim: zmn64-clasp
+            stance: supports
+            note: Own clasp.
+          - claim: zmn64-bracelet
+            stance: supports
+            note: Dive link.
+    classification:
+      - design_led_etablisseur

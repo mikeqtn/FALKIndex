@@ -133,3 +133,69 @@ profiles:
         value: 2
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX, DH, CF and WE 0 → U (no source names any maker or the assembler); confidence A → C. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Seiko VK64A mecaquartz chronograph.
+        evidence:
+          - claim: lschrono-vk64
+            stance: supports
+            note: VK64A.
+          - claim: lschrono-vk64-review
+            stance: supports
+            note: VK64A.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in and replaced whole at service.
+        evidence:
+          - claim: lschrono-vk64
+            stance: supports
+            note: External movement.
+          - claim: lschrono-vk64-service
+            stance: context
+            note: Replaced whole.
+      EX:
+        value: null
+        rationale: The case was developed over several prototypes, but no source names the case or bracelet maker.
+        evidence:
+          - claim: lschrono-case-prototypes
+            stance: context
+            note: Development, not maker.
+      DH:
+        value: null
+        rationale: The three-layer dial is described, but no source names the dial or hand maker.
+        evidence:
+          - claim: lschrono-dial-layers
+            stance: context
+            note: Construction, not maker.
+      CF:
+        value: null
+        rationale: No source documents any craft work.
+        evidence: []
+      WE:
+        value: null
+        rationale: No source says where the Chronosport is assembled.
+        evidence: []
+      PD:
+        value: 2
+        rationale: The founder designs the watches himself, with a case developed over several prototypes, around a stock movement.
+        evidence:
+          - claim: lschrono-founder-design
+            stance: supports
+            note: Founder design.
+          - claim: lschrono-case-prototypes
+            stance: supports
+            note: Case development.
+          - claim: lschrono-dial-layers
+            stance: supports
+            note: Dial design.
+    classification:
+      - contract_microbrand

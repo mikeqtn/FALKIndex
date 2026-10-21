@@ -160,3 +160,81 @@ profiles:
         value: 4
     classification:
       - design_led_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: 'AI-drafted first evidenced profile. Proposed: EX 0 → U, DH 0 → U, CF 1 → U and WE 1 → U (makers of case, dial and hands not named; the inspecting "factory" is not identified); PD 4 → 3. Confidence stays C. The record id says Miyota, but the brand names the Seiko NE86. Needs review.'
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: Kurono chronographs use the Seiko (SII) NE86, a stock column-wheel chronograph calibre.
+        evidence:
+          - claim: kurchr-ne86-sii
+            stance: supports
+            note: NE86.
+          - claim: kurchr-ne86-all
+            stance: supports
+            note: NE86 across the line.
+          - claim: kurchr-ne86-ch1
+            stance: supports
+            note: NE86.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: kurchr-ne86-sii
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: Hajime Asaoka designed the case, but no source names who makes it.
+        evidence:
+          - claim: kurchr-mk2-case
+            stance: context
+            note: Design, not manufacture.
+      DH:
+        value: null
+        rationale: The dial construction and hand-bent hand tips are described, but not who makes or bends them.
+        evidence:
+          - claim: kurchr-dial-construction
+            stance: context
+            note: Maker not named.
+          - claim: kurchr-hands-bent
+            stance: context
+            note: Who bends them not stated.
+      CF:
+        value: null
+        rationale: Hand bending of hand tips is the only craft described, and who does it is not stated.
+        evidence:
+          - claim: kurchr-hands-bent
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: null
+        rationale: Watchmakers inspect watches before they leave "the factory", which is not identified. Made in Japan.
+        evidence:
+          - claim: kurchr-inspection
+            stance: context
+            note: Factory not named.
+          - claim: kurchr-made-japan
+            stance: context
+            note: Country only.
+      PD:
+        value: 3
+        rationale: Asaoka makes the sketches and prototypes himself, designed a three-part case to hide the NE86's thickness, and specifies a separately made dial and subdials. That is bespoke components and supplier-directed development.
+        evidence:
+          - claim: kurchr-asaoka-design
+            stance: supports
+            note: Asaoka designs and prototypes.
+          - claim: kurchr-mk2-case
+            stance: supports
+            note: Bespoke case.
+          - claim: kurchr-dial-construction
+            stance: supports
+            note: Bespoke dial.
+    classification:
+      - design_led_etablisseur

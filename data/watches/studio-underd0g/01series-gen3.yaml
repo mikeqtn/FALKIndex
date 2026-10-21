@@ -192,3 +192,75 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: MA 0 → 1 (exclusive modified Seagull ST-1901B); EX, DH and CF 0 → U (no maker named); WE 3 → 2. PD 3 unchanged; confidence A → C. Horologium, the assembler, was a partner until Studio Underd0g took full ownership on 3 December 2025. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: Seagull makes an exclusive, modified ST-1901B (Venus 175 lineage) for the brand, with an upgraded swan-neck regulator and black baseplate. Custom specification.
+        evidence:
+          - claim: ud01g3-st1901b
+            stance: supports
+            note: Exclusive modified calibre.
+          - claim: ud01g3-seagull-deal
+            stance: supports
+            note: Exclusive agreement.
+      MM:
+        value: 0
+        rationale: The complete movement is made by Seagull.
+        evidence:
+          - claim: ud01g3-st1901b
+            stance: supports
+            note: Made by Seagull.
+          - claim: ud01g3-swan-neck
+            stance: context
+            note: Specified upgrade.
+      EX:
+        value: null
+        rationale: The case is specified by the brand, but no source names its maker.
+        evidence:
+          - claim: ud01g3-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source describes finishing beyond the black baseplate supplied with the movement.
+        evidence:
+          - claim: ud01g3-black-plate
+            stance: context
+            note: Supplied finish.
+      WE:
+        value: 2
+        rationale: Horologium in the UK assembles the watches, including dials, hands and movements, and regulates them to -10/+15 s/day. It was a partner until December 2025 and is now in-group. Assembly and basic regulation.
+        evidence:
+          - claim: ud01g3-regulation
+            stance: supports
+            note: Regulation by Horologium.
+          - claim: ud01g3-horologium-scope
+            stance: supports
+            note: Assembly scope.
+          - claim: ud01g3-horologium-stake
+            stance: supports
+            note: Ownership timeline.
+          - claim: ud01g3-assembled-gb
+            stance: supports
+            note: Assembled in Great Britain.
+      PD:
+        value: 3
+        rationale: The brand negotiated an exclusive modified movement and re-specified the case, reducing its height for Gen 3. Bespoke components directed at suppliers.
+        evidence:
+          - claim: ud01g3-case-height
+            stance: supports
+            note: Case re-specified.
+    classification:
+      - contract_microbrand

@@ -154,3 +154,81 @@ profiles:
         value: 2
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: DH 0 → U and CF 0 → U (no source names the dial or hand maker, or documents any craft); confidence A → B. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Miyota 9039.
+        evidence:
+          - claim: aqs-miyota-9039
+            stance: supports
+            note: Miyota 9039.
+          - claim: aqs-made-japan
+            stance: supports
+            note: Made in Japan.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in, and most components come from Hong Kong.
+        evidence:
+          - claim: aqs-miyota-9039
+            stance: supports
+            note: External movement.
+          - claim: aqs-parts-asia
+            stance: supports
+            note: Movements from Asia.
+      EX:
+        value: 0
+        rationale: Baltic says most components are made in Hong Kong, and a review says the cases come from Asia. The supplier is not named.
+        evidence:
+          - claim: aqs-hk-components
+            stance: supports
+            note: Components from Hong Kong.
+          - claim: aqs-parts-asia
+            stance: supports
+            note: Cases from Asia.
+          - claim: aqs-bezel-crystal
+            stance: context
+            note: Specification only.
+      DH:
+        value: null
+        rationale: Baltic's statement that most components are made in Hong Kong is not specific to the dial or hands, and no source names their maker. Likely 0, but U until attributed.
+        evidence:
+          - claim: aqs-hk-components
+            stance: context
+            note: General statement.
+          - claim: aqs-dial
+            stance: context
+            note: Construction, not maker.
+      CF:
+        value: null
+        rationale: No source documents any craft work.
+        evidence: []
+      WE:
+        value: 3
+        rationale: Components are assembled, adjusted and regulated at Baltic's Besançon atelier, and the movements are tested there. That is movement adjustment plus full assembly and regulation.
+        evidence:
+          - claim: aqs-besancon-atelier
+            stance: supports
+            note: Assembled and adjusted in Besançon.
+          - claim: aqs-final-assembly
+            stance: supports
+            note: Assembly and regulation.
+          - claim: aqs-made-japan
+            stance: supports
+            note: Movements tested and adjusted.
+      PD:
+        value: 2
+        rationale: The watches are conceived in France around a conventional supplier movement.
+        evidence:
+          - claim: aqs-designed-france
+            stance: supports
+            note: Conceived in France.
+    classification:
+      - contract_microbrand

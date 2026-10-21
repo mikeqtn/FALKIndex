@@ -182,3 +182,87 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, mostly from brand launch text as republished by the press. Proposed: MM 4 → 3; EX 3 → U, CF 5 → U and WE 5 → U (no source says who makes the case or bracelet, where the movement is finished, or describes assembly); DH 3 unchanged; confidence B → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Calibre 7121 was conceived by Audemars Piguet engineers over five years for the 8.1 mm case, replacing the Jaeger-LeCoultre-designed 2121. That is proprietary architecture developed internally.
+        evidence:
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Conceived by AP engineers.
+          - claim: ro16202-7121-development
+            stance: supports
+            note: Five years of development.
+          - claim: ro16202-replaces-2121
+            stance: supports
+            note: Replaces a JLC-designed calibre.
+          - claim: ro16202-barrel
+            stance: context
+            note: Construction details.
+      MM:
+        value: 3
+        rationale: Brand text says the 7121 was "conceived and produced" by AP, but no source breaks down which parts are made in-house, and the hairspring and escapement are unattributed. A significant portion is credited; 4 would need a part-by-part source.
+        evidence:
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Produced by AP.
+          - claim: ro16202-finish-list
+            stance: context
+            note: 268 components; no breakdown.
+      EX:
+        value: null
+        rationale: The case and bracelet are specified and described as hand-finished, but no source names who makes them.
+        evidence:
+          - claim: ro16202-case-bracelet-spec
+            stance: context
+            note: Maker not named.
+          - claim: ro16202-case-hand-finished
+            stance: context
+            note: Finishing, not manufacture.
+      DH:
+        value: 3
+        rationale: Brand text says the Jumbo guilloché dials are entirely produced in AP's atelier, brought back in-house around 2012. Hands and applied indices are unattributed, so this is substantial dial manufacture rather than 4.
+        evidence:
+          - claim: ro16202-dial-atelier
+            stance: supports
+            note: Dials made in the atelier.
+          - claim: ro16202-dial-back-inhouse
+            stance: supports
+            note: Dial production in-house since about 2012.
+      CF:
+        value: null
+        rationale: The movement finishes are listed, including machine bevelling, and the case is described as hand-finished, but no source says where either is done. U until a source places the finishing.
+        evidence:
+          - claim: ro16202-movement-finish
+            stance: context
+            note: Finishes listed.
+          - claim: ro16202-finish-list
+            stance: context
+            note: Machine bevelling.
+          - claim: ro16202-case-hand-finished
+            stance: context
+            note: Location not stated.
+      WE:
+        value: null
+        rationale: No collected claim describes assembly or regulation of the 16202. "Produced by engineers and watchmakers" is credited under MA and MM.
+        evidence: []
+      PD:
+        value: 5
+        rationale: Five years of development produced a new calibre engineered for the reference's 8.1 mm case. Original engineering defines the watch.
+        evidence:
+          - claim: ro16202-7121-development
+            stance: supports
+            note: Five years of development.
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Engineered for the case.
+    classification:
+      - independent_manufacture

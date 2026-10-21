@@ -214,3 +214,99 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 5 → 4, DH 5 → 4 and CF 4 → 3 (bracelet and crown makers not named; Zaratsu is the only documented craft); confidence A → B. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: The 9R and its Tri-synchro regulator, an IC comparing a quartz reference with the glide wheel, were developed and are made at the Shinshu Watch Studio.
+        evidence:
+          - claim: gs9r-ic-regulation
+            stance: supports
+            note: Proprietary regulator.
+          - claim: gs9r-studio-functions
+            stance: supports
+            note: Movement development at the studio.
+          - claim: gs9r-made-assembled
+            stance: supports
+            note: Made at the studio.
+          - claim: gs9r-epson-facility
+            stance: context
+            note: Seiko Epson facility.
+      MM:
+        value: 5
+        rationale: Grand Seiko says the 9R is manufactured at the studio, including its IC and oscillator, developed with an IC Development Division. Who forms the Spron springs is not stated. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0.
+        evidence:
+          - claim: gs9r-made-assembled
+            stance: supports
+            note: Movement made at the studio.
+          - claim: gs9r-studio-scope
+            stance: supports
+            note: All Spring Drive made in-house.
+          - claim: gs9r-ic-development
+            stance: supports
+            note: IC developed in-house.
+          - claim: gs9r-spron
+            stance: context
+            note: Spring maker not stated.
+      EX:
+        value: 4
+        rationale: Cases are produced and Zaratsu-polished at Shiojiri. Bracelet, crown and crystal makers are not named, so this is 4 rather than 5.
+        evidence:
+          - claim: gs9r-dials-cases
+            stance: supports
+            note: Cases made at Shiojiri.
+          - claim: gs9r-studio-functions
+            stance: supports
+            note: Cases at the studio.
+          - claim: gs9r-zaratsu
+            stance: supports
+            note: Case polishing.
+      DH:
+        value: 4
+        rationale: Studio staff plate and coat dial base plates and set indexes and hands by hand, and dials are produced at Shiojiri.
+        evidence:
+          - claim: gs9r-dial-assembly
+            stance: supports
+            note: Dial plating and setting.
+          - claim: gs9r-dials-cases
+            stance: supports
+            note: Dials made at Shiojiri.
+          - claim: gs9r-studio-functions
+            stance: supports
+            note: Dials and hands at the studio.
+      CF:
+        value: 3
+        rationale: Zaratsu case polishing is substantial handwork; no source describes 9R movement decoration.
+        evidence:
+          - claim: gs9r-zaratsu
+            stance: supports
+            note: Zaratsu polishing.
+      WE:
+        value: 5
+        rationale: The Craftsman Studio handles movement assembly, adjustment, casing and inspection.
+        evidence:
+          - claim: gs9r-craftsman-studio
+            stance: supports
+            note: Assembly to inspection.
+          - claim: gs9r-made-assembled
+            stance: supports
+            note: Hand assembly.
+      PD:
+        value: 5
+        rationale: Spring Drive and its integrated circuits were developed at the studio.
+        evidence:
+          - claim: gs9r-ic-development
+            stance: supports
+            note: IC development.
+          - claim: gs9r-studio-functions
+            stance: supports
+            note: Movement development.
+    classification:
+      - integrated_manufacture

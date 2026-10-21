@@ -193,3 +193,91 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (La Fabrique du Temps did much of the engineering); MM 3 → 0 (components come from suppliers; a specialist calls the brand an établisseur); EX 2 → U and DH 2 → U (no source); WE 5 → 4; PD 5 → 4; confidence stays B; independent_manufacture → design_led_etablisseur + artisan_atelier. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 4
+        rationale: The FBN229.01, with a pawl micro-rotor and silicon double direct-impulse escapement, is the brand's own calibre, but La Fabrique du Temps did much of the engineering. That is a proprietary calibre with substantial external engineering.
+        evidence:
+          - claim: lfcmr-fbn229
+            stance: supports
+            note: Proprietary calibre.
+          - claim: lfcmr-lft
+            stance: supports
+            note: External engineering.
+          - claim: lfcmr-lft-mono
+            stance: supports
+            note: Co-developed.
+      MM:
+        value: 0
+        rationale: Components arrive from suppliers and are inspected in the workshop, and a specialist describes the brand as an établisseur. Escape wheels are LIGA parts. No movement part is documented as made in-house; borderline with 1.
+        evidence:
+          - claim: lfcmr-suppliers
+            stance: supports
+            note: Components from suppliers.
+          - claim: lfcmr-etablisseur
+            stance: supports
+            note: Établisseur.
+          - claim: lfcmr-liga
+            stance: context
+            note: LIGA escape wheels.
+      EX:
+        value: null
+        rationale: Laurent Ferrier designed the case curves, but no source names the case maker.
+        evidence: []
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: 5
+        rationale: A dedicated decoration workshop chamfers parts with a file, draws flanks by hand and burin-finishes interior angles, and watchmakers decorate the pieces they assemble. Master-level finishing defines the watch.
+        evidence:
+          - claim: lfcmr-finishing
+            stance: supports
+            note: Hand finishing detail.
+          - claim: lfcmr-decoration-workshop
+            stance: supports
+            note: Decoration workshop.
+          - claim: lfcmr-assembly
+            stance: supports
+            note: Watchmakers decorate.
+          - claim: lfcmr-etablisseur
+            stance: supports
+            note: Finished in-house.
+      WE:
+        value: 4
+        rationale: The head of workshop does complete assembly of all calibres, and watchmakers assemble and adjust their pieces from start to finish. Not 5, because the parts themselves are bought in.
+        evidence:
+          - claim: lfcmr-head-workshop
+            stance: supports
+            note: Complete assembly.
+          - claim: lfcmr-assembly
+            stance: supports
+            note: Assembly and adjustment.
+          - claim: lfcmr-suppliers
+            stance: supports
+            note: Component inspection.
+      PD:
+        value: 4
+        rationale: Laurent and Christian Ferrier design the watches, and the brand directed a proprietary calibre whose engineering was largely done with La Fabrique du Temps. Borderline with 3 because of that external engineering.
+        evidence:
+          - claim: lfcmr-creative-dept
+            stance: supports
+            note: Creative department.
+          - claim: lfcmr-case-design
+            stance: supports
+            note: Case design.
+          - claim: lfcmr-lft
+            stance: context
+            note: External engineering.
+    classification:
+      - design_led_etablisseur
+      - artisan_atelier

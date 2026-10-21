@@ -189,3 +189,81 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 5 → 4 (the repeater module is bought from Dubois-Depraz); MM 2 → U, EX 1 → U and DH 1 → U (base parts, case, dial and hands unattributed); PD 5 → U (no claim tagged PD); confidence B → C. The independent_manufacture label rests on the Erwin record and needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 4
+        rationale: The repeater combines Habring²'s own A11B base with a bought-in Dubois-Depraz D90 five-minute repeater module. The base is proprietary, but the defining complication is external engineering, so this is 4.
+        evidence:
+          - claim: h2rep-a11-d90
+            stance: supports
+            note: Own base, external module.
+          - claim: h2rep-module-spec
+            stance: supports
+            note: D90 module.
+          - claim: h2rep-earlier-eta
+            stance: context
+            note: Earlier ETA base.
+      MM:
+        value: null
+        rationale: The repeater module and balance spring are bought in, and no source says which base-movement parts are made in-house.
+        evidence:
+          - claim: h2rep-a11-d90
+            stance: context
+            note: External module.
+          - claim: h2rep-carl-haas
+            stance: context
+            note: External balance spring.
+          - claim: h2rep-25-suppliers
+            stance: context
+            note: Supplier network.
+      EX:
+        value: null
+        rationale: A titanium case is specified, but no source names its maker.
+        evidence:
+          - claim: h2rep-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: h2rep-hands
+            stance: context
+            note: Maker not named.
+      CF:
+        value: 3
+        rationale: Habring² finishes the movement by hand in-house, with polished edges, engraving and perlage.
+        evidence:
+          - claim: h2rep-finishing
+            stance: supports
+            note: Hand finishing.
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Finished in-house.
+      WE:
+        value: 5
+        rationale: The movement is assembled in-house, Richard Habring does the final assembly and sound tuning, and hairsprings are scaled and paired in-house. That is complex watchmaking.
+        evidence:
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Assembled in-house.
+          - claim: h2rep-final-assembly
+            stance: supports
+            note: Final assembly and tuning.
+          - claim: h2rep-hairspring-scaling
+            stance: supports
+            note: Hairspring scaling.
+      PD:
+        value: null
+        rationale: No collected claim is tagged PD; the base movement is credited under MA.
+        evidence: []
+    classification:
+      - independent_manufacture

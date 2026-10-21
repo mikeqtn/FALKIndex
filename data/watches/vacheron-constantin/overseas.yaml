@@ -204,3 +204,96 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist and press sources only. Proposed: EX 3 → 0 (cases are made outside the manufacture, possibly in-group at Donzé Baume); DH 3 → U (most dials come from outside; the Overseas dial maker and the hands are unattributed); CF 5 → 4; confidence B → C; integrated_manufacture → independent_manufacture. Ownership is not part of the archetype. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Calibre 5100 was designed, developed and made by Vacheron Constantin.
+        evidence:
+          - claim: vco-5100-designed
+            stance: supports
+            note: Designed in-house.
+          - claim: vco-5100-172
+            stance: supports
+            note: Developed in-house.
+      MM:
+        value: 4
+        rationale: The 5100 is manufactured by Vacheron Constantin, with complete movement production at Plan-les-Ouates and parts made at Le Brassus. Hairspring production is reported, but not confirmed for the 5100, so this is 4; borderline with 5.
+        evidence:
+          - claim: vco-5100-172
+            stance: supports
+            note: Manufactured in-house.
+          - claim: vco-movement-production
+            stance: supports
+            note: Complete movement production.
+          - claim: vco-le-brassus-parts
+            stance: supports
+            note: Parts production.
+          - claim: vco-hairspring
+            stance: context
+            note: Not tied to the 5100.
+      EX:
+        value: 0
+        rationale: A visit report says cases are made outside the manufacture, possibly by the in-group supplier Donzé Baume. Not confirmed for the Overseas, and the bracelet maker is not named.
+        evidence:
+          - claim: vco-cases-elsewhere
+            stance: supports
+            note: Cases made elsewhere.
+          - claim: vco-bracelet-system
+            stance: context
+            note: Bracelet maker not named.
+      DH:
+        value: null
+        rationale: Most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève. The Overseas dial maker and the hand maker are not named.
+        evidence:
+          - claim: vco-cases-elsewhere
+            stance: context
+            note: Most dials external.
+          - claim: vco-dials-third-party
+            stance: context
+            note: Third-party dial makers.
+      CF:
+        value: 4
+        rationale: The Overseas carries the Hallmark of Geneva, and finishing is organised in-house by component type. Haute-horlogerie finishing is a major capability; 5 would need a source on hand finishing defining this model.
+        evidence:
+          - claim: vco-geneva-hallmark
+            stance: supports
+            note: Hallmark of Geneva.
+          - claim: vco-finishing
+            stance: supports
+            note: In-house finishing.
+      WE:
+        value: 5
+        rationale: Movement assembly, casing-up and final controls take place at Plan-les-Ouates, on movements made in-house.
+        evidence:
+          - claim: vco-casing-plan-les-ouates
+            stance: supports
+            note: Assembly and casing.
+          - claim: vco-assembly
+            stance: supports
+            note: Assembly workshops.
+          - claim: vco-movement-production
+            stance: supports
+            note: Movement production.
+          - claim: vco-geneva-hallmark
+            stance: supports
+            note: Hallmark of Geneva.
+      PD:
+        value: 5
+        rationale: Vacheron Constantin designed and developed the calibre and the tool-free strap change system.
+        evidence:
+          - claim: vco-5100-designed
+            stance: supports
+            note: Designed and developed.
+          - claim: vco-bracelet-system
+            stance: supports
+            note: Own interchange system.
+    classification:
+      - independent_manufacture

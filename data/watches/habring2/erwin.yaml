@@ -222,3 +222,84 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 1 → U and DH 1 → U (no source names the case, dial or hand maker); confidence A → B. Other scores unchanged. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Habring² has developed its own A11 movement since 2011, and the Erwin's jumping-seconds A11S is a variant of it.
+        evidence:
+          - claim: h2erw-a11-development
+            stance: supports
+            note: Own A11 since 2011.
+      MM:
+        value: 2
+        rationale: Escapement parts are made in-house, and hairsprings are scaled in-house, but the balance spring comes from Carl Haas and pinions from a supplier. Which plate and bridge parts are machined in-house is not stated. Borderline with 3 because of the escapement.
+        evidence:
+          - claim: h2erw-escapement
+            stance: supports
+            note: In-house escapement parts.
+          - claim: h2erw-hairspring-scaling
+            stance: supports
+            note: Hairspring scaling.
+          - claim: h2erw-carl-haas
+            stance: context
+            note: External balance spring.
+          - claim: h2erw-ultra-pinions
+            stance: context
+            note: External pinions.
+          - claim: h2erw-base-materials
+            stance: context
+            note: Base materials received.
+      EX:
+        value: null
+        rationale: The case is made in Austria from Böhler steel, but no source names its maker.
+        evidence:
+          - claim: h2erw-case-spec
+            stance: context
+            note: Maker not named.
+          - claim: h2erw-case-austria
+            stance: context
+            note: Made in Austria.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: h2erw-dial-hands
+            stance: context
+            note: Makers not named.
+      CF:
+        value: 3
+        rationale: Habring² says the movement is finished by hand with polished bevels, decorative grinding and perlage. That is substantial hand finishing.
+        evidence:
+          - claim: h2erw-finishing
+            stance: supports
+            note: Hand finishing.
+      WE:
+        value: 5
+        rationale: Escapement parts are hand-mounted and adjusted, hairsprings scaled and paired with balances, and every movement is regulated to chronometer standard.
+        evidence:
+          - claim: h2erw-escapement
+            stance: supports
+            note: Hand-mounted escapement.
+          - claim: h2erw-hairspring-scaling
+            stance: supports
+            note: Scaling and pairing.
+          - claim: h2erw-regulation
+            stance: supports
+            note: Chronometer regulation.
+      PD:
+        value: 5
+        rationale: Habring² developed its own movement family, which defines the watch.
+        evidence:
+          - claim: h2erw-a11-development
+            stance: supports
+            note: Own movement development.
+    classification:
+      - independent_manufacture

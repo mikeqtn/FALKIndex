@@ -173,3 +173,75 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist and trade sources. Proposed: EX, DH and CF 0 → U (no maker named; who applies the custom bridge decoration is not stated); WE 3 → 2; PD 3 → U (no claim about design is tagged PD); confidence B → C. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A Sellita SW510 M, a 7750-type monopusher chronograph.
+        evidence:
+          - claim: ud03-sw510
+            stance: supports
+            note: Sellita SW510.
+          - claim: ud03-7750-base
+            stance: supports
+            note: 7750 architecture.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: ud03-sw510
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case maker.
+        evidence:
+          - claim: ud03-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: ud03-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: null
+        rationale: The custom ruthenium and Côtes de Genève bridge finish is described, but not who applies it.
+        evidence:
+          - claim: ud03-ruthenium
+            stance: context
+            note: Performer not stated.
+          - claim: ud03-custom-decoration
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: 2
+        rationale: The watch is assembled in Great Britain, by Horologium, with demagnetisation, a three-position rate check and regulation where needed. Horologium is in-group since December 2025. Assembly and basic regulation.
+        evidence:
+          - claim: ud03-assembled-gb
+            stance: supports
+            note: Assembled in GB.
+          - claim: ud03-regulation
+            stance: supports
+            note: Rate check and regulation.
+          - claim: ud03-horologium-scope
+            stance: supports
+            note: Assembly scope.
+          - claim: ud03-horologium-stake
+            stance: supports
+            note: Ownership timeline.
+      PD:
+        value: null
+        rationale: The design is evidently the brand's, but no collected claim about it is tagged PD.
+        evidence: []
+    classification:
+      - contract_microbrand

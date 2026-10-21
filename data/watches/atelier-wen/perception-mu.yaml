@@ -152,3 +152,72 @@ profiles:
         value: 4
     classification:
       - artisan_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist reviews only. Proposed: MA 0 → 1 (customised Peacock movement); EX 0 → U, DH 0 → U, CF 0 → U and WE 2 → U (no source on the case maker, hands, movement finishing or assembly); PD 4 → 3; confidence A → C. A reviewer noted public questions about the guilloché claims. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: The Mù uses the Peacock SL1588A, described for this platform as customised for Atelier Wen. The extent of the customisation is not documented, so this is custom specification rather than modification.
+        evidence:
+          - claim: awmu-sl1588a
+            stance: supports
+            note: Peacock SL1588A.
+          - claim: awmu-peacock-customised
+            stance: supports
+            note: Customised movement.
+      MM:
+        value: 0
+        rationale: The complete movement comes from Liaoning Peacock.
+        evidence:
+          - claim: awmu-sl1588a
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: A titanium case and bracelet are described, but no source names the maker.
+        evidence:
+          - claim: awmu-titanium
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: The guilloché dial is credited to the external craftsman Cheng Yucai, and no source covers the hands. Internal dial work is therefore at most 2 if the hands turn out to be internal, and 0 otherwise. U until then.
+        evidence:
+          - claim: awmu-dial-cheng
+            stance: context
+            note: External dial craftsman.
+          - claim: awmu-rose-engine
+            stance: context
+            note: Turned in Cheng's workshop.
+      CF:
+        value: null
+        rationale: The defining craft, rose-engine guilloché, is done in Cheng's workshop, which does not count as internal craft. No source says who finishes the movement, so U rather than 0.
+        evidence:
+          - claim: awmu-rose-engine
+            stance: context
+            note: External craft.
+          - claim: awmu-dial-hours
+            stance: context
+            note: Hours of external handwork.
+      WE:
+        value: null
+        rationale: No source says where the Mù is assembled or regulated.
+        evidence: []
+      PD:
+        value: 3
+        rationale: The brand directs a bespoke guilloché dial and chose and customised a movement for its 3.3 mm thickness. That is substantial supplier-directed development; 4 would need proprietary technical systems.
+        evidence:
+          - claim: awmu-thinness
+            stance: supports
+            note: Movement chosen for thinness.
+          - claim: awmu-peacock-customised
+            stance: supports
+            note: Customised movement.
+    classification:
+      - artisan_etablisseur

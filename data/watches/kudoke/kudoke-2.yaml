@@ -172,3 +172,93 @@ profiles:
         value: 4
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 4 → 2 (the Kaliber 1 was developed with Habring², which makes many of its parts; Kudoke adds a dial-side 24-hour modification); MM 2 → U, EX 1 → U and DH 2 → U (two sources disagree on who engraves the 24-hour disc); CF 5 → 4; WE 5 → 3; PD 4 → 3; confidence A → C; independent_manufacture → artisan_atelier. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 2
+        rationale: Kudoke calls the Kaliber 1 in-house, but SJX reports it was developed with Habring², on a Valjoux 7750-derived gear train. Kudoke's own contribution is the dial-side 24-hour modification, a meaningful module; borderline with 3.
+        evidence:
+          - claim: kud2-kaliber1-24h
+            stance: supports
+            note: Dial-side 24-hour modification.
+          - claim: kud2-habring-dev
+            stance: supports
+            note: Developed with Habring².
+          - claim: kud2-7750-architecture
+            stance: supports
+            note: 7750-derived architecture.
+      MM:
+        value: null
+        rationale: Habring² produces many of the movement's components, and no source says which, if any, Kudoke makes.
+        evidence:
+          - claim: kud2-habring-dev
+            stance: context
+            note: Habring² makes many parts.
+          - claim: kud2-felix-parts
+            stance: context
+            note: Shared Felix parts.
+      EX:
+        value: null
+        rationale: No source names the case maker.
+        evidence:
+          - claim: kud2-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: SJX implies the 24-hour disc is Kudoke's own engraving, while Deployant says an unnamed artisan in Glashütte engraves it. The dial blank and hands are unattributed. U until resolved.
+        evidence:
+          - claim: kud2-disc-engraved
+            stance: context
+            note: Hand-engraved disc.
+          - claim: kud2-disc-artisan
+            stance: context
+            note: Possibly an external artisan.
+      CF:
+        value: 4
+        rationale: Kudoke finishes the movement by hand, with a raised hand-engraved balance cock, at its Weifa manufactory. Hand engraving is a major internal craft. Not 5, because the engraving of the 24-hour disc is disputed.
+        evidence:
+          - claim: kud2-balance-cock
+            stance: supports
+            note: Hand-engraved balance cock.
+          - claim: kud2-habring-dev
+            stance: supports
+            note: Kudoke finishes the movement.
+          - claim: kud2-manufactory
+            stance: supports
+            note: Hand finishing under one roof.
+          - claim: kud2-disc-artisan
+            stance: context
+            note: Disc engraver disputed.
+      WE:
+        value: 3
+        rationale: Kudoke and a small team assemble the movement. No source describes regulation or testing, so this is 3.
+        evidence:
+          - claim: kud2-felix-parts
+            stance: supports
+            note: Assembly by Kudoke.
+          - claim: kud2-habring-dev
+            stance: supports
+            note: Kudoke assembles.
+          - claim: kud2-manufactory
+            stance: supports
+            note: Watchmaking in Weifa.
+      PD:
+        value: 3
+        rationale: Kudoke designs the watch and its dial-side 24-hour module on a co-developed base. That is bespoke development around a partner's movement.
+        evidence:
+          - claim: kud2-kaliber1-24h
+            stance: supports
+            note: Own module.
+          - claim: kud2-manufactory
+            stance: supports
+            note: Design and development in-house.
+    classification:
+      - artisan_atelier

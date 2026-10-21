@@ -129,3 +129,69 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: EX 0 → U, DH 0 → U and CF 0 → U (no maker named); PD 3 → 2 (the customised rotor is cosmetic); confidence A → C. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Sellita SW200-1 with a customised rotor.
+        evidence:
+          - claim: cw12-sw200
+            stance: supports
+            note: Sellita SW200-1.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: cw12-sw200
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case or bracelet maker.
+        evidence:
+          - claim: cw12-external-suppliers
+            stance: context
+            note: General supplier statement.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: cw12-external-suppliers
+            stance: context
+            note: General supplier statement.
+      CF:
+        value: null
+        rationale: The rotor design is the brand's, but no source says who makes or decorates it.
+        evidence:
+          - claim: cw12-rotor
+            stance: context
+            note: Maker not stated.
+      WE:
+        value: 2
+        rationale: Christopher Ward models are assembled and inspected through the in-group Synergies Horlogères workshop. The 2016 source does not name The Twelve, and no regulation is described.
+        evidence:
+          - claim: cw12-synergies-tasks
+            stance: supports
+            note: Assembly and inspection.
+          - claim: cw12-assembly-switzerland
+            stance: supports
+            note: Swiss assembly.
+      PD:
+        value: 2
+        rationale: Original design around a conventional supplier movement; the custom rotor is cosmetic.
+        evidence:
+          - claim: cw12-swiss-made-brand
+            stance: supports
+            note: Brand design.
+          - claim: cw12-rotor
+            stance: supports
+            note: Custom rotor.
+    classification:
+      - contract_microbrand

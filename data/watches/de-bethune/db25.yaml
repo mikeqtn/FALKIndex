@@ -191,3 +191,84 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from press only. Proposed: MM 4 → 5 (balance springs made in-house); EX 3 → U (no source names the case maker); DH 3 → 2; CF 5 → 3; WE 5 → 4; PD 5 → U (the engineering claims are tagged MA and MM, not PD); confidence A → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: The DB25 family uses in-house calibres (DB2324, DB3000), and De Bethune redesigned the Swiss lever escapement itself. That is deep proprietary engineering.
+        evidence:
+          - claim: db25-qp-dbcaliber
+            stance: supports
+            note: In-house DB2324.
+          - claim: db25-mono-entirely-inhouse
+            stance: supports
+            note: Entirely in-house movements.
+          - claim: db25-escapement-redesign
+            stance: supports
+            note: Redesigned escapement.
+      MM:
+        value: 5
+        rationale: De Bethune makes almost all components in-house, including balances and balance springs, and is integrating hairspring production from wire drawing to colleting. Where the silicon escape wheel is made is not stated.
+        evidence:
+          - claim: db25-almost-all-inhouse
+            stance: supports
+            note: Almost all parts in-house.
+          - claim: db25-hairspring-integration
+            stance: supports
+            note: Hairspring integration.
+          - claim: db25-mono-hairspring
+            stance: supports
+            note: Proprietary hairspring.
+          - claim: db25-qp-balance
+            stance: supports
+            note: Own balance.
+          - claim: db25-escapement-redesign
+            stance: context
+            note: Silicon parts, origin unknown.
+      EX:
+        value: null
+        rationale: A titanium case is listed, but no source names its maker.
+        evidence:
+          - claim: db25-mono-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: 2
+        rationale: A 2017 workshop report says dials are milled in-house. The guilloché is done on a hand-operated machine, but where is not stated, and the hands are unattributed. This is one meaningful internal stage, and the source is not specific to the DB25.
+        evidence:
+          - claim: db25-cnc-screws-dials
+            stance: supports
+            note: Dials milled in-house.
+          - claim: db25-qp-guilloche
+            stance: context
+            note: Location not stated.
+      CF:
+        value: 3
+        rationale: Movement decoration is finished by hand, though a reviewer thinks it is machine-applied first. That is substantial hand finishing; 4 or 5 would need a source on the depth and location of the craft.
+        evidence:
+          - claim: db25-mono-finishing
+            stance: supports
+            note: Hand finishing.
+          - claim: db25-qp-guilloche
+            stance: context
+            note: Hand-operated guilloché, location unknown.
+      WE:
+        value: 4
+        rationale: De Bethune does the final adjustment with its own balance wheel. No source describes the rest of the assembly, so this is 4 rather than 5.
+        evidence:
+          - claim: db25-hairspring-integration
+            stance: supports
+            note: Final adjustment in-house.
+      PD:
+        value: null
+        rationale: The escapement redesign and in-house calibres are credited under MA; no collected claim is tagged PD. U until one is.
+        evidence: []
+    classification:
+      - independent_manufacture

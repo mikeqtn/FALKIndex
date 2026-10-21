@@ -191,3 +191,87 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 5 → 4 and DH 5 → 4 (the studio statement covers cases, dials and hands but not the bracelet or crown); confidence A → B. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Grand Seiko presents the 9F as its exclusive quartz calibre, with its own twin pulse motor and backlash auto-adjust mechanism.
+        evidence:
+          - claim: gs9f-origin
+            stance: supports
+            note: Exclusive calibre.
+          - claim: gs9f-twin-pulse
+            stance: supports
+            note: Proprietary mechanisms.
+      MM:
+        value: 5
+        rationale: The movement is made at the Shinshu Watch Studio, and the quartz crystals are grown and made into oscillators in-house, then aged for three months before selection. Every non-U score here assumes the Shinshu Watch Studio, inside a Seiko Epson facility, counts as Grand Seiko's own or in-group work. The provenance records it as contract until that relationship is reviewed; if it stays contract, MM, EX, DH, CF and WE fall to 0.
+        evidence:
+          - claim: gs9f-shinshu-made
+            stance: supports
+            note: Made at the studio.
+          - claim: gs9f-oscillators
+            stance: supports
+            note: Oscillators made in-house.
+          - claim: gs9f-autoclaves
+            stance: supports
+            note: Crystals grown in-house.
+          - claim: gs9f-ic-paired
+            stance: context
+            note: IC origin not stated.
+      EX:
+        value: 4
+        rationale: The studio makes cases and Zaratsu-polishes them. Bracelet, crown and crystal makers are not named, so this is 4 rather than 5.
+        evidence:
+          - claim: gs9f-studio-complete
+            stance: supports
+            note: Cases made at the studio.
+          - claim: gs9f-zaratsu
+            stance: supports
+            note: Case polishing.
+      DH:
+        value: 4
+        rationale: The studio makes dials, hands and indexes. The statement is general, so this is 4 rather than 5.
+        evidence:
+          - claim: gs9f-studio-complete
+            stance: supports
+            note: Dials and hands made at the studio.
+      CF:
+        value: 3
+        rationale: Zaratsu case polishing is done at the studio. It is substantial handwork, but the only craft documented.
+        evidence:
+          - claim: gs9f-zaratsu
+            stance: supports
+            note: Zaratsu polishing.
+      WE:
+        value: 5
+        rationale: The 9F is assembled and adjusted by hand at the studio, with oscillators aged and selected before assembly. That is end-to-end watchmaking.
+        evidence:
+          - claim: gs9f-hand-assembled
+            stance: supports
+            note: Hand assembly.
+          - claim: gs9f-oscillators
+            stance: supports
+            note: Oscillator selection.
+          - claim: gs9f-epson-assembly
+            stance: supports
+            note: Assembled at Shiojiri.
+          - claim: gs9f-studio-epson
+            stance: context
+            note: Seiko Epson facility.
+      PD:
+        value: 5
+        rationale: Grand Seiko has developed its own quartz calibre since 1993.
+        evidence:
+          - claim: gs9f-origin
+            stance: supports
+            note: Exclusive calibre since 1993.
+    classification:
+      - integrated_manufacture

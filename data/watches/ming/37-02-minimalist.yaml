@@ -184,3 +184,84 @@ profiles:
         value: 4
     classification:
       - design_led_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: MA 0 → 1 (customised Sellita SW300.M1); EX, DH, CF and WE → U (no source names the makers, who applies the coating and openworking, or the assembler). PD 4 unchanged; confidence A → C. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: A Sellita SW300-1 customised as the SW300.M1 with skeletonised bridges and a bespoke rotor. The changes are cosmetic, so this is custom specification.
+        evidence:
+          - claim: ming3702-sw300
+            stance: supports
+            note: Customised SW300-1.
+      MM:
+        value: 0
+        rationale: The movement comes from Sellita. Who makes the openworked rotor is not stated.
+        evidence:
+          - claim: ming3702-sw300
+            stance: supports
+            note: External movement.
+          - claim: ming3702-rotor
+            stance: context
+            note: Rotor maker not named.
+          - claim: ming3702-assembly
+            stance: context
+            note: Sourcing unchanged.
+      EX:
+        value: null
+        rationale: No source names the case maker.
+        evidence:
+          - claim: ming3702-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: The laser-cut sapphire dial and proprietary lume are described, but no source names who makes the dial or hands. Lume development is credited under PD.
+        evidence:
+          - claim: ming3702-sapphire-dial
+            stance: context
+            note: Maker not named.
+          - claim: ming3702-laser-dial
+            stance: context
+            note: Process, not maker.
+          - claim: ming3702-lume
+            stance: context
+            note: Development, not production.
+      CF:
+        value: null
+        rationale: No source says who applies the anthracite coating or the openworking.
+        evidence:
+          - claim: ming3702-anthracite
+            stance: context
+            note: Performer not stated.
+          - claim: ming3702-sw300m1
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: null
+        rationale: The watches are assembled in Switzerland, but the assembler is not named.
+        evidence:
+          - claim: ming3702-assembly
+            stance: context
+            note: Assembler not named.
+          - claim: ming3702-swiss-made
+            stance: context
+            note: Produced by Horologer Ming SA.
+      PD:
+        value: 4
+        rationale: The 37.02 was designed, engineered and managed internally by Horologer Ming SA, which also developed a proprietary luminous material. Extensive original development around a supplier movement.
+        evidence:
+          - claim: ming3702-internal-design
+            stance: supports
+            note: Designed and engineered internally.
+          - claim: ming3702-lume
+            stance: supports
+            note: Proprietary lume.
+    classification:
+      - design_led_etablisseur

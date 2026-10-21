@@ -161,3 +161,85 @@ profiles:
     classification:
       - artisan_atelier
       - watchmaking_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U (no source on the case maker); DH 5 → 4 (dial printing and hands not attributed); confidence A → B, since the dial evidence is specialist press rather than a brand page. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: Swiss supplier calibres, with the La Joux-Perret G101 reported for this model. The modifications are not described, so this is treated as adjustment.
+        evidence:
+          - claim: am2p-swiss-movements
+            stance: supports
+            note: Supplier calibres.
+          - claim: am2p-ljp-g101
+            stance: supports
+            note: G101 named.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: am2p-swiss-movements
+            stance: supports
+            note: External movements.
+          - claim: am2p-modified-regulated
+            stance: context
+            note: Unspecified modification.
+      EX:
+        value: null
+        rationale: No source names the case maker.
+        evidence: []
+      DH:
+        value: 4
+        rationale: Porcelain dials are formed, glazed and fired in the studio's own pottery space by an in-house porcelain artist. That is deep dial manufacture. It is not 5 because no source attributes the dial printing or the hand manufacture.
+        evidence:
+          - claim: am2p-dial-inhouse
+            stance: supports
+            note: In-house porcelain artist.
+          - claim: am2p-pottery-space
+            stance: supports
+            note: Own pottery space.
+          - claim: am2p-firing
+            stance: supports
+            note: Glaze and firing.
+          - claim: am2p-stoke
+            stance: context
+            note: External artisans helped develop the craft.
+          - claim: am2p-hands-designed
+            stance: context
+            note: Hands designed, maker unknown.
+      CF:
+        value: 4
+        rationale: Porcelain dialmaking is a métier d'art practised in-house. The craft is scored here and the physical dial production under DH, as with the enamel Fumé.
+        evidence:
+          - claim: am2p-dial-inhouse
+            stance: supports
+            note: In-house porcelain craft.
+          - claim: am2p-firing
+            stance: supports
+            note: High-temperature glazing.
+      WE:
+        value: 3
+        rationale: Six in-house watchmakers modify, regulate and assemble the movements.
+        evidence:
+          - claim: am2p-modified-regulated
+            stance: supports
+            note: Modification and regulation.
+          - claim: am2p-hand-assembled
+            stance: supports
+            note: In-house assembly.
+      PD:
+        value: 3
+        rationale: Bespoke porcelain dials and in-house designed hands around a conventional supplier movement.
+        evidence:
+          - claim: am2p-hands-designed
+            stance: supports
+            note: Hands designed in-house.
+    classification:
+      - artisan_atelier
+      - watchmaking_atelier

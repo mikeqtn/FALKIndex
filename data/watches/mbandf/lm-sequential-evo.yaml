@@ -255,3 +255,96 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: A
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile, from MB&F's own supplier credits. Proposed: MA 5 → 4 (calibre developed by Stephen McDonnell with MB&F); MM 2 → 0, DH 1 → 0 and CF 4 → 0 (every part, the dial, hands and all finishing are credited to named external suppliers); EX 1 → U (case maker unclear); WE 5 → 4; PD 5 → 4 (product design by Eric Giroud); confidence stays A; independent_manufacture → design_led_etablisseur. External craft enriches the provenance but does not count as internal (rule \"Internal means internal\"). Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 4
+        rationale: The dual-chronograph calibre was developed for MB&F by independent watchmaker Stephen McDonnell, credited jointly with MB&F. A proprietary calibre with substantial external engineering.
+        evidence:
+          - claim: lmseq-mcdonnell-page
+            stance: supports
+            note: Developed by McDonnell.
+          - claim: lmseq-movement-dev
+            stance: supports
+            note: McDonnell and MB&F.
+      MM:
+        value: 0
+        rationale: MB&F credits wheels, bridges, pinions, balance, barrel, springs and jewels to named external makers. No movement part is credited as made in-house; "case and movement components" credited to staff may be sourcing.
+        evidence:
+          - claim: lmseq-wheels
+            stance: supports
+            note: External wheels and bridges.
+          - claim: lmseq-balance
+            stance: supports
+            note: External balance.
+          - claim: lmseq-barrel
+            stance: supports
+            note: External barrel and springs.
+          - claim: lmseq-case-components
+            stance: context
+            note: Ambiguous staff credit.
+      EX:
+        value: null
+        rationale: The crown and crystals are external (Boninchi, Novocristal), but the case maker is not named, and the staff credit for "case components" may mean sourcing. U until the case is attributed.
+        evidence:
+          - claim: lmseq-crown
+            stance: context
+            note: External crown.
+          - claim: lmseq-crystal
+            stance: context
+            note: External crystals.
+          - claim: lmseq-case-components
+            stance: context
+            note: Ambiguous.
+      DH:
+        value: 0
+        rationale: The dial and lume are by Cadramont and the hands by Waeber HMS.
+        evidence:
+          - claim: lmseq-dial
+            stance: supports
+            note: External dial.
+          - claim: lmseq-hands
+            stance: supports
+            note: External hands.
+      CF:
+        value: 0
+        rationale: Hand finishing of movement parts is credited to C-L Rochat and DSMI, engraving to Glypto, and case decoration to Bripoli. All documented craft is external.
+        evidence:
+          - claim: lmseq-finishing
+            stance: supports
+            note: External finishing and engraving.
+          - claim: lmseq-case-decoration
+            stance: supports
+            note: External case decoration.
+      WE:
+        value: 4
+        rationale: MB&F staff assemble the dual-chronograph movement and handle quality control and after-sales. That is deep complication assembly; not 5, as the parts are all made outside.
+        evidence:
+          - claim: lmseq-assembly
+            stance: supports
+            note: Movement assembly.
+          - claim: lmseq-qc
+            stance: supports
+            note: Quality control and after-sales.
+      PD:
+        value: 4
+        rationale: MB&F conceived the watch and runs its technical and production management across more than fifteen named suppliers, while product design is credited to Eric Giroud. Extensive original development, not 5 because design and engineering are shared with external partners.
+        evidence:
+          - claim: lmseq-concept-mgmt
+            stance: supports
+            note: Technical and production management.
+          - claim: lmseq-movement-dev
+            stance: supports
+            note: Co-credited development.
+          - claim: lmseq-product-design
+            stance: context
+            note: External product designer.
+    classification:
+      - design_led_etablisseur

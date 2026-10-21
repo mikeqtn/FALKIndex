@@ -148,3 +148,69 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: 'AI-drafted first evidenced profile, from specialist sources. Proposed: EX, DH and CF 0 → U and WE 1 → U (no maker or assembler named; "made in Italy" is mentioned only in a programme summary); PD 3 → 2; confidence A → C. Needs review.'
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Sellita SW200-1, replacing the earlier Seiko NH35.
+        evidence:
+          - claim: um1s-sw200
+            stance: supports
+            note: Sellita SW200-1.
+          - claim: um1s-all-sw200
+            stance: supports
+            note: Across the S-series.
+          - claim: um1s-switch
+            stance: context
+            note: Earlier NH35.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: um1s-sw200
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: The brand designed a new, thinner case, but no source names its maker.
+        evidence:
+          - claim: um1s-case-new
+            stance: context
+            note: Design, not maker.
+          - claim: um1s-italy-production
+            stance: context
+            note: No detail.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: A programme summary mentions manufacturing in Italy, without saying who assembles.
+        evidence:
+          - claim: um1s-italy-production
+            stance: context
+            note: No detail.
+      PD:
+        value: 2
+        rationale: The founders, industrial designers, designed a new case around a stock movement.
+        evidence:
+          - claim: um1s-designers
+            stance: supports
+            note: Designer founders.
+          - claim: um1s-case-new
+            stance: supports
+            note: New case design.
+    classification:
+      - contract_microbrand

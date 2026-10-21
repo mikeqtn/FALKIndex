@@ -199,3 +199,96 @@ profiles:
         value: 5
     classification:
       - industrial_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "AI-drafted first evidenced profile. Proposed: EX 2 → U and DH 2 → U (dials and cases are fitted in-house, but no source names who makes them); WE 5 → 4; confidence A → B, since the parts evidence is press reporting. Needs review."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Breitling says the Caliber 01 was its first in-house movement, a column-wheel chronograph with vertical coupling developed over five years at its Chronométrie.
+        evidence:
+          - claim: brb01-first-manufacture
+            stance: supports
+            note: First in-house movement.
+          - claim: brb01-architecture
+            stance: supports
+            note: Column wheel, vertical clutch.
+          - claim: brb01-development
+            stance: supports
+            note: Five years of development.
+      MM:
+        value: 3
+        rationale: Base plates and bridges are made at the Chronométrie, and Breitling has started making its own balance wheel. By count only 30–40 of 346 parts are in-house, so this is borderline with 2; the structural parts carry it to 3.
+        evidence:
+          - claim: brb01-plates-bridges
+            stance: supports
+            note: Plates and bridges made in-house.
+          - claim: brb01-30-40-parts
+            stance: supports
+            note: 30–40 parts in-house.
+          - claim: brb01-own-balance
+            stance: supports
+            note: Own balance wheel.
+      EX:
+        value: null
+        rationale: Movements are cased at the Chronométrie, but no source names who makes the cases or bracelets.
+        evidence:
+          - claim: brb01-casing
+            stance: context
+            note: Casing, not case manufacture.
+      DH:
+        value: null
+        rationale: Dials are fitted in-house, but no source names who makes the dials or hands.
+        evidence:
+          - claim: brb01-casing
+            stance: context
+            note: Fitting only.
+      CF:
+        value: 2
+        rationale: Milled plates and bridges are checked and hand-finished by watchmakers. That is regular skilled handwork, not central to the product.
+        evidence:
+          - claim: brb01-plates-finish
+            stance: supports
+            note: Hand finishing.
+          - claim: brb01-plates-bridges
+            stance: supports
+            note: Finished at the Chronométrie.
+      WE:
+        value: 4
+        rationale: Up to 346 components are assembled and calibrated at the Chronométrie, and the watches are cased there. This is deep chronograph assembly and adjustment; 5 would need broader internal part production. COSC testing is external.
+        evidence:
+          - claim: brb01-assembled-by-hand
+            stance: supports
+            note: Assembly and calibration.
+          - claim: brb01-chronometrie-role
+            stance: supports
+            note: Assembly at the Chronométrie.
+          - claim: brb01-casing
+            stance: supports
+            note: Casing.
+          - claim: brb01-cosc
+            stance: context
+            note: External certification.
+          - claim: brb01-volume
+            stance: context
+            note: Industrial volume.
+      PD:
+        value: 5
+        rationale: Breitling designed and developed its own chronograph calibre in-house over five years.
+        evidence:
+          - claim: brb01-chronometrie-role
+            stance: supports
+            note: Design and development in-house.
+          - claim: brb01-development
+            stance: supports
+            note: Five years of development.
+          - claim: brb01-first-manufacture
+            stance: supports
+            note: First manufacture calibre.
+    classification:
+      - industrial_manufacture
