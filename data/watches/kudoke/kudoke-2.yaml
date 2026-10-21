@@ -86,6 +86,17 @@ claims:
       - CF
     date_checked: 2026-10-21
     editor: ai-draft
+    status: superseded
+    superseded_by: kud2-weifa-handfinish
+  - id: kud2-weifa-handfinish
+    statement: The maker says each watch is handcrafted, engraved and finished by hand at its manufacture in Weifa. The statement is from a Kudoke 3 launch post, not specific to the Kudoke 2.
+    excerpt: Each watch is handcrafted, engraved, and finished by hand at the manufacture in Weifa.
+    source: kudoke-nocturne-2026
+    dimensions:
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: ai-draft
 provenance:
   - dimension: MA
     component: Kaliber 1 base movement
@@ -143,7 +154,6 @@ provenance:
     relationship: internal
     claims:
       - kud2-kaliber1-24h
-      - kud2-manufactory
 profiles:
   - version: 1
     methodology: v0.2
@@ -231,9 +241,9 @@ profiles:
           - claim: kud2-habring-dev
             stance: supports
             note: Kudoke finishes the movement.
-          - claim: kud2-manufactory
+          - claim: kud2-weifa-handfinish
             stance: supports
-            note: Hand finishing under one roof.
+            note: Finished by hand in Weifa (brand-level).
           - claim: kud2-disc-artisan
             stance: context
             note: Disc engraver disputed.
@@ -247,9 +257,9 @@ profiles:
           - claim: kud2-habring-dev
             stance: supports
             note: Kudoke assembles.
-          - claim: kud2-manufactory
+          - claim: kud2-weifa-handfinish
             stance: supports
-            note: Watchmaking in Weifa.
+            note: Handcrafted at the Weifa manufacture (brand-level).
       PD:
         value: 3
         rationale: Kudoke designs the watch and its dial-side 24-hour module on a co-developed base. That is bespoke development around a partner's movement.
@@ -257,8 +267,5 @@ profiles:
           - claim: kud2-kaliber1-24h
             stance: supports
             note: Own module.
-          - claim: kud2-manufactory
-            stance: supports
-            note: Design and development in-house.
     classification:
       - artisan_atelier

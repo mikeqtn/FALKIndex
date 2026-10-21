@@ -1056,7 +1056,15 @@
   source_type: manufacturer
   tier: primary
   archived_url: https://web.archive.org/web/20260515224838/https://www.kudoke.eu/en/about-kudoke/
-  notes: "UNVERIFIED: excerpt ('Bringing design, development, watchmaking and hand finishing together under one roof...') not found on this page's May 2026 snapshot, and not found by web search. kudoke.eu refused connections on 2026-10-21. Kudoke appears to have relaunched its site around May 2026 (e.g. /kollektionen/handwerk/), so the excerpt may come from a new 'story' page with an unknown URL."
+  notes: "The excerpt of claim kud2-manufactory was not found on this page's May 2026 snapshot or by web search (checked 2026-10-21); that claim is superseded by kud2-weifa-handfinish."
+- id: kudoke-nocturne-2026
+  url: https://www.kudoke.eu/en/2026/02/23/kudoke-3-nocturne_en/
+  title: Kudoke 3 Nocturne (Kudoke)
+  publisher: kudoke
+  source_type: manufacturer
+  tier: primary
+  published_on: 2026-02-23
+  archived_url: https://web.archive.org/web/20260515231003/https://www.kudoke.eu/en/2026/02/23/kudoke-3-nocturne_en/
 - id: kurono-begins-with-asaoka
   url: https://kuronotokyo.com/pages/every-kurono-begins-with-hajime-asaoka
   title: Every Kurono Begins With Hajime Asaoka (Kurono Tokyo)
