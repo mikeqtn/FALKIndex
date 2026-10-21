@@ -32,6 +32,7 @@ function AccountEditor() {
   const [errorField, setErrorField] = useState<keyof ProfileInput | ''>('');
   const [metaWarning, setMetaWarning] = useState('');
   const [notice, setNotice] = useState('');
+  const [orgQuery, setOrgQuery] = useState('');
   const isSetup = !account?.username;
 
   useEffect(() => {
@@ -80,6 +81,16 @@ function AccountEditor() {
       ? form.qualifications.filter(item => item !== selected)
       : [...form.qualifications, selected];
     update('qualifications', next as ProfileInput['qualifications']);
+  }
+  // Disclosures: chosen ties show as chips; the rest are found by name rather than listed all at once.
+  const orgName = (id: string) => meta.organizations.find(org => org.id === id)?.name ?? id;
+  const orgSearch = orgQuery.trim().toLowerCase();
+  const orgMatches = orgSearch
+    ? meta.organizations.filter(org => !form.brandTies.includes(org.id) && org.name.toLowerCase().includes(orgSearch)).slice(0, 8)
+    : [];
+  function addBrand(id: string) {
+    toggleBrand(id);
+    document.getElementById('org-search')?.focus();
   }
   function toggleBrand(id: string) {
     const next = form.brandTies.includes(id) ? form.brandTies.filter(item => item !== id) : [...form.brandTies, id];
@@ -142,7 +153,7 @@ function AccountEditor() {
           <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
             <legend className="account-label">Self-reported qualifications</legend>
             <p className="account-help">These describe your experience; they are not independent verification and do not grant roles.</p>
-            <div className="account-checks">{meta.qualificationOptions.map(option => <label className="account-check" key={option.value}><input type="checkbox" checked={form.qualifications.includes(option.value)} onChange={() => toggleQualification(option.value)} /><span>{option.label}</span></label>)}</div>
+            <div className="account-toggles">{meta.qualificationOptions.map(option => <label className="account-toggle" key={option.value}><input type="checkbox" checked={form.qualifications.includes(option.value)} onChange={() => toggleQualification(option.value)} />{option.label}</label>)}</div>
             <div className="account-form-grid">
               <div className="account-field"><label htmlFor="qualificationDetails">Qualification context</label><textarea id="qualificationDetails" {...invalid('qualificationDetails')} maxLength={1500} value={form.qualificationDetails} onChange={e => update('qualificationDetails', e.target.value)} /></div>
               <div className="account-field"><label htmlFor="affiliations">Professional affiliations</label><textarea id="affiliations" {...invalid('professionalAffiliations')} maxLength={1500} value={form.professionalAffiliations} onChange={e => update('professionalAffiliations', e.target.value)} /></div>
@@ -151,7 +162,18 @@ function AccountEditor() {
           <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
             <legend className="account-label">Organization disclosures</legend>
             <p className="account-help">Declare ties you want readers to see. Independently verified affiliations appear in a separate section on your profile.</p>
-            {meta.organizations.length ? <div className="account-checks">{meta.organizations.map(org => <label className="account-check" key={org.id}><input type="checkbox" checked={form.brandTies.includes(org.id)} onChange={() => toggleBrand(org.id)} /><span>{org.name}</span></label>)}</div> : <p className="account-empty">No organizations are available to disclose at present.</p>}
+            {form.brandTies.length
+              ? <ul className="account-toggles" aria-label="Disclosed organizations">{form.brandTies.map(id => <li key={id}><button type="button" className="account-toggle is-on" aria-label={`Remove ${orgName(id)}`} onClick={() => toggleBrand(id)}>{orgName(id)}<span className="account-toggle-x" aria-hidden="true">×</span></button></li>)}</ul>
+              : <p className="account-help">No ties disclosed.</p>}
+            {meta.organizations.length ? <div className="account-field">
+              <label htmlFor="org-search">Add an organization</label>
+              <input id="org-search" type="search" autoComplete="off" placeholder="Brand, supplier or group" value={orgQuery} onChange={e => setOrgQuery(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); if (orgMatches[0]) addBrand(orgMatches[0].id); } }} />
+              {orgSearch && (orgMatches.length
+                ? <ul className="account-toggles" aria-label="Matching organizations">{orgMatches.map(org => <li key={org.id}><button type="button" className="account-toggle" aria-label={`Add ${org.name}`} onClick={() => addBrand(org.id)}>{org.name}</button></li>)}</ul>
+                : <p className="account-help">No organization matches “{orgQuery.trim()}”.</p>)}
+              <p className="sr-only" role="status">{orgSearch ? `${orgMatches.length} matching organizations` : ''}</p>
+            </div> : <p className="account-empty">No organizations are available to disclose at present.</p>}
           </fieldset>
           <div className="account-actions"><button className="account-button" type="submit" disabled={busy}>{busy ? 'Saving profile…' : 'Save profile'}</button><a className="account-button secondary" href="/records/">Return to catalogue</a></div>
         </form>
