@@ -24,6 +24,7 @@
 }
 .account-field textarea { min-height: 112px; resize: vertical; }
 .account-field input:disabled { opacity: .72; cursor: not-allowed; }
+.account-field [aria-invalid="true"] { border-color: var(--c-action); border-width: 2px; }
 .account-checks { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 10px; }
 .account-check { display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: var(--edge); background: var(--c-page); border-radius: var(--r-control); }
 .account-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--c-action); }

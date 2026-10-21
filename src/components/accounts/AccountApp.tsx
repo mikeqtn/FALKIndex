@@ -9,6 +9,15 @@ const blank: ProfileInput = {
   qualifications: [], qualificationDetails: '', professionalAffiliations: '',
   website: '', imageUrl: '', brandTies: [],
 };
+// Text fields that validation can flag, by their input id and visible label.
+const fieldIds: Partial<Record<keyof ProfileInput, string>> = {
+  username: 'username', displayName: 'displayName', realName: 'realName', bio: 'bio', website: 'website',
+  imageUrl: 'imageUrl', qualificationDetails: 'qualificationDetails', professionalAffiliations: 'affiliations',
+};
+const fieldLabels: Partial<Record<keyof ProfileInput, string>> = {
+  username: 'Username', displayName: 'Display name', realName: 'Real name', bio: 'Biography', website: 'Website',
+  imageUrl: 'Profile image URL', qualificationDetails: 'Qualification context', professionalAffiliations: 'Professional affiliations',
+};
 
 function AccountEditor() {
   const [account, setAccount] = useState<Account | null>(null);
@@ -18,6 +27,7 @@ function AccountEditor() {
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [errorField, setErrorField] = useState<keyof ProfileInput | ''>('');
   const [metaWarning, setMetaWarning] = useState('');
   const [notice, setNotice] = useState('');
   const isSetup = !account?.username;
@@ -56,7 +66,13 @@ function AccountEditor() {
 
   function update<K extends keyof ProfileInput>(key: K, value: ProfileInput[K]) {
     setForm(current => ({ ...current, [key]: value }));
+    if (key === errorField) setErrorField('');
   }
+  /** Marks the field that failed validation and points it at the error message. */
+  const invalid = (key: keyof ProfileInput, help?: string) => {
+    const describedBy = [help, errorField === key ? 'profile-error' : ''].filter(Boolean).join(' ');
+    return { 'aria-invalid': errorField === key || undefined, 'aria-describedby': describedBy || undefined };
+  };
   function toggleQualification(value: string) {
     const selected = value as ProfileInput['qualifications'][number];
     const next = form.qualifications.includes(selected)
@@ -70,11 +86,15 @@ function AccountEditor() {
   }
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(''); setNotice('');
+    setError(''); setErrorField(''); setNotice('');
     const parsed = profileInput.safeParse(form);
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? 'Review the highlighted profile information.');
-      document.getElementById('profile-error')?.focus();
+      const issue = parsed.error.issues[0];
+      const key = issue?.path[0] as keyof ProfileInput | undefined;
+      const input = key && document.getElementById(fieldIds[key] ?? '');
+      setError(key && fieldLabels[key] ? `${fieldLabels[key]}: ${issue.message}` : issue?.message ?? 'Check the profile fields.');
+      setErrorField(key ?? '');
+      (input || document.getElementById('profile-error'))?.focus();
       return;
     }
     setBusy(true);
@@ -110,12 +130,12 @@ function AccountEditor() {
         <form className="account-panel account-stack" onSubmit={save} noValidate>
           <div><p className="account-kicker">Public profile</p><h2>{isSetup ? 'Choose a public username' : 'Profile details'}</h2><p className="account-help">Only the fields described here are shown on your public profile. Leave a field blank to keep it undisclosed.</p></div>
           <div className="account-form-grid">
-            <div className="account-field"><label htmlFor="username">Username</label><input id="username" autoComplete="username" required minLength={3} maxLength={30} pattern="[a-z][a-z0-9_]{2,29}" value={form.username} disabled={!isSetup} onChange={e => update('username', e.target.value.toLowerCase())} aria-describedby="username-help" /><small id="username-help">{isSetup ? '3–30 lowercase letters, numbers or underscores; start with a letter.' : 'Usernames cannot be changed after profile setup.'}</small></div>
-            <div className="account-field"><label htmlFor="displayName">Display name</label><input id="displayName" maxLength={100} value={form.displayName} onChange={e => update('displayName', e.target.value)} /></div>
-            <div className="account-field"><label htmlFor="realName">Real name <span className="muted">(private by default)</span></label><input id="realName" maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="account-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show my real name on my public profile</span></label></div>
-            <div className="account-field"><label htmlFor="bio">Biography</label><textarea id="bio" maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
-            <div className="account-field"><label htmlFor="website">Website</label><input id="website" type="url" placeholder="https://" value={form.website} onChange={e => update('website', e.target.value)} /></div>
-            <div className="account-field"><label htmlFor="imageUrl">Profile image URL</label><input id="imageUrl" type="url" placeholder="https://" value={form.imageUrl} onChange={e => update('imageUrl', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="username">Username</label><input id="username" autoComplete="username" required minLength={3} maxLength={30} pattern="[a-z][a-z0-9_]{2,29}" value={form.username} disabled={!isSetup} onChange={e => update('username', e.target.value.toLowerCase())} {...invalid('username', 'username-help')} /><small id="username-help">{isSetup ? '3–30 lowercase letters, numbers or underscores; start with a letter.' : 'Usernames cannot be changed after profile setup.'}</small></div>
+            <div className="account-field"><label htmlFor="displayName">Display name</label><input id="displayName" {...invalid('displayName')} maxLength={100} value={form.displayName} onChange={e => update('displayName', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="realName">Real name <span className="muted">(private by default)</span></label><input id="realName" {...invalid('realName')} maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="account-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show my real name on my public profile</span></label></div>
+            <div className="account-field"><label htmlFor="bio">Biography</label><textarea id="bio" {...invalid('bio')} maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="website">Website</label><input id="website" {...invalid('website')} type="url" placeholder="https://" value={form.website} onChange={e => update('website', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="imageUrl">Profile image URL</label><input id="imageUrl" {...invalid('imageUrl')} type="url" placeholder="https://" value={form.imageUrl} onChange={e => update('imageUrl', e.target.value)} /></div>
           </div>
           <hr className="account-divider" />
           <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
@@ -123,8 +143,8 @@ function AccountEditor() {
             <p className="account-help">These describe your experience; they are not independent verification and do not grant roles.</p>
             <div className="account-checks">{meta.qualificationOptions.map(option => <label className="account-check" key={option.value}><input type="checkbox" checked={form.qualifications.includes(option.value)} onChange={() => toggleQualification(option.value)} /><span>{option.label}</span></label>)}</div>
             <div className="account-form-grid">
-              <div className="account-field"><label htmlFor="qualificationDetails">Qualification context</label><textarea id="qualificationDetails" maxLength={1500} value={form.qualificationDetails} onChange={e => update('qualificationDetails', e.target.value)} /></div>
-              <div className="account-field"><label htmlFor="affiliations">Professional affiliations</label><textarea id="affiliations" maxLength={1500} value={form.professionalAffiliations} onChange={e => update('professionalAffiliations', e.target.value)} /></div>
+              <div className="account-field"><label htmlFor="qualificationDetails">Qualification context</label><textarea id="qualificationDetails" {...invalid('qualificationDetails')} maxLength={1500} value={form.qualificationDetails} onChange={e => update('qualificationDetails', e.target.value)} /></div>
+              <div className="account-field"><label htmlFor="affiliations">Professional affiliations</label><textarea id="affiliations" {...invalid('professionalAffiliations')} maxLength={1500} value={form.professionalAffiliations} onChange={e => update('professionalAffiliations', e.target.value)} /></div>
             </div>
           </fieldset>
           <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
