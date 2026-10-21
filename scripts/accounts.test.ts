@@ -6,7 +6,7 @@ import { pool } from '../server/db.ts';
 import { enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
 import { adminAccountQuery, createInvitation, protectLastAdmin } from '../server/admin.ts';
 import { CORRECTIONS_PER_HOUR, rateLimitKey, requireSameOrigin } from '../server/api.ts';
-import { profileInput } from '../src/accounts/contracts.ts';
+import { isClerkImage, profileInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { check, load } from './validate.ts';
 import { correctionInput, saveCorrection } from '../server/corrections.ts';
@@ -58,14 +58,15 @@ test('an invitation cannot replay a weaker role over an existing staff grant', (
   assert.equal(invitationRole('editor','admin'),'admin');
 });
 const profile = {username:'example_user',displayName:'',realName:'',showRealName:false,bio:'',
-  qualifications:['collector'],qualificationDetails:'',professionalAffiliations:'',website:'',imageUrl:'',brandTies:[]};
+  qualifications:['collector'],qualificationDetails:'',professionalAffiliations:'',website:'',brandTies:[]};
 test('profile input rejects permissions, verification flags and executable URLs', () => {
   assert.equal(profileInput.safeParse(profile).success,true);
   for (const extra of [{role:'admin'},{emailVerified:true},{verifications:[{verified:true}]}]) {
     assert.equal(profileInput.safeParse({...profile,...extra}).success,false);
   }
   assert.equal(profileInput.safeParse({...profile,website:'javascript:alert(1)'}).success,false);
-  assert.equal(profileInput.safeParse({...profile,imageUrl:'data:text/html,hello'}).success,false);
+  // The photo comes from Clerk; a typed-in image URL is not accepted at all.
+  assert.equal(profileInput.safeParse({...profile,imageUrl:'https://tracker.example/pixel.gif'}).success,false);
   assert.equal(profileInput.safeParse({...profile,username:'Invalid Username'}).success,false);
 });
 test('cross-site and missing-origin mutations are rejected', () => {
@@ -95,6 +96,12 @@ test('public profiles reveal only opted-in names and counts, including suspended
     assert.doesNotMatch(JSON.stringify(result),/private@example|Private Test Name|secret proposal body|private moderation|clerk_id|emailVerified/);
     await db.query("UPDATE falk_member_profile SET show_real_name=true WHERE account_id=$1", [id]);
     assert.equal((await publicProfile(username,db))?.realName,'Private Test Name');
+    // A URL pasted before photos came from Clerk is never served; a Clerk-hosted photo is.
+    await db.query("UPDATE falk_member_profile SET image_url='https://tracker.example/pixel.gif' WHERE account_id=$1", [id]);
+    assert.equal((await publicProfile(username,db))?.imageUrl,'');
+    await db.query("UPDATE falk_member_profile SET image_url='https://img.clerk.com/abc' WHERE account_id=$1", [id]);
+    assert.equal((await publicProfile(username,db))?.imageUrl,'https://img.clerk.com/abc');
+    for (const url of ['https://img.clerk.com.tracker.example/a','http://img.clerk.com/a','https://tracker.example/?u=https://img.clerk.com/']) assert.equal(isClerkImage(url),false,url);
     await db.query("UPDATE falk_account SET status='suspended' WHERE id=$1", [id]);
     assert.equal((await publicProfile(username,db))?.status,'suspended');
   } finally { await db.query('ROLLBACK'); db.release(); }

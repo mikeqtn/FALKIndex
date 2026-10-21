@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { useClerk } from '@clerk/react';
 import { profileInput, qualificationOptions, type Account, type ProfileInput } from '../../accounts/contracts';
 import { api, dateLabel, handleAccountError } from './api';
 import { AuthProvider } from './AuthProvider';
@@ -7,19 +8,20 @@ type Meta = { qualificationOptions: { value: string; label: string }[]; organiza
 const blank: ProfileInput = {
   username: '', displayName: '', realName: '', showRealName: false, bio: '',
   qualifications: [], qualificationDetails: '', professionalAffiliations: '',
-  website: '', imageUrl: '', brandTies: [],
+  website: '', brandTies: [],
 };
 // Text fields that validation can flag, by their input id and visible label.
 const fieldIds: Partial<Record<keyof ProfileInput, string>> = {
   username: 'username', displayName: 'displayName', realName: 'realName', bio: 'bio', website: 'website',
-  imageUrl: 'imageUrl', qualificationDetails: 'qualificationDetails', professionalAffiliations: 'affiliations',
+  qualificationDetails: 'qualificationDetails', professionalAffiliations: 'affiliations',
 };
 const fieldLabels: Partial<Record<keyof ProfileInput, string>> = {
   username: 'Username', displayName: 'Display name', realName: 'Real name', bio: 'Biography', website: 'Website',
-  imageUrl: 'Profile image URL', qualificationDetails: 'Qualification context', professionalAffiliations: 'Professional affiliations',
+  qualificationDetails: 'Qualification context', professionalAffiliations: 'Professional affiliations',
 };
 
 function AccountEditor() {
+  const clerk = useClerk();
   const [account, setAccount] = useState<Account | null>(null);
   const [email, setEmail] = useState('');
   const [form, setForm] = useState<ProfileInput>(blank);
@@ -55,7 +57,6 @@ function AccountEditor() {
         qualificationDetails: profile.qualificationDetails ?? '',
         professionalAffiliations: profile.professionalAffiliations ?? '',
         website: profile.website ?? '',
-        imageUrl: profile.imageUrl ?? '',
         brandTies: profile.brandTies ?? [],
       });
       setMeta(metadata);
@@ -135,7 +136,7 @@ function AccountEditor() {
             <div className="account-field"><label htmlFor="realName">Real name <span className="muted">(private by default)</span></label><input id="realName" {...invalid('realName')} maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="account-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show my real name on my public profile</span></label></div>
             <div className="account-field"><label htmlFor="bio">Biography</label><textarea id="bio" {...invalid('bio')} maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
             <div className="account-field"><label htmlFor="website">Website</label><input id="website" {...invalid('website')} type="url" placeholder="https://" value={form.website} onChange={e => update('website', e.target.value)} /></div>
-            <div className="account-field"><label htmlFor="imageUrl">Profile image URL</label><input id="imageUrl" {...invalid('imageUrl')} type="url" placeholder="https://" value={form.imageUrl} onChange={e => update('imageUrl', e.target.value)} /></div>
+            <div className="account-field"><span className="account-label">Profile photo</span><div className="account-profile-head"><div className="account-avatar">{account?.profile.imageUrl ? <img src={account.profile.imageUrl} alt="" /> : (form.displayName || form.username || '?').slice(0, 1).toUpperCase()}</div><button className="account-button secondary" type="button" onClick={() => clerk.openUserProfile()}>Change photo</button></div><small>Your photo comes from your sign-in account. Reload this page after changing it.</small></div>
           </div>
           <hr className="account-divider" />
           <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>

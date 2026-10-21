@@ -3,7 +3,7 @@ import { clerkClient, getAuth } from '@clerk/express';
 import type { Request } from 'express';
 import type { Pool, PoolClient } from 'pg';
 import { pool, querySeries, transaction } from './db.ts';
-import { profileInput, type Account, type MemberProfile, type ProfileInput, type Role, type PublicProfile } from '../src/accounts/contracts.ts';
+import { isClerkImage, profileInput, type Account, type ProfileInput, type Role, type PublicProfile } from '../src/accounts/contracts.ts';
 
 export class HttpError extends Error {
   status: number;
@@ -37,7 +37,7 @@ function accountFrom(row: any): Account {
     profile: {
       displayName: row.display_name, realName: row.real_name, showRealName: row.show_real_name,
       bio: row.bio, qualifications: row.qualifications, qualificationDetails: row.qualification_details,
-      professionalAffiliations: row.professional_affiliations, website: row.website, imageUrl: row.image_url, brandTies: [],
+      professionalAffiliations: row.professional_affiliations, website: row.website, imageUrl: isClerkImage(row.image_url) ? row.image_url : '', brandTies: [],
     },
   };
 }
@@ -64,7 +64,10 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
     const row = (await db.query('SELECT * FROM falk_account WHERE clerk_id=$1 AND realm=$2 FOR UPDATE', [userId,realm()])).rows[0];
     if (!row) throw new HttpError(403, 'This identity belongs to a different authentication environment.');
     await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2) ON CONFLICT(account_id) DO UPDATE SET email=EXCLUDED.email', [row.id,email]);
-    await db.query('INSERT INTO falk_member_profile(account_id) VALUES($1) ON CONFLICT DO NOTHING', [row.id]);
+    // Keep the public photo in step with the member's Clerk account; no upload means no photo.
+    const photo = identity.hasImage && isClerkImage(identity.imageUrl) ? identity.imageUrl : '';
+    await db.query(`INSERT INTO falk_member_profile(account_id,image_url) VALUES($1,$2)
+      ON CONFLICT(account_id) DO UPDATE SET image_url=EXCLUDED.image_url WHERE falk_member_profile.image_url IS DISTINCT FROM EXCLUDED.image_url`, [row.id,photo]);
     if (grant && row.status === 'active') {
       const invite = (await db.query(`SELECT * FROM falk_invitation WHERE realm=$1 AND email=$2 AND accepted_by IS NULL
         AND expires_at>now() ORDER BY created_at DESC LIMIT 1 FOR UPDATE`, [realm(),email])).rows[0];
@@ -99,7 +102,6 @@ export async function saveProfile(actor: Account, input: ProfileInput) {
   const profile = profileInput.parse(input);
   const reserved = ['admin','administrator','falk','falkindex','moderator','support','account','system'];
   if (reserved.includes(profile.username)) throw new HttpError(400, 'That username is reserved.');
-  const p: MemberProfile = profile;
   await transaction(async db => {
     const current = (await db.query('SELECT * FROM falk_account WHERE id=$1 FOR UPDATE', [actor.id])).rows[0];
     enforceAccount({role:current.role,status:current.status,emailVerified:current.email_verified});
@@ -107,12 +109,12 @@ export async function saveProfile(actor: Account, input: ProfileInput) {
     const organizations = await db.query('SELECT id FROM falk_organization WHERE id=ANY($1)', [profile.brandTies]);
     if (organizations.rowCount !== new Set(profile.brandTies).size) throw new HttpError(400, 'Choose valid organizations for your disclosures.');
     await db.query('UPDATE falk_account SET username=$2 WHERE id=$1', [actor.id,profile.username]);
-    await db.query('UPDATE falk_account_private SET real_name=$2 WHERE account_id=$1', [actor.id,p.realName]);
+    await db.query('UPDATE falk_account_private SET real_name=$2 WHERE account_id=$1', [actor.id,profile.realName]);
     await db.query(`UPDATE falk_member_profile SET display_name=$2,show_real_name=$3,bio=$4,qualifications=$5,
-      qualification_details=$6,professional_affiliations=$7,website=$8,image_url=$9 WHERE account_id=$1`,
-    [actor.id,p.displayName,p.showRealName,p.bio,[...new Set(p.qualifications)],p.qualificationDetails,p.professionalAffiliations,p.website,p.imageUrl]);
-    await db.query('UPDATE falk_affiliation SET ended_at=now() WHERE account_id=$1 AND ended_at IS NULL AND NOT(organization_id=ANY($2))', [actor.id,p.brandTies]);
-    for (const id of new Set(p.brandTies)) await db.query(`INSERT INTO falk_affiliation(account_id,organization_id)
+      qualification_details=$6,professional_affiliations=$7,website=$8 WHERE account_id=$1`,
+    [actor.id,profile.displayName,profile.showRealName,profile.bio,[...new Set(profile.qualifications)],profile.qualificationDetails,profile.professionalAffiliations,profile.website]);
+    await db.query('UPDATE falk_affiliation SET ended_at=now() WHERE account_id=$1 AND ended_at IS NULL AND NOT(organization_id=ANY($2))', [actor.id,profile.brandTies]);
+    for (const id of new Set(profile.brandTies)) await db.query(`INSERT INTO falk_affiliation(account_id,organization_id)
       SELECT $1,$2 WHERE NOT EXISTS(SELECT 1 FROM falk_affiliation WHERE account_id=$1 AND organization_id=$2 AND ended_at IS NULL)`, [actor.id,id]);
     // Never put private names, emails, or authentication data into audit payloads.
     await audit(db,actor.id,actor.id,'profile_updated','Member updated profile and disclosure settings');
@@ -142,7 +144,8 @@ export async function publicProfile(username: string, db: Pick<Pool,'query'> = p
     username:row.username, displayName:row.display_name, realName:row.public_real_name,
     role:row.role,status:row.status, createdAt:row.created_at.toISOString(), bio:row.bio, qualifications:row.qualifications,
     qualificationDetails:row.qualification_details, professionalAffiliations:row.professional_affiliations,
-    website:row.website,imageUrl:row.image_url,brandTies:ties.rows,verifications:verifications.rows,
+    // Older profiles may still hold a pasted URL from before photos came from Clerk; never serve it.
+    website:row.website,imageUrl:isClerkImage(row.image_url) ? row.image_url : '',brandTies:ties.rows,verifications:verifications.rows,
     acceptedCount:count('approved'),pendingCount:count('pending')+count('needs_info'),rejectedCount:count('rejected'),
     contributions:contributions.rows.map(r => ({id:r.id,title:r.target,url:`/records/${r.target}/`,createdAt:r.createdAt.toISOString()})),
     editorialActions:actions.rows,

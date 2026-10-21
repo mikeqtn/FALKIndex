@@ -15,10 +15,13 @@ export const profileInput = z.object({
   displayName: text(100), realName: text(150), showRealName: z.boolean(),
   bio: text(2000), qualifications: z.array(z.enum(qualificationOptions.map(q => q.value))).max(9),
   qualificationDetails: text(1500), professionalAffiliations: text(1500),
-  website: httpUrl, imageUrl: httpUrl, brandTies: z.array(z.string().max(100)).max(50),
+  website: httpUrl, brandTies: z.array(z.string().max(100)).max(50),
 }).strict();
 export type ProfileInput = z.infer<typeof profileInput>;
-export type MemberProfile = Omit<ProfileInput, 'username'>;
+/** The photo is never typed in: it is copied from the member's Clerk account on sign-in. */
+export type MemberProfile = Omit<ProfileInput, 'username'> & { imageUrl: string };
+/** Only Clerk-hosted photos are shown, so viewing a profile never contacts a member-chosen server. */
+export const isClerkImage = (url: string) => /^https:\/\/img\.clerk\.com\//.test(url);
 export interface Account {
   id: string; username: string | null; role: Role; status: 'active' | 'suspended';
   createdAt: string; emailVerified: boolean; onboarded: boolean; profile: MemberProfile;

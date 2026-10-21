@@ -57,7 +57,7 @@ api.patch('/account', async (req,res) => {
   const input = profileInput.parse(req.body);
   await saveProfile(account,input);
   const { username,...profile } = input;
-  res.json({account:{...account,username,onboarded:true,profile}});
+  res.json({account:{...account,username,onboarded:true,profile:{...profile,imageUrl:account.profile.imageUrl}}});
 });
 api.get('/profiles/:username', async (req,res) => {
   const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/).parse(req.params.username);
