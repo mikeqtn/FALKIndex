@@ -31,7 +31,8 @@ admin.use(async (req,res,next) => {
 });
 admin.get('/accounts', async (req,res) => {
   const query = adminAccountQuery.parse(req.query);
-  const values = [realm(),`%${query.search}%`,query.role ?? null,query.status ?? null];
+  // Search text is literal: % and _ must not act as wildcards.
+  const values = [realm(),`%${query.search.replace(/[\\%_]/g,'\\$&')}%`,query.role ?? null,query.status ?? null];
   const where = `WHERE a.realm=$1 AND (coalesce(a.username,'') ILIKE $2 OR p.display_name ILIKE $2 OR x.email ILIKE $2)
     AND ($3::text IS NULL OR a.role=$3) AND ($4::text IS NULL OR a.status=$4)`;
   const [members, count] = await Promise.all([
@@ -79,13 +80,14 @@ admin.post('/invitations', async (req,res) => {
     WHERE p.email=$1 AND a.realm=$2`, [email,realm()]);
   if (existing.rowCount) throw new HttpError(409,'This person already has a FALK account. Change their role using the account controls.');
   const host = req.get('origin');
-  const invitation = await clerkClient.invitations.createInvitation({
-    emailAddress:email,redirectUrl:`${host}/sign-up`,expiresInDays:7,
-  });
   await transaction(async db => {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
     const actor = (await db.query('SELECT role,status,email_verified AS "emailVerified" FROM falk_account WHERE id=$1 FOR UPDATE', [res.locals.account.id])).rows[0];
     enforceAccount(actor,['admin']);
+    // Send the email only once the inviter is confirmed; a Clerk failure rolls the row back.
+    const invitation = await clerkClient.invitations.createInvitation({
+      emailAddress:email,redirectUrl:`${host}/sign-up`,expiresInDays:7,
+    });
     await db.query(`INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at)
       VALUES($1,$2,$3,$4,$5,now()+interval '7 days')`, [realm(),email,input.role,res.locals.account.id,invitation.id]);
     await audit(db,res.locals.account.id,null,'invitation_created',input.reason,{role:input.role});

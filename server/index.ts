@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import compression from 'compression';
 import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
@@ -34,8 +33,6 @@ export function createApp() {
   app.use(securityHeaders);
   app.use(compression());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
-  // API calls are same-origin only; Clerk's proxy handles its own transport.
-  app.use(cors({credentials:true,origin:false}));
   app.use(express.json({limit:'48kb'}));
   app.use(clerkMiddleware((req) => ({
     publishableKey:publishableKeyFromHost(
