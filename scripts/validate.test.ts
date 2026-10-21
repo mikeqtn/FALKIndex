@@ -30,6 +30,14 @@ test('published non-seed profiles need rationale and supporting evidence', () =>
   assert.match(errors, /supporting claim required/);
 });
 
+test('an ai-draft profile cannot be published; ai-draft evidence behind one is flagged', () => {
+  assert.match(broken(p => { p.editor = 'ai-draft'; }), /ai-draft profile cannot be published/);
+  const d = structuredClone(data);
+  const w = d.watches.find((w: any) => w.value.profiles.some((p: any) => p.status === 'published' && !p.is_seed))!.value;
+  w.claims.forEach((c: any) => { c.editor = 'ai-draft'; });
+  assert.match(check(d).warnings.join('\n'), /still an ai-draft/);
+});
+
 test('version gaps are rejected', () => assert.match(broken(p => { p.version = 2; }), /expected version 1/));
 
 test('unknown claim references are rejected', () =>

@@ -73,6 +73,7 @@ Relationship is `internal`, `in_group` (owned by the same group, per rule "Group
 - Add a new profile with `version` one higher, `status: draft`, and a `change_note`.
 - A second person reviews the draft: they open every source, check every excerpt word for word, and challenge each rationale.
 - On approval: set the new profile to `published` and the previous one to `superseded`. Run `npm run validate`; it rejects a published profile that lacks a rationale or a supporting claim.
+- Load it into the live catalogue with `npm run db:publish -- <brand/model> --reviewer <username>`. It prints the plan; add `--apply` to write it. The reviewer must be an editor or admin who did not write the version. Existing versions and claims cannot be rewritten, only superseded. Then run `npm run db:export` and commit, so `data/` matches.
 
 ## 8. AI-assisted drafts
 

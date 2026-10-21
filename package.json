@@ -13,6 +13,8 @@
     "start": "NODE_ENV=production node --disable-warning=ExperimentalWarning server/index.ts",
     "db:setup": "node --disable-warning=ExperimentalWarning scripts/setup-db.ts",
     "db:import": "node --disable-warning=ExperimentalWarning scripts/import-catalogue.ts",
+    "db:export": "node --disable-warning=ExperimentalWarning scripts/export-catalogue.ts",
+    "db:publish": "node --disable-warning=ExperimentalWarning scripts/publish-record.ts",
     "bootstrap:admin": "node --disable-warning=ExperimentalWarning scripts/bootstrap-admin.ts",
     "typecheck": "tsc --noEmit",
     "validate": "node --disable-warning=ExperimentalWarning scripts/validate.ts",

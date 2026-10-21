@@ -102,6 +102,8 @@ export function check(raw: ReturnType<typeof load>) {
       const at = `${file}:profiles.${i}`;
       if (p.version !== i + 1) err(`${at}.version`, `expected version ${i + 1}, found ${p.version}`);
       if (published[0] && p.version < published[0].version && p.status !== 'superseded') err(`${at}.status`, 'older than the published profile, must be superseded');
+      // EDITORIAL.md §8: AI drafts stay drafts until a human reviewer puts their own handle on them.
+      if (p.status === 'published' && p.editor === 'ai-draft') err(`${at}.editor`, 'an ai-draft profile cannot be published');
 
       // Invariant 6: controlled vocabulary of archetypes, no descriptors, no duplicates.
       const m = methodologies.get(p.methodology);
@@ -119,6 +121,8 @@ export function check(raw: ReturnType<typeof load>) {
           const c = claims.get(e.claim);
           if (!c) return err(`${at}.scores.${d}.evidence.${k}`, `unknown claim "${e.claim}"`);
           if (p.status === 'published' && !p.is_seed) evidencedSources.add(c.source);
+          // A warning, not an error: the live catalogue already has such claims, and errors stop the site loading.
+          if (p.status === 'published' && c.editor === 'ai-draft') warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is still an ai-draft; a reviewer must verify it`);
           if (!c.dimensions.includes(d)) warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is not tagged ${d}`);
         });
         // Invariant 4: published, non-seed profiles carry a rationale and supporting evidence for every non-U score.

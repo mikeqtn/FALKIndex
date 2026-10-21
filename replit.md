@@ -31,6 +31,10 @@ They fail, rather than skip, when a server build is missing.
 - `npm run db:import` imports the validated YAML into an empty database in one
   transaction. It is idempotent and refuses to overwrite live editorial data.
 - `data/` remains the original seed/export copy, not a runtime fallback.
+  `npm run db:export` rewrites `data/organizations`, `data/watches` and
+  `data/sources.yaml` from the database (methodology is left as authored).
+  Run it with the production `DATABASE_URL` and commit the result to keep git
+  in step with live edits.
 - The catalogue is reconstructed from relational data and validated on every
   request, using a request-local cache and a consistent read transaction.
 - Clerk setup provisions its keys. Use the workspace Auth pane for login
