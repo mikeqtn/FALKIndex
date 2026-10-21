@@ -80,6 +80,7 @@ test('pages carry baseline security headers, and production also blocks framing'
   assert.equal(dev.headers.get('x-content-type-options'),'nosniff');
   assert.equal(dev.headers.get('referrer-policy'),'strict-origin-when-cross-origin');
   assert.equal(dev.headers.get('x-frame-options'),null,'the Replit preview frame must keep working in development');
+  assert.match(dev.headers.get('content-security-policy') ?? '',/img-src 'self' data: https:\/\/img\.clerk\.com(;|$)/);
   const env = process.env.NODE_ENV;
   process.env.NODE_ENV = 'production';
   try {

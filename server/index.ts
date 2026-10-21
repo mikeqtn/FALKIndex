@@ -18,7 +18,9 @@ function securityHeaders(_req: express.Request,res: express.Response,next: expre
   res.setHeader('X-Content-Type-Options','nosniff');
   res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=(), payment=()');
-  res.setHeader('Content-Security-Policy',`base-uri 'self'; object-src 'none'${production ? "; frame-ancestors 'none'" : ''}`);
+  // Images only from this site and Clerk (member photos, sign-in icons), so no page can make
+  // a visitor's browser report to a server someone else chose.
+  res.setHeader('Content-Security-Policy',`base-uri 'self'; object-src 'none'; img-src 'self' data: https://img.clerk.com${production ? "; frame-ancestors 'none'" : ''}`);
   if (production) {
     res.setHeader('X-Frame-Options','DENY');
     res.setHeader('Strict-Transport-Security','max-age=31536000');
