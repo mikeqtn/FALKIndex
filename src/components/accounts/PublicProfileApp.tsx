@@ -1,27 +1,28 @@
 import { useEffect, useState } from 'react';
 import type { PublicProfile } from '../../accounts/contracts';
 import { qualificationOptions } from '../../accounts/contracts';
-import { api, dateLabel, handleAccountError } from './api';
+import { api, ApiError, dateLabel, handleAccountError } from './api';
 import '../../styles/accounts.css';
 
 export default function PublicProfileApp({ username }: { username: string }) {
   const [profile, setProfile] = useState<PublicProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [notFound, setNotFound] = useState(false);
   const load = () => {
-    setLoading(true); setError('');
+    setLoading(true); setError(''); setNotFound(false);
     api<{ profile: PublicProfile }>(`/api/profiles/${encodeURIComponent(username)}`)
       .then(result => setProfile(result.profile))
-      .catch(reason => setError(handleAccountError(reason)))
+      .catch(reason => { setNotFound(reason instanceof ApiError && reason.status === 404); setError(handleAccountError(reason)); })
       .finally(() => setLoading(false));
   };
   useEffect(() => { load(); }, [username]);
 
-  if (loading) return <div className="account-shell account-panel account-loading" aria-label="Loading public profile"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div>;
+  if (loading) return <div className="account-shell account-panel account-loading" role="status"><span className="sr-only">Loading public profile</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>;
   if (error || !profile) return (
     <section className="account-shell account-panel account-stack">
       <p className="account-kicker">FALK Index / People</p>
-      <h1 className="account-title">{error.includes('404') ? 'Profile not found' : 'Profile unavailable'}</h1>
+      <h1 className="account-title">{notFound ? 'Profile not found' : 'Profile unavailable'}</h1>
       {error && <p className="account-error" role="alert">{error}</p>}
       <p className="account-help">Public catalogue records remain available without an account.</p>
       <div className="account-actions"><button className="account-button secondary" type="button" onClick={load}>Try again</button><a href="/records/">Browse records</a></div>

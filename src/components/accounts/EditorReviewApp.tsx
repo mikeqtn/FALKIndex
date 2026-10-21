@@ -41,7 +41,11 @@ function ReviewConsole() {
     try {
       const params = new URLSearchParams({ status, search: appliedSearch, page: String(page) });
       const result = await api<Queue>(`/api/review/submissions?${params}`);
-      if (request === queueRequest.current) { setQueue(result); setError(''); }
+      if (request !== queueRequest.current) return;
+      // Deciding the last item on a later page empties it; step back to the last page that has items.
+      const lastPage = Math.max(1, Math.ceil(result.total / result.pageSize));
+      if (!result.submissions.length && page > lastPage) { setPage(lastPage); return; }
+      setQueue(result); setError('');
     } catch (reasonValue) {
       if (request === queueRequest.current) { setQueue(null); setError(handleAccountError(reasonValue)); }
     } finally { if (request === queueRequest.current) setLoading(false); }
@@ -99,7 +103,7 @@ function ReviewConsole() {
   const blocked = detail && (detail.selfAuthored || detail.conflicts.length > 0);
   const noReplyChannel = detail?.contact && !detail.contact.email;
   return (
-    <main className="account-shell account-wide">
+    <div className="account-shell account-wide">
       <header className="account-heading"><div><p className="account-kicker">FALK Index / Editorial</p><h1 className="account-title">Review queue</h1><p className="account-intro">Check each correction against its evidence and record a decision. Every decision needs a note, and the original submission is never changed.</p></div></header>
       <div className="account-stack" style={{ marginTop: 22 }}>
         {error && <div className="account-error" role="alert" tabIndex={-1}>{error}</div>}
@@ -113,7 +117,7 @@ function ReviewConsole() {
               <div className="account-field"><label htmlFor="review-search">Search submissions</label><input id="review-search" type="search" placeholder="Brand, model or text" value={search} onChange={e => setSearch(e.target.value)} /></div>
               <button className="account-button secondary" type="submit" disabled={loading}>Search</button>
             </form>
-            {loading ? <div className="account-loading" aria-label="Loading submissions"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div>
+            {loading ? <div className="account-loading" role="status"><span className="sr-only">Loading submissions</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>
               : queue?.submissions.length ? <ul className="review-list">{queue.submissions.map(item => <li key={item.id}>
                 <button type="button" className="review-item" aria-current={selected === item.id ? 'true' : undefined} onClick={() => select(item.id)}>
                   <span className="review-item-head"><strong>{item.subject}</strong><StatusChip status={item.status} /></span>
@@ -127,7 +131,7 @@ function ReviewConsole() {
           <section className="account-panel account-stack review-detail" ref={detailRef} tabIndex={-1} aria-label="Submission detail">
             {!selected ? <p className="account-empty">Choose a submission to review it.</p>
               : detailError && !detail ? <div className="account-error" role="alert">{detailError} <button className="account-button secondary" type="button" onClick={() => loadDetail(selected)}>Retry</button></div>
-              : !detail ? <div className="account-loading" aria-label="Loading submission"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div>
+              : !detail ? <div className="account-loading" role="status"><span className="sr-only">Loading submission</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>
               : <>
                 <div className="account-heading"><div><p className="account-kicker">Correction · {dateLabel(detail.createdAt)}</p><h2>{detail.record ? <a href={`/records/${detail.record.id}/`} target="_blank" rel="noreferrer">{detail.record.name}</a> : detail.subject}</h2></div><StatusChip status={detail.status} /></div>
                 {detail.selfAuthored && <div className="account-error">You submitted this. Another editor must review it.</div>}
@@ -153,14 +157,14 @@ function ReviewConsole() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 
 function ReviewSession() {
   const { isLoaded, isSignedIn } = useAuth();
-  if (!isLoaded) return <main className="account-shell"><p role="status">Checking your session…</p></main>;
-  if (!isSignedIn) return <main className="account-shell"><h1 className="account-title">Review queue</h1><p>Sign in with an editor account to review submissions.</p><a className="account-button" href="/sign-in?redirect_url=%2Feditor%2Freview">Sign in</a></main>;
+  if (!isLoaded) return <div className="account-shell"><p role="status">Checking your session…</p></div>;
+  if (!isSignedIn) return <div className="account-shell"><h1 className="account-title">Review queue</h1><p>Sign in with an editor account to review submissions.</p><a className="account-button" href="/sign-in?redirect_url=%2Feditor%2Freview">Sign in</a></div>;
   return <ReviewConsole />;
 }
 

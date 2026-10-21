@@ -20,7 +20,7 @@
  */
 
 import type { IncomingHttpHeaders } from 'http';
-import type { RequestHandler } from 'express';
+import type { Request, RequestHandler } from 'express';
 import { createFixedProxyMiddleware } from './fixedProxy.ts';
 
 const CLERK_FAPI = 'https://frontend-api.clerk.dev';
@@ -80,11 +80,10 @@ export function clerkProxyMiddleware(): RequestHandler {
         proxyReq.setHeader('Clerk-Proxy-Url', proxyUrl);
         proxyReq.setHeader('Clerk-Secret-Key', secretKey);
 
-        const xff = req.headers['x-forwarded-for'];
-        const clientIp =
-          (Array.isArray(xff) ? xff[0] : xff)?.split(',')[0]?.trim() ||
-          req.socket?.remoteAddress ||
-          '';
+        // The leftmost X-Forwarded-For value is whatever the client sent. Use
+        // Express's req.ip, which honours `trust proxy` and so only trusts the
+        // hop added by the deployment edge.
+        const clientIp = (req as Request).ip || req.socket?.remoteAddress || '';
         if (clientIp) {
           proxyReq.setHeader('X-Forwarded-For', clientIp);
         }

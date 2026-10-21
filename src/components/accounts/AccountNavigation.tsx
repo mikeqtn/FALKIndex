@@ -21,7 +21,7 @@ function AccountNavigationInner() {
     return () => { active = false; };
   }, [isLoaded, isSignedIn]);
 
-  if (!isLoaded) return <span className="account-nav" aria-label="Loading account navigation"><span className="account-skeleton" style={{ width: 84 }} /></span>;
+  if (!isLoaded) return <span className="account-nav" role="status"><span className="sr-only">Loading account navigation</span><span className="account-skeleton" style={{ width: 84 }} aria-hidden="true" /></span>;
   if (!isSignedIn) return (
     <span className="account-nav">
       <a href="/sign-in">Sign in</a>

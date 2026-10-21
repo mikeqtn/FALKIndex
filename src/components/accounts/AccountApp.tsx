@@ -87,7 +87,7 @@ function AccountEditor() {
       document.getElementById('profile-error')?.focus();
     } finally { setBusy(false); }
   }
-  if (loading) return <div className="account-panel account-loading" aria-label="Loading account"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div>;
+  if (loading) return <div className="account-panel account-loading" role="status"><span className="sr-only">Loading account</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>;
   if (error && !account) return <div className="account-panel account-stack"><div className="account-error" role="alert">{error}</div><button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Try again</button></div>;
 
   const statusText = account?.status === 'suspended' ? 'Account suspended' : account?.emailVerified ? 'Email verified' : 'Email not verified';

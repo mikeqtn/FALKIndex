@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useAuth } from '@clerk/react';
 import type { AdminMember, Role, Verification } from '../../accounts/contracts';
 import { ROLES } from '../../accounts/contracts';
@@ -18,6 +18,9 @@ function AdminConsole() {
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<string | null>(null);
   const [detail, setDetail] = useState<Detail | null>(null);
+  // Access changes apply only from the explicit button, never while arrowing through a select.
+  const [pendingRole, setPendingRole] = useState<Role>('contributor');
+  const [pendingStatus, setPendingStatus] = useState<'active' | 'suspended'>('active');
   const [reason, setReason] = useState('');
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState<Role>('contributor');
@@ -32,21 +35,34 @@ function AdminConsole() {
   const [metaError, setMetaError] = useState('');
   const [notice, setNotice] = useState('');
 
+  // Only the latest request may update the screen; a slow earlier response is ignored,
+  // so the detail shown always belongs to the account the actions will change.
+  const membersRequest = useRef(0);
+  const detailRequest = useRef(0);
+
   async function loadMembers() {
+    const request = ++membersRequest.current;
     setLoading(true);
     try {
       const params = new URLSearchParams({ search, page: String(page) });
       if (role) params.set('role', role);
       if (status) params.set('status', status);
-      setResult(await api<MemberPage>(`/api/admin/accounts?${params}`));
-      setError('');
-    } catch (reasonValue) { setResult(null); setError(handleAccountError(reasonValue)); }
-    finally { setLoading(false); }
+      const members = await api<MemberPage>(`/api/admin/accounts?${params}`);
+      if (request === membersRequest.current) { setResult(members); setError(''); }
+    } catch (reasonValue) {
+      if (request === membersRequest.current) { setResult(null); setError(handleAccountError(reasonValue)); }
+    } finally { if (request === membersRequest.current) setLoading(false); }
   }
   async function loadDetail(id: string) {
+    const request = ++detailRequest.current;
     setSelected(id); setDetail(null); setError('');
-    try { setDetail(await api<Detail>(`/api/admin/accounts/${encodeURIComponent(id)}`)); }
-    catch (reasonValue) { setError(handleAccountError(reasonValue)); }
+    try {
+      const loaded = await api<Detail>(`/api/admin/accounts/${encodeURIComponent(id)}`);
+      if (request !== detailRequest.current) return;
+      setDetail(loaded); setPendingRole(loaded.account.role); setPendingStatus(loaded.account.status);
+    } catch (reasonValue) {
+      if (request === detailRequest.current) setError(handleAccountError(reasonValue));
+    }
   }
   useEffect(() => { loadMembers(); }, [page, role, status]);
   useEffect(() => {
@@ -104,7 +120,7 @@ function AdminConsole() {
     finally { setBusy(false); }
   }
   return (
-    <main className="account-shell account-wide">
+    <div className="account-shell account-wide">
       <header className="account-heading"><div><p className="account-kicker">FALK Index / Administration</p><h1 className="account-title">People and access</h1><p className="account-intro">Manage account roles, access status and independent professional verifications. Every change requires a reason.</p></div></header>
       <div className="account-stack" style={{ marginTop: 22 }}>
         {error && <div className="account-error" role="alert" tabIndex={-1}>{error}</div>}
@@ -126,20 +142,24 @@ function AdminConsole() {
             <div className="account-field"><label htmlFor="status-filter">Status</label><select id="status-filter" value={status} onChange={e => { setStatus(e.target.value); setPage(1); }}><option value="">All statuses</option><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
             <button className="account-button" type="submit" disabled={loading}>Search</button>
           </form>
-          {loading ? <div className="account-loading" aria-label="Loading accounts"><div className="account-skeleton" /><div className="account-skeleton" /><div className="account-skeleton" /></div> : result?.accounts.length ? <div className="account-table-wrap"><table className="account-table"><thead><tr><th>Account</th><th>Role</th><th>Status</th><th>Email</th><th>Joined</th><th>Manage</th></tr></thead><tbody>{result.accounts.map(member => <tr key={member.id}><td><strong>{member.displayName || member.username || member.email}</strong><div className="account-help">{member.username ? `@${member.username}` : 'Profile setup incomplete'}</div></td><td>{member.role}</td><td>{member.status}</td><td>{member.emailVerified ? 'Verified' : 'Unverified'}</td><td>{dateLabel(member.createdAt)}</td><td><button className="account-button secondary" type="button" onClick={() => loadDetail(member.id)}>{selected === member.id ? 'Selected' : 'Manage'}</button></td></tr>)}</tbody></table></div> : result ? <p className="account-empty">No matching accounts.</p> : <p className="account-empty">The account list could not be loaded. <button className="account-button secondary" type="button" onClick={loadMembers}>Retry</button></p>}
+          {loading ? <div className="account-loading" role="status"><span className="sr-only">Loading accounts</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div> : result?.accounts.length ? <div className="account-table-wrap"><table className="account-table"><caption className="sr-only">Accounts, page {result.page}</caption><thead><tr><th scope="col">Account</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Email</th><th scope="col">Joined</th><th scope="col">Manage</th></tr></thead><tbody>{result.accounts.map(member => <tr key={member.id}><td><strong>{member.displayName || member.username || member.email}</strong><div className="account-help">{member.username ? `@${member.username}` : 'Profile setup incomplete'}</div></td><td>{member.role}</td><td>{member.status}</td><td>{member.emailVerified ? 'Verified' : 'Unverified'}</td><td>{dateLabel(member.createdAt)}</td><td><button className="account-button secondary" type="button" aria-label={`Manage ${member.displayName || member.username || member.email}`} aria-pressed={selected === member.id} onClick={() => loadDetail(member.id)}>{selected === member.id ? 'Selected' : 'Manage'}</button></td></tr>)}</tbody></table></div> : result ? <p className="account-empty">No matching accounts.</p> : <p className="account-empty">The account list could not be loaded. <button className="account-button secondary" type="button" onClick={loadMembers}>Retry</button></p>}
           <div className="account-pagination"><span className="account-help">{result ? `${result.total} accounts · page ${result.page}` : ''}</span><div className="account-actions"><button className="account-button secondary" type="button" disabled={page <= 1 || loading} onClick={() => setPage(value => Math.max(1, value - 1))}>Previous</button><button className="account-button secondary" type="button" disabled={!result || result.page * 25 >= result.total || loading} onClick={() => setPage(value => value + 1)}>Next</button></div></div>
         </section>
         {selected && <section className="account-panel account-stack" aria-live="polite">
-          <div className="account-heading"><div><p className="account-kicker">Account detail</p><h2>{detail?.account.displayName || detail?.account.email || 'Loading account…'}</h2></div><button type="button" className="account-button secondary" onClick={() => { setSelected(null); setDetail(null); }}>Close</button></div>
-          {!detail ? <div className="account-loading"><div className="account-skeleton" /><div className="account-skeleton" /></div> : <>
+          <div className="account-heading"><div><p className="account-kicker">Account detail</p><h2>{detail?.account.displayName || detail?.account.email || 'Loading account…'}</h2></div><button type="button" className="account-button secondary" onClick={() => { detailRequest.current++; setSelected(null); setDetail(null); }}>Close</button></div>
+          {!detail ? <div className="account-loading" role="status"><span className="sr-only">Loading account</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div> : <>
             <p className="account-meta"><span>{detail.account.email}</span><span>Role: {detail.account.role}</span><span>Status: {detail.account.status}</span></p>
             <div className="account-form-grid">
-              <div className="account-field"><label htmlFor="change-role">Grant role</label><select id="change-role" value={detail.account.role} onChange={e => updateMember(detail.account.id, { role: e.target.value as Role })}>{ROLES.map(item => <option key={item}>{item}</option>)}</select></div>
-              <div className="account-field"><label htmlFor="change-status">Account status</label><select id="change-status" value={detail.account.status} onChange={e => updateMember(detail.account.id, { status: e.target.value as 'active' | 'suspended' })}><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
+              <div className="account-field"><label htmlFor="change-role">Grant role</label><select id="change-role" value={pendingRole} onChange={e => setPendingRole(e.target.value as Role)}>{ROLES.map(item => <option key={item}>{item}</option>)}</select></div>
+              <div className="account-field"><label htmlFor="change-status">Account status</label><select id="change-status" value={pendingStatus} onChange={e => setPendingStatus(e.target.value as 'active' | 'suspended')}><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
               <div className="account-field" style={{ gridColumn: '1 / -1' }}><label htmlFor="change-reason">Reason for access change (at least 10 characters)</label><textarea id="change-reason" required minLength={10} value={reason} onChange={e => setReason(e.target.value)} /></div>
+              <button type="button" className="account-button" disabled={busy || (pendingRole === detail.account.role && pendingStatus === detail.account.status)} onClick={() => updateMember(detail.account.id, {
+                ...(pendingRole !== detail.account.role ? { role: pendingRole } : {}),
+                ...(pendingStatus !== detail.account.status ? { status: pendingStatus } : {}),
+              })}>Apply access change</button>
             </div>
             <div><p className="account-kicker">Independent verifications</p><h3>Evidence on record</h3></div>
-            {detail.verifications.length ? <ul className="account-list">{detail.verifications.map(item => <li key={item.id}><div className="account-record"><span><strong>{item.label}</strong>{item.organizationName && <span className="account-help"> · {item.organizationName}</span>}</span><button type="button" className="account-button danger" disabled={busy} onClick={() => revokeVerification(item.id)}>Revoke</button></div><a href={item.evidenceUrl} target="_blank" rel="noreferrer">Open evidence</a></li>)}</ul> : <p className="account-empty">No independent verifications listed.</p>}
+            {detail.verifications.length ? <ul className="account-list">{detail.verifications.map(item => <li key={item.id}><div className="account-record"><span><strong>{item.label}</strong>{item.organizationName && <span className="account-help"> · {item.organizationName}</span>}</span><button type="button" className="account-button danger" disabled={busy} aria-label={`Revoke ${item.label}`} onClick={() => revokeVerification(item.id)}>Revoke</button></div><a href={item.evidenceUrl} target="_blank" rel="noreferrer">Open evidence</a></li>)}</ul> : <p className="account-empty">No independent verifications listed.</p>}
             <form className="account-form-grid" onSubmit={addVerification}>
               <div className="account-field"><label htmlFor="verification-label">Verification label</label><input id="verification-label" required value={verifyLabel} onChange={e => setVerifyLabel(e.target.value)} /></div>
               <div className="account-field"><label htmlFor="verification-org">Organization</label><select id="verification-org" value={verifyOrg} onChange={e => setVerifyOrg(e.target.value)}><option value="">No organization</option>{meta.organizations.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}</select></div>
@@ -151,14 +171,14 @@ function AdminConsole() {
           </>}
         </section>}
       </div>
-    </main>
+    </div>
   );
 }
 
 function AdminSession() {
   const { isLoaded, isSignedIn } = useAuth();
-  if (!isLoaded) return <main className="account-shell"><p role="status">Checking your session…</p></main>;
-  if (!isSignedIn) return <main className="account-shell"><h1 className="account-title">Administration</h1><p>Sign in with an administrator account to manage people and access.</p><a className="account-button" href="/sign-in?redirect_url=%2Fadmin%2Fusers">Sign in</a></main>;
+  if (!isLoaded) return <div className="account-shell"><p role="status">Checking your session…</p></div>;
+  if (!isSignedIn) return <div className="account-shell"><h1 className="account-title">Administration</h1><p>Sign in with an administrator account to manage people and access.</p><a className="account-button" href="/sign-in?redirect_url=%2Fadmin%2Fusers">Sign in</a></div>;
   return <AdminConsole />;
 }
 

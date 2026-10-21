@@ -42,7 +42,8 @@ export function createApp() {
   })));
   app.use('/api',api);
   app.use((error: any,_req: express.Request,res: express.Response,_next: express.NextFunction) => {
-    if (res.headersSent) return;
+    // Too late for a JSON error: close the half-sent response instead of leaving the client hanging.
+    if (res.headersSent) { console.error('Request failed mid-response',error.name ?? 'Error',error.code ?? 'unknown'); res.destroy(); return; }
     if (error instanceof HttpError) { res.status(error.status).json({error:error.message}); return; }
     if (error instanceof ZodError) { res.status(400).json({error:error.issues.map(i => `${i.path.join('.')}: ${i.message}`).join('; ')}); return; }
     if (error.code === '23505') { res.status(409).json({error:'That username or record already exists.'}); return; }

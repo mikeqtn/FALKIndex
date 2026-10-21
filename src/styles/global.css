@@ -64,6 +64,9 @@ a { color: var(--c-action); text-decoration-thickness: 1px; text-underline-offse
 a:hover { color: var(--c-action-hover); text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Hidden until a keyboard user tabs to it, then shown as a raised bridge plate. */
+.skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip-link:focus { position: fixed; top: 8px; left: 8px; z-index: 100; padding: 12px 16px; background: var(--c-surface); color: var(--c-action); }
 .wrap { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--gutter); }
 .prose { font: 400 18px/1.6 var(--f-serif); max-width: var(--measure); }
 .prose > * + * { margin-top: var(--s-4); }

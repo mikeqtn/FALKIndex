@@ -60,7 +60,7 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
     const grant = verified && (bootstrap || !!(await db.query(`SELECT 1 FROM falk_invitation WHERE realm=$1 AND email=$2
       AND accepted_by IS NULL AND expires_at>now() LIMIT 1`, [realm(),email])).rowCount);
     if (grant) await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
-    await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,$3) ON CONFLICT(clerk_id) DO UPDATE SET email_verified=EXCLUDED.email_verified', [realm(),userId,verified]);
+    await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,$3) ON CONFLICT(clerk_id) DO UPDATE SET email_verified=EXCLUDED.email_verified WHERE falk_account.realm=EXCLUDED.realm', [realm(),userId,verified]);
     const row = (await db.query('SELECT * FROM falk_account WHERE clerk_id=$1 AND realm=$2 FOR UPDATE', [userId,realm()])).rows[0];
     if (!row) throw new HttpError(403, 'This identity belongs to a different authentication environment.');
     await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2) ON CONFLICT(account_id) DO UPDATE SET email=EXCLUDED.email', [row.id,email]);
