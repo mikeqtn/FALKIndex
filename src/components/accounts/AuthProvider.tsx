@@ -22,8 +22,9 @@ const appearance = {
     borderRadius: '3px',
   },
   elements: {
-    rootBox: { width: '100%', minWidth: 0, display: 'flex', justifyContent: 'center' },
-    cardBox: { width: 'min(440px, calc(100vw - 32px))', minWidth: 0, maxWidth: '100%', overflow: 'hidden', background: 'var(--c-surface)', borderRadius: '6px', boxShadow: '0 2px 0 color-mix(in srgb, var(--c-ink) 7%, transparent)' },
+    // No sizing here: these apply to every Clerk component, including the wide two-column
+    // profile modal opened from the account page. The sign-in/up card width is in authCardAppearance.
+    cardBox: { background: 'var(--c-surface)', borderRadius: '6px', boxShadow: '0 2px 0 color-mix(in srgb, var(--c-ink) 7%, transparent)' },
     card: { background: 'transparent', border: '0', boxShadow: 'none' },
     footer: { background: 'transparent', border: '0', boxShadow: 'none' },
     headerTitle: { color: 'var(--c-ink)', fontWeight: 650 },
@@ -45,6 +46,14 @@ const appearance = {
     otpCodeFieldInput: { border: '1px solid var(--c-ink-2)', background: 'var(--auth-field)', color: 'var(--c-ink)' },
     formFieldRow: { color: 'var(--c-ink)' },
     main: { color: 'var(--c-ink)' },
+  },
+};
+
+/** Centres the sign-in and sign-up card and keeps it to a single narrow column. */
+export const authCardAppearance = {
+  elements: {
+    rootBox: { width: '100%', minWidth: 0, display: 'flex', justifyContent: 'center' },
+    cardBox: { width: 'min(440px, calc(100vw - 32px))', minWidth: 0, maxWidth: '100%', overflow: 'hidden' },
   },
 };
 

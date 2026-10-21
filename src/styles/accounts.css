@@ -15,7 +15,8 @@
 .account-panel + .account-panel { margin-top: 18px; }
 .account-stack { display: grid; gap: 18px; }
 .account-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
-.account-field { display: grid; gap: 7px; min-width: 0; }
+/* align-content: start keeps label and control together when a taller neighbour stretches the row. */
+.account-field { display: grid; gap: 7px; min-width: 0; align-content: start; }
 .account-field > label, .account-label { font-size: 14px; font-weight: 650; }
 .account-field small, .account-help { font-size: 13px; line-height: 1.45; color: var(--c-ink-2); }
 .account-field input, .account-field textarea, .account-field select, .account-control {
