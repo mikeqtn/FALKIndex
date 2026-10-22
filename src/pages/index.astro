@@ -35,16 +35,6 @@ const photos = {
   angled: { src: 'nomos-duw-6101-angled', w: 1600, h: 1067, caption: 'Nomos DUW 6101 through the caseback', href: recordUrl('nomos/tangente-neomatik'), alt: 'A Nomos Tangente neomatik lying face down, its DUW 6101 movement visible through the caseback.' },
 };
 const img = (name: string, w: 800 | 1600) => `/images/movements/${name}-${w}.jpg`;
-// The 3D movement tile: one layer per dimension, bottom to top as it lifts apart.
-const parts = [
-  { code: 'DH', name: 'Dial and hands' },
-  { code: 'MM', name: 'Mainplate' },
-  { code: 'MA', name: 'Gear train' },
-  { code: 'WE', name: 'Balance and hairspring' },
-  { code: 'CF', name: 'Finished bridges' },
-  { code: 'PD', name: 'Rotor' },
-  { code: 'EX', name: 'Case and crystal' },
-];
 
 // Open data: three records shown as cards, each a preview of what its page and data carry.
 const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-neomatik'].map(record).filter(Boolean);
@@ -88,17 +78,13 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
     </div>
 
-    <figure class="tile movement" id="movement" aria-labelledby="movement-cap">
+    <figure class="tile movement" aria-labelledby="movement-cap">
       <div class="m-stage">
-        <img class="m-poster" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
-        <canvas class="m-canvas" aria-hidden="true"></canvas>
-        <ol class="m-labels">
-          {parts.map(p => <li hidden><a href={`/methodology/#${p.code.toLowerCase()}`}><b>{p.code}</b> {p.name}</a></li>)}
-        </ol>
+        <img class="m-photo" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
       </div>
       <figcaption class="m-bar">
-        <span id="movement-cap">Seven measures, one movement. <span class="m-how">Drag to turn it; scroll to take it apart.</span></span>
-        <button type="button" class="m-toggle" aria-pressed="false" hidden>Take it apart</button>
+        <span id="movement-cap">{photos.caseback.caption}</span>
+        <a href={photos.caseback.href}>Open its record</a>
       </figcaption>
     </figure>
   </section>
@@ -283,30 +269,18 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .photo figcaption, .about-photo figcaption { flex: none; display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-3); background: var(--c-surface-2); font-size: 13px; color: var(--c-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .photo figcaption a, .about-photo figcaption a, .dims-photo figcaption a { color: inherit; text-decoration: none; }
   .photo figcaption a:hover, .about-photo figcaption a:hover { color: var(--c-ink); text-decoration: underline; }
-  /* 3D movement tile: a movement drawn in code that turns, ticks and lifts apart into its seven layers. */
+  /* Movement tile: a real movement, the work the index records, filling the board's largest tile. */
   .movement { grid-column: 1 / 8; grid-row: 6 / 10; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: #0E1726; }
-  .m-stage { position: relative; overflow: hidden; touch-action: pan-y; cursor: grab; }
-  .m-stage:active { cursor: grabbing; }
-  .m-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 600ms var(--ease); }
-  .m-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 600ms var(--ease); }
-  .movement.live .m-canvas { opacity: 1; }
-  .movement.live .m-poster { opacity: 0; }
-  .m-labels { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
-  .m-labels li { position: absolute; left: 0; top: 0; }
-  .movement:not(.live) .m-labels { display: none; }
-  .m-labels a { pointer-events: auto; display: inline-flex; gap: var(--s-2); align-items: baseline; padding: 4px 10px; border-radius: 999px; background: rgb(11 18 30 / .72); color: #E8EDF4; font-size: 13px; text-decoration: none; white-space: nowrap; transition: background var(--d-quick) var(--ease); }
-  .m-labels a:hover, .m-labels a:focus-visible { background: #E8EDF4; color: #0B121E; }
-  .m-labels b { font-stretch: 62%; font-size: 15px; }
-  .m-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink-2); }
-  .m-bar #movement-cap { color: var(--c-ink); }
-  .m-how { color: var(--c-ink-2); }
-  .m-toggle { min-height: 36px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-control); background: var(--c-surface); color: var(--c-ink); font: 560 14px/1 var(--f-sans); cursor: pointer; transition: background var(--d-quick) var(--ease); }
-  .m-toggle:hover { background: var(--c-edge); }
-  .m-toggle[aria-pressed="true"] { background: var(--c-ink); color: var(--c-ink-inverse); }
+  .m-stage { position: relative; overflow: hidden; }
+  .m-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .m-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink); }
+  .m-bar a { font-weight: 560; }
   @media (prefers-reduced-motion: no-preference) {
-    /* The one loud move: the tile opens like a shutter on load. */
+    /* The tile opens like a shutter on load, then the photograph drifts slowly, as if under a loupe. */
     .m-stage { animation: shutter 1.1s var(--ease) both; }
     @keyframes shutter { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+    .m-photo { animation: drift 24s ease-in-out 1.1s infinite alternate; }
+    @keyframes drift { from { transform: scale(1); } to { transform: scale(1.06) translate(-1%, 1%); } }
   }
 
   /* Intro: a lead line over four run-in columns. */
@@ -510,35 +484,6 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       : `${a.brand === b.brand ? 'Same maker, different routes: ' : ''}${diff} of 7 measures differ.`;
   }
   selects.forEach(s => s.addEventListener('change', render));
-
-  // 3D movement: load three.js only once the tile is near the screen, and only where WebGL works.
-  // Without it (or without script) the photograph stays in place.
-  {
-    const box = document.getElementById('movement')!;
-    const stage = box.querySelector<HTMLElement>('.m-stage')!;
-    const canvas = box.querySelector<HTMLCanvasElement>('.m-canvas')!;
-    const labels = [...box.querySelectorAll<HTMLElement>('.m-labels li')];
-    const toggle = box.querySelector<HTMLButtonElement>('.m-toggle')!;
-    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
-    if (still) box.querySelector('.m-how')!.textContent = 'Drag to turn it.';
-    if (gl) {
-      const io = new IntersectionObserver(async ([e]) => {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        const { mountMovement } = await import('../scripts/movement.ts');
-        const m = mountMovement(stage, canvas, labels, { still });
-        box.classList.add('live');
-        toggle.hidden = false;
-        toggle.addEventListener('click', () => {
-          const apart = m.toggle();
-          toggle.setAttribute('aria-pressed', String(apart));
-          toggle.textContent = apart ? 'Put it together' : 'Take it apart';
-        });
-      }, { rootMargin: '200px' });
-      io.observe(box);
-    }
-  }
 
   // Open data: switch which record's card is shown.
   {
