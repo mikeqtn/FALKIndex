@@ -36,7 +36,7 @@ const { records, caption, showBrand = true, id } = Astro.props;
             {variant(r) && <div class="small muted">{variant(r)}</div>}
             {p.is_seed && <div class="provisional-mark">Provisional</div>}
           </td>
-          <td>{p.confidence === 'D' ? <span class="small muted">No profile yet</span> : <CompactStrip scores={p.scores} />}</td>
+          <td class="strip-col">{p.confidence === 'D' ? <span class="small muted">No profile yet</span> : <><span class="codes m-codes" aria-hidden="true">{DIMENSIONS.map(d => <span>{d}</span>)}</span><CompactStrip scores={p.scores} /></>}</td>
           <td>{p.confidence === 'D' ? '' : p.classification.map((c, i) => <div class:list={{ 'small muted': i > 0 }}>{i > 0 && 'with '}{classification(c, p.methodology).name}{i > 0 && ' traits'}</div>)}</td>
           <td class="num-col"><ConfidenceMark grade={p.confidence} short /></td>
         </tr>
