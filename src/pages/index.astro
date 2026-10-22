@@ -42,15 +42,41 @@ const inspected = [
   { ...photos.jewels, short: 'Escapement', focus: '50% 55%', zoom: 1 },
 ];
 
-// Showcase: one photograph cut across a 6 × 4 board; five tiles are swapped for flat colour, never two side by side.
-const COLS = 6, ROWS = 4;
-const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; sub?: string }> = {
-  '0,0': { kind: 'head', text: 'Open by default' },
-  '0,4': { kind: 'fact', text: `${records.length} records`, sub: `${orgs.size} makers and suppliers` },
-  '1,2': { kind: 'fact', text: `${sources.size} sources`, sub: 'Each claim links to one' },
-  '2,5': { kind: 'fact', text: 'CC BY-SA 4.0', sub: 'Data you can reuse and cite' },
-  '3,1': { kind: 'action', text: 'Download the data' },
+// Open data: a faithful excerpt of three records exactly as /records/<id>.json publishes them,
+// shortened with … and coloured like a code viewer. Built here so it always matches the data.
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const key = (k: string) => `<span class="j-k">"${esc(k)}"</span>: `;
+const str = (v: string) => `<span class="j-s">"${esc(v)}"</span>`;
+const val = (v: string | number | null) => v === null ? '<span class="j-u">null</span>' : typeof v === 'number' ? `<span class="j-n">${v}</span>` : str(v);
+const more = '<span class="j-x">…</span>';
+const excerpt = (r: (typeof records)[number]) => {
+  const p = r.profile;
+  const claim = r.claims.find(c => c.status !== 'superseded') ?? r.claims[0];
+  const pad = (n: number) => '  '.repeat(n);
+  return [
+    '{',
+    `${pad(1)}${key('id')}${str(r.id)},`,
+    `${pad(1)}${key('brand')}${str(r.brand)},`,
+    `${pad(1)}${key('model')}${str(r.model)},`,
+    `${pad(1)}${key('profiles')}[ ${p.version > 1 ? `${more}, ` : ''}{`,
+    `${pad(2)}${key('version')}${val(p.version)},`,
+    `${pad(2)}${key('status')}${str(p.status)},`,
+    `${pad(2)}${key('confidence')}${str(p.confidence)},`,
+    `${pad(2)}${key('scores')}{`,
+    ...DIMENSIONS.map((d, i) => `${pad(3)}${key(d)}{ ${key('value')}${val(p.scores[d].value)}, ${more} }${i < 6 ? ',' : ''}`),
+    `${pad(2)}},`,
+    `${pad(2)}${key('classification')}[ ${p.classification.map(str).join(', ')} ]`,
+    `${pad(1)}} ],`,
+    ...(claim ? [
+      `${pad(1)}${key('claims')}[ {`,
+      `${pad(2)}${key('statement')}${str(claim.statement)},`,
+      `${pad(2)}${key('source')}${str(claim.source)}`,
+      `${pad(1)}}, ${more} ]`,
+    ] : []),
+    '}',
+  ].join('\n');
 };
+const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-neomatik'].map(record).filter(Boolean);
 ---
 <Base title="FALK Index">
   <section class="board" aria-labelledby="hero-title">
@@ -189,15 +215,38 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     </div>
   </section>
 
-  <section class="mosaic" aria-labelledby="open-h" style="--photo: url(/images/guilloche-1600.jpg)">
-    {Array.from({ length: ROWS }, (_, r) => Array.from({ length: COLS }, (_, c) => {
-      const f = facts[`${r},${c}`];
-      const pos = `--x:${(c / (COLS - 1)) * 100}%;--y:${(r / (ROWS - 1)) * 100}%`;
-      if (!f) return <div class="piece" style={pos} aria-hidden="true"><i /></div>;
-      if (f.kind === 'head') return <div class="swatch head"><h2 id="open-h">{f.text}</h2></div>;
-      if (f.kind === 'action') return <a class="swatch action" href="/data/">{f.text}</a>;
-      return <div class="swatch fact"><b>{f.text}</b><span>{f.sub}</span></div>;
-    }))}
+  <section class="open" aria-labelledby="open-h">
+    <div class="tile open-lead" data-rise>
+      <h2 id="open-h">Open by default</h2>
+      <p class="open-sentence">Every record, claim and source is published as data you can reuse and cite. No paid placement, no sponsored scores.</p>
+      <ul class="open-facts">
+        <li><b data-roll={records.length}>{records.length}</b><span>records</span></li>
+        <li><b data-roll={orgs.size}>{orgs.size}</b><span>makers and suppliers</span></li>
+        <li><b data-roll={sources.size}>{sources.size}</b><span>sources, each archived</span></li>
+        <li><b>CC BY-SA 4.0</b><span>data licence</span></li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="/data/falk.csv">Download CSV</a>
+        <a class="btn secondary" href="/data/falk.json">Download JSON</a>
+        <a class="open-link" href="/data/schema.json">JSON Schema</a>
+      </div>
+    </div>
+    <div class="tile open-data" id="open-data" data-ui>
+      <div class="open-tabs" role="group" aria-label="Choose a record">
+        {shown.map((r, i) => (
+          <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-i={i}>
+            <span class="open-tab-name">{r.model}</span>
+            <CompactStrip scores={r.profile.scores} />
+          </button>
+        ))}
+      </div>
+      {shown.map((r, i) => (
+        <figure class="open-file" hidden={i !== 0}>
+          <figcaption><a href={`/records/${r.id}.json`}>/records/{r.id}.json</a><span>excerpt</span></figcaption>
+          <pre><code set:html={excerpt(r)} /></pre>
+        </figure>
+      ))}
+    </div>
   </section>
 
   <section class="about" aria-labelledby="about-h">
@@ -351,18 +400,41 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
   .band:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
   .band-cls { display: flex; justify-content: flex-end; align-items: center; gap: var(--s-3); font-size: 15px; text-align: right; }
 
-  /* Open data: one photograph read whole through the gaps of a 6 × 4 board. */
-  .mosaic { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
-  .mosaic > :not(.sr-only) { aspect-ratio: 1; border-radius: var(--r-plate); overflow: hidden; }
-  .piece i { display: block; width: 100%; height: 100%; background: var(--photo) var(--x) var(--y) / 600% 400% no-repeat; filter: contrast(1.04); transition: scale 500ms var(--ease); }
-  .piece:hover i { scale: 1.08; }
-  .swatch { display: flex; flex-direction: column; justify-content: space-between; padding: var(--s-4); background: var(--c-surface-2); }
-  .swatch.head { background: var(--c-ink); color: var(--c-ink-inverse); }
-  .swatch.head h2 { font-size: clamp(24px, 2.6vw, 40px); line-height: 1; font-stretch: 74%; font-weight: 640; letter-spacing: -0.03em; }
-  .swatch.fact b { font-size: clamp(20px, 2vw, 28px); line-height: 1.05; font-stretch: 80%; font-weight: 640; letter-spacing: -0.02em; }
-  .swatch.fact span { font-size: 16px; color: var(--c-ink-2); }
-  .swatch.action { justify-content: flex-end; background: var(--c-action); color: var(--c-ink-inverse); font-size: 18px; font-weight: 600; text-decoration: none; transition: background var(--d-quick) var(--ease); }
-  .swatch.action:hover { background: var(--c-action-hover); color: var(--c-ink-inverse); }
+  /* Open data: the facts on an engine-turned tile, beside a real excerpt of the data itself. */
+  .open { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
+  .open-lead { grid-column: 1 / 7; display: flex; flex-direction: column; gap: var(--s-5); padding: var(--s-6); background: #14233F url(/images/guilloche-1600.jpg) 20% 50% / cover; color: #F7F8FA; }
+  .open-lead h2 { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 640; letter-spacing: -0.03em; }
+  .open-sentence { font-size: 18px; line-height: 1.45; max-width: 40ch; color: #C9D3E2; }
+  .open-facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-5); margin: auto 0 0; padding: 0; list-style: none; font-size: 16px; color: #C9D3E2; }
+  /* A fixed number column, so no label ever sits above the next figure. */
+  .open-facts li { display: grid; grid-template-columns: clamp(66px, 5.6vw, 88px) minmax(0, 1fr); align-items: baseline; gap: var(--s-3); }
+  .open-facts li b { justify-self: start; }
+  .open-facts li:last-child { grid-column: 1 / -1; grid-template-columns: auto minmax(0, 1fr); }
+  .open-facts b { font-size: clamp(32px, 3.4vw, 48px); line-height: 1; font-weight: 640; font-stretch: 74%; letter-spacing: -0.02em; color: #F7F8FA; font-variant-numeric: tabular-nums; }
+  .open-facts li:last-child b { font-size: clamp(22px, 2vw, 28px); }
+  .open-lead .btn.secondary { background: rgb(255 255 255 / .1); color: #F7F8FA; }
+  .open-lead .btn.secondary:hover { background: rgb(255 255 255 / .18); }
+  .open-link { color: #F7F8FA; }
+  .open-data { grid-column: 7 / 13; display: flex; flex-direction: column; background: var(--c-surface-sunk); }
+  .open-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: var(--s-3); }
+  .open-tabs button { display: grid; gap: var(--s-2); justify-items: start; padding: var(--s-3); border: 0; border-radius: var(--r-control); background: transparent; color: var(--c-ink-2); font: 500 14px/1.2 var(--f-sans); text-align: left; cursor: pointer; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .open-tabs button:hover { background: var(--c-surface); color: var(--c-ink); }
+  .open-tabs button[aria-pressed="true"] { background: var(--c-surface-2); color: var(--c-ink); }
+  .open-tabs :global(.cstrip) { gap: 2px; }
+  .open-tabs :global(.cell) { width: 18px; height: 18px; font-size: 10px; }
+  .open-file { flex: 1; display: flex; flex-direction: column; margin: 0; min-height: 0; }
+  .open-file figcaption { display: flex; justify-content: space-between; gap: var(--s-3); padding: var(--s-2) var(--s-5); font-size: 13px; color: var(--c-ink-2); }
+  .open-file figcaption a { color: var(--c-ink); }
+  .open-file pre { flex: 1; margin: 0; padding: var(--s-3) var(--s-5) var(--s-5); overflow: auto; max-height: 420px; font: 13px/1.6 ui-monospace, 'SF Mono', Menlo, monospace; white-space: pre-wrap; color: var(--c-ink-2); }
+  .open-file :global(.j-k) { color: var(--c-ink); }
+  .open-file :global(.j-s) { color: var(--c-level-4); }
+  .open-file :global(.j-n) { color: var(--c-ink); font-weight: 700; }
+  .open-file :global(.j-u) { color: var(--c-level-3); font-style: italic; }
+  .open-file :global(.j-x) { color: var(--c-ink-2); }
+  @media (prefers-reduced-motion: no-preference) {
+    .open-file:not([hidden]) pre { animation: file-in 420ms var(--ease) both; }
+    @keyframes file-in { from { opacity: 0; translate: 0 8px; } }
+  }
 
   /* How this was built: a wide photograph with a note set into its corner, and a colour tile with the facts. */
   .about { padding-top: var(--s-10); }
@@ -394,6 +466,7 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     .intro-cols { grid-template-columns: 1fr 1fr; gap: var(--s-6) var(--s-5); }
     .dims-statement, .dims-rows { grid-column: 1 / -1; }
     .tests-body { grid-template-columns: 1fr; margin-top: var(--s-6); }
+    .open-lead, .open-data { grid-column: 1 / -1; }
     .tabs { grid-auto-flow: column; grid-auto-columns: minmax(180px, 1fr); overflow-x: auto; }
     .about-photo, .about-side { grid-column: 1 / -1; }
     .about-side { grid-template-columns: 1fr 1fr; align-items: start; margin-top: var(--s-7); }
@@ -404,8 +477,12 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     .t-name-foot .actions .btn { width: 100%; }
     .tabs { grid-auto-flow: row; grid-template-columns: 1fr 1fr; overflow: visible; }
     .tests, .about { padding-top: var(--s-9); }
-    .mosaic { margin-top: var(--s-9); }
+    .open { margin-top: var(--s-9); }
     .compare-cls { grid-template-columns: 1fr; }
+    .open-facts { grid-template-columns: 1fr; }
+    .open-tabs :global(.cstrip) { display: none; }
+    .open-tabs button { justify-items: center; text-align: center; }
+    .open-lead { padding: var(--s-5); }
     .pickers { grid-template-columns: 1fr; }
     .intro { padding: var(--s-9) 0 var(--s-8); }
     .intro-cols { grid-template-columns: 1fr; margin-top: var(--s-7); }
@@ -414,10 +491,6 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     .dims-rows li { grid-template-columns: 1fr; gap: var(--s-2); padding: 40px var(--s-5); }
     .band { grid-template-columns: 1fr; gap: var(--s-3); padding: var(--s-4); }
     .band-cls { justify-content: flex-start; text-align: left; }
-    .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .mosaic .piece { display: none; }
-    .mosaic::before { content: ''; grid-column: 1 / -1; aspect-ratio: 4 / 5; border-radius: var(--r-plate); background: var(--photo) 50% 30% / cover no-repeat; }
-    .mosaic > .swatch { aspect-ratio: 1; }
     .about-note { position: static; width: auto; padding: var(--s-4) 0 0; border-radius: 0; background: none; }
     .about-side { grid-template-columns: 1fr; }
   }
@@ -523,6 +596,32 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     still.addEventListener('change', run);
     addEventListener('resize', () => place(last.x, last.y));
     show(0);
+  }
+
+  // Open data: switch which record's JSON is shown; the figures roll up once as the section arrives.
+  {
+    const box = document.getElementById('open-data')!;
+    const tabs = [...box.querySelectorAll<HTMLButtonElement>('.open-tabs button')];
+    const files = [...box.querySelectorAll<HTMLElement>('.open-file')];
+    tabs.forEach((t, i) => t.addEventListener('click', () => {
+      tabs.forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
+      files.forEach((f, j) => { f.hidden = i !== j; });
+    }));
+    const figures = [...document.querySelectorAll<HTMLElement>('[data-roll]')];
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        const el = e.target as HTMLElement, end = Number(el.dataset.roll), t0 = performance.now();
+        const step = (t: number) => {
+          const k = Math.min(1, (t - t0) / 900), eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = String(Math.round(end * eased));
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }), { rootMargin: '0px 0px -15% 0px' });
+      figures.forEach(f => io.observe(f));
+    }
   }
 
   // Test cases become tabs once script runs; without it every case is listed in full.
