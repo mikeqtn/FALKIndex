@@ -20,7 +20,8 @@ after(async () => { await browser.close(); await new Promise<void>(resolve => se
 
 // One record with photos, one with a profile and none, one still at confidence D, plus every other public page.
 const pages = ['/', '/records/', '/records/nomos/tangente-neomatik/', '/records/jn-shapiro/resurgence/', '/records/omega/speedmaster-moonwatch-3861/',
-  '/methodology/', '/sources/', '/data/', '/about/', '/organizations/tudor/', '/corrections/', '/no-such-page/'];
+  '/methodology/', '/sources/', '/data/', '/about/', '/organizations/tudor/', '/corrections/', '/no-such-page/',
+  '/compare/', '/compare/?w=jn-shapiro/infinity&w=jn-shapiro/resurgence&w=grand-seiko/spring-drive-9r&w=nomos/tangente-neomatik'];
 
 for (const name of ['iPhone SE', 'iPhone 14']) {
   test(`${name}: no page scrolls sideways or throws`, async () => {
