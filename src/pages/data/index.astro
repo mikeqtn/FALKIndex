@@ -1,38 +1,85 @@
 ---
 import { execSync } from 'node:child_process';
 import Base from '../../layouts/Base.astro';
-import { fmtDate, getCatalogue } from '../../lib/data.ts';
-const { records, watches } = await getCatalogue(Astro.locals);
+import { DIMENSIONS, fmtDate, getCatalogue } from '../../lib/data.ts';
+const { orgs, records, sources, watches } = await getCatalogue(Astro.locals);
 
 const commit = (() => { try { return execSync('git rev-parse --short HEAD').toString().trim(); } catch { return ''; } })();
 const built = new Date().toISOString().slice(0, 10);
+// A real excerpt of the CSV: the first rows, the columns that carry the profile.
+const sample = records.filter(r => r.profile.confidence !== 'D').slice(0, 4);
+const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', 'confidence'].join(','),
+  ...sample.map(r => [r.id, ...DIMENSIONS.map(d => r.profile.scores[d].value ?? ''), r.profile.classification[0], r.profile.confidence].join(','))].join('\n');
 ---
 <Base title="Data" nav="data" description="Download the full FALK Index dataset as JSON or CSV.">
-  <header class="page-head">
-    <h1>Data</h1>
-    <p class="lead">The full dataset is open. Use it, check it, build on it.</p>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>Data</h1>
+      <p class="lead">The full dataset is open. Use it, check it, build on it.</p>
+    </div>
+    <ul class="turned figures">
+      <li><b data-roll={records.length}>{records.length}</b><span>records on the site</span></li>
+      <li><b data-roll={orgs.size}>{orgs.size}</b><span>makers and suppliers</span></li>
+      <li><b data-roll={sources.size}>{sources.size}</b><span>sources</span></li>
+      <li><b>CC BY-SA</b><span>data licence, 4.0</span></li>
+    </ul>
   </header>
 
-  <div class="prose sections">
-    <h2>Full dataset</h2>
-    <ul>
-      <li><a href="/data/falk.json">Download JSON</a>: all {watches.length} records, including any not yet on the site, with provenance, claims and every profile version (drafts included), plus organizations, sources and the methodology.</li>
-      <li><a href="/data/falk.csv">Download CSV</a>: one row per record with its current profile, classification and evidence grade. An unknown (U) score is an empty cell with a matching <code>_unknown</code> flag.</li>
-    </ul>
-    <p class="small">Built {fmtDate(built)}{commit && <> from commit <a href={`https://github.com/mikeqtn/FALKIndex/commit/${commit}`}>{commit}</a></>}.</p>
+  <section class="downloads" aria-labelledby="full-h" data-rise>
+    <h2 id="full-h" class="sr-only">Full dataset</h2>
+    <div class="dl">
+      <h3>JSON</h3>
+      <p>All {watches.length} records, including any not yet on the site, with provenance, claims and every profile version (drafts included), plus organizations, sources and the methodology.</p>
+      <a class="btn" href="/data/falk.json" download>Download JSON</a>
+    </div>
+    <div class="dl">
+      <h3>CSV</h3>
+      <p>One row per record with its current profile, classification and evidence grade. An unknown (U) score is an empty cell with a matching <code>_unknown</code> flag.</p>
+      <a class="btn" href="/data/falk.csv" download>Download CSV</a>
+    </div>
+    <figure class="excerpt">
+      <pre><code>{csv}</code></pre>
+      <figcaption class="small muted">The first rows of the CSV, profile columns only. Empty cells are unknown, not zero.</figcaption>
+    </figure>
+  </section>
 
-    <h2>Single records</h2>
-    <p>Every record has a JSON link at the bottom of its page, for example <a href="/records/jn-shapiro/resurgence.json">/records/jn-shapiro/resurgence.json</a>.</p>
+  <div class="notes" data-rise>
+    <section class="note">
+      <h2>Single records</h2>
+      <p class="body">Every record has a JSON link at the bottom of its page, for example <a href="/records/jn-shapiro/resurgence.json">/records/jn-shapiro/resurgence.json</a>.</p>
+    </section>
 
-    <h2>Schema</h2>
-    <p>Records follow a published <a href="/data/schema.json">JSON Schema</a>, generated from the same definitions that validate the data.</p>
+    <section class="note">
+      <h2>Schema</h2>
+      <p class="body">Records follow a published <a href="/data/schema.json">JSON Schema</a>, generated from the same definitions that validate the data.</p>
+    </section>
 
-    <h2>Licence</h2>
-    <p>Data: CC BY-SA 4.0. Code: MIT.</p>
+    <section class="note">
+      <h2>Licence</h2>
+      <p class="body">Data: CC BY-SA 4.0. Code: MIT. This build was made on {fmtDate(built)}{commit && <> from commit <a href={`https://github.com/mikeqtn/FALKIndex/commit/${commit}`}>{commit}</a></>}.</p>
+    </section>
   </div>
 </Base>
 
 <style>
-  .sections h2 { margin-top: var(--s-7); font-size: 28px; line-height: 32px; }
+  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
+  .figures li { display: grid; gap: var(--s-1); }
+  .figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .figures li:last-child b { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.15; }
+  .figures span { font-size: 15px; color: #C9D3E2; }
+
+  .downloads { display: grid; gap: var(--s-3); }
+  .downloads > * { min-width: 0; }
+  @media (min-width: 1024px) { .downloads { grid-template-columns: 1fr 1fr; } }
+  .dl { display: flex; flex-direction: column; align-items: start; gap: var(--s-4); padding: var(--s-6); background: var(--c-surface); border-radius: var(--r-plate); }
+  .dl h3 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; }
+  .dl p { font-size: 17px; line-height: 1.5; max-width: 52ch; flex: 1; }
+  .excerpt { grid-column: 1 / -1; margin: 0; }
+  .excerpt pre { margin: 0; padding: var(--s-5); overflow-x: auto; background: var(--c-surface-sunk); border-radius: var(--r-plate); font-size: 16px; line-height: 1.7; }
+  .excerpt figcaption { margin-top: var(--s-2); }
+  .notes { display: grid; gap: var(--s-7); padding-top: var(--s-9); }
+  @media (min-width: 900px) { .notes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .note h2 { font-size: clamp(28px, 2.6vw, 36px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; margin-bottom: var(--s-4); }
+  .body { font: 400 17px/1.6 var(--f-serif); overflow-wrap: anywhere; }
   code { font-size: 0.9em; }
 </style>

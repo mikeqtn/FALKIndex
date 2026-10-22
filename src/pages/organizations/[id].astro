@@ -16,30 +16,38 @@ const KIND = { brand: 'Brand', supplier: 'Supplier', group: 'Group', atelier: 'A
 const OWNERSHIP = { independent: 'Independent', group: 'Group-owned', unknown: 'Not recorded' };
 const parent = org.parent && orgs.get(org.parent);
 const pageOf = (id: string) => orgPageIds.has(id) ? orgUrl(id) : undefined;
+const recordsIn = new Set(seen.map(a => a.record.id)).size;
+const summary = [`${KIND[org.kind]}${country ? ` in ${country}` : ''}.`,
+  own.length ? `${own.length === 1 ? 'One record' : `${own.length} records`} on the index.` : '',
+  recordsIn ? `Named in the provenance of ${recordsIn === 1 ? 'one record' : `${recordsIn} records`}.` : ''].filter(Boolean).join(' ');
 ---
 <Base title={org.name} description={`Where ${org.name} appears in the FALK Index.`}>
-  <header class="page-head">
-    <h1>{org.name}</h1>
-    <dl class="pairs small">
-      <div><dt>Type</dt><dd>{KIND[org.kind]}</dd></div>
-      {org.kind !== 'supplier' && <div><dt>Ownership</dt><dd>{OWNERSHIP[org.ownership]}</dd></div>}
-      {parent && <div><dt>Part of</dt><dd>{pageOf(parent.id) ? <a href={pageOf(parent.id)}>{parent.name}</a> : parent.name}</dd></div>}
-      {country && <div><dt>Country</dt><dd>{country}</dd></div>}
-      {org.website && <div><dt>Website</dt><dd><a href={org.website}>{new URL(org.website).host}</a></dd></div>}
-    </dl>
-    {org.notes && <p class="prose">{org.notes}</p>}
-    <p class="small muted">FALK profiles describe individual watches. This page lists where {org.name} appears; it does not score the organization.</p>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>{org.name}</h1>
+      <p class="lead">{org.notes ?? summary}</p>
+    </div>
+    <div class="plate facts">
+      <dl>
+        <div><dt>Type</dt><dd>{KIND[org.kind]}</dd></div>
+        {org.kind !== 'supplier' && <div><dt>Ownership</dt><dd>{OWNERSHIP[org.ownership]}</dd></div>}
+        {parent && <div><dt>Part of</dt><dd>{pageOf(parent.id) ? <a href={pageOf(parent.id)}>{parent.name}</a> : parent.name}</dd></div>}
+        {country && <div><dt>Country</dt><dd>{country}</dd></div>}
+        {org.website && <div><dt>Website</dt><dd><a href={org.website}>{new URL(org.website).host}</a></dd></div>}
+      </dl>
+      <p class="small muted">FALK profiles describe individual watches. This page lists where {org.name} appears; it does not score the organization.</p>
+    </div>
   </header>
 
   {own.length > 0 && (
-    <section class="block">
+    <section class="block" data-rise>
       <h2>Records ({own.length})</h2>
       <RecordTable records={own} caption={`Records for ${org.name}`} showBrand={false} />
     </section>
   )}
 
   {seen.length > 0 && (
-    <section class="block">
+    <section class="block" data-rise>
       <h2>Where {org.name} appears</h2>
       <p class="small muted">The same organization can be in-group for one brand and an external specialist for another, so each entry carries its own relationship.</p>
       {byDim.map(([d, as]) => (
@@ -59,18 +67,28 @@ const pageOf = (id: string) => orgPageIds.has(id) ? orgUrl(id) : undefined;
   )}
 
   {partners.length > 0 && (
-    <section class="block">
+    <section class="block" data-rise>
       <h2>Suppliers and partners named in these records</h2>
-      <ul>{partners.map(o => <li>{pageOf(o.id) ? <a href={pageOf(o.id)}>{o.name}</a> : o.name}</li>)}</ul>
+      <ul class="partners">{partners.map(o => <li>{pageOf(o.id) ? <a href={pageOf(o.id)}>{o.name}</a> : <span>{o.name}</span>}</li>)}</ul>
     </section>
   )}
 </Base>
 
 <style>
+  .doc-head h1 { font-size: clamp(48px, 5.4vw, 84px); }
+  .facts { display: grid; gap: var(--s-4); }
+  .facts dl { display: grid; gap: var(--s-3); margin: 0; }
+  .facts dl div { display: grid; grid-template-columns: 7.5em 1fr; gap: var(--s-3); align-items: baseline; }
+  .facts dt { font-size: 14px; color: var(--c-ink-2); }
+  .facts dd { margin: 0; font-size: 17px; font-weight: 540; overflow-wrap: anywhere; }
+  .block { padding-top: var(--s-8); }
+  .block > h2 { font-size: clamp(28px, 2.8vw, 40px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; margin-bottom: var(--s-5); }
+  .partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .partners li > * { display: flex; align-items: center; min-height: 52px; padding: 0 var(--s-4); background: var(--c-surface); border-radius: var(--r-control); font-size: 16px; font-weight: 540; color: var(--c-ink); text-decoration: none; transition: background var(--d-quick) var(--ease); }
+  .partners a:hover { background: var(--c-surface-2); color: var(--c-action); }
   .area { margin-top: var(--s-5); }
   .area + .area { margin-top: var(--s-6); }
   .area h3 { margin-bottom: var(--s-3); }
-  .appear { list-style: none; margin: 0; padding: 0; background: var(--c-surface); border-radius: var(--r-plate); }
-  .appear li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); border-bottom: var(--edge); }
-  .appear li:last-child { border-bottom: 0; }
+  .appear { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .appear li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-5); background: var(--c-surface); border-radius: var(--r-control); font-size: 16px; }
 </style>

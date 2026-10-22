@@ -136,6 +136,22 @@ const links = [
         }), { rootMargin: '0px 0px -10% 0px' });
         rise.forEach(el => { [...el.children].forEach((c, i) => (c as HTMLElement).style.setProperty('--n', String(i))); io.observe(el); });
       }
+      // Figures marked data-roll count up once as they come into view; the real number is in the markup throughout.
+      const figures = [...document.querySelectorAll<HTMLElement>('[data-roll]')];
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          const el = e.target as HTMLElement, end = Number(el.dataset.roll), t0 = performance.now();
+          const step = (t: number) => {
+            const k = Math.min(1, (t - t0) / 900), eased = 1 - Math.pow(1 - k, 3);
+            el.textContent = String(Math.round(end * eased));
+            if (k < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }), { rootMargin: '0px 0px -15% 0px' });
+        figures.forEach(f => io.observe(f));
+      }
       // "/" jumps to record search, as in most reference tools.
       addEventListener('keydown', e => {
         const t = e.target as HTMLElement;

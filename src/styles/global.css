@@ -338,6 +338,23 @@ blockquote.excerpt { margin: var(--s-2) 0; padding-left: var(--s-4); border-left
 }
 .page-head { padding: var(--s-8) 0 var(--s-6); }
 .page-head > * + * { margin-top: var(--s-3); }
+/* Reading pages: the title set large, the lead beside it on wide screens so the first screen has no empty half. */
+.doc-head { display: grid; gap: var(--s-4) var(--s-7); padding: var(--s-8) 0 var(--s-8); }
+.doc-head h1 { font-size: clamp(56px, 7.4vw, 112px); line-height: .9; font-stretch: 68%; font-weight: 660; letter-spacing: -0.03em; }
+.doc-head > div > * + * { margin-top: var(--s-4); }
+@media (min-width: 1024px) { .doc-head { grid-template-columns: 7fr 5fr; align-items: end; } }
+/* A section title in the left third, its content in the rest. */
+.doc-row { display: grid; gap: var(--s-4) var(--s-7); padding-top: var(--s-9); scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
+.doc-row > h2 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; }
+@media (min-width: 1024px) {
+  .doc-row { grid-template-columns: 4fr 8fr; }
+  .doc-row > h2 { position: sticky; top: calc(var(--nav-h) + var(--s-5)); align-self: start; }
+}
+/* Engine-turned ground in the palette's own blues; text on it stays light in both themes. */
+.turned { background: #14233F url(/images/guilloche-1600.jpg) 30% 50% / cover; color: #F7F8FA; border-radius: var(--r-plate); }
+.turned a { color: inherit; }
+.turned .btn.secondary { background: rgb(255 255 255 / .1); color: #F7F8FA; }
+.turned .btn.secondary:hover { background: rgb(255 255 255 / .18); }
 
 @media print {
   .site-nav, .site-footer, .no-print { display: none; }

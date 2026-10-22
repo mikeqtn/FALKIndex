@@ -7,43 +7,71 @@ const { record } = await getCatalogue(Astro.locals);
 const example = record('fleming/series-1');
 ---
 <Base title="About" nav="about">
-  <header class="page-head"><h1>About</h1></header>
-
-  <div class="grid-2">
-    <div class="prose">
-      <h2>What FALK is</h2>
-      <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
-      <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>About</h1>
+      <p class="lead">FALK records where the work on a watch really happens, and the evidence for it, one model at a time.</p>
     </div>
-    <div class="plate stack">
-      <ProfileStrip caption={`${example.brandName} ${example.model}`} columns={[{ scores: example.profile.scores }]} />
-      <p class="small"><a href={recordUrl(example.id)}>Open this record</a></p>
-    </div>
-  </div>
+    <figure class="hero-photo">
+      <img src="/images/movements/omega-1861-1600.jpg" srcset="/images/movements/omega-1861-800.jpg 800w, /images/movements/omega-1861-1600.jpg 1600w" sizes="(min-width: 1024px) 40vw, 100vw" width="1600" height="1067" alt="An Omega calibre 1861 chronograph movement, its bridges and jewels exposed." />
+      <figcaption class="small muted"><a href={recordUrl('omega/speedmaster-moonwatch-3861')}>Omega cal. 1861, base of the 3861</a></figcaption>
+    </figure>
+  </header>
 
-  <div class="prose sections">
+  <section class="doc-row" data-rise>
+    <h2>What FALK is</h2>
+    <div class="stack-l">
+      <div class="body">
+        <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
+        <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+      </div>
+      <div class="plate example">
+        <ProfileStrip caption={`${example.brandName} ${example.model}`} columns={[{ scores: example.profile.scores }]} />
+        <p class="small"><a href={recordUrl(example.id)}>Open this record</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc-row" data-rise>
     <h2>Editorial independence</h2>
-    <p>There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+    <p class="body">There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+  </section>
 
+  <section class="doc-row" data-rise>
     <h2>How AI was used</h2>
-    <p>This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
+    <p class="body">This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
+  </section>
 
+  <section class="doc-row" data-rise>
     <h2>Who publishes this</h2>
-    <p>Publisher details will be added before launch.</p>
+    <p class="body">Publisher details will be added before launch.</p>
+  </section>
 
+  <section class="doc-row" data-rise>
     <h2>Data licence</h2>
-    <p>The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href="/data/">Download the dataset</a>.</p>
+    <p class="body">The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href="/data/">Download the dataset</a>.</p>
+  </section>
 
+  <section class="doc-row" data-rise>
     <h2>Contact and corrections</h2>
-    <p>Brands, watchmakers and readers can submit evidence-based corrections. Submissions are stored in FALK's database for editorial review; contact details are optional and private. Accepted changes appear in the record's history with a change note. <a href={correctionUrl()}>Send a correction</a></p>
+    <div class="body">
+      <p>Brands, watchmakers and readers can submit evidence-based corrections. Submissions are stored in FALK's database for editorial review; contact details are optional and private. Accepted changes appear in the record's history with a change note.</p>
+      <p><a class="btn" href={correctionUrl()}>Send a correction</a></p>
+    </div>
+  </section>
 
+  <section class="doc-row" data-rise>
     <h2>Right of reply</h2>
-    <p>A brand or watchmaker described on this site can reply to any record. Send the correction form with the evidence you want considered; if the editors keep a judgment you dispute, your contradicting evidence is added to the record as a visible claim beside the score, not hidden. Profiles are editorial research judgments, not verdicts on quality, and are revised when better evidence appears.</p>
-  </div>
+    <p class="body">A brand or watchmaker described on this site can reply to any record. Send the correction form with the evidence you want considered; if the editors keep a judgment you dispute, your contradicting evidence is added to the record as a visible claim beside the score, not hidden. Profiles are editorial research judgments, not verdicts on quality, and are revised when better evidence appears.</p>
+  </section>
 </Base>
 
 <style>
-  .sections { margin-top: var(--s-8); }
-  .sections h2 { margin-top: var(--s-7); }
-  .prose h2 { font-size: 28px; line-height: 32px; }
+  .hero-photo { margin: 0; }
+  .hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-plate); }
+  .hero-photo figcaption { margin-top: var(--s-2); }
+  .body { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); }
+  .body > * + * { margin-top: var(--s-4); }
+  .stack-l > * + * { margin-top: var(--s-6); }
+  .example { max-width: 640px; }
 </style>

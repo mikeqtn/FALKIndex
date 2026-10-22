@@ -12,36 +12,49 @@ const contents = [
 ];
 ---
 <Base title="Methodology" nav="methodology" description={`The FALK Index methodology, version ${m.code}.`}>
-  <header class="page-head">
-    <h1>Methodology</h1>
-    <p class="lead">Version {m.code}, published {fmtDate(m.published_on)}. Changes need a version bump; earlier profiles keep their original version.</p>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>Methodology</h1>
+      <p class="lead">How every FALK record is scored: {m.dimensions.length} dimensions, each 0 to 5 or unknown, never added together.</p>
+    </div>
+    <div class="turned version">
+      <b>{m.code}</b>
+      <p>Published {fmtDate(m.published_on)}. Changes need a version bump; earlier profiles keep their original version. <a href="#changelog">Changelog</a></p>
+    </div>
   </header>
 
   <div class="side-layout">
     <aside>
       <nav aria-label="Contents" class="toc">
-        <p class="small muted">Contents</p>
+        <p class="toc-title">Contents</p>
         <ul>
           {contents.map(([id, label]) => <li><a href={`#${id}`}>{label}</a>
-            {id === 'dimensions' && <ul class="dims">{m.dimensions.map(d => <li><a href={`#${d.code.toLowerCase()}`}>{d.code}</a></li>)}</ul>}
+            {id === 'dimensions' && <ul class="dims">{m.dimensions.map(d => <li><a href={`#${d.code.toLowerCase()}`} title={d.name}>{d.code}</a></li>)}</ul>}
           </li>)}
         </ul>
       </nav>
     </aside>
 
     <div>
-      <section id="rules" class="sec">
+      <section id="rules" class="sec" data-rise>
         <h2>Foundational rules</h2>
-        {m.rules.map(r => <div class="item"><h3>{r.name}</h3><p class="prose">{r.meaning}</p></div>)}
+        <div class="pairs-2">
+          {m.rules.map(r => <div class="item"><h3>{r.name}</h3><p class="body">{r.meaning}</p></div>)}
+        </div>
       </section>
 
       <section id="dimensions" class="sec">
-        <h2>Dimensions</h2>
-        <p class="prose">Each dimension is scored 0 to 5, or U when evidence is insufficient. They are never added together.</p>
+        <div data-rise>
+          <h2>Dimensions</h2>
+          <p class="body intro">Each dimension is scored 0 to 5, or U when evidence is insufficient. Darker means more of the work is done inside the brand. They are never added together.</p>
+        </div>
         {m.dimensions.map(d => (
-          <div id={d.code.toLowerCase()} class="item">
-            <h3>{d.name} ({d.code})</h3>
-            <p class="lead">{d.question}</p>
+          <article id={d.code.toLowerCase()} class="dim" data-rise>
+            <header>
+              <span class="code">{d.code}</span>
+              <h3>{d.name}</h3>
+              <p class="body">{d.question}</p>
+            </header>
             <ol class="levels" start="0">
               {Object.entries(d.levels).map(([n, text]) => (
                 <li>
@@ -54,65 +67,114 @@ const contents = [
                 <b>U</b> <span>Unknown: reliable evidence is unavailable. Not the same as 0.</span>
               </li>
             </ol>
-          </div>
+          </article>
         ))}
       </section>
 
-      <section id="confidence" class="sec">
+      <section id="confidence" class="sec" data-rise>
         <h2>Evidence confidence</h2>
-        <dl class="defs">
-          {Object.entries(m.confidence).map(([g, text]) => <div><dt><span class="conf"><b>{g}</b></span></dt><dd class="prose">{text}</dd></div>)}
+        <dl class="grades">
+          {Object.entries(m.confidence).map(([g, text]) => <div><dt><span class="conf"><b>{g}</b></span></dt><dd>{text}</dd></div>)}
         </dl>
-        <p class="prose">A D record shows provenance notes only, with no profile and no classification.</p>
+        <p class="body">A D record shows provenance notes only, with no profile and no classification.</p>
       </section>
 
-      <section id="classifications" class="sec">
+      <section id="classifications" class="sec" data-rise>
         <h2>Classifications</h2>
-        <p class="prose">Production archetypes, not status tiers. A classification is assigned after the profile and provenance review.</p>
-        {m.classifications.map(c => (
-          <div class="item">
-            <h3>{c.name}</h3>
-            <p class="prose">{c.definition}</p>
-            <p class="small">
-              {c.kind === 'descriptor'
-                ? `A descriptor, shown beside the classification. ${count(c.code)} records carry it.`
-                : <a href={`/records/?cls=${c.code}`}>Records with this classification ({count(c.code)})</a>}
-            </p>
-          </div>
-        ))}
-        <p class="prose">Ownership and scale are separate metadata. A brand can be independently owned and still operate as an industrial manufacture.</p>
+        <p class="body intro">Production archetypes, not status tiers. A classification is assigned after the profile and provenance review.</p>
+        <div class="pairs-2">
+          {m.classifications.map(c => (
+            <div class="item">
+              <h3>{c.name}</h3>
+              <p class="body">{c.definition}</p>
+              <p class="small">
+                {c.kind === 'descriptor'
+                  ? `A descriptor, shown beside the classification. ${count(c.code)} records carry it.`
+                  : <a href={`/records/?cls=${c.code}`}>Records with this classification ({count(c.code)})</a>}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p class="body">Ownership and scale are separate metadata. A brand can be independently owned and still operate as an industrial manufacture.</p>
       </section>
 
-      <section id="how-to-use" class="sec">
+      <section id="how-to-use" class="sec" data-rise>
         <h2>How to use the FALK Index</h2>
-        <ol class="steps prose">{m.steps.map(s => <li><b>{s.name}</b> {s.detail}</li>)}</ol>
+        <ol class="steps">{m.steps.map(s => <li><b>{s.name}</b> <span class="body">{s.detail}</span></li>)}</ol>
       </section>
 
-      <section id="changelog" class="sec">
+      <section id="changelog" class="sec" data-rise>
         <h2>Changelog</h2>
-        <p class="prose"><b>{m.code}</b>, {fmtDate(m.published_on)}. {m.notes}</p>
+        <p class="body"><b>{m.code}</b>, {fmtDate(m.published_on)}. {m.notes}</p>
       </section>
     </div>
   </div>
 </Base>
 
 <style>
-  .sec { padding-bottom: var(--s-8); scroll-margin-top: var(--s-4); }
-  .sec > h2 { margin-bottom: var(--s-5); }
-  .item { margin-top: var(--s-6); scroll-margin-top: var(--s-4); }
-  .item > * + * { margin-top: var(--s-2); }
+  .version { display: grid; align-content: space-between; gap: var(--s-5); min-height: 240px; padding: var(--s-5); }
+  @media (max-width: 1023px) { .version { min-height: 0; } }
+  .version b { font-size: clamp(72px, 7vw, 112px); line-height: .85; font-stretch: 62%; font-weight: 720; letter-spacing: -0.03em; }
+  .version p { font-size: 16px; line-height: 1.45; max-width: 36ch; color: #C9D3E2; }
+  .version a { font-weight: 600; color: #F7F8FA; }
+
+  .toc { padding: var(--s-4); background: var(--c-surface); border-radius: var(--r-plate); }
+  .toc-title { font-size: 14px; color: var(--c-ink-2); padding: 0 var(--s-3) var(--s-2); }
   .toc ul { list-style: none; margin: 0; padding: 0; }
-  .toc li a { display: inline-flex; min-height: 44px; align-items: center; }
-  .toc .dims { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); padding-left: var(--s-4); }
-  .levels { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
-  .levels li { display: flex; gap: var(--s-3); align-items: center; }
-  .levels b { font-stretch: 62%; font-size: 21px; min-width: 1.4ch; }
-  .segs { display: inline-flex; gap: 3px; flex: none; }
-  .seg { width: 12px; height: 18px; border: 1.5px solid var(--c-ink-2); }
-  .defs { margin: 0; display: grid; gap: var(--s-3); }
-  .defs div { display: flex; gap: var(--s-4); align-items: baseline; }
-  .defs dd { margin: 0; }
-  .steps { padding-left: 1.4em; }
-  .steps li + li { margin-top: var(--s-2); }
-  @media (max-width: 1023px) { .toc .dims { display: none; } .toc ul:first-of-type { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); } }
+  .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 var(--s-3); border-radius: var(--r-control); color: var(--c-ink-2); text-decoration: none; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .toc a:hover { background: var(--c-surface-2); color: var(--c-ink); }
+  .toc a[aria-current="true"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 600; }
+  .toc .dims { display: flex; gap: 0; padding: 2px 0 var(--s-2) var(--s-2); }
+  .toc .dims a { min-height: 32px; padding: 0 7px; font-size: 14px; font-weight: 600; font-stretch: 80%; }
+
+  .sec { padding-bottom: var(--s-9); scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
+  .sec h2 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; margin-bottom: var(--s-6); }
+  .body { font: 400 17px/1.6 var(--f-serif); }
+  .intro { max-width: var(--measure); margin-bottom: var(--s-6); }
+  .sec > .body:last-child { margin-top: var(--s-6); max-width: var(--measure); }
+
+  .pairs-2 { display: grid; gap: var(--s-6) var(--s-7); }
+  @media (min-width: 760px) { .pairs-2 { grid-template-columns: 1fr 1fr; } }
+  .item > * + * { margin-top: var(--s-2); }
+  .item h3 { font-size: 20px; line-height: 1.2; }
+
+  .dim { display: grid; gap: var(--s-5) var(--s-7); padding: var(--s-7) 0; scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
+  @media (min-width: 1200px) { .dim { grid-template-columns: 5fr 7fr; } }
+  .dim header > * + * { margin-top: var(--s-2); }
+  .dim .code { display: block; font: 720 64px/.85 var(--f-sans); font-stretch: 62%; letter-spacing: -0.02em; color: var(--c-level-5); }
+  .dim h3 { font-size: 24px; line-height: 1.15; }
+  .levels { list-style: none; margin: 0; padding: var(--s-4) var(--s-5); display: grid; gap: var(--s-3); background: var(--c-surface); border-radius: var(--r-plate); }
+  .levels li { display: grid; grid-template-columns: auto 1.6ch 1fr; gap: var(--s-3); align-items: center; font-size: 15px; line-height: 1.4; }
+  .levels b { font: 700 21px/1 var(--f-sans); font-stretch: 62%; }
+  .segs { display: inline-flex; gap: 3px; }
+  .seg { width: 12px; height: 18px; border-radius: 2px; border: 1.5px solid var(--c-edge); }
+
+  .grades { margin: 0; display: grid; gap: var(--s-3); }
+  @media (min-width: 760px) { .grades { grid-template-columns: 1fr 1fr; } }
+  .grades div { display: flex; gap: var(--s-4); align-items: center; padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); }
+  .grades .conf b { width: 44px; height: 44px; font-size: 22px; font-stretch: 68%; }
+  .grades dd { margin: 0; font-size: 17px; }
+
+  .steps { margin: 0; padding-left: 1.4em; display: grid; gap: var(--s-4); max-width: var(--measure); }
+  .steps b { font-size: 18px; }
+  .steps .body { display: block; margin-top: var(--s-1); }
+
+  @media (max-width: 1023px) {
+    .toc .dims { display: none; }
+    .toc > ul { display: flex; flex-wrap: wrap; gap: 2px; }
+  }
 </style>
+
+<script>
+  // The contents list follows the reader: the section in view is marked current.
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.toc a')].map(a => [a.hash.slice(1), a]));
+  const targets = [...links.keys()].map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+  const mark = () => {
+    const y = innerHeight * 0.3;
+    const active = new Set<string>();
+    for (const t of targets) if (t.getBoundingClientRect().top <= y && t.getBoundingClientRect().bottom > y) active.add(t.id);
+    links.forEach((a, id) => a.setAttribute('aria-current', String(active.has(id))));
+  };
+  addEventListener('scroll', mark, { passive: true });
+  mark();
+</script>
