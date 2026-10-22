@@ -9,7 +9,6 @@ claims:
     source: monochrome-h-moser-ecs-2017
     dimensions:
       - MA
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-pe-regulating
@@ -26,7 +25,6 @@ claims:
     source: monochrome-h-moser-ecs-2017
     dimensions:
       - MM
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-finishing
@@ -51,7 +49,6 @@ claims:
     source: h-moser-ecs-vantablack-page
     dimensions:
       - MM
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-pe-components

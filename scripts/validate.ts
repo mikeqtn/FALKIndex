@@ -124,7 +124,8 @@ export function check(raw: ReturnType<typeof load>) {
           if (p.status === 'published' && !p.is_seed) evidencedSources.add(c.source);
           // A warning, not an error: the live catalogue already has such claims, and errors stop the site loading.
           if (p.status === 'published' && c.editor === 'ai-draft') warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is still an ai-draft; a reviewer must verify it`);
-          if (!c.dimensions.includes(d)) warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is not tagged ${d}`);
+          // PD is scored by content from claims of any dimension (EDITORIAL.md §5), so it needs no PD tag.
+          if (d !== 'PD' && !c.dimensions.includes(d)) warn(`${at}.scores.${d}.evidence.${k}`, `claim "${e.claim}" is not tagged ${d}`);
         });
         // Invariant 4: published, non-seed profiles carry a rationale and supporting evidence for every non-U score.
         if (p.status !== 'published' || p.is_seed || s.value === null) continue;
