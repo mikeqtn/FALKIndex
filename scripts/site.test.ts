@@ -126,6 +126,8 @@ test('every record page shows seven dimension rows and nothing that sums them', 
   for (const f of pages) {
     const html = read(f);
     const strip = html.match(/<table class="strip[^"]*">([\s\S]*?)<\/table>/)?.[1] ?? '';
+    // Confidence D shows provenance notes instead of a profile (DESIGN.md §4.1), so it has no strip.
+    if (html.includes('class="no-profile"')) { assert.equal(strip, '', f); continue; }
     assert.equal(strip.match(/<th scope="row"/g)?.length, 7, f);
     assert.doesNotMatch(strip, /<tfoot/, f);
     assert.doesNotMatch(html, /\b(total|average|overall|aggregate) (score|profile)\b/i, f);
@@ -135,6 +137,7 @@ test('every record page shows seven dimension rows and nothing that sums them', 
 test('published evidence repeats the strip scores; a draft gets its own section', { skip }, () => {
   for (const f of files.filter(f => /records\/[^/]+\/[^/]+\/index\.html$/.test(f))) {
     const html = read(f);
+    if (html.includes('class="no-profile"')) continue; // confidence D: no strip to repeat
     const strip = [...(html.match(/<table class="strip[^"]*">([\s\S]*?)<\/table>/)?.[1] ?? '').matchAll(/<span class="num"[^>]*>([^<]+)</g)].map(m => m[1]);
     const section = html.match(/class="block evidence-section"[\s\S]*?<\/section>/)?.[0] ?? '';
     const evidence = [...section.matchAll(/<span class="code"[^>]*>[A-Z]{2} ([^<]+)</g)].map(m => m[1]);
