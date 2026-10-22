@@ -204,3 +204,93 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 U; CF 5 \u2192 3; WE 5 \u2192 3; PD 5 \u2192 4; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Calibre 5100 was designed, developed and made by Vacheron Constantin.
+        evidence:
+          - claim: vco-5100-designed
+            stance: supports
+            note: Designed in-house.
+          - claim: vco-5100-172
+            stance: supports
+            note: Developed in-house.
+      MM:
+        value: 4
+        rationale: The 5100 is manufactured by Vacheron Constantin, with complete movement production at Plan-les-Ouates and parts made at Le Brassus. Hairspring production is reported, but not confirmed for the 5100, so this is 4; borderline with 5.
+        evidence:
+          - claim: vco-5100-172
+            stance: supports
+            note: Manufactured in-house.
+          - claim: vco-movement-production
+            stance: supports
+            note: Complete movement production.
+          - claim: vco-le-brassus-parts
+            stance: supports
+            note: Parts production.
+          - claim: vco-hairspring
+            stance: context
+            note: Not tied to the 5100.
+      EX:
+        value: null
+        rationale: "A visit report says cases are made outside the manufacture, possibly by the in-group supplier Donz\u00e9 Baume; that is not confirmed for the Overseas, and the integrated bracelet's maker is not named. With the main parts unattributed, U."
+        evidence:
+          - claim: vco-cases-elsewhere
+            stance: context
+            note: "Cases made elsewhere, maker unconfirmed."
+          - claim: vco-bracelet-system
+            stance: context
+            note: "Bracelet system; maker not named."
+      DH:
+        value: null
+        rationale: Most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève. The Overseas dial maker and the hand maker are not named.
+        evidence:
+          - claim: vco-cases-elsewhere
+            stance: context
+            note: Most dials external.
+          - claim: vco-dials-third-party
+            stance: context
+            note: Third-party dial makers.
+      CF:
+        value: 3
+        rationale: The Overseas carries the Hallmark of Geneva, and finishing is organised in-house by component type. Substantial finishing; the claims do not describe handwork, so this is 3.
+        evidence:
+          - claim: vco-geneva-hallmark
+            stance: supports
+            note: Hallmark of Geneva.
+          - claim: vco-finishing
+            stance: supports
+            note: In-house finishing.
+      WE:
+        value: 3
+        rationale: Movement assembly, casing-up and final controls take place at Plan-les-Ouates. No claim mentions regulation or adjustment, which caps this at 3.
+        evidence:
+          - claim: vco-casing-plan-les-ouates
+            stance: supports
+            note: Assembly and casing.
+          - claim: vco-assembly
+            stance: supports
+            note: Assembly workshops.
+          - claim: vco-movement-production
+            stance: supports
+            note: Movement production.
+          - claim: vco-geneva-hallmark
+            stance: supports
+            note: Hallmark of Geneva.
+      PD:
+        value: 4
+        rationale: Vacheron Constantin designed and developed the calibre. The tool-free strap change is described, but not credited to VC's own development, so this is 4.
+        evidence:
+          - claim: vco-5100-designed
+            stance: supports
+            note: Designed and developed.
+    classification:
+      - independent_manufacture

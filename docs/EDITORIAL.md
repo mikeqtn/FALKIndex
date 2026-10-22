@@ -62,10 +62,16 @@ Relationship is `internal`, `in_group` (owned by the same group, per rule "Group
 - External artisan work does not raise CF or DH (rule "Internal means internal").
 - Write a `rationale` of 2–4 sentences: which claims carry the score, and why it is not one level higher or lower. Borderline scores must say so.
 - Link evidence: `stance: supports`, `contradicts` or `context`, each with a `note` saying why it matters.
+- **Brand-wide claims** ("all our cases are made in-house") count for a model only when the statement is universal or names the model. A capability the brand has, or a supplier it uses somewhere, is `context` until a source ties it to this watch.
+- **WE above 3** needs a claim that describes regulation, adjustment or complication work done by the brand. Assembly and testing alone stop at 3.
+- **PD by content.** Score product development from what the claims say about design, supplier direction and engineering, whichever dimension they are tagged with.
+- **In-group work** (rule "Group capability is disclosed") counts toward the brand's score when a group-owned company makes the brand's own design: its calibre, case or dial. That holds even if the company also supplies other brands. The rationale names the company and says the credit is in-group. A group supplier's own calibre, even in a version exclusive to the brand (such as an ETA base with a custom specification), stays external.
+- **Contract work** (`relationship: contract`) is not internal, even when it happens under the brand's name or roof. Architecture and development may still be credited (rule "Authorship is not manufacture").
 
 ## 6. Grade confidence, then classify
 
 - **Confidence** describes the evidence, not the brand. If most dimensions rest on secondary sources, it is not A.
+- **Four or more U** of the seven dimensions is sparse evidence: confidence is D, and the site shows provenance notes instead of a profile. Scored dimensions resting only on secondary sources keep confidence at C or below.
 - **Classification comes last.** Pick the archetype that matches the finished profile; add a second only for genuine hybrids. If the profile and the label disagree, change the label, not the profile.
 
 ## 7. Publish a new version

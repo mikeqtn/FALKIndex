@@ -19,6 +19,7 @@ claims:
     dimensions:
       - CF
       - PD
+      - MA
     date_checked: 2026-10-21
     editor: ai-draft
   - id: cw12-swiss-made-brand
@@ -127,5 +128,71 @@ profiles:
         value: 2
       PD:
         value: 3
+    classification:
+      - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; PD 3 \u2192 1; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: "A Sellita SW200-1 with a customised Christopher Ward rotor: a cosmetic specification."
+        evidence:
+          - claim: cw12-sw200
+            stance: supports
+            note: Sellita SW200-1.
+          - claim: cw12-rotor
+            stance: supports
+            note: Custom rotor.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: cw12-sw200
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: No source names the case or bracelet maker.
+        evidence:
+          - claim: cw12-external-suppliers
+            stance: context
+            note: General supplier statement.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: cw12-external-suppliers
+            stance: context
+            note: General supplier statement.
+      CF:
+        value: null
+        rationale: The rotor design is the brand's, but no source says who makes or decorates it.
+        evidence:
+          - claim: cw12-rotor
+            stance: context
+            note: Maker not stated.
+      WE:
+        value: 2
+        rationale: Christopher Ward models are assembled and inspected through the in-group Synergies Horlogères workshop. The 2016 source does not name The Twelve, and no regulation is described.
+        evidence:
+          - claim: cw12-synergies-tasks
+            stance: supports
+            note: Assembly and inspection.
+          - claim: cw12-assembly-switzerland
+            stance: supports
+            note: Swiss assembly.
+      PD:
+        value: 1
+        rationale: The only design claim is the customised rotor, a cosmetic specification. The review's description of a British-based, Swiss-made brand does not say who designs the watch.
+        evidence:
+          - claim: cw12-rotor
+            stance: supports
+            note: Custom rotor.
     classification:
       - contract_microbrand

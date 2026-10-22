@@ -166,3 +166,75 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Soprod M100.
+        evidence:
+          - claim: ser5303-m100
+            stance: supports
+            note: Soprod M100.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: ser5303-m100
+            stance: supports
+            note: External movement.
+          - claim: ser5303-m100-spec
+            stance: context
+            note: Specification.
+      EX:
+        value: null
+        rationale: The case and its soft-iron inner parts are specified, but no source names the case maker.
+        evidence:
+          - claim: ser5303-case
+            stance: context
+            note: Maker not named.
+          - claim: ser5303-softiron
+            stance: context
+            note: Specification.
+      DH:
+        value: null
+        rationale: Dials and hands are fitted at Soprod, but no source names their makers.
+        evidence:
+          - claim: ser5303-softiron
+            stance: context
+            note: Soft-iron dial specified.
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: 0
+        rationale: Soprod fits the dials and hands and cases the movements, which return to it after COSC. Who runs the final four-day test is not stated; borderline with 1.
+        evidence:
+          - claim: ser5303-casing
+            stance: supports
+            note: Casing at Soprod.
+          - claim: ser5303-cosc-route
+            stance: supports
+            note: Returned to Soprod.
+          - claim: ser5303-testing
+            stance: context
+            note: Tester not stated.
+      PD:
+        value: 3
+        rationale: Serica specified a soft-iron movement holder, dial and inner case back for magnetic resistance around a supplier movement. Bespoke components and supplier-directed development.
+        evidence:
+          - claim: ser5303-softiron
+            stance: supports
+            note: Antimagnetic build.
+          - claim: ser5303-founders
+            stance: supports
+            note: Own brand.
+    classification:
+      - contract_microbrand

@@ -11,8 +11,10 @@ claims:
       - PD
       - MA
       - WE
+      - DH
     date_checked: 2026-10-21
     editor: ai-draft
+    status: disputed
   - id: dufour-simp-built-movement
     statement: Dufour designed a movement of about 12 lines for the Simplicity, inspired by 1950s to 1970s watches he had restored.
     excerpt: I built a movement of about 12 lines (which will be in 34 or 37 mm) inspired by watches that had been made in the 1950s to 1970s that I had restored
@@ -178,3 +180,88 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 1; EX 2 \u2192 U; DH 2 \u2192 0; WE 5 \u2192 3; confidence A \u2192 B; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Dufour's statement that he made the dial and hands himself is marked disputed by the Metalem credits. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Dufour designed the Simplicity's movement himself, drawing it in AutoCAD for the CNC operators, inspired by 1950s–70s watches he had restored.
+        evidence:
+          - claim: dufour-simp-built-movement
+            stance: supports
+            note: Designed by Dufour.
+          - claim: dufour-simp-designed-by-dufour
+            stance: supports
+            note: Own drawings.
+          - claim: dufour-simp-from-scratch
+            stance: supports
+            note: No bought movement.
+      MM:
+        value: 1
+        rationale: An external CNC firm made plates and wheels, and third parties made specialised components. Dufour cut some raw components by electro-spark erosion. Minor internal production; borderline with 2.
+        evidence:
+          - claim: dufour-simp-external-cnc
+            stance: supports
+            note: External CNC parts.
+          - claim: dufour-simp-third-party
+            stance: supports
+            note: Some in-house cutting, specialised parts bought.
+      EX:
+        value: null
+        rationale: The lugs are welded to the case and the joint hand-finished, but no source names the case maker.
+        evidence:
+          - claim: dufour-simp-welded-lugs
+            stance: context
+            note: Maker not named.
+      DH:
+        value: 0
+        rationale: "The dial, hands, numerals and indices are by Metalem, whose name is on the dial. Dufour's statement that he did not outsource casing, dial and hands conflicts with this; the Metalem credits are more specific."
+        evidence:
+          - claim: dufour-simp-metalem-dial
+            stance: supports
+            note: "Metalem dial."
+          - claim: dufour-simp-qp-metalem
+            stance: supports
+            note: "Metalem dial and hands."
+          - claim: dufour-simp-dial-spec
+            stance: context
+            note: "Specification."
+          - claim: dufour-simp-from-scratch
+            stance: contradicts
+            note: "Dufour says he did not outsource dial and hands; disputed by the Metalem credits."
+      CF:
+        value: 5
+        rationale: Dufour finishes the movement entirely by hand, with broad rounded bevels finished with gentian wood. Master-level craft defines the watch.
+        evidence:
+          - claim: dufour-simp-hand-finished
+            stance: supports
+            note: Entirely hand-finished.
+          - claim: dufour-simp-gentian-bevels
+            stance: supports
+            note: Gentian-wood bevels.
+      WE:
+        value: 3
+        rationale: "Dufour made the watch himself rather than outsource the build. No claim mentions regulation or adjustment, which caps this at 3."
+        evidence:
+          - claim: dufour-simp-from-scratch
+            stance: supports
+            note: "Disputed only on dial and hands; the build itself is not contested."
+      PD:
+        value: 5
+        rationale: A movement and watch designed from scratch by the maker.
+        evidence:
+          - claim: dufour-simp-built-movement
+            stance: supports
+            note: Own movement.
+          - claim: dufour-simp-designed-by-dufour
+            stance: supports
+            note: Own drawings.
+    classification:
+      - design_led_etablisseur
+      - artisan_atelier

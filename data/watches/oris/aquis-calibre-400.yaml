@@ -138,3 +138,72 @@ profiles:
         value: 4
     classification:
       - industrial_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 5; MM 1 \u2192 U; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Oris says Calibre 400 is a new movement it conceived, and its COO says the Oris team developed it in-house. That is the evidence pattern credited 5 for Habring², Akrivia and Breitling.
+        evidence:
+          - claim: oris-c400-conceived
+            stance: supports
+            note: Conceived by Oris.
+          - claim: oris-c400-dev-crew
+            stance: supports
+            note: Developed by the Oris team.
+          - claim: oris-c400-twin-barrels
+            stance: context
+            note: Construction.
+          - claim: oris-c400-antimagnetic
+            stance: context
+            note: Construction.
+      MM:
+        value: null
+        rationale: A review calls the movement "made in-house" without saying who makes the parts. That cannot place a level.
+        evidence:
+          - claim: oris-c400-made-in-house-press
+            stance: context
+            note: Unspecified.
+      EX:
+        value: null
+        rationale: No source names the case or bracelet maker.
+        evidence: []
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: The adjustment standard is described, but not who assembles and regulates the movement, or where.
+        evidence:
+          - claim: oris-c400-adjusted
+            stance: context
+            note: Standard, not performer.
+          - claim: oris-c400-accuracy
+            stance: context
+            note: Accuracy claim.
+      PD:
+        value: 4
+        rationale: Oris developed the calibre with its own team, led by its COO. That is extensive original technical development.
+        evidence:
+          - claim: oris-c400-dev-crew
+            stance: supports
+            note: In-house development.
+          - claim: oris-c400-fischli
+            stance: supports
+            note: Led by the COO.
+          - claim: oris-c400-conceived
+            stance: supports
+            note: Conceived by Oris.
+    classification:
+      - industrial_manufacture

@@ -37,6 +37,7 @@ claims:
     dimensions:
       - MA
       - MM
+      - PD
     date_checked: 2026-10-21
     editor: ai-draft
   - id: db25-qp-dbcaliber
@@ -191,3 +192,87 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 2; CF 5 \u2192 2; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: The DB25 family uses in-house calibres (DB2324, DB3000), and De Bethune redesigned the Swiss lever escapement itself. That is deep proprietary engineering.
+        evidence:
+          - claim: db25-qp-dbcaliber
+            stance: supports
+            note: In-house DB2324.
+          - claim: db25-mono-entirely-inhouse
+            stance: supports
+            note: Entirely in-house movements.
+          - claim: db25-escapement-redesign
+            stance: supports
+            note: Redesigned escapement.
+      MM:
+        value: 4
+        rationale: De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5.
+        evidence:
+          - claim: db25-almost-all-inhouse
+            stance: supports
+            note: Almost all parts in-house.
+          - claim: db25-hairspring-integration
+            stance: supports
+            note: Hairspring integration.
+          - claim: db25-mono-hairspring
+            stance: supports
+            note: Proprietary hairspring.
+          - claim: db25-qp-balance
+            stance: supports
+            note: Own balance.
+          - claim: db25-escapement-redesign
+            stance: context
+            note: Silicon parts, origin unknown.
+      EX:
+        value: null
+        rationale: A titanium case is listed, but no source names its maker.
+        evidence:
+          - claim: db25-mono-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: 2
+        rationale: A 2017 workshop report says dials are milled in-house. The guilloché is done on a hand-operated machine, but where is not stated, and the hands are unattributed. This is one meaningful internal stage, and the source is not specific to the DB25.
+        evidence:
+          - claim: db25-cnc-screws-dials
+            stance: supports
+            note: Dials milled in-house.
+          - claim: db25-qp-guilloche
+            stance: context
+            note: Location not stated.
+      CF:
+        value: 2
+        rationale: The movement decoration is finished by hand, but the reviewer thinks it is machine-applied first. Regular handwork, not established as substantial.
+        evidence:
+          - claim: db25-mono-finishing
+            stance: supports
+            note: Hand finishing.
+          - claim: db25-qp-guilloche
+            stance: context
+            note: Hand-operated guilloché, location unknown.
+      WE:
+        value: 3
+        rationale: De Bethune does the final adjustment with its own balance wheel. No claim describes movement assembly, so this is 3.
+        evidence:
+          - claim: db25-hairspring-integration
+            stance: supports
+            note: Final adjustment in-house.
+      PD:
+        value: 4
+        rationale: De Bethune redesigned the Swiss lever escapement itself. Extensive original technical development; 5 would need a source on engineering that defines this model.
+        evidence:
+          - claim: db25-escapement-redesign
+            stance: supports
+            note: Own escapement redesign.
+    classification:
+      - independent_manufacture

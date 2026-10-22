@@ -200,3 +200,84 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 3 \u2192 0; DH 3 \u2192 0; CF 2 \u2192 U; PD 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: DUW 3001 is an in-house built automatic calibre with NOMOS's own swing system escapement. That it is the Tangente neomatik's calibre is assumed, not confirmed by a model page.
+        evidence:
+          - claim: ntn-duw3001
+            stance: supports
+            note: In-house calibre.
+      MM:
+        value: 4
+        rationale: About 95% of movement components are made in-house, including wheels, pinions and shafts at Schlottwitz and the swing system. In 2014 the balance spring came from a German supplier, so this is 4 rather than 5.
+        evidence:
+          - claim: ntn-95pct
+            stance: supports
+            note: About 95% in-house.
+          - claim: ntn-schlottwitz
+            stance: supports
+            note: Turned parts.
+          - claim: ntn-swing
+            stance: supports
+            note: Own escapement.
+          - claim: ntn-escapement-2014
+            stance: supports
+            note: Escapement parts in-house.
+          - claim: ntn-onsite
+            stance: supports
+            note: Made on site.
+          - claim: ntn-hairspring-2014
+            stance: context
+            note: External balance spring.
+      EX:
+        value: 0
+        rationale: A 2024 visit report says the case, strap and clasp are sourced externally.
+        evidence:
+          - claim: ntn-external
+            stance: supports
+            note: Exterior external.
+      DH:
+        value: 0
+        rationale: The same report says the dial and hands are sourced externally.
+        evidence:
+          - claim: ntn-external
+            stance: supports
+            note: Dial and hands external.
+      CF:
+        value: null
+        rationale: "The movement carries rhodium plating, Glash\u00fctte ribbing and perlage, but no claim says whether any of it is done by hand. Missing evidence is U, not 0."
+        evidence:
+          - claim: ntn-finish
+            stance: context
+            note: "Decoration listed; method not stated."
+      WE:
+        value: 5
+        rationale: "Watches are made almost entirely on site, from parts to final quality control: pre-assembly, assembly, regulation in six positions and fitting."
+        evidence:
+          - claim: ntn-onsite
+            stance: supports
+            note: Parts to final QC.
+          - claim: ntn-assembly
+            stance: supports
+            note: Assembly and regulation.
+          - claim: ntn-six-positions
+            stance: supports
+            note: Six-position adjustment.
+      PD:
+        value: 3
+        rationale: NOMOS has its own design department, Berlinerblau. The calibre and escapement engineering is credited under MA and MM, and no claim describes the department's technical development, so this is 3.
+        evidence:
+          - claim: ntn-berlinerblau
+            stance: supports
+            note: In-house design department.
+    classification:
+      - independent_manufacture

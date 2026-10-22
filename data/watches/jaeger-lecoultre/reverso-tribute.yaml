@@ -156,3 +156,81 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 5 \u2192 4; EX 4 \u2192 2; DH 4 \u2192 U; CF 4 \u2192 3; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Jaeger-LeCoultre says calibres 822 and 854 used in the Tribute are designed and developed in-house.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Calibre 822 designed in-house.
+          - claim: jlcrt-854-inhouse
+            stance: supports
+            note: Calibre 854 conceived in-house.
+      MM:
+        value: 4
+        rationale: Both calibres are produced within the manufacture. No source covers the hairspring or escapement specifically, so this is 4 rather than 5.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Produced in-house.
+          - claim: jlcrt-854-inhouse
+            stance: supports
+            note: Produced in-house.
+      EX:
+        value: 2
+        rationale: A 2012 report says the Le Sentier site makes Reverso cases. Only the case family is evidenced, from an older report on another Reverso, and the bracelet maker is not stated.
+        evidence:
+          - claim: jlcrt-cases-made
+            stance: supports
+            note: Reverso cases made at Le Sentier.
+          - claim: jlcrt-milanese
+            stance: context
+            note: Bracelet location not stated.
+      DH:
+        value: null
+        rationale: The brand describes the stamped dial texture and hand-applied indexes but does not say whether the dials are made in-house.
+        evidence:
+          - claim: jlcrt-dial-indexes
+            stance: context
+            note: Process, not maker.
+      CF:
+        value: 3
+        rationale: Movements are decorated within the manufacture, including hand decoration of hidden parts. That is substantial hand finishing; 4 would need a source on métiers d'art for this model.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Decorated in-house.
+          - claim: jlcrt-finish-step
+            stance: supports
+            note: Hand decoration.
+          - claim: jlcrt-crafts
+            stance: supports
+            note: Crafts under one roof.
+      WE:
+        value: 3
+        rationale: Calibres are assembled within the manufacture. No claim mentions regulation or adjustment, which caps this at 3.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Assembled in-house.
+          - claim: jlcrt-crafts
+            stance: supports
+            note: Single Manufacture-Atelier.
+      PD:
+        value: 4
+        rationale: Designers work with technical designers and movement constructors in-house. That is extensive original development; 5 would need a source on the engineering defining this reference.
+        evidence:
+          - claim: jlcrt-design-step
+            stance: supports
+            note: Integrated design and construction.
+    classification:
+      - integrated_manufacture

@@ -172,3 +172,75 @@ profiles:
         value: 4
     classification:
       - artisan_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: The V3 uses the Pequignet EPM03, described as heavily customised for Atelier Wen. The described changes are mainly decorative (fan-shaped lacquered bridges), so this is custom specification. Borderline with 2 if the customisation turns out to be mechanical.
+        evidence:
+          - claim: awv3-pequignet
+            stance: supports
+            note: Customised EPM03.
+          - claim: awv3-customised-calibre
+            stance: supports
+            note: Highly customised calibre.
+      MM:
+        value: 0
+        rationale: The movement is made by Pequignet, an independent movement maker in Morteau.
+        evidence:
+          - claim: awv3-pequignet
+            stance: supports
+            note: External movement.
+          - claim: awv3-pequignet-morteau
+            stance: supports
+            note: Independent maker.
+      EX:
+        value: null
+        rationale: A 904L steel case and bracelet are listed, but no source names the maker.
+        evidence:
+          - claim: awv3-case
+            stance: context
+            note: Maker not named.
+          - claim: awv3-bracelet
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: The guilloché dial is made in Cheng Yucai's external workshop, and no source covers the hands. At most 2 if the hands are internal, otherwise 0. U until then.
+        evidence:
+          - claim: awv3-dial-cheng
+            stance: context
+            note: External dial craftsman.
+          - claim: awv3-dial-workshop
+            stance: context
+            note: Made by Cheng's workshop.
+      CF:
+        value: null
+        rationale: The dial guilloché is external. The lacquered bridges were designed with Pequignet, but no source says who executes the decoration, so U rather than 0.
+        evidence:
+          - claim: awv3-dial-process
+            stance: context
+            note: External rose-engine work.
+          - claim: awv3-bridges
+            stance: context
+            note: Executor not named.
+      WE:
+        value: null
+        rationale: No source says where the V3 is assembled or regulated.
+        evidence: []
+      PD:
+        value: 3
+        rationale: The brand set the brief for a customised movement and designed its bridge decoration with Pequignet, and directs a bespoke guilloché dial. That is substantial supplier-directed development.
+        evidence:
+          - claim: awv3-movement-design
+            stance: supports
+            note: Decoration designed with Pequignet.
+    classification:
+      - artisan_etablisseur

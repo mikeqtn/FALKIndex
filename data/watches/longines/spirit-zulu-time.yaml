@@ -154,3 +154,75 @@ profiles:
         value: 3
     classification:
       - industrial_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: Cal. L844.4 is exclusive to Longines but derived from an ETA A31 base, itself from the 2892-A2. Sources differ on the exact base. ETA is in-group. Custom specification of a group calibre.
+        evidence:
+          - claim: lgzt-l8444-eta
+            stance: supports
+            note: Exclusive ETA-based calibre.
+          - claim: lgzt-a31l01
+            stance: supports
+            note: ETA A31 base.
+          - claim: lgzt-eta-only
+            stance: context
+            note: ETA movements only.
+      MM:
+        value: 0
+        rationale: Longines' CEO said the company stopped making movements in 1988 and works solely with ETA, an in-group supplier to many brands. Longines itself makes none of the movement. The silicon hairspring maker is not named.
+        evidence:
+          - claim: lgzt-eta-only
+            stance: supports
+            note: No movement production since 1988.
+          - claim: lgzt-l8444-eta
+            stance: supports
+            note: ETA base.
+          - claim: lgzt-silicon
+            stance: context
+            note: Hairspring maker not named.
+      EX:
+        value: null
+        rationale: No current source names the case or bracelet maker. The CEO's statement that Longines made cases until 1988 is historical.
+        evidence:
+          - claim: lgzt-case
+            stance: context
+            note: Maker not named.
+          - claim: lgzt-no-dials-hands
+            stance: context
+            note: Pre-1988 situation.
+      DH:
+        value: null
+        rationale: Longines made no dials or hands up to 1988; no source names the current makers.
+        evidence:
+          - claim: lgzt-no-dials-hands
+            stance: context
+            note: Historical.
+          - claim: lgzt-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: The movement is COSC-certified, but no source says who assembles and regulates it.
+        evidence:
+          - claim: lgzt-silicon-cosc
+            stance: context
+            note: Certification only.
+      PD:
+        value: null
+        rationale: No collected claim is tagged PD; the exclusive calibre is credited under MA.
+        evidence: []
+    classification:
+      - design_led_etablisseur

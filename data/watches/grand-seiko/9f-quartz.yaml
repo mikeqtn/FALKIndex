@@ -191,3 +191,87 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 5 \u2192 0; EX 5 \u2192 0; DH 5 \u2192 0; CF 3 \u2192 0; WE 5 \u2192 0; confidence A \u2192 B; classification Integrated Manufacture \u2192 Design-led \u00c9tablisseur. The Shinshu Watch Studio is recorded as Seiko Epson contract work, so manufacturing is not credited as Grand Seiko's own; this is open for an editor to settle. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Grand Seiko presents the 9F as its exclusive quartz calibre, with its own twin pulse motor and backlash auto-adjust mechanism.
+        evidence:
+          - claim: gs9f-origin
+            stance: supports
+            note: Exclusive calibre.
+          - claim: gs9f-twin-pulse
+            stance: supports
+            note: Proprietary mechanisms.
+      MM:
+        value: 0
+        rationale: "The movement, its integrated circuit and the quartz oscillators are made at the Shinshu Watch Studio, which sits in a Seiko Epson facility and is recorded as contract work, so the complete movement is external to Grand Seiko. The provenance records the Shinshu Watch Studio as Seiko Epson contract work. If an editor establishes it as Grand Seiko's own, this score rises."
+        evidence:
+          - claim: gs9f-shinshu-made
+            stance: supports
+            note: "Made at the studio, a contract operation."
+          - claim: gs9f-oscillators
+            stance: context
+            note: "Oscillators made and aged at the studio."
+          - claim: gs9f-autoclaves
+            stance: context
+            note: "Crystals grown by Seiko."
+          - claim: gs9f-ic-paired
+            stance: context
+            note: "IC paired to each oscillator."
+      EX:
+        value: 0
+        rationale: "Cases are made and Zaratsu-polished at the studio, which is recorded as Seiko Epson contract work. The provenance records the Shinshu Watch Studio as Seiko Epson contract work. If an editor establishes it as Grand Seiko's own, this score rises."
+        evidence:
+          - claim: gs9f-studio-complete
+            stance: supports
+            note: "Cases made at the contract studio."
+          - claim: gs9f-zaratsu
+            stance: context
+            note: "Zaratsu polishing at the studio."
+      DH:
+        value: 0
+        rationale: "Dials, hands and indexes are made at the studio, which is recorded as Seiko Epson contract work. The provenance records the Shinshu Watch Studio as Seiko Epson contract work. If an editor establishes it as Grand Seiko's own, this score rises."
+        evidence:
+          - claim: gs9f-studio-complete
+            stance: supports
+            note: "Dials and hands made at the contract studio."
+      CF:
+        value: 0
+        rationale: "The only documented craft, Zaratsu case polishing, is done at the studio, recorded as Seiko Epson contract work, so no internal craft is documented. The provenance records the Shinshu Watch Studio as Seiko Epson contract work. If an editor establishes it as Grand Seiko's own, this score rises."
+        evidence:
+          - claim: gs9f-zaratsu
+            stance: supports
+            note: "Zaratsu polishing at the contract studio."
+      WE:
+        value: 0
+        rationale: "The 9F is hand-assembled and adjusted at Seiko Epson in Shiojiri, and complete watches are assembled at the studio, recorded as contract work. The provenance records the Shinshu Watch Studio as Seiko Epson contract work. If an editor establishes it as Grand Seiko's own, this score rises."
+        evidence:
+          - claim: gs9f-epson-assembly
+            stance: supports
+            note: "Movements hand-assembled at Seiko Epson."
+          - claim: gs9f-studio-epson
+            stance: supports
+            note: "The studio is in a Seiko Epson facility."
+          - claim: gs9f-hand-assembled
+            stance: context
+            note: "Hand assembly and adjustment."
+          - claim: gs9f-oscillators
+            stance: context
+            note: "Oscillator selection."
+      PD:
+        value: 5
+        rationale: Grand Seiko has developed its own quartz calibre since 1993.
+        evidence:
+          - claim: gs9f-origin
+            stance: supports
+            note: Exclusive calibre since 1993.
+    classification:
+      - design_led_etablisseur

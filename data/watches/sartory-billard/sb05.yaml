@@ -180,3 +180,87 @@ profiles:
     classification:
       - artisan_atelier
       - artisan_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 \u2192 U; CF 3 \u2192 U; WE 3 \u2192 0; PD 4 \u2192 3; confidence B \u2192 C; classification Artisan Atelier and Artisan \u00c9tablisseur \u2192 Artisan \u00c9tablisseur. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: A La Joux-Perret 7380 with a dark grey NAC treatment. A cosmetic specification.
+        evidence:
+          - claim: sbsb05-ljp
+            stance: supports
+            note: LJP 7380.
+          - claim: sbsb05-movement-finish
+            stance: supports
+            note: NAC treatment.
+      MM:
+        value: 0
+        rationale: Finished movements are delivered by La Joux-Perret.
+        evidence:
+          - claim: sbsb05-ljp
+            stance: supports
+            note: External movement.
+          - claim: sbsb05-assembly
+            stance: supports
+            note: Delivered finished.
+      EX:
+        value: 0
+        rationale: The 20-part case was designed and made by Voutilainen-Cattin to Billard's specifications.
+        evidence:
+          - claim: sbsb05-case
+            stance: supports
+            note: Cattin case.
+          - claim: sbsb05-case-spec
+            stance: supports
+            note: Made by Voutilainen-Cattin.
+      DH:
+        value: null
+        rationale: Billard's own dial treatments are described for the SB04, not the SB05. The guilloché is Comblémine's, and the hand maker is not named.
+        evidence:
+          - claim: sbsb05-guilloche
+            stance: context
+            note: External guilloché.
+          - claim: sbsb05-hands
+            stance: context
+            note: Hand maker not named.
+          - claim: sbsb05-dials-billard
+            stance: context
+            note: Described for the SB04.
+      CF:
+        value: null
+        rationale: Hands can be hand-polished on request and the movement is NAC-treated, but no source says who does either.
+        evidence:
+          - claim: sbsb05-hands
+            stance: context
+            note: Performer not stated.
+          - claim: sbsb05-movement-finish
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: 0
+        rationale: Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
+        evidence:
+          - claim: sbsb05-assembly
+            stance: supports
+            note: External assembly.
+      PD:
+        value: 3
+        rationale: Each watch is made to order after a design process with the client, and Billard directs Comblémine and Cattin on its execution. Bespoke components and supplier-directed development.
+        evidence:
+          - claim: sbsb05-made-to-order
+            stance: supports
+            note: Made to order.
+          - claim: sbsb05-collab
+            stance: supports
+            note: Directs suppliers.
+          - claim: sbsb05-case-spec
+            stance: supports
+            note: Own case specification.
+    classification:
+      - artisan_etablisseur

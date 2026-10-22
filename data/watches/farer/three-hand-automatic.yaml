@@ -138,3 +138,72 @@ profiles:
         value: 3
     classification:
       - contract_microbrand
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: "Stock supplier calibres: ETA 2824-2 in the first automatics, Sellita SW200-1 from the 2021 trio."
+        evidence:
+          - claim: far3h-eta-2016
+            stance: supports
+            note: ETA 2824-2.
+          - claim: far3h-sw200-2021
+            stance: supports
+            note: Sellita SW200-1.
+      MM:
+        value: 0
+        rationale: Complete movements are bought in.
+        evidence:
+          - claim: far3h-eta-2016
+            stance: supports
+            note: External movement.
+          - claim: far3h-sw200-2021
+            stance: supports
+            note: External movement.
+      EX:
+        value: null
+        rationale: Roventa-Henex produces the watches, but no claim says who makes the case, crown or crystal.
+        evidence:
+          - claim: far3h-case-2021
+            stance: context
+            note: Specification only.
+          - claim: far3h-bronze-crown
+            stance: context
+            note: Specification only.
+          - claim: far3h-roventa-henex
+            stance: context
+            note: Producer, not case maker.
+      DH:
+        value: null
+        rationale: Roventa-Henex produces the watches, but no claim says who makes the dial or hands.
+        evidence:
+          - claim: far3h-roventa-henex
+            stance: context
+            note: Producer, not dial maker.
+      CF:
+        value: null
+        rationale: No source documents any craft work.
+        evidence: []
+      WE:
+        value: 0
+        rationale: Complete watches are produced by Roventa-Henex. The source is from 2016 and may not cover later models.
+        evidence:
+          - claim: far3h-roventa-henex
+            stance: supports
+            note: Contract production.
+      PD:
+        value: 2
+        rationale: Farer designs and develops its watches in London around conventional supplier calibres.
+        evidence:
+          - claim: far3h-london-design
+            stance: supports
+            note: Designed in London.
+    classification:
+      - contract_microbrand

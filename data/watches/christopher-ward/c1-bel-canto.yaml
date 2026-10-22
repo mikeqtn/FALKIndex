@@ -203,3 +203,88 @@ profiles:
     classification:
       - design_led_etablisseur
       - watchmaking_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 1 \u2192 0; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 3 \u2192 2; PD 5 \u2192 4; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 3
+        rationale: Technical director Frank Stelzer designed the FS01 chiming module, extending the JJ01 jump-hour module with 50 new components on a Sellita SW200-1 base. That is heavy re-engineering on a supplier base, not a proprietary calibre.
+        evidence:
+          - claim: cwbc-fs01-stelzer
+            stance: supports
+            note: In-house module design.
+          - claim: cwbc-50-components
+            stance: supports
+            note: 50 new components.
+          - claim: cwbc-sw200-base
+            stance: supports
+            note: Sellita base.
+      MM:
+        value: 0
+        rationale: The main plate is made by Armin Strom, bridges, hammer and gong by Chronode, special wheels by Viquodeco, and the base by Sellita. No movement part is documented as internal.
+        evidence:
+          - claim: cwbc-suppliers-list
+            stance: supports
+            note: Named suppliers.
+          - claim: cwbc-armin-strom-platine
+            stance: supports
+            note: External main plate.
+          - claim: cwbc-chronode-dialside
+            stance: supports
+            note: External bridges.
+          - claim: cwbc-sw200-base
+            stance: supports
+            note: External base.
+      EX:
+        value: null
+        rationale: A titanium case is specified, but no source names its maker.
+        evidence:
+          - claim: cwbc-case
+            stance: context
+            note: Maker not named.
+          - claim: cwbc-external-suppliers
+            stance: context
+            note: General supplier statement.
+      DH:
+        value: null
+        rationale: The openworked dial-side elements are made by Chronode, and no source covers the hands. At most 2 if the hands are internal, otherwise 0. U until then.
+        evidence:
+          - claim: cwbc-chronode-dialside
+            stance: context
+            note: External dial-side parts.
+      CF:
+        value: null
+        rationale: The graining and anglage of the dial-side parts are Chronode's, which does not count as internal craft. No source says who finishes the rest, so U rather than 0.
+        evidence:
+          - claim: cwbc-chronode-dialside
+            stance: context
+            note: External finishing.
+      WE:
+        value: 2
+        rationale: Synergies Horlogères, which merged with Christopher Ward, assembles and inspects the more complicated models. No claim covers movement adjustment or regulation, and the 2016 source does not name the Bel Canto.
+        evidence:
+          - claim: cwbc-swiss-assembly
+            stance: supports
+            note: Assembly of complicated models.
+          - claim: cwbc-synergies
+            stance: supports
+            note: In-group workshop.
+      PD:
+        value: 4
+        rationale: The brand engineered a chiming module on a Sellita base, directed four named specialist suppliers and designed the dial. Extensive original development; not 5, as the base architecture is a supplier's.
+        evidence:
+          - claim: cwbc-fs01-stelzer
+            stance: supports
+            note: In-house module.
+          - claim: cwbc-designer
+            stance: supports
+            note: In-house dial design.
+    classification:
+      - design_led_etablisseur
+      - watchmaking_atelier

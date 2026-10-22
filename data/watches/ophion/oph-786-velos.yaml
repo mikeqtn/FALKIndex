@@ -190,3 +190,81 @@ profiles:
         value: 3
     classification:
       - design_led_etablisseur
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 2
+        rationale: A Technotime TT 718 that Soprod customises for Ophion, removing most of the two-thirds plate for a pocket-watch layout. A meaningful modification specified by Ophion and executed externally.
+        evidence:
+          - claim: oph786-custom
+            stance: supports
+            note: Customised TT 718.
+          - claim: oph786-plate
+            stance: supports
+            note: Reduced plate.
+          - claim: oph786-technotime
+            stance: supports
+            note: TT 718 base.
+          - claim: oph786-soprod
+            stance: supports
+            note: Made by Soprod.
+      MM:
+        value: 0
+        rationale: The movement is produced by Soprod, in collaboration with MHVJ.
+        evidence:
+          - claim: oph786-soprod
+            stance: supports
+            note: Made by Soprod.
+          - claim: oph786-mhvj
+            stance: supports
+            note: With MHVJ.
+      EX:
+        value: 0
+        rationale: The case is made by Voutilainen-Cattin.
+        evidence:
+          - claim: oph786-case
+            stance: supports
+            note: External case maker.
+      DH:
+        value: 0
+        rationale: The CNC-cut guilloché dial is made by Cador and the hands by Estima.
+        evidence:
+          - claim: oph786-dial-cador
+            stance: supports
+            note: External dial.
+          - claim: oph786-hands-estima
+            stance: supports
+            note: External hands.
+          - claim: oph786-dial-cnc
+            stance: context
+            note: CNC guilloché.
+      CF:
+        value: null
+        rationale: Finishing is mainly by machine, but the bridges are hammered by hand, and no source says who does it. U rather than 0.
+        evidence:
+          - claim: oph786-machine-finish
+            stance: context
+            note: Machine finishing.
+          - claim: oph786-hammered
+            stance: context
+            note: Hand hammering, performer unknown.
+      WE:
+        value: null
+        rationale: No source says where or by whom the Vélos is assembled.
+        evidence: []
+      PD:
+        value: 3
+        rationale: Ophion specifies the reworked movement layout and directs named specialist suppliers for movement, case, dial and hands.
+        evidence:
+          - claim: oph786-plate
+            stance: supports
+            note: Specified movement change.
+    classification:
+      - design_led_etablisseur

@@ -158,3 +158,78 @@ profiles:
         value: 3
     classification:
       - watchmaking_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; confidence B \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 0
+        rationale: The maker says it uses Swiss supplier calibres, and a retailer lists the La Joux-Perret G101. Movements are "modified to our needs", but the changes are not described, so this is treated as adjustment rather than architecture.
+        evidence:
+          - claim: am1f-swiss-movements
+            stance: supports
+            note: Supplier calibres.
+          - claim: am1f-ljp-g101
+            stance: supports
+            note: G101 named.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in.
+        evidence:
+          - claim: am1f-swiss-movements
+            stance: supports
+            note: External movements.
+          - claim: am1f-modified-regulated
+            stance: context
+            note: Unspecified modification.
+      EX:
+        value: null
+        rationale: A 38 mm steel case is listed, but no source names its maker.
+        evidence:
+          - claim: am1f-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: "A retailer says the lacquer dials come from Cador, a German dial maker, and the hands are designed in-house, but no source says who makes them. U until the hands are attributed; it would be 0 if they are external."
+        evidence:
+          - claim: am1f-dial-cador
+            stance: context
+            note: "External dial maker."
+          - claim: am1f-hands-designed
+            stance: context
+            note: "Hands designed, maker unknown."
+          - claim: am1f-lacquer-process
+            stance: context
+            note: "Dial finish described; maker not named."
+          - claim: am1f-gmt-lacquer
+            stance: context
+            note: "German-made lacquer dial on the GMT variant."
+      CF:
+        value: null
+        rationale: No source documents craft work done in Glasgow on this model. The lacquer finish is Cador's, which would not count as internal craft anyway.
+        evidence: []
+      WE:
+        value: 3
+        rationale: Six in-house watchmakers modify, regulate and assemble the movements in Glasgow. That is movement preparation plus full assembly and regulation.
+        evidence:
+          - claim: am1f-modified-regulated
+            stance: supports
+            note: Modification and regulation.
+          - claim: am1f-hand-assembled
+            stance: supports
+            note: In-house assembly.
+      PD:
+        value: 3
+        rationale: anOrdain designed and prototyped its own hands around a conventional movement, a bespoke component. The Cador dial collaboration is reported only by a retailer and is not relied on. Borderline with 2.
+        evidence:
+          - claim: am1f-hands-designed
+            stance: supports
+            note: Bespoke hands designed in-house.
+    classification:
+      - watchmaking_atelier

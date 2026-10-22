@@ -172,3 +172,75 @@ profiles:
         value: 4
     classification:
       - industrial_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 4 \u2192 1; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; PD 4 \u2192 U; confidence B \u2192 D. 6 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 1
+        rationale: Cal. 32111 is a variant of a movement created by ValFleurier, the Richemont-owned movement factory, recorded as in-group. No source describes IWC-specific engineering beyond specification, so this is 1; borderline with 0.
+        evidence:
+          - claim: iwci40-valfleurier
+            stance: supports
+            note: ValFleurier movement variant.
+          - claim: iwci40-32000-family
+            stance: supports
+            note: Produced by ValFleurier.
+      MM:
+        value: null
+        rationale: The movement comes from the in-group ValFleurier, but no source says where its parts are made. IWC's Merishausen parts production is not tied to this calibre.
+        evidence:
+          - claim: iwci40-valfleurier
+            stance: context
+            note: Origin, not production split.
+          - claim: iwci40-merishausen-parts
+            stance: context
+            note: Not tied to cal. 32111.
+          - claim: iwci40-silicon
+            stance: context
+            note: Silicon parts, origin unknown.
+      EX:
+        value: null
+        rationale: IWC makes cases at Merishausen, but no source ties this case or the integrated bracelet to that workshop.
+        evidence:
+          - claim: iwci40-merishausen-cases
+            stance: context
+            note: Not tied to this model.
+          - claim: iwci40-case
+            stance: context
+            note: Maker not named.
+          - claim: iwci40-bracelet
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: The dial is stamped soft iron, galvanised; no source names its maker or the hand maker.
+        evidence:
+          - claim: iwci40-dial
+            stance: context
+            note: Process, not maker.
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: IWC has a movement assembly department, but no source says where this model is assembled.
+        evidence:
+          - claim: iwci40-merishausen-assembly
+            stance: context
+            note: Not tied to this model.
+      PD:
+        value: null
+        rationale: The only design claim is that Gérald Genta designed the 1976 original; nothing describes IWC's own design work on this model.
+        evidence:
+          - claim: iwci40-genta
+            stance: context
+            note: About the 1976 original.
+    classification:
+      - industrial_manufacture

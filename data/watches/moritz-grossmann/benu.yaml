@@ -232,3 +232,96 @@ profiles:
         value: 5
     classification:
       - integrated_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; WE 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: Manufacture calibre 100.0, a 2/3-plate construction with German-silver pillars, which the brand set out to construct and develop itself.
+        evidence:
+          - claim: mgbenu-cal100
+            stance: supports
+            note: Manufacture calibre.
+          - claim: mgbenu-plate
+            stance: supports
+            note: Own construction.
+          - claim: mgbenu-develop
+            stance: supports
+            note: Self-developed movements.
+      MM:
+        value: 3
+        rationale: The brand aimed for over 90% movement integration and makes the balance rim in-house; jewels, balance spring and mainsprings are bought in. The integration figure is an aim, not a measured outcome, so this is 3.
+        evidence:
+          - claim: mgbenu-balance-rim
+            stance: supports
+            note: Balance rim in-house.
+          - claim: mgbenu-cal100
+            stance: supports
+            note: Manufacture calibre.
+          - claim: mgbenu-bought-parts
+            stance: context
+            note: Bought-in springs and jewels.
+          - claim: mgbenu-integration
+            stance: context
+            note: An aim, not an outcome.
+      EX:
+        value: null
+        rationale: The case is specified, but no source names its maker, and the CEO says the rest of the watch is not held to the movement's in-house standard.
+        evidence:
+          - claim: mgbenu-case-spec
+            stance: context
+            note: Maker not named.
+          - claim: mgbenu-rest-of-watch
+            stance: context
+            note: Exterior less integrated.
+      DH:
+        value: 3
+        rationale: The hands are made entirely in-house, which is substantial hand manufacture. The brand makes only a few of its own dials, and the Benu's is unattributed.
+        evidence:
+          - claim: mgbenu-hands-inhouse
+            stance: supports
+            note: Hands in-house.
+          - claim: mgbenu-hands-spec
+            stance: supports
+            note: Hand-crafted hands.
+          - claim: mgbenu-dials-some
+            stance: supports
+            note: Own hands, few dials.
+          - claim: mgbenu-dial-spec
+            stance: context
+            note: Dial maker not named.
+      CF:
+        value: 5
+        rationale: The 2/3 plate and balance and escape-wheel cocks are engraved by hand, and raw parts are deburred and hand-bevelled, polished and decorated. Master-level finishing defines the watch.
+        evidence:
+          - claim: mgbenu-engraving
+            stance: supports
+            note: Hand engraving.
+          - claim: mgbenu-finishing
+            stance: supports
+            note: Hand finishing.
+      WE:
+        value: 3
+        rationale: The bought-in balance spring is shaped by hand in-house, and each watch is rate-tested for at least 30 days. No claim says who assembles the movement, so this is 3.
+        evidence:
+          - claim: mgbenu-spring-shaping
+            stance: supports
+            note: Hand-shaped balance spring.
+          - claim: mgbenu-rate-test
+            stance: supports
+            note: 30-day rate test.
+      PD:
+        value: 5
+        rationale: The brand constructs and develops its own movements.
+        evidence:
+          - claim: mgbenu-develop
+            stance: supports
+            note: Own construction and development.
+    classification:
+      - independent_manufacture

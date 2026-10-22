@@ -164,3 +164,82 @@ profiles:
         value: 5
     classification:
       - independent_manufacture
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: true
+    status: draft
+    editor: ai-draft
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Each score's rationale names its evidence. Not yet reviewed."
+    created_on: 2026-10-21
+    scores:
+      MA:
+        value: 5
+        rationale: The AK-06 calibre is described as newly developed in-house, and it became the basis of the later Chronomètre Contemporain movement. That is proprietary architecture mastered by the atelier.
+        evidence:
+          - claim: ak06-new-caliber
+            stance: supports
+            note: Newly developed in-house.
+          - claim: ak06-inhouse-caliber
+            stance: supports
+            note: Developed in-house.
+          - claim: ak06-caliber-basis
+            stance: supports
+            note: Basis of a later in-house calibre.
+      MM:
+        value: null
+        rationale: In 2018 Akrivia did not make its plates and bridges, and "most" components came from suppliers. That leaves room for some internal parts, so this is U rather than 0. A CNC machine was planned.
+        evidence:
+          - claim: ak06-cnc-plan
+            stance: context
+            note: Planned in-house machining.
+          - claim: ak06-bridges-plates-external
+            stance: context
+            note: Plates and bridges not made in-house.
+          - claim: ak06-outsourced-components
+            stance: context
+            note: Components outsourced.
+          - claim: ak06-family-suppliers
+            stance: context
+            note: Most components from suppliers.
+      EX:
+        value: null
+        rationale: Case materials and dimensions are published, but no source names who makes the case.
+        evidence:
+          - claim: ak06-case
+            stance: context
+            note: Maker not named.
+      DH:
+        value: null
+        rationale: No source says who makes the dial or hands.
+        evidence: []
+      CF:
+        value: 4
+        rationale: Movement parts are finished in-house in Geneva, with hand-applied rounded (bombé) anglage. That is haute-horlogerie finishing as a major capability; 5 would need a source showing the craft defines the whole watch.
+        evidence:
+          - claim: ak06-hand-anglage
+            stance: supports
+            note: Hand bombé anglage.
+          - claim: ak06-inhouse-caliber
+            stance: supports
+            note: Decorated and finished in-house.
+          - claim: ak06-family-suppliers
+            stance: supports
+            note: Supplier parts finished in Geneva.
+      WE:
+        value: 3
+        rationale: The calibre is assembled in-house. No claim mentions regulation or adjustment, which caps this at 3.
+        evidence:
+          - claim: ak06-inhouse-caliber
+            stance: supports
+            note: Assembled in-house.
+      PD:
+        value: 5
+        rationale: The watch is built around a calibre developed in-house for it. Original engineering defines the product.
+        evidence:
+          - claim: ak06-new-caliber
+            stance: supports
+            note: New in-house calibre.
+    classification:
+      - design_led_etablisseur
+      - artisan_atelier
