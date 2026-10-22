@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-wt-modification
     statement: A review reports that the GMT function of the Miyota 9075 was modified to drive a 24-hour disc for the world-time display.
     excerpt: This is originally a GMT movement, but the GMT complication has been modified to fit a 24-hour disc, which turns the Travelgraph into a worldtimer.
@@ -20,7 +20,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-rotor
     statement: A review reports that the GMT hand is replaced by the 24-hour disc and that the brand fitted a custom engraved rotor.
     excerpt: Of course, the movement has been modified such that the GMT hand is replaced by the 24-hour disc, and Lesablier has also used a beautifully engraved custom gold-tone rotor.
@@ -30,7 +30,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-parts-overseas
     statement: The brand says parts, including the Miyota movement, are sourced from overseas and that final assembly happens in the D.C. area.
     excerpt: '*Parts, such as the Miyota movement, are sourced from overseas. Final assembly will happen in the D.C. Area'
@@ -41,7 +41,7 @@ claims:
       - DH
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-built-dc
     statement: The brand says the Travelgraph is built, quality-controlled, pressure-tested and regulated in the greater Washington, D.C. area.
     excerpt: LS-04 Travelgraph will be built*, quality-controlled, pressure-tested and regulated in the greater Washington, D.C. area.
@@ -49,7 +49,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-assembled-usa
     statement: A review states that the Travelgraph is assembled in the United States.
     excerpt: It’s attractive, innovative, and assembled right here in the U.S.A.
@@ -57,7 +57,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-founder-design
     statement: The founder states that he designs the watches himself, based on his own design preferences.
     excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
@@ -65,7 +65,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lstg-case-finish
     statement: A review describes the case and 12-sided bezel as brushed and polished.
     excerpt: Both the case and its 12-sided bezel have been lightly brushed and polished.
@@ -73,7 +73,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base caliber (Miyota 9075)
@@ -135,7 +135,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Contract / Microbrand
     editor: FALK v0.2 handbook
@@ -162,9 +162,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 0 \u2192 1; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 0 \u2192 1; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 B. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

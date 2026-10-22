@@ -13,7 +13,7 @@ claims:
       - WE
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
     status: disputed
   - id: dufour-simp-built-movement
     statement: Dufour designed a movement of about 12 lines for the Simplicity, inspired by 1950s to 1970s watches he had restored.
@@ -23,7 +23,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-dial-spec
     statement: The maker lists a silver guilloché dial with white gold indices and Dauphine hands.
     excerpt: 'En argent, guilloché, index et aiguilles Dauphine en or blanc'
@@ -31,7 +31,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-designed-by-dufour
     statement: Deployant states that Dufour designed the Simplicity movement himself, using AutoCAD to prepare drawings for CNC operators.
     excerpt: Dufour taught himself AutoCAD to aid in the design process and to be able to prepare drawings for CNC operators to prepare parts.
@@ -40,7 +40,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-external-cnc
     statement: Deployant reports that an external CNC firm made movement components such as plates and wheels.
     excerpt: Dufour depended on an external CNC house to make components like movement plates and wheels.
@@ -48,7 +48,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-hand-finished
     statement: Deployant states that Dufour finishes the movement entirely by hand.
     excerpt: the movement is entirely finished by Dufour and by hand
@@ -56,7 +56,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-metalem-dial
     statement: Deployant reports that Metalem made the dial, which carries Metalem's name.
     excerpt: Metalem, as it turns out, was the dial manufacturer (the dial was not in-house).
@@ -64,7 +64,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-third-party
     statement: Quill & Pad reports that Dufour uses electro-spark erosion to cut raw components and third-party suppliers for specialised components.
     excerpt: Dufour is open about using third-party suppliers for specialized components
@@ -72,7 +72,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-gentian-bevels
     statement: Quill & Pad describes broad rounded bevels finished with gentian wood.
     excerpt: These bevels are broad, round, and finished on the final pass with gentian wood harvested locally in Dufour’s native Vallée de Joux.
@@ -80,7 +80,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-welded-lugs
     statement: Quill & Pad reports that the lugs are made separately and welded to the case, with the joint finished by hand; the case maker is not named.
     excerpt: Lugs are created separate from the case, the two are welded together, and the residual “clag” from the welded joint is removed by hand
@@ -88,7 +88,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: dufour-simp-qp-metalem
     statement: Quill & Pad's specification lists the dial, hands, numerals and indices as by Metalem.
     excerpt: silver guilloche with rose hands, numerals, and indices by Metalem
@@ -96,7 +96,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design
@@ -157,7 +157,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Watchmaker
     editor: FALK v0.2 handbook
@@ -184,9 +184,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 1; EX 2 \u2192 U; DH 2 \u2192 0; WE 5 \u2192 3; confidence A \u2192 B; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Dufour's statement that he made the dial and hands himself is marked disputed by the Metalem credits. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 1; EX 2 \u2192 U; DH 2 \u2192 0; WE 5 \u2192 3; confidence A \u2192 B; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Dufour's statement that he made the dial and hands himself is marked disputed by the Metalem credits. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

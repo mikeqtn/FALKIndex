@@ -11,7 +11,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-habring-dev
     statement: SJX reports that the Kaliber 1 was developed with Habring², which also produces many of its components, and that Kudoke finishes and assembles it.
     excerpt: Both watches are powered by the hand-wound Kaliber 1 that was developed with the help of Habring 2 , which also produces many of the components, but finished and assembled by Kudoke.
@@ -22,7 +22,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-7750-architecture
     statement: SJX reports that the Kaliber 1 follows the Valjoux 7750 gear-train architecture through its Habring² roots, while using Habring² components not made by ETA.
     excerpt: However, it is important to note that the Kaliber 1 (and by extension the Habring 2 movements it is derived from), is a proprietary movement developed by Habring 2 with its own, unique components that are not made by ETA.
@@ -31,7 +31,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-felix-parts
     statement: A review reports that the movement shares many components with the Habring² Felix and that finishing and assembly are done by Kudoke and a small team.
     excerpt: Notably, the movement shares many components with Habring2’s Felix movement, but the finishing and assembly is done all in-house by Kudoke and his small team.
@@ -41,7 +41,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-disc-engraved
     statement: The 24-hour disc is hand-engraved and electroplated in gold, white rhodium and black rhodium.
     excerpt: Making one revolution a day in sync with the hour hand, the 24-hour disc is hand-engraved and electroplated in three colours – gold for daytime, as well as white and black rhodium for the night.
@@ -50,7 +50,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-disc-artisan
     statement: A review states that the 24-hour disc is hand-engraved by an artisan in Glashütte, without naming the person.
     excerpt: The disc is plated in gold and rhodium, and it is hand-engraved by an artisan in Glashütte.
@@ -59,7 +59,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-balance-cock
     statement: The maker lists the movement as finished by hand with a raised hand-engraved balance cock.
     excerpt: finished by hand – raised hand-engraved balance cock
@@ -67,7 +67,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-case
     statement: SJX describes the steel case as fully polished and simple; no source names the case maker.
     excerpt: The case is simple and effective – it’s entirely polished front and back – but not elaborate; the key features of the watch inside the case.
@@ -75,7 +75,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kud2-manufactory
     statement: The maker says its manufactory in Weifa, completed in 2023, brings design, development, watchmaking and hand finishing under one roof.
     excerpt: Bringing design, development, watchmaking and hand finishing together under one roof, it creates a dedicated space for KUDOKE’s vision of independent watchmaking.
@@ -85,7 +85,7 @@ claims:
       - WE
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
     status: superseded
     superseded_by: kud2-weifa-handfinish
   - id: kud2-weifa-handfinish
@@ -96,7 +96,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Kaliber 1 base movement
@@ -159,7 +159,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Watchmaker
     editor: FALK v0.2 handbook
@@ -186,9 +186,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 2; MM 2 \u2192 U; EX 1 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; PD 4 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Artisan Atelier. Claim kud2-manufactory is superseded by kud2-weifa-handfinish: its excerpt could not be found on the cited page. PD no longer draws on it. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 2; MM 2 \u2192 U; EX 1 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; PD 4 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Artisan Atelier. Claim kud2-manufactory is superseded by kud2-weifa-handfinish: its excerpt could not be found on the cited page. PD no longer draws on it. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

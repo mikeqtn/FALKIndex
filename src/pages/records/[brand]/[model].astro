@@ -5,7 +5,7 @@ import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, fmtDate,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate,
 } from '../../../lib/data.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
@@ -124,7 +124,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         ] : [];
         return (
           <li>
-            <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {v.editor}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
+            <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {editorName(v.editor)}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
             <p class="prose">{v.change_note}</p>
             {prev && (
               <>

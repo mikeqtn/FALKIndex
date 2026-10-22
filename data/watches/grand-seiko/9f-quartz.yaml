@@ -13,7 +13,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-shinshu-made
     statement: Grand Seiko says the 9F is manufactured and assembled into complete watches at the Shinshu Watch Studio in Shiojiri.
     excerpt: It is manufactured and assembled into complete timepieces at the Shinshu Watch Studio, located in Shiojiri, Nagano Prefecture.
@@ -22,7 +22,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-oscillators
     statement: Grand Seiko says the quartz oscillators are made in-house and aged for three months before testing and selection.
     excerpt: As part of the process, quartz oscillators made in-house are first 'aged' for three months,
@@ -31,7 +31,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-twin-pulse
     statement: Grand Seiko describes a Twin Pulse Control Motor and a Backlash Auto-Adjust Mechanism in the 9F.
     excerpt: The 9F quartz movement makes this possible through its Twin Pulse Control Motor,
@@ -39,7 +39,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-studio-epson
     statement: Grand Seiko says the Shinshu Watch Studio is located in a Seiko Epson facility in Shiojiri.
     excerpt: The Shinshu Watch Studio is located in a Seiko Epson facility in the town of Shiojiri in Nagano Prefecture
@@ -48,7 +48,7 @@ claims:
       - WE
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-studio-complete
     statement: Grand Seiko says the studio handles manufacture, assembly and adjustment of complete watches including cases, dials, hands and indexes.
     excerpt: the manufacture, assembly and adjustment of complete watches, including cases, dials, hands and indexes
@@ -58,7 +58,7 @@ claims:
       - DH
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-hand-assembled
     statement: Grand Seiko says the 9F is assembled and adjusted by hand.
     excerpt: Hand assembled and adjusted, Caliber 9F is the ultimate quartz movement.
@@ -66,7 +66,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-zaratsu
     statement: Grand Seiko says the studio does Zaratsu case polishing.
     excerpt: The studio is also expert in Zaratsu polishing.
@@ -75,7 +75,7 @@ claims:
       - EX
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-autoclaves
     statement: A specialist article says Seiko grows its quartz crystals in-house in large autoclaves.
     excerpt: Seiko makes its quartz crystals in-house, growing them in massive autoclaves that are some four stories high.
@@ -83,7 +83,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-ic-paired
     statement: The same article says each oscillator is paired with an integrated circuit programmed for that oscillator's behaviour.
     excerpt: Each quartz oscillator is then paired with an integrated circuit specially programmed for that particular oscillator's frequency and behaviour.
@@ -92,7 +92,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: gs9f-epson-assembly
     statement: The same article says all 9F movements are hand-assembled at Seiko Epson in Shiojiri.
     excerpt: All 9F movements are hand-assembled at Seiko Epson in Shiojiri, not far from Nagano.
@@ -100,7 +100,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber 9F design (twin pulse motor, backlash auto-adjust)
@@ -168,7 +168,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -195,9 +195,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 5 \u2192 0; EX 5 \u2192 0; DH 5 \u2192 0; CF 3 \u2192 0; WE 5 \u2192 0; confidence A \u2192 B; classification Integrated Manufacture \u2192 Design-led \u00c9tablisseur. The Shinshu Watch Studio is recorded as Seiko Epson contract work, so manufacturing is not credited as Grand Seiko's own; this is open for an editor to settle. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 5 \u2192 0; EX 5 \u2192 0; DH 5 \u2192 0; CF 3 \u2192 0; WE 5 \u2192 0; confidence A \u2192 B; classification Integrated Manufacture \u2192 Design-led \u00c9tablisseur. The Shinshu Watch Studio is recorded as Seiko Epson contract work, so manufacturing is not credited as Grand Seiko's own; this is open for an editor to settle. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

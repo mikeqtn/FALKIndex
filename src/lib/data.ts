@@ -50,6 +50,8 @@ export const SOURCE_TYPE = {
 export const variant = (w: Watch) => [w.generation, w.reference && `Ref. ${w.reference}`, w.caliber && `Cal. ${w.caliber}`, w.route_label].filter(Boolean).join(', ');
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** Editor handles as readers see them; the project's own research is credited to FALK Index. */
+export const editorName = (handle: string) => handle === 'falk-index' ? 'FALK Index' : handle;
 export const fmtDate = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
 
 // Absolute links need the public domain (PUBLIC_SITE_URL, set at build time); fall back to the request's own origin.

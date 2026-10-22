@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-made-japan
     statement: A specialist site reports the movement is made in Japan and tested and adjusted in Besançon.
     excerpt: While made in Japan, the movement is tested and adjusted in Besançon
@@ -20,7 +20,7 @@ claims:
       - MA
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-final-assembly
     statement: A review reports final assembly, adjustment and regulation take place at Baltic's Besançon atelier.
     excerpt: Final assembly takes place at the atelier in Besançon, France, including adjustment and regulation of movements.
@@ -28,7 +28,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-parts-asia
     statement: The same review reports cases and movements come from Asia, straps from France and accessories from Italy.
     excerpt: cases and movements from Asia, straps from France, and accessories from Italy.
@@ -37,7 +37,7 @@ claims:
       - EX
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-hk-components
     statement: The brand says the majority of its components are produced in Hong Kong.
     excerpt: In Hong Kong for the production of the majority of our components
@@ -47,7 +47,7 @@ claims:
       - DH
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-besancon-atelier
     statement: The brand says components are sent to its Besançon atelier to be assembled and adjusted.
     excerpt: Once the various components are manufactured, we send them to our atelier in Besançon, France to be assembled and adjusted.
@@ -55,7 +55,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-designed-france
     statement: The brand describes its watches as conceived, assembled and adjusted in France.
     excerpt: Thought, assembled and adjusted in France
@@ -64,7 +64,7 @@ claims:
       - PD
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-dial
     statement: A specialist site describes a semi-sandwich dial construction, without naming the dial maker.
     excerpt: Reminiscent of more famous dive watches, the dial has a "semi-sandwich" construction.
@@ -72,7 +72,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: aqs-bezel-crystal
     statement: The same article describes a sapphire-covered five-minute bezel and a domed sapphire crystal.
     excerpt: It's also fitted with a domed sapphire crystal that has an anti-reflective coating on its underside.
@@ -80,7 +80,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (Miyota 9039)
@@ -131,7 +131,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Microbrand with Internal Assembly
     editor: FALK v0.2 handbook
@@ -158,9 +158,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: DH 0 \u2192 U; CF 0 \u2192 U; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: DH 0 \u2192 U; CF 0 \u2192 U; confidence A \u2192 B. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-silicon-cosc
     statement: The same source lists a silicon balance spring, COSC certification and 72-hour power reserve.
     excerpt: with a silicon balance spring, COSC certification, and a 72-hour power reserve
@@ -20,7 +20,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-a31l01
     statement: A review reports cal. L844.4 is derived from the ETA A31.L01.
     excerpt: It is derived from the ETA caliber A31.L01 and beats at 25,200 Vph with 72 hours power reserve.
@@ -28,7 +28,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-silicon
     statement: The review reports a silicon balance spring and COSC certification.
     excerpt: The movement is fitted with a silicon balance spring for additional anti-magnetism and is COSC certified.
@@ -37,7 +37,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-case
     statement: The review describes a 42 mm stainless steel case, without naming its maker.
     excerpt: Sized at 42.00 mm with a thickness of 13.90 mm, the stainless steel cased watch comes in both strap and bracelet variants.
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-dial
     statement: The review describes applied numerals on the dial, without naming its maker.
     excerpt: The dial uses applied numeral indicators with a periphery seconds track.
@@ -53,7 +53,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-eta-only
     statement: Longines' CEO said that after 1988 the company stopped making movements and worked solely with ETA movements.
     excerpt: took the decision to stop manufacturing movements in-house and work solely with ETA movements.
@@ -62,7 +62,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lgzt-no-dials-hands
     statement: Longines' CEO said that until 1988 Longines made cases and movements but no dials or hands.
     excerpt: producing in-house cases and movements, including chronographs, but no dials or hands.
@@ -71,7 +71,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Cal. L844.4 (ETA A31-family GMT base)
@@ -131,7 +131,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial / In-group Supplier Model
     editor: FALK v0.2 handbook
@@ -158,9 +158,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

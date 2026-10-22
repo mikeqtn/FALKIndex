@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-7750-base
     statement: The specialist site says the monopusher chronograph shares its base architecture with the Valjoux 7750.
     excerpt: This cam-operated monopusher chronograph shares its base architecture with the Valjoux 7750.
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-ruthenium
     statement: The specialist site says the large top bridge has a ruthenium coating.
     excerpt: The large bridge on top has been specifically decorated with ruthenium coating for an anthracite colour.
@@ -27,7 +27,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-custom-decoration
     statement: A second review describes a custom Côtes de Genève and ruthenium finish on the bridge, and +/- 5 s/day accuracy.
     excerpt: Plus, it's been decorated with a custom Côte de Genève, ruthénium anthracite finished bridge
@@ -36,7 +36,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-assembled-gb
     statement: The specialist site says the watch is assembled in Great Britain.
     excerpt: This new watch, assembled in Great Britain, is worn on an Epsom Calfskin strap.
@@ -44,7 +44,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-regulation
     statement: The specialist site says the process includes demagnetisation, rate review in three positions and regulation where needed.
     excerpt: The process includes demagnetisation, accuracy/rate review (3 positions) and regulation wherever necessary.
@@ -52,7 +52,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-case
     statement: The specialist site lists a 38.5 mm steel case, 13.6 mm thick, without naming its maker.
     excerpt: a compact steel case, measuring 38.5mm in diameter, 13.6mm in thickness and 44.5mm lug-to-lug.
@@ -60,7 +60,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-dial
     statement: The review describes a two-layer dial with a sunray base and dégradé top dial, without naming its maker.
     excerpt: 2-layer with a metallic radial sunray base dial, course dégradé top dial.
@@ -68,7 +68,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-horologium-scope
     statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
     excerpt: assembling watches including dials, hands and third-party movements.
@@ -76,7 +76,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ud03-horologium-stake
     statement: A trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
     excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
@@ -85,7 +85,7 @@ claims:
       - WE
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW510 M, Valjoux 7750-type base)
@@ -151,7 +151,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Microbrand with Internal Assembly
     editor: FALK v0.2 handbook
@@ -178,9 +178,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 3 \u2192 2; PD 3 \u2192 2; confidence B \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 3 \u2192 2; PD 3 \u2192 2; confidence B \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

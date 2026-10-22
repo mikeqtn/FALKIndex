@@ -50,7 +50,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-uwd-caliber
     statement: The movement is the UWD 33.1.
     excerpt: The UWD 33.1 used in the Infinity Series is a large, 33mm movement
@@ -59,7 +59,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-radiant-ljp
     statement: The Infinity Radiant uses the La Joux-Perret 5000-4.
     excerpt: At the heart of the Infinity Radiant is the La Joux-Perret 5000-4,
@@ -68,7 +68,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-partner-movements
     statement: The maker states that Infinity movements come from partners.
     excerpt: we pair our work with movements from partners whose standards match our own
@@ -77,7 +77,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-own-guilloche
     statement: Josh Shapiro does all of the engine-turning himself.
     excerpt: Josh does all of his own guillochage
@@ -87,7 +87,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-dial-hours
     statement: Each dial takes about 150 hours from production to decoration.
     excerpt: From production to decoration, it takes about 150 hours just to finish the dial
@@ -97,7 +97,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-weave
     statement: The Basket and Infinity Weave patterns are engine-turned directly into the dial.
     excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
@@ -107,7 +107,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-hands
     statement: Hand blanks are laser-cut, then rounded, polished and blued by hand.
     excerpt: Then the blanks are rounded, polished and blued by hand
@@ -115,7 +115,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-inf-engraver
     statement: A watchmaker specialising in engraved movements works for the brand and engraved the movement plate.
     excerpt: a Russian watchmaker who specialises in skeletonised, engraved movements and now works for Josh.
@@ -124,7 +124,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

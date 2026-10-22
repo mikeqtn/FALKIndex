@@ -61,7 +61,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-partners
     statement: SXH5 parts are made by partners including AB Product, Générale Ressorts and Atokalpa.
     excerpt: "with parts manufactured by several partners: AB product, Générale de resort or Atokalpa"
@@ -70,7 +70,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-first-in-house
     statement: The SXH5 is described as the brand's first in-house movement.
     excerpt: the brand's first in-house movement
@@ -78,7 +78,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-assembly
     statement: A Czapek watchmaker assembled the first Antarctique prototype.
     excerpt: Czapek's watchmaker, Julian, assembling the first Antarctique prototype, equipped with the calibre SXH5.
@@ -86,7 +86,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-finishing
     statement: The movement has hand-chamfered inward angles and drawn flanks.
     excerpt: It is modern but elaborate with hand chamfering of the inward angles and drawing of the flanks.
@@ -94,7 +94,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-dial
     statement: The dial is made by Metalem in Le Locle.
     excerpt: The dial of the Czapek Antarctique is made by Metalem (a Le Locle-based dial maker and long-standing Czapek partner).
@@ -102,7 +102,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: cz-ant-chronode-past
     statement: Before the SXH5, Czapek made its movements with Chronode.
     excerpt: Until now, Czapek has been manufacturing its movements with Chronode
@@ -110,7 +110,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

@@ -11,7 +11,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-50-components
     statement: The same article says the rework of the JJ01 jump-hour movement required 50 new components.
     excerpt: This re-imagination of the JJ01 jump hour movement required 50 new components
@@ -20,7 +20,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-armin-strom-platine
     statement: The same article says Armin Strom was a manufacturing partner, making the Bel Canto's main plate.
     excerpt: the avant-garde independent was one of the manufacturing partners on this project, making the platine of the Bel Canto.
@@ -28,7 +28,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-chronode-dialside
     statement: The same article says the dial-side elements, with graining and anglage, were produced by Chronode.
     excerpt: the dial-side elements, complete with fine graining and anglage, were produced by Chronode
@@ -38,7 +38,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-synergies
     statement: The same article says Christopher Ward began working with Synergies Horlogères of Biel in 2008 and later merged with it.
     excerpt: By 2008, they began working with Synergies Horlogères of Biel, owned by Jörg Bader
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-suppliers-list
     statement: A second specialist site names Armin Strom (platine), Chronode (bridges, hammer and gong) and Viquodeco (special wheels) as suppliers.
     excerpt: Chronode (the bridges, hammer and gong) and "Viquodeco" (the special wheels required) were also crucial suppliers.
@@ -54,7 +54,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-case
     statement: The same listing gives a brushed titanium case, 41 mm by 13 mm, without naming its maker.
     excerpt: Titanium, Brushed, 13.00mm (thinness) x 41.00mm (diameter)
@@ -62,7 +62,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-designer
     statement: The same listing credits designer Will Brackfield with the dial layout.
     excerpt: a challenge to designer Will Brackfield in achieving visual balance across the entire face
@@ -70,7 +70,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-sw200-base
     statement: A review confirms the base is a Sellita SW200-1 automatic with a chiming module, together called caliber FS01.
     excerpt: It consists of a Sellita SW200-1 automatic base movement and a chiming module.
@@ -79,7 +79,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-swiss-assembly
     statement: A 2016 WatchTime article says Synergies Horlogères in Biel handles assembly and inspection for Christopher Ward, focusing on the more complicated mechanical models.
     excerpt: wobei man sich in Biel eher auf die etwas komplizierteren mechanischen Modelle konzentriert
@@ -87,7 +87,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cwbc-external-suppliers
     statement: The same article says Christopher Ward relies on several external suppliers for components in its Swiss-made watches.
     excerpt: bei der Wahl einzelner Komponenten und bei der Fertigung der Swiss-Made-Uhren somit auf mehrere externe Zulieferer
@@ -97,7 +97,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base movement (Sellita SW200-1)
@@ -179,7 +179,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Technical Atelier / Supplier Hybrid
     editor: FALK v0.2 handbook
@@ -207,9 +207,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 1 \u2192 0; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 3 \u2192 2; PD 5 \u2192 4; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 1 \u2192 0; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 3 \u2192 2; PD 5 \u2192 4; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

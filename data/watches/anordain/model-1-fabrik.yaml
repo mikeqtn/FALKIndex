@@ -10,7 +10,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-lacquer-process
     statement: The same page describes the dial finish as many stacked and cured lacquer coats.
     excerpt: The semi-matte and transparent lacquer finishes are obtained by stacking and curing many coatings
@@ -18,7 +18,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-ljp-g101
     statement: The same page lists the La Joux-Perret G101 automatic as the Fabrik Model 1 movement.
     excerpt: The watch is driven by the La Joux-Perret G101 movement, an automatic caliber known for its dependability and quality.
@@ -27,7 +27,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-case
     statement: The same page lists a 38 mm stainless steel case carried over from the Model 1, without naming its maker.
     excerpt: The Fabrik Model 1 retains the characteristic 38mm stainless steel casing of the original Model 1
@@ -35,7 +35,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-gmt-lacquer
     statement: A launch article for the Fabrik Model 1 GMT variant describes a German-made lacquer dial and varnished brass hands.
     excerpt: The Fabrik Model 1 GMT features a deep purple dial that is finished in a German-made lacquer
@@ -43,7 +43,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-swiss-movements
     statement: The maker says its watches use Swiss movements from La Joux-Perret (G101), Sellita and ETA.
     excerpt: Our watches run on good quality Swiss movements from La Joux-Perret G101, Sellita and ETA
@@ -52,7 +52,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-modified-regulated
     statement: The maker says movements are modified to its needs, regulated and cased up in its Glasgow workshop.
     excerpt: where they are modified to our needs, regulated and assembled into cased-up watches
@@ -61,7 +61,7 @@ claims:
       - WE
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-hand-assembled
     statement: The maker says each watch is hand-assembled by one of six in-house watchmakers.
     excerpt: each watch is carefully hand-assembled by one of our six in-house watchmakers
@@ -69,7 +69,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am1f-hands-designed
     statement: A review reports anOrdain designed and prototyped its Model 1 and Model 2 hands in-house; it does not say who manufactures them.
     excerpt: These hands were designed and prototyped in-house, with both the Model 1 and Model 2 featuring different styles.
@@ -78,7 +78,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret G101)
@@ -135,7 +135,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Watchmaking Atelier
     editor: FALK v0.2 handbook
@@ -162,9 +162,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; confidence B \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; confidence B \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

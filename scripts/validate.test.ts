@@ -3,10 +3,12 @@ import assert from 'node:assert/strict';
 import { check, load } from './validate.ts';
 
 const data = load('data');
-// Run check() on a copy of data/ with one watch's first profile mutated.
+// A record whose first profile is still its published seed profile, so the published-profile rules apply to it.
+const seedIndex = data.watches.findIndex((w: any) => w.value.profiles[0].status === 'published');
+// Run check() on a copy of data/ with that watch's first profile mutated.
 const broken = (mutate: (profile: any, watch: any) => void) => {
   const d = structuredClone(data);
-  mutate(d.watches[0].value.profiles[0], d.watches[0].value);
+  mutate(d.watches[seedIndex].value.profiles[0], d.watches[seedIndex].value);
   return check(d).errors.join('\n');
 };
 
@@ -25,7 +27,10 @@ test('a descriptor cannot be a classification', () =>
 test('U is null, not 0, and passes', () => assert.equal(broken(p => { p.scores.MA.value = null; }), ''));
 
 test('published non-seed profiles need rationale and supporting evidence', () => {
-  const errors = broken(p => { p.is_seed = false; });
+  const errors = broken(p => {
+    const d = Object.keys(p.scores).find(k => p.scores[k].value !== null)!;
+    p.is_seed = false; p.scores[d].rationale = ''; p.scores[d].evidence = [];
+  });
   assert.match(errors, /rationale required/);
   assert.match(errors, /supporting claim required/);
 });
@@ -45,7 +50,7 @@ test('unknown claim references are rejected', () =>
 
 test('a record with no published profile is flagged', () => {
   const d = structuredClone(data);
-  d.watches[0].value.profiles[0].status = 'draft';
+  d.watches[seedIndex].value.profiles[0].status = 'draft';
   assert.match(check(d).warnings.join('\n'), /no published profile/);
 });
 

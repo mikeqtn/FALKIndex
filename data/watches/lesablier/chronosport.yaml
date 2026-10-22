@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-vk64-review
     statement: A review identifies the movement as the Seiko VK64A, a quartz chronograph with a mechanical chronograph module.
     excerpt: The quartz movement in the watch is the Seiko VK64A Mechaquartz movement.
@@ -20,7 +20,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-vk64-service
     statement: A review states that servicing the VK64 involves replacing the whole movement.
     excerpt: With a 3-year battery life and service that involves swapping the entire movement, the Seiko VK64 is reliable and keeps owners’ costs low.
@@ -29,7 +29,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-case-prototypes
     statement: The brand says the case finishing took over a year and several case prototypes to develop.
     excerpt: It took us over a year and mutliple case prototypes to get this right
@@ -38,7 +38,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-dial-layers
     statement: The brand describes a three-layer dial with applied faceted indices and a serial number on each dial.
     excerpt: 'Each dial has 3 layers: The base, recessed subdials, and elevated rehault tachymeter ring.'
@@ -47,7 +47,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-founder-design
     statement: The founder states that he designs the watches himself, based on his own design preferences.
     excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
@@ -55,7 +55,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lschrono-production
     statement: The brand says 50 Chronosport watches were produced in each colour.
     excerpt: 50 were produced in each color.
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design (Seiko VK64A)
@@ -110,7 +110,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Contract / Microbrand
     editor: FALK v0.2 handbook
@@ -137,9 +137,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

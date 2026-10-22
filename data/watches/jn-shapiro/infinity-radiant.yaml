@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-rad-partner-movements
     statement: The maker states that Infinity movements come from partners.
     excerpt: we pair our work with movements from partners whose standards match our own
@@ -21,7 +21,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-rad-weave
     statement: The Basket and Infinity Weave patterns are engine-turned into the zirconium dial.
     excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
@@ -31,7 +31,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-rad-our-weave
     statement: The maker engine-turns its signature Infinity Weave directly into the dial metal.
     excerpt: engine-turning our signature Infinity Weave directly onto the surface of the metal itself
@@ -40,7 +40,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-rad-hands
     statement: The hands are sculpted in three dimensions.
     excerpt: sculpted three dimensional hands
@@ -48,7 +48,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret 5000-4)
