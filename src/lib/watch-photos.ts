@@ -1,6 +1,7 @@
 // Photographs of the watches themselves, front and back, by record id. Only openly licensed photos or ones
 // supplied with permission, of the exact model; each carries its credit and licence. Files live in
-// public/images/watches/<record id>/<side>-{600,1200}.jpg. A record with no entry shows an invitation instead.
+// public/images/watches/<record id>/<side>-{600,1200}.jpg; run `npm run images` to add their AVIF copies.
+// A record with no entry shows an invitation instead.
 export type WatchPhoto = {
   w: number; h: number; // pixel size of the 1200px file
   alt: string;
