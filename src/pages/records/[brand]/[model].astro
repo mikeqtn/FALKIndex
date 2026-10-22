@@ -4,9 +4,10 @@ import ProfileStrip from '../../../components/ProfileStrip.astro';
 import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
+import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
@@ -19,6 +20,8 @@ const details = [
   ['Made', r.production_start && `${r.production_start} to ${r.production_end ?? 'present'}`],
 ].filter(([, v]) => v) as [string, string | number][];
 const photos = WATCH_PHOTOS[r.id] ?? {};
+const origin = siteOrigin(Astro.url);
+const crumbs = [['Records', '/records/'], [r.brandName, orgUrl(r.brand)], [r.model, recordUrl(r.id)]];
 const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${side}-${w}.jpg`;
 const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
 ---
@@ -26,6 +29,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   title={`${r.brandName} ${r.model}`}
   description={`FALK profile and provenance evidence for the ${r.brandName} ${r.model}.`}
   image={{ path: `/og/records/${r.id}.png`, alt: `FALK profile of the ${r.brandName} ${r.model}: seven dimensions scored 0 to 5.` }}
+  ld={{ '@type': 'BreadcrumbList', itemListElement: crumbs.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${origin}${path}` })) }}
 >
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 
@@ -43,7 +47,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
           return ph
             ? (
               <figure class="photo">
-                <img src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
+                <Picture src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
                 <figcaption><b>{side === 'front' ? 'Front' : 'Back'}</b> Photo by {ph.credit}, <a href={ph.licenceUrl}>{ph.licence}</a>. <a href={ph.source}>Original</a></figcaption>
               </figure>
             )

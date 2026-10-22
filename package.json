@@ -18,7 +18,9 @@
     "bootstrap:admin": "node --disable-warning=ExperimentalWarning scripts/bootstrap-admin.ts",
     "typecheck": "tsc --noEmit",
     "validate": "node --disable-warning=ExperimentalWarning scripts/validate.ts",
-    "test": "node --disable-warning=ExperimentalWarning --test \"scripts/*.test.ts\""
+    "test": "node --disable-warning=ExperimentalWarning --test \"scripts/*.test.ts\"",
+    "test:phone": "node --disable-warning=ExperimentalWarning --test scripts/phone.check.ts",
+    "images": "node --disable-warning=ExperimentalWarning scripts/images.ts"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.9",
@@ -45,6 +47,8 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/compression": "^1.8.1"
+    "@types/compression": "^1.8.1",
+    "playwright": "1.63.0",
+    "sharp": "0.35.5"
   }
 }

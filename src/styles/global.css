@@ -352,6 +352,9 @@ blockquote.excerpt { margin: var(--s-2) 0; padding-left: var(--s-4); border-left
 }
 /* Engine-turned ground in the palette's own blues; text on it stays light in both themes. */
 .turned { background: #14233F url(/images/guilloche-1600.jpg) 30% 50% / cover; color: #F7F8FA; border-radius: var(--r-plate); }
+.turned { background-image: image-set(url(/images/guilloche-1600.avif) type("image/avif"), url(/images/guilloche-1600.jpg) type("image/jpeg")); }
+/* A photograph's <picture> wrapper takes no box of its own, so layouts style the <img> as before. */
+picture { display: contents; }
 .turned a { color: inherit; }
 .turned .btn.secondary { background: rgb(255 255 255 / .1); color: #F7F8FA; }
 .turned .btn.secondary:hover { background: rgb(255 255 255 / .18); }

@@ -2,7 +2,7 @@
 // Brands, suppliers, ateliers and groups. Lists records and appearances; never scores the organization.
 import Base from '../../layouts/Base.astro';
 import RecordTable from '../../components/RecordTable.astro';
-import { DIMENSIONS, RELATIONSHIP, getCatalogue, orgUrl, recordUrl, variant } from '../../lib/data.ts';
+import { DIMENSIONS, RELATIONSHIP, getCatalogue, orgUrl, recordUrl, siteOrigin, variant } from '../../lib/data.ts';
 
 const { appearances,dimension,orgPageIds,orgs,records } = await getCatalogue(Astro.locals);
 const org = orgs.get(Astro.params.id!);
@@ -21,7 +21,10 @@ const summary = [`${KIND[org.kind]}${country ? ` in ${country}` : ''}.`,
   own.length ? `${own.length === 1 ? 'One record' : `${own.length} records`} on the index.` : '',
   recordsIn ? `Named in the provenance of ${recordsIn === 1 ? 'one record' : `${recordsIn} records`}.` : ''].filter(Boolean).join(' ');
 ---
-<Base title={org.name} description={`Where ${org.name} appears in the FALK Index.`}>
+<Base title={org.name} description={`Where ${org.name} appears in the FALK Index.`} ld={{ '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Records', item: `${siteOrigin(Astro.url)}/records/` },
+  { '@type': 'ListItem', position: 2, name: org.name, item: `${siteOrigin(Astro.url)}${orgUrl(org.id)}` },
+] }}>
   <header class="doc-head" data-rise>
     <div>
       <h1>{org.name}</h1>

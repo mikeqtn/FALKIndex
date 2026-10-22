@@ -140,6 +140,8 @@ const contents = [
 
   .dim { display: grid; gap: var(--s-5) var(--s-7); padding: var(--s-7) 0; scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
   @media (min-width: 1200px) { .dim { grid-template-columns: 5fr 7fr; } }
+  .dim > * { min-width: 0; }
+  .levels span:last-child { overflow-wrap: anywhere; }
   .dim header > * + * { margin-top: var(--s-2); }
   .dim .code { display: block; font: 720 64px/.85 var(--f-sans); font-stretch: 62%; letter-spacing: -0.02em; color: var(--c-level-5); }
   .dim h3 { font-size: 24px; line-height: 1.15; }

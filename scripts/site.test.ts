@@ -64,6 +64,21 @@ test('every published record has a PNG share image', async () => {
   assert.equal((await fetch(`${base}/og/records/nobody/nothing.png`)).status,404);
 });
 
+test('pages without their own share image use the site card; structured data parses', async () => {
+  const card = await fetch(`${base}/og/site.png`);
+  assert.equal(card.status,200);
+  assert.equal(card.headers.get('content-type'),'image/png');
+  const ld = async (path:string) => [...(await (await fetch(`${base}${path}`)).text()).matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m => JSON.parse(m[1]));
+  assert.equal((await ld('/'))[0]['@type'],'WebSite');
+  const [data] = await ld('/data/');
+  assert.equal(data['@type'],'Dataset');
+  assert.equal(data.distribution.length,2);
+  const watch = dataset.watches.find((w:any) => w.profiles.some((p:any) => p.status==='published')).id;
+  const [crumbs] = await ld(`/records/${watch}/`);
+  assert.equal(crumbs['@type'],'BreadcrumbList');
+  assert.match(crumbs.itemListElement.at(-1).item,new RegExp(`/records/${watch}/$`));
+});
+
 test('the sitemap lists every record and no private page; robots.txt points to it', async () => {
   const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
   for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published'))) {

@@ -84,3 +84,19 @@ export function recordPng(r: Record, labels: DimensionLabels) {
   const svg = new Resvg(recordSvg(r, labels), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } });
   return svg.render().asPng();
 }
+
+// Share image for every page without its own: the name, the promise, and the seven levels as the mark.
+export function siteSvg(count: number) {
+  const bars = C.level.slice(1).concat(C.level.slice(1, 3)).map((fill, i) =>
+    `<rect x="${600 + i * 76}" y="${150 + (i % 3) * 40}" width="60" height="${330 - (i % 3) * 40}" rx="4" fill="${fill}"/>`).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="${C.page}"/>
+<text x="72" y="96" font-family="${NARROW}" font-size="34" fill="${C.ink}">FALK Index</text>
+<text x="72" y="250" font-family="${NARROW}" font-size="80" fill="${C.ink}"><tspan x="72">Where each</tspan><tspan x="72" dy="82">watch is</tspan><tspan x="72" dy="82">really made</tspan></text>
+<text x="72" y="540" font-family="${BODY}" font-size="26" fill="${C.ink2}">An open index of ${count} watches, every score sourced.</text>
+${bars}
+</svg>`;
+}
+export function sitePng(count: number) {
+  return new Resvg(siteSvg(count), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } }).render().asPng();
+}
