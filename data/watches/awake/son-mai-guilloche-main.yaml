@@ -54,7 +54,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-gm-renzetti
     statement: The hand guilloché dials are made by the Renzetti family workshop in Italy.
     excerpt: we collaborate with the Renzetti family, one of the last European workshops dedicated to Guilloché Main
@@ -64,7 +64,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-gm-italy
     statement: The guilloché is cut in Italy on a hand-guided rose engine.
     excerpt: Crafted in Italy on a traditional rose engine, operated and guided entirely by the artisan's hand
@@ -73,7 +73,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-gm-hanoi
     statement: The dial is sent to Hanoi for Sơn Mài lacquer.
     excerpt: the dial is sent to Hanoi, where it is elevated through the application of Son Mài lacquer
@@ -82,7 +82,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-gm-lacquer-workshop
     statement: The lacquer is applied by a partner workshop in Vietnam.
     excerpt: We continue our collaboration with one of Vietnam's most prestigious workshops
@@ -91,7 +91,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-artisans-network
     statement: The watches depend on external craftspeople in several countries.
     excerpt: Without these passionate and talented craftspeople, not a single AWAKE watch would exist.
@@ -100,7 +100,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: aw-small-team
     statement: AWAKE describes itself as a small team.
     excerpt: AWAKE is a small team.
@@ -109,7 +109,7 @@ claims:
       - WE
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

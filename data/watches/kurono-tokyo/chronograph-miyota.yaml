@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-ne86-all
     statement: The brand describes the NE86 as the caliber used by Kurono chronographs.
     excerpt: The NE86 caliber used by Kurono chronographs is renowned for its reliability and excellent accuracy.
@@ -21,7 +21,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-ne86-sii
     statement: The brand states that the Chronograph 3 uses the NE86, described as SII's flagship chronograph movement, with column wheel and vertical clutch.
     excerpt: Positioned by SII as its newest flagship chronograph movement - it is a premium caliber.
@@ -30,7 +30,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-mk2-case
     statement: Hajime Asaoka designed the Mk.2 three-part chronograph case to reduce the visual thickness of the NE86.
     excerpt: The Mk.2 is now a three-part case that has a much thinner visual profile, but is also built more robustly and allows for better repairability.
@@ -39,7 +39,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-dial-construction
     statement: The brand says the cylinder-shaped dial is made with the main dial and subdials manufactured separately and fitted together, with diamond-cut subdial rings.
     excerpt: To create a three-dimensional effect, the main dial and the subdials are manufactured separately and then fitted together, with the subdials' steel surround ring being diamond-cut.
@@ -48,7 +48,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-hands-bent
     statement: The brand says the tips of the minute and chronograph seconds hands are bent by hand.
     excerpt: The tips of the minute and chronograph seconds hands are bent by hand to match the curves of the dial and glass.
@@ -57,7 +57,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-inspection
     statement: The brand says all items are inspected by watchmakers before leaving the factory.
     excerpt: All items are thoroughly inspected by watchmakers before they leave the factory for shipping.
@@ -65,7 +65,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-made-japan
     statement: The specification lists the Chronograph 3 as made in Japan.
     excerpt: 'Glass: sapphire box crystal Made in Japan'
@@ -73,7 +73,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: kurchr-asaoka-design
     statement: The brand says Hajime Asaoka personally makes the initial sketches and prototypes, refining dial, typography, colour, case proportions and finishing.
     excerpt: He personally creates its initial sketches and prototypes, refining the dial architecture, typography, color, case proportions and finishing until every element reflects his intended vision.
@@ -81,7 +81,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design (Seiko NE86)
@@ -137,7 +137,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Designer-led Établisseur
     editor: FALK v0.2 handbook
@@ -164,9 +164,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence C \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence C \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-lft
     statement: Quill & Pad reports that La Fabrique du Temps did much of the engineering to bring the movement to market.
     excerpt: La Fabrique du Temps, the haute horlogerie arm of Louis Vuitton watchmaking, provided much of the mental muscle to bring this engine to market.
@@ -20,7 +20,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-lft-mono
     statement: Monochrome reports that the micro-rotor movement was developed together with La Fabrique du Temps.
     excerpt: Developed together with movement specialist La Fabrique du Temps (now owned by LV), the Laurent Ferrier micro-rotor returned to the original idea of A.L.
@@ -29,7 +29,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-liga
     statement: Monochrome reports that the escape wheels are LIGA-made nickel-phosphorus parts and the detent lever is silicon.
     excerpt: It relies on LIGA technology ( Lithographie, Galvanoformung, Abformung ) to create escape wheels made from nickel-phosphorus as a single part on two planes.
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-etablisseur
     statement: Quill & Pad describes Laurent Ferrier as an établisseur rather than a manufacture, with movement components finished in-house.
     excerpt: While an établisseur , not a manufacture, Laurent Ferrier is responsible for finishing these movement components in-house
@@ -46,7 +46,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-suppliers
     statement: A workshop staff member says they inspect components arriving from the brand's suppliers.
     excerpt: At the same time, I carry out the aesthetic and functional inspection of components arriving from our suppliers.
@@ -55,7 +55,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-finishing
     statement: The brand describes the FBN229.01 finishing, including hand-drawn flanks, bevelled wheel spokes, polished screw heads and burin-crafted interior angles on the balance cock.
     excerpt: In addition to a Côtes de Genève pattern on the bridges and the circular graining on the mainplate, the flanks are hand-drawn, the wheel spokes are bevelled, the screw heads are polished, and the interior angles of the balance-cock are hand crafted with a burin.
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-decoration-workshop
     statement: The brand has a decoration workshop whose head chamfers components with a file.
     excerpt: My work mainly involves chamfering components with a file.
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-assembly
     statement: A workshop staff member says the brand's watchmakers decorate, assemble and adjust the pieces they work on from start to finish.
     excerpt: Unlike other watch manufacturers, here watchmakers are lucky enough to be able to assemble, decorate and adjust the pieces we work on, from A to Z.
@@ -80,7 +80,7 @@ claims:
       - WE
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-head-workshop
     statement: The head of workshop says he does the complete assembly of all the company's calibres.
     excerpt: I do the complete assembly of all the calibres of the company as well as the pre-assembly of certain components.
@@ -88,7 +88,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-case-design
     statement: A staff member credits Laurent Ferrier with designing the case curves.
     excerpt: I think I would rather talk about the soft and strong curves of the cases designed by Laurent.
@@ -96,7 +96,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lfcmr-creative-dept
     statement: The brand says Laurent Ferrier and his son Christian Ferrier work together in the Creative Department.
     excerpt: Today, Laurent Ferrier and his son, Christian Ferrier, work together at the Creative Department
@@ -104,7 +104,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre FBN229.01 (micro-rotor, natural escapement)
@@ -170,7 +170,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Manufacture
     editor: FALK v0.2 handbook
@@ -197,9 +197,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 0; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 4; PD 5 \u2192 4; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 0; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 4; PD 5 \u2192 4; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

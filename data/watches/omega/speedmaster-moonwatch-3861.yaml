@@ -11,7 +11,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-lemania
     statement: The same article traces the lineage to Omega calibre 321, which has roots with Lemania.
     excerpt: to Omega's Caliber 321, which itself has roots with Lemania
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-escapement
     statement: A specialist site reports the 3861 uses a co-axial escapement, Si14 silicon hairspring and non-ferrous escapement alloys.
     excerpt: features a Daniels Co-Axial escapement, Si14 silicon hairspring, as well as non-ferrous alloys for the escapement
@@ -28,7 +28,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-metas
     statement: The same article says the watch passed timing and functional testing overseen by METAS.
     excerpt: passed comprehensive timing and functional testing overseen by METAS.
@@ -36,7 +36,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-case
     statement: The same article describes a 42 mm case with a double-step case back; it does not name the case maker.
     excerpt: The case remains the traditional 42 mm, but with a double-step case back like the vintage original.
@@ -44,7 +44,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-dial
     statement: The same article describes an applied Omega emblem and a step along the chapter ring; the dial maker is not named.
     excerpt: an applied Omega emblem as well as small step along the chapter ring
@@ -52,7 +52,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-bracelet
     statement: A specialist site says the steel bracelet follows that of the gold Apollo 11 anniversary model; the maker is not named.
     excerpt: The bracelet is a steel version of the gold Apollo 11 anniversary watch
@@ -60,7 +60,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-crystal
     statement: The same article lists a Hesalite-crystal reference alongside a sapphire version.
     excerpt: the traditional Hesalite crystal Moonwatch
@@ -68,7 +68,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: omega-eta-factory
     statement: A 2016 specialist article reports that the Master Co-Axial movement factory is operated by ETA exclusively for Omega.
     excerpt: Operated by ETA exclusively for Omega, the Master Co-Axial factory is the cutting edge of movement production.
@@ -76,7 +76,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: omega-bienne-casing
     statement: The same article says movements are sent to Omega headquarters in Bienne and assembled into complete watches.
     excerpt: The movements are sent to Omega's headquarters in Bienne and assembled into complete watches.
@@ -84,7 +84,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: omega-metas-staff
     statement: The same article says Master Chronometer tests are run by Omega employees under METAS supervision.
     excerpt: All the tests are conducted by Omega employees, but watchful eyes are behind the next wall, literally.
@@ -92,7 +92,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 3861 architecture (1861 lineage with co-axial escapement)
@@ -164,7 +164,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -191,9 +191,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 4 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 2; PD 5 \u2192 U; confidence B \u2192 D; classification Integrated Manufacture \u2192 Industrial Manufacture. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 4 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 2; PD 5 \u2192 U; confidence B \u2192 D; classification Integrated Manufacture \u2192 Industrial Manufacture. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

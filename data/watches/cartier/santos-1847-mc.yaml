@@ -11,7 +11,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-specs
     statement: Cartier's product page for a steel Santos de Cartier lists caliber 1847 MC, a steel case, sapphire crystal, a seven-sided crown with synthetic spinel, steel sword hands and a SmartLink steel bracelet; makers are not named.
     excerpt: 7-sided crown set with a faceted synthetic spinel
@@ -20,7 +20,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-new-calibre
     statement: A 2015 specialist report describes the 1847 MC as a newly developed calibre intended as Cartier's most affordable in-house movement.
     excerpt: a newly developed calibre that is intended to be the most affordable in-house movement offered by Cartier.
@@ -29,7 +29,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-decoration
     statement: The same report says the movement decoration is basic, with stamped rather than polished Geneva stripes.
     excerpt: The decoration is basic, with stamped Geneva stripes instead of the traditional polished finish.
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-construction
     statement: The same report notes a Magic Lever bidirectional winding system and a balance bridge secured on both sides.
     excerpt: the balance wheel is mounted on a bridge (secured on both sides) for stability.
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-lcdf-manufacture
     statement: A 2025 magazine article says Cartier opened a manufacture in La Chaux-de-Fonds in 2001 and began developing and producing its own mechanical movements there.
     excerpt: began developing and producing its own mechanical movements
@@ -55,7 +55,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-components
     statement: The same article gives the 1847 MC as 165 components and 25.6 mm in diameter, and says it is used in the Santos and Ballon Bleu.
     excerpt: The 165 components result in a diameter of 25.6 millimetres
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cs1847-richemont
     statement: The same article notes Cartier has been owned by Richemont since 1997.
     excerpt: the modern Richemont-owned brand (since 1997)
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber 1847 MC design
@@ -132,7 +132,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -159,9 +159,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

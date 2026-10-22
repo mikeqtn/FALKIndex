@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-case
     statement: The maker lists a monobloc case in non-magnetic 316L steel with screwed case back and crown, without naming its maker.
     excerpt: Nonmagnetic 316L Steel
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-cps
     statement: The maker describes a Crown Protection System with the crown at 6 o'clock.
     excerpt: The Crown Protection System™ provides a secure watertight seal.
@@ -28,7 +28,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-bracelet
     statement: The maker lists a steel bracelet with an expandable "Diver" link.
     excerpt: Stainless Steel metal band equipped with a “Diver” expandable link for both a city & dive use
@@ -37,7 +37,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-clasp
     statement: The maker lists a ZRC-specific clasp on metal-band models.
     excerpt: Exclusif ZRC® clasp
@@ -46,7 +46,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-swiss
     statement: The maker states its watches are designed and produced in Switzerland, without naming workshops.
     excerpt: DESIGNED AND PRODUCED IN SWITZERLAND
@@ -55,7 +55,7 @@ claims:
       - PD
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-assembled
     statement: The maker says its watches are assembled with attention to detail, without saying by whom or where.
     excerpt: They are assembled with the utmost attention to every detail.
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-family
     statement: The maker's history page says Georges and Charles Brunet, great-grandsons of the founder, head the family business.
     excerpt: Georges & Charles Brunet, at the head of the family business (great-grandsons of Joseph Rochet)
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-historic-cases
     statement: The history page says the company historically made waterproof dive-watch cases for customers; this is historical context, not the current MN64.
     excerpt: commission it to make waterproof cases for dive watches
@@ -79,7 +79,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: zmn64-revival
     statement: A specialist site says ZRC was revived in the mid-2010s under Georges Brunet and focuses on dive watches.
     excerpt: Revived in the mid-2010s under Georges Brunet, ZRC has since focused almost exclusively on diving watches,
@@ -87,7 +87,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW300-1)
@@ -150,7 +150,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial / Design-led Specialist
     editor: FALK v0.2 handbook
@@ -177,9 +177,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: MA 1 \u2192 0; MM 1 \u2192 0; EX 1 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; confidence B \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: MA 1 \u2192 0; MM 1 \u2192 0; EX 1 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; confidence B \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

@@ -11,7 +11,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-coaxial-design
     statement: The maker states that the Series Two was the first production movement designed around the Daniels co-axial escapement.
     excerpt: This was the first time that a production movement had been specifically designed around the Daniels co-axial escapement.
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-raw-materials
     statement: The maker states that, unlike the Series One, the Series Two was planned to be made from raw materials in the workshop.
     excerpt: Unlike Series One, which used parts from a Swiss ebauche, this new approach would have raw materials entering one end of the workshop and a finished watch exiting the other*.
@@ -28,7 +28,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-in-house-components
     statement: The maker states that all but the most specialised components are made in-house from raw materials.
     excerpt: All but the most specialised components are made in-house from raw materials*
@@ -38,7 +38,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-sourced-parts
     statement: The maker lists the balance spring, mainspring, jewels, sapphire crystals, seals and straps as bought from specialist manufacturers.
     excerpt: Balance spring, mainspring, jewels, sapphire crystals, seals, and straps are sourced from specialist manufacturers.
@@ -47,7 +47,7 @@ claims:
       - MM
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-hand-finishing
     statement: The maker states that traditional hand finishing is applied throughout the movement by the watchmaker.
     excerpt: Throughout the movement, traditional hand finishing is applied by the watchmaker.
@@ -55,7 +55,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-engine-turned-dials
     statement: The maker lists hand engine-turned dials among the characteristics of Smith's work.
     excerpt: frosted and gilded plates, black polished steelwork, flame-blued screws and hand engine turned dials
@@ -64,7 +64,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-designed-built-iom
     statement: The maker states that its watches are designed, manufactured and built in its Isle of Man workshop.
     excerpt: Today his watches are designed, manufactured and built within his workshop on the Isle of Man.
@@ -73,7 +73,7 @@ claims:
       - PD
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-assembled-by-hand
     statement: The maker states that each watch is assembled by hand by individual watchmakers.
     excerpt: Every watch comprises up to 400 components assembled by hand by individual watchmakers
@@ -81,7 +81,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-case-dial-hands
     statement: Deployant reports that Smith makes the case, hands and dial in his own workshops, with some engraving done in London.
     excerpt: Roger makes his own case, hands and dial in his own ateliers. He does do some of the engraving work in London, but the rest of these are made in Isle of Man.
@@ -91,7 +91,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-escapement-iom
     statement: Deployant reports that the escape wheel and escapement are made on the Isle of Man, except the purchased hairspring.
     excerpt: the entire wheel and escapement is made in Isle of Man, with the exception of the hairspring which is purchased
@@ -99,7 +99,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rws2-dial-construction
     statement: Deployant describes the dial as hand-made from parts joined by silver soldering and screws.
     excerpt: The dial is also hand made from components assembled by a combination of silver soldering and screws from the reverse.
@@ -107,7 +107,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Series Two calibre design (co-axial escapement)
@@ -182,7 +182,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Independent Watchmaker
     editor: FALK v0.2 handbook
@@ -209,9 +209,9 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 5 \u2192 4; WE 5 \u2192 3. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 5 \u2192 4; WE 5 \u2192 3. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

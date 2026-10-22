@@ -13,7 +13,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-structural-parts
     statement: A review reports that the 7001 layout is kept but nearly all structural components are replaced with parts made and decorated by Laine.
     excerpt: The architecture is clearly recognisable as a Peseux 7001 , but nearly all the structural components have been replaced for in-house manufactured and decorated ones.
@@ -23,7 +23,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-gears
     statement: In an interview, Torsti Laine says the original bridges are discarded and the gears are made by the workshop.
     excerpt: “We throw away all the bridges … we do all the gears … the black polished pieces …”
@@ -32,7 +32,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-hands
     statement: The maker says the hands are made in-house from 0.2 mm steel plate, filed by hand and polished.
     excerpt: Vintage syringe inspired hands are made from steel by us, cut from 0.2mm steel plate, then filed by hand to have a round profile and polished to mirror polish.
@@ -41,7 +41,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-guilloche-dial
     statement: The maker says the dial guilloché is cut in-house on a hand-operated guilloché machine.
     excerpt: Diamond guilloche pattern cut by hand operated 110 years old guilloche machine, in-house of course.
@@ -50,7 +50,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-movement-finish
     statement: The maker describes a guilloché bridge, two black-polished steel bridges, 17 hand-polished steel parts and hand-finished internal angles.
     excerpt: Internal sharp angles, like all chamfering are done by hand.
@@ -58,7 +58,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-atelier-role
     statement: A specialist site reports that Torsti Laine remains directly involved in technical development, guilloché and finishing at the atelier.
     excerpt: Laine Watches is an independent watchmaking atelier founded in 2016 by Finnish watchmaker Torsti Laine, who remains directly involved in technical development, guilloché, and finishing while directing the atelier.
@@ -67,7 +67,7 @@ claims:
       - PD
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-decoration-not-manufacture
     statement: A specialist site characterises Laine's focus as movement decoration rather than movement manufacturing.
     excerpt: with its focus on finishing, movement decoration (not manufacturing), and highly respectable guillochage skills
@@ -76,7 +76,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-case
     statement: The maker lists a polished stainless steel case, 37 mm by 8 mm, without naming its maker.
     excerpt: Polished stainless steel, diameter 37 mm, lug width 18 mm, buckle 16mm, thickness 8 mm.
@@ -84,7 +84,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: lp37-case-workshop
     statement: The maker's about page shows case-making work in the workshop (milling and drilling a case back), not tied to a specific model.
     excerpt: Case making_ Milling and drilling the case back
@@ -92,7 +92,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base gear train (Peseux 7001)
@@ -163,7 +163,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Watchmaking Atelier
     editor: FALK v0.2 handbook
@@ -190,9 +190,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 2; MM 2 \u2192 3; EX 1 \u2192 U; DH 2 \u2192 4; WE 4 \u2192 U; PD 4 \u2192 3; classification Watchmaking Atelier \u2192 Artisan Atelier. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 2; MM 2 \u2192 3; EX 1 \u2192 U; DH 2 \u2192 4; WE 4 \u2192 U; PD 4 \u2192 3; classification Watchmaking Atelier \u2192 Artisan Atelier. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

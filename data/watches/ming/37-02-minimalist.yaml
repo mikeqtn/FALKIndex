@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-anthracite
     statement: The same source reports the bridges and plates have an anthracite coating.
     excerpt: All the bridges and plates have been finished with an anthracite coating
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-rotor
     statement: The same source describes a bespoke openworked rotor.
     excerpt: The bespoke openworked rotor has a subtle brushed finish on the weighted outer edge
@@ -28,7 +28,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-sapphire-dial
     statement: The same source describes a sapphire dial with liquid-filled luminous indices.
     excerpt: The sapphire crystal dial has a special inset of liquid-filled Polar White luminous indices.
@@ -36,7 +36,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-sw300m1
     statement: A review describes the SW300.M1 as having skeletonised anthracite bridges and a customised rotor.
     excerpt: The SW300.M1 automatic movement features anthracite skeletonised bridges and a customized rotor.
@@ -45,7 +45,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-internal-design
     statement: The review says the 37.02 is the first MING watch designed, engineered and managed internally by Horologer Ming SA.
     excerpt: it’s the first to be designed, engineered, and managed internally by Horologer Ming SA, Ming’s new Swiss entity.
@@ -53,7 +53,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-case
     statement: The review lists a 38 mm stainless steel case, without naming its maker.
     excerpt: "Case: 38mm diameter x 11mm thickness, stainless steel"
@@ -61,7 +61,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-lume
     statement: A trade publication reports MING developed a proprietary luminous material after moving work internally.
     excerpt: Since moving efforts internally, it has finally managed to develop a proprietary luminous material
@@ -70,7 +70,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-laser-dial
     statement: The same publication reports the dial markings are laser-cut channels in the sapphire dial.
     excerpt: All dial markings are in fact laser cut channels in the sapphire dial
@@ -78,7 +78,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-assembly
     statement: The same publication reports component sourcing is unchanged and the watches are assembled in Switzerland.
     excerpt: Nevertheless, component sourcing remains unchanged, and these watches are still assembled in Switzerland.
@@ -87,7 +87,7 @@ claims:
       - WE
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ming3702-swiss-made
     statement: The same publication reports watches produced by Horologer Ming SA in La Chaux-de-Fonds are not eligible for 'Swiss Made'.
     excerpt: watches produced by Horologer Ming SA in La Chaux-de-Fonds, Switzerland are not eligible for a 'Swiss Made' mark.
@@ -96,7 +96,7 @@ claims:
       - WE
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base caliber (Sellita SW300-1)
@@ -161,7 +161,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Design-led Établisseur
     editor: FALK v0.2 handbook
@@ -188,9 +188,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

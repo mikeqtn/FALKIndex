@@ -11,7 +11,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-cnc-screws-dials
     statement: The same report says CNC machines in the workshop cut and mill components, including screws and dials.
     excerpt: the CNC machines cut and mill the components, including screws and dials.
@@ -20,7 +20,7 @@ claims:
       - MM
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-hairspring-integration
     statement: A 2026 Europa Star report says De Bethune is integrating all hairspring production in-house, from wire drawing to colleting, and does final adjustment with its own balance wheel.
     excerpt: integrating the entire hairspring production in-house
@@ -29,7 +29,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-escapement-redesign
     statement: The same report says De Bethune redesigned the Swiss lever escapement and uses a silicon escape wheel.
     excerpt: De Bethune redesigned the Swiss lever escapement
@@ -39,7 +39,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-qp-dbcaliber
     statement: A hands-on review of the DB25 Perpetual Calendar identifies the in-house caliber DB2324 automatic movement.
     excerpt: There, you'll see the truly interesting-looking in-house De Bethune caliber DB2324 automatic movement.
@@ -47,7 +47,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-qp-balance
     statement: The same review says the balance wheel is titanium with platinum weights and the escapement uses silicon parts.
     excerpt: the balance wheel is produced from titanium with platinum weights.
@@ -55,7 +55,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-qp-guilloche
     statement: The same review says the dial's main section is engraved on a hand-operated guilloché machine, without saying where.
     excerpt: The main section is first engraved using a hand-operated guilloché machine and then hued green.
@@ -64,7 +64,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-mono-entirely-inhouse
     statement: A 2025 review of the DB25 Monopusher Chronograph (caliber DB3000) says De Bethune moved entirely to in-house movements.
     excerpt: De Bethune rapidly went entirely in-house with a large stable of movements.
@@ -72,7 +72,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-mono-hairspring
     statement: The same review describes a proprietary flat hairspring and a titanium balance with white gold weights.
     excerpt: proprietary flat hairspring that breathes like an overcoil
@@ -80,7 +80,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-mono-finishing
     statement: The same review says the movement decoration is finished by hand but likely machine-applied first.
     excerpt: The decoration is clearly finished off by hand, but likely applied by machine to begin with.
@@ -88,7 +88,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: db25-mono-case
     statement: The same review lists a titanium case and does not name its maker.
     excerpt: "Material: Titanium"
@@ -96,7 +96,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Manufacture calibers (e.g. DB2324 perpetual calendar, DB3000 monopusher)
@@ -169,7 +169,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Independent Manufacture
     editor: FALK v0.2 handbook
@@ -196,9 +196,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 2; CF 5 \u2192 2; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 2; CF 5 \u2192 2; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

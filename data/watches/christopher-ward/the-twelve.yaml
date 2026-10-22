@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cw12-rotor
     statement: The same review says the movement carries a customised Christopher Ward rotor, visible through a sapphire caseback.
     excerpt: The Sellita SW200-1 movement with customized Christopher Ward rotor is visible through the sapphire exhibition caseback.
@@ -21,7 +21,7 @@ claims:
       - PD
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cw12-swiss-made-brand
     statement: The same review describes Christopher Ward as a British-based, Swiss-made brand; it does not say who makes the case or dial.
     excerpt: The British-based, Swiss-made brand
@@ -29,7 +29,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cw12-assembly-switzerland
     statement: A 2016 WatchTime article says all Christopher Ward models can be assembled and shipped from Switzerland, via Synergies Horlogères in Biel and a second site in Italian-speaking Switzerland.
     excerpt: können so sämtliche Uhrenmodelle von Christopher Ward in der Schweiz assembliert und ausgeliefert werden
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cw12-synergies-tasks
     statement: The same article says Synergies Horlogères is responsible for assembly and inspection, among other tasks.
     excerpt: Synergies Horlogères verantwortet neben Assemblage und Kontrolle unter anderem auch das Setzen der Steine
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: cw12-external-suppliers
     statement: The same article says the brand relies on several external suppliers for components of its Swiss-made watches.
     excerpt: bei der Wahl einzelner Komponenten und bei der Fertigung der Swiss-Made-Uhren somit auf mehrere externe Zulieferer
@@ -55,7 +55,7 @@ claims:
       - DH
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (Sellita SW200-1)
@@ -107,7 +107,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Design-led Brand / Contract Production
     editor: FALK v0.2 handbook
@@ -134,9 +134,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; PD 3 \u2192 1; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; PD 3 \u2192 1; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

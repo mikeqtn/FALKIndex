@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-32000-family
     statement: A specialist review says cal. 32111 is produced by ValFleurier, the movement maker owned by IWC's parent company.
     excerpt: Because the cal. 32111 is produced by ValFleurier, the movement maker owned by IWC’s parent company
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-silicon
     statement: The review reports a silicon escape wheel and pallet lever.
     excerpt: The movement sports an escape wheel and pallet lever in silicon
@@ -27,7 +27,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-dial
     statement: The review reports the dial is soft iron, stamped with the grid pattern and then galvanised.
     excerpt: Made of soft iron, the dial is first stamped to create the pattern and then galvanised to give it colour.
@@ -35,7 +35,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-bracelet
     statement: The review describes an integrated bracelet with a hidden butterfly clasp, without naming its maker.
     excerpt: The Ingenieur 40 has an integrated bracelet with a hidden butterfly clasp
@@ -43,7 +43,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-case
     statement: A specialist site reports a 40 mm case containing a soft-iron inner cage, without naming its maker.
     excerpt: all sharing the same case measuring 40 mm wide and 10.8 mm thick that contains a soft-iron inner cage.
@@ -51,7 +51,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-genta
     statement: The same site notes the original Ingenieur SL of 1976 was designed by Gérald Genta.
     excerpt: the original Ingenieur SL from 1976 that was famously designed by Gérald Genta
@@ -59,7 +59,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-merishausen-cases
     statement: A 2018 report says IWC's Merishausen manufacture includes case production (not tied to this model).
     excerpt: Raw materials (primarily bars of metal) and case production are located at the basement.
@@ -67,7 +67,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-merishausen-parts
     statement: The same report says about 1,500 different parts for IWC's calibres are made there (not tied to cal. 32111).
     excerpt: a total of 1500 different parts for IWC's range of calibres are made
@@ -75,7 +75,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: iwci40-merishausen-assembly
     statement: The same report describes a movement assembly department at Merishausen.
     excerpt: That's followed by the movement assembly department.
@@ -83,7 +83,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Cal. 32111 base architecture
@@ -149,7 +149,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -176,9 +176,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 4 \u2192 1; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; PD 4 \u2192 U; confidence B \u2192 D. 6 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 4 \u2192 1; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; PD 4 \u2192 U; confidence B \u2192 D. 6 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

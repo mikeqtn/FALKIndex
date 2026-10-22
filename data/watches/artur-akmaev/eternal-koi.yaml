@@ -55,7 +55,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-koi-movement-engraving
     statement: Akmaev hand-relief engraves the bridges, barrel and balance bridge.
     excerpt: Artur further extends his talents to fully hand-relief engraving the bridges, spring barrel and balance bridge.
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-koi-dial
     statement: The dial is a hand-engraved spring-steel surface with silver and gold inlays.
     excerpt: Pure silver and gold inlays form the flowing waves on a hand-engraved spring steel surface.
@@ -72,7 +72,7 @@ claims:
       - CF
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-koi-sculpted
     statement: The koi are sculpted from silver with gold and copper highlights.
     excerpt: The koi themselves are sculpted from silver, with individual scales highlighted in pure yellow gold and copper.
@@ -81,7 +81,7 @@ claims:
       - CF
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-koi-hands
     statement: The hands are heat-blued or purpled steel, finished by hand.
     excerpt: Completing the composition is a set of traditionally heat-blued or purpled steel hands, finished by hand.
@@ -89,7 +89,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-process-strip
     statement: Akmaev strips the movement and engraves each component individually.
     excerpt: The movement is then stripped down to its bare bones where each component is then engraved and skeletonized individually.
@@ -98,7 +98,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-process-reassembly
     statement: The movement is reassembled and tested after engraving.
     excerpt: The movement is then meticulously reassembled and tested to ensure everything runs smoothly.
@@ -106,7 +106,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ak-process-sketch
     statement: Akmaev plans and sketches the whole design, from dial to movement parts.
     excerpt: He begins by planning out and sketching everything from the dial and main plate to the crown wheel and drum barrel.
@@ -114,7 +114,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

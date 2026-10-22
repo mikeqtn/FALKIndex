@@ -10,7 +10,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: far3h-roventa-henex
     statement: The same article says the watches are produced in Switzerland by Roventa-Henex, a manufacturer that works for multiple brands.
     excerpt: are produced in Switzerland, by Roventa-Henex, a Swiss manufacturer that works behind the scenes for multiple brands.
@@ -20,7 +20,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: far3h-eta-2016
     statement: The same article says the first Farer automatics use an ETA 2824-2 movement.
     excerpt: Inside the cases of the Farer Automatic Watches is a known and reliable movement, an ETA 2824-2,
@@ -29,7 +29,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: far3h-bronze-crown
     statement: The same article notes a contrasting bronze crown on the 2016 automatics.
     excerpt: A nice detail is the contrasting crown, made out of bronze
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: far3h-sw200-2021
     statement: A 2021 review says Farer's three-hand automatic trio uses the Sellita SW200-1.
     excerpt: The stainless cases house the now very familiar workhorse Sellita cal. SW200-1.
@@ -46,7 +46,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: far3h-case-2021
     statement: The same review describes polished 316L stainless steel cases, water resistant to 50 m, with a box sapphire crystal; no case maker is named.
     excerpt: The cases are 316L stainless, polished and water resistant to 50m.
@@ -54,7 +54,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (ETA 2824-2)
@@ -115,7 +115,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Design-led Microbrand
     editor: FALK v0.2 handbook
@@ -142,9 +142,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

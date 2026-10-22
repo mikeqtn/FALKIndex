@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-switch
     statement: A specialist site reports that the S-series moved from Seiko NH35 to Sellita movements.
     excerpt: the upgrade in movements from the Seiko NH35 movements to Sellita movements will probably please many enthusiasts.
@@ -20,7 +20,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-all-sw200
     statement: The specialist site says all four S-series launch models use the Sellita SW200-1.
     excerpt: All four models are powered by automatic Sellita SW200-1 movements for this series
@@ -29,7 +29,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-case-new
     statement: The hands-on review says the S Series has a new, thinner case design.
     excerpt: The S Series also has a new case design that is slightly thinner than previous Unimatic cases.
@@ -38,7 +38,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-case-height
     statement: The specialist site gives an 11.6 mm case height, down from 13.6 mm.
     excerpt: The height has been reduced to 11.6mm compared to the 13.6mm of previous models.
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-designers
     statement: The specialist site describes the founders as industrial designers by trade.
     excerpt: industrial designers by trade
@@ -54,7 +54,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-italy-based
     statement: The hands-on review describes Unimatic as Italy-based.
     excerpt: Italy-based Unimatic has just released a new "S Series" of watches
@@ -62,7 +62,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: um1s-italy-production
     statement: A radio-programme summary says co-founder Giovanni Moro discusses manufacturing in Italy; no details are given.
     excerpt: Giovanni Moro talks about keeping production close to home by manufacturing in Italy
@@ -71,7 +71,7 @@ claims:
       - WE
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW200-1)
@@ -125,7 +125,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Design-led Microbrand
     editor: FALK v0.2 handbook
@@ -152,9 +152,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 3 \u2192 2; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 3 \u2192 2; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

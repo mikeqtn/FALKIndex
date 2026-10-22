@@ -13,7 +13,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-7121-development
     statement: The same text states the calibre took five years to develop.
     excerpt: Five years of development were necessary for the realisation of the new Calibre 7121
@@ -22,7 +22,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-dial-atelier
     statement: The same text says Audemars Piguet developed guilloché techniques internally and that the guilloché dials of the Jumbo models are entirely produced in its atelier.
     excerpt: Today, the guilloché dials of the "Jumbo" models are entirely produced in this atelier.
@@ -30,7 +30,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-case-bracelet-spec
     statement: The launch text lists a steel case with sapphire crystal and caseback and a steel bracelet with AP folding clasp, without naming who makes them.
     excerpt: Stainless steel bracelet with AP folding clasp.
@@ -38,7 +38,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-replaces-2121
     statement: A review notes the 7121 replaces calibre 2121, a Jaeger-LeCoultre-designed movement used in the Jumbo since 1972.
     excerpt: the new calibre 7121 replacing the JLC designed calibre 2121 used for the last 50 years
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-movement-finish
     statement: A review lists Côtes de Genève, straight graining and circular graining on the 7121.
     excerpt: well-executed Côtes de Genève, traits tirés, and circular graining
@@ -54,7 +54,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-finish-list
     statement: A caliber summary lists the 7121's finishes, including machine bevelling, and 268 components.
     excerpt: Geneva stripes, machine beveling, polishing, circular satin finishing, circular graining, perlage.
@@ -63,7 +63,7 @@ claims:
       - CF
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-barrel
     statement: A specialist site reports the 7121 has a larger bidirectionally wound barrel and is 3.2 mm thick.
     excerpt: The new calibre is just 3.2mm thin, allowing for a case thickness of just 8.1mm.
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-dial-back-inhouse
     statement: A reviewer reports the Tapisserie dial was outsourced on an older Jumbo and that AP brought dial production back in-house around 2012.
     excerpt: However, since 2012 or so, Audemars Piguet has brought the craftsmanship and production of these dials back in-house.
@@ -79,7 +79,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: ro16202-case-hand-finished
     statement: The brand's product page describes the case as hand-finished steel and names Calibre 7121 as the movement.
     excerpt: with its body of hand-finished steel
@@ -88,7 +88,7 @@ claims:
       - EX
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 7121 design
@@ -159,7 +159,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Haute Manufacture
     editor: FALK v0.2 handbook
@@ -186,9 +186,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; CF 5 \u2192 U; WE 5 \u2192 U; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; CF 5 \u2192 U; WE 5 \u2192 U; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

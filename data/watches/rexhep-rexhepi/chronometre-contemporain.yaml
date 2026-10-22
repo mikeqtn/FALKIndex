@@ -11,7 +11,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
     status: disputed
   - id: rrcc-finishing-techniques
     statement: The maker lists anglage, black polish and Côtes de Genève among the hand-finishing techniques on the RRCC-01.
@@ -20,7 +20,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-design
     statement: Rexhep Rexhepi designed the Chronomètre Contemporain I.
     excerpt: Rexhep Rexhepi created the REXHEP REXHEPI Chronomètre Contemporain I (RRCC I) to capture classical watchmaking in a contemporary design.
@@ -28,7 +28,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-enamel-dial
     statement: The RRCC I dial is grand feu enamel; the maker's page does not say who enamels it.
     excerpt: The dial of the RRCC I showcases traditional Genevan enamelling
@@ -36,7 +36,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-ateliers-in-house
     statement: The maker states that every component of its watches is conceived, made and hand-finished in-house.
     excerpt: every component is conceived, crafted, and hand-finished in-house
@@ -46,7 +46,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
     status: disputed
   - id: rrcc-2018-suppliers
     statement: "A 2018 report on the Chronom\u00e8tre Contemporain prototype says most movement components are produced by suppliers and finished at the Akrivia workshop in Geneva."
@@ -56,7 +56,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-one-watchmaker
     statement: The maker states that each watchmaker completes an entire watch from start to finish.
     excerpt: each watchmaker is entrusted with completing an entire timepiece, working on it from start to finish
@@ -64,7 +64,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-case-workshop-2019
     statement: Atelier Akrivia opened its case-making workshop in 2019, after the Chronomètre Contemporain was introduced in 2018.
     excerpt: ATELIER AKRIVIA marked a milestone in 2019 with the inauguration of its micro-mechanics workshop with a specialty in case making.
@@ -72,7 +72,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-enamel-workshop-2024
     statement: The maker opened a grand feu enamel dial workshop in spring 2024.
     excerpt: In spring 2024, Rexhep Rexhepi opened a workshop dedicated to the art of grand feu enamel.
@@ -80,7 +80,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc2-first-in-house-case
     statement: The maker says the Chronomètre Contemporain II case is now produced in-house, which implies the first model's case was not.
     excerpt: The case of the RRCC II was developed under the direction of renowned case maker Jean-Pierre Hagmann and is now produced in-house.
@@ -88,7 +88,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-sjx-enameller
     statement: SJX reports that the dial is made by a Geneva enameller, not named, who trained under Dominique Baron.
     excerpt: The dial is made by a Geneva enameller who was once a student of the late Dominique Baron of Van Cleef & Arpels
@@ -96,7 +96,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rrcc-besancon
     statement: SJX reports that the first watches underwent chronometer trials at the Besançon observatory before delivery.
     excerpt: after they have completed chronometer trials at the Besançon observatory
@@ -104,7 +104,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre RRCC-01 design
@@ -167,7 +167,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Watchmaker / Manufacture
     editor: FALK v0.2 handbook
@@ -194,9 +194,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: true
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 3; confidence B \u2192 C. The maker's in-house claims are marked disputed by a 2018 report that most components came from suppliers. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 3; confidence B \u2192 C. The maker's in-house claims are marked disputed by a 2018 report that most components came from suppliers. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

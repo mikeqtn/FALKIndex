@@ -13,7 +13,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-5100-172
     statement: A review describes the 5100 as a 172-part calibre developed and manufactured by Vacheron Constantin.
     excerpt: The 172-part Calibre 5100, developed and manufactured by Vacheron Constantin
@@ -22,7 +22,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-geneva-hallmark
     statement: The review says the Overseas earned the Hallmark of Geneva.
     excerpt: Another big step forward that the new Overseas took was earning the coveted Hallmark of Geneva.
@@ -31,7 +31,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-bracelet-system
     statement: The review describes a tool-free strap and bracelet change by pulling a tab on the case back side.
     excerpt: Just by pulling on a tab on the case back
@@ -40,7 +40,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-movement-production
     statement: A manufacture-visit report says the Plan-les-Ouates building carries out the complete production of all in-house movements.
     excerpt: including the complete production of all in-house movements
@@ -49,7 +49,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-hairspring
     statement: The report lists hairspring production among operations carried out in the building.
     excerpt: several unusual operations like hairspring production, gem-setting, engraving
@@ -57,7 +57,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-le-brassus-parts
     statement: A 2013 report says the Le Brassus site runs the production chain for movement parts.
     excerpt: The entire production chain for the parts required to make Vacheron Constantin mechanical movements
@@ -65,7 +65,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-casing-plan-les-ouates
     statement: The 2013 report says movement assembly, casing-up and final controls take place at Plan-les-Ouates.
     excerpt: movement assembly, casing-up and final controls are handled in the Manufacture in Plan-les-Ouates.
@@ -73,7 +73,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-cases-elsewhere
     statement: The visit report says cases and most dials are made elsewhere, possibly by in-group suppliers such as Donzé Baume for cases.
     excerpt: Cases and most dials are made elsewhere, and may come from in-group suppliers like Donze Baume, for cases
@@ -82,7 +82,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-dials-third-party
     statement: The visit report names third parties such as Les Cadraniers de Genève for certain dials.
     excerpt: or third-parties like Les Cadraniers de Genève for certain dials
@@ -90,7 +90,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-finishing
     statement: The visit report says finishing is organised by component type with dedicated tools.
     excerpt: Finishing work is organized by component type, with special tools provided for each type of work.
@@ -98,7 +98,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: vco-assembly
     statement: The visit report says watch assembly takes place in workshops at the manufacture.
     excerpt: The assembly of each Vacheron Constantin watch takes place in a series of spacious and well-appointed workshops.
@@ -106,7 +106,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 5100 design and development
@@ -181,7 +181,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Haute Manufacture
     editor: FALK v0.2 handbook
@@ -208,9 +208,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 U; CF 5 \u2192 3; WE 5 \u2192 3; PD 5 \u2192 4; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 U; CF 5 \u2192 3; WE 5 \u2192 3; PD 5 \u2192 4; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

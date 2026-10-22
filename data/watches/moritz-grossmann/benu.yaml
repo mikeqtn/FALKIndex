@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-plate
     statement: The maker describes a 2/3 plate movement with frame pillars in untreated German silver.
     excerpt: Plate movement with 2/3 plate and frame pillars made of untreated German silver
@@ -20,7 +20,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-engraving
     statement: The maker says the 2/3 plate and the balance and escape-wheel cocks are engraved by hand.
     excerpt: 2/3 plate as well as balance and escape-wheel cocks manually engraved
@@ -28,7 +28,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-hands-spec
     statement: The maker lists the Benu hands as hand-crafted steel, annealed to a brown-violet colour.
     excerpt: Hand-crafted steel, annealed to a brown-violet hue
@@ -37,7 +37,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-dial-spec
     statement: The maker lists a solid silver dial with Arabic numerals, without naming the dial maker.
     excerpt: Solid silver, with Arabic numerals
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-case-spec
     statement: The maker lists a three-part gold or platinum case of 41.0 mm by 11.1 mm, without naming the case maker.
     excerpt: "Diameter: 41.0 mm, height: 11.1 mm"
@@ -53,7 +53,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-integration
     statement: A specialist magazine reports that the brand aimed from the start for over 90 per cent vertical integration in the movement.
     excerpt: From the very beginning, the aim was to achieve a vertical integration rate of over 90 per cent in the movement.
@@ -61,7 +61,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-bought-parts
     statement: The same article names jewels, the balance spring and mainsprings as components the brand buys in.
     excerpt: With the exception of a few components such as the jewels, the balance spring and the mainsprings
@@ -69,7 +69,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-balance-rim
     statement: The same article says the balance wheel rim is made entirely in-house.
     excerpt: Moritz Grossmann manufactures the balance wheel rim entirely in-house.
@@ -77,7 +77,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-spring-shaping
     statement: The same article says the bought-in balance spring is bent and shaped by hand in the company workshops.
     excerpt: At Moritz Grossmann, the delicate balance spring is bent and shaped by hand in the company's own workshops.
@@ -86,7 +86,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-hands-inhouse
     statement: The same article says the hands are made entirely in-house.
     excerpt: Whilst even luxury brands source their hands from specialist suppliers, in Glashütte they are manufactured entirely in-house from scratch.
@@ -95,7 +95,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-dials-some
     statement: A profile of the CEO reports that the manufacture makes a few of its own dials and produces its own hands.
     excerpt: the manufacture does make a few of its own dials, and produces its own hands as well
@@ -103,7 +103,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-rest-of-watch
     statement: The same profile says the rest of the watch is not held to the same in-house standard as the movements.
     excerpt: Although Hutter does not hold the rest of the watch to quite the same in-house standards as the movements
@@ -112,7 +112,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-develop
     statement: The CEO is quoted saying the brand set out to construct and develop its movements itself.
     excerpt: we had to be a real manufacture, to construct and develop the movements ourselves.
@@ -121,7 +121,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-finishing
     statement: The maker says raw parts are deburred and then finished by hand with bevelling, polishing and decoration.
     excerpt: The raw parts are first deburred and then meticulously finished by expert hands that bevel edges, polish surfaces, and apply a diversity of decorative patterns.
@@ -129,7 +129,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: mgbenu-rate-test
     statement: The maker says each complete watch undergoes a rate test of at least 30 days.
     excerpt: The complete watch is then subjected to another rate accuracy test lasting at least 30 days.
@@ -137,7 +137,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 100.0 architecture
@@ -209,7 +209,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Manufacture
     editor: FALK v0.2 handbook
@@ -236,9 +236,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; WE 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; WE 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

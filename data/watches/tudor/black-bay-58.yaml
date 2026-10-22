@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-silicon-cosc
     statement: The same review lists a silicon balance spring and COSC certification for the MT5402.
     excerpt: a silicon balance spring, and COSC accuracy
@@ -21,7 +21,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-case-39
     statement: The same review gives a 39 mm case diameter.
     excerpt: The case of the Black Bay Fifty-Eight measures a very friendly 39mm across.
@@ -29,7 +29,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-kenissi-founded
     statement: A specialist site reports that Kenissi was founded in 2016 to develop and produce Tudor's movements.
     excerpt: In 2016, Kenissi was founded to handle the development and production of Tudor's movements
@@ -39,7 +39,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-kenissi-all
     statement: "A factory-visit report states that Kenissi produces all of Tudor's in-house movements."
     excerpt: "Kenissi produces all of Tudor\u2019s in-house movements."
@@ -47,7 +47,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
     status: superseded
     superseded_by: tbb58-kenissi-all-others
   - id: tbb58-kenissi-all-others
@@ -57,7 +57,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-kenissi-assembly
     statement: The specialist site says Kenissi manufactures and assembles movements at its Le Locle facility.
     excerpt: Kenissi focuses on the manufacturing and assembly of movements at its Le Locle facility
@@ -66,7 +66,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-kenissi-holding
     statement: The specialist site names Kenissi holding companies making movement blanks (EMP), oscillators (Kenitec) and stamped movement parts (Golay-Tec).
     excerpt: EMP manufactures movement blanks, Kenitec oscillators, and Golay-Tec small-stamped movement components.
@@ -74,7 +74,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-silicon-supplier
     statement: The specialist site says the silicon components come from an external Swiss supplier.
     excerpt: These silicon components are produced by a specialised external Swiss supplier dedicated to silicon micro-components.
@@ -82,7 +82,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-silicon-two-specialists
     statement: A 2023 factory-visit report says Tudor uses two silicon hairspring specialists and owns one of them.
     excerpt: Tudor relies on two specialists for silicon hairsprings, but owns one of them outright.
@@ -90,7 +90,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-cases-orolux
     statement: The specialist site names Orolux (Le Noirmont) as a case maker and Joseph Baume (Le Noirmont) as a case-blank maker among the suppliers visited; it does not tie them to a specific model.
     excerpt: Orolux in Le Noirmont, which manufactures watch cases
@@ -98,7 +98,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-dials-montremo
     statement: The specialist site names Montremo (La Chaux-de-Fonds) as a dial maker among the suppliers visited; it does not tie it to a specific model.
     excerpt: Montremo in La Chaux-de-Fonds, which manufactures dials
@@ -106,7 +106,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-bracelet-detech
     statement: The specialist site says Detech produces components for Tudor bracelets and clasps.
     excerpt: Detech, a company specialising in bar milling and screw machining, which produces components for Tudor bracelets and clasps
@@ -114,7 +114,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: tbb58-watch-assembly
     statement: The factory-visit report says Tudor watches are assembled and tested in the Tudor building in Le Locle before shipping.
     excerpt: where Tudor watches are assembled and tested before being despatched to retailers.
@@ -122,7 +122,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre MT5402 architecture and development
@@ -207,7 +207,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial Manufacture / In-group Network
     editor: FALK v0.2 handbook
@@ -234,9 +234,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 4; EX 2 \u2192 U; DH 2 \u2192 U; CF 1 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Claim tbb58-kenissi-all is superseded by tbb58-kenissi-all-others, which quotes the full sentence. Kenissi is credited as in-group and disclosed. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 4; EX 2 \u2192 U; DH 2 \u2192 U; CF 1 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Claim tbb58-kenissi-all is superseded by tbb58-kenissi-all-others, which quotes the full sentence. Kenissi is credited as in-group and disclosed. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

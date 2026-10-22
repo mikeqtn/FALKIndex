@@ -59,7 +59,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-glasgow-modified
     statement: Movements are modified, regulated and assembled into watches at the Glasgow workshop.
     excerpt: We receive them at our Glasgow workshop, where they are modified to our needs, regulated and assembled into cased-up watches.
@@ -68,7 +68,7 @@ claims:
       - WE
       - MA
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-six-watchmakers
     statement: Each watch is hand-assembled by one of six in-house watchmakers.
     excerpt: Regardless of movement, each watch is carefully hand-assembled by one of our six in-house watchmakers.
@@ -76,7 +76,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-regulated
     statement: Every watch is regulated after assembly.
     excerpt: Once assembled, every watch is regulated to suit the wearer.
@@ -84,7 +84,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-amplitude
     statement: Balance amplitude is checked on a timegraph before assembly.
     excerpt: Before assembly, the amplitude – the swinging rate of the balance wheel – is checked with our timegraph
@@ -92,7 +92,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-hands
     statement: Hands are thermally treated to specific colours.
     excerpt: Our watch hands are thermally treated to specific colours
@@ -100,7 +100,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-enamellers
     statement: Three named enamellers make the enamel dials.
     excerpt: our three expert enamellers – Morna, Nicky and Sally – have spent years refining the practice of enamel dial making.
@@ -109,7 +109,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-blank
     statement: Dial blanks are stamped from fine silver in the Glasgow studio.
     excerpt: We start by stamping a dial from a sheet of fine silver using a hydraulic press and a custom-made die at our Glasgow studio.
@@ -118,7 +118,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-fume
     statement: Fumé dials use the same vitreous enamel method on a domed silver base.
     excerpt: With the fumé dial, we follow our existing enamel method, but using a domed silver base.
@@ -127,7 +127,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: ao-fired-printed
     statement: Dials are fired, printed and cured before going to the watchmakers.
     excerpt: After enamelling, the dials are fired, printed and cured, then passed on to our watchmakers for assembly.
@@ -136,7 +136,7 @@ claims:
       - DH
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

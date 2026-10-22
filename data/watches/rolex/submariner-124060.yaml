@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rsub-chronergy
     statement: The same review says calibre 3230 uses the Chronergy escapement patented by Rolex.
     excerpt: Rolex engineered caliber 3230 and 3235 to utilize the Chronergy escapement, patented by Rolex
@@ -22,7 +22,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rsub-parachrom
     statement: The same review says the blue Parachrom hairspring is manufactured by Rolex.
     excerpt: fitted with an optimized blue Parachrom hairspring, manufactured by Rolex in an exclusive paramagnetic alloy
@@ -30,7 +30,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rsub-steel
     statement: The same review says the case steel is 904L.
     excerpt: The stainless steel alloy used is still 904L
@@ -38,7 +38,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rsub-bracelet
     statement: The same review says the Oyster bracelet was redesigned for the new case.
     excerpt: Naturally, the Oyster bracelet has also been redesigned to match the new case proportions.
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rsub-lume
     statement: The same review says Chromalight lume is used on the hands and markers.
     excerpt: Chromalight lume is used for the hands and markers, with a blue glow, same as before.
@@ -54,7 +54,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rolex-plo-cases
     statement: A 2014 site report says the Plan-les-Ouates site manufactures Rolex cases and bracelets.
     excerpt: The center specializes in manufacturing the cases and bracelets for Rolex watches.
@@ -62,7 +62,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rolex-chene-bourg
     statement: The same report says the Chêne-Bourg site produces dials and does gem-setting.
     excerpt: Built in 2000, this facility specializes in the production of dials and inlaying with precious stones.
@@ -70,7 +70,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rolex-bienne
     statement: The same report says the Bienne site handles manufacture and assembly of Rolex movements.
     excerpt: houses all activities related to the manufacture and assembly of Rolex's movements
@@ -79,7 +79,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rolex-geneva-assembly
     statement: The same report says final assembly of each watch takes place at the Geneva headquarters.
     excerpt: The final assembly of each Rolex watch is carried out at the brand's Geneva headquarters.
@@ -87,7 +87,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: rolex-hands-bought
     statement: The same report says Rolex buys its hands from a specialist producer.
     excerpt: The brand also purchases the hands for its timepieces from a specialized producer.
@@ -95,7 +95,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 3230 architecture
@@ -177,7 +177,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Integrated Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -204,9 +204,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 5 \u2192 4; DH 5 \u2192 3; CF 2 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 5 \u2192 4; DH 5 \u2192 3; CF 2 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

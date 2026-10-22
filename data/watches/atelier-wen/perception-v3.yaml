@@ -12,7 +12,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-pequignet-morteau
     statement: The same article describes Pequignet as an independent movement maker in Morteau, France.
     excerpt: One of the last independent movement manufactures in France, Pequignet is based in Morteau, near the Swiss border.
@@ -20,7 +20,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-movement-design
     statement: The article reports the movement's decoration was designed in collaboration with Pequignet to bring Chinese motifs to the bridges.
     excerpt: brought traditional Chinese design to the movement itself.
@@ -29,7 +29,7 @@ claims:
       - PD
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-bridges
     statement: The article describes fan-shaped bridges filled with blue aventurine lacquer.
     excerpt: mirror-polished blue aventurine lacquer adorns each zephyr-like bridge
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-dial-cheng
     statement: The article names Cheng Yucai, based in Xinmi, Henan, as the guilloché craftsman.
     excerpt: Master Cheng Yucai, a Master Guillocheur based in Xinmi, Henan province.
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-dial-process
     statement: The article reports each dial is cut on a hand-operated rose engine and takes eight hours.
     excerpt: Using a diamond-tipped chisel on the hand-operated rose engine, each dial takes eight hours to complete
@@ -54,7 +54,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-dial-workshop
     statement: A second specialist site reports the dials are produced by the workshop of Cheng Yucai.
     excerpt: hand-guilloché dials produced by the workshop of Cheng Yucai, China's first guilloché master craftsman.
@@ -62,7 +62,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-customised-calibre
     statement: The same site describes the movement as a highly customised Pequignet calibre.
     excerpt: a highly customised Pequignet calibre
@@ -70,7 +70,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-case
     statement: The site lists a 40 mm 904L steel case, without naming the case maker.
     excerpt: The case is still made of 904L stainless steel, measuring 40mm in diameter.
@@ -78,7 +78,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: awv3-bracelet
     statement: The site lists a tapering 904L steel bracelet, without naming its maker.
     excerpt: All Perception V3 models are worn on a 904L steel bracelet, tapering from 22mm at the lugs to 18mm at the clasp.
@@ -86,7 +86,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base movement (Pequignet EPM03)
@@ -149,7 +149,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan Établisseur
     editor: FALK v0.2 handbook
@@ -176,9 +176,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

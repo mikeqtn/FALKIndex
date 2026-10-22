@@ -49,7 +49,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-modified
     statement: The C101 was modified with a new balance bridge, click spring assembly and power reserve indication.
     excerpt: modified it to their needs with a new, black-polished balance bridge and click spring assembly
@@ -58,7 +58,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-mojon
     statement: Jean-François Mojon of Chronode helped develop the movement.
     excerpt: Chronode's Jean-François Mojon helped develop the highly decorated movement
@@ -67,7 +67,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-chronode
     statement: Chronode created the movement for Fleming.
     excerpt: For this, Fleming turned to Chronode, who created a gem.
@@ -76,7 +76,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-dials
     statement: All dials are made by Comblémine, owned by Kari Voutilainen.
     excerpt: All dials are made by the experts at Comblémine, a highly specialized company in Saint-Sulpice, Switzerland owned by Kari Voutilainen.
@@ -85,7 +85,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-case-design
     statement: The founder held the case to his original design through two years of development.
     excerpt: As Fleming did not want to deviate from his original design, it took two years before the case in tantalum was finally up to par.
@@ -94,7 +94,7 @@ claims:
       - PD
       - EX
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: fl-s1-not-watchmaker
     statement: The brand was not founded by a watchmaker.
     excerpt: Fleming is not the brainchild of a watchmaker
@@ -103,7 +103,7 @@ claims:
       - WE
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2

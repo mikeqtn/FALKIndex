@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-earlier-eta
     statement: The same review says an earlier Habring² five-minute repeater used an ETA base with a Dubois-Depraz module.
     excerpt: the base movement used was the ubiquitious ETA with a Dubuis Depraz module.
@@ -20,7 +20,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-buys-module
     statement: The review reports Habring² buys the module and finishes and assembles the movement in-house.
     excerpt: Habring2 buys the module from DD, and completely finish and assemble the movement in-house.
@@ -30,7 +30,7 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-final-assembly
     statement: The review reports Richard Habring does final assembly, and understands he does the final tuning of the sound.
     excerpt: Further final assembly is done by Richard himself, and we understanding the final tuning of the sound too.
@@ -38,7 +38,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-hands
     statement: The review describes hand-blued steel hands, without naming their maker.
     excerpt: A set of very elegant, swallow hands, made in hand blued steel graces the dial side.
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-module-spec
     statement: Habring² lists the Dubois-Depraz D90 module in the A11B/D90 movement.
     excerpt: Dubois-Depraz 5-minutes-repeater module D90 (measuring 36 mm in diameter and 3.75 mm in height)
@@ -55,7 +55,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-carl-haas
     statement: Habring² lists a Carl Haas hairspring for the repeater's escapement.
     excerpt: Anti-magnetic escapement with a Carl Haas hairspring in chronometer quality
@@ -63,7 +63,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-finishing
     statement: Habring² says the movement is finished by hand with polished edges, engravings and perlage.
     excerpt: Elaborately refined by hand with polished edges, decorative engravings, perlage, etc.
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-case
     statement: Habring² lists a titanium case (grade 2 middle, grade 5 back and bezel), without naming its maker.
     excerpt: Titan Grade 2 (middle part) and Grade 5 (caseback and bezel polished)
@@ -79,7 +79,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-25-suppliers
     statement: A lecture recap reports that about 25 suppliers work with Habring².
     excerpt: There are about 25 suppliers that work with the brand
@@ -89,7 +89,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: h2rep-hairspring-scaling
     statement: A manufacture visit reports that Habring² scales hairsprings and pairs them with individually adjusted balance wheels.
     excerpt: the scaling of hairsprings, as well as the pairing of those springs with individually adjusted balance wheels.
@@ -98,7 +98,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: A11B base movement
@@ -166,7 +166,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Independent Manufacture / Supplier Network
     editor: FALK v0.2 handbook
@@ -193,9 +193,9 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 2 \u2192 U; EX 1 \u2192 U; DH 1 \u2192 U; WE 5 \u2192 4; PD 5 \u2192 U; confidence B \u2192 D; classification Independent Manufacture \u2192 Watchmaking Atelier. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 2 \u2192 U; EX 1 \u2192 U; DH 1 \u2192 U; WE 5 \u2192 4; PD 5 \u2192 U; confidence B \u2192 D; classification Independent Manufacture \u2192 Watchmaking Atelier. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

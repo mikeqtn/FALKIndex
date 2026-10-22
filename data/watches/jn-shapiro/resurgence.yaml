@@ -12,7 +12,7 @@ claims:
       - EX
       - DH
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-dial-layers
     statement: The dial is built from separate metal layers, each engine-turned, trimmed and milled to fit.
     excerpt: Each layer is a different piece of metal, engine-turned separately, trimmed and painstakingly milled for a perfect fit.
@@ -21,7 +21,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-movement-options
     statement: Clients choose between three free-sprung, hand-engraved movement designs.
     excerpt: offers clients a choice of three free-sprung, hand-engraved movements with hacking seconds
@@ -30,7 +30,7 @@ claims:
       - MA
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-only-hairspring-bought
     statement: Of the movement's regulating and escapement parts, only the hairspring is bought in; the rest are made in-house.
     excerpt: J.N. Shapiro only buys the hairspring; the rest of its components are made in-house.
@@ -38,7 +38,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-hairspring-supplier
     statement: Flat hairsprings are supplied by Precision Engineering of Neuhausen, Switzerland.
     excerpt: The flat hairsprings are supplied by Precision Engineering, the Neuhausen-based sister company to H. Moser & Cie.
@@ -46,7 +46,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-overcoils-in-house
     statement: Watchmakers on staff form the hairspring overcoils in-house.
     excerpt: relies on two watchmakers on staff who form the overcoils in-house.
@@ -55,7 +55,7 @@ claims:
       - WE
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-own-calibre
     statement: The caliber was conceived as the brand's own American-made movement.
     excerpt: Joshua’s vision was always to create his own, American-made calibre.
@@ -64,7 +64,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-five-watchmakers
     statement: Five full-time watchmakers work on the Resurgence, and the movement is signed with their initials.
     excerpt: each of the five full-time watchmakers who work on the Resurgence
@@ -72,7 +72,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-anglage-staff
     statement: Two watchmakers on staff perform anglage; one has an engraving background.
     excerpt: There are two watchmakers on staff that do anglage, one of whom has a background in engraving.
@@ -80,7 +80,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-case-rose-engine
     statement: The case band is engine-turned on the same rose engine as the dial.
     excerpt: turned on the same rose engine as the dial
@@ -89,7 +89,7 @@ claims:
       - EX
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-movement-parts-listed
     statement: The pinions, balance, screws, wheels and power fork are made in the workshop.
     excerpt: all of its components, including the pinions, the balance, screws, wheels, and power fork, are made in the workshop
@@ -97,7 +97,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-cubist-bridge
     statement: The Cubist bridge layout was designed by a watchmaker in the workshop.
     excerpt: watchmaker Michael completed the cubist bridge design.
@@ -106,7 +106,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
   - id: jns-res-engine-turning-machines
     statement: The workshop runs three straight-line engine-turning machines and four rose engines.
     excerpt: three machines dedicated to crafting straight patterns
@@ -115,7 +115,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-13
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber design, including the Cubist bridge layout

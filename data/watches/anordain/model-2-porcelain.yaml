@@ -11,7 +11,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-pottery-space
     statement: The same article reports the studio set up its own pottery space and had produced 40 dials meeting its standard at launch.
     excerpt: The studio set up its own pottery space to develop this craft and has produced 40 dials that are up to their standard so far.
@@ -19,7 +19,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-ljp-g101
     statement: The same article reports a La Joux-Perret G101 movement.
     excerpt: The anOrdain Model 2 Porcelain is equipped with a La Joux-Perret G101 movement
@@ -28,7 +28,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-stoke
     statement: A review reports the porcelain dials were developed with help from artisans in Stoke-on-Trent.
     excerpt: with the help of artisans from Stoke-on-Trent
@@ -36,7 +36,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-firing
     statement: The same review describes a clay base with a vitreous glaze fired at up to 1,300 °C.
     excerpt: to which a vitreous glaze is applied and fired up to 1,300 degrees Celsius.
@@ -45,7 +45,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-swiss-movements
     statement: The maker says its watches use Swiss movements from La Joux-Perret (G101), Sellita and ETA.
     excerpt: Our watches run on good quality Swiss movements from La Joux-Perret G101, Sellita and ETA
@@ -54,7 +54,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-modified-regulated
     statement: The maker says movements are modified to its needs, regulated and cased up in its workshop.
     excerpt: where they are modified to our needs, regulated and assembled into cased-up watches
@@ -63,7 +63,7 @@ claims:
       - WE
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-hand-assembled
     statement: The maker says each watch is hand-assembled by one of six in-house watchmakers.
     excerpt: each watch is carefully hand-assembled by one of our six in-house watchmakers
@@ -71,7 +71,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: am2p-hands-designed
     statement: A review of the Model 2 mkII reports the hands were designed and prototyped in-house; it does not say who manufactures them.
     excerpt: These hands were designed and prototyped in-house, with both the Model 1 and Model 2 featuring different styles.
@@ -80,7 +80,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret G101)
@@ -137,7 +137,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan / Watchmaking Atelier
     editor: FALK v0.2 handbook
@@ -165,9 +165,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 5 \u2192 3; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 5 \u2192 3; confidence A \u2192 B. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

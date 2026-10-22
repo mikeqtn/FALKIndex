@@ -11,7 +11,7 @@ claims:
       - MA
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-assembly
     statement: The same article says Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
     excerpt: Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
@@ -20,7 +20,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-collab
     statement: The same article says Billard worked with Comblémine and Cattin on the execution of the SB05.
     excerpt: worked closely with Comblémine and Cattin, the casemaker owned by Voutilainen, on the execution of the SB05
@@ -29,7 +29,7 @@ claims:
       - PD
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-case
     statement: The same article says Cattin designed a 20-part case for the SB05.
     excerpt: Cattin designed a new, more complex case for the SB05, which incorporates 20 parts compared to the seven on the SB04
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-dials-billard
     statement: The same article says Billard creates most dial treatments and materials himself in his workshop (described in the SB04 section).
     excerpt: utilizing a large variety of dial treatments and materials that he would create almost entirely by himself at his workshop.
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-guilloche
     statement: The same article says guilloché dial options are handled by Comblémine.
     excerpt: Sartory Billard also offers guilloché patterns as an alternative that are handled by Comblémine
@@ -53,7 +53,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-hands
     statement: The same article says hands and chapter ring can be hand-polished and lumed on request.
     excerpt: If requested by the customer, the hands and chapter ring are then polished by hand and filled with lume.
@@ -62,7 +62,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-made-to-order
     statement: The same article says every SB05 is made to order after a design process with the client.
     excerpt: Every SB05 is 100-percent made to order after a design process between Billard and the client
@@ -70,7 +70,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-movement-finish
     statement: A collector article says the La Joux-Perret 7380 is finished and given a dark grey NAC treatment.
     excerpt: The movement is a La Joux-Perret Caliber 7380, finished cleanly and given a dark grey metallic NAC treatment.
@@ -79,7 +79,7 @@ claims:
       - MA
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: sbsb05-case-spec
     statement: The same article says the case was made by Voutilainen-Cattin to Billard's specifications.
     excerpt: the case made by Voutilainen-Cattin to Billard's specifications
@@ -88,7 +88,7 @@ claims:
       - EX
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret 7380)
@@ -156,7 +156,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Artisan Atelier / Établisseur
     editor: FALK v0.2 handbook
@@ -184,9 +184,9 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 \u2192 U; CF 3 \u2192 U; WE 3 \u2192 0; PD 4 \u2192 3; confidence B \u2192 C; classification Artisan Atelier and Artisan \u00c9tablisseur \u2192 Artisan \u00c9tablisseur. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 \u2192 U; CF 3 \u2192 U; WE 3 \u2192 0; PD 4 \u2192 3; confidence B \u2192 C; classification Artisan Atelier and Artisan \u00c9tablisseur \u2192 Artisan \u00c9tablisseur. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

@@ -12,7 +12,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-chronometrie-role
     statement: Breitling says its Chronométrie in La Chaux-de-Fonds handles design, development and assembly of its watches.
     excerpt: the Breitling Chronometrie is dedicated to the design, development and meticulous assembly of our watches.
@@ -21,7 +21,7 @@ claims:
       - PD
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-assembled-by-hand
     statement: Breitling says the Caliber 01 contains up to 346 components, which are assembled and calibrated at the Chronométrie.
     excerpt: that are carefully assembled and calibrated by hand at the Breitling Chronometrie.
@@ -29,7 +29,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-cosc
     statement: Breitling says all of its calibers are COSC-certified chronometers.
     excerpt: every single one of our calibers had the status of COSC-certified chronometer
@@ -37,7 +37,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-30-40-parts
     statement: Europa Star reports that 30 to 40 of the 346 components in a B01 are produced in-house, depending on the version.
     excerpt: Of the 346 components that make up a B01 calibre, between 30 and 40 (depending on the version) are produced in-house
@@ -45,7 +45,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-own-balance
     statement: Europa Star reports that Breitling has started producing its own five-spoke balance wheel, first used in the Navitimer and Chronomat.
     excerpt: the brand has launched production of its own five-spoke balance wheel
@@ -53,7 +53,7 @@ claims:
     dimensions:
       - MM
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-volume
     statement: Europa Star reports ten production lines made 85,000 movements in 2023.
     excerpt: In 2023, ten lines produced 85,000 movements.
@@ -61,7 +61,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-development
     statement: A 2010 Europa Star feature reports five years of development before the B01 launch and a La Chaux-de-Fonds capacity of about 50,000 B01 movements a year.
     excerpt: Five years of development (and millions of francs of investment) have allowed Breitling
@@ -70,7 +70,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-plates-bridges
     statement: A 2025 manufacture visit reports that base plates and bridges are made at the Chronométrie and hand-checked and finished there.
     excerpt: This is where the base plates and bridges are made.
@@ -79,7 +79,7 @@ claims:
       - MM
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-plates-finish
     statement: The same visit reports that milled plates and bridges are checked and hand-finished by watchmakers.
     excerpt: the milled base plates and bridges are checked and hand-finished by expert watchmakers
@@ -87,7 +87,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-casing
     statement: The same visit reports that dials are fitted and movements cased by watchmakers at the Chronométrie; it does not say who makes the dials or cases.
     excerpt: Before each watch is cased, the dials are applied to the front side of the movement
@@ -97,7 +97,7 @@ claims:
       - DH
       - EX
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
   - id: brb01-architecture
     statement: A caliber reference describes the B01 as a column-wheel chronograph with vertical coupling, introduced by Breitling Chronométrie in 2009 and first used in the Chronomat B01.
     excerpt: The chronograph complication in the Breitling B01 is a column wheel style.
@@ -105,7 +105,7 @@ claims:
     dimensions:
       - MA
     date_checked: 2026-10-21
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber B01 design (column wheel, vertical clutch chronograph)
@@ -176,7 +176,7 @@ profiles:
     methodology: v0.2
     confidence: A
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: true
     seed_label: Industrial Manufacture
     editor: FALK v0.2 handbook
@@ -203,9 +203,9 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 2; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 4; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
+    status: published
+    editor: falk-index
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 2; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 4; confidence A \u2192 B. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
