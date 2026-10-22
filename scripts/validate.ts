@@ -91,7 +91,8 @@ export function check(raw: ReturnType<typeof load>) {
       // Invariant 10: in_group must match the organization graph.
       const shared = p.performer !== w.brand && [...ancestors(p.performer)].some(a => brandGroups.has(a) || a === w.brand);
       if (p.relationship === 'in_group' && !shared) warn(`${at}.relationship`, `in_group, but "${p.performer}" shares no parent with "${w.brand}"`);
-      if (p.relationship !== 'in_group' && shared) warn(`${at}.relationship`, `"${p.performer}" is in the same group as "${w.brand}"; expected in_group`);
+      // A closed period (valid_to) records the relationship as it was then; the group may have bought the performer later.
+      if (p.relationship !== 'in_group' && shared && p.valid_to === undefined) warn(`${at}.relationship`, `"${p.performer}" is in the same group as "${w.brand}"; expected in_group`);
     });
 
     // Invariant 7: versions run 1..n; one published at most; everything below it is superseded.

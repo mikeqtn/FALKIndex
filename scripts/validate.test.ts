@@ -69,3 +69,14 @@ test('any other source without an archived copy is only a warning', () => {
   assert.deepEqual(errors, []);
   assert.match(warnings.join('\n'), /"uncited" has no archived copy/);
 });
+
+test('a past period with an outside performer is not flagged when the group bought it later', () => {
+  const d = structuredClone(data);
+  const w = d.watches.find((x: any) => x.value.id === 'studio-underd0g/03series')!.value;
+  const past = w.provenance.find((e: any) => e.performer === 'horologium' && e.valid_to !== undefined);
+  assert.equal(past.relationship, 'external_specialist');
+  const quiet = (ws: string[]) => !ws.some(m => m.includes('03series') && m.includes('expected in_group'));
+  assert.ok(quiet(check(d).warnings));
+  delete past.valid_to;
+  assert.ok(!quiet(check(d).warnings));
+});
