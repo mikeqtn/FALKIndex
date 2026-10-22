@@ -4,6 +4,7 @@ import ProfileStrip from '../../../components/ProfileStrip.astro';
 import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
+import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate,
 } from '../../../lib/data.ts';
@@ -17,6 +18,8 @@ const details = [
   ['Generation', r.generation], ['Reference', r.reference], ['Caliber', r.caliber], ['Production route', r.route_label],
   ['Made', r.production_start && `${r.production_start} to ${r.production_end ?? 'present'}`],
 ].filter(([, v]) => v) as [string, string | number][];
+const photos = WATCH_PHOTOS[r.id] ?? {};
+const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${side}-${w}.jpg`;
 const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
 ---
 <Base
@@ -31,6 +34,24 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     <h1>{r.model}</h1>
     {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
   </header>
+
+  {photos.front || photos.back
+    ? (
+      <section class="photos" aria-label="Photographs of this watch">
+        {(['front', 'back'] as const).map(side => {
+          const ph = photos[side];
+          return ph
+            ? (
+              <figure class="photo">
+                <img src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
+                <figcaption><b>{side === 'front' ? 'Front' : 'Back'}</b> Photo by {ph.credit}, <a href={ph.licenceUrl}>{ph.licence}</a>. <a href={ph.source}>Original</a></figcaption>
+              </figure>
+            )
+            : <div class="photo empty"><p><b>{side === 'front' ? 'Front' : 'Back'}</b> No photo yet.</p></div>;
+        })}
+      </section>
+    )
+    : <p class="no-photos small muted">No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
 
   <div class="grid-2">
     <div class="stack">
@@ -159,6 +180,18 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 
 <style>
   .scroll { overflow-x: auto; }
+  .photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); margin-bottom: var(--s-4); }
+  .photo { display: flex; flex-direction: column; margin: 0; border-radius: var(--r-plate); overflow: hidden; background: var(--c-surface); }
+  .photo img { display: block; width: 100%; height: clamp(240px, 26vw, 360px); object-fit: contain; background: var(--c-surface-sunk); }
+  .photo figcaption { padding: var(--s-3) var(--s-4); font-size: 13px; color: var(--c-ink-2); }
+  .photo figcaption b { color: var(--c-ink); margin-right: var(--s-2); }
+  /* The site's hatching means "no evidence"; here it marks a missing photo, kept faint behind the label. */
+  .photo.empty { position: relative; display: grid; place-items: center; min-height: clamp(240px, 26vw, 360px); }
+  .photo.empty::before { content: ''; position: absolute; inset: 0; background: var(--pattern-unknown); opacity: .18; }
+  .photo.empty p { position: relative; }
+  .photo.empty p { padding: var(--s-2) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
+  .no-photos { margin: calc(-1 * var(--s-2)) 0 var(--s-4); }
+  @media (max-width: 639px) { .photos { grid-template-columns: 1fr; } }
   .app-head { padding: var(--s-7) 0 var(--s-6); }
   .app-head > * + * { margin-top: var(--s-2); }
   .app-head h1 { font-size: 40px; }
