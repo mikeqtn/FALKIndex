@@ -17,7 +17,7 @@ const GROUPS = [['supports', 'Supporting evidence'], ['contradicts', 'Conflictin
       <details id={`${idPrefix}-${d.toLowerCase()}`}>
         <summary>
           <span class="code">{d} {s.value ?? 'U'}</span>
-          <span><b>{dimension[d].label}</b><span class="muted">: {s.value === null ? 'Unknown' : levels[d][s.value]}</span></span>
+          <span class="sum-text"><b>{dimension[d].label}</b><span class="lvl muted">{s.value === null ? 'Unknown' : levels[d][s.value]}</span></span>
         </summary>
         <div class="body stack">
           {s.rationale && <div class="prose"><p>{s.rationale}</p></div>}

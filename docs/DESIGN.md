@@ -3,6 +3,15 @@
 **Companion to:** `docs/PLAN.md` (screens from §5, rules from §4.2)
 **Status:** Draft for review
 
+> **Refresh, 21 Oct 2026.** The meanings below still hold (blued-steel ramp, ruby = action, gilt = provisional, hatching = U, no sums).
+> What changed, and where `src/styles/global.css` now overrides the values in this document:
+> - **Colour:** a deeper dark ground (`#0B121E`), a raised `--c-surface-2` step, and surfaces separated by tone rather than rules.
+> - **Type:** Archivo is the one interface voice, set larger with negative tracking (display up to ~92px); Source Serif is kept for evidence prose only.
+> - **Shape:** `--r-control` 8px, `--r-plate` 10px; the page frame is 1280px.
+> - **Shell:** a sticky bar with a seven-segment mark, a "/" shortcut to search, and a "Menu" disclosure below 1100px. The active page is marked by a 1px ruby line. The footer builds the wordmark large.
+> - **Home (§5.1):** a board of tiles (12 columns, 8px gaps): name tile, a live "Compare two watches" tile, archival workshop photographs (Lewis Hine, Hamilton Watch Co., 1936–37, public domain; see `public/images/workshop/CREDITS.md`), the seven measures as rows, test records as tabs, open-data facts cut across a photograph.
+> - **Motion (§3.3):** besides the strip fill, the first workshop photograph opens once like a shutter, and home sections lift their parts in once as they arrive. Both are off under `prefers-reduced-motion`.
+
 ---
 
 ## 1. Brief, restated

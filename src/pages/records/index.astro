@@ -8,9 +8,9 @@ const archetypes = methodology.classifications.filter(c => c.kind === 'archetype
 const levels = [0, 1, 2, 3, 4, 5];
 ---
 <Base title="Records" nav="records" description="Every FALK record, filterable by profile, classification, evidence and ownership.">
-  <header class="page-head">
+  <header class="page-head app-head">
     <h1>Records</h1>
-    <p class="lead">{records.length} watches, each profiled by model, reference or production route.</p>
+    <p class="muted">{records.length} watches, each profiled by model, reference or production route. Filters narrow the list; nothing here is sorted by score.</p>
   </header>
 
   <div class="side-layout">
@@ -18,14 +18,14 @@ const levels = [0, 1, 2, 3, 4, 5];
     <aside id="filter-panel">
       <details class="filter-sheet" id="filter-sheet">
         <summary class="btn secondary">Filters <span id="filter-count"></span></summary>
-        <form id="filters" class="plate stack sunk" role="search">
+        <form id="filters" class="filters" role="search">
           <div class="field">
             <label for="q">Search</label>
             <input id="q" name="q" type="search" />
           </div>
 
           <fieldset>
-            <legend>Dimensions</legend>
+            <legend>Dimension ranges</legend>
             {DIMENSIONS.map(d => {
               const k = d.toLowerCase();
               return (
@@ -33,13 +33,13 @@ const levels = [0, 1, 2, 3, 4, 5];
                   <abbr title={dimension[d].label}>{d}</abbr>
                   <label class="sr-only" for={`${k}_min`}>{dimension[d].label} minimum</label>
                   <select id={`${k}_min`} name={`${k}_min`}>{levels.map(n => <option selected={n === 0}>{n}</option>)}</select>
-                  <span aria-hidden="true">to</span>
+                  <span aria-hidden="true">–</span>
                   <label class="sr-only" for={`${k}_max`}>{dimension[d].label} maximum</label>
                   <select id={`${k}_max`} name={`${k}_max`}>{levels.map(n => <option selected={n === 5}>{n}</option>)}</select>
                 </div>
               );
             })}
-            <label class="check"><input type="checkbox" name="xu" value="1" /> Leave out unknown (U) in a narrowed dimension</label>
+            <label class="check note"><input type="checkbox" name="xu" value="1" /> Leave out unknown (U) in a narrowed range</label>
           </fieldset>
 
           <fieldset>
@@ -49,7 +49,7 @@ const levels = [0, 1, 2, 3, 4, 5];
 
           <fieldset>
             <legend>Evidence</legend>
-            <div class="inline">{['A', 'B', 'C', 'D'].map(g => <label class="check"><input type="checkbox" name="conf" value={g} /> {g}</label>)}</div>
+            <div class="grades">{['A', 'B', 'C', 'D'].map(g => <label class="grade"><input type="checkbox" name="conf" value={g} /><span>{g}</span></label>)}</div>
           </fieldset>
 
           <fieldset>
@@ -66,7 +66,7 @@ const levels = [0, 1, 2, 3, 4, 5];
             </select>
           </div>
 
-          <button class="btn secondary" type="reset">Clear filters</button>
+          <button class="btn secondary clear" type="reset">Clear filters</button>
         </form>
       </details>
     </aside>
@@ -91,18 +91,33 @@ const levels = [0, 1, 2, 3, 4, 5];
 </Base>
 
 <style>
-  .sunk { background: var(--c-surface-sunk); }
-  fieldset { border: 0; margin-inline: 0; padding: 0; display: grid; gap: var(--s-1); }
-  legend { font-weight: 560; padding: 0 0 var(--s-2); }
-  .field { display: grid; gap: var(--s-1); }
-  .check { display: flex; gap: var(--s-2); align-items: center; min-height: 44px; }
-  .check input { width: 20px; height: 20px; margin: 0; accent-color: var(--c-action); }
-  .inline { display: flex; gap: var(--s-4); }
-  .range { display: flex; gap: var(--s-2); align-items: center; }
-  .range abbr { font-weight: 700; font-stretch: 62%; width: 3ch; text-decoration: none; }
-  .range select { min-width: 3.5rem; }
-  .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); }
-  .toolbar label { display: flex; gap: var(--s-2); align-items: center; }
+  /* Data terminal: compact controls, figures that stack, and every selection marked by ruby. */
+  .app-head { padding: var(--s-7) 0 var(--s-6); }
+  .app-head h1 { font-size: 40px; }
+  .app-head p { max-width: 60ch; }
+  .filters { display: grid; gap: var(--s-6); padding: var(--s-5); border-radius: var(--r-plate); background: var(--c-surface); }
+  fieldset { border: 0; margin-inline: 0; padding: 0; display: grid; gap: 4px; }
+  legend, .field > label { font-size: 13px; font-weight: 480; color: var(--c-ink-2); padding: 0 0 var(--s-2); }
+  .field { display: grid; }
+  .filters :global(select), .filters input[type="search"] { min-height: 36px; font-size: 14px; background: var(--c-surface-2); border-color: transparent; }
+  .check { display: flex; gap: var(--s-3); align-items: center; min-height: 36px; font-size: 15px; cursor: pointer; }
+  .check.note { font-size: 13px; line-height: 1.35; color: var(--c-ink-2); margin-top: var(--s-2); }
+  .check input { width: 16px; height: 16px; margin: 0; flex: none; accent-color: var(--c-action); }
+  .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .grade { position: relative; }
+  .grade input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .grade span { display: grid; place-items: center; height: 36px; border-radius: var(--r-control); background: var(--c-surface-2); font-weight: 600; transition: background var(--d-quick) var(--ease); }
+  .grade:hover span { background: var(--c-edge); }
+  .grade input:checked + span { background: var(--c-ink); color: var(--c-ink-inverse); }
+  .grade input:focus-visible + span { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .range { display: grid; grid-template-columns: 3ch 1fr auto 1fr; gap: var(--s-2); align-items: center; }
+  .range abbr { font-weight: 700; font-size: 17px; font-stretch: 62%; text-decoration: none; }
+  .range span { color: var(--c-ink-2); }
+  .clear { justify-self: start; min-height: 36px; padding: 0 var(--s-4); font-size: 14px; }
+  .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); min-height: 36px; }
+  .toolbar #count { font-size: 15px; font-weight: 560; }
+  .toolbar label { display: flex; gap: var(--s-2); align-items: center; font-size: 14px; color: var(--c-ink-2); }
+  .toolbar select { min-height: 36px; font-size: 14px; background: var(--c-surface); border-color: transparent; }
   .filter-sheet summary { list-style: none; }
   .filter-sheet summary::-webkit-details-marker { display: none; }
   .filter-sheet[open] summary { margin-bottom: var(--s-3); }

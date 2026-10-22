@@ -16,7 +16,7 @@ const { records, caption, showBrand = true, id } = Astro.props;
       <th scope="col">{showBrand ? 'Brand and model' : 'Model'}</th>
       <th scope="col"><span class="sr-only">Profile</span><span class="codes" aria-hidden="true">{DIMENSIONS.map(d => <span>{d}</span>)}</span></th>
       <th scope="col">Classification</th>
-      <th scope="col">Evidence</th>
+      <th scope="col" class="num-col">Evidence</th>
     </tr>
   </thead>
   <tbody>
@@ -38,7 +38,7 @@ const { records, caption, showBrand = true, id } = Astro.props;
           </td>
           <td>{p.confidence === 'D' ? <span class="small muted">No profile yet</span> : <CompactStrip scores={p.scores} />}</td>
           <td>{p.confidence === 'D' ? '' : p.classification.map((c, i) => <div class:list={{ 'small muted': i > 0 }}>{i > 0 && 'with '}{classification(c, p.methodology).name}{i > 0 && ' traits'}</div>)}</td>
-          <td><ConfidenceMark grade={p.confidence} short /></td>
+          <td class="num-col"><ConfidenceMark grade={p.confidence} short /></td>
         </tr>
       );
     })}
