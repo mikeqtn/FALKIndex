@@ -72,7 +72,8 @@ a { color: var(--c-action); text-decoration-thickness: 1px; text-underline-offse
 a:hover { color: var(--c-action-hover); text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 ::selection { background: var(--c-level-2); color: var(--c-ink); }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* The full pattern: WebKit can size an absolutely placed grid item from the grid, so width alone is not enough. */
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 /* Hidden until a keyboard user tabs to it, then shown as a raised bridge plate. */
 .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip-link:focus { position: fixed; top: 8px; left: 8px; z-index: 100; padding: 12px 16px; border-radius: var(--r-control); background: var(--c-surface-2); color: var(--c-action); }
@@ -108,7 +109,7 @@ dl.pairs dd { margin: 0; }
 /* One plain bar on the page ground: mark, a few links, search, one action. Selection is a 1px ruby line. */
 .site-nav { position: sticky; top: 0; z-index: 20; background: var(--c-page); }
 .site-nav .wrap { display: flex; align-items: center; gap: var(--s-2) var(--s-5); min-height: var(--nav-h); }
-.wordmark { display: inline-flex; align-items: center; gap: 10px; font: 700 21px/1 var(--f-sans); font-stretch: 68%; letter-spacing: -0.01em; color: var(--c-ink); text-decoration: none; white-space: nowrap; }
+.wordmark { display: inline-flex; align-items: center; min-height: 44px; gap: 10px; font: 700 21px/1 var(--f-sans); font-stretch: 68%; letter-spacing: -0.01em; color: var(--c-ink); text-decoration: none; white-space: nowrap; }
 .wordmark:hover { color: var(--c-ink); text-decoration: none; }
 .mark { display: inline-flex; gap: 2px; height: 18px; align-items: stretch; }
 .mark i { width: 4px; border-radius: 1px; }
@@ -165,6 +166,20 @@ dl.pairs dd { margin: 0; }
   transition: border-color var(--d-quick) var(--ease), background var(--d-quick) var(--ease);
 }
 :where(input[type="search"], input[type="text"], input[type="url"], input[type="email"], select, textarea):hover { border-color: var(--c-ink-2); }
+/* Safari ignores height on a native select, so draw our own: no native chrome, a chevron, and the padding to hold it. */
+:where(select) {
+  -webkit-appearance: none; appearance: none; padding-right: 32px; text-overflow: ellipsis;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%238592a6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 12px 8px;
+}
+/* On touch screens: fields at 16px so iOS does not zoom the page on focus, and controls a thumb can hit. */
+@media (pointer: coarse) {
+  input, select, textarea { font-size: 16px !important; }
+  :where(select, input[type="search"], input[type="text"], input[type="url"], input[type="email"]) { min-height: 44px !important; }
+  .theme-toggle { width: 44px; height: 44px; }
+  .nav-menu > summary, .site-nav .account-button { min-height: 44px; }
+  .actions > a:not(.btn) { display: inline-flex; align-items: center; min-height: 44px; }
+}
 :where(input, select, textarea)::placeholder { color: var(--c-ink-2); opacity: 1; }
 
 /* ── Footer: the mark, built large ────────────────────── */
@@ -240,6 +255,7 @@ dl.pairs dd { margin: 0; }
 .cell.lu span { background: var(--c-surface); padding: 0 2px; }
 .codes { display: inline-flex; gap: 2px; }
 .codes span { width: 28px; text-align: center; font: 700 12px/1 var(--f-sans); font-stretch: 62%; }
+.m-codes { display: none; }
 
 /* Confidence D replaces the strip */
 .no-profile { background: var(--pattern-unknown); padding: var(--s-2); border-radius: var(--r-plate); }
@@ -279,6 +295,11 @@ dl.pairs dd { margin: 0; }
   .table.stack-sm tr:last-child { border-bottom: 0; }
   .table.stack-sm td { padding: var(--s-1) 0; border: 0; }
   .table.stack-sm .num-col { text-align: left; }
+  /* Phones lose the header row, so each strip carries its own codes; classification and grade share a line. */
+  .table.stack-sm tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-4); align-items: center; }
+  .table.stack-sm td:first-child, .table.stack-sm td.strip-col { grid-column: 1 / -1; }
+  .table.stack-sm td.strip-col { padding-block: var(--s-2); }
+  .table.stack-sm .m-codes { display: flex; margin-bottom: 4px; color: var(--c-ink-2); }
 }
 
 /* ── Evidence accordion ───────────────────────────────── */

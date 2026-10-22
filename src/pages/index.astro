@@ -215,7 +215,7 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
   .tile-h { font-size: 20px; line-height: 1.2; font-stretch: 92%; }
   .t-compare > .scroll { flex: none; }
   .pickers { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
-  .pickers select { width: 100%; min-height: 40px; background: var(--c-surface-2); border-color: transparent; font-size: 14px; text-overflow: ellipsis; }
+  .pickers select { width: 100%; min-height: 40px; background-color: var(--c-surface-2); border-color: transparent; font-size: 14px; text-overflow: ellipsis; }
   .t-compare :global(.strip caption) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .t-compare :global(.strip th[scope="row"]) { font-size: 18px; padding-right: var(--s-3); }
   .t-compare :global(.strip td), .t-compare :global(.strip th[scope="row"]) { height: 40px; }
@@ -318,7 +318,7 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
 
   /* Open data: one photograph read whole through the gaps of a 6 × 4 board. */
   .mosaic { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
-  .mosaic > * { aspect-ratio: 1; border-radius: var(--r-plate); overflow: hidden; }
+  .mosaic > :not(.sr-only) { aspect-ratio: 1; border-radius: var(--r-plate); overflow: hidden; }
   .piece i { display: block; width: 100%; height: 100%; background: var(--photo) var(--x) var(--y) / 600% 400% no-repeat; filter: contrast(1.04); transition: scale 500ms var(--ease); }
   .piece:hover i { scale: 1.08; }
   .swatch { display: flex; flex-direction: column; justify-content: space-between; padding: var(--s-4); background: var(--c-surface-2); }
