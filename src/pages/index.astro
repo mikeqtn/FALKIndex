@@ -25,16 +25,16 @@ const tests = [
   { name: 'Designed in, made out', ids: ['czapek/antarctique-sxh5'], note: 'Designed in-house, made by partners.' },
 ].map(t => ({ ...t, recs: t.ids.map(record) }));
 
-// 1936–37 photographs of the Hamilton Watch Company by Lewis Hine (public domain). They show the trade, not any record's watch.
+// Colour photographs of real movements, openly licensed (credits in the footer and public/images/movements/CREDITS.md).
+// Where the watch is in the index, the caption links to its record; none stands in for a record it is not.
 const photos = {
-  dial: { src: 'dial-numerals', code: 'DH', caption: 'Dial numerals transferred by press', alt: 'A worker at a press transferring numerals onto watch dials, a tray of finished dials beside her.' },
-  damask: { src: 'damaskeening', code: 'CF', caption: 'Damaskeening a plate', alt: 'A machinist cutting decorative finishing lines into a movement plate.' },
-  pallet: { src: 'pallet-stones', code: 'MM', caption: 'Setting pallet stones', alt: 'A worker with a loupe setting jewelled pallet stones at her bench.' },
-  screws: { src: 'balance-screws', code: 'WE', caption: 'Fitting balance screws', alt: 'A worker fitting screws into a balance wheel by hand.' },
-  drill: { src: 'balance-drilling', code: 'MM', caption: 'Drilling balance wheels', alt: 'A worker tending the machines that drill screw holes in balance wheels.' },
-  inspect: { src: 'inspection', code: 'WE', caption: 'Inspecting under a microscope', alt: 'An inspector checking a part under a measuring microscope.' },
+  caseback: { src: 'nomos-duw-6101-caseback', w: 1600, h: 1600, caption: 'Nomos DUW 6101, Tangente neomatik', href: recordUrl('nomos/tangente-neomatik'), alt: 'The Nomos DUW 6101 automatic movement seen through the caseback of a Tangente neomatik.' },
+  omega1861: { src: 'omega-1861', w: 1600, h: 1067, caption: 'Omega cal. 1861, base of the 3861', href: recordUrl('omega/speedmaster-moonwatch-3861'), alt: 'An Omega calibre 1861 chronograph movement, its bridges and jewels exposed.' },
+  jewels: { src: 'escapement-jewels', w: 1600, h: 1754, caption: 'Escapement and jewels, close up', alt: 'A close view of a skeletonised movement: ruby jewels, a pallet fork and gold-toned wheels.' },
+  omega321: { src: 'omega-321', w: 1459, h: 1280, caption: 'Omega cal. 321 chronograph', alt: 'An Omega calibre 321 chronograph movement in copper tones.' },
+  angled: { src: 'nomos-duw-6101-angled', w: 1600, h: 1067, caption: 'Nomos DUW 6101 through the caseback', href: recordUrl('nomos/tangente-neomatik'), alt: 'A Nomos Tangente neomatik lying face down, its DUW 6101 movement visible through the caseback.' },
 };
-const img = (name: string, w: 800 | 1600) => `/images/workshop/${name}-${w}.jpg`;
+const img = (name: string, w: 800 | 1600) => `/images/movements/${name}-${w}.jpg`;
 
 // Showcase: one photograph cut across a 6 × 4 board; five tiles are swapped for flat colour, never two side by side.
 const COLS = 6, ROWS = 4;
@@ -85,10 +85,10 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
       <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
     </div>
 
-    {[photos.dial, photos.damask, photos.pallet].map((p, i) => (
+    {[photos.caseback, photos.omega1861, photos.jewels].map((p, i) => (
       <figure class:list={['tile', 'photo', `p${i}`]}>
-        <img src={img(p.src, 1600)} srcset={`${img(p.src, 800)} 800w, ${img(p.src, 1600)} 1600w`} sizes="(min-width: 1024px) 25vw, 50vw" width="1600" height="1120" alt={p.alt} />
-        <figcaption><b>{p.code}</b> {p.caption}, 1936</figcaption>
+        <img src={img(p.src, 1600)} srcset={`${img(p.src, 800)} 800w, ${img(p.src, 1600)} 1600w`} sizes="(min-width: 1024px) 25vw, 50vw" width={p.w} height={p.h} alt={p.alt} />
+        <figcaption>{p.href ? <a href={p.href}>{p.caption}</a> : p.caption}</figcaption>
       </figure>
     ))}
   </section>
@@ -108,8 +108,8 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     <div class="tile dims-statement" data-rise>
       <h2 id="dims-h" class="zig"><span>Seven measures,</span><span>never added up</span></h2>
       <figure class="dims-photo">
-        <img src={img(photos.drill.src, 1600)} srcset={`${img(photos.drill.src, 800)} 800w, ${img(photos.drill.src, 1600)} 1600w`} sizes="(min-width: 1024px) 40vw, 100vw" width="1600" height="1120" alt={photos.drill.alt} loading="lazy" />
-        <figcaption><b>{photos.drill.code}</b> {photos.drill.caption}, 1936</figcaption>
+        <img src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
+        <figcaption>{photos.omega321.caption}</figcaption>
       </figure>
       <div class="dims-foot">
         <p>Each dimension asks one question about where the work is done. The two ends of every scale are below; the full level guide is in the methodology.</p>
@@ -169,7 +169,7 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     </div>
   </section>
 
-  <section class="mosaic" aria-labelledby="open-h" style="--photo: url(/images/workshop/balance-screws-board.jpg)">
+  <section class="mosaic" aria-labelledby="open-h" style="--photo: url(/images/guilloche-1600.jpg)">
     {Array.from({ length: ROWS }, (_, r) => Array.from({ length: COLS }, (_, c) => {
       const f = facts[`${r},${c}`];
       const pos = `--x:${(c / (COLS - 1)) * 100}%;--y:${(r / (ROWS - 1)) * 100}%`;
@@ -178,7 +178,6 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
       if (f.kind === 'action') return <a class="swatch action" href="/data/">{f.text}</a>;
       return <div class="swatch fact"><b>{f.text}</b><span>{f.sub}</span></div>;
     }))}
-    <p class="sr-only">{photos.screws.alt} Photograph by Lewis Hine, Hamilton Watch Company, 1936.</p>
   </section>
 
   <section class="about" aria-labelledby="about-h">
@@ -188,8 +187,8 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
     </div>
     <div class="about-row">
       <figure class="tile about-photo">
-        <img src={img(photos.inspect.src, 1600)} srcset={`${img(photos.inspect.src, 800)} 800w, ${img(photos.inspect.src, 1600)} 1600w`} sizes="(min-width: 1024px) 66vw, 100vw" width="1600" height="1123" alt={photos.inspect.alt} loading="lazy" />
-        <figcaption><b>{photos.inspect.code}</b> {photos.inspect.caption}, 1936</figcaption>
+        <img src={img(photos.angled.src, 1600)} srcset={`${img(photos.angled.src, 800)} 800w, ${img(photos.angled.src, 1600)} 1600w`} sizes="(min-width: 1024px) 66vw, 100vw" width={photos.angled.w} height={photos.angled.h} alt={photos.angled.alt} loading="lazy" />
+        <figcaption><a href={photos.angled.href}>{photos.angled.caption}</a></figcaption>
         <p class="about-note">Provisional records come from the v0.2 handbook and are marked in gilt until an editor has attached and checked their evidence. <a href="/about/">More about the project</a></p>
       </figure>
       <div class="about-side">
@@ -237,7 +236,8 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
   .photo { position: relative; display: flex; flex-direction: column; }
   .photo img, .about-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; filter: contrast(1.04); }
   .photo figcaption, .about-photo figcaption { flex: none; display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-3); background: var(--c-surface-2); font-size: 13px; color: var(--c-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .photo figcaption b, .about-photo figcaption b { color: var(--c-ink); font-stretch: 62%; font-size: 15px; }
+  .photo figcaption a, .about-photo figcaption a, .dims-photo figcaption a { color: inherit; text-decoration: none; }
+  .photo figcaption a:hover, .about-photo figcaption a:hover { color: var(--c-ink); text-decoration: underline; }
   .p0 { grid-column: 1 / 4; grid-row: 6 / 9; }
   .p1 { grid-column: 4 / 6; grid-row: 6 / 9; }
   .p2 { grid-column: 6 / 8; grid-row: 6 / 9; }
@@ -262,9 +262,8 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
   .dims { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; }
   .dims-statement { grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-6); padding: var(--s-6); background: var(--c-surface-2); }
   .dims-photo { flex: 1; display: flex; flex-direction: column; min-height: 240px; margin: 0 calc(-1 * var(--s-6)); }
-  .dims-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; filter: contrast(1.04); }
+  .dims-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: 50% 75%; }
   .dims-photo figcaption { display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-6); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
-  .dims-photo figcaption b { color: var(--c-ink); font-stretch: 62%; font-size: 15px; }
   .zig { display: grid; font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
   .zig span:nth-child(2) { text-align: right; }
   .dims-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--s-5); }
@@ -338,7 +337,8 @@ const facts: Record<string, { kind: 'head' | 'fact' | 'action'; text: string; su
   .about-photo img { aspect-ratio: 16 / 10; }
   .about-note { position: absolute; top: 0; right: 0; width: 320px; padding: var(--s-5); background: var(--c-page); border-radius: 0 0 0 var(--r-plate); font-size: 16px; line-height: 1.5; }
   .about-side { grid-column: 9 / 13; display: grid; gap: var(--s-5); }
-  .about-version { display: grid; align-content: space-between; gap: var(--s-4); aspect-ratio: 4 / 3; padding: var(--s-5); background: var(--c-level-4); color: var(--n-4); }
+  /* Engine-turned ground, generated in the palette's own blues; the text stays light in both themes. */
+  .about-version { display: grid; align-content: space-between; gap: var(--s-4); aspect-ratio: 4 / 3; padding: var(--s-5); background: #14233F url(/images/guilloche-1200.jpg) 30% 50% / cover; color: #F7F8FA; }
   .about-version b { font-size: clamp(64px, 7vw, 112px); line-height: .9; font-stretch: 62%; font-weight: 720; letter-spacing: -0.03em; }
   .about-version p { font-size: 16px; line-height: 1.45; max-width: 26ch; }
   .about-version a { color: inherit; font-weight: 600; }

@@ -9,7 +9,7 @@
 > - **Type:** Archivo is the one interface voice, set larger with negative tracking (display up to ~92px); Source Serif is kept for evidence prose only.
 > - **Shape:** `--r-control` 8px, `--r-plate` 10px; the page frame is 1280px.
 > - **Shell:** a sticky bar with a seven-segment mark, a "/" shortcut to search, and a "Menu" disclosure below 1100px. The active page is marked by a 1px ruby line. The footer builds the wordmark large.
-> - **Home (§5.1):** a board of tiles (12 columns, 8px gaps): name tile, a live "Compare two watches" tile, archival workshop photographs (Lewis Hine, Hamilton Watch Co., 1936–37, public domain; see `public/images/workshop/CREDITS.md`), the seven measures as rows, test records as tabs, open-data facts cut across a photograph.
+> - **Home (§5.1):** a board of tiles (12 columns, 8px gaps): name tile, a live "Compare two watches" tile, colour photographs of real movements from makers in the index (openly licensed; see `public/images/movements/CREDITS.txt`), a generated guilloché texture in the palette's blues, the seven measures as rows, test records as tabs, open-data facts cut across the guilloché.
 > - **Motion (§3.3):** besides the strip fill, the first workshop photograph opens once like a shutter, and home sections lift their parts in once as they arrive. Both are off under `prefers-reduced-motion`.
 
 ---

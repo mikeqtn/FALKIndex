@@ -1,0 +1,28 @@
+Movement photographs on falkindex.com
+
+All from Wikimedia Commons. Each is cropped and resized only; colours are unchanged.
+Adapted versions of CC BY-SA photographs are shared under the same licence.
+Where the watch is in the index, its caption links to that record. None stands in for a watch it is not.
+
+nomos-duw-6101-caseback-*.jpg
+  "Nomos Tangente neomatik 41 Update, Ref. 180, DUW 6101 -- 2024 -- 0149-51X" by Anil Öztas, CC BY 4.0
+  https://commons.wikimedia.org/wiki/File:Nomos_Tangente_neomatik_41_Update,_Ref._180,_DUW_6101_--_2024_--_0149-51X.jpg
+
+nomos-duw-6101-angled-*.jpg
+  "Nomos Tangente neomatik 41 Update, Ref. 180, DUW 6101 -- 2023 -- 0013X" by Anil Öztas, CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Nomos_Tangente_neomatik_41_Update,_Ref._180,_DUW_6101_--_2023_--_0013X.jpg
+
+omega-1861-*.jpg
+  "Omega Cal. 1861 Chronograph Movement" by Shane Lin, CC BY-SA 2.0
+  https://commons.wikimedia.org/wiki/File:Omega_Cal._1861_Chronograph_Movement.jpg
+
+omega-321-*.jpg
+  "Omega Cal. 321 Chronograph movement" by Shane Lin, CC BY-SA 2.0
+  https://commons.wikimedia.org/wiki/File:Omega_Cal._321_Chronograph_movement.jpg
+
+escapement-jewels-*.jpg
+  "Chinese movement escapement and jewels" by Hustvedt, CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Chinese_movement_escapement_and_jewels.jpg
+
+../guilloche-*.jpg
+  Generated for FALK Index (a rose-engine pattern drawn in code). No third-party rights.
