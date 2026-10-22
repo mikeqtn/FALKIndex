@@ -7,10 +7,13 @@ const { records } = await getCatalogue(Astro.locals);
 const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reader', 'A reader'], ['other', 'Other']];
 ---
 <Base title="Send a correction" description="Send an evidence-based correction to a FALK record.">
-  <div class="layout">
-    <div>
-      <header class="page-head"><h1>Send a correction</h1></header>
+  <header class="doc-head" data-rise>
+    <div><h1>Send a correction</h1></div>
+    <p class="lead">Brands, watchmakers and readers can send evidence for any record. An editor checks every correction against its sources.</p>
+  </header>
 
+  <div class="layout">
+    <div class="form-plate">
       <form id="correction" class="stack form" method="post" action="/api/corrections">
         <div class="field">
           <label for="record">Which record?</label>
@@ -78,10 +81,14 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
 
 <style>
   .layout { display: grid; gap: var(--s-6); }
-  @media (min-width: 1024px) { .layout { grid-template-columns: 7fr 4fr; align-items: start; } .policy { margin-top: var(--s-9); } }
-  @media (max-width: 1023px) { .policy { order: -1; margin-top: var(--s-5); } }
+  @media (min-width: 1024px) { .layout { grid-template-columns: 7fr 4fr; align-items: start; } .policy { position: sticky; top: calc(var(--nav-h) + var(--s-4)); } }
+  @media (max-width: 1023px) { .policy { order: -1; } }
+  .form-plate { padding: var(--s-6); background: var(--c-surface); border-radius: var(--r-plate); }
+  @media (max-width: 639px) { .form-plate { padding: var(--s-4); } }
+  .form-plate :where(input[type="text"], input[type="url"], input[type="email"], select, textarea) { background: var(--c-page); }
   .layout > * { min-width: 0; }
   .form { max-width: 40rem; }
+  .form.stack > * + * { margin-top: var(--s-5); }
   .field { display: grid; gap: var(--s-1); border: 0; margin: 0; padding: 0; min-width: 0; }
   .field select, .field input, .field textarea { width: 100%; max-width: 100%; }
   .field legend { padding: 0 0 var(--s-1); }
@@ -96,7 +103,7 @@ const ROLES = [['brand', 'The brand'], ['watchmaker', 'The watchmaker'], ['reade
   .err::before { content: '!'; flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--c-action); color: var(--c-ink-inverse); font-weight: 700; font-size: 12px; }
   [aria-invalid="true"] { border-color: var(--c-action); border-width: 2px; }
   .link-btn { justify-self: start; min-height: 44px; padding: 0; border: 0; background: none; color: var(--c-action); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; } /* taste-skill-ignore: off-screen spam trap, not a rule */
   .policy h2 { font-size: 24px; line-height: 30px; font-stretch: 90%; }
 </style>
 

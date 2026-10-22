@@ -540,7 +540,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     }
   }
 
-  // Open data: switch which record's JSON is shown; the figures roll up once as the section arrives.
+  // Open data: switch which record's card is shown.
   {
     const box = document.getElementById('open-data')!;
     const tabs = [...box.querySelectorAll<HTMLButtonElement>('.open-tabs button')];
@@ -549,21 +549,6 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       tabs.forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
       files.forEach((f, j) => { f.hidden = i !== j; });
     }));
-    const figures = [...document.querySelectorAll<HTMLElement>('[data-roll]')];
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-      const io = new IntersectionObserver(entries => entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        const el = e.target as HTMLElement, end = Number(el.dataset.roll), t0 = performance.now();
-        const step = (t: number) => {
-          const k = Math.min(1, (t - t0) / 900), eased = 1 - Math.pow(1 - k, 3);
-          el.textContent = String(Math.round(end * eased));
-          if (k < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      }), { rootMargin: '0px 0px -15% 0px' });
-      figures.forEach(f => io.observe(f));
-    }
   }
 
   // Test cases become tabs once script runs; without it every case is listed in full.

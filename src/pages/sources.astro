@@ -6,73 +6,126 @@ const { citedBy, orgs, records, sources } = await getCatalogue(Astro.locals);
 const host = (url: string) => new URL(url).host.replace(/^www\./, '');
 const publisherName = (s: { publisher?: string; url: string }) => s.publisher ? orgs.get(s.publisher)!.name : host(s.url);
 const groups = Object.entries(Object.groupBy([...sources.values()], publisherName)).sort(([a], [b]) => a.localeCompare(b));
+const all = [...sources.values()];
+const primary = all.filter(s => s.tier === 'primary').length;
+const archived = all.filter(s => s.archived_url).length;
 ---
 <Base title="Sources" nav="sources" description="Every source cited by the FALK Index, with its tier and the records that cite it.">
-  <header class="page-head">
-    <h1>Sources</h1>
-    <p class="lead">Every claim on this site links to one of these. Primary sources come from the manufacturer, workshop or a named supplier; secondary sources corroborate them.</p>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>Sources</h1>
+      <p class="lead">Every claim on this site links to one of these. Primary sources come from the manufacturer, workshop or a named supplier; secondary sources corroborate them.</p>
+    </div>
+    <ul class="turned figures">
+      <li><b data-roll={all.length}>{all.length}</b><span>sources from {groups.length} publishers</span></li>
+      <li><b data-roll={primary}>{primary}</b><span>primary</span></li>
+      <li><b data-roll={all.length - primary}>{all.length - primary}</b><span>secondary</span></li>
+      <li><b data-roll={archived}>{archived}</b><span>with an archived copy</span></li>
+    </ul>
   </header>
 
-  <div class="tiers no-print" role="group" aria-label="Show sources" hidden>
-    {[['all', 'All'], ['primary', 'Primary'], ['secondary', 'Secondary']].map(([v, label]) =>
-      <button type="button" class="tier-btn" data-tier={v} aria-pressed={v === 'all' ? 'true' : 'false'}>{label}</button>)}
+  <div class="toolbar no-print" hidden>
+    <div class="find">
+      <label class="sr-only" for="src-q">Find a source</label>
+      <input id="src-q" type="search" placeholder="Find a source, publisher or record" autocomplete="off" />
+    </div>
+    <div class="tiers" role="group" aria-label="Show sources">
+      {[['all', 'All'], ['primary', 'Primary'], ['secondary', 'Secondary']].map(([v, label]) =>
+        <button type="button" class="tier-btn" data-tier={v} aria-pressed={v === 'all' ? 'true' : 'false'}>{label}</button>)}
+    </div>
+    <p class="small muted" id="src-count" aria-live="polite"></p>
   </div>
 
   <div class="groups">
     {groups.map(([name, list]) => (
       <section class="group" data-group>
-        <h2 class="pub">{name}</h2>
+        <h2 class="pub">{name}<span class="small muted">{list!.length === 1 ? '1 source' : `${list!.length} sources`}</span></h2>
         <ul class="srcs">
           {list!.map(s => {
             const cites = citedBy(s.id);
             return (
               <li data-tier={s.tier}>
-                <div class="stack-s">
-                  <a href={s.url}>{s.title ?? host(s.url)}</a>
-                  <span class="small muted url">{host(s.url)}{new URL(s.url).pathname.replace(/\/$/, '')}</span>
-                  {s.notes && <span class="small muted">{s.notes}</span>}
-                  <span class="small cite">
-                    {s.archived_url ? <a href={s.archived_url}>Archived copy</a> : <span class="muted">No archived copy yet</span>}
-                    {cites.length > 0
-                      ? <span>Cited by {cites.length === 1 ? '1 record' : `${cites.length} records`}: {cites.map((w, i) => <>{i > 0 && ', '}{records.some(r => r.id === w.id) ? <a href={recordUrl(w.id)}>{orgs.get(w.brand)!.name} {w.model}</a> : <>{orgs.get(w.brand)!.name} {w.model} (not yet published)</>}</>)}</span>
-                      : <span class="muted">Not yet cited by a claim</span>}
-                  </span>
-                </div>
-                <span class:list={['small', 'tier', { muted: s.tier === 'secondary' }]}>{s.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[s.source_type]}</span>
+                <a class="title" href={s.url}>{s.title ?? host(s.url)}</a>
+                <span class="small muted url">{host(s.url)}{new URL(s.url).pathname.replace(/\/$/, '')}</span>
+                {s.notes && <span class="small muted">{s.notes}</span>}
+                <span class="small meta">
+                  <span class:list={['tier', s.tier]}>{s.tier === 'primary' ? 'Primary' : 'Secondary'}, {SOURCE_TYPE[s.source_type]}</span>
+                  {s.archived_url ? <a href={s.archived_url}>Archived copy</a> : <span class="muted">No archived copy yet</span>}
+                </span>
+                {cites.length > 0
+                  ? <span class="small">Cited by {cites.length === 1 ? '1 record' : `${cites.length} records`}: {cites.map((w, i) => <>{i > 0 && ', '}{records.some(r => r.id === w.id) ? <a href={recordUrl(w.id)}>{orgs.get(w.brand)!.name} {w.model}</a> : <>{orgs.get(w.brand)!.name} {w.model} (not yet published)</>}</>)}</span>
+                  : <span class="small muted">Not yet cited by a claim</span>}
               </li>
             );
           })}
         </ul>
       </section>
     ))}
+    <p class="none" id="src-none" hidden>No source matches. <button type="button" class="link-btn" id="src-clear">Clear the search</button></p>
   </div>
 </Base>
 
 <style>
-  .tiers { display: inline-flex; margin-bottom: var(--s-6); border: 1.5px solid var(--c-action); border-radius: var(--r-control); overflow: hidden; }
-  .tier-btn { font: 560 16px/1 var(--f-sans); min-height: 44px; padding: 0 var(--s-4); border: 0; background: transparent; color: var(--c-action); cursor: pointer; }
-  .tier-btn + .tier-btn { border-left: 1.5px solid var(--c-action); }
-  .tier-btn[aria-pressed="true"] { background: var(--c-action); color: var(--c-ink-inverse); }
-  .group + .group { margin-top: var(--s-6); }
-  .pub { font-size: 24px; line-height: 30px; font-stretch: 90%; margin-bottom: var(--s-3); }
-  .srcs { list-style: none; margin: 0; padding: 0; background: var(--c-surface); border-radius: var(--r-plate); }
-  .srcs li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-5); padding: var(--s-4); border-bottom: var(--edge); }
-  .srcs li:last-child { border-bottom: 0; }
-  .stack-s { display: flex; flex-direction: column; gap: var(--s-1); min-width: 0; max-width: 60ch; overflow-wrap: anywhere; }
-  .cite { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
-  .tier { white-space: nowrap; }
+  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
+  .figures li { display: grid; gap: var(--s-1); }
+  .figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .figures span { font-size: 15px; color: #C9D3E2; }
+
+  .toolbar { position: sticky; top: var(--nav-h); z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-4); padding: var(--s-3) 0; background: var(--c-page); }
+  .find { flex: 1 1 320px; max-width: 480px; }
+  .find input { width: 100%; }
+  .tiers { display: inline-flex; gap: 2px; padding: 3px; background: var(--c-surface); border-radius: var(--r-control); }
+  .tier-btn { font: 560 15px/1 var(--f-sans); min-height: 38px; padding: 0 var(--s-4); border: 0; border-radius: 6px; background: transparent; color: var(--c-ink-2); cursor: pointer; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .tier-btn:hover { color: var(--c-ink); }
+  .tier-btn[aria-pressed="true"] { background: var(--c-surface-2); color: var(--c-ink); }
+
+  .groups { padding-top: var(--s-5); }
+  .group { display: grid; gap: var(--s-3) var(--s-7); padding: var(--s-6) 0; }
+  @media (min-width: 1024px) {
+    .group { grid-template-columns: 4fr 8fr; }
+    .pub { position: sticky; top: calc(var(--nav-h) + 76px); align-self: start; }
+  }
+  .pub { display: grid; gap: var(--s-1); font-size: 24px; line-height: 1.15; font-stretch: 84%; font-weight: 620; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+  .pub span { font-size: 14px; font-stretch: 100%; font-weight: 400; letter-spacing: 0; }
+  .srcs { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; min-width: 0; }
+  .srcs li { display: grid; gap: var(--s-1); padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); overflow-wrap: anywhere; }
+  .srcs li > * { max-width: 72ch; }
+  .srcs .title { font-size: 17px; font-weight: 560; }
+  .meta { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-1); }
+  .tier.primary { font-weight: 600; }
+  .none { padding: var(--s-8) 0; font-size: var(--t-lead); }
+  .link-btn { font: inherit; color: var(--c-action); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
 </style>
 
 <script>
-  const bar = document.querySelector<HTMLElement>('.tiers')!;
+  // Find and filter: text matches the title, address, publisher or citing records; the tier narrows further.
+  const bar = document.querySelector<HTMLElement>('.toolbar')!;
+  const q = document.getElementById('src-q') as HTMLInputElement;
+  const count = document.getElementById('src-count')!;
+  const none = document.getElementById('src-none')!;
   const buttons = [...bar.querySelectorAll<HTMLButtonElement>('.tier-btn')];
+  const groups = [...document.querySelectorAll<HTMLElement>('[data-group]')];
+  const items = groups.flatMap(g => [...g.querySelectorAll<HTMLElement>('li')].map(li => ({ li, text: `${g.querySelector('.pub')!.textContent} ${li.textContent}`.toLowerCase() })));
+  let tier = 'all';
+  const apply = () => {
+    const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const { li, text } of items) {
+      li.hidden = (tier !== 'all' && li.dataset.tier !== tier) || !words.every(w => text.includes(w));
+      if (!li.hidden) shown++;
+    }
+    groups.forEach(g => { g.hidden = !g.querySelector('li:not([hidden])'); });
+    none.hidden = shown > 0;
+    count.textContent = shown === items.length ? '' : `${shown} of ${items.length} sources`;
+  };
   bar.hidden = false;
+  q.addEventListener('input', apply);
   bar.addEventListener('click', e => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.tier-btn');
     if (!btn) return;
-    const tier = btn.dataset.tier!;
+    tier = btn.dataset.tier!;
     buttons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-    document.querySelectorAll<HTMLElement>('.srcs li').forEach(li => { li.hidden = tier !== 'all' && li.dataset.tier !== tier; });
-    document.querySelectorAll<HTMLElement>('[data-group]').forEach(g => { g.hidden = !g.querySelector('li:not([hidden])'); });
+    apply();
   });
+  document.getElementById('src-clear')!.addEventListener('click', () => { q.value = ''; apply(); q.focus(); });
 </script>

@@ -1,14 +1,51 @@
 ---
 import Base from '../layouts/Base.astro';
+import CompactStrip from '../components/CompactStrip.astro';
+import ConfidenceMark from '../components/ConfidenceMark.astro';
+import { getCatalogue, recordUrl } from '../lib/data.ts';
+const { classification, records } = await getCatalogue(Astro.locals);
+
+// Three well-evidenced records to try instead, different on each visit.
+const pool = records.filter(r => r.profile.confidence === 'A' || r.profile.confidence === 'B');
+const picks = pool.map(r => [Math.random(), r] as const).sort(([a], [b]) => a - b).slice(0, 3).map(([, r]) => r);
 ---
 <Base title="Not found">
-  <header class="page-head stack">
-    <h1>Not found</h1>
-    <p class="lead">There's no record at this address. It may have been renamed when a reference was split into generations.</p>
-    <form action="/records/" method="get" role="search" class="actions">
-      <label class="sr-only" for="q404">Search records</label>
-      <input id="q404" type="search" name="q" placeholder="Search records" />
-      <a class="btn" href="/records/">Browse all records</a>
-    </form>
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>Not found</h1>
+      <p class="lead">There's no record at this address. It may have been renamed when a reference was split into generations.</p>
+      <form action="/records/" method="get" role="search" class="find">
+        <label class="sr-only" for="q404">Search records</label>
+        <input id="q404" type="search" name="q" placeholder="Search records" />
+        <button class="btn" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="try">
+      <h2>Or open one of these</h2>
+      <ul>
+        {picks.map(r => (
+          <li>
+            <a href={recordUrl(r.id)}><span class="small muted">{r.brandName}</span><b>{r.model}</b></a>
+            <CompactStrip scores={r.profile.scores} />
+            <span class="cls small">{classification(r.profile.classification[0], r.profile.methodology).name} <ConfidenceMark grade={r.profile.confidence} short /></span>
+          </li>
+        ))}
+      </ul>
+      <a href="/records/">Browse all {records.length} records</a>
+    </div>
   </header>
 </Base>
+
+<style>
+  .find { display: flex; flex-wrap: wrap; gap: var(--s-2); max-width: 520px; }
+  .find input { flex: 1 1 220px; }
+  .try { display: grid; gap: var(--s-4); }
+  .try h2 { font-size: 24px; line-height: 1.1; }
+  .try ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .try li { position: relative; display: grid; gap: var(--s-2); padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); transition: background var(--d-quick) var(--ease); }
+  .try li:hover { background: var(--c-surface-2); }
+  .try li a { display: grid; color: var(--c-ink); text-decoration: none; }
+  .try li a::after { content: ''; position: absolute; inset: 0; }
+  .try li a b { font-size: 19px; font-weight: 600; }
+  .cls { display: flex; align-items: center; gap: var(--s-3); }
+</style>
