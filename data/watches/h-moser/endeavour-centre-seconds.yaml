@@ -9,6 +9,7 @@ claims:
     source: monochrome-h-moser-ecs-2017
     dimensions:
       - MA
+      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-pe-regulating
@@ -25,6 +26,7 @@ claims:
     source: monochrome-h-moser-ecs-2017
     dimensions:
       - MM
+      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-finishing
@@ -49,6 +51,7 @@ claims:
     source: h-moser-ecs-vantablack-page
     dimensions:
       - MM
+      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: hmecs-pe-components
@@ -202,7 +205,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 5 \u2192 4; EX 3 \u2192 0; DH 3 \u2192 U; CF 4 \u2192 U; WE 5 \u2192 U; PD 5 \u2192 U; confidence A \u2192 D; classification Integrated Manufacture \u2192 Independent Manufacture. 4 of 7 dimensions have no evidence, so confidence is D. Precision Engineering is credited as in-group and disclosed. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -277,5 +280,95 @@ profiles:
         value: null
         rationale: The calibre is credited under MA; no collected claim is tagged PD.
         evidence: []
+    classification:
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: PD U → 4, scored by content from the existing calibre claims (EDITORIAL §5), which the previous version had left unscored because none was tagged PD. 3 of 7 dimensions remain unknown, so confidence is C.
+    created_on: 2026-10-22
+    scores:
+      MA:
+        value: 4
+        rationale: Specialist reporting describes the HMC 200 as Moser's in-house calibre. A single secondary claim cannot show the engineering is substantially mastered internally, so 4.
+        evidence:
+          - claim: hmecs-hmc200-inhouse
+            stance: supports
+            note: In-house calibre.
+      MM:
+        value: 4
+        rationale: The regulating organ, hairspring and escape wheels come from the sister company Precision Engineering, credited as in-group. The split of plates, bridges and wheels is not published, so this is 4 rather than 5.
+        evidence:
+          - claim: hmecs-pe-regulating
+            stance: supports
+            note: Sister company makes the regulating organ.
+          - claim: hmecs-sjx-hairspring
+            stance: supports
+            note: Hairspring made by Precision Engineering.
+          - claim: hmecs-pe-components
+            stance: supports
+            note: Hairsprings and escape wheels.
+          - claim: hmecs-pe-site
+            stance: supports
+            note: Same site, from wire.
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Hairsprings and escapements in the group.
+          - claim: hmecs-meylan-control
+            stance: supports
+            note: Common control.
+          - claim: hmecs-straumann
+            stance: context
+            note: Straumann hairspring.
+          - claim: hmecs-double-hairspring
+            stance: context
+            note: Double hairspring.
+      EX:
+        value: 0
+        rationale: In 2019 Moser's CEO said cases are not made in-house. The case maker is not named.
+        evidence:
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Cases external.
+      DH:
+        value: null
+        rationale: Dials are not made in-house, per the CEO in 2019, and dial making was only being explored in 2024. No source covers the hands. At most 2 if the hands are internal, otherwise 0.
+        evidence:
+          - claim: hmecs-cases-dials-external
+            stance: context
+            note: Dials external.
+          - claim: hmecs-dials-2024
+            stance: context
+            note: Dial making explored.
+      CF:
+        value: null
+        rationale: Anglage was done externally in 2024 while staff were being trained. No source says who applies the stripes and perlage, so U rather than 0.
+        evidence:
+          - claim: hmecs-anglage-external
+            stance: context
+            note: Anglage external.
+          - claim: hmecs-finishing
+            stance: context
+            note: Performer not stated.
+      WE:
+        value: null
+        rationale: No source describes who assembles and regulates the HMC 200.
+        evidence: []
+      PD:
+        value: 4
+        rationale: 'Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser''s own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary.'
+        evidence:
+          - claim: hmecs-hmc200-inhouse
+            stance: supports
+            note: Own calibre.
+          - claim: hmecs-straumann
+            stance: supports
+            note: Interchangeable regulating organ.
+          - claim: hmecs-double-hairspring
+            stance: supports
+            note: Double hairspring, per Moser.
     classification:
       - independent_manufacture

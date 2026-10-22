@@ -87,6 +87,31 @@ claims:
       - EX
     date_checked: 2026-10-21
     editor: falk-index
+  - id: awv3-case-maker
+    statement: The brand credits the V3 case and bracelet finish to a long-term collaboration with its case and bracelet maker.
+    excerpt: This led us to a long-term collaboration with our case and bracelet maker to master a special micro-frosted finish that gives Yún a softer, more uniform appearance than traditional brushed surfaces.
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - EX
+    date_checked: 2026-10-22
+    editor: falk-index
+  - id: awv3-epm03-bespoke
+    statement: The brand says the EPM03 is a bespoke movement developed by Pequignet, which it highly customised for the V3.
+    excerpt: EPM03 is a new bespoke movement developed by Pequignet, which we highly customised for Perception V3
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-22
+    editor: falk-index
+  - id: awv3-calibre-search
+    statement: The brand says it searched for a calibre that left it the creative latitude to make the movement its own.
+    excerpt: We spent a long time searching for the right calibre. Not just one with the right technical credentials, but one that gave us the creative latitude to make it entirely our own.
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - PD
+    date_checked: 2026-10-22
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base movement (Pequignet EPM03)
@@ -106,11 +131,12 @@ provenance:
       - awv3-pequignet-morteau
   - dimension: EX
     component: Case and bracelet (904L steel)
-    relationship: unknown
-    note: Case and bracelet maker not named.
+    relationship: external_specialist
+    note: The brand credits an outside case and bracelet maker; the maker is not named.
     claims:
       - awv3-case
       - awv3-bracelet
+      - awv3-case-maker
   - dimension: DH
     component: Guilloché dial (engine-turning)
     performer: cheng-yucai
@@ -176,7 +202,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -239,6 +265,90 @@ profiles:
         value: 3
         rationale: The brand set the brief for a customised movement and designed its bridge decoration with Pequignet, and directs a bespoke guilloché dial. That is substantial supplier-directed development.
         evidence:
+          - claim: awv3-movement-design
+            stance: supports
+            note: Decoration designed with Pequignet.
+    classification:
+      - artisan_etablisseur
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds the brand's own V3 journal as a primary source. EX U → 0: the brand credits an outside case and bracelet maker. MA and PD rationales now cite the brand's statement on the customised EPM03. 3 of 7 dimensions remain unknown, so confidence is C."
+    created_on: 2026-10-22
+    scores:
+      MA:
+        value: 1
+        rationale: The brand says the EPM03 is a bespoke Pequignet movement that it highly customised for the V3, and specialist sites agree. The changes it describes are decorative (lacquered, wind-inspired bridges) rather than mechanical, so this is custom specification. Borderline with 2 if the customisation turns out to be mechanical.
+        evidence:
+          - claim: awv3-epm03-bespoke
+            stance: supports
+            note: Brand statement on the customised EPM03.
+          - claim: awv3-pequignet
+            stance: supports
+            note: Customised EPM03.
+          - claim: awv3-customised-calibre
+            stance: supports
+            note: Highly customised calibre.
+      MM:
+        value: 0
+        rationale: The movement is made by Pequignet, an independent movement maker in Morteau.
+        evidence:
+          - claim: awv3-pequignet
+            stance: supports
+            note: External movement.
+          - claim: awv3-pequignet-morteau
+            stance: supports
+            note: Independent maker.
+      EX:
+        value: 0
+        rationale: The brand credits its finishes to a collaboration with "our case and bracelet maker", an outside company, and no source places any exterior part in-house. Not 1, because no minor exterior part is documented as internal.
+        evidence:
+          - claim: awv3-case-maker
+            stance: supports
+            note: Outside case and bracelet maker, per the brand.
+          - claim: awv3-case
+            stance: context
+            note: Specification only.
+          - claim: awv3-bracelet
+            stance: context
+            note: Specification only.
+      DH:
+        value: null
+        rationale: The guilloché dial is made in Cheng Yucai's external workshop, and no source covers the hands. At most 2 if the hands are internal, otherwise 0. U until then.
+        evidence:
+          - claim: awv3-dial-cheng
+            stance: context
+            note: External dial craftsman.
+          - claim: awv3-dial-workshop
+            stance: context
+            note: Made by Cheng's workshop.
+      CF:
+        value: null
+        rationale: The dial guilloché is external. The lacquered bridges were designed with Pequignet, and the brand says the lacquer is applied and checked to its standards, but no source says who executes it, so U rather than 0.
+        evidence:
+          - claim: awv3-dial-process
+            stance: context
+            note: External rose-engine work.
+          - claim: awv3-bridges
+            stance: context
+            note: Executor not named.
+      WE:
+        value: null
+        rationale: No source says where the V3 is assembled or regulated.
+        evidence: []
+      PD:
+        value: 3
+        rationale: The brand searched for a calibre it could make its own, set the brief for the customised EPM03 and designed its bridge decoration with Pequignet, and directs a bespoke guilloché dial. That is substantial supplier-directed development; 4 would need evidence of the brand engineering the movement changes itself.
+        evidence:
+          - claim: awv3-calibre-search
+            stance: supports
+            note: Calibre chosen for creative latitude.
+          - claim: awv3-epm03-bespoke
+            stance: supports
+            note: Brand-directed customisation.
           - claim: awv3-movement-design
             stance: supports
             note: Decoration designed with Pequignet.
