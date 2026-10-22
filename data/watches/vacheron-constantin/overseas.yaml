@@ -210,7 +210,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and press sources only. Proposed: EX 3 → 0 (cases are made outside the manufacture, possibly in-group at Donzé Baume); DH 3 → U (most dials come from outside; the Overseas dial maker and the hands are unattributed); CF 5 → 4; confidence B → C; integrated_manufacture → independent_manufacture. Ownership is not part of the archetype. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 4 → 3; WE 5 → 3; PD 5 → 4. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 U; CF 5 \u2192 3; WE 5 \u2192 3; PD 5 \u2192 4; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:
@@ -240,15 +240,15 @@ profiles:
             stance: context
             note: Not tied to the 5100.
       EX:
-        value: 0
-        rationale: A visit report says cases are made outside the manufacture, possibly by the in-group supplier Donzé Baume. Not confirmed for the Overseas, and the bracelet maker is not named.
+        value: null
+        rationale: "A visit report says cases are made outside the manufacture, possibly by the in-group supplier Donz\u00e9 Baume; that is not confirmed for the Overseas, and the integrated bracelet's maker is not named. With the main parts unattributed, U."
         evidence:
           - claim: vco-cases-elsewhere
-            stance: supports
-            note: Cases made elsewhere.
+            stance: context
+            note: "Cases made elsewhere, maker unconfirmed."
           - claim: vco-bracelet-system
             stance: context
-            note: Bracelet maker not named.
+            note: "Bracelet system; maker not named."
       DH:
         value: null
         rationale: Most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève. The Overseas dial maker and the hand maker are not named.

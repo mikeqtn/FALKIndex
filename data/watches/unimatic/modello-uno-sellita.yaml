@@ -154,7 +154,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: 'AI-drafted first evidenced profile, from specialist sources. Proposed: EX, DH and CF 0 → U and WE 1 → U (no maker or assembler named; "made in Italy" is mentioned only in a programme summary); PD 3 → 2; confidence A → C. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): confidence C → D. Needs review.'
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 3 \u2192 2; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

@@ -228,7 +228,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 1 → U and DH 1 → U (no source names the case, dial or hand maker); confidence A → B. Other scores unchanged. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MA 5 → 4; WE 5 → 4. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; EX 1 \u2192 U; DH 1 \u2192 U; WE 5 \u2192 4; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:
@@ -240,23 +240,29 @@ profiles:
             note: Own A11 since 2011.
       MM:
         value: 2
-        rationale: Escapement parts are made in-house, and hairsprings are scaled in-house, but the balance spring comes from Carl Haas and pinions from a supplier. Which plate and bridge parts are machined in-house is not stated. Borderline with 3 because of the escapement.
+        rationale: "Escapement parts are made in-house, and hairsprings are scaled in-house, but the balance spring comes from Carl Haas and pinions from a supplier. Which plate and bridge parts are machined in-house is not stated. Borderline with 3 because of the escapement."
         evidence:
           - claim: h2erw-escapement
             stance: supports
-            note: In-house escapement parts.
+            note: "In-house escapement parts."
           - claim: h2erw-hairspring-scaling
             stance: supports
-            note: Hairspring scaling.
+            note: "Hairspring scaling."
           - claim: h2erw-carl-haas
             stance: context
-            note: External balance spring.
+            note: "External balance spring."
           - claim: h2erw-ultra-pinions
             stance: context
-            note: External pinions.
+            note: "External pinions."
           - claim: h2erw-base-materials
             stance: context
-            note: Base materials received.
+            note: "Base materials received."
+          - claim: h2erw-supplier-network
+            stance: context
+            note: "Manufacturing built on a supplier network."
+          - claim: h2erw-25-suppliers
+            stance: context
+            note: "About 25 suppliers."
       EX:
         value: null
         rationale: The case is made in Austria from Böhler steel, but no source names its maker.

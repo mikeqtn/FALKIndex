@@ -206,7 +206,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → 0 and DH 3 → 0 (a 2024 visit report says case, dial, hands, strap and clasp are sourced externally); CF 2 → 1 (the decoration is listed, but no handwork is described); PD 5 → 4; confidence A → B; integrated_manufacture → independent_manufacture. The calibre (DUW 3001) is assumed from the 35 mm references and needs a model page. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 1 → 0; PD 4 → 3. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 3 \u2192 0; DH 3 \u2192 0; CF 2 \u2192 U; PD 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:
@@ -253,12 +253,12 @@ profiles:
             stance: supports
             note: Dial and hands external.
       CF:
-        value: 0
-        rationale: The movement carries rhodium plating, Glashütte ribbing and perlage, but no claim describes manual work. No documented internal handwork.
+        value: null
+        rationale: "The movement carries rhodium plating, Glash\u00fctte ribbing and perlage, but no claim says whether any of it is done by hand. Missing evidence is U, not 0."
         evidence:
           - claim: ntn-finish
-            stance: supports
-            note: Decoration listed.
+            stance: context
+            note: "Decoration listed; method not stated."
       WE:
         value: 5
         rationale: "Watches are made almost entirely on site, from parts to final quality control: pre-assembly, assembly, regulation in six positions and fitting."

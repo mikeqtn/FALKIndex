@@ -144,7 +144,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only. Proposed: WE 1 → 0 (a 2016 article says the watches are produced by the contract maker Roventa-Henex); CF 0 → U (no source); PD 3 → 2; confidence A → C. The Roventa-Henex source predates the Sellita generation. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): EX 0 → U; DH 0 → U. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

@@ -160,7 +160,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 1 → U, DH 1 → U, CF 1 → U, WE 4 → U and PD 3 → U (no current source names a maker or the assembler); confidence B → D; industrial_manufacture → design_led_etablisseur, since the CEO says Longines has used only ETA movements since 1988. Treating group supplier ETA as internal would credit every Swatch Group brand. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

@@ -238,7 +238,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 3 → U (case maker not named; the CEO says the rest of the watch is not held to the movement's in-house standard); DH 3 → 2 (hands in-house, dial unattributed); confidence A → B; integrated_manufacture → independent_manufacture. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 4 → 3; DH 2 → 3; WE 5 → 3. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; WE 5 \u2192 3; confidence A \u2192 B; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

@@ -186,7 +186,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist sources. Proposed: CF 3 → U (who finishes the movement and polishes the hands is not stated); WE 3 → 0 (Comblémine assembles each watch); PD 4 → 3; confidence B → C; artisan_atelier dropped, since the only internal craft (dial treatments) is inferred from the SB04. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): DH 2 → U. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 \u2192 U; CF 3 \u2192 U; WE 3 \u2192 0; PD 4 \u2192 3; confidence B \u2192 C; classification Artisan Atelier and Artisan \u00c9tablisseur \u2192 Artisan \u00c9tablisseur. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

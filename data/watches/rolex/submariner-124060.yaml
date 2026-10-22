@@ -206,7 +206,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only (the site report dates from 2014). Proposed: EX 5 → 4 (bezel insert and crystal makers not named); DH 5 → 3 (hands bought from a specialist in 2014); CF 2 → U (no source); confidence A → B. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 5 → 3; confidence B → C. The Bienne, Plan-les-Ouates and Chêne-Bourg claims are kept as evidence because they describe where all Rolex movements, cases and dials are made, not a capability; confidence lowered because every source is secondary. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 5 \u2192 4; DH 5 \u2192 3; CF 2 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

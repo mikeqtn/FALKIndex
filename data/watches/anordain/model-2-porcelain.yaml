@@ -167,7 +167,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: EX 0 → U (no source on the case maker); DH 5 → 4 (dial printing and hands not attributed); confidence A → B, since the dial evidence is specialist press rather than a brand page. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): DH 4 → 3. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 5 \u2192 3; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

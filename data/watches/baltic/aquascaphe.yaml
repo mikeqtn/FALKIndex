@@ -160,7 +160,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: DH 0 → U and CF 0 → U (no source names the dial or hand maker, or documents any craft); confidence A → B. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: DH 0 \u2192 U; CF 0 \u2192 U; confidence A \u2192 B. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

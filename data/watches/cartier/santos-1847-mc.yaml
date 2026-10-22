@@ -161,7 +161,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile. Proposed: MM 3 → U, EX 3 → U, DH 3 → U and WE 5 → U (the only source is a general statement that Cartier makes movements in La Chaux-de-Fonds, with no breakdown for the 1847 MC); CF 2 → 0 (stamped decoration); confidence B → C. The industrial_manufacture label is kept but not yet confirmed by the profile. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): CF 0 → U; confidence C → D. The industrial_manufacture label is provisional. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

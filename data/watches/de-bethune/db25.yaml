@@ -198,7 +198,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from press only. Proposed: MM 4 → 5 (balance springs made in-house); EX 3 → U (no source names the case maker); DH 3 → 2; CF 5 → 3; WE 5 → 4; PD 5 → U (the engineering claims are tagged MA and MM, not PD); confidence A → C; integrated_manufacture → independent_manufacture, since the exterior is not evidenced. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 5 → 4; CF 3 → 2; WE 4 → 3; PD U → 4. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 2; CF 5 \u2192 2; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

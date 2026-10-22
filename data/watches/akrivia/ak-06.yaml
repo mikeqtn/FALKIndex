@@ -170,7 +170,7 @@ profiles:
     independent_watchmaker: true
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist and interview sources. Proposed: MM 3 → 0 (a 2018 profile says plates and bridges were not yet made in-house and most components came from suppliers); EX 2 → U and DH 2 → U (no source); CF 5 → 4; WE 5 → 4; confidence A → C; independent_manufacture → design_led_etablisseur + artisan_atelier. A newer source on the planned CNC machine could restore MM. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): MM 0 → U; WE 4 → 3. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

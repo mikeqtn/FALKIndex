@@ -209,7 +209,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, from specialist press. Proposed: MM 1 → 0 (main plate, bridges and special wheels are all named external suppliers' work); EX 0 → U, DH 0 → U and CF 1 → U (case maker, hands and any internal finishing unattributed; the dial-side graining is Chronode's); confidence A → C. Assembly rests on a 2016 description of the in-group Synergies workshop, not this model. Revised after the automated pre-review (rules: D at 4+ U; PD by content; WE needs a regulation or adjustment claim above 3; brand-wide claims only when universal; no in-group credit for suppliers serving other brands): WE 3 → 2; PD 5 → 4. Needs review."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 1 \u2192 0; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 3 \u2192 2; PD 5 \u2192 4; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:

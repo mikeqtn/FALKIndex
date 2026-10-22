@@ -172,7 +172,7 @@ profiles:
     independent_watchmaker: false
     status: draft
     editor: ai-draft
-    change_note: "AI-drafted first evidenced profile, mostly from press. Proposed: EX, DH and CF 0 → U (no maker named); WE 1 → 0 (dials, hands and casing are done at Soprod). PD 3 unchanged; confidence A → C. Needs review."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; confidence A \u2192 C. Each score's rationale names its evidence. Not yet reviewed."
     created_on: 2026-10-21
     scores:
       MA:
