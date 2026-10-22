@@ -26,8 +26,8 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 >
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 
-  <header class="page-head">
-    <a class="small" href={orgUrl(r.brand)}>{r.brandName}</a>
+  <header class="page-head app-head">
+    <a class="brand-link" href={orgUrl(r.brand)}>{r.brandName}</a>
     <h1>{r.model}</h1>
     {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
   </header>
@@ -36,22 +36,31 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     <div class="stack">
       {noProfile
         ? <div class="no-profile"><p>Not enough evidence for a profile yet. Provenance notes are below.</p></div>
-        : <div class="plate scroll"><ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows /></div>}
-      <p class="small muted">Not a ranking. Darker means more of the work is done inside the brand.</p>
+        : <div class="plate scroll profile-plate">
+            <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
+            <p class="small muted">Not a ranking. Darker means more of the work is done inside the brand. Select a measure to read its evidence.</p>
+          </div>}
     </div>
 
-    <aside class="plate stack" aria-label="Summary">
+    <aside class="plate summary" aria-label="Summary">
       {!noProfile && (
-        <div>
-          <p class="small muted">Classification</p>
+        <div class="cls-block">
           <h2 class="cls">{classification(p.classification[0], p.methodology).name}</h2>
           {p.classification.slice(1).map(c => <p class="muted">with {classification(c, p.methodology).name} traits</p>)}
+          <p class="small muted">Classification</p>
         </div>
       )}
-      {p.independent_watchmaker && <p>Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches.</p>}
-      <div><p class="small muted">Evidence</p><ConfidenceMark grade={p.confidence} /></div>
-      <p class="small">Scored with <a href="/methodology/">{p.methodology}</a>, version {p.version}, updated {fmtDate(p.created_on)}.</p>
-      <p><a class="btn secondary" href={correctionUrl(r.id)}>Send a correction</a></p>
+      {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches.</p>}
+      <dl class="facts">
+        <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
+        <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
+        <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
+        <div><dt>Provenance</dt><dd>{r.provenance.length} {r.provenance.length === 1 ? 'entry' : 'entries'}, {r.claims.length} {r.claims.length === 1 ? 'claim' : 'claims'}</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn" href={correctionUrl(r.id)}>Send a correction</a>
+        <a href={`/records/${r.id}.json`}>Download JSON</a>
+      </div>
     </aside>
   </div>
 
@@ -150,7 +159,20 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 
 <style>
   .scroll { overflow-x: auto; }
-  .cls { font-size: 24px; line-height: 30px; font-stretch: 90%; }
+  .app-head { padding: var(--s-7) 0 var(--s-6); }
+  .app-head > * + * { margin-top: var(--s-2); }
+  .app-head h1 { font-size: 40px; }
+  .brand-link { font-size: 15px; font-weight: 500; text-decoration: none; }
+  .brand-link:hover { text-decoration: underline; }
+  .profile-plate { display: grid; gap: var(--s-4); height: 100%; align-content: space-between; }
+  .summary { display: grid; align-content: start; gap: var(--s-5); }
+  .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
+  .cls-block > * + * { margin-top: var(--s-1); }
+  .iw { font-size: 15px; line-height: 1.5; padding: var(--s-3) var(--s-4); border-radius: var(--r-control); background: var(--c-surface-2); }
+  .facts { display: grid; gap: 0; margin: 0; }
+  .facts div { display: grid; grid-template-columns: 8.5em 1fr; gap: var(--s-3); align-items: center; min-height: 44px; border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  .facts dt { font-size: 14px; color: var(--c-ink-2); }
+  .facts dd { margin: 0; font-size: 15px; }
   .h2-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); }
   .history { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
   .history li > * + * { margin-top: var(--s-2); }
