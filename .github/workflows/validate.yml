@@ -27,4 +27,9 @@ jobs:
       - run: npm test
       # Every public page on phone-sized screens in WebKit, Safari's engine.
       - run: npx playwright install --with-deps webkit
+      # A browser request with a development Clerk key starts a handshake with Clerk's servers and gets a 400.
+      # A production-format placeholder key (for clerk.example.com) skips it; requests stay anonymous.
       - run: npm run test:phone
+        env:
+          CLERK_PUBLISHABLE_KEY: pk_live_Y2xlcmsuZXhhbXBsZS5jb20k
+          CLERK_SECRET_KEY: sk_live_ci_placeholder
