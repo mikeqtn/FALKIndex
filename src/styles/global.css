@@ -327,7 +327,15 @@ blockquote.excerpt { margin: var(--s-2) 0; padding-left: var(--s-4); border-left
 .grid-2 { display: grid; gap: var(--s-4); }
 @media (min-width: 1024px) { .grid-2 { grid-template-columns: 7fr 5fr; align-items: stretch; } }
 .side-layout { display: grid; gap: var(--s-6); }
-@media (min-width: 1024px) { .side-layout { grid-template-columns: 272px 1fr; align-items: start; } .side-layout > aside { position: sticky; top: calc(var(--nav-h) + var(--s-4)); } }
+@media (min-width: 1024px) {
+  .side-layout { grid-template-columns: 272px 1fr; align-items: start; }
+  /* Sticky, but never taller than the screen: a long filter list scrolls inside itself, so its foot is always reachable. */
+  .side-layout > aside {
+    position: sticky; top: calc(var(--nav-h) + var(--s-4));
+    max-height: calc(100vh - var(--nav-h) - var(--s-6)); max-height: calc(100dvh - var(--nav-h) - var(--s-6));
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; border-radius: var(--r-plate);
+  }
+}
 .page-head { padding: var(--s-8) 0 var(--s-6); }
 .page-head > * + * { margin-top: var(--s-3); }
 
