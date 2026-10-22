@@ -25,3 +25,6 @@ jobs:
       - run: npm run db:import
       - run: npm run build
       - run: npm test
+      # Every public page on phone-sized screens in WebKit, Safari's engine.
+      - run: npx playwright install --with-deps webkit
+      - run: npm run test:phone
