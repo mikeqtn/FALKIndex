@@ -1,0 +1,7 @@
+---
+// A JPEG photograph served as AVIF where the browser supports it (made by `npm run images`).
+interface Props { src: string; srcset: string; sizes: string; width: number; height: number; alt: string; class?: string; loading?: 'lazy' | 'eager' }
+const { srcset, sizes, ...img } = Astro.props;
+const avif = srcset.replace(/\.jpg(?=\s|,|$)/g, '.avif');
+---
+<picture><source type="image/avif" srcset={avif} sizes={sizes} /><img srcset={srcset} sizes={sizes} {...img} /></picture>

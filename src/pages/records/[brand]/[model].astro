@@ -4,6 +4,7 @@ import ProfileStrip from '../../../components/ProfileStrip.astro';
 import ConfidenceMark from '../../../components/ConfidenceMark.astro';
 import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
+import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate, recordUrl, siteOrigin,
@@ -46,7 +47,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
           return ph
             ? (
               <figure class="photo">
-                <img src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
+                <Picture src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
                 <figcaption><b>{side === 'front' ? 'Front' : 'Back'}</b> Photo by {ph.credit}, <a href={ph.licenceUrl}>{ph.licence}</a>. <a href={ph.source}>Original</a></figcaption>
               </figure>
             )

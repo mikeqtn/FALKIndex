@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import CompactStrip from '../components/CompactStrip.astro';
 import ConfidenceMark from '../components/ConfidenceMark.astro';
+import Picture from '../components/Picture.astro';
 import { CONFIDENCE, DIMENSIONS, getCatalogue, recordUrl, siteOrigin } from '../lib/data.ts';
 const { classification, dimension, methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 
@@ -84,7 +85,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
     <figure class="tile movement" aria-labelledby="movement-cap">
       <div class="m-stage">
-        <img class="m-photo" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
+        <Picture class="m-photo" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
       </div>
       <figcaption class="m-bar">
         <span id="movement-cap">{photos.caseback.caption}</span>
@@ -108,7 +109,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     <div class="tile dims-statement" data-rise>
       <h2 id="dims-h" class="zig"><span>Seven measures,</span><span>never added up</span></h2>
       <figure class="dims-photo">
-        <img src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
+        <Picture src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
         <figcaption>{photos.omega321.caption}</figcaption>
       </figure>
       <div class="dims-foot">
@@ -222,7 +223,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     </div>
     <div class="about-row">
       <figure class="tile about-photo">
-        <img src={img(photos.angled.src, 1600)} srcset={`${img(photos.angled.src, 800)} 800w, ${img(photos.angled.src, 1600)} 1600w`} sizes="(min-width: 1024px) 66vw, 100vw" width={photos.angled.w} height={photos.angled.h} alt={photos.angled.alt} loading="lazy" />
+        <Picture src={img(photos.angled.src, 1600)} srcset={`${img(photos.angled.src, 800)} 800w, ${img(photos.angled.src, 1600)} 1600w`} sizes="(min-width: 1024px) 66vw, 100vw" width={photos.angled.w} height={photos.angled.h} alt={photos.angled.alt} loading="lazy" />
         <figcaption><a href={photos.angled.href}>{photos.angled.caption}</a></figcaption>
         <p class="about-note">Provisional records come from the v0.2 handbook and are marked in gilt until an editor has attached and checked their evidence. <a href="/about/">More about the project</a></p>
       </figure>
@@ -354,6 +355,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   /* Open data: the facts on an engine-turned tile, beside a real excerpt of the data itself. */
   .open { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
   .open-lead { grid-column: 1 / 7; display: flex; flex-direction: column; gap: var(--s-5); padding: var(--s-6); background: #14233F url(/images/guilloche-1600.jpg) 20% 50% / cover; color: #F7F8FA; }
+  .open-lead { background-image: image-set(url(/images/guilloche-1600.avif) type("image/avif"), url(/images/guilloche-1600.jpg) type("image/jpeg")); }
   .open-lead h2 { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 640; letter-spacing: -0.03em; }
   .open-sentence { font-size: 18px; line-height: 1.45; max-width: 40ch; color: #C9D3E2; }
   .open-facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-5); margin: auto 0 0; padding: 0; list-style: none; font-size: 16px; color: #C9D3E2; }
@@ -405,6 +407,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .about-side { grid-column: 9 / 13; display: grid; gap: var(--s-5); }
   /* Engine-turned ground, generated in the palette's own blues; the text stays light in both themes. */
   .about-version { display: grid; align-content: space-between; gap: var(--s-4); aspect-ratio: 4 / 3; padding: var(--s-5); background: #14233F url(/images/guilloche-1200.jpg) 30% 50% / cover; color: #F7F8FA; }
+  .about-version { background-image: image-set(url(/images/guilloche-1200.avif) type("image/avif"), url(/images/guilloche-1200.jpg) type("image/jpeg")); }
   .about-version b { font-size: clamp(64px, 7vw, 112px); line-height: .9; font-stretch: 62%; font-weight: 720; letter-spacing: -0.03em; }
   .about-version p { font-size: 16px; line-height: 1.45; max-width: 26ch; }
   .about-version a { color: inherit; font-weight: 600; }
