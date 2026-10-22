@@ -1,17 +1,30 @@
 ---
 import { execSync } from 'node:child_process';
 import Base from '../../layouts/Base.astro';
-import { DIMENSIONS, fmtDate, getCatalogue } from '../../lib/data.ts';
-const { orgs, records, sources, watches } = await getCatalogue(Astro.locals);
+import { DIMENSIONS, fmtDate, getCatalogue, siteOrigin } from '../../lib/data.ts';
+const { dimension, orgs, records, sources, watches } = await getCatalogue(Astro.locals);
 
 const commit = (() => { try { return execSync('git rev-parse --short HEAD').toString().trim(); } catch { return ''; } })();
 const built = new Date().toISOString().slice(0, 10);
+const origin = siteOrigin(Astro.url);
+const ld = {
+  '@type': 'Dataset', name: 'FALK Index',
+  description: `An open evidence database of where the work on ${watches.length} watches is done: movement architecture and manufacture, exterior, dial and hands, craft, watchmaking and product development, each scored 0 to 5 or unknown and linked to its sources.`,
+  url: `${origin}/data/`, license: 'https://creativecommons.org/licenses/by-sa/4.0/', isAccessibleForFree: true, dateModified: built,
+  creator: { '@type': 'Organization', name: 'FALK Index', url: `${origin}/` },
+  keywords: ['watches', 'horology', 'watch manufacturing', 'provenance', 'open data'],
+  variableMeasured: DIMENSIONS.map(d => dimension[d].label),
+  distribution: [
+    { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${origin}/data/falk.json` },
+    { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${origin}/data/falk.csv` },
+  ],
+};
 // A real excerpt of the CSV: the first rows, the columns that carry the profile.
 const sample = records.filter(r => r.profile.confidence !== 'D').slice(0, 4);
 const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', 'confidence'].join(','),
   ...sample.map(r => [r.id, ...DIMENSIONS.map(d => r.profile.scores[d].value ?? ''), r.profile.classification[0], r.profile.confidence].join(','))].join('\n');
 ---
-<Base title="Data" nav="data" description="Download the full FALK Index dataset as JSON or CSV.">
+<Base title="Data" nav="data" description="Download the full FALK Index dataset as JSON or CSV." ld={ld}>
   <header class="doc-head" data-rise>
     <div>
       <h1>Data</h1>

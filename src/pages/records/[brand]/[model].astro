@@ -6,7 +6,7 @@ import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
@@ -19,6 +19,8 @@ const details = [
   ['Made', r.production_start && `${r.production_start} to ${r.production_end ?? 'present'}`],
 ].filter(([, v]) => v) as [string, string | number][];
 const photos = WATCH_PHOTOS[r.id] ?? {};
+const origin = siteOrigin(Astro.url);
+const crumbs = [['Records', '/records/'], [r.brandName, orgUrl(r.brand)], [r.model, recordUrl(r.id)]];
 const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${side}-${w}.jpg`;
 const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
 ---
@@ -26,6 +28,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   title={`${r.brandName} ${r.model}`}
   description={`FALK profile and provenance evidence for the ${r.brandName} ${r.model}.`}
   image={{ path: `/og/records/${r.id}.png`, alt: `FALK profile of the ${r.brandName} ${r.model}: seven dimensions scored 0 to 5.` }}
+  ld={{ '@type': 'BreadcrumbList', itemListElement: crumbs.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${origin}${path}` })) }}
 >
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 

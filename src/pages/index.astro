@@ -3,13 +3,14 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import CompactStrip from '../components/CompactStrip.astro';
 import ConfidenceMark from '../components/ConfidenceMark.astro';
-import { CONFIDENCE, DIMENSIONS, getCatalogue, recordUrl } from '../lib/data.ts';
+import { CONFIDENCE, DIMENSIONS, getCatalogue, recordUrl, siteOrigin } from '../lib/data.ts';
 const { classification, dimension, methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 
 // The home page is a board of tiles fitted edge to edge, like the bridges screwed to a movement's mainplate.
 const infinity = record('jn-shapiro/infinity');
 const resurgence = record('jn-shapiro/resurgence');
 const comparable = records.filter(r => r.profile.confidence !== 'D');
+const origin = siteOrigin(Astro.url);
 const compareData = comparable.map(r => ({
   id: r.id, brand: r.brandName, model: r.model, url: recordUrl(r.id),
   cls: classification(r.profile.classification[0], r.profile.methodology).name, conf: r.profile.confidence,
@@ -39,7 +40,10 @@ const img = (name: string, w: 800 | 1600) => `/images/movements/${name}-${w}.jpg
 // Open data: three records shown as cards, each a preview of what its page and data carry.
 const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-neomatik'].map(record).filter(Boolean);
 ---
-<Base title="FALK Index">
+<Base title="FALK Index" ld={{
+  '@type': 'WebSite', name: 'FALK Index', url: `${origin}/`,
+  potentialAction: { '@type': 'SearchAction', target: `${origin}/records/?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
+}}>
   <section class="board" aria-labelledby="hero-title">
     <div class="tile t-name">
       <h1 id="hero-title" class="display">Where each watch is really made</h1>
