@@ -1,7 +1,7 @@
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { planPublish, applyPublish } from './publish-record.ts';
+import { planPublish, applyPublish, changedIds, planReferences } from './publish-record.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { realm } from '../server/accounts.ts';
 import { pool } from '../server/db.ts';
@@ -24,6 +24,22 @@ const newVersion = (editor = 'tester') => edit(w => {
 
 test('an unchanged record has nothing to publish', () =>
   assert.throws(() => planPublish(live, structuredClone(live), evidenced.id), /nothing to publish/));
+
+test('--all finds exactly the records that differ from the live catalogue', () => {
+  assert.deepEqual(changedIds(live, structuredClone(live)), []);
+  assert.deepEqual(changedIds(live, newVersion()), [evidenced.id]);
+  const added = structuredClone(live);
+  added.watches.push({ ...structuredClone(evidenced), id: 'test/new-record' });
+  assert.deepEqual(changedIds(live, added), ['test/new-record']);
+});
+
+test('--all also publishes a source edited on its own', () => {
+  const local = structuredClone(live);
+  const source = [...local.sources.values()][0];
+  local.sources.set(source.id, { ...source, notes: 'Edited on its own.' });
+  assert.deepEqual(planReferences(live, structuredClone(live)).changes, []);
+  assert.deepEqual(planReferences(live, local).changes, [`update source "${source.id}"`]);
+});
 
 test('published history cannot be rewritten', () => {
   assert.throws(() => planPublish(live, edit(w => { w.profiles[0].scores.MA.value = 5 - (w.profiles[0].scores.MA.value ?? 0); }), evidenced.id), /version 1 was edited/);

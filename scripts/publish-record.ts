@@ -1,4 +1,6 @@
 import { isDeepStrictEqual, parseArgs } from 'node:util';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { PoolClient } from 'pg';
 import { check, load } from './validate.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
@@ -8,6 +10,7 @@ import { DIMENSIONS, type Watch } from '../src/schema.ts';
 
 // Publishes one record's edited YAML (EDITORIAL.md §7) into the live catalogue.
 // Usage: npm run db:publish -- <brand/model> --reviewer <username> [--apply]
+//        npm run db:publish -- --all --reviewer <username> [--apply]   every record that differs from the live catalogue
 // Without --apply it only prints the plan. History is append-only: existing
 // profile versions and claims are never rewritten, only moved forward.
 
@@ -71,6 +74,24 @@ export function planPublish(live: Catalogue, local: Catalogue, id: string) {
 }
 type Plan = ReturnType<typeof planPublish>;
 
+// Records in data/ that are new or differ from the live catalogue, in file order.
+export const changedIds = (live: Catalogue, local: Catalogue) =>
+  local.watches.filter(w => !isDeepStrictEqual(w, live.watches.find(l => l.id === w.id))).map(w => w.id);
+
+// Sources and organizations edited on their own, such as an archived copy added later, which no changed record carries.
+export function planReferences(live: Catalogue, local: Catalogue) {
+  const sources = [...local.sources.values()].filter(s => !isDeepStrictEqual(s, live.sources.get(s.id)));
+  const orgs = [...local.orgs.values()].filter(o => !isDeepStrictEqual(o, live.orgs.get(o.id)));
+  const merged = check({
+    methodologies: [...live.methodologies].map(([m, value]) => ({ file: `methodology/${m}.yaml`, value })),
+    organizations: [...new Map([...live.orgs, ...orgs.map(o => [o.id, o] as const)]).values()].map(value => ({ file: `organizations/${value.id}.yaml`, value })),
+    sources: [...new Map([...live.sources, ...sources.map(s => [s.id, s] as const)]).values()].map((value, i) => ({ file: `sources.yaml[${i}]`, value })),
+    watches: live.watches.map(value => ({ file: `watches/${value.id}.yaml`, value })),
+  });
+  if (merged.errors.length) throw new Error(`Cannot publish sources and organizations:\n- ${merged.errors.join('\n- ')}`);
+  return { sources, orgs, changes: [...sources.map(s => `${live.sources.has(s.id) ? 'update' : 'add'} source "${s.id}"`), ...orgs.map(o => `${live.orgs.has(o.id) ? 'update' : 'add'} organization "${o.id}"`)] };
+}
+
 export async function applyPublish(db: PoolClient, plan: Plan, reviewer: string, revision: string | null) {
   const { id, next } = plan;
   if (plan.authors.includes(reviewer)) throw new Error(`@${reviewer} wrote a version being published and cannot review it (DECISIONS.md Q13).`);
@@ -122,19 +143,47 @@ export async function applyPublish(db: PoolClient, plan: Plan, reviewer: string,
   await db.query('UPDATE falk_watch SET current_revision_id=$2 WHERE id=$1', [id, rows[0].id]);
 }
 
-if (import.meta.main) {
-  const { values, positionals: [id] } = parseArgs({ allowPositionals: true, options: { reviewer: { type: 'string' }, apply: { type: 'boolean', default: false } } });
+// Plans one record against the live catalogue as it is now, and applies it in its own transaction.
+async function publishOne(id: string, local: Catalogue, reviewer: string, apply: boolean) {
+  // Read the revision first: if anything lands after this, applyPublish refuses.
+  const revision = (await pool.query('SELECT current_revision_id FROM falk_watch WHERE id=$1', [id])).rows[0]?.current_revision_id ?? null;
+  const plan = planPublish(await loadCatalogue(), local, id);
+  console.log(`${id}, reviewed by @${reviewer}:\n  ${plan.changes.join('\n  ')}`);
+  for (const w of plan.warnings) console.log(`warning ${w}`);
+  if (apply) { await transaction(db => applyPublish(db, plan, reviewer, revision)); console.log('  Published.'); }
+}
+
+// import.meta.main arrived in Node 24.2; on earlier versions (package.json allows 23.6+) compare paths instead.
+if (import.meta.main ?? resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+  const { values, positionals: [id] } = parseArgs({ allowPositionals: true, options: { reviewer: { type: 'string' }, apply: { type: 'boolean', default: false }, all: { type: 'boolean', default: false } } });
   try {
-    if (!id || !values.reviewer) throw new Error('Usage: npm run db:publish -- <brand/model> --reviewer <username> [--apply]');
+    if (!values.reviewer || !id === !values.all) throw new Error('Usage: npm run db:publish -- <brand/model> --reviewer <username> [--apply]\n       npm run db:publish -- --all --reviewer <username> [--apply]');
     const local = check(load('data'));
     if (local.errors.length) throw new Error(`data/ is invalid:\n${local.errors.join('\n')}`);
-    // Read the revision first: if anything lands after this, applyPublish refuses.
-    const revision = (await pool.query('SELECT current_revision_id FROM falk_watch WHERE id=$1', [id])).rows[0]?.current_revision_id ?? null;
-    const plan = planPublish(await loadCatalogue(), local.parsed, id);
-    console.log(`${id}, reviewed by @${values.reviewer}:\n  ${plan.changes.join('\n  ')}`);
-    for (const w of plan.warnings) console.log(`warning ${w}`);
-    if (!values.apply) console.log('\nDry run. Nothing was written; add --apply to publish.');
-    else { await transaction(db => applyPublish(db, plan, values.reviewer!, revision)); console.log('\nPublished.'); }
+    if (id) await publishOne(id, local.parsed, values.reviewer, values.apply);
+    else {
+      // One record at a time, each against the live catalogue as the previous ones left it. A record that
+      // cannot be published is reported and skipped; the rest still go ahead.
+      const ids = changedIds(await loadCatalogue(), local.parsed);
+      const failed: string[] = [];
+      for (const each of ids) {
+        try { await publishOne(each, local.parsed, values.reviewer, values.apply); }
+        catch (e) { failed.push(each); console.error(`${each}: ${(e as Error).message}`); }
+        console.log('');
+      }
+      console.log(`${ids.length} record(s) differ from the live catalogue; ${ids.length - failed.length} ${values.apply ? 'published' : 'ready'}, ${failed.length} blocked.`);
+      // In a dry run the records above were not written, so their own sources still show here.
+      const refs = planReferences(await loadCatalogue(), local.parsed);
+      if (refs.changes.length) {
+        console.log(`\nSources and organizations:\n  ${refs.changes.join('\n  ')}`);
+        if (values.apply) await transaction(async db => {
+          for (const o of refs.orgs) await db.query('INSERT INTO falk_organization(id,payload) VALUES($1,$2) ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload', [o.id, o]);
+          for (const s of refs.sources) await db.query('INSERT INTO falk_source(id,payload) VALUES($1,$2) ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload', [s.id, s]);
+        });
+      }
+      if (failed.length) process.exitCode = 1;
+    }
+    if (!values.apply) console.log('Dry run. Nothing was written; add --apply to publish.');
   } catch (e) { console.error((e as Error).message); process.exitCode = 1; }
   finally { await pool.end(); }
 }

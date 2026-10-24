@@ -366,7 +366,7 @@ picture { display: contents; }
 abbr[title] { text-decoration: none; }
 .grid-2 > *, .side-layout > * { min-width: 0; }
 /* Wide tables scroll inside their own box so the page never scrolls sideways. */
-.scroll { max-width: 100%; overflow-x: auto; }
+.scroll { position: relative; max-width: 100%; overflow-x: auto; } /* positioned, so screen-reader-only labels inside are clipped with the rest */
 @media (max-width: 639px) {
   .plate { padding: var(--s-4); }
   .strip th[scope="row"], .strip .num { font-size: 20px; }

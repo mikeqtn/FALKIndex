@@ -10,7 +10,6 @@ claims:
     dimensions:
       - MA
       - MM
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: h2rep-earlier-eta
@@ -20,7 +19,6 @@ claims:
     dimensions:
       - MA
       - MM
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: h2rep-buys-module
@@ -31,7 +29,6 @@ claims:
       - MM
       - CF
       - WE
-      - PD
     date_checked: 2026-10-21
     editor: falk-index
   - id: h2rep-final-assembly
