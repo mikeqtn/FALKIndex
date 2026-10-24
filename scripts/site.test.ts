@@ -79,18 +79,6 @@ test('pages without their own share image use the site card; structured data par
   assert.match(crumbs.itemListElement.at(-1).item,new RegExp(`/records/${watch}/$`));
 });
 
-test('a comparison is chosen in the address, shared with its own card, and ignores bad ids', async () => {
-  const ids = dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published' && p.confidence!=='D')).slice(0,5).map((w:any) => w.id);
-  const html = await (await fetch(`${base}/compare/?w=${ids[0]},${ids[1]}&w=${ids[2]}&w=no/such-watch`)).text();
-  assert.equal([...html.matchAll(/<th scope="col">/g)].length,3);
-  assert.match(html,/Left out: no\/such-watch/);
-  assert.equal([...(await (await fetch(`${base}/compare/?${ids.map((id:string) => `w=${id}`).join('&')}`)).text()).matchAll(/<th scope="col">/g)].length,4);
-  const card = await fetch(`${base}/og/compare.png?w=${ids[0]}&w=${ids[1]}`);
-  assert.equal(card.headers.get('content-type'),'image/png');
-  assert.equal((await fetch(`${base}/og/compare.png?w=${ids[0]}`)).status,404);
-  assert.match(await (await fetch(`${base}/compare/`)).text(),/Or start from one of these/);
-});
-
 test('the sitemap lists every record and no private page; robots.txt points to it', async () => {
   const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
   for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) => p.status==='published'))) {

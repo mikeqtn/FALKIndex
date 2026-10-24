@@ -10,14 +10,13 @@ interface Props {
   title: string; description?: string; nav?: 'records' | 'methodology' | 'sources' | 'data' | 'about';
   image?: { path: string; alt: string }; // share image (og:image), 1200×630
   ld?: object; // schema.org structured data for this page, rendered as JSON-LD
-  path?: string; // canonical path when it must keep a query string (a shareable comparison)
 }
-const { title, description = 'An evidence database of where the work on a watch is actually done.', nav, ld, path = Astro.url.pathname,
+const { title, description = 'An evidence database of where the work on a watch is actually done.', nav, ld,
   image = { path: '/og/site.png', alt: 'FALK Index: where each watch is really made.' } } = Astro.props;
 const pageTitle = title === 'FALK Index' ? title : `${title}, FALK Index`;
 // Absolute URLs need the public domain; the published build sets PUBLIC_SITE_URL (see .replit).
 const site = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
-const canonical = site && `${site}${path}`;
+const canonical = site && `${site}${Astro.url.pathname}`;
 const imageUrl = site && `${site}${image.path}`;
 // JSON-LD is inert data, but a "</script>" inside a string would end the tag, so every < is escaped.
 const ldJson = ld && JSON.stringify({ '@context': 'https://schema.org', ...ld }).replaceAll('<', '\\u003c');

@@ -100,36 +100,3 @@ ${bars}
 export function sitePng(count: number) {
   return new Resvg(siteSvg(count), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } }).render().asPng();
 }
-
-// Share image for a comparison: the watches named on the left, their seven rows side by side on the right.
-export function compareSvg(rs: Record[]) {
-  // Each column holds five bars and its number; bars narrow as columns are added.
-  const x0 = 620, colW = (1152 - x0) / rs.length, gap = 3, seg = Math.min(18, (colW - 40) / 5 - gap);
-  const clip = (t: string, n: number) => t.length > n ? `${t.slice(0, n - 1).trimEnd()}…` : t;
-  const names = rs.map((r, i) => `<text x="72" y="${200 + i * 84}" font-family="${BODY}" font-size="20" fill="${C.action}">${esc(r.brandName)}</text>`
-    + `<text x="72" y="${236 + i * 84}" font-family="${NARROW}" font-size="34" fill="${C.ink}">${esc(clip(r.model, 24))}</text>`).join('');
-  const heads = rs.map((r, c) => `<text x="${x0 + c * colW}" y="108" font-family="${BODY}" font-size="17" fill="${C.ink2}">${esc(clip(r.model, Math.floor(colW / 9)))}</text>`).join('');
-  const rows = DIMENSIONS.map((d, i) => {
-    const y = 162 + i * 58;
-    const cells = rs.map((r, c) => {
-      const v = r.profile.scores[d].value;
-      return [1, 2, 3, 4, 5].map(n => {
-        const filled = v !== null && n <= v;
-        return `<rect x="${x0 + c * colW + (n - 1) * (seg + gap)}" y="${y - 26}" width="${seg}" height="32" fill="${v === null ? 'url(#unknown)' : filled ? C.level[v] : 'none'}" stroke="${filled ? C.level[v] : C.ink2}" stroke-width="1.5"/>`;
-      }).join('') + `<text x="${x0 + c * colW + 5 * (seg + gap) + 6}" y="${y}" font-family="${NARROW}" font-size="28" fill="${C.ink}">${v ?? 'U'}</text>`;
-    }).join('');
-    return `<text x="568" y="${y}" font-family="${NARROW}" font-size="30" fill="${C.ink}">${d}</text>${cells}`;
-  }).join('');
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<defs><pattern id="unknown" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.5" height="6" fill="${C.ink2}"/></pattern></defs>
-<rect width="1200" height="630" fill="${C.page}"/>
-<text x="72" y="96" font-family="${NARROW}" font-size="34" fill="${C.ink}">FALK Index</text>
-<text x="72" y="140" font-family="${BODY}" font-size="22" fill="${C.ink2}">Compared, never added up</text>
-${names}
-<rect x="540" y="56" width="628" height="520" rx="8" fill="${C.surface}"/>
-${heads}${rows}
-</svg>`;
-}
-export function comparePng(rs: Record[]) {
-  return new Resvg(compareSvg(rs), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } }).render().asPng();
-}

@@ -79,7 +79,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
         ))}
       </dl>
       <p class="compare-note" aria-live="polite">Same maker, different routes: {differ.length} of 7 measures differ.</p>
-      <p class="small compare-links"><a href={recordUrl(infinity.id)}>{infinity.brandName} {infinity.model}</a><a href={recordUrl(resurgence.id)}>{resurgence.brandName} {resurgence.model}</a><a class="compare-open" href={`/compare/?w=${infinity.id}&w=${resurgence.id}`}>Open the full comparison</a></p>
+      <p class="small compare-links"><a href={recordUrl(infinity.id)}>{infinity.brandName} {infinity.model}</a><a href={recordUrl(resurgence.id)}>{resurgence.brandName} {resurgence.model}</a></p>
       <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
     </div>
 
@@ -465,8 +465,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   const heads = [...tile.querySelectorAll('thead th')];
   const rows = [...tile.querySelectorAll('tbody tr')];
   const note = tile.querySelector('.compare-note')!;
-  const links = [...tile.querySelectorAll<HTMLAnchorElement>('.compare-links a:not(.compare-open)')];
-  const open = tile.querySelector<HTMLAnchorElement>('.compare-open')!;
+  const links = [...tile.querySelectorAll<HTMLAnchorElement>('.compare-links a')];
   const cls = [...tile.querySelectorAll('.compare-cls > div')];
 
   function render() {
@@ -487,7 +486,6 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
         cell.querySelector('.sr-only')!.textContent = `${v === null ? ' unknown' : ' of 5'}, ${w.model}`;
       });
     });
-    open.href = `/compare/?w=${encodeURIComponent(a.id)}&w=${encodeURIComponent(b.id)}`;
     const diff = rows.filter((tr, i) => { const d = a.scores[i] !== b.scores[i]; tr.classList.toggle('changed', d); return d; }).length;
     note.textContent = a.id === b.id ? 'The same watch on both sides. Pick another to compare.'
       : `${a.brand === b.brand ? 'Same maker, different routes: ' : ''}${diff} of 7 measures differ.`;
