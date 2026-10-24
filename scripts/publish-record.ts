@@ -184,6 +184,6 @@ if (import.meta.main ?? resolve(process.argv[1] ?? '') === fileURLToPath(import.
       if (failed.length) process.exitCode = 1;
     }
     if (!values.apply) console.log('Dry run. Nothing was written; add --apply to publish.');
-  } catch (e) { console.error((e as Error).message); process.exitCode = 1; }
+  } catch (e) { console.error((e as Error).message || e); process.exitCode = 1; }
   finally { await pool.end(); }
 }
