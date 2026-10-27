@@ -1,0 +1,16 @@
+name: Site feedback
+description: Something on the site is confusing, broken or hard to use.
+labels: [site]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the page, e.g. https://falkindex.com/records/
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, what you saw, and on which device (phone or computer).
+    validations: { required: true }

@@ -1,0 +1,21 @@
+name: Watch record
+description: Raise a watch's confidence, or add a new watch.
+labels: [watch]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Record
+      description: brand/model as in data/watches, e.g. tudor/black-bay-58. For a new watch, the brand and model.
+    validations: { required: true }
+  - type: textarea
+    id: goal
+    attributes:
+      label: What's missing
+      description: Unknown (U) dimensions, secondary-only scores, or claims to check. See docs/EDITORIAL.md.
+    validations: { required: true }
+  - type: textarea
+    id: leads
+    attributes:
+      label: Leads
+      description: Pages, interviews or books worth checking. Exact URLs, not home pages.

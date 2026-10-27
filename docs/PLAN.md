@@ -362,7 +362,7 @@ If the queue grows, improve review tooling and recruit editors; do not add an
 automatic-publishing role or bypass review.
 
 ### After the MVP
-- Evidence the remaining 50 records (ongoing editorial work).
+- Raise confidence on the C and D records (ongoing editorial work, tracked as GitHub issues labelled `watch`).
 - Git CMS for non-technical editors, then contributor accounts and community submissions.
 - Methodology v0.3 (quartz/Spring Drive and in-group rules, Q7–Q8).
 - A public API (the static JSON may already be enough), and i18n (FR/DE/JA are natural for this audience).
