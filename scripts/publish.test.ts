@@ -78,3 +78,22 @@ test('a new version is planned and applied append-only', async () => {
     assert.deepEqual(head, { kind: 'approval', parent_id: revision });
   } finally { await db.query('ROLLBACK'); db.release(); }
 });
+
+test('the database refuses to edit or delete a published claim', async () => {
+  const claim = evidenced.claims.find(c => c.editor !== 'ai-draft')!;
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    await db.query('SAVEPOINT guard');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"statement":"Rewritten."}' WHERE id=$1`, [claim.id]), /cannot be edited/);
+    await db.query('ROLLBACK TO SAVEPOINT guard');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"editor":"someone-else"}' WHERE id=$1`, [claim.id]), /cannot be edited/);
+    await db.query('ROLLBACK TO SAVEPOINT guard');
+    await assert.rejects(db.query('DELETE FROM falk_claim WHERE id=$1', [claim.id]), /never deleted/);
+    await db.query('ROLLBACK TO SAVEPOINT guard');
+    // What publishing may change: status, and the reviewer's handle on an ai-draft claim.
+    await db.query(`UPDATE falk_claim SET payload=payload||'{"status":"disputed"}' WHERE id=$1`, [claim.id]);
+    await db.query(`INSERT INTO falk_claim(id,source_id,payload) VALUES('test-ai-claim',$1,$2)`, [claim.source, { ...claim, id: 'test-ai-claim', editor: 'ai-draft' }]);
+    await db.query(`UPDATE falk_claim SET payload=payload||'{"editor":"tester"}' WHERE id='test-ai-claim'`);
+  } finally { await db.query('ROLLBACK'); db.release(); }
+});
