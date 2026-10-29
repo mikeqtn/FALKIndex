@@ -33,6 +33,8 @@ const archetypes = methodology.classifications.filter(c => c.kind === 'archetype
   return { ...c, copy: ARCHETYPES[c.code], recs, tagged, examples, pattern: pattern(recs), slug: c.code.replaceAll('_', '-') };
 });
 const descriptor = methodology.classifications.find(c => c.code === DESCRIPTOR.code)!;
+// The people behind the descriptor: every published record that carries it.
+const withDescriptor = comparable.filter(r => r.profile.independent_watchmaker);
 
 // Colour photographs of real movements, openly licensed (credits in the footer and public/images/movements/CREDITS.md).
 // Where the watch is in the index, the caption links to its record; none stands in for a record it is not.
@@ -153,9 +155,19 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
     <div class="arch-foot">
       <div class="tile descriptor" data-rise>
-        <h3>{descriptor.name}</h3>
-        <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
-        <p class="muted">{NOT_OWNERSHIP}</p>
+        <div class="d-text">
+          <h3>{descriptor.name}</h3>
+          <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
+          <p class="muted">{NOT_OWNERSHIP}</p>
+        </div>
+        {withDescriptor.length > 0 && (
+          <div class="d-roll">
+            <p class="d-roll-h">{plural(withDescriptor.length, 'record')} {withDescriptor.length === 1 ? 'carries' : 'carry'} it</p>
+            <ul>
+              {withDescriptor.map(r => <li><a href={recordUrl(r.id)}><span>{r.brandName}</span> {r.model}</a></li>)}
+            </ul>
+          </div>
+        )}
       </div>
       <div class="tile arch-more" data-rise>
         <figure class="arch-photo">
@@ -374,16 +386,27 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .ap-pattern h4 { margin-top: 0; }
   .ap-pattern .actions { margin-top: var(--s-3); }
   .js-arch .apanel h4:first-of-type { margin-top: var(--s-3); }
-  .arch-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
-  .descriptor { grid-column: 1 / 9; display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); }
+  /* The descriptor: its definition beside the people who carry it, in one tile. */
+  .arch-foot { display: grid; gap: 8px; margin-top: 8px; }
+  .descriptor { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .d-text { display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); }
   .descriptor h3 { font-size: 22px; font-stretch: 84%; }
-  .descriptor p { font-size: 17px; line-height: 1.5; max-width: 72ch; }
-  .arch-more { grid-column: 9 / 13; display: flex; flex-direction: column; background: var(--c-surface-2); }
-  /* The photo fills whatever height the row has left; out of flow, so its own size never sets the row's height. */
-  .arch-photo { position: relative; margin: 0; flex: 1; min-height: 120px; }
+  .d-text p { font-size: 17px; line-height: 1.5; max-width: 64ch; }
+  /* The roll: blued-steel ground, the one bold block in the section, listing every record that carries the descriptor. */
+  .d-roll { display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); background: var(--c-ink); color: var(--c-ink-inverse); }
+  .d-roll-h { font-size: 17px; font-weight: 600; }
+  .d-roll ul { display: grid; grid-template-columns: 1fr 1fr; gap: 2px var(--s-5); margin: 0; padding: 0; list-style: none; }
+  .d-roll a { display: grid; padding: var(--s-1) 0; color: inherit; font-size: 16px; font-weight: 560; line-height: 1.25; text-decoration: none; }
+  .d-roll a span { font-size: 13px; font-weight: 420; opacity: .75; }
+  .d-roll a:hover { text-decoration: underline; }
+  .d-roll a:focus-visible { outline-color: var(--c-ink-inverse); }
+
+  /* The link to /archetypes/ as one slim strip, photograph to the left. */
+  .arch-more { display: flex; background: var(--c-surface-2); }
+  .arch-photo { position: relative; flex: 0 0 30%; margin: 0; min-height: 132px; }
   .arch-photo :global(picture), .arch-photo :global(img) { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
-  .arch-more-text { display: grid; justify-items: start; gap: var(--s-4); padding: var(--s-5) var(--s-6); }
-  .arch-more p { font-size: 17px; line-height: 1.5; }
+  .arch-more-text { flex: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-4) var(--s-6); padding: var(--s-5) var(--s-6); }
+  .arch-more p { font-size: 18px; line-height: 1.45; max-width: 44ch; }
   .arch-more .btn.secondary { background: var(--c-surface); }
   .arch-more .btn.secondary:hover { background: var(--c-edge); }
 
@@ -492,7 +515,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .t-name { min-height: 56svh; padding: var(--s-5); }
     .m-stage { aspect-ratio: 4 / 3; }
     .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
-    .arch-photo { flex: none; aspect-ratio: 5 / 2; }
+    .descriptor { grid-template-columns: 1fr; }
     .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
     .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ap-text, .ap-pattern { grid-column: 1 / -1; }
@@ -506,6 +529,9 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .how-text, .how-sample, .apanel, .explore-search, .explore-by, .open-lead, .research-links { padding: var(--s-5); }
     .explore-photo { margin: auto calc(-1 * var(--s-5)) calc(-1 * var(--s-5)); width: calc(100% + 2 * var(--s-5)); }
     .arch-more-text { padding: var(--s-5); }
+    .d-text, .d-roll { padding: var(--s-5); }
+    .arch-more { flex-direction: column; }
+    .arch-photo { flex: none; aspect-ratio: 5 / 2; min-height: 0; }
     .sec-h { font-size: 10vw; }
     .arch-tabs button { min-height: 0; padding: var(--s-4); gap: var(--s-2); }
     .at-name { font-size: 18px; }
