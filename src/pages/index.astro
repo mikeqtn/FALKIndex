@@ -154,7 +154,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     </div>
 
     <div class="arch-foot">
-      <div class="tile descriptor" data-rise>
+      <div class="descriptor" data-rise>
         <div class="d-text">
           <h3>{descriptor.name}</h3>
           <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
@@ -162,9 +162,14 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
         </div>
         {withDescriptor.length > 0 && (
           <div class="d-roll">
-            <p class="d-roll-h">{plural(withDescriptor.length, 'record')} {withDescriptor.length === 1 ? 'carries' : 'carry'} it</p>
+            <p class="d-roll-h">{plural(withDescriptor.length, 'record')} {withDescriptor.length === 1 ? 'carries' : 'carry'} it, each with its own profile</p>
             <ul>
-              {withDescriptor.map(r => <li><a href={recordUrl(r.id)}><span>{r.brandName}</span> {r.model}</a></li>)}
+              {withDescriptor.map(r => (
+                <li>
+                  <a href={recordUrl(r.id)}><span>{r.brandName}</span> {r.model}</a>
+                  <CompactStrip scores={r.profile.scores} />
+                </li>
+              ))}
             </ul>
           </div>
         )}
@@ -386,20 +391,25 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .ap-pattern h4 { margin-top: 0; }
   .ap-pattern .actions { margin-top: var(--s-3); }
   .js-arch .apanel h4:first-of-type { margin-top: var(--s-3); }
-  /* The descriptor: its definition beside the people who carry it, in one tile. */
-  .arch-foot { display: grid; gap: 8px; margin-top: 8px; }
-  .descriptor { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
-  .d-text { display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); }
-  .descriptor h3 { font-size: 22px; font-stretch: 84%; }
-  .d-text p { font-size: 17px; line-height: 1.5; max-width: 64ch; }
-  /* The roll: blued-steel ground, the one bold block in the section, listing every record that carries the descriptor. */
-  .d-roll { display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); background: var(--c-ink); color: var(--c-ink-inverse); }
-  .d-roll-h { font-size: 17px; font-weight: 600; }
-  .d-roll ul { display: grid; grid-template-columns: 1fr 1fr; gap: 2px var(--s-5); margin: 0; padding: 0; list-style: none; }
-  .d-roll a { display: grid; padding: var(--s-1) 0; color: inherit; font-size: 16px; font-weight: 560; line-height: 1.25; text-decoration: none; }
-  .d-roll a span { font-size: 13px; font-weight: 420; opacity: .75; }
-  .d-roll a:hover { text-decoration: underline; }
-  .d-roll a:focus-visible { outline-color: var(--c-ink-inverse); }
+  /* The descriptor, set apart from the explorer: its definition beside the records that carry it, each with its own profile,
+     which shows the point of the definition: the descriptor never follows from scores. Surfaces step in tone only. */
+  .arch-foot { display: grid; gap: var(--s-7); margin-top: var(--s-9); }
+  .descriptor { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-7); align-items: start; }
+  .d-text { display: grid; align-content: start; gap: var(--s-3); }
+  .descriptor h3 { font-size: 28px; line-height: 1.1; font-stretch: 80%; font-weight: 620; letter-spacing: -0.015em; }
+  .d-text p { font-size: 18px; line-height: 1.5; max-width: 60ch; }
+  .d-roll { display: grid; align-content: start; gap: var(--s-3); }
+  .d-roll-h { font-size: 16px; color: var(--c-ink-2); }
+  .d-roll ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .d-roll li { position: relative; display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); min-height: 60px; padding: var(--s-2) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); transition: background var(--d-quick) var(--ease); }
+  .d-roll li:hover { background: var(--c-surface-2); }
+  .d-roll a { display: grid; color: var(--c-ink); font-size: 16px; font-weight: 580; line-height: 1.25; text-decoration: none; }
+  .d-roll a span { font-size: 13px; font-weight: 420; color: var(--c-ink-2); }
+  .d-roll a::after { content: ''; position: absolute; inset: 0; }
+  .d-roll a:focus-visible { outline: none; }
+  .d-roll li:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .d-roll :global(.cell) { width: 20px; height: 20px; font-size: 11px; }
+
 
   /* The link to /archetypes/ as one slim strip, photograph to the left. */
   .arch-more { display: flex; background: var(--c-surface-2); }
@@ -515,7 +525,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .t-name { min-height: 56svh; padding: var(--s-5); }
     .m-stage { aspect-ratio: 4 / 3; }
     .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
-    .descriptor { grid-template-columns: 1fr; }
+    .descriptor { grid-template-columns: 1fr; gap: var(--s-6); }
     .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
     .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ap-text, .ap-pattern { grid-column: 1 / -1; }
@@ -529,7 +539,8 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .how-text, .how-sample, .apanel, .explore-search, .explore-by, .open-lead, .research-links { padding: var(--s-5); }
     .explore-photo { margin: auto calc(-1 * var(--s-5)) calc(-1 * var(--s-5)); width: calc(100% + 2 * var(--s-5)); }
     .arch-more-text { padding: var(--s-5); }
-    .d-text, .d-roll { padding: var(--s-5); }
+    .arch-foot { margin-top: var(--s-8); }
+    .d-roll ul { grid-template-columns: 1fr; }
     .arch-more { flex-direction: column; }
     .arch-photo { flex: none; aspect-ratio: 5 / 2; min-height: 0; }
     .sec-h { font-size: 10vw; }
