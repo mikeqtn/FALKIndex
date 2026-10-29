@@ -17,7 +17,9 @@ import { DIMENSIONS, type Watch } from '../src/schema.ts';
 type Catalogue = Awaited<ReturnType<typeof loadCatalogue>>;
 const forward: Record<string, string[]> = { draft: ['published', 'superseded'], published: ['superseded'], superseded: [] };
 // What a claim may change after it is published: its status, and the reviewer taking over an ai-draft.
-const claimCore = ({ status, superseded_by, date_checked, editor, ...c }: Watch['claims'][number]) => c;
+// The same list as `mutable` in db/003-immutable-claims.sql; publish.test.ts checks they match.
+export const claimMutable = ['status', 'superseded_by', 'date_checked', 'editor'];
+const claimCore = (c: Watch['claims'][number]) => Object.fromEntries(Object.entries(c).filter(([k]) => !claimMutable.includes(k)));
 // The same rule db/003-immutable-claims.sql enforces: superseding is final, and only an ai-draft claim changes editor.
 const claimEdited = (now: Watch['claims'][number], old: Watch['claims'][number]) =>
   !isDeepStrictEqual(claimCore(now), claimCore(old))
@@ -117,7 +119,8 @@ export async function applyPublish(db: PoolClient, plan: Plan, reviewer: string,
 
   await db.query('DELETE FROM falk_watch_claim WHERE watch_id=$1', [id]);
   for (const [position, claim] of claims.entries()) {
-    await db.query('INSERT INTO falk_claim(id,source_id,payload) VALUES($1,$2,$3) ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload', [claim.id, claim.source, claim]);
+    await db.query(`INSERT INTO falk_claim(id,source_id,payload) VALUES($1,$2,$3)
+      ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload WHERE falk_claim.payload IS DISTINCT FROM EXCLUDED.payload`, [claim.id, claim.source, claim]);
     await db.query('INSERT INTO falk_watch_claim(watch_id,claim_id,position) VALUES($1,$2,$3)', [id, claim.id, position]);
   }
   await db.query('DELETE FROM falk_provenance_claim WHERE provenance_id IN (SELECT id FROM falk_provenance WHERE watch_id=$1)', [id]);
