@@ -7,7 +7,7 @@ import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 const { methodology } = await getCatalogue(Astro.locals);
 
 interface Props {
-  title: string; description?: string; nav?: 'records' | 'methodology' | 'sources' | 'data' | 'about';
+  title: string; description?: string; nav?: 'records' | 'archetypes' | 'methodology' | 'sources' | 'data' | 'about';
   image?: { path: string; alt: string }; // share image (og:image), 1200×630
   ld?: object; // schema.org structured data for this page, rendered as JSON-LD
 }
@@ -26,6 +26,7 @@ const signedIn = (Astro.request.headers.get('cookie') ?? '').split(/;\s*/)
   .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
 const links = [
   ['records', '/records/', 'Records'],
+  ['archetypes', '/archetypes/', 'Archetypes'],
   ['methodology', '/methodology/', 'Methodology'],
   ['sources', '/sources/', 'Sources'],
   ['data', '/data/', 'Data'],

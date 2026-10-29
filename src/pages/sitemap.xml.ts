@@ -2,7 +2,7 @@
 import { getCatalogue, orgUrl, recordUrl, siteOrigin } from '../lib/data.ts';
 import type { APIRoute } from 'astro';
 
-const STATIC = ['/', '/records/', '/methodology/', '/sources/', '/data/', '/about/', '/corrections/'];
+const STATIC = ['/', '/records/', '/archetypes/', '/methodology/', '/sources/', '/data/', '/about/', '/corrections/'];
 
 export const GET: APIRoute = async ({ locals, url }) => {
   const { records, orgPageIds } = await getCatalogue(locals);
