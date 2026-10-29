@@ -3,8 +3,30 @@ import pg from 'pg';
 // No schema changes or data seeding at application startup.
 export const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  max: 8, connectionTimeoutMillis: 5000, idleTimeoutMillis: 30000, allowExitOnIdle: true,
+  // 10s: a database waking from idle can take longer than 5s for its first connection.
+  max: 8, connectionTimeoutMillis: 10000, idleTimeoutMillis: 30000, allowExitOnIdle: true,
 });
+
+/**
+ * Retry `probe` until it succeeds or `deadlineMs` passes. Used once at production startup, so the database is
+ * awake before the deploy health check requests "/". Returns whether it succeeded; never throws.
+ */
+export async function waitForDatabase(probe: () => Promise<unknown>, deadlineMs = 20000) {
+  const started = Date.now();
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await probe();
+      console.log(JSON.stringify({ event:'database.warm', attempt, durationMs:Date.now()-started }));
+      return true;
+    } catch (error: any) {
+      if (Date.now()-started >= deadlineMs) {
+        console.error(JSON.stringify({ event:'database.warm.failed', attempt, errorName:error?.name ?? 'Error', errorCode:error?.code ?? 'unknown', durationMs:Date.now()-started }));
+        return false;
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+}
 pool.on('error', (error: any) => console.error(JSON.stringify({
   event:'database.pool.error',
   errorName:error?.name ?? 'Error',
