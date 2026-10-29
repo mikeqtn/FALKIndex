@@ -10,6 +10,8 @@ import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
+import { loadCatalogue } from './catalogue.ts';
+import { waitForDatabase } from './db.ts';
 
 // Baseline browser protections. Scripts are not restricted by CSP yet: Clerk loads its own.
 // Framing is blocked only in production, because Replit's preview pane shows the dev site in a frame.
@@ -97,6 +99,9 @@ export async function start() {
   let devProxy: ReturnType<typeof createFixedProxyMiddleware> | undefined;
   let stopping = false;
   if (process.env.NODE_ENV === 'production') {
+    // Every page reads the catalogue from the database. Load it once before listening, so a cold database is awake
+    // and the deploy health check on "/" gets a fast answer. If it is still unreachable, serve anyway and let requests retry.
+    await waitForDatabase(loadCatalogue);
     await attachProductionSite(app);
   } else {
     const internalPort = process.env.ASTRO_INTERNAL_PORT ?? '4321';
