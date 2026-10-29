@@ -32,6 +32,27 @@ export function createApp() {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy',1);
+  app.use((req,res,next) => {
+    const started = process.hrtime.bigint();
+    res.once('finish',() => {
+      const durationMs = Number(process.hrtime.bigint()-started)/1_000_000;
+      if (req.path === '/' && (durationMs >= 1000 || res.statusCode >= 500)) {
+        console.log(JSON.stringify({
+          event:'http.request.slow_or_failed',
+          method:req.method,
+          path:req.path,
+          statusCode:res.statusCode,
+          durationMs:Math.round(durationMs),
+        }));
+      }
+    });
+    res.once('close',() => {
+      if (!res.writableFinished && req.path === '/') {
+        console.warn(JSON.stringify({event:'http.request.aborted',method:req.method,path:req.path}));
+      }
+    });
+    next();
+  });
   app.use(securityHeaders);
   app.use(compression());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
@@ -71,6 +92,7 @@ export async function attachProductionSite(app: express.Express) {
 }
 export async function start() {
   const app = createApp();
+  const startupStarted = process.hrtime.bigint();
   let child: ReturnType<typeof spawn> | undefined;
   let devProxy: ReturnType<typeof createFixedProxyMiddleware> | undefined;
   let stopping = false;
@@ -85,7 +107,13 @@ export async function start() {
     devProxy = createFixedProxyMiddleware({ target:`http://127.0.0.1:${internalPort}` });
     app.use(devProxy);
   }
-  const server = app.listen(Number(process.env.PORT ?? 5000),'0.0.0.0',() => console.log('FALK Index web is listening'));
+  const port = Number(process.env.PORT ?? 5000);
+  const server = app.listen(port,'0.0.0.0',() => console.log(JSON.stringify({
+    event:'server.ready',
+    port,
+    mode:process.env.NODE_ENV ?? 'development',
+    startupDurationMs:Math.round(Number(process.hrtime.bigint()-startupStarted)/1_000_000),
+  })));
   if (devProxy) server.on('upgrade', devProxy.upgrade);
   const stop = () => { stopping=true; child?.kill('SIGTERM'); server.close(() => process.exit(0)); setTimeout(() => process.exit(0),5000).unref(); };
   process.on('SIGTERM',stop); process.on('SIGINT',stop);
