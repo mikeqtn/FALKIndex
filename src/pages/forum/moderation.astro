@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import ModerationApp from '../../components/forum/ModerationApp.tsx';
+import { forumLinks, signInHref } from '../../lib/forum.ts';
+---
+<Base forum title="Moderation">
+  <header class="doc-head"><div><h1>Moderation</h1><p class="lead">Open reports, oldest first. Hiding a post needs a reason, which readers see is recorded; nothing is deleted.</p></div></header>
+  <ModerationApp client:only="react" links={forumLinks()} signInHref={signInHref(Astro.url.pathname)} />
+</Base>

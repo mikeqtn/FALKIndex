@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import NotificationsApp from '../../components/forum/NotificationsApp.tsx';
+import { forumLinks, signInHref } from '../../lib/forum.ts';
+---
+<Base forum nav="replies" title="Replies">
+  <header class="doc-head"><div><h1>Replies</h1><p class="lead">New posts in threads you have taken part in.</p></div></header>
+  <NotificationsApp client:only="react" links={forumLinks()} signInHref={signInHref(Astro.url.pathname)} />
+</Base>

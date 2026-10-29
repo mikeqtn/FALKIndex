@@ -1,0 +1,16 @@
+---
+import type { listThreads } from '../../../server/forum.ts';
+import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
+type Thread = NonNullable<Awaited<ReturnType<typeof listThreads>>>['threads'][number];
+interface Props { threads: Thread[]; empty: string }
+const { threads, empty } = Astro.props;
+---
+{threads.length ? <ul class="forum-list">
+  {threads.map(t => <li>
+    <a href={forumPath(`/t/${t.id}`)}><strong>{t.title}</strong></a>
+    {(t.pinned || t.locked) && <span class="small muted"> · {[t.pinned && 'pinned', t.locked && 'locked'].filter(Boolean).join(', ')}</span>}
+    <p class="small muted">
+      <a href={siteHref(`/people/${t.author.username}/`)}>{t.author.displayName}</a> · {t.replies} {t.replies === 1 ? 'reply' : 'replies'} · last post {forumDate(t.lastPostAt)}
+    </p>
+  </li>)}
+</ul> : <p class="muted">{empty}</p>}

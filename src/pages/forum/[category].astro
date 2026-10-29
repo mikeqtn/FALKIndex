@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import ThreadList from '../../components/forum/ThreadList.astro';
+import { listThreads, pageQuery } from '../../../server/forum.ts';
+import { forumPath } from '../../lib/forum.ts';
+const id = Astro.params.category ?? '';
+const page = pageQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined });
+const listing = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(id) && page.success ? await listThreads(id, page.data.page) : null;
+if (!listing) return new Response('Category not found', { status:404 });
+const pages = Math.ceil(listing.total / listing.pageSize);
+---
+<Base forum title={listing.category.name} description={listing.category.description}>
+  <header class="doc-head">
+    <div>
+      <p class="small muted"><a href={forumPath('/')}>Forum</a></p>
+      <h1>{listing.category.name}</h1>
+      <p class="lead">{listing.category.description}</p>
+    </div>
+    <a class="btn" href={forumPath(`/new/?category=${id}`)}>Start a thread</a>
+  </header>
+  <ThreadList threads={listing.threads} empty="No threads yet. Start the first one." />
+  {pages > 1 && <nav class="account-pagination small" aria-label="Pages">
+    {Array.from({ length:pages }, (_, i) => i + 1).map(n => <a href={`?page=${n}`} aria-current={n === listing.page ? 'page' : undefined}>{n}</a>)}
+  </nav>}
+</Base>

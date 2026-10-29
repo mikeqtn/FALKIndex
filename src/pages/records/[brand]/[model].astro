@@ -7,14 +7,17 @@ import EvidenceList from '../../../components/EvidenceList.astro';
 import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate, recordUrl, siteOrigin,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
+import { forumHref } from '../../../lib/forum.ts';
+import { recordThreads } from '../../../../server/forum.ts';
 import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
 if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
+const discussions = (await recordThreads(r.id)).length;
 const noProfile = p.confidence === 'D';
 const details = [
   ['Generation', r.generation], ['Reference', r.reference], ['Caliber', r.caliber], ['Production route', r.route_label],
@@ -178,7 +181,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     <div class="actions">
       <a href={`/records/${r.id}.json`}>Download JSON</a>
       <a href={correctionUrl(r.id)}>Send a correction</a>
-      <a href={discussionUrl(r.id)}>Discuss this record</a>
+      <a href={forumHref(`/records/${r.id}/`)}>Discuss this record{discussions ? ` (${discussions})` : ''}</a>
     </div>
     {r.notes && <p class="small muted note">{r.notes}</p>}
   </section>
