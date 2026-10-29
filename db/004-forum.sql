@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS falk_forum_post (
   thread_id uuid NOT NULL REFERENCES falk_forum_thread(id),
   author_id uuid NOT NULL REFERENCES falk_account(id),
   body text NOT NULL CHECK (char_length(body) BETWEEN 1 AND 20000),
-  created_at timestamptz NOT NULL DEFAULT now(),
+  -- Clock time, not transaction time, so posts written in one transaction keep their order.
+  created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
   edited_at timestamptz,
   hidden_at timestamptz,
   hidden_by uuid REFERENCES falk_account(id),
