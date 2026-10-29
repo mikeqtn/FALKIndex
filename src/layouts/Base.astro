@@ -2,9 +2,15 @@
 import '../styles/global.css';
 import '../styles/accounts.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
-import { correctionUrl, getCatalogue } from '../lib/data.ts';
+import { correctionUrl, getCatalogue, variant } from '../lib/data.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
-const { methodology } = await getCatalogue(Astro.locals);
+const { methodology, records } = await getCatalogue(Astro.locals);
+// Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
+// fields, in the same order, as the records page searches, so a chosen suggestion always finds its record.
+const suggestJson = JSON.stringify(records.map(r => ({
+  b: r.brandName, m: r.model, v: variant(r),
+  s: [r.brandName, r.model, r.reference, r.caliber, r.generation, r.route_label].filter(Boolean).join(' ').toLowerCase(),
+}))).replaceAll('<', '\\u003c');
 
 interface Props {
   title: string; description?: string; nav?: 'records' | 'archetypes' | 'methodology' | 'sources' | 'data' | 'about';
@@ -75,8 +81,12 @@ const links = [
             </ul>
             <form class="nav-search" action="/records/" method="get" role="search">
               <label class="sr-only" for="nav-q">Search records</label>
-              <input id="nav-q" type="search" name="q" placeholder="Search records" />
+              <input id="nav-q" type="search" name="q" placeholder="Search records" autocomplete="off"
+                role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="nav-suggest" />
               <kbd aria-hidden="true">/</kbd>
+              <ul id="nav-suggest" class="nav-suggest" role="listbox" aria-label="Suggested records" hidden></ul>
+              <p class="sr-only" id="nav-suggest-status" aria-live="polite"></p>
+              <script type="application/json" id="nav-suggest-data" set:html={suggestJson} />
             </form>
             <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false">
               <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
@@ -167,6 +177,62 @@ const links = [
         if (menu && getComputedStyle(menu.querySelector('summary')!).display !== 'none') menu.open = true;
         e.preventDefault(); q.focus();
       });
+      // Header search suggestions: a list under the box as the reader types. Arrow keys move through it, Enter or a
+      // click fills the box with that record and runs the search, Escape closes it. Without script the form still searches.
+      {
+        const input = document.getElementById('nav-q') as HTMLInputElement;
+        const list = document.getElementById('nav-suggest') as HTMLUListElement;
+        const status = document.getElementById('nav-suggest-status')!;
+        const data: { b: string; m: string; v: string; s: string }[] = JSON.parse(document.getElementById('nav-suggest-data')!.textContent!);
+        let shown: typeof data = [];
+        let active = -1;
+        const close = () => { list.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); active = -1; };
+        const choose = (i: number) => {
+          input.value = `${shown[i].b} ${shown[i].m}`;
+          close();
+          input.form!.requestSubmit();
+        };
+        const mark = (i: number) => {
+          active = i;
+          [...list.children].forEach((li, j) => li.setAttribute('aria-selected', String(j === i)));
+          if (i < 0) input.removeAttribute('aria-activedescendant');
+          else { input.setAttribute('aria-activedescendant', `nav-suggest-${i}`); list.children[i].scrollIntoView({ block: 'nearest' }); }
+        };
+        const render = () => {
+          const q = input.value.trim().toLowerCase();
+          if (!q) { close(); status.textContent = ''; return; }
+          const words = q.split(/\s+/);
+          // Every word must appear; names that start with the query come first, then the rest in catalogue order.
+          const starts = (d: typeof data[number]) => d.b.toLowerCase().startsWith(q) || d.m.toLowerCase().startsWith(q) || `${d.b} ${d.m}`.toLowerCase().startsWith(q);
+          shown = data.filter(d => words.every(w => d.s.includes(w)))
+            .sort((a, c) => Number(starts(c)) - Number(starts(a))).slice(0, 8);
+          list.replaceChildren(...(shown.length ? shown.map((d, i) => {
+            const li = document.createElement('li');
+            li.id = `nav-suggest-${i}`; li.setAttribute('role', 'option'); li.setAttribute('aria-selected', 'false');
+            const brand = document.createElement('span'); brand.className = 'ns-brand'; brand.textContent = d.b;
+            const model = document.createElement('span'); model.className = 'ns-model'; model.textContent = d.m;
+            li.append(brand, model);
+            if (d.v) { const v = document.createElement('span'); v.className = 'ns-variant'; v.textContent = d.v; li.append(v); }
+            // pointerdown, not click, so the choice lands before the input loses focus and closes the list.
+            li.addEventListener('pointerdown', e => { e.preventDefault(); choose(i); });
+            return li;
+          }) : [Object.assign(document.createElement('li'), { className: 'ns-empty', textContent: 'No records match. Press Enter to search anyway.' })]));
+          list.hidden = false;
+          input.setAttribute('aria-expanded', 'true');
+          mark(-1);
+          status.textContent = shown.length ? `${shown.length} ${shown.length === 1 ? 'suggestion' : 'suggestions'}` : 'No suggestions';
+        };
+        input.addEventListener('input', render);
+        input.addEventListener('focus', () => { if (input.value.trim()) render(); });
+        input.addEventListener('blur', close);
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && !list.hidden) { e.preventDefault(); close(); return; }
+          if (list.hidden || !shown.length) return;
+          if (e.key === 'ArrowDown') { e.preventDefault(); mark((active + 1) % shown.length); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); mark(active <= 0 ? shown.length - 1 : active - 1); }
+          else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); choose(active); }
+        });
+      }
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle')!;
       const systemDark = matchMedia('(prefers-color-scheme: dark)');
