@@ -379,11 +379,13 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .descriptor h3 { font-size: 22px; font-stretch: 84%; }
   .descriptor p { font-size: 17px; line-height: 1.5; max-width: 72ch; }
   .arch-more { grid-column: 9 / 13; display: flex; flex-direction: column; background: var(--c-surface-2); }
-  .arch-photo { margin: 0; flex: 1; min-height: 140px; }
-  .arch-photo :global(picture) { display: block; height: 100%; }
-  .arch-photo :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* The photo fills whatever height the row has left; out of flow, so its own size never sets the row's height. */
+  .arch-photo { position: relative; margin: 0; flex: 1; min-height: 120px; }
+  .arch-photo :global(picture), .arch-photo :global(img) { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
   .arch-more-text { display: grid; justify-items: start; gap: var(--s-4); padding: var(--s-5) var(--s-6); }
   .arch-more p { font-size: 17px; line-height: 1.5; }
+  .arch-more .btn.secondary { background: var(--c-surface); }
+  .arch-more .btn.secondary:hover { background: var(--c-edge); }
 
   /* Comparison: the argument beside the live tool. */
   .cmp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px var(--s-5); margin-top: var(--s-10); align-items: start; }
@@ -490,7 +492,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .t-name { min-height: 56svh; padding: var(--s-5); }
     .m-stage { aspect-ratio: 4 / 3; }
     .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
-    .arch-photo { flex: none; aspect-ratio: 16 / 7; }
+    .arch-photo { flex: none; aspect-ratio: 5 / 2; }
     .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
     .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ap-text, .ap-pattern { grid-column: 1 / -1; }
