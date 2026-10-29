@@ -71,6 +71,84 @@ claims:
       - CF
     date_checked: 2026-10-21
     editor: falk-index
+  - id: awmu-journal-guilloche
+    statement: The brand says the Mù dial is hand-turned on rose engines in Master Cheng's atelier.
+    excerpt: Featuring our signature écailles de poisson guilloché dial that is hand-turned on rose engines in Master Cheng’s atelier
+    source: atelier-wen-mu-journal
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-journal-pvd
+    statement: The brand says the Mù dial's colour comes from physical vapour deposition, without naming who applies it.
+    excerpt: this is achieved through the use of physical vapour deposition (PVD)
+    source: atelier-wen-mu-journal
+    dimensions:
+      - DH
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-journal-titanium
+    statement: The brand says the Mù's caseback, crown and clasp shell are titanium, without naming the case maker.
+    excerpt: The caseback, crown and clasp shell will also be executed in full-titanium
+    source: atelier-wen-mu-journal
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-hands-supplier
+    statement: The brand says it cancelled a Perception hands order with a new supplier and went back to the supplier it used before.
+    excerpt: We thus decided to cancel the order we had with this new supplier and instead reverted back to the previous one.
+    source: atelier-wen-production-update-2
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-sl1588-exclusive
+    statement: The brand says the SL-1588 in Perception is a Dandong movement made exclusively for it, with modifications to thickness, accuracy, power reserve and finish.
+    excerpt: The SL-1588 is made exclusively for Atelier Wen and includes modifications such as a slightly slimmer profile
+    source: atelier-wen-production-update-2
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-dandong-engraving
+    statement: The brand says Dandong engraves the Perception movement bridges, and that it paid Dandong to add more engraving.
+    excerpt: in exchange of a relatively small premium, Dandong agreed to add extra content.
+    source: atelier-wen-production-update-2
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-v2-refinished
+    statement: The brand says Perception movements from the V2 batch on were refinished with côtes de Genève and more anglage, without saying who does the work.
+    excerpt: The movements have therefore been completely refinished, now-decorated with a circular côtes de Genève with more pronounced anglage than before.
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - CF
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-v2-bracelet
+    statement: The brand says Perception V2 bracelets gained hand-finished chamfers on the inner link edges, without saying who does the work.
+    excerpt: introducing hand-finished chamfers on all the inner edges of each individual link
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: awmu-hrili-testing
+    statement: The brand says Perception V2 movements are tested with the Horological Research Institute of Light Industry (HRILI).
+    excerpt: We have implemented new and rigorous testing measures with the Horological Research Institute of Light Industry (HRILI).
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: ai-draft
 provenance:
   - dimension: MA
     component: Movement (SL1588A, Peacock)
@@ -80,18 +158,22 @@ provenance:
     claims:
       - awmu-sl1588a
       - awmu-peacock-customised
+      - awmu-sl1588-exclusive
   - dimension: MM
     component: Movement components
     performer: liaoning-peacock
     relationship: external_specialist
     claims:
       - awmu-sl1588a
+      - awmu-sl1588-exclusive
   - dimension: EX
     component: Titanium case and bracelet
     relationship: unknown
-    note: Case maker not named.
+    note: Case maker not named, in reviews or in the brand's own pages.
     claims:
       - awmu-titanium
+      - awmu-journal-titanium
+      - awmu-v2-bracelet
   - dimension: DH
     component: Guilloché dial (engine-turning)
     performer: cheng-yucai
@@ -102,21 +184,37 @@ provenance:
       - awmu-rose-engine
       - awmu-not-stamped
       - awmu-dial-hours
+      - awmu-journal-guilloche
+  - dimension: DH
+    component: Dial colour (PVD)
+    relationship: unknown
+    note: The brand names the process but not who applies it.
+    claims:
+      - awmu-journal-pvd
   - dimension: DH
     component: Hands
-    relationship: unknown
-    note: No source found.
-    claims: []
+    relationship: external_specialist
+    note: The supplier is not named. The source is a 2022 Perception production update, before the Mù.
+    claims:
+      - awmu-hands-supplier
   - dimension: CF
     component: Movement finishing
     relationship: unknown
-    note: No source found on who decorates the SL1588A.
-    claims: []
+    note: The brand describes the decoration and says Dandong engraves the bridges, but not who does the rest of the finishing.
+    claims:
+      - awmu-v2-refinished
+      - awmu-dandong-engraving
   - dimension: WE
     component: Assembly and regulation
     relationship: unknown
     note: No source found on where the Mù is assembled.
     claims: []
+  - dimension: WE
+    component: Movement testing
+    relationship: external_specialist
+    note: Testing with HRILI, a national research institute; no organization record yet.
+    claims:
+      - awmu-hrili-testing
   - dimension: PD
     component: Design and movement selection
     performer: atelier-wen
@@ -124,6 +222,9 @@ provenance:
     claims:
       - awmu-thinness
       - awmu-peacock-customised
+      - awmu-sl1588-exclusive
+      - awmu-dandong-engraving
+      - awmu-hands-supplier
 profiles:
   - version: 1
     methodology: v0.2
@@ -219,5 +320,107 @@ profiles:
           - claim: awmu-peacock-customised
             stance: supports
             note: Customised movement.
+    classification:
+      - artisan_etablisseur
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "Adds the brand's own pages: the Mù launch journal, Perception production update #2 and the Perception V2 notes. Changes from version 2: DH U → 0; confidence D → C. Three of seven dimensions remain U (EX, CF, WE), and the scored ones rest mostly on primary sources."
+    created_on: 2026-10-29
+    scores:
+      MA:
+        value: 0
+        rationale: The Mù uses Dandong's SL1588A. The brand says the SL-1588 is made exclusively for it with modifications, but Dandong builds it on its own SL1 base, so the architecture is external. Not 1, because no source credits Atelier Wen with movement engineering.
+        evidence:
+          - claim: awmu-sl1588a
+            stance: supports
+            note: Peacock SL1588A.
+          - claim: awmu-sl1588-exclusive
+            stance: supports
+            note: A Dandong derivative made for the brand.
+          - claim: awmu-peacock-customised
+            stance: context
+            note: About the original Perception.
+      MM:
+        value: 0
+        rationale: The complete movement comes from Liaoning Peacock (Dandong), as both a review and the brand's own production update say.
+        evidence:
+          - claim: awmu-sl1588a
+            stance: supports
+            note: External movement.
+          - claim: awmu-sl1588-exclusive
+            stance: supports
+            note: Made by Dandong.
+      EX:
+        value: null
+        rationale: The brand describes titanium case parts and hand-finished bracelet chamfers but never names who makes or finishes them. U until a source names the case maker.
+        evidence:
+          - claim: awmu-journal-titanium
+            stance: context
+            note: Maker not named.
+          - claim: awmu-titanium
+            stance: context
+            note: Maker not named.
+          - claim: awmu-v2-bracelet
+            stance: context
+            note: Hand finishing, performer not named.
+      DH:
+        value: 0
+        rationale: The brand's own Mù page puts the guilloché in Master Cheng's atelier, an external specialist, and its 2022 production update says Perception hands come from an outside supplier. Borderline on the hands, because that source predates the Mù; if Atelier Wen has since made hands itself, DH could reach 1. The PVD colouring is unattributed.
+        evidence:
+          - claim: awmu-journal-guilloche
+            stance: supports
+            note: External dial work, from the brand, for this watch.
+          - claim: awmu-hands-supplier
+            stance: supports
+            note: External hands supplier for Perception.
+          - claim: awmu-dial-cheng
+            stance: supports
+            note: External craftsman.
+          - claim: awmu-journal-pvd
+            stance: context
+            note: Process named, performer not.
+      CF:
+        value: null
+        rationale: The defining craft, rose-engine guilloché, is external. The brand describes movement decoration and hand-chamfered bracelet links without saying who does them, and Dandong engraves the bridges. Borderline between U and 0; U is kept because the finishing performer is undocumented rather than shown to be external.
+        evidence:
+          - claim: awmu-journal-guilloche
+            stance: context
+            note: External craft.
+          - claim: awmu-v2-refinished
+            stance: context
+            note: Performer not named.
+          - claim: awmu-dandong-engraving
+            stance: context
+            note: Engraving by Dandong.
+          - claim: awmu-v2-bracelet
+            stance: context
+            note: Performer not named.
+      WE:
+        value: null
+        rationale: No source says where the Mù is assembled or regulated. Testing with HRILI is external and does not establish assembly.
+        evidence:
+          - claim: awmu-hrili-testing
+            stance: context
+            note: External testing only.
+      PD:
+        value: 3
+        rationale: The brand chose a movement for thinness, specified Dandong's modifications and engravings, and directs its dial and hands suppliers, down to switching hand suppliers for quality. That is substantial supplier-directed development; 4 would need proprietary technical systems.
+        evidence:
+          - claim: awmu-thinness
+            stance: supports
+            note: Movement chosen for thinness.
+          - claim: awmu-sl1588-exclusive
+            stance: supports
+            note: Modifications specified for the brand.
+          - claim: awmu-dandong-engraving
+            stance: supports
+            note: Directs supplier finishing.
+          - claim: awmu-hands-supplier
+            stance: supports
+            note: Directs hands sourcing.
     classification:
       - artisan_etablisseur

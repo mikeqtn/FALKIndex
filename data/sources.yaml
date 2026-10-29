@@ -121,6 +121,30 @@
   tier: primary
   published_on: 2026-06-11
   archived_url: https://web.archive.org/web/20261022171705/https://us.atelierwen.com/blogs/journal/presenting-the-evolution-of-perception
+- id: atelier-wen-mu-journal
+  url: https://eu.atelierwen.com/blogs/journal/perception-mu-millesime-2024
+  title: "Perceive in Purple: Our 2024 Millésime, Perception 睦 (Mù)"
+  publisher: atelier-wen
+  source_type: manufacturer
+  tier: primary
+  published_on: 2024-10-07
+  archived_url: https://web.archive.org/web/20250913081130/https://eu.atelierwen.com/blogs/journal/perception-mu-millesime-2024
+- id: atelier-wen-production-update-2
+  url: https://us.atelierwen.com/blogs/journal/production-update-2
+  title: "Atelier Wen Perception: Production Update #2 - Further Improvements"
+  publisher: atelier-wen
+  source_type: manufacturer
+  tier: primary
+  published_on: 2022-07-08
+  archived_url: https://web.archive.org/web/20250522035409/https://us.atelierwen.com/blogs/journal/production-update-2
+- id: atelier-wen-perception-v2-journal
+  url: https://atelierwen.com/blogs/journal/say-hello-to-perception-v2
+  title: Say hello to Perception V2!
+  publisher: atelier-wen
+  source_type: manufacturer
+  tier: primary
+  published_on: 2023-12-22
+  archived_url: https://web.archive.org/web/20250905153823/https://atelierwen.com/blogs/journal/say-hello-to-perception-v2
 - id: ophion-index
   url: https://ophion-watches.com/oph-index
   publisher: ophion
