@@ -93,6 +93,73 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: osm3861-omega-watchmakers
+    statement: Omega says its watchmakers spent years creating calibre 3861.
+    excerpt: It took our skilled watchmakers years to create this delicate dance of levers, jewels, and wheels. OMEGA’s extraordinary Co-Axial Calibre 3861.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: osm3861-antimagnetic
+    statement: Omega says it conceived its movements with antimagnetic materials such as the silicon balance spring.
+    excerpt: we've conceived movements with antimagnetic materials, such as the silicon balance spring, capable of withstanding the highest fields.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: osm3861-finish-spec
+    statement: Omega specifies a rhodium-plated finish with straight Geneva waves on the bridges, without saying who applies it.
+    excerpt: Rhodium-plated finish, bridges with straight Geneva waves.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - CF
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: osm3861-anodisation
+    statement: Omega credits its own anodisation process for harder aluminium bezel rings, without saying where it is carried out.
+    excerpt: OMEGA’s special anodisation process has achieved aluminium bezel rings that are nearly double as hard as regular versions
+    source: omega-moonwatch-310-30
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: osm3861-water-test
+    statement: Omega says every watch is immersed and pressure-tested to its rated water resistance.
+    excerpt: not just some but all watches are fully immersed in water and pressure is applied up to the point of the guaranteed water resistance.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: omega-biel-assembly
+    statement: Omega says its Biel production building handles watch assembly and bracelets, and combines its assembly and testing under one roof.
+    excerpt: All steps, including T2 (watch assembly), T3 (bracelets), and T4 (shipping), as well as stock and logistics, will now be completed inside the new building.
+    source: omega-biel-factory
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: omega-biel-metas
+    statement: Omega says the Biel building houses its quality control, including METAS testing for Master Chronometer certification.
+    excerpt: the new building has also been created to house OMEGA’s quality and technical control processes, including the METAS testing for Master Chronometer certification.
+    source: omega-biel-factory
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: omega-villeret-calibres
+    statement: Swatch Group says Omega produces its Master Chronometer calibres at its factory in Villeret.
+    excerpt: In 2015, Omega inaugurated its state-of-the art factory and tech space in Villeret, Switzerland where it produces the exclusive timepieces and revolutionary Master Chronometer calibers
+    source: swatch-group-production-sites
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-29
+    editor: ai-draft
 provenance:
   - dimension: MA
     component: Calibre 3861 architecture (1861 lineage with co-axial escapement)
@@ -103,12 +170,14 @@ provenance:
       - osm3861-base
       - osm3861-lemania
       - osm3861-escapement
+      - osm3861-omega-watchmakers
   - dimension: MM
-    component: Movement parts production
+    component: Movement production (Villeret)
     performer: eta
     relationship: in_group
-    note: A 2016 article says ETA runs the Master Co-Axial factory exclusively for Omega. It does not name calibre 3861; needs confirmation for this calibre.
+    note: Swatch Group says Omega produces its Master Chronometer calibres, which include the 3861, at Villeret; a 2016 article says ETA runs that factory exclusively for Omega. Neither says which parts are made there, and the same Swatch Group page captions Villeret an assembly unit.
     claims:
+      - omega-villeret-calibres
       - omega-eta-factory
   - dimension: MM
     component: Co-axial escapement and Si14 silicon hairspring
@@ -125,8 +194,16 @@ provenance:
   - dimension: EX
     component: Bracelet
     relationship: unknown
+    note: Omega lists a bracelet step (T3) in its Biel building, but not whether bracelets are made or only assembled there.
     claims:
       - osm3861-bracelet
+      - omega-biel-assembly
+  - dimension: EX
+    component: Bezel ring (anodised aluminium)
+    relationship: unknown
+    note: Omega names its own anodisation process, but not where it is carried out.
+    claims:
+      - osm3861-anodisation
   - dimension: EX
     component: Crystal (Hesalite or sapphire)
     relationship: unknown
@@ -141,17 +218,28 @@ provenance:
   - dimension: CF
     component: Movement finishing
     relationship: unknown
-    note: No source reached describes who finishes the 3861.
-    claims: []
+    note: Omega specifies the finish but no source says who applies it.
+    claims:
+      - osm3861-finish-spec
   - dimension: WE
     component: Casing and Master Chronometer testing
     performer: omega
     relationship: internal
-    note: METAS supervises; Omega staff perform the tests in Bienne.
+    note: METAS supervises; Omega staff perform the tests in Bienne, where Omega also assembles watches.
     claims:
       - omega-bienne-casing
       - omega-metas-staff
       - osm3861-metas
+      - omega-biel-assembly
+      - omega-biel-metas
+      - osm3861-water-test
+  - dimension: WE
+    component: Movement assembly (Villeret)
+    performer: eta
+    relationship: in_group
+    note: Master Chronometer calibres are produced at Villeret; no source describes regulation or adjustment there.
+    claims:
+      - omega-villeret-calibres
   - dimension: PD
     component: Design and technical development
     performer: omega
@@ -159,6 +247,8 @@ provenance:
     claims:
       - osm3861-base
       - osm3861-escapement
+      - osm3861-omega-watchmakers
+      - osm3861-antimagnetic
 profiles:
   - version: 1
     methodology: v0.2
@@ -260,5 +350,107 @@ profiles:
         value: null
         rationale: No collected claim is tagged PD; the co-axial update is credited under MA.
         evidence: []
+    classification:
+      - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "Adds Omega's own Moonwatch product page and factory story, and Swatch Group's production-sites page. Changes from version 2: MM U → 2; PD U → 4; confidence D → C. Three of seven dimensions remain U (EX, DH, CF)."
+    created_on: 2026-10-29
+    scores:
+      MA:
+        value: 4
+        rationale: Cal. 3861 is essentially the 1861, from the calibre 321 lineage with Lemania roots, fitted with Omega's co-axial escapement and Si14 hairspring; Omega says its own watchmakers spent years creating it. An exclusive calibre with significant inherited architecture, so not 5; borderline with 3.
+        evidence:
+          - claim: osm3861-base
+            stance: supports
+            note: 1861 with co-axial.
+          - claim: osm3861-lemania
+            stance: supports
+            note: Lemania lineage.
+          - claim: osm3861-escapement
+            stance: supports
+            note: Co-axial escapement.
+          - claim: osm3861-omega-watchmakers
+            stance: supports
+            note: Omega credits its watchmakers.
+      MM:
+        value: 2
+        rationale: Swatch Group says Omega produces its Master Chronometer calibres, including the 3861, at Villeret, and a 2016 article says ETA runs that factory exclusively for Omega, so the credit is in-group. No source says which parts are made there, and Swatch Group's own caption calls Villeret an assembly unit, so this is not 3 or higher. Borderline with 3.
+        evidence:
+          - claim: omega-villeret-calibres
+            stance: supports
+            note: Calibres produced in-group for Omega.
+          - claim: omega-eta-factory
+            stance: supports
+            note: ETA runs the factory for Omega.
+          - claim: osm3861-escapement
+            stance: context
+            note: Components named, maker not.
+      EX:
+        value: null
+        rationale: No source names the case, bracelet or crystal maker. Omega lists a bracelet step in its Biel building and its own anodisation process for the bezel, but neither says the parts are made internally.
+        evidence:
+          - claim: osm3861-case
+            stance: context
+            note: Maker not named.
+          - claim: omega-biel-assembly
+            stance: context
+            note: Bracelet step, not shown to be manufacture.
+          - claim: osm3861-anodisation
+            stance: context
+            note: Process named, location not.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence:
+          - claim: osm3861-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: null
+        rationale: Omega specifies a rhodium-plated finish with Geneva waves but no source says who applies it.
+        evidence:
+          - claim: osm3861-finish-spec
+            stance: context
+            note: Specification only.
+      WE:
+        value: 2
+        rationale: Omega assembles and tests its watches in Biel, including METAS testing by its own staff and water-resistance testing of every watch, and Master Chronometer calibres are produced at Villeret. No claim describes movement regulation or adjustment, so not 3; borderline, since Master Chronometer certification implies regulation that no source describes.
+        evidence:
+          - claim: omega-biel-assembly
+            stance: supports
+            note: Watch assembly in Biel.
+          - claim: omega-biel-metas
+            stance: supports
+            note: METAS testing in Biel.
+          - claim: omega-metas-staff
+            stance: supports
+            note: Testing by Omega staff.
+          - claim: osm3861-water-test
+            stance: supports
+            note: Every watch tested.
+          - claim: omega-villeret-calibres
+            stance: context
+            note: Calibre production, regulation not described.
+      PD:
+        value: 4
+        rationale: Omega says its watchmakers spent years creating cal. 3861 and that it conceived its movements around antimagnetic materials such as the silicon balance spring, alongside the co-axial update. That is extensive original technical development with proprietary systems. Not 5, because the co-axial escapement originates with George Daniels and the architecture is inherited.
+        evidence:
+          - claim: osm3861-omega-watchmakers
+            stance: supports
+            note: Development by Omega.
+          - claim: osm3861-antimagnetic
+            stance: supports
+            note: Proprietary antimagnetic system.
+          - claim: osm3861-escapement
+            stance: supports
+            note: Co-axial and Si14.
+          - claim: osm3861-base
+            stance: context
+            note: Inherited architecture.
     classification:
       - industrial_manufacture
