@@ -11,7 +11,7 @@ type Raw = { file: string; value: any };
 
 export function load(dir: string) {
   const files = (sub: string) => readdirSync(join(dir, sub), { recursive: true, encoding: 'utf8' })
-    .filter(f => f.endsWith('.yaml')).sort().map(f => join(sub, f));
+    .filter(f => f.endsWith('.yaml')).sort().map(f => `${sub}/${f.replaceAll('\\', '/')}`); // forward slashes on Windows too, so ids match paths
   const read = (f: string): Raw => ({ file: f, value: parse(readFileSync(join(dir, f), 'utf8')) });
   return {
     methodologies: files('methodology').map(read),
