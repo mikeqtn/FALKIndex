@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { Router } from 'express';
+import { Router, type RequestHandler } from 'express';
 import { z } from 'zod';
 import { getAuth } from '@clerk/express';
 import { profileInput, qualificationOptions } from '../src/accounts/contracts.ts';
@@ -10,6 +10,7 @@ import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
 import { transaction } from './db.ts';
 import review from './review.ts';
+import forum from './forum.ts';
 
 export const api = Router();
 api.use((_req,res,next) => { res.set('Cache-Control','no-store'); next(); });
@@ -77,6 +78,17 @@ api.post('/corrections', async (req,res) => {
   const submission = await transaction(db => saveCorrection(input,db));
   res.status(201).json({submission});
 });
+// Forum posts are never deleted either, so new threads and replies are capped per hour too.
+export const FORUM_THREADS_PER_HOUR = 5;
+export const FORUM_POSTS_PER_HOUR = 30;
+const hourly = (scope: string, limit: number, message: string): RequestHandler => async (req,_res,next) => {
+  const hour = Math.floor(Date.now()/3600000)*60;
+  if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
+  next();
+};
+api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
+api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
 api.use('/admin',admin);
 api.use('/review',review);
+api.use('/forum',forum);
 api.use((_req,_res) => { throw new HttpError(404,'API route not found.'); });
