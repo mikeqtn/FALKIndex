@@ -196,6 +196,8 @@ const descriptorPhoto = photoOf(withDescriptor.filter(r => !shownPhotos.has(r.id
 
   .arch-grid { display: grid; gap: var(--s-5) var(--s-7); }
   @media (min-width: 1200px) { .arch-grid { grid-template-columns: 6fr 5fr; } }
+  .arch-grid > * { min-width: 0; } /* long names such as "Établisseur" must not widen the column on a 320px phone */
+  .arch-words .body { overflow-wrap: anywhere; }
   .arch-figure { padding: var(--s-2) var(--s-5) var(--s-5); border-radius: var(--r-plate); background: var(--c-surface); align-self: start; }
   .arch-figure > :last-child { margin-top: var(--s-3); }
   .ex-h { margin-top: var(--s-6) !important; }
