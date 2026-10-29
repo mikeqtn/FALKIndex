@@ -138,6 +138,19 @@ dl.pairs dd { margin: 0; }
 .nav-search input { width: 15rem; min-height: 36px; padding-right: 32px; background: var(--c-surface); border-color: transparent; font-size: 14px; }
 .nav-search kbd { position: absolute; right: 8px; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; background: var(--c-surface-2); color: var(--c-ink-2); font: 500 12px/1 var(--f-sans); pointer-events: none; }
 .nav-search input:focus + kbd, .nav-search input:not(:placeholder-shown) + kbd { display: none; }
+/* Suggestions: a menu that floats under the search box, so it is the one place a shadow belongs. */
+.site-nav .nav-suggest { /* .site-nav ul styles the nav links as a row; the suggestions are a column */
+  display: block;
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 30; width: max(100%, 19rem); max-height: min(60vh, 420px); overflow-y: auto;
+  margin: 0; padding: 4px; list-style: none; border-radius: var(--r-plate); background: var(--c-surface-2);
+  box-shadow: 0 12px 32px rgb(7 12 21 / .28), 0 2px 6px rgb(7 12 21 / .16); /* taste-skill-ignore: a floating menu */
+}
+.nav-suggest li { display: grid; gap: 1px; padding: var(--s-2) var(--s-3); border-radius: var(--r-control); cursor: pointer; }
+.nav-suggest li[aria-selected="true"], .nav-suggest li[role="option"]:hover { background: var(--c-surface); }
+.nav-suggest .ns-brand { font-size: 13px; color: var(--c-ink-2); }
+.nav-suggest .ns-model { font-size: 15px; font-weight: 580; line-height: 1.25; color: var(--c-ink); }
+.nav-suggest .ns-variant { font-size: 13px; color: var(--c-ink-2); }
+.nav-suggest .ns-empty { cursor: default; font-size: 14px; color: var(--c-ink-2); }
 @media (max-width: 1099px) {
   .nav-menu { flex: none; margin-left: auto; }
   .nav-menu > summary {
@@ -154,6 +167,7 @@ dl.pairs dd { margin: 0; }
   .site-nav ul a { font-size: 20px; color: var(--c-ink); }
   .site-nav ul a[aria-current="page"]::after { right: auto; width: 100%; bottom: 6px; }
   .nav-search input { width: 100%; }
+  .site-nav .nav-suggest { right: 0; width: auto; margin: 0; }
 }
 .site-nav .account-nav { margin-left: 0; gap: var(--s-4); }
 .site-nav .account-nav a:not(.account-button) { font-size: 15px; color: var(--c-ink-2); }
