@@ -8,6 +8,7 @@ import { publishableKeyFromHost } from '@clerk/shared/keys';
 import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
+import { forumHost } from './middlewares/forumHost.ts';
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
@@ -57,6 +58,7 @@ export function createApp() {
   });
   app.use(securityHeaders);
   app.use(compression());
+  app.use(forumHost());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
   app.use(express.json({limit:'48kb'}));
   app.use(clerkMiddleware((req) => ({
