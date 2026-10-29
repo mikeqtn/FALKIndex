@@ -96,9 +96,11 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
   <section class="arch" id="archetypes" aria-labelledby="arch-h">
     <div class="arch-head" data-rise>
-      <h2 id="arch-h" class="sec-h">A vocabulary for how watches are made</h2>
-      <div class="arch-intro">
+      <div class="arch-title">
+        <h2 id="arch-h" class="sec-h">A vocabulary for how watches are made</h2>
         <p class="arch-lead">Seven scores tell the full story. An archetype gives you the shorthand.</p>
+      </div>
+      <div class="arch-intro">
         <p>FALK groups watches into production archetypes: recognizable patterns across the seven scores, from design-led brands working with outside specialists to manufacturers that make most of their parts themselves. We hope these names become part of everyday collecting, so that knowing a watch's archetype tells you, in broad terms, how it was made.</p>
         <p><b>{NOT_A_RANKING}</b></p>
       </div>
@@ -352,10 +354,12 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
   /* Archetypes: eight cards that select one panel. Without script every panel is shown in turn. */
   .arch { margin-top: var(--s-10); }
-  .arch-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5); align-items: end; }
-  .arch-head .sec-h { grid-column: 1 / 7; max-width: 11em; }
-  .arch-intro { grid-column: 7 / 13; display: grid; gap: var(--s-4); font-size: 18px; line-height: 1.5; max-width: 56ch; }
-  .arch-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; }
+  .arch-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5) var(--s-7); }
+  /* Heading and lead on the left, the body on the right, both from the same top line, so neither side is left empty. */
+  .arch-title { grid-column: 1 / 7; display: grid; align-content: start; gap: var(--s-5); }
+  .arch-head .sec-h { max-width: 11em; }
+  .arch-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; max-width: 30ch; }
+  .arch-intro { grid-column: 7 / 13; display: grid; align-content: start; gap: var(--s-4); padding-top: var(--s-2); font-size: 18px; line-height: 1.5; max-width: 56ch; }
   .arch-intro b { font-weight: 600; }
   .explorer { margin-top: var(--s-8); display: grid; gap: 8px; }
   .arch-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -526,7 +530,9 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .m-stage { aspect-ratio: 4 / 3; }
     .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
     .descriptor { grid-template-columns: 1fr; gap: var(--s-6); }
-    .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
+    .arch-head { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+    .arch-title, .arch-intro { grid-column: 1; }
+    .arch-intro { padding-top: 0; }
     .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ap-text, .ap-pattern { grid-column: 1 / -1; }
     .cmp-text { padding-right: 0; margin-bottom: var(--s-5); }
