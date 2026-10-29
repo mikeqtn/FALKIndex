@@ -849,6 +849,27 @@
   tier: secondary
   published_on: 2016-07-12
   archived_url: https://web.archive.org/web/20260421173445/https://watchesbysjx.com/2016/07/the-pursuit-of-the-perfect-watch-movement-at-omega.html
+- id: omega-moonwatch-310-30
+  url: https://www.omegawatches.com/en-us/watch-omega-speedmaster-moonwatch-professional-co-axial-master-chronometer-chronograph-42-mm-31030425001002
+  title: Moonwatch Professional Speedmaster Steel Master Chronometer Certified Watch 310.30.42.50.01.002
+  publisher: omega
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261013205859/https://www.omegawatches.com/en-us/watch-omega-speedmaster-moonwatch-professional-co-axial-master-chronometer-chronograph-42-mm-31030425001002
+- id: omega-biel-factory
+  url: https://www.omegawatches.com/stories/omegas-newest-factory-is-opened
+  title: OMEGA’s newest factory is opened
+  publisher: omega
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20250228145312/https://www.omegawatches.com/stories/omegas-newest-factory-is-opened
+- id: swatch-group-production-sites
+  url: https://www.swatchgroup.com/en/swatch-group/innovation-powerhouse/industry-40/swatch-group-production-sites
+  title: Swatch Group production sites
+  publisher: swatch-group
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261009082432/https://www.swatchgroup.com/en/swatch-group/innovation-powerhouse/industry-40/swatch-group-production-sites
 - id: rolex-professionalwatches-124060
   url: https://professionalwatches.com/review-rolex-submariner-ref-124060/
   title: "Review: Rolex Submariner Ref. 124060"
