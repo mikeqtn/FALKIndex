@@ -1,7 +1,8 @@
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { planPublish, applyPublish, changedIds, planReferences } from './publish-record.ts';
+import { readFileSync } from 'node:fs';
+import { planPublish, applyPublish, changedIds, planReferences, claimMutable } from './publish-record.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { realm } from '../server/accounts.ts';
 import { pool } from '../server/db.ts';
@@ -87,14 +88,23 @@ test('a new version is planned and applied append-only', async () => {
   } finally { await db.query('ROLLBACK'); db.release(); }
 });
 
+test('the plan and the database agree on what a claim may change', () => {
+  const sql = readFileSync(new URL('../db/003-immutable-claims.sql', import.meta.url), 'utf8');
+  const array = sql.match(/mutable CONSTANT text\[\] := ARRAY\[([^\]]*)\]/)![1];
+  assert.deepEqual([...array.matchAll(/'([^']+)'/g)].map(m => m[1]), claimMutable);
+});
+
 test('the database refuses to edit or delete a published claim', async () => {
-  const claim = evidenced.claims.find(c => c.editor !== 'ai-draft')!;
+  const claim = evidenced.claims.find(c => c.editor !== 'ai-draft');
+  assert.ok(claim, `${evidenced.id} needs a reviewed claim for this test`);
   const db = await pool.connect();
   try {
     await db.query('BEGIN');
     await db.query('SAVEPOINT guard');
-    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"statement":"Rewritten."}' WHERE id=$1`, [claim.id]), /cannot be edited/);
-    await db.query('ROLLBACK TO SAVEPOINT guard');
+    for (const edit of [`payload=payload||'{"statement":"Rewritten."}'`, `payload=payload-'dimensions'`, `id='test-renamed'`, 'source_id=NULL']) {
+      await assert.rejects(db.query(`UPDATE falk_claim SET ${edit} WHERE id=$1`, [claim.id]), /cannot be edited/, edit);
+      await db.query('ROLLBACK TO SAVEPOINT guard');
+    }
     await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"editor":"someone-else"}' WHERE id=$1`, [claim.id]), /cannot be edited/);
     await db.query('ROLLBACK TO SAVEPOINT guard');
     await assert.rejects(db.query('DELETE FROM falk_claim WHERE id=$1', [claim.id]), /never deleted/);
@@ -107,6 +117,8 @@ test('the database refuses to edit or delete a published claim', async () => {
     await db.query('SAVEPOINT draft');
     await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload-'editor' WHERE id='test-ai-claim'`), /cannot be edited/);
     await db.query('ROLLBACK TO SAVEPOINT draft');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"statement":"Rewritten."}' WHERE id='test-ai-claim'`), /cannot be edited/);
+    await db.query('ROLLBACK TO SAVEPOINT draft');
     await db.query(`UPDATE falk_claim SET payload=payload||'{"editor":"tester"}' WHERE id='test-ai-claim'`);
     // Superseding is final: no going back, and the replacement stays recorded.
     await db.query(`UPDATE falk_claim SET payload=payload||'{"status":"superseded","superseded_by":"test-ai-claim"}' WHERE id=$1`, [claim.id]);
@@ -114,5 +126,32 @@ test('the database refuses to edit or delete a published claim', async () => {
     await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"status":"active"}' WHERE id=$1`, [claim.id]), /cannot be edited/);
     await db.query('ROLLBACK TO SAVEPOINT superseded');
     await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload-'superseded_by' WHERE id=$1`, [claim.id]), /cannot be edited/);
+  } finally { await db.query('ROLLBACK'); db.release(); }
+});
+
+test('the database refuses to edit or delete a profile version or its scores', async () => {
+  const profile = evidenced.profiles.find(p => p.status === 'published');
+  assert.ok(profile && Object.values(profile.scores).some(s => s.evidence.length), `${evidenced.id} needs a published version with evidence for this test`);
+  const key = [evidenced.id, profile.version];
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    await db.query('SAVEPOINT guard');
+    const refused: [string, RegExp][] = [
+      [`UPDATE falk_profile_version SET payload=payload||'{"change_note":"Rewritten."}' WHERE watch_id=$1 AND version=$2`, /cannot be edited/],
+      [`UPDATE falk_profile_version SET status='draft',payload=payload||'{"status":"draft"}' WHERE watch_id=$1 AND version=$2`, /cannot be edited/],
+      [`UPDATE falk_profile_version SET status='superseded' WHERE watch_id=$1 AND version=$2`, /cannot be edited/],
+      ['DELETE FROM falk_profile_version WHERE watch_id=$1 AND version=$2', /never deleted/],
+      ['UPDATE falk_dimension_score SET value=0 WHERE watch_id=$1 AND version=$2', /append-only/],
+      ['DELETE FROM falk_score_evidence WHERE watch_id=$1 AND version=$2', /append-only/],
+    ];
+    for (const [sql, error] of refused) {
+      await assert.rejects(db.query(sql, key), error, sql);
+      await db.query('ROLLBACK TO SAVEPOINT guard');
+    }
+    await assert.rejects(db.query('TRUNCATE falk_profile_version CASCADE'), /never deleted|append-only/);
+    await db.query('ROLLBACK TO SAVEPOINT guard');
+    // Moving forward, as publishing does, is allowed.
+    await db.query(`UPDATE falk_profile_version SET status='superseded',payload=payload||'{"status":"superseded"}' WHERE watch_id=$1 AND version=$2`, key);
   } finally { await db.query('ROLLBACK'); db.release(); }
 });
