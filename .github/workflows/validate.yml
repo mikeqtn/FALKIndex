@@ -7,14 +7,16 @@ jobs:
   validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 20 # a normal run takes about 2; the default lets a hung step run for 6 hours
+    # Playwright's image ships WebKit and its system libraries; installing them from Ubuntu's mirror took up to 20 minutes.
+    # Keep the tag in step with the playwright version in package.json.
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
     services:
       postgres:
         image: postgres:16
         env: { POSTGRES_PASSWORD: postgres }
-        ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
       # Placeholder Clerk keys: the tests only make anonymous requests, which never reach Clerk.
       CLERK_PUBLISHABLE_KEY: pk_test_ZXhhbXBsZS5jbGVyay5hY2NvdW50cy5kZXYk
       CLERK_SECRET_KEY: sk_test_ci_placeholder
@@ -30,7 +32,6 @@ jobs:
       - run: npm run build
       - run: npm test
       # Every public page on phone-sized screens in WebKit, Safari's engine.
-      - run: npx playwright install --with-deps webkit
       # A browser request with a development Clerk key starts a handshake with Clerk's servers and gets a 400.
       # A production-format placeholder key (for clerk.example.com) skips it; requests stay anonymous.
       - run: npm run test:phone
