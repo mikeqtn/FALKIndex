@@ -1,0 +1,15 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ThreadView from '../../../components/forum/ThreadView.tsx';
+import { pageQuery, threadDetail } from '../../../../server/forum.ts';
+import { forumLinks, hasSession, signInHref } from '../../../lib/forum.ts';
+const id = Astro.params.id ?? '';
+const page = pageQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined });
+// The server renders the public view; a signed-in reader's own and moderator view loads in the browser.
+const detail = /^[0-9a-f-]{36}$/.test(id) && page.success ? await threadDetail(id, page.data.page, null) : null;
+if (!detail) return new Response('Thread not found', { status:404 });
+const first = detail.posts.find(p => p.body)?.body ?? '';
+---
+<Base forum title={detail.thread.title} description={first.slice(0, 160)}>
+  <ThreadView client:load detail={detail} links={forumLinks()} signedIn={hasSession(Astro.request.headers.get('cookie'))} signInHref={signInHref(Astro.url.pathname)} />
+</Base>

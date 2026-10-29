@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import ThreadList from '../../components/forum/ThreadList.astro';
+import { searchForum, searchQuery } from '../../../server/forum.ts';
+const query = searchQuery.safeParse({ q:Astro.url.searchParams.get('q') ?? '' });
+const threads = query.success ? await searchForum(query.data.q) : [];
+---
+<Base forum title="Search the forum">
+  <header class="doc-head"><div><h1>Search the forum</h1></div></header>
+  <form class="forum-search" method="get" role="search">
+    <label class="sr-only" for="forum-q">Search the forum</label>
+    <input id="forum-q" type="search" name="q" value={Astro.url.searchParams.get('q') ?? ''} placeholder="Words in titles and posts" minlength="2" maxlength="200" required />
+    <button class="btn" type="submit">Search</button>
+  </form>
+  {query.success && <ThreadList threads={threads} empty={`No threads match “${query.data.q}”.`} />}
+</Base>

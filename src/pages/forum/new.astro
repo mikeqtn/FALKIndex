@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import NewThreadForm from '../../components/forum/NewThreadForm.tsx';
+import { listCategories } from '../../../server/forum.ts';
+import { getCatalogue } from '../../lib/data.ts';
+import { forumLinks, signInHref } from '../../lib/forum.ts';
+const { records } = await getCatalogue(Astro.locals);
+const categories = (await listCategories()).map(({ id, name }) => ({ id, name }));
+const requested = Astro.url.searchParams.get('category') ?? '';
+const category = categories.some(c => c.id === requested) ? requested : '';
+const found = records.find(r => r.id === Astro.url.searchParams.get('record'));
+const record = found ? { id:found.id, name:`${found.brandName} ${found.model}` } : null;
+---
+<Base forum nav="new" title="Start a thread">
+  <header class="doc-head"><div><h1>Start a thread</h1></div></header>
+  <NewThreadForm client:only="react" categories={categories} category={category} record={record} links={forumLinks()} signInHref={signInHref(Astro.url.pathname + Astro.url.search)} />
+</Base>

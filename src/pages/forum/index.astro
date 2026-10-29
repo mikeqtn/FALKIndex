@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { listCategories } from '../../../server/forum.ts';
+import { forumDate, forumPath } from '../../lib/forum.ts';
+const categories = await listCategories();
+---
+<Base forum nav="forum" title="FALK Forum" description="The FALK Forum: discussion of watches, watchmaking and the FALK Index, under your FALK Index account.">
+  <header class="doc-head">
+    <div>
+      <h1>FALK Forum</h1>
+      <p class="lead">Talk about watches, how they are made, and the FALK Index itself. Anyone can read; post with your FALK Index account.</p>
+    </div>
+  </header>
+  <ul class="forum-list forum-categories">
+    {categories.map(c => <li>
+      <a href={forumPath(`/${c.id}/`)}><strong>{c.name}</strong></a>
+      <p class="small">{c.description}</p>
+      <p class="small muted">{c.threads} {c.threads === 1 ? 'thread' : 'threads'}{c.lastPostAt && ` · last post ${forumDate(c.lastPostAt)}`}</p>
+    </li>)}
+  </ul>
+</Base>

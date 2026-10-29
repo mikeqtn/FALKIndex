@@ -1,0 +1,24 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import ThreadList from '../../../../components/forum/ThreadList.astro';
+import { recordThreads } from '../../../../../server/forum.ts';
+import { getCatalogue } from '../../../../lib/data.ts';
+import { forumPath, siteHref } from '../../../../lib/forum.ts';
+// The FALK Index Discussion category (scripts/forum-seed.ts) is where record threads start.
+const RECORD_CATEGORY = 'falk-index';
+const { records } = await getCatalogue(Astro.locals);
+const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
+if (!r) return new Response('Record not found', { status:404 });
+const threads = await recordThreads(r.id);
+const name = `${r.brandName} ${r.model}`;
+---
+<Base forum title={`Discussing ${name}`} description={`Forum threads about the FALK Index record for the ${name}.`}>
+  <header class="doc-head">
+    <div>
+      <p class="small muted"><a href={forumPath('/')}>Forum</a> · <a href={siteHref(`/records/${r.id}/`)}>The record</a></p>
+      <h1>Discussing the {name}</h1>
+    </div>
+    <a class="btn" href={forumPath(`/new/?category=${RECORD_CATEGORY}&record=${encodeURIComponent(r.id)}`)}>Start a thread about it</a>
+  </header>
+  <ThreadList threads={threads} empty="No one has discussed this record yet." />
+</Base>

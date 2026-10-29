@@ -1,30 +1,39 @@
 ---
 import '../styles/global.css';
 import '../styles/accounts.css';
+import '../styles/forum.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import { correctionUrl, getCatalogue } from '../lib/data.ts';
+import { forumCanonical, forumHref, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 const { methodology } = await getCatalogue(Astro.locals);
 
 interface Props {
-  title: string; description?: string; nav?: 'records' | 'archetypes' | 'methodology' | 'sources' | 'data' | 'about';
+  title: string; description?: string; nav?: 'records' | 'archetypes' | 'methodology' | 'sources' | 'data' | 'about' | 'forum' | 'new' | 'replies';
+  forum?: boolean; // a forum.falkindex.com page: forum navigation, and main-site links point back to falkindex.com
   image?: { path: string; alt: string }; // share image (og:image), 1200×630
   ld?: object; // schema.org structured data for this page, rendered as JSON-LD
 }
-const { title, description = 'An evidence database of where the work on a watch is actually done.', nav, ld,
+const { title, description = 'An evidence database of where the work on a watch is actually done.', nav, ld, forum = false,
   image = { path: '/og/site.png', alt: 'FALK Index: where each watch is really made.' } } = Astro.props;
-const pageTitle = title === 'FALK Index' ? title : `${title}, FALK Index`;
+const brand = forum ? 'FALK Forum' : 'FALK Index';
+const pageTitle = title === brand ? title : `${title}, ${brand}`;
 // Absolute URLs need the public domain; the published build sets PUBLIC_SITE_URL (see .replit).
 const site = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
-const canonical = site && `${site}${Astro.url.pathname}`;
+const canonical = forum ? forumCanonical(Astro.url.pathname) : site && `${site}${Astro.url.pathname}`;
+const to = (path: string) => forum ? siteHref(path) : path;
+const forumHrefFromSite = forumHref('/');
 const imageUrl = site && `${site}${image.path}`;
 // JSON-LD is inert data, but a "</script>" inside a string would end the tag, so every < is escaped.
 const ldJson = ld && JSON.stringify({ '@context': 'https://schema.org', ...ld }).replaceAll('<', '\\u003c');
-// Clerk sets __client_uat (possibly with a suffix) to a timestamp after sign-in and 0 after sign-out.
 // Signed-out readers get plain links, so Clerk's scripts load only for people with an account session.
-const signedIn = (Astro.request.headers.get('cookie') ?? '').split(/;\s*/)
-  .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
-const links = [
+const signedIn = hasSession(Astro.request.headers.get('cookie'));
+const links = forum ? [
+  ['forum', forumPath('/'), 'Forum'],
+  ['new', forumPath('/new/'), 'Start a thread'],
+  ...(signedIn ? [['replies', forumPath('/notifications/'), 'Replies'] as const] : []),
+  ['index', siteHref('/'), 'FALK Index'],
+] as const : [
   ['records', '/records/', 'Records'],
   ['archetypes', '/archetypes/', 'Archetypes'],
   ['methodology', '/methodology/', 'Methodology'],
@@ -66,16 +75,16 @@ const links = [
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-nav">
       <nav class="wrap" aria-label="Main">
-        <a class="wordmark" href="/"><span class="mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Index</a>
+        <a class="wordmark" href={forum ? forumPath('/') : '/'}><span class="mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>{brand}</a>
         <details class="nav-menu" open>
           <summary>Menu</summary>
           <div class="nav-links">
             <ul>
               {links.map(([key, href, label]) => <li><a href={href} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
             </ul>
-            <form class="nav-search" action="/records/" method="get" role="search">
-              <label class="sr-only" for="nav-q">Search records</label>
-              <input id="nav-q" type="search" name="q" placeholder="Search records" />
+            <form class="nav-search" action={forum ? forumPath('/search/') : '/records/'} method="get" role="search">
+              <label class="sr-only" for="nav-q">{forum ? 'Search the forum' : 'Search records'}</label>
+              <input id="nav-q" type="search" name="q" placeholder={forum ? 'Search the forum' : 'Search records'} />
               <kbd aria-hidden="true">/</kbd>
             </form>
             <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false">
@@ -111,15 +120,15 @@ const links = [
         <div class="footer-cols">
           <div>
             <h2>The index</h2>
-            <ul><li><a href="/records/">Records</a></li><li><a href="/sources/">Sources</a></li><li><a href="/data/">Data downloads</a></li></ul>
+            <ul><li><a href={to('/records/')}>Records</a></li><li><a href={to('/sources/')}>Sources</a></li><li><a href={to('/data/')}>Data downloads</a></li></ul>
           </div>
           <div>
             <h2>The method</h2>
-            <ul><li><a href="/methodology/">Methodology {methodology.code}</a></li><li><a href="/about/">About the project</a></li></ul>
+            <ul><li><a href={to('/methodology/')}>Methodology {methodology.code}</a></li><li><a href={to('/about/')}>About the project</a></li></ul>
           </div>
           <div>
             <h2>Take part</h2>
-            <ul><li><a href={correctionUrl()}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
+            <ul><li><a href={forum ? forumPath('/') : forumHrefFromSite}>The FALK Forum</a></li><li><a href={to(correctionUrl())}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
           </div>
           <div>
             <h2>Terms</h2>
@@ -128,7 +137,7 @@ const links = [
         </div>
         <div class="footer-base small">
           <p class="muted">Provenance over prestige. Movement photographs via Wikimedia Commons: Nomos DUW 6101 by Anil Öztas (CC BY 4.0 and CC BY-SA 4.0); Omega cal. 1861 and 321 by Shane Lin (CC BY-SA 2.0); escapement and jewels by Hustvedt (CC BY-SA 3.0). Cropped and resized; <a href="/images/movements/CREDITS.txt">sources and licences</a>.</p>
-          <a class="btn secondary" href={correctionUrl()}>Send a correction</a>
+          <a class="btn secondary" href={to(correctionUrl())}>Send a correction</a>
         </div>
       </div>
     </footer>

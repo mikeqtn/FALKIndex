@@ -59,5 +59,3 @@ export const siteOrigin = (url: URL) => import.meta.env.PUBLIC_SITE_URL?.replace
 export const recordUrl = (id: string) => `/records/${id}/`;
 export const orgUrl = (id: string) => `/organizations/${id}/`;
 export const correctionUrl = (id?: string) => `/corrections/${id ? `?record=${encodeURIComponent(id)}` : ''}`;
-/** GitHub Discussions threads that mention a record: its talk page. */
-export const discussionUrl = (id: string) => `https://github.com/mikeqtn/FALKIndex/discussions?discussions_q=${encodeURIComponent(`"${id}"`)}`;

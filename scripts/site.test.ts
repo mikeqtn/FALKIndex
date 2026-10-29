@@ -184,3 +184,15 @@ test('every methodology archetype has plain-English copy and its own section on 
   for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
   assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
 });
+
+test('the forum renders for anonymous readers, and record pages link to their discussions', async () => {
+  const record = dataset.watches.find((w:any) => w.profiles.some((p:any) => p.status==='published')).id;
+  for (const path of ['/forum/', '/forum/search/?q=movement', '/forum/new/', `/forum/records/${record}/`, '/forum/notifications/']) {
+    const response = await fetch(`${base}${path}`);
+    assert.equal(response.status, 200, path);
+    assert.match(await response.text(), /FALK Forum/, path);
+  }
+  for (const path of ['/forum/no-such-category/', '/forum/t/not-a-thread', '/forum/records/no/such-record/'])
+    assert.equal((await fetch(`${base}${path}`)).status, 404, path);
+  assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
+});

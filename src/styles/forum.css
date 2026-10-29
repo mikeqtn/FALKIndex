@@ -1,0 +1,19 @@
+/* The FALK Forum. Built from the site tokens, so it follows light and dark mode. */
+.forum-list { list-style: none; margin: var(--s-5) 0; padding: 0; border-top: var(--edge); }
+.forum-list > li { padding: var(--s-4) 0; border-bottom: var(--edge); }
+.forum-list > li p { margin: var(--s-1) 0 0; }
+.forum-categories > li > a { font-size: 1.1rem; }
+.forum-posts { display: grid; gap: var(--s-5); margin: var(--s-5) 0; }
+.forum-post { padding: var(--s-4) var(--s-5); background: var(--c-surface); border: var(--edge); border-radius: 6px; min-width: 0; }
+.forum-post.hidden { background: var(--c-surface-sunk); }
+.forum-post > header { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-3); }
+.forum-body { overflow-wrap: anywhere; }
+.forum-body p { margin: 0 0 var(--s-3); }
+.forum-body p:last-child { margin-bottom: 0; }
+.forum-post-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; margin-top: var(--s-3); }
+.forum-post-actions button { background: none; border: 0; padding: var(--s-1) 0; min-height: 32px; color: var(--c-action); font: inherit; cursor: pointer; text-decoration: underline; }
+.forum-reply, .forum-form { max-width: 46rem; margin: var(--s-6) 0; }
+.forum-reply textarea, .forum-form textarea, .forum-post textarea { width: 100%; box-sizing: border-box; font: 400 16px/1.5 var(--f-sans); padding: var(--s-3); background: var(--c-page); color: var(--c-ink); border: 1px solid var(--c-ink-2); border-radius: 3px; }
+.forum-search { display: flex; flex-wrap: wrap; gap: var(--s-3); margin: var(--s-5) 0; }
+.forum-search input { flex: 1 1 16rem; min-height: 44px; padding: 0 var(--s-3); font: 400 16px/1 var(--f-sans); background: var(--c-page); color: var(--c-ink); border: 1px solid var(--c-ink-2); border-radius: 3px; }
+.forum-post blockquote, .forum-list blockquote { margin: 0; padding-left: var(--s-3); border-left: 3px solid var(--c-edge); }
