@@ -5,7 +5,7 @@ import CompactStrip from '../components/CompactStrip.astro';
 import ConfidenceMark from '../components/ConfidenceMark.astro';
 import Picture from '../components/Picture.astro';
 import { CONFIDENCE, DIMENSIONS, getCatalogue, recordUrl, siteOrigin } from '../lib/data.ts';
-const { classification, dimension, methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
+const { classification, methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 
 // The home page is a board of tiles fitted edge to edge, like the bridges screwed to a movement's mainplate.
 const infinity = record('jn-shapiro/infinity');
@@ -94,41 +94,16 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     </figure>
   </section>
 
-  <section class="intro" aria-labelledby="intro-h" data-rise>
-    <h2 id="intro-h" class="sr-only">What the index records</h2>
-    <p class="intro-lead">A watch can be designed in one place, machined in another and finished by hand somewhere else. FALK records where each kind of work really happens, and the evidence for it.</p>
-    <div class="intro-cols">
-      <p><b>Seven measures.</b> Movement architecture and manufacturing, the exterior, dial and hands, craft and finishing, watchmaking execution and product development. Each is scored 0 to 5, or U where there is no evidence.</p>
-      <p><b>Never a ranking.</b> Outsourcing to an expert specialist is not inferior to making a part in-house. Darker means more of the work happens inside the brand, not that the watch is better. Scores are never added together.</p>
-      <p><b>Every score sourced.</b> Each measure opens to its rationale and the claims behind it: manufacturer statements, workshop documentation, supplier disclosures and interviews, each with the date it was checked.</p>
-      <p><b>Open to correction.</b> Brands, watchmakers and collectors can send evidence. Every change is versioned, reviewed by an editor and kept in each record's history, so you can see what moved and why.</p>
-    </div>
-  </section>
-
   <section class="dims" aria-labelledby="dims-h">
-    <div class="tile dims-statement" data-rise>
-      <h2 id="dims-h" class="zig"><span>Seven measures,</span><span>never added up</span></h2>
-      <figure class="dims-photo">
-        <Picture src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
-        <figcaption>{photos.omega321.caption}</figcaption>
-      </figure>
-      <div class="dims-foot">
-        <p>Each dimension asks one question about where the work is done. The two ends of every scale are below; the full level guide is in the methodology.</p>
-        <a class="btn" href="/methodology/">Read the methodology</a>
-      </div>
+    <figure class="tile dims-photo" data-rise>
+      <Picture src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
+      <figcaption>{photos.omega321.caption}</figcaption>
+    </figure>
+    <div class="tile dims-tldr" data-rise>
+      <h2 id="dims-h">How to read a profile</h2>
+      <p>Each of the seven bars scores one kind of work from 0 to 5. Darker means more of it happens inside the brand, not that the watch is better. Open any score to see the sources behind it.</p>
+      <a class="btn" href="/methodology/">How scoring works</a>
     </div>
-    <ul class="dims-rows">
-      {DIMENSIONS.map(d => (
-        <li>
-          <h3><a href={`/methodology/#${d.toLowerCase()}`}><b>{d}</b> {dimension[d].label}</a></h3>
-          <p>{dimension[d].question}</p>
-          <dl>
-            <div><dt>0</dt><dd>{dimension[d].levels[0]}</dd></div>
-            <div><dt>5</dt><dd>{dimension[d].levels[5]}</dd></div>
-          </dl>
-        </li>
-      ))}
-    </ul>
   </section>
 
   <section class="tests" aria-labelledby="tests-h">
@@ -288,35 +263,14 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     @keyframes drift { from { transform: scale(1); } to { transform: scale(1.06) translate(-1%, 1%); } }
   }
 
-  /* Intro: a lead line over four run-in columns. */
-  .intro { padding: var(--s-10) 0 var(--s-9); }
-  .intro-lead { font-size: clamp(22px, 2.2vw, 32px); line-height: 1.25; letter-spacing: -0.018em; max-width: 52ch; }
-  .intro-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-5); margin-top: 72px; }
-  .intro-cols p { font-size: 16px; line-height: 1.5; color: var(--c-ink-2); }
-  .intro-cols b { color: var(--c-ink); font-weight: 620; }
-
-  /* Seven measures: a statement tile beside rows that alternate tone, no rules. */
-  .dims { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; }
-  .dims-statement { grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-6); padding: var(--s-6); background: var(--c-surface-2); }
-  .dims-photo { flex: 1; display: flex; flex-direction: column; min-height: 240px; margin: 0 calc(-1 * var(--s-6)); }
+  /* How to read a profile: the movement photograph beside a short summary; the detail lives on /methodology/. */
+  .dims { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
+  .dims-photo { grid-column: 1 / 6; display: flex; flex-direction: column; min-height: 360px; margin: 0; overflow: hidden; }
   .dims-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: 50% 75%; }
   .dims-photo figcaption { display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-6); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
-  .zig { display: grid; font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
-  .zig span:nth-child(2) { text-align: right; }
-  .dims-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--s-5); }
-  .dims-foot p { max-width: 32ch; color: var(--c-ink-2); }
-  .dims-rows { grid-column: 6 / 13; display: grid; margin: 0; padding: 0; list-style: none; border-radius: var(--r-plate); overflow: hidden; }
-  .dims-rows li { display: grid; grid-template-columns: 5fr 4fr 4fr; gap: var(--s-5); padding: var(--s-5) var(--s-5); background: var(--c-surface-sunk); }
-  .dims-rows li:nth-child(even) { background: var(--c-surface); }
-  .dims-rows h3 { font-size: 20px; line-height: 1.2; }
-  .dims-rows h3 a { color: var(--c-ink); text-decoration: none; }
-  .dims-rows h3 a:hover { color: var(--c-action); }
-  .dims-rows h3 b { display: block; font-size: 28px; font-stretch: 62%; font-weight: 700; margin-bottom: 2px; }
-  .dims-rows p { font-size: 16px; line-height: 1.45; }
-  .dims-rows dl { display: grid; gap: var(--s-2); margin: 0; font-size: 14px; line-height: 1.4; color: var(--c-ink-2); }
-  .dims-rows dl div { display: grid; grid-template-columns: 1.4em 1fr; }
-  .dims-rows dt { font-weight: 700; color: var(--c-ink); }
-  .dims-rows dd { margin: 0; }
+  .dims-tldr { grid-column: 6 / 13; display: flex; flex-direction: column; justify-content: space-between; align-items: start; gap: var(--s-6); padding: var(--s-6); background: var(--c-surface-2); }
+  .dims-tldr h2 { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
+  .dims-tldr p { max-width: 44ch; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; }
 
   /* Records that test the method: tabs down the left, bands of records to the right. */
   .tests { padding-top: var(--s-10); }
@@ -421,8 +375,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .t-compare { grid-column: 1 / -1; grid-row: auto; }
     .movement { grid-column: 1 / -1; grid-row: auto; }
     .m-stage { aspect-ratio: 4 / 5; }
-    .intro-cols { grid-template-columns: 1fr 1fr; gap: var(--s-6) var(--s-5); }
-    .dims-statement, .dims-rows { grid-column: 1 / -1; }
+    .dims-photo, .dims-tldr { grid-column: 1 / -1; }
     .tests-body { grid-template-columns: 1fr; margin-top: var(--s-6); }
     .open-lead, .open-data { grid-column: 1 / -1; }
     .tabs { grid-auto-flow: column; grid-auto-columns: minmax(180px, 1fr); overflow-x: auto; }
@@ -443,11 +396,11 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .open-tabs button { justify-items: center; text-align: center; }
     .open-lead { padding: var(--s-5); }
     .pickers { grid-template-columns: 1fr; }
-    .intro { padding: var(--s-9) 0 var(--s-8); }
-    .intro-cols { grid-template-columns: 1fr; margin-top: var(--s-7); }
-    .dims-statement { min-height: 60svh; padding: var(--s-5); }
-    .zig { font-size: 10vw; }
-    .dims-rows li { grid-template-columns: 1fr; gap: var(--s-2); padding: 40px var(--s-5); }
+    .dims { margin-top: var(--s-9); }
+    .dims-photo { min-height: 0; aspect-ratio: 4 / 3; }
+    .dims-tldr { padding: var(--s-5); }
+    .dims-tldr h2 { font-size: 10vw; }
+    .dims-tldr .btn { width: 100%; }
     .band { grid-template-columns: 1fr; gap: var(--s-3); padding: var(--s-4); }
     .band-cls { justify-content: flex-start; text-align: left; }
     .about-note { position: static; width: auto; padding: var(--s-4) 0 0; border-radius: 0; background: none; }
