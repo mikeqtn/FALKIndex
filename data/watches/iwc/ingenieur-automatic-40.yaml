@@ -84,15 +84,103 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: iwci40-press-manufactured
+    statement: IWC calls cal. 32111 "IWC-manufactured", which conflicts with specialist reports that ValFleurier produces it.
+    excerpt: The Ingenieur Automatic 40 is powered by the IWC-manufactured 32111 calibre with a power reserve of 120 hours.
+    source: iwc-ingenieur-40-press
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-29
+    editor: ai-draft
+    status: disputed
+  - id: iwci40-calibre32-developed
+    statement: IWC says its watchmakers developed the calibre 32 family, which conflicts with specialist reports that it is a ValFleurier creation.
+    excerpt: The next challenge for IWC watchmakers was to develop a simpler, basic movement with only time and date functions.
+    source: iwc-journal-mechanical-marvels-2
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+    status: disputed
+  - id: iwci40-press-engineering
+    statement: IWC says it put substantial engineering effort into the case proportions, ergonomics and finishing of the new model.
+    excerpt: we invested a lot of time and effort into engineering a new automatic model with perfect case proportions and ergonomics
+    source: iwc-ingenieur-40-press
+    dimensions:
+      - PD
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwci40-press-middle-link
+    statement: IWC says the model has a newly engineered middle-link bracelet attachment in place of the original's horns.
+    excerpt: the new Ingenieur Automatic 40 features a newly engineered middle-link attachment.
+    source: iwc-ingenieur-40-press
+    dimensions:
+      - PD
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwci40-press-bezel-screws
+    statement: IWC says five functional screws now secure the bezel to the case.
+    excerpt: With the Ingenieur Automatic 40, five screws secure the bezel to the case.
+    source: iwc-ingenieur-40-press
+    dimensions:
+      - PD
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwci40-press-dial
+    statement: IWC says the grid pattern is stamped into the soft-iron dial blank before galvanising, without naming who does it.
+    excerpt: it is stamped into the soft iron blank before it is galvanised.
+    source: iwc-ingenieur-40-press
+    dimensions:
+      - DH
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwc-cases-from-bars
+    statement: IWC says its stainless-steel and titanium cases are machined from bars on its CNC lathes and milling machines.
+    excerpt: Stainless-steel and titanium cases are made from bars, specially produced for IWC, which are machined on CNC lathe and milling machines to an accuracy of one-hundredth of a millimetre.
+    source: iwc-manufacture-process
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwc-cases-ingenieur
+    statement: IWC's case-making description names the Ingenieur cases as an example of its milling work.
+    excerpt: to create the complex open surfaces, such as those on the cases of the Ingenieur watches.
+    source: iwc-manufacture-process
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwc-case-finishing
+    statement: IWC says its case production grinds, polishes, satin-finishes and blasts the case surfaces, and specialists add decoration such as circular graining.
+    excerpt: Specialists now apply decorative surfaces such as circular graining to certain parts of the case, including places not visible from outside.
+    source: iwc-manufacture-process
+    dimensions:
+      - CF
+    date_checked: 2026-10-29
+    editor: ai-draft
+  - id: iwc-casing-up
+    statement: IWC says its specialists mount dials and hands on the timed and regulated movement and case it.
+    excerpt: specialists mount the dials on the fully timed and regulated movement by hand or using special tools.
+    source: iwc-manufacture-process
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: ai-draft
 provenance:
   - dimension: MA
     component: Cal. 32111 base architecture
     performer: valfleurier
     relationship: in_group
-    note: ValFleurier is owned by Richemont, IWC's parent.
+    note: ValFleurier is owned by Richemont, IWC's parent. IWC's own pages say its watchmakers developed the calibre 32 family and call cal. 32111 IWC-manufactured; the two accounts conflict.
     claims:
       - iwci40-valfleurier
       - iwci40-32000-family
+      - iwci40-calibre32-developed
+      - iwci40-press-manufactured
   - dimension: MM
     component: Movement parts
     performer: valfleurier
@@ -101,6 +189,7 @@ provenance:
     claims:
       - iwci40-valfleurier
       - iwci40-merishausen-parts
+      - iwci40-press-manufactured
   - dimension: MM
     component: Silicon escape wheel and pallet lever
     relationship: unknown
@@ -108,11 +197,14 @@ provenance:
       - iwci40-silicon
   - dimension: EX
     component: Case with soft-iron inner cage
-    relationship: unknown
-    note: IWC produces cases at Merishausen, but no source ties this model's case to that workshop.
+    performer: iwc
+    relationship: internal
+    note: IWC says it machines all its stainless-steel and titanium cases from bars, and names the Ingenieur cases as an example. Brand-wide, but universal for this case material.
     claims:
       - iwci40-case
       - iwci40-merishausen-cases
+      - iwc-cases-from-bars
+      - iwc-cases-ingenieur
   - dimension: EX
     component: Integrated bracelet
     relationship: unknown
@@ -121,14 +213,23 @@ provenance:
   - dimension: DH
     component: Stamped soft-iron grid dial
     relationship: unknown
+    note: IWC describes the process but not who carries it out.
     claims:
       - iwci40-dial
+      - iwci40-press-dial
   - dimension: DH
     component: Hands
     relationship: unknown
     claims: []
   - dimension: CF
-    component: Finishing
+    component: Case finishing and decoration
+    performer: iwc
+    relationship: internal
+    note: Part of IWC's case production, described for all its cases.
+    claims:
+      - iwc-case-finishing
+  - dimension: CF
+    component: Movement finishing
     relationship: unknown
     claims: []
   - dimension: WE
@@ -137,13 +238,23 @@ provenance:
     note: IWC has a movement assembly department, but no source says where cal. 32111 or this model is assembled.
     claims:
       - iwci40-merishausen-assembly
+  - dimension: WE
+    component: Dial, hands and casing up
+    performer: iwc
+    relationship: internal
+    note: IWC describes casing up by its specialists for all its watches.
+    claims:
+      - iwc-casing-up
   - dimension: PD
     component: Product design (reworking of the Genta Ingenieur SL)
     performer: iwc
     relationship: internal
-    note: No source names the design team; the model is an IWC reworking of the 1976 Genta design.
+    note: IWC describes re-engineering the case, bracelet attachment and bezel fixing of the 1976 Genta design.
     claims:
       - iwci40-genta
+      - iwci40-press-engineering
+      - iwci40-press-middle-link
+      - iwci40-press-bezel-screws
 profiles:
   - version: 1
     methodology: v0.2
@@ -242,5 +353,101 @@ profiles:
           - claim: iwci40-genta
             stance: context
             note: About the 1976 original.
+    classification:
+      - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: draft
+    editor: ai-draft
+    change_note: "Adds IWC's Ingenieur Automatic 40 press release, its manufacture-process page and its movement journal. Changes from version 2: EX U → 2; CF U → 1; WE U → 2; PD U → 3; confidence D → C. Two of seven dimensions remain U (MM, DH). IWC's own claims about cal. 32111 conflict with specialist reports and are marked disputed."
+    created_on: 2026-10-29
+    scores:
+      MA:
+        value: 1
+        rationale: Two specialist reports say cal. 32111 is a variant of a ValFleurier movement, in-group at Richemont. IWC's own pages say its watchmakers developed the calibre 32 family and call the 32111 IWC-manufactured, which contradicts them; until a source settles who designed it, the score stays on the specific reports. Borderline with 0, and could rise if IWC's development claim is confirmed.
+        evidence:
+          - claim: iwci40-valfleurier
+            stance: supports
+            note: ValFleurier origin.
+          - claim: iwci40-32000-family
+            stance: supports
+            note: Produced by ValFleurier.
+          - claim: iwci40-calibre32-developed
+            stance: contradicts
+            note: IWC says its watchmakers developed it.
+      MM:
+        value: null
+        rationale: Specialist reports put production at ValFleurier, while IWC calls the 32111 IWC-manufactured. No source says where its parts are made, and IWC's Merishausen parts production is described for its own calibre families. U until the conflict is resolved.
+        evidence:
+          - claim: iwci40-press-manufactured
+            stance: context
+            note: Disputed brand claim.
+          - claim: iwci40-valfleurier
+            stance: context
+            note: ValFleurier origin.
+          - claim: iwci40-merishausen-parts
+            stance: context
+            note: Not tied to this calibre.
+      EX:
+        value: 2
+        rationale: IWC says it machines all its stainless-steel and titanium cases from bars and names the Ingenieur cases as an example, so the case is internal. No source names the bracelet maker, so not 3.
+        evidence:
+          - claim: iwc-cases-from-bars
+            stance: supports
+            note: Universal for steel and titanium cases.
+          - claim: iwc-cases-ingenieur
+            stance: supports
+            note: Names Ingenieur cases.
+          - claim: iwci40-merishausen-cases
+            stance: context
+            note: Case production site.
+          - claim: iwci40-bracelet
+            stance: context
+            note: Bracelet maker not named.
+      DH:
+        value: null
+        rationale: IWC describes the stamped, galvanised grid dial but no source names who makes the dial or the hands.
+        evidence:
+          - claim: iwci40-press-dial
+            stance: context
+            note: Process, not performer.
+          - claim: iwci40-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: 1
+        rationale: IWC's case production grinds, polishes, satin-finishes and blasts its cases, with specialists adding circular graining. That is limited decorative handwork on the case, counted here as craft and separately from case manufacture under EX. No source describes movement finishing, so not 2.
+        evidence:
+          - claim: iwc-case-finishing
+            stance: supports
+            note: Internal case finishing.
+      WE:
+        value: 2
+        rationale: IWC says its specialists mount dials and hands on the regulated movement and case every watch. No source says where cal. 32111 is assembled or regulated, so this is casing and assembly, not 3.
+        evidence:
+          - claim: iwc-casing-up
+            stance: supports
+            note: Casing up by IWC.
+          - claim: iwci40-merishausen-assembly
+            stance: context
+            note: Movement assembly not tied to this calibre.
+      PD:
+        value: 3
+        rationale: IWC re-engineered the 1976 Genta design with new case proportions, a newly engineered middle-link bracelet attachment and functional bezel screws. That is bespoke development around a group-supplied calibre; 4 would need proprietary technical systems, which the disputed movement claims cannot yet support.
+        evidence:
+          - claim: iwci40-press-engineering
+            stance: supports
+            note: Case engineering.
+          - claim: iwci40-press-middle-link
+            stance: supports
+            note: New bracelet attachment.
+          - claim: iwci40-press-bezel-screws
+            stance: supports
+            note: Functional bezel screws.
+          - claim: iwci40-genta
+            stance: context
+            note: Original design by Genta.
     classification:
       - industrial_manufacture

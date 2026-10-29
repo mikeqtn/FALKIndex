@@ -724,6 +724,28 @@
   tier: secondary
   published_on: 2018-08-27
   archived_url: https://web.archive.org/web/20260415103102/https://watchesbysjx.com/2018/08/iwc-opens-a-new-manufacture-in-merishausen.html
+- id: iwc-ingenieur-40-press
+  url: https://press.iwc.com/iwc-schaffhausen-revisits-gerald-gentas-iconic-design-with-the-new-ingenieur-automatic-40-en/
+  title: IWC Schaffhausen revisits Gérald Genta's iconic design with the new Ingenieur Automatic 40
+  publisher: iwc
+  source_type: manufacturer
+  tier: primary
+  published_on: 2023-03-27
+  archived_url: https://web.archive.org/web/20260701150812/https://press.iwc.com/iwc-schaffhausen-revisits-gerald-gentas-iconic-design-with-the-new-ingenieur-automatic-40-en/
+- id: iwc-manufacture-process
+  url: https://www.iwc.com/us-en/company/manufacture-process
+  title: Manufacture Watches (IWC)
+  publisher: iwc
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260821152128/https://www.iwc.com/us-en/company/manufacture-process
+- id: iwc-journal-mechanical-marvels-2
+  url: https://www.iwc.com/ae-en/journal/mechanical-marvels-part2
+  title: "IWC Journal: In-house movements - Mechanical Marvels (II)"
+  publisher: iwc
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260821171235/https://www.iwc.com/ae-en/journal/mechanical-marvels-part2
 - id: timeandtide-longines-zulu-time
   url: https://timeandtidewatches.com/longines-spirit-zulu-time/
   title: Longines Spirit Zulu Time (Borna Bošnjak, Time+Tide)
