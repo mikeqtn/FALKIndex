@@ -1,7 +1,119 @@
+---
+version: alpha
+name: FALK-Index
+description: An evidence database of where the work on a watch is done. The look comes from the inside of a movement — rhodium-grey plates, blued-steel ink, one ruby for action, gilt for provisional — set in one condensed grotesque. Seven separate scores, never a total; production archetypes as the shorthand.
+# Machine-readable tokens in the DESIGN.md format (getdesign.md). Values mirror src/styles/global.css, which wins if they ever differ.
+
+colors:
+  page: "#E8EBEF"
+  surface: "#F7F8FA"
+  surface-raised: "#FFFFFF"
+  surface-sunk: "#DCE0E6"
+  edge: "#C9CFD8"
+  ink: "#14233F"
+  ink-muted: "#4A5361"
+  action: "#9C1A33"
+  action-hover: "#7D1428"
+  gilt: "#A07A2C"
+  gilt-tint: "#F1E7D2"
+  level-1: "#D5DCE6"
+  level-2: "#AFBCCF"
+  level-3: "#7F93B0"
+  level-4: "#4A6288"
+  level-5: "#14233F"
+  dark-page: "#0B121E"
+  dark-surface: "#111A2A"
+  dark-surface-raised: "#172238"
+  dark-surface-sunk: "#070C15"
+  dark-ink: "#E8EDF4"
+  dark-ink-muted: "#A0ABBD"
+  dark-action: "#EC7A8E"
+  dark-level-1: "#26375A"
+  dark-level-5: "#DCE2EA"
+
+typography:
+  display:
+    fontFamily: "Archivo Variable, system-ui, sans-serif"
+    fontSize: clamp(48px, 6.4vw, 100px)
+    fontWeight: 640
+    fontStretch: 70%
+    lineHeight: 0.94
+    letterSpacing: -0.035em
+  section:
+    fontFamily: "Archivo Variable"
+    fontSize: clamp(32px, 3.6vw, 52px)
+    fontWeight: 630
+    fontStretch: 74%
+    lineHeight: 1.02
+    letterSpacing: -0.03em
+  lead:
+    fontFamily: "Archivo Variable"
+    fontSize: clamp(19px, 1.7vw, 24px)
+    lineHeight: 1.4
+    letterSpacing: -0.012em
+  body:
+    fontFamily: "Archivo Variable"
+    fontSize: 16px–18px
+    lineHeight: 1.5
+  prose:
+    fontFamily: "Source Serif 4 Variable, Georgia, serif"
+    fontSize: 17px
+    lineHeight: 1.6
+  code:
+    fontFamily: "Archivo Variable"
+    fontSize: 22px
+    fontWeight: 700
+    fontStretch: 62%
+    fontFeature: tabular-nums
+
+rounded:
+  instrument: 2px
+  control: 8px
+  plate: 10px
+
+spacing:
+  s1: 4px
+  s2: 8px
+  s3: 12px
+  s4: 16px
+  s5: 24px
+  s6: 32px
+  s7: 48px
+  s8: 64px
+  s9: 96px
+  s10: 144px
+  tile-gap: 8px
+  page-max: 1280px
+
+components:
+  button-primary:
+    backgroundColor: "{colors.action}"
+    textColor: "{colors.surface}"
+    rounded: "{rounded.control}"
+  button-secondary:
+    backgroundColor: "{colors.surface-raised}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.control}"
+  tile:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.plate}"
+    note: Tiles sit 8px apart on a 12-column board; surfaces step in tone, never in rules or shadows.
+  profile-strip:
+    note: Seven rows, five square segments each, one hue; darker means more internal. U is hatched. No total row.
+  pattern-strip:
+    note: An archetype's observed pattern; seven rows of six marks (0–5), tinted where scores were seen, solid at the most common. Never joined into a shape.
+  archetype-card:
+    backgroundColor: "{colors.surface}"
+    selectedBackground: "{colors.ink}"
+    rounded: "{rounded.plate}"
+---
+
 # FALK Index: Design direction
 
 **Companion to:** `docs/PLAN.md` (screens from §5, rules from §4.2)
 **Status:** Draft for review
+
+> **Archetypes, 29 Oct 2026.** The home page now teaches the production archetypes as the site's consumer vocabulary (§5.1 below), with a reference page at `/archetypes/` (§5.12). Plain-English archetype copy lives once, in `src/lib/archetypes.ts`; the formal definitions stay in the methodology. Archetype score patterns are *observed* from published records (§4.3), never thresholds.
 
 > **Refresh, 21 Oct 2026.** The meanings below still hold (blued-steel ramp, ruby = action, gilt = provisional, hatching = U, no sums).
 > What changed, and where `src/styles/global.css` now overrides the values in this document:
@@ -266,6 +378,16 @@ PD  ▨▨▨▨▨  U   Product development       ← hatched, "Unknown" in tex
 | **Nav** | Wordmark "FALK Index" in Archivo `wdth 68`, `wght 700`, 21px. Links: Records, Methodology, Sources, About; plus a search field that filters records. Active page: ruby 2px underline. On mobile, the links collapse behind a "Menu" button. |
 | **Footer** | Short and plain: methodology version (link), data licence, "No paid placement or sponsored scores", contact, and a "Send a correction" link. |
 
+### 4.3 Archetype components
+
+| Component | Design |
+|---|---|
+| **Pattern strip** (`PatternStrip.astro`) | An archetype's observed pattern, drawn from records whose *main* archetype it is. Seven rows, each a 0–5 scale of six square marks: tinted (`--c-level-2`) across the scores seen, solid (`--c-level-5`) with its numeral at the most common score, hatched when no record has a score. A plain band beside each row ("Usually high", "Usually low", "Varies widely", "Not yet known") is computed from the scores, not authored. Always captioned "Seen across N records where it is the main archetype". U is excluded from every figure, never counted as 0. |
+| **Mini pattern** | Seven 12 × 16px marks in the most-common level's tone, no numerals, decorative (`aria-hidden`). Used on archetype cards and in lists; the words always sit next to it. |
+| **Archetype card** | A tile that selects one archetype (an ARIA tab). Name (22px, `wdth 84`), the one-sentence summary, the mini pattern and a record count. Selected: ink ground, inverse text, the mini pattern on a surface chip so its tones stay readable. No icons, no badges. |
+| **Archetype panel** | Name, summary, "What it generally means", up to two example records (compact strip and confidence), the pattern strip, "Browse N records" (`/records/?cls=…`, counted the way the filter counts) and a link to `/archetypes/#…`. |
+| **Wording** | Archetypes are "descriptions, not rankings", stated wherever they are introduced. Patterns say "typically", "generally", "usually"; nothing says "requires". Archetype names describe production, not ownership. |
+
 ---
 
 ## 5. Screens
@@ -326,6 +448,15 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 
 - **Mobile:** headline (48px) → lead → the two strips stacked as one table with two value columns (Infinity | Resurgence) so they still compare row by row → buttons.
 - **Copy note:** the hero sentence is plain and descriptive, with no slogan. "Provenance over prestige" appears once, in the footer.
+
+**Revised 29 Oct 2026: the home page teaches the vocabulary.** The goal is that a first-time visitor understands what FALK does in 15 seconds and what an archetype is in under a minute. In order:
+
+1. **Hero** (name tile beside the Nomos caseback photograph): "Who really makes your watch?", the supporting sentence directly under it, the "who does what" claim and two actions, "Explore watches" and "How it works".
+2. **Seven measures. One clearer picture.** Three short paragraphs beside one real profile strip (Nomos Tangente neomatik). Links to the methodology; no level descriptions on the home page.
+3. **A vocabulary for how watches are made.** The archetype explorer: eight cards in a 4 × 2 grid (2 columns below 1024px, names only below 640px) selecting one panel (§4.3). Without script every panel is listed in turn. Below it, the Independent Watchmaker descriptor and a tile linking to `/archetypes/`.
+4. **Same maker, two archetypes.** The statement "The scores are the evidence. The archetype is the shorthand.", the Shapiro Infinity (Artisan Atelier) and Resurgence (Integrated Manufacture) explained in two sentences, beside the live compare tool, whose note now names both archetypes.
+5. **Explore the watches.** Search, "Browse all", and every archetype as a link with its mini pattern and count.
+6. **Research you can check.** The open-data tile and record card, then how the site was built (methodology version, AI note, provisional count) with links to Methodology, Sources, Corrections and About.
 
 ### 5.2 Records (Index)
 
@@ -642,6 +773,10 @@ The CSV includes the seven dimension columns with `U` as an empty cell plus a `m
 | **Loading** | None needed (static pages). The Records filters run client-side on the pre-rendered table, with no spinner. |
 | **JavaScript off** | Records shows the full unfiltered table (server-rendered). Evidence accordions are `<details>` elements, so they still open. The correction form posts normally. |
 | **Print** | Record pages print the full strip, summary, all evidence (opened), and the URL with version number. Nav and footer are hidden. |
+
+### 5.12 Production archetypes (`/archetypes/`)
+
+The middle layer: the home page introduces the vocabulary, this page teaches it, the methodology defines it. A header with a movement photograph, a note that archetypes are descriptions not rankings, then a contents list beside: a side-by-side table (each archetype's most common score per measure, as compact cells), one section per archetype (summary, what it generally means, where it meets its neighbours, the formal definition quoted from the methodology, the pattern strip, up to four examples, a real photograph where one of its records has one, "Browse N records"), the Independent Watchmaker descriptor with the records that carry it, and how archetypes are assigned.
 
 ---
 

@@ -1,0 +1,75 @@
+---
+// What an archetype's records show on each dimension: the range seen (tinted) and the most common score (solid, with its numeral).
+// Seven separate scales, never joined into a shape, and never a total. Observed from published records, not a rule.
+import { DIMENSIONS, getCatalogue } from '../lib/data.ts';
+import { BAND_TEXT, type DimPattern } from '../lib/archetypes.ts';
+const { dimension } = await getCatalogue(Astro.locals);
+
+interface Props {
+  pattern: DimPattern[];
+  count: number; // records the pattern is drawn from
+  caption: string;
+  mini?: boolean; // seven small marks for a card; decorative, the panel carries the words
+}
+const { pattern, count, caption, mini = false } = Astro.props;
+const at = (code: string) => pattern.find(p => p.code === code)!;
+---
+{mini ? (
+  <span class="pmini" aria-hidden="true">
+    {DIMENSIONS.map(d => { const p = at(d); return <span class:list={['pm', p.common === null ? 'lu' : `l${p.common}`]} />; })}
+  </span>
+) : (
+  <table class="pstrip">
+    <caption>{caption}</caption>
+    <thead>
+      <tr><td></td><th scope="col"><span class="scale-ends"><span>0</span><span>5</span></span><span class="sr-only">Scores seen</span></th><th scope="col">Pattern</th></tr>
+    </thead>
+    <tbody>
+      {DIMENSIONS.map(d => {
+        const p = at(d);
+        const words = p.known
+          ? `${BAND_TEXT[p.band]}: seen ${p.min === p.max ? p.min : `${p.min} to ${p.max}`}, most often ${p.common}, in ${p.known} of ${count} records`
+          : `Not yet known in any of ${count} records`;
+        return (
+          <tr>
+            <th scope="row"><abbr title={dimension[d].label}>{d}</abbr></th>
+            <td class="marks">
+              <span class="row-marks" aria-hidden="true">
+                {[0, 1, 2, 3, 4, 5].map(n => (
+                  <span class:list={['mk', { lu: !p.known, seen: p.known && n >= p.min! && n <= p.max!, common: n === p.common }]}>{n === p.common ? n : ''}</span>
+                ))}
+              </span>
+              <span class="sr-only">{dimension[d].label}. {words}.</span>
+            </td>
+            <td class="band" aria-hidden="true"><b>{BAND_TEXT[p.band]}</b> <span>{dimension[d].label}</span></td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+)}
+
+<style>
+  .pmini { display: inline-flex; gap: 2px; }
+  .pm { width: 12px; height: 16px; border-radius: 2px; background: var(--c-surface-sunk); }
+  .pm.l1 { background: var(--c-level-1); } .pm.l2 { background: var(--c-level-2); } .pm.l3 { background: var(--c-level-3); }
+  .pm.l4 { background: var(--c-level-4); } .pm.l5 { background: var(--c-level-5); }
+  .pm.lu { background: var(--pattern-unknown); }
+
+  .pstrip { border-collapse: collapse; width: 100%; }
+  .pstrip caption { text-align: left; font-size: 14px; color: var(--c-ink-2); padding-bottom: var(--s-3); }
+  .pstrip thead th { text-align: left; font-size: 13px; font-weight: 500; color: var(--c-ink-2); padding: 0 0 var(--s-2); }
+  .scale-ends { display: flex; justify-content: space-between; width: calc(6 * 22px + 5 * 3px); }
+  .pstrip th[scope="row"] { font: 700 18px/1 var(--f-sans); font-stretch: 62%; text-align: left; padding-right: var(--s-3); width: 2.4em; }
+  .pstrip abbr { text-decoration: none; }
+  .pstrip td, .pstrip th[scope="row"] { height: 38px; }
+  .pstrip td.marks { padding-right: var(--s-4); white-space: nowrap; width: 1%; }
+  .row-marks { display: inline-flex; gap: 3px; vertical-align: middle; }
+  .mk { display: inline-grid; place-items: center; width: 22px; height: 26px; border-radius: 2px; background: var(--c-surface-sunk); font: 700 14px/1 var(--f-sans); font-stretch: 62%; color: var(--c-ink-inverse); }
+  .mk.seen { background: var(--c-level-2); }
+  .mk.common { background: var(--c-level-5); }
+  .mk.lu { background: var(--pattern-unknown); }
+  .pstrip td.band { font-size: 15px; line-height: 1.25; color: var(--c-ink-2); }
+  .pstrip td.band b { display: block; font-weight: 580; color: var(--c-ink); }
+  @media (max-width: 639px) { .pstrip td.band span { display: none; } } /* the code column and screen-reader text still name the measure */
+</style>

@@ -9,6 +9,7 @@ import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, discussionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
+import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
@@ -70,12 +71,13 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     <aside class="plate summary" aria-label="Summary">
       {!noProfile && (
         <div class="cls-block">
-          <h2 class="cls">{classification(p.classification[0], p.methodology).name}</h2>
-          {p.classification.slice(1).map(c => <p class="muted">with {classification(c, p.methodology).name} traits</p>)}
-          <p class="small muted">Classification</p>
+          <h2 class="cls"><a href={archetypeUrl(p.classification[0])}>{classification(p.classification[0], p.methodology).name}</a></h2>
+          {p.classification.slice(1).map(c => <p class="muted">with <a href={archetypeUrl(c)}>{classification(c, p.methodology).name}</a> traits</p>)}
+          {ARCHETYPES[p.classification[0]] && <p class="cls-short">{ARCHETYPES[p.classification[0]].short}</p>}
+          <p class="small"><a href={archetypeUrl(p.classification[0])}>About this production archetype</a></p>
         </div>
       )}
-      {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches.</p>}
+      {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches. <a href={archetypeUrl(DESCRIPTOR.code)}>About this descriptor</a></p>}
       <dl class="facts">
         <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
         <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
@@ -204,6 +206,9 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   .profile-plate { display: grid; gap: var(--s-4); height: 100%; align-content: space-between; }
   .summary { display: grid; align-content: start; gap: var(--s-5); }
   .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
+  .cls a { color: var(--c-ink); text-decoration: none; }
+  .cls a:hover { color: var(--c-action); text-decoration: underline; }
+  .cls-short { font-size: 16px; line-height: 1.45; }
   .cls-block > * + * { margin-top: var(--s-1); }
   .iw { font-size: 15px; line-height: 1.5; padding: var(--s-3) var(--s-4); border-radius: var(--r-control); background: var(--c-surface-2); }
   .facts { display: grid; gap: 0; margin: 0; }

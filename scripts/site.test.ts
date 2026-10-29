@@ -31,7 +31,7 @@ for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) =>
   await snapshot(`/records/${watch.id}/`,`records/${watch.id}/index.html`);
   await snapshot(`/records/${watch.id}.json`,`records/${watch.id}.json`);
 }
-for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up']) await snapshot(`/${route}/`,`${route}/index.html`);
+for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes']) await snapshot(`/${route}/`,`${route}/index.html`);
 const files = [...cache.keys()];
 const read = (f: string) => {
   assert.ok(cache.has(f),`Missing rendered response ${f}`);
@@ -174,4 +174,13 @@ test('sources, supplier and corrections pages are built', { skip }, () => {
   assert.match(corrections, /<form id="correction"[^>]*action="\/api\/corrections"/);
   assert.match(corrections, /stored privately for editors/);
   assert.doesNotMatch(corrections, /github\.com\/mikeqtn\/FALKIndex\/issues\/new|PUBLIC_CORRECTIONS_ENDPOINT/);
+});
+
+test('every methodology archetype has plain-English copy and its own section on /archetypes/, with no aggregate', { skip }, async () => {
+  const { ARCHETYPES } = await import('../src/lib/archetypes.ts');
+  const codes = dataset.methodologies.flatMap((m: any) => m.classifications).filter((c: any) => c.kind === 'archetype').map((c: any) => c.code);
+  assert.deepEqual(Object.keys(ARCHETYPES).sort(), [...new Set(codes)].sort(), 'archetype copy matches the methodology');
+  const page = read(join(dist, 'archetypes/index.html'));
+  for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
+  assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
 });

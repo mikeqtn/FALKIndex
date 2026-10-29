@@ -3,39 +3,47 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import CompactStrip from '../components/CompactStrip.astro';
 import ConfidenceMark from '../components/ConfidenceMark.astro';
+import PatternStrip from '../components/PatternStrip.astro';
 import Picture from '../components/Picture.astro';
 import { CONFIDENCE, DIMENSIONS, getCatalogue, recordUrl, siteOrigin } from '../lib/data.ts';
+import { ARCHETYPES, DESCRIPTOR, NOT_A_RANKING, NOT_OWNERSHIP, archetypeUrl, browseUrl, pattern, plural, recordsOf, taggedWith } from '../lib/archetypes.ts';
 const { classification, methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 
-// The home page is a board of tiles fitted edge to edge, like the bridges screwed to a movement's mainplate.
+// The home page teaches enough to browse: what FALK does, how a profile reads, the archetype vocabulary, one real comparison.
+// The rules themselves stay on /methodology/; the archetypes are taught in full on /archetypes/.
 const infinity = record('jn-shapiro/infinity');
 const resurgence = record('jn-shapiro/resurgence');
+const sample = record('nomos/tangente-neomatik');
 const comparable = records.filter(r => r.profile.confidence !== 'D');
 const origin = siteOrigin(Astro.url);
+const clsName = (r: typeof infinity) => classification(r.profile.classification[0], r.profile.methodology).name;
 const compareData = comparable.map(r => ({
   id: r.id, brand: r.brandName, model: r.model, url: recordUrl(r.id),
-  cls: classification(r.profile.classification[0], r.profile.methodology).name, conf: r.profile.confidence,
-  conf_text: CONFIDENCE[r.profile.confidence],
+  cls: clsName(r), conf: r.profile.confidence, conf_text: CONFIDENCE[r.profile.confidence],
   scores: DIMENSIONS.map(d => r.profile.scores[d].value),
 }));
 const differ = DIMENSIONS.filter(d => infinity.profile.scores[d].value !== resurgence.profile.scores[d].value);
 
-const tests = [
-  { name: 'Design without manufacture', ids: ['fleming/series-1'], note: 'High design and movement authorship, little made in-house.' },
-  { name: 'Craft on a bought movement', ids: ['artur-akmaev/eternal-koi'], note: 'Master craft on an external movement.' },
-  { name: 'Partners or in-house', ids: ['awake/son-mai-guilloche-main', 'anordain/model-1-fume'], note: 'Artisan work done by partners, and artisan work done in-house.' },
-  { name: 'Designed in, made out', ids: ['czapek/antarctique-sxh5'], note: 'Designed in-house, made by partners.' },
-].map(t => ({ ...t, recs: t.ids.map(record) }));
+// Each archetype with its records, the pattern they show, and two examples: settled evidence first, then by name.
+const order = { A: 0, B: 1, C: 2, D: 3 } as const;
+const archetypes = methodology.classifications.filter(c => c.kind === 'archetype').map(c => {
+  const recs = recordsOf(records, c.code);
+  const tagged = taggedWith(records, c.code).length;
+  const examples = [...recs].sort((a, b) => Number(a.profile.is_seed) - Number(b.profile.is_seed) || order[a.profile.confidence] - order[b.profile.confidence]).slice(0, 2);
+  return { ...c, copy: ARCHETYPES[c.code], recs, tagged, examples, pattern: pattern(recs), slug: c.code.replaceAll('_', '-') };
+});
+const descriptor = methodology.classifications.find(c => c.code === DESCRIPTOR.code)!;
 
 // Colour photographs of real movements, openly licensed (credits in the footer and public/images/movements/CREDITS.md).
 // Where the watch is in the index, the caption links to its record; none stands in for a record it is not.
 const photos = {
   caseback: { src: 'nomos-duw-6101-caseback', w: 1600, h: 1600, caption: 'Nomos DUW 6101, Tangente neomatik', href: recordUrl('nomos/tangente-neomatik'), alt: 'The Nomos DUW 6101 automatic movement seen through the caseback of a Tangente neomatik.' },
   omega1861: { src: 'omega-1861', w: 1600, h: 1067, caption: 'Omega cal. 1861, base of the 3861', href: recordUrl('omega/speedmaster-moonwatch-3861'), alt: 'An Omega calibre 1861 chronograph movement, its bridges and jewels exposed.' },
-  jewels: { src: 'escapement-jewels', w: 1600, h: 1754, caption: 'Escapement and jewels, close up', alt: 'A close view of a skeletonised movement: ruby jewels, a pallet fork and gold-toned wheels.' },
   omega321: { src: 'omega-321', w: 1459, h: 1280, caption: 'Omega cal. 321 chronograph', alt: 'An Omega calibre 321 chronograph movement in copper tones.' },
   angled: { src: 'nomos-duw-6101-angled', w: 1600, h: 1067, caption: 'Nomos DUW 6101 through the caseback', href: recordUrl('nomos/tangente-neomatik'), alt: 'A Nomos Tangente neomatik lying face down, its DUW 6101 movement visible through the caseback.' },
 };
+const srcset = (p: { src: string; w: number }) => `${img(p.src, 800)} 800w, ${img(p.src, 1600)} ${Math.min(p.w, 1600)}w`;
+const provisional = records.filter(r => r.profile.is_seed).length;
 const img = (name: string, w: 800 | 1600) => `/images/movements/${name}-${w}.jpg`;
 
 // Open data: three records shown as cards, each a preview of what its page and data carry.
@@ -47,18 +55,131 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 }}>
   <section class="board" aria-labelledby="hero-title">
     <div class="tile t-name">
-      <h1 id="hero-title" class="display">Where each watch is really made</h1>
+      <div class="t-name-head">
+        <h1 id="hero-title" class="display">Who really makes your watch?</h1>
+        <p class="hero-lead">Watchmaking is rarely as simple as “in-house” or “outsourced”. Some brands make nearly everything themselves; others work with specialist movement, dial and case makers and independent artisans.</p>
+      </div>
       <div class="t-name-foot">
-        <p class="lead">An open index of {records.length} watches. Seven measures show where the movement, case, dial, craft, assembly and design work happens, each linked to its sources.</p>
+        <p class="hero-claim"><b>FALK Index documents who does what:</b> an independent, open database of how individual watches are designed, made, finished and assembled, with sources behind every finding.</p>
         <div class="actions">
-          <a class="btn" href="/records/">Browse {records.length} records</a>
-          <a href="/methodology/">How scoring works</a>
+          <a class="btn" href="/records/">Explore watches</a>
+          <a href="#how">How it works</a>
         </div>
       </div>
     </div>
+    <figure class="tile movement" aria-labelledby="movement-cap">
+      <div class="m-stage">
+        <Picture class="m-photo" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 42vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
+      </div>
+      <figcaption class="m-bar">
+        <span id="movement-cap">{photos.caseback.caption}</span>
+        <a href={photos.caseback.href}>Open its record</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-h">
+    <div class="tile how-text" data-rise>
+      <h2 id="how-h" class="sec-h">Seven measures. One clearer picture.</h2>
+      <p class="how-lead">Every watch is examined across seven aspects of production, from movement engineering and parts manufacturing to craft, assembly and product development. Each gets a score from 0 to 5 for how much of that work the brand does itself. Where evidence is missing the score is U, for unknown, never a guess.</p>
+      <p class="how-not"><b>Higher scores don't mean a better watch.</b> Outsourcing to a specialist can be just as deliberate as making a part in-house, and the seven scores are never added up or turned into a ranking.</p>
+      <a class="btn secondary" href="/methodology/">How scoring works</a>
+    </div>
+    <div class="tile how-sample" data-rise>
+      <ProfileStrip caption={`${sample.brandName} ${sample.model}, a real profile`} columns={[{ scores: sample.profile.scores }]} animate />
+      <p class="how-key small muted">Darker means more of that work happens inside the brand. Hatching means unknown.</p>
+      <a class="small" href={recordUrl(sample.id)}>Open the {sample.model} record</a>
+    </div>
+  </section>
+
+  <section class="arch" id="archetypes" aria-labelledby="arch-h">
+    <div class="arch-head" data-rise>
+      <h2 id="arch-h" class="sec-h">A vocabulary for how watches are made</h2>
+      <div class="arch-intro">
+        <p class="arch-lead">Seven scores tell the full story. An archetype gives you the shorthand.</p>
+        <p>FALK groups watches into production archetypes: recognizable patterns across the seven scores, from design-led brands working with outside specialists to manufacturers that make most of their parts themselves. We hope these names become part of everyday collecting, so that knowing a watch's archetype tells you, in broad terms, how it was made.</p>
+        <p><b>{NOT_A_RANKING}</b></p>
+      </div>
+    </div>
+
+    <div class="explorer">
+      <div class="arch-tabs" role="tablist" aria-label="Production archetypes" hidden>
+        {archetypes.map((a, i) => (
+          <button type="button" role="tab" id={`atab-${a.slug}`} aria-controls={`apanel-${a.slug}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+            <b class="at-name">{a.name}</b>
+            <span class="at-short">{a.copy.short}</span>
+            <span class="at-foot"><PatternStrip mini pattern={a.pattern} count={a.recs.length} caption="" /><span>{plural(a.tagged, "record")}</span></span>
+          </button>
+        ))}
+      </div>
+      <div class="arch-panels">
+        {archetypes.map(a => (
+          <article class="tile apanel" role="tabpanel" id={`apanel-${a.slug}`} aria-labelledby={`atab-${a.slug}`}>
+            <div class="ap-text">
+              <h3 class="ap-name">{a.name}</h3>
+              <p class="ap-short">{a.copy.short}</p>
+              <h4>What it generally means</h4>
+              <p>{a.copy.means}</p>
+              <h4>Examples in the index</h4>
+              {a.examples.length ? (
+                <ul class="ap-examples">
+                  {a.examples.map(r => (
+                    <li>
+                      <span class="ap-ex-id"><span class="small muted">{r.brandName}</span><a href={recordUrl(r.id)}>{r.model}</a></span>
+                      <CompactStrip scores={r.profile.scores} />
+                      <ConfidenceMark grade={r.profile.confidence} short />
+                    </li>
+                  ))}
+                </ul>
+              ) : <p class="muted">No published record carries this archetype yet.</p>}
+            </div>
+            <div class="ap-pattern">
+              <h4>Typical score pattern</h4>
+              {a.recs.length ? (
+                <>
+                  <PatternStrip pattern={a.pattern} count={a.recs.length} caption={`Seen across ${plural(a.recs.length, "record")} where it is the main archetype`} />
+                  <p class="small muted">Tinted marks show the scores seen; the solid mark is the most common. A pattern, not a rule: the archetype is assigned from the whole profile and its evidence.</p>
+                </>
+              ) : <p class="muted">A pattern appears once records are published.</p>}
+              <div class="actions">
+                {a.tagged > 0 && <a class="btn" href={browseUrl(a.code)}>Browse {plural(a.tagged, "record")}</a>}
+                <a href={archetypeUrl(a.code)}>More about {a.name}</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="arch-foot">
+      <div class="tile descriptor" data-rise>
+        <h3>{descriptor.name}</h3>
+        <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
+        <p class="muted">{NOT_OWNERSHIP}</p>
+      </div>
+      <div class="tile arch-more" data-rise>
+        <figure class="arch-photo">
+          <Picture src={img(photos.omega321.src, 800)} srcset={srcset(photos.omega321)} sizes="(min-width: 1024px) 30vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
+          <figcaption class="sr-only">{photos.omega321.caption}</figcaption>
+        </figure>
+        <div class="arch-more-text">
+          <p>Borderline cases, every archetype side by side, and their formal definitions.</p>
+          <a class="btn secondary" href="/archetypes/">All production archetypes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp" aria-labelledby="cmp-h">
+    <div class="cmp-text" data-rise>
+      <h2 id="cmp-h" class="sec-h">Same maker, two archetypes</h2>
+      <p class="cmp-statement">The scores are the evidence. The archetype is the shorthand.</p>
+      <p>J.N. Shapiro makes both watches here. The {infinity.model} pairs a dial Josh Shapiro engine-turns himself with a bought-in movement, so it is an <a href={archetypeUrl(infinity.profile.classification[0])}>{clsName(infinity)}</a>. For the {resurgence.model}, the movement, case and dial are all made in the workshop, so it is an <a href={archetypeUrl(resurgence.profile.classification[0])}>{clsName(resurgence)}</a>.</p>
+      <p>Neither is the better watch. They are made differently, which is why FALK classifies watches one at a time rather than brands. Two watches can also share an archetype without identical scores; the full profile explains the details.</p>
+    </div>
 
     <div class="tile t-compare" id="compare">
-      <h2 class="tile-h">Compare two watches</h2>
+      <h3 class="tile-h">Compare any two watches</h3>
       <form class="pickers" aria-label="Choose two watches">
         {[infinity, resurgence].map((sel, i) => (
           <label>
@@ -69,86 +190,51 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
           </label>
         ))}
       </form>
-      <div class="scroll"><ProfileStrip caption="Profiles, side by side" animate marked={differ} columns={[
+      <div class="scroll"><ProfileStrip caption="Profiles, side by side" marked={differ} columns={[
         { label: infinity.model, scores: infinity.profile.scores },
         { label: resurgence.model, scores: resurgence.profile.scores },
       ]} /></div>
       <dl class="compare-cls">
         {[infinity, resurgence].map(r => (
-          <div><dt>{r.model}</dt><dd><span class="cls-name">{classification(r.profile.classification[0], r.profile.methodology).name}</span> <ConfidenceMark grade={r.profile.confidence} /></dd></div>
+          <div><dt>{r.model}</dt><dd><span class="cls-name">{clsName(r)}</span> <ConfidenceMark grade={r.profile.confidence} /></dd></div>
         ))}
       </dl>
-      <p class="compare-note" aria-live="polite">Same maker, different routes: {differ.length} of 7 measures differ.</p>
+      <p class="compare-note" aria-live="polite">Same maker, different archetypes: {differ.length} of 7 measures differ.</p>
       <p class="small compare-links"><a href={recordUrl(infinity.id)}>{infinity.brandName} {infinity.model}</a><a href={recordUrl(resurgence.id)}>{resurgence.brandName} {resurgence.model}</a></p>
       <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
     </div>
-
-    <figure class="tile movement" aria-labelledby="movement-cap">
-      <div class="m-stage">
-        <Picture class="m-photo" src={img(photos.caseback.src, 1600)} srcset={`${img(photos.caseback.src, 800)} 800w, ${img(photos.caseback.src, 1600)} 1600w`} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.caseback.w} height={photos.caseback.h} alt={photos.caseback.alt} />
-      </div>
-      <figcaption class="m-bar">
-        <span id="movement-cap">{photos.caseback.caption}</span>
-        <a href={photos.caseback.href}>Open its record</a>
-      </figcaption>
-    </figure>
   </section>
 
-  <section class="dims" aria-labelledby="dims-h">
-    <figure class="tile dims-photo" data-rise>
-      <Picture src={img(photos.omega321.src, 1600)} srcset={`${img(photos.omega321.src, 800)} 800w, ${img(photos.omega321.src, 1600)} 1459w`} sizes="(min-width: 1024px) 40vw, 100vw" width={photos.omega321.w} height={photos.omega321.h} alt={photos.omega321.alt} loading="lazy" />
-      <figcaption>{photos.omega321.caption}</figcaption>
-    </figure>
-    <div class="tile dims-tldr" data-rise>
-      <h2 id="dims-h">How to read a profile</h2>
-      <p>Each of the seven bars scores one kind of work from 0 to 5. Darker means more of it happens inside the brand, not that the watch is better. Open any score to see the sources behind it.</p>
-      <a class="btn" href="/methodology/">How scoring works</a>
+  <section class="explore" aria-labelledby="explore-h">
+    <div class="tile explore-search" data-rise>
+      <h2 id="explore-h" class="sec-h">Explore the watches</h2>
+      <form class="explore-form" action="/records/" method="get" role="search">
+        <label for="explore-q">Search by brand, model, reference or caliber</label>
+        <div class="explore-row">
+          <input id="explore-q" name="q" type="search" placeholder="Try Tudor, 3861 or guilloché" />
+          <button class="btn" type="submit">Search</button>
+        </div>
+      </form>
+      <a href="/records/">Browse all {records.length} records</a>
+      <figure class="explore-photo">
+        <Picture src={img(photos.omega1861.src, 1600)} srcset={srcset(photos.omega1861)} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.omega1861.w} height={photos.omega1861.h} alt={photos.omega1861.alt} loading="lazy" />
+        <figcaption><a href={photos.omega1861.href}>{photos.omega1861.caption}</a></figcaption>
+      </figure>
     </div>
-  </section>
-
-  <section class="tests" aria-labelledby="tests-h">
-    <div class="tests-head" data-rise>
-      <h2 id="tests-h"><span class="muted">Records that</span> test the method</h2>
-      <a class="btn secondary" href="/records/">Browse all {records.length} records</a>
-    </div>
-    <div class="tests-body">
-      <div class="tabs" role="tablist" aria-label="Test cases" hidden>
-        {tests.map((t, i) => (
-          <button type="button" role="tab" id={`tab-${i}`} aria-controls={`panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
-            <b>{t.name}</b><span>{t.recs.length} {t.recs.length === 1 ? 'record' : 'records'}</span>
-          </button>
+    <nav class="tile explore-by" aria-labelledby="by-h" data-rise>
+      <h3 id="by-h">By archetype</h3>
+      <ul>
+        {archetypes.map(a => (
+          <li><a href={browseUrl(a.code)}><span>{a.name}</span><PatternStrip mini pattern={a.pattern} count={a.recs.length} caption="" /><span class="muted">{a.tagged}</span></a></li>
         ))}
-      </div>
-      <div class="panels">
-        {tests.map((t, i) => (
-          <div class="panel" role="tabpanel" id={`panel-${i}`} aria-labelledby={`tab-${i}`}>
-            <h3 class="panel-h">{t.name}</h3>
-            <p class="panel-note">{t.note}</p>
-            <ul class="bands">
-              {t.recs.map(r => (
-                <li class="band">
-                  <div class="band-id">
-                    <span class="small muted">{r.brandName}</span>
-                    <a href={recordUrl(r.id)}>{r.model}</a>
-                  </div>
-                  <CompactStrip scores={r.profile.scores} />
-                  <div class="band-cls">
-                    <span>{classification(r.profile.classification[0], r.profile.methodology).name}</span>
-                    <ConfidenceMark grade={r.profile.confidence} short />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
+      </ul>
+    </nav>
   </section>
 
   <section class="open" aria-labelledby="open-h">
     <div class="tile open-lead" data-rise>
-      <h2 id="open-h">Open by default</h2>
-      <p class="open-sentence">Every record, claim and source is published as data you can reuse and cite. No paid placement, no sponsored scores.</p>
+      <h2 id="open-h">Research you can check</h2>
+      <p class="open-sentence">Every score opens to the claims and sources behind it. Records are corrected in public and every revision stays in their history. No paid placement, no sponsored scores.</p>
       <ul class="open-facts">
         <li><b data-roll={records.length}>{records.length}</b><span>records</span></li>
         <li><b data-roll={orgs.size}>{orgs.size}</b><span>makers and suppliers</span></li>
@@ -180,7 +266,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
             </header>
             <ProfileStrip caption={`${r.model} profile`} columns={[{ scores: r.profile.scores }]} />
             <dl class="open-meta">
-              <div><dt>Classification</dt><dd>{classification(r.profile.classification[0], r.profile.methodology).name}</dd></div>
+              <div><dt>Archetype</dt><dd><a href={archetypeUrl(r.profile.classification[0])}>{clsName(r)}</a></dd></div>
               <div><dt>Evidence</dt><dd><ConfidenceMark grade={r.profile.confidence} /></dd></div>
               <div><dt>Behind it</dt><dd>{r.claims.length} claims from {sourceCount} sources</dd></div>
             </dl>
@@ -189,41 +275,123 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
         );
       })}
     </div>
-  </section>
-
-  <section class="about" aria-labelledby="about-h">
-    <div class="about-head" data-rise>
-      <h2 id="about-h">How this was built</h2>
-      <p class="lead">The framework and reference dataset were developed in part with AI, which helped structure the method, compare edge cases and draft the handbook. Every profile is meant to be traceable to public sources.</p>
-    </div>
-    <div class="about-row">
-      <figure class="tile about-photo">
-        <Picture src={img(photos.angled.src, 1600)} srcset={`${img(photos.angled.src, 800)} 800w, ${img(photos.angled.src, 1600)} 1600w`} sizes="(min-width: 1024px) 66vw, 100vw" width={photos.angled.w} height={photos.angled.h} alt={photos.angled.alt} loading="lazy" />
-        <figcaption><a href={photos.angled.href}>{photos.angled.caption}</a></figcaption>
-        <p class="about-note">Provisional records come from the v0.2 handbook and are marked in gilt until an editor has attached and checked their evidence. <a href="/about/">More about the project</a></p>
-      </figure>
-      <div class="about-side">
-        <p class="about-facts"><b>{records.length} records</b> from <b>{orgs.size} organizations</b>, citing <b>{sources.size} sources</b>. {records.filter(r => r.profile.is_seed).length} records are still provisional.</p>
-        <div class="tile about-version">
-          <b>{methodology.code}</b>
-          <p>Every score on the site uses methodology {methodology.code}. <a href="/methodology/">Read the handbook</a></p>
-        </div>
-      </div>
+    <figure class="tile research-photo">
+      <Picture src={img(photos.angled.src, 1600)} srcset={srcset(photos.angled)} sizes="(min-width: 1024px) 50vw, 100vw" width={photos.angled.w} height={photos.angled.h} alt={photos.angled.alt} loading="lazy" />
+      <figcaption><a href={photos.angled.href}>{photos.angled.caption}</a></figcaption>
+    </figure>
+    <div class="tile research-links" data-rise>
+      <h3>How this was built</h3>
+      <p>Every score uses methodology <a href="/methodology/">{methodology.code}</a>. The framework and reference dataset were developed in part with AI, which helped structure the method and compare edge cases; every profile is meant to be traceable to public sources.{provisional > 0 && ` ${provisional} ${provisional === 1 ? 'record is' : 'records are'} still provisional and marked in gilt.`}</p>
+      <ul>
+        <li><a href="/methodology/">Methodology</a></li>
+        <li><a href="/sources/">Sources</a></li>
+        <li><a href="/corrections/">Corrections</a></li>
+        <li><a href="/about/">About the project</a></li>
+      </ul>
     </div>
   </section>
 </Base>
 
 <style>
-  /* Board: 12 columns, 8px gaps, rows of 84px. 9 rows = 9 × 84 + 8 × 8 = 820px, so the whole first board fits under the 60px nav at 1440 × 900. */
-  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 84px; gap: 8px; padding-top: 8px; }
+  /* Hero board: the name tile beside a real movement, under the 60px nav at 1440 × 900. */
+  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(560px, calc(100svh - 76px)); gap: 8px; padding-top: 8px; }
   .tile { margin: 0; border-radius: var(--r-plate); background: var(--c-surface); overflow: hidden; }
-  .t-name { grid-column: 1 / 8; grid-row: 1 / 6; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-6); padding: var(--s-6); }
-  .display { font-size: clamp(48px, 6vw, 92px); line-height: 0.94; font-stretch: 70%; font-weight: 640; letter-spacing: -0.035em; max-width: 9.5em; }
-  .t-name-foot { display: grid; gap: var(--s-5); }
-  .t-name-foot .lead { font-size: 18px; max-width: 54ch; color: var(--c-ink-2); }
-  .t-compare { grid-column: 8 / 13; grid-row: 1 / 10; display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-5) var(--s-5) var(--s-5); }
+  .t-name { grid-column: 1 / 8; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-7); padding: var(--s-6); }
+  .display { font-size: clamp(48px, 6.4vw, 100px); line-height: 0.94; font-stretch: 70%; font-weight: 640; letter-spacing: -0.035em; max-width: 8em; }
+  .t-name-head { display: grid; gap: var(--s-6); }
+  .t-name-foot { display: grid; gap: var(--s-4); }
+  .hero-lead { font-size: var(--t-lead); line-height: 1.4; letter-spacing: -0.012em; max-width: 44ch; }
+  .hero-claim { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; max-width: 40ch; }
+  .hero-claim b { font-weight: 620; }
+  .t-name-foot .actions { margin-top: var(--s-3); }
+  .movement { grid-column: 8 / 13; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: #0E1726; }
+  .m-stage { position: relative; overflow: hidden; }
+  .m-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .m-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink); }
+  .m-bar a { font-weight: 560; }
+  @media (prefers-reduced-motion: no-preference) {
+    /* The tile opens like a shutter on load, then the photograph drifts slowly, as if under a loupe. */
+    .m-stage { animation: shutter 1.1s var(--ease) both; }
+    @keyframes shutter { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+    .m-photo { animation: drift 24s ease-in-out 1.1s infinite alternate; }
+    @keyframes drift { from { transform: scale(1); } to { transform: scale(1.06) translate(-1%, 1%); } }
+  }
+
+  /* One heading voice for every section. */
+  .sec-h { font-size: var(--t-h2); line-height: 1.02; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; max-width: 14em; }
+
+  /* Seven measures: the explanation beside one real profile. */
+  .how { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-9); }
+  .how-text { grid-column: 1 / 8; display: flex; flex-direction: column; align-items: start; gap: var(--s-5); padding: var(--s-6); }
+  .how-lead { font-size: var(--t-lead); line-height: 1.4; letter-spacing: -0.012em; max-width: 46ch; }
+  .how-not { font-size: 18px; line-height: 1.45; max-width: 52ch; }
+  .how-not b { font-weight: 620; }
+  .how-text .btn { margin-top: auto; }
+  .how-sample { grid-column: 8 / 13; display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-6) var(--s-5); background: var(--c-surface-2); }
+  .how-sample :global(.strip caption) { font-size: 16px; }
+  .how-sample :global(.strip td.name) { font-size: 14px; }
+  .how-sample :global(.strip .seg) { width: 16px; height: 24px; }
+  .how-key { margin-top: auto; }
+
+  /* Archetypes: eight cards that select one panel. Without script every panel is shown in turn. */
+  .arch { margin-top: var(--s-10); }
+  .arch-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5); align-items: end; }
+  .arch-head .sec-h { grid-column: 1 / 7; max-width: 11em; }
+  .arch-intro { grid-column: 7 / 13; display: grid; gap: var(--s-4); font-size: 18px; line-height: 1.5; max-width: 56ch; }
+  .arch-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; }
+  .arch-intro b { font-weight: 600; }
+  .explorer { margin-top: var(--s-8); display: grid; gap: 8px; }
+  .arch-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .arch-tabs button {
+    display: flex; flex-direction: column; align-items: start; gap: var(--s-3); min-height: 196px; padding: var(--s-5); border: 0; border-radius: var(--r-plate);
+    background: var(--c-surface); color: var(--c-ink); text-align: left; font: inherit; cursor: pointer;
+    transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease), transform var(--d-quick) var(--ease);
+  }
+  .arch-tabs button:hover { background: var(--c-surface-2); }
+  .arch-tabs button:active { transform: translateY(1px); }
+  .at-name { font-size: 22px; line-height: 1.1; font-stretch: 84%; font-weight: 620; letter-spacing: -0.015em; }
+  .at-short { font-size: 16px; line-height: 1.45; }
+  .at-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-3); width: 100%; margin-top: auto; font-size: 13px; color: var(--c-ink-2); }
+  .arch-tabs button[aria-selected="true"] { background: var(--c-ink); color: var(--c-ink-inverse); }
+  .arch-tabs button[aria-selected="true"] .at-foot { color: inherit; opacity: .8; }
+  .arch-tabs button[aria-selected="true"] :global(.pmini) { padding: 3px; border-radius: 4px; background: var(--c-surface); }
+  .arch-panels { display: grid; gap: 8px; }
+  .apanel { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-6); padding: var(--s-6); background: var(--c-surface-2); }
+  .ap-text { grid-column: 1 / 7; display: grid; align-content: start; gap: var(--s-3); }
+  .ap-name { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
+  .ap-short { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; max-width: 40ch; margin-bottom: var(--s-3); }
+  .apanel h4 { margin: var(--s-4) 0 0; font-size: 16px; font-weight: 600; }
+  .ap-text > p { font-size: 18px; line-height: 1.5; max-width: 56ch; }
+  .ap-examples { display: grid; gap: 4px; margin: var(--s-1) 0 0; padding: 0; list-style: none; }
+  .ap-examples li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--s-4); padding: var(--s-3) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); transition: background var(--d-quick) var(--ease); }
+  .ap-examples li:hover { background: var(--c-surface-sunk); }
+  .ap-ex-id { display: grid; }
+  .ap-ex-id a { color: var(--c-ink); font-size: 17px; font-weight: 580; text-decoration: none; }
+  .ap-ex-id a::after { content: ''; position: absolute; inset: 0; }
+  .ap-ex-id a:focus-visible { outline: none; }
+  .ap-examples li:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .ap-pattern { grid-column: 7 / 13; display: grid; align-content: start; gap: var(--s-3); }
+  .ap-pattern h4 { margin-top: 0; }
+  .ap-pattern .actions { margin-top: var(--s-3); }
+  .js-arch .apanel h4:first-of-type { margin-top: var(--s-3); }
+  .arch-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+  .descriptor { grid-column: 1 / 9; display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); }
+  .descriptor h3 { font-size: 22px; font-stretch: 84%; }
+  .descriptor p { font-size: 17px; line-height: 1.5; max-width: 72ch; }
+  .arch-more { grid-column: 9 / 13; display: flex; flex-direction: column; background: var(--c-surface-2); }
+  .arch-photo { margin: 0; flex: 1; min-height: 140px; }
+  .arch-photo :global(picture) { display: block; height: 100%; }
+  .arch-photo :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .arch-more-text { display: grid; justify-items: start; gap: var(--s-4); padding: var(--s-5) var(--s-6); }
+  .arch-more p { font-size: 17px; line-height: 1.5; }
+
+  /* Comparison: the argument beside the live tool. */
+  .cmp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px var(--s-5); margin-top: var(--s-10); align-items: start; }
+  .cmp-text { grid-column: 1 / 7; display: grid; gap: var(--s-4); padding-right: var(--s-5); }
+  .cmp-statement { font-size: clamp(24px, 2.4vw, 34px); line-height: 1.2; letter-spacing: -0.02em; font-weight: 560; margin: var(--s-3) 0; max-width: 20ch; }
+  .cmp-text > p:not(.cmp-statement) { font-size: 18px; line-height: 1.5; max-width: 54ch; }
+  .t-compare { grid-column: 7 / 13; display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-5); }
   .tile-h { font-size: 20px; line-height: 1.2; font-stretch: 92%; }
-  .t-compare > .scroll { flex: none; }
   .pickers { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
   .pickers select { width: 100%; min-height: 40px; background-color: var(--c-surface-2); border-color: transparent; font-size: 14px; text-overflow: ellipsis; }
   .t-compare :global(.strip caption) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -237,81 +405,39 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .t-compare :global(.strip tr.changed > th) { box-shadow: none; padding-left: 0; } /* taste-skill-ignore: removes the gilt edge here */
   .t-compare :global(.strip tr.changed td.name) { color: var(--c-ink); }
   .t-compare :global(.strip td.name .small) { display: none; }
-  .compare-cls { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin: auto 0 0; padding: var(--s-4); border-radius: var(--r-control); background: var(--c-surface-2); }
+  .compare-cls { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin: 0; padding: var(--s-4); border-radius: var(--r-control); background: var(--c-surface-2); }
   .compare-cls dt { font-size: 13px; color: var(--c-ink-2); }
   .compare-cls dd { display: grid; gap: var(--s-2); margin: 2px 0 0; font-size: 16px; font-weight: 560; }
   .compare-cls :global(.conf) { font-size: 14px; font-weight: 420; color: var(--c-ink-2); }
   .compare-cls :global(.conf b) { width: 22px; height: 22px; font-size: 12px; color: var(--c-ink); }
   .compare-note { font-size: 18px; line-height: 1.35; letter-spacing: -0.01em; }
   .compare-links { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); }
-  .photo { position: relative; display: flex; flex-direction: column; }
-  .photo img, .about-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; filter: contrast(1.04); }
-  .photo figcaption, .about-photo figcaption { flex: none; display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-3); background: var(--c-surface-2); font-size: 13px; color: var(--c-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .photo figcaption a, .about-photo figcaption a, .dims-photo figcaption a { color: inherit; text-decoration: none; }
-  .photo figcaption a:hover, .about-photo figcaption a:hover { color: var(--c-ink); text-decoration: underline; }
-  /* Movement tile: a real movement, the work the index records, filling the board's largest tile. */
-  .movement { grid-column: 1 / 8; grid-row: 6 / 10; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: #0E1726; }
-  .m-stage { position: relative; overflow: hidden; }
-  .m-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .m-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-4); padding: var(--s-3) var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink); }
-  .m-bar a { font-weight: 560; }
-  @media (prefers-reduced-motion: no-preference) {
-    /* The tile opens like a shutter on load, then the photograph drifts slowly, as if under a loupe. */
-    .m-stage { animation: shutter 1.1s var(--ease) both; }
-    @keyframes shutter { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
-    .m-photo { animation: drift 24s ease-in-out 1.1s infinite alternate; }
-    @keyframes drift { from { transform: scale(1); } to { transform: scale(1.06) translate(-1%, 1%); } }
-  }
 
-  /* How to read a profile: the movement photograph beside a short summary; the detail lives on /methodology/. */
-  .dims { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
-  .dims-photo { grid-column: 1 / 6; display: flex; flex-direction: column; min-height: 360px; margin: 0; overflow: hidden; }
-  .dims-photo img { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: 50% 75%; }
-  .dims-photo figcaption { display: flex; gap: var(--s-2); align-items: center; height: 32px; padding: 0 var(--s-6); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
-  .dims-tldr { grid-column: 6 / 13; display: flex; flex-direction: column; justify-content: space-between; align-items: start; gap: var(--s-6); padding: var(--s-6); background: var(--c-surface-2); }
-  .dims-tldr h2 { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
-  .dims-tldr p { max-width: 44ch; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; }
+  /* Explore: search, then every archetype as a way in. */
+  .explore { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
+  .explore-search { grid-column: 1 / 7; display: flex; flex-direction: column; align-items: start; gap: var(--s-5); padding: var(--s-6); }
+  .explore-form { display: grid; gap: var(--s-2); width: 100%; }
+  .explore-form label { font-size: 16px; }
+  .explore-photo { display: flex; flex-direction: column; margin: auto calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); width: calc(100% + 2 * var(--s-6)); }
+  .explore-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; }
+  .explore-photo figcaption, .research-photo figcaption { display: flex; align-items: center; height: 32px; padding: 0 var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink-2); }
+  .explore-photo figcaption a, .research-photo figcaption a { color: inherit; text-decoration: none; }
+  .explore-photo figcaption a:hover, .research-photo figcaption a:hover { color: var(--c-ink); text-decoration: underline; }
+  .explore-row { display: flex; gap: var(--s-2); }
+  .explore-row input { flex: 1; min-width: 0; min-height: 48px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-control); background: var(--c-surface-2); color: var(--c-ink); font: inherit; font-size: 17px; }
+  .explore-by { grid-column: 7 / 13; padding: var(--s-5) var(--s-6); background: var(--c-surface-2); }
+  .explore-by h3 { font-size: 20px; margin-bottom: var(--s-3); }
+  .explore-by ul { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; max-width: 520px; }
+  .explore-by a { display: grid; grid-template-columns: minmax(0, 1fr) auto 2.5em; align-items: center; gap: var(--s-4); min-height: 44px; padding: 0 var(--s-3); border-radius: var(--r-control); color: var(--c-ink); text-decoration: none; transition: background var(--d-quick) var(--ease); }
+  .explore-by a:hover { background: var(--c-surface); color: var(--c-action); }
+  .explore-by a .muted { text-align: right; font-variant-numeric: tabular-nums; }
 
-  /* Records that test the method: tabs down the left, bands of records to the right. */
-  .tests { padding-top: var(--s-10); }
-  .tests-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--s-4); }
-  .tests-head h2 { font-size: var(--t-h2); line-height: 1.02; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; max-width: 9em; }
-  .tests-head h2 .muted { display: block; }
-  .tests-body { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s-5); margin-top: 56px; }
-  .tabs { display: grid; align-content: start; gap: 6px; }
-  .tabs button {
-    display: grid; gap: 2px; min-height: 72px; padding: var(--s-3) var(--s-4); border: 0; border-radius: var(--r-control);
-    background: var(--c-surface); color: var(--c-ink); text-align: left; font: inherit; cursor: pointer;
-    transition: background var(--d-quick) var(--ease);
-  }
-  .tabs button b { font-size: 16px; font-weight: 580; }
-  .tabs button span { font-size: 13px; color: var(--c-ink-2); }
-  .tabs button:hover { background: var(--c-surface-2); }
-  .tabs button[aria-selected="true"] { background: var(--c-ink); color: var(--c-ink-inverse); }
-  .tabs button[aria-selected="true"] span { color: inherit; opacity: .75; }
-  .panels { display: grid; gap: var(--s-7); }
-  .js-tabs .panels { gap: 0; }
-  .panel-h { font-size: 20px; }
-  .js-tabs .panel-h { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .panel-note { font-size: var(--t-lead); line-height: 1.3; letter-spacing: -0.012em; margin: var(--s-2) 0 var(--s-5); }
-  .js-tabs .panel-note { margin-top: 0; }
-  .bands { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
-  .band { display: grid; grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1fr); align-items: center; gap: var(--s-5); min-height: 76px; padding: var(--s-3) var(--s-5); border-radius: var(--r-control); background: var(--c-surface); position: relative; transition: background var(--d-quick) var(--ease); }
-  .band:nth-child(even) { background: var(--c-surface-2); }
-  .band:hover { background: var(--c-edge); }
-  .band-id { display: grid; }
-  .band-id a { color: var(--c-ink); font-size: 18px; font-weight: 580; text-decoration: none; }
-  .band-id a::after { content: ''; position: absolute; inset: 0; }
-  .band-id a:focus-visible { outline: none; }
-  .band:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
-  .band-cls { display: flex; justify-content: flex-end; align-items: center; gap: var(--s-3); font-size: 15px; text-align: right; }
-
-  /* Open data: the facts on an engine-turned tile, beside a real excerpt of the data itself. */
+  /* Research: the facts on an engine-turned tile, beside a real excerpt of the data itself. */
   .open { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: var(--s-10); }
   .open-lead { grid-column: 1 / 7; display: flex; flex-direction: column; gap: var(--s-5); padding: var(--s-6); background: #14233F url(/images/guilloche-1600.jpg) 20% 50% / cover; color: #F7F8FA; }
   .open-lead { background-image: image-set(url(/images/guilloche-1600.avif) type("image/avif"), url(/images/guilloche-1600.jpg) type("image/jpeg")); }
   .open-lead h2 { font-size: var(--t-h2); line-height: 1; font-stretch: 74%; font-weight: 640; letter-spacing: -0.03em; }
-  .open-sentence { font-size: 18px; line-height: 1.45; max-width: 40ch; color: #C9D3E2; }
+  .open-sentence { font-size: 18px; line-height: 1.45; max-width: 42ch; color: #C9D3E2; }
   .open-facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-5); margin: auto 0 0; padding: 0; list-style: none; font-size: 16px; color: #C9D3E2; }
   /* A fixed number column, so no label ever sits above the next figure. */
   .open-facts li { display: grid; grid-template-columns: clamp(66px, 5.6vw, 88px) minmax(0, 1fr); align-items: baseline; gap: var(--s-3); }
@@ -348,68 +474,55 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   @media (prefers-reduced-motion: no-preference) {
     .open-card:not([hidden]) { animation: card-in 420ms var(--ease) both; }
     @keyframes card-in { from { opacity: 0; translate: 0 8px; } }
+    .apanel:not([hidden]) { animation: card-in 320ms var(--ease) both; }
   }
-
-  /* How this was built: a wide photograph with a note set into its corner, and a colour tile with the facts. */
-  .about { padding-top: var(--s-10); }
-  .about-head h2 { font-size: var(--t-h2); line-height: 1.02; font-stretch: 74%; font-weight: 630; letter-spacing: -0.03em; }
-  .about-head .lead { margin-top: var(--s-5); max-width: 52ch; }
-  .about-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-4); margin-top: 72px; align-items: start; }
-  .about-photo { grid-column: 1 / 9; position: relative; display: flex; flex-direction: column; }
-  .about-photo img { aspect-ratio: 16 / 10; }
-  .about-note { position: absolute; top: 0; right: 0; width: 320px; padding: var(--s-5); background: var(--c-page); border-radius: 0 0 0 var(--r-plate); font-size: 16px; line-height: 1.5; }
-  .about-side { grid-column: 9 / 13; display: grid; gap: var(--s-5); }
-  /* Engine-turned ground, generated in the palette's own blues; the text stays light in both themes. */
-  .about-version { display: grid; align-content: space-between; gap: var(--s-4); aspect-ratio: 4 / 3; padding: var(--s-5); background: #14233F url(/images/guilloche-1200.jpg) 30% 50% / cover; color: #F7F8FA; }
-  .about-version { background-image: image-set(url(/images/guilloche-1200.avif) type("image/avif"), url(/images/guilloche-1200.jpg) type("image/jpeg")); }
-  .about-version b { font-size: clamp(64px, 7vw, 112px); line-height: .9; font-stretch: 62%; font-weight: 720; letter-spacing: -0.03em; }
-  .about-version p { font-size: 16px; line-height: 1.45; max-width: 26ch; }
-  .about-version a { color: inherit; font-weight: 600; }
-  .about-facts { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; color: var(--c-ink-2); }
-  .about-facts b { font-weight: 600; color: var(--c-ink); }
+  .research-photo { grid-column: 1 / 7; display: flex; flex-direction: column; }
+  .research-photo :global(picture) { display: block; flex: 1; min-height: 0; }
+  .research-photo :global(img) { display: block; width: 100%; height: 100%; min-height: 280px; object-fit: cover; }
+  .research-links { grid-column: 7 / 13; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-5); padding: var(--s-6); }
+  .research-links h3 { font-size: 22px; font-stretch: 84%; }
+  .research-links p { font-size: 18px; line-height: 1.5; max-width: 48ch; }
+  .research-links ul { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: 0; padding: 0; list-style: none; font-size: 16px; font-weight: 560; }
 
   @media (max-width: 1023px) {
-    .board { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
-    .t-name { grid-column: 1 / -1; grid-row: auto; min-height: 56svh; padding: var(--s-5); }
-    .t-name-foot { grid-template-columns: 1fr; }
-    .t-compare { grid-column: 1 / -1; grid-row: auto; }
-    .movement { grid-column: 1 / -1; grid-row: auto; }
-    .m-stage { aspect-ratio: 4 / 5; }
-    .dims-photo, .dims-tldr { grid-column: 1 / -1; }
-    .tests-body { grid-template-columns: 1fr; margin-top: var(--s-6); }
-    .open-lead, .open-data { grid-column: 1 / -1; }
-    .tabs { grid-auto-flow: column; grid-auto-columns: minmax(180px, 1fr); overflow-x: auto; }
-    .about-photo, .about-side { grid-column: 1 / -1; }
-    .about-side { grid-template-columns: 1fr 1fr; align-items: start; margin-top: var(--s-7); }
+    .board { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .t-name, .movement { grid-column: 1 / -1; }
+    .t-name { min-height: 56svh; padding: var(--s-5); }
+    .m-stage { aspect-ratio: 4 / 3; }
+    .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
+    .arch-photo { flex: none; aspect-ratio: 16 / 7; }
+    .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
+    .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ap-text, .ap-pattern { grid-column: 1 / -1; }
+    .cmp-text { padding-right: 0; margin-bottom: var(--s-5); }
   }
   @media (max-width: 639px) {
     .t-name { min-height: 0; gap: var(--s-7); }
     .display { font-size: 12.5vw; }
-    .t-name-foot .actions .btn { width: 100%; }
-    .tabs { grid-auto-flow: row; grid-template-columns: 1fr 1fr; overflow: visible; }
-    .tests, .about { padding-top: var(--s-9); }
-    .open { margin-top: var(--s-9); }
+    .t-name-foot .actions .btn, .how-text .btn, .arch-more .btn { width: 100%; }
+    .how, .arch, .cmp, .explore, .open { margin-top: var(--s-9); }
+    .how-text, .how-sample, .apanel, .explore-search, .explore-by, .open-lead, .research-links { padding: var(--s-5); }
+    .explore-photo { margin: auto calc(-1 * var(--s-5)) calc(-1 * var(--s-5)); width: calc(100% + 2 * var(--s-5)); }
+    .arch-more-text { padding: var(--s-5); }
+    .sec-h { font-size: 10vw; }
+    .arch-tabs button { min-height: 0; padding: var(--s-4); gap: var(--s-2); }
+    .at-name { font-size: 18px; }
+    .at-short { display: none; }
+    .apanel { gap: var(--s-5); }
+    .ap-examples li { grid-template-columns: 1fr auto; }
+    .ap-examples li :global(.cstrip) { grid-column: 1 / -1; grid-row: 2; }
     .compare-cls { grid-template-columns: 1fr; }
+    .pickers { grid-template-columns: 1fr; }
+    .explore-row { flex-direction: column; }
     .open-facts { grid-template-columns: 1fr; }
     .open-meta { grid-template-columns: 1fr 1fr; }
     .open-tabs :global(.cstrip) { display: none; }
     .open-tabs button { justify-items: center; text-align: center; }
-    .open-lead { padding: var(--s-5); }
-    .pickers { grid-template-columns: 1fr; }
-    .dims { margin-top: var(--s-9); }
-    .dims-photo { min-height: 0; aspect-ratio: 4 / 3; }
-    .dims-tldr { padding: var(--s-5); }
-    .dims-tldr h2 { font-size: 10vw; }
-    .dims-tldr .btn { width: 100%; }
-    .band { grid-template-columns: 1fr; gap: var(--s-3); padding: var(--s-4); }
-    .band-cls { justify-content: flex-start; text-align: left; }
-    .about-note { position: static; width: auto; padding: var(--s-4) 0 0; border-radius: 0; background: none; }
-    .about-side { grid-template-columns: 1fr; }
   }
 </style>
 
 <script>
-  // Compare: swap either watch and the two strips, the note and the links follow. Without script the Shapiro pair stays.
+  // Compare: swap either watch and the two strips, the archetypes, the note and the links follow. Without script the Shapiro pair stays.
   const tile = document.getElementById('compare')!;
   const data: { id: string; brand: string; model: string; url: string; cls: string; conf: string; conf_text: string; scores: (number | null)[] }[] =
     JSON.parse(document.getElementById('compare-data')!.textContent!);
@@ -440,8 +553,9 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       });
     });
     const diff = rows.filter((tr, i) => { const d = a.scores[i] !== b.scores[i]; tr.classList.toggle('changed', d); return d; }).length;
-    note.textContent = a.id === b.id ? 'The same watch on both sides. Pick another to compare.'
-      : `${a.brand === b.brand ? 'Same maker, different routes: ' : ''}${diff} of 7 measures differ.`;
+    const kind = a.cls === b.cls ? `both ${a.cls}` : 'different archetypes';
+    const lead = a.brand === b.brand ? `Same maker, ${kind}` : kind[0].toUpperCase() + kind.slice(1);
+    note.textContent = a.id === b.id ? 'The same watch on both sides. Pick another to compare.' : `${lead}: ${diff} of 7 measures differ.`;
   }
   selects.forEach(s => s.addEventListener('change', render));
 
@@ -456,23 +570,31 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     }));
   }
 
-  // Test cases become tabs once script runs; without it every case is listed in full.
-  const tablist = document.querySelector<HTMLElement>('.tabs')!;
-  const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-  const panels = [...document.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
-  const select = (i: number, focus = false) => {
-    tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1; });
-    panels.forEach((p, j) => { p.hidden = i !== j; });
-    if (focus) tabs[i].focus();
-  };
-  tablist.hidden = false;
-  document.querySelector('.tests')!.classList.add('js-tabs');
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => select(i));
-    t.addEventListener('keydown', e => {
-      const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-      if (k) { e.preventDefault(); select((i + k + tabs.length) % tabs.length, true); }
+  // Archetypes: the cards become tabs once script runs; without it every archetype is listed in full.
+  // A link to /#archetypes or a card key opens that archetype; on a phone the panel is brought into view.
+  {
+    const list = document.querySelector<HTMLElement>('.arch-tabs')!;
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...document.querySelectorAll<HTMLElement>('.apanel')];
+    const select = (i: number, focus = false, reveal = false) => {
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1; });
+      panels.forEach((p, j) => { p.hidden = i !== j; });
+      if (focus) tabs[i].focus();
+      if (reveal && matchMedia('(max-width: 1023px)').matches) {
+        const top = panels[i].getBoundingClientRect().top;
+        if (top > innerHeight * 0.6) panels[i].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      }
+    };
+    list.hidden = false;
+    document.querySelector('.arch')!.classList.add('js-arch');
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i, false, true));
+      t.addEventListener('keydown', e => {
+        const cols = getComputedStyle(list).gridTemplateColumns.split(' ').length;
+        const k = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: cols, ArrowUp: -cols, Home: -i, End: tabs.length - 1 - i }[e.key];
+        if (k !== undefined) { e.preventDefault(); select(Math.min(tabs.length - 1, Math.max(0, i + k)), true); }
+      });
     });
-  });
-  select(0);
+    select(0);
+  }
 </script>

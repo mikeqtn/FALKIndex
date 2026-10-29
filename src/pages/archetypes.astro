@@ -1,0 +1,243 @@
+---
+// The middle layer between the home page and the methodology: the home page introduces the vocabulary, this page teaches it,
+// /methodology/ defines it. Copy comes from src/lib/archetypes.ts, definitions from the methodology, patterns from published records.
+import Base from '../layouts/Base.astro';
+import CompactStrip from '../components/CompactStrip.astro';
+import ConfidenceMark from '../components/ConfidenceMark.astro';
+import PatternStrip from '../components/PatternStrip.astro';
+import Picture from '../components/Picture.astro';
+import { WATCH_PHOTOS } from '../lib/watch-photos.ts';
+import { DIMENSIONS, getCatalogue, recordUrl } from '../lib/data.ts';
+import { ARCHETYPES, DESCRIPTOR, NOT_A_RANKING, NOT_OWNERSHIP, browseUrl, pattern, plural, recordsOf, taggedWith } from '../lib/archetypes.ts';
+const { dimension, methodology: m, records } = await getCatalogue(Astro.locals);
+
+// A real photograph of a watch in the archetype, where one of its records has an openly licensed photo of that exact model.
+const photoOf = (recs: typeof records) => {
+  const r = recs.find(r => WATCH_PHOTOS[r.id]?.front);
+  if (!r) return undefined;
+  const ph = WATCH_PHOTOS[r.id].front!;
+  const src = (w: 600 | 1200) => `/images/watches/${r.id}/front-${w}.jpg`;
+  return { r, ph, src: src(1200), srcset: `${src(600)} 600w, ${src(1200)} ${ph.w}w` };
+};
+const head = {
+  src: '/images/movements/escapement-jewels-1600.jpg', srcset: '/images/movements/escapement-jewels-800.jpg 800w, /images/movements/escapement-jewels-1600.jpg 1600w',
+  w: 1600, h: 1754, caption: 'Escapement and jewels, close up', alt: 'A close view of a skeletonised movement: ruby jewels, a pallet fork and gold-toned wheels.',
+};
+
+const order = { A: 0, B: 1, C: 2, D: 3 } as const;
+const archetypes = m.classifications.filter(c => c.kind === 'archetype').map(c => {
+  const recs = recordsOf(records, c.code);
+  const examples = [...recs].sort((a, b) => Number(a.profile.is_seed) - Number(b.profile.is_seed) || order[a.profile.confidence] - order[b.profile.confidence] || a.brandName.localeCompare(b.brandName)).slice(0, 4);
+  return { ...c, copy: ARCHETYPES[c.code], recs, examples, photo: photoOf(recs), tagged: taggedWith(records, c.code).length, pattern: pattern(recs), slug: c.code.replaceAll('_', '-') };
+});
+const descriptor = m.classifications.find(c => c.code === DESCRIPTOR.code)!;
+const withDescriptor = records.filter(r => r.profile.confidence !== 'D' && r.profile.independent_watchmaker);
+const descriptorSlug = DESCRIPTOR.code.replaceAll('_', '-');
+const shownPhotos = new Set(archetypes.flatMap(a => a.photo ? [a.photo.r.id] : []));
+const descriptorPhoto = photoOf(withDescriptor.filter(r => !shownPhotos.has(r.id))); // each photograph appears once on the page
+---
+<Base title="Production archetypes" nav="archetypes" description="Eight production archetypes: a shorthand for how a watch is made, drawn from its seven FALK scores.">
+  <header class="doc-head" data-rise>
+    <div>
+      <h1>Production archetypes</h1>
+      <p class="lead">A shorthand for how a watch is made. Each archetype is a recognizable pattern across the seven scores, assigned after the full profile and its evidence have been reviewed.</p>
+    </div>
+    <figure class="head-photo">
+      <Picture src={head.src} srcset={head.srcset} sizes="(min-width: 1024px) 40vw, 100vw" width={head.w} height={head.h} alt={head.alt} />
+      <figcaption>{head.caption}</figcaption>
+    </figure>
+  </header>
+  <div class="tile-note" data-rise>
+    <p><b>{NOT_A_RANKING}</b> {NOT_OWNERSHIP} The formal definitions are in the <a href="/methodology/#classifications">methodology</a>.</p>
+    <a class="btn" href="/records/">Explore watches</a>
+  </div>
+
+  <div class="side-layout">
+    <aside>
+      <nav aria-label="Contents" class="toc">
+        <p class="toc-title">Contents</p>
+        <ul>
+          <li><a href="#side-by-side">Side by side</a></li>
+          {archetypes.map(a => <li><a href={`#${a.slug}`}>{a.name}</a></li>)}
+          <li><a href={`#${descriptorSlug}`}>{descriptor.name}</a></li>
+          <li><a href="#how-assigned">How archetypes are assigned</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div>
+      <section id="side-by-side" class="sec" data-rise>
+        <h2>Side by side</h2>
+        <p class="body intro">The most common score on each measure among records whose main archetype it is. Read it as each archetype's characteristic shape, not as a requirement: individual watches vary, and some archetypes overlap on single measures.</p>
+        <div class="scroll">
+          <table class="table sbs">
+            <caption class="sr-only">Most common score on each measure, by archetype</caption>
+            <thead>
+              <tr><th scope="col">Archetype</th>{DIMENSIONS.map(d => <th scope="col"><abbr title={dimension[d].label}>{d}</abbr></th>)}<th scope="col" class="num-col">Records</th></tr>
+            </thead>
+            <tbody>
+              {archetypes.map(a => (
+                <tr>
+                  <th scope="row"><a href={`#${a.slug}`}>{a.name}</a></th>
+                  {a.pattern.map(p => (
+                    <td><span class:list={['cell', p.common === null ? 'lu' : `l${p.common}`]}><span>{p.common ?? 'U'}</span></span><span class="sr-only">, {dimension[p.code].label}</span></td>
+                  ))}
+                  <td class="num-col">{a.recs.length}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {archetypes.map(a => (
+        <section id={a.slug} class="sec arch" data-rise>
+          <h2>{a.name}</h2>
+          <p class="arch-short">{a.copy.short}</p>
+          <div class="arch-grid">
+            <div class="arch-words">
+              <h3>What it generally means</h3>
+              <p class="body">{a.copy.means}</p>
+              <h3>Where it meets its neighbours</h3>
+              <p class="body">{a.copy.borderline}</p>
+              <h3>Formal definition</h3>
+              <p class="body def">{a.definition} <span class="small muted">Methodology {m.code}</span></p>
+            </div>
+            <div class="arch-figure">
+              <h3>Typical score pattern</h3>
+              {a.recs.length
+                ? <PatternStrip pattern={a.pattern} count={a.recs.length} caption={`Seen across ${plural(a.recs.length, 'record')} where it is the main archetype`} />
+                : <p class="muted">A pattern appears once records are published.</p>}
+              <p class="small muted">Tinted marks show the scores seen; the solid mark is the most common. U is left out, never counted as zero.</p>
+            </div>
+          </div>
+          <h3 class="ex-h">Examples</h3>
+          {a.examples.length ? (
+            <ul class="examples">
+              {a.examples.map(r => (
+                <li>
+                  <span class="ex-id"><span class="small muted">{r.brandName}</span><a href={recordUrl(r.id)}>{r.model}</a></span>
+                  <CompactStrip scores={r.profile.scores} />
+                  <ConfidenceMark grade={r.profile.confidence} short />
+                </li>
+              ))}
+            </ul>
+          ) : <p class="muted">No published record carries this archetype yet.</p>}
+          {a.photo && (
+            <figure class="watch-photo">
+              <Picture src={a.photo.src} srcset={a.photo.srcset} sizes="(min-width: 1024px) 50vw, 100vw" width={a.photo.ph.w} height={a.photo.ph.h} alt={a.photo.ph.alt} loading="lazy" />
+              <figcaption><a href={recordUrl(a.photo.r.id)}>{a.photo.r.brandName} {a.photo.r.model}</a> <span>Photo: {a.photo.ph.credit}, <a href={a.photo.ph.licenceUrl}>{a.photo.ph.licence}</a></span></figcaption>
+            </figure>
+          )}
+          {a.tagged > 0 && <p class="browse"><a class="btn secondary" href={browseUrl(a.code)}>Browse {plural(a.tagged, 'record')}</a></p>}
+        </section>
+      ))}
+
+      <section id={descriptorSlug} class="sec" data-rise>
+        <h2>{descriptor.name}</h2>
+        <p class="arch-short">{DESCRIPTOR.short}</p>
+        <p class="body intro">{DESCRIPTOR.means}</p>
+        <p class="body def">{descriptor.definition} <span class="small muted">Methodology {m.code}</span></p>
+        {descriptorPhoto && (
+          <figure class="watch-photo">
+            <Picture src={descriptorPhoto.src} srcset={descriptorPhoto.srcset} sizes="(min-width: 1024px) 50vw, 100vw" width={descriptorPhoto.ph.w} height={descriptorPhoto.ph.h} alt={descriptorPhoto.ph.alt} loading="lazy" />
+            <figcaption><a href={recordUrl(descriptorPhoto.r.id)}>{descriptorPhoto.r.brandName} {descriptorPhoto.r.model}</a> <span>Photo: {descriptorPhoto.ph.credit}, <a href={descriptorPhoto.ph.licenceUrl}>{descriptorPhoto.ph.licence}</a></span></figcaption>
+          </figure>
+        )}
+        <p class="small">{plural(withDescriptor.length, 'record')} {withDescriptor.length === 1 ? 'carries' : 'carry'} it{withDescriptor.length > 0 && ':'} {withDescriptor.map((r, i) => <>{i > 0 && ', '}<a href={recordUrl(r.id)}>{r.brandName} {r.model}</a></>)}</p>
+      </section>
+
+      <section id="how-assigned" class="sec" data-rise>
+        <h2>How archetypes are assigned</h2>
+        <ul class="assigned">
+          <li><b>Last, from the whole profile.</b> Each measure is scored on its own evidence first; the archetype summarizes the pattern and never decides a score.</li>
+          <li><b>Not by adding up scores.</b> There are no totals and no thresholds. Two watches can share an archetype without identical scores, and archetypes can overlap on single measures.</li>
+          <li><b>Watch by watch.</b> One brand can make watches of different archetypes, so a brand never has a single archetype of its own.</li>
+          <li><b>With traits where it helps.</b> A record can name a second archetype, shown as “with … traits”, when its pattern sits between two.</li>
+        </ul>
+        <p class="body">The full rules are in the <a href="/methodology/">methodology</a>.</p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .head-photo { margin: 0; display: flex; flex-direction: column; border-radius: var(--r-plate); overflow: hidden; background: var(--c-surface); }
+  .head-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .head-photo figcaption, .watch-photo figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s-4); padding: var(--s-2) var(--s-4); background: var(--c-surface-2); font-size: 14px; color: var(--c-ink-2); }
+  .tile-note { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-4) var(--s-6); margin-bottom: var(--s-8); padding: var(--s-5) var(--s-6); border-radius: var(--r-plate); background: var(--c-surface); }
+  .tile-note p { font-size: 18px; line-height: 1.5; max-width: 72ch; }
+  .tile-note b { font-weight: 600; }
+  .watch-photo { margin: var(--s-5) 0 0; display: flex; flex-direction: column; max-width: 720px; border-radius: var(--r-plate); overflow: hidden; }
+  .watch-photo :global(img) { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
+
+  .toc { padding: var(--s-4); background: var(--c-surface); border-radius: var(--r-plate); }
+  .toc-title { font-size: 14px; color: var(--c-ink-2); padding: 0 var(--s-3) var(--s-2); }
+  .toc ul { list-style: none; margin: 0; padding: 0; }
+  .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 var(--s-3); border-radius: var(--r-control); color: var(--c-ink-2); text-decoration: none; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .toc a:hover { background: var(--c-surface-2); color: var(--c-ink); }
+  .toc a[aria-current="true"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 600; }
+
+  .sec { padding-bottom: var(--s-9); scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
+  .sec h2 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; margin-bottom: var(--s-5); }
+  .sec h3 { font-size: 17px; font-weight: 600; margin: var(--s-5) 0 var(--s-2); }
+  .body { font: 400 17px/1.6 var(--f-serif); max-width: var(--measure); }
+  .intro { margin-bottom: var(--s-6); }
+  .def { color: var(--c-ink-2); }
+  .arch-short { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; max-width: 44ch; }
+
+  .sbs th[scope="row"] { font-size: 16px; font-weight: 580; white-space: nowrap; }
+  .sbs th[scope="row"] a { color: var(--c-ink); text-decoration: none; }
+  .sbs th[scope="row"] a:hover { color: var(--c-action); text-decoration: underline; }
+  .sbs thead th { text-align: center; }
+  .sbs thead th:first-child { text-align: left; }
+  .sbs abbr { text-decoration: none; }
+  .sbs td { text-align: center; }
+
+  .arch-grid { display: grid; gap: var(--s-5) var(--s-7); }
+  @media (min-width: 1200px) { .arch-grid { grid-template-columns: 6fr 5fr; } }
+  .arch-figure { padding: var(--s-2) var(--s-5) var(--s-5); border-radius: var(--r-plate); background: var(--c-surface); align-self: start; }
+  .arch-figure > :last-child { margin-top: var(--s-3); }
+  .ex-h { margin-top: var(--s-6) !important; }
+  .examples { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 1200px) { .examples { grid-template-columns: 1fr 1fr; } }
+  .examples li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--s-4); padding: var(--s-3) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); transition: background var(--d-quick) var(--ease); }
+  .examples li:hover { background: var(--c-surface-2); }
+  .ex-id { display: grid; }
+  .ex-id a { color: var(--c-ink); font-size: 17px; font-weight: 580; text-decoration: none; }
+  .ex-id a::after { content: ''; position: absolute; inset: 0; }
+  .ex-id a:focus-visible { outline: none; }
+  .examples li:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .browse { margin-top: var(--s-5); }
+
+  .assigned { display: grid; gap: var(--s-4); margin: 0 0 var(--s-6); padding: 0; list-style: none; max-width: var(--measure); }
+  .assigned li { font: 400 17px/1.6 var(--f-serif); }
+  .assigned b { font-family: var(--f-sans); font-weight: 600; }
+
+  @media (max-width: 1023px) { .toc > ul { display: flex; flex-wrap: wrap; gap: 2px; } }
+  @media (max-width: 639px) {
+    /* The side-by-side table fits a phone: names wrap, smaller marks, the count stays in each section below. */
+    .sbs th[scope="row"] { white-space: normal; font-size: 14px; line-height: 1.2; }
+    .sbs th, .sbs td { padding-inline: 2px; }
+    .sbs .num-col { display: none; }
+    .sbs :global(.cell) { width: 22px; height: 22px; font-size: 11px; }
+    .examples li { grid-template-columns: 1fr auto; }
+    .examples li :global(.cstrip) { grid-column: 1 / -1; grid-row: 2; }
+  }
+</style>
+
+<script>
+  // The contents list follows the reader: the section in view is marked current.
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.toc a')].map(a => [a.hash.slice(1), a]));
+  const targets = [...links.keys()].map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+  const mark = () => {
+    const y = innerHeight * 0.3;
+    for (const [id, a] of links) {
+      const t = targets.find(t => t.id === id);
+      const r = t?.getBoundingClientRect();
+      a.setAttribute('aria-current', String(!!r && r.top <= y && r.bottom > y));
+    }
+  };
+  addEventListener('scroll', mark, { passive: true });
+  mark();
+</script>

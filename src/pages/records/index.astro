@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import RecordTable from '../../components/RecordTable.astro';
 import { DIMENSIONS, getCatalogue } from '../../lib/data.ts';
+import { ARCHETYPES } from '../../lib/archetypes.ts';
 const { dimension, methodology, records } = await getCatalogue(Astro.locals);
 
 const archetypes = methodology.classifications.filter(c => c.kind === 'archetype');
@@ -44,7 +45,8 @@ const levels = [0, 1, 2, 3, 4, 5];
 
           <fieldset>
             <legend>Classification</legend>
-            {archetypes.map(c => <label class="check"><input type="checkbox" name="cls" value={c.code} /> {c.name}</label>)}
+            {archetypes.map(c => <label class="check" title={ARCHETYPES[c.code]?.short}><input type="checkbox" name="cls" value={c.code} /> {c.name}</label>)}
+            <p class="check note"><a href="/archetypes/">What the archetypes mean</a></p>
           </fieldset>
 
           <fieldset>
