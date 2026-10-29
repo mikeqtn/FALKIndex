@@ -45,6 +45,14 @@ test('published history cannot be rewritten', () => {
   assert.throws(() => planPublish(live, edit(w => { w.profiles[0].scores.MA.value = 5 - (w.profiles[0].scores.MA.value ?? 0); }), evidenced.id), /version 1 was edited/);
   assert.throws(() => planPublish(live, edit(w => { w.claims.pop(); }), evidenced.id), /was removed/);
   assert.throws(() => planPublish(live, edit(w => { w.claims[0].statement += ' (changed)'; }), evidenced.id), /was edited; supersede/);
+  // A claim already live under another record cannot be reworded by citing it here.
+  const shared = live.watches.flatMap(w => w.claims).find(c => !evidenced.claims.some(e => e.id === c.id))!;
+  assert.throws(() => planPublish(live, edit(w => { w.claims.push({ ...shared, statement: `${shared.statement} (changed)` }); }), evidenced.id), new RegExp(`claim "${shared.id}" was edited`));
+  // Superseding is final.
+  const before = edit(w => Object.assign(w.claims[0], { status: 'superseded', superseded_by: w.claims[1].id }));
+  const revive = structuredClone(before);
+  Object.assign(revive.watches.find(w => w.id === evidenced.id)!.claims[0], { status: 'active', superseded_by: undefined });
+  assert.throws(() => planPublish(before, revive, evidenced.id), /was edited; supersede/);
 });
 
 test('an ai-draft version cannot be published', () =>
@@ -91,9 +99,20 @@ test('the database refuses to edit or delete a published claim', async () => {
     await db.query('ROLLBACK TO SAVEPOINT guard');
     await assert.rejects(db.query('DELETE FROM falk_claim WHERE id=$1', [claim.id]), /never deleted/);
     await db.query('ROLLBACK TO SAVEPOINT guard');
+    await assert.rejects(db.query('TRUNCATE falk_claim CASCADE'), /never deleted/);
+    await db.query('ROLLBACK TO SAVEPOINT guard');
     // What publishing may change: status, and the reviewer's handle on an ai-draft claim.
     await db.query(`UPDATE falk_claim SET payload=payload||'{"status":"disputed"}' WHERE id=$1`, [claim.id]);
     await db.query(`INSERT INTO falk_claim(id,source_id,payload) VALUES('test-ai-claim',$1,$2)`, [claim.source, { ...claim, id: 'test-ai-claim', editor: 'ai-draft' }]);
+    await db.query('SAVEPOINT draft');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload-'editor' WHERE id='test-ai-claim'`), /cannot be edited/);
+    await db.query('ROLLBACK TO SAVEPOINT draft');
     await db.query(`UPDATE falk_claim SET payload=payload||'{"editor":"tester"}' WHERE id='test-ai-claim'`);
+    // Superseding is final: no going back, and the replacement stays recorded.
+    await db.query(`UPDATE falk_claim SET payload=payload||'{"status":"superseded","superseded_by":"test-ai-claim"}' WHERE id=$1`, [claim.id]);
+    await db.query('SAVEPOINT superseded');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload||'{"status":"active"}' WHERE id=$1`, [claim.id]), /cannot be edited/);
+    await db.query('ROLLBACK TO SAVEPOINT superseded');
+    await assert.rejects(db.query(`UPDATE falk_claim SET payload=payload-'superseded_by' WHERE id=$1`, [claim.id]), /cannot be edited/);
   } finally { await db.query('ROLLBACK'); db.release(); }
 });

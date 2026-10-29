@@ -18,7 +18,13 @@ type Catalogue = Awaited<ReturnType<typeof loadCatalogue>>;
 const forward: Record<string, string[]> = { draft: ['published', 'superseded'], published: ['superseded'], superseded: [] };
 // What a claim may change after it is published: its status, and the reviewer taking over an ai-draft.
 const claimCore = ({ status, superseded_by, date_checked, editor, ...c }: Watch['claims'][number]) => c;
-const profileCore = ({ status, ...p }: Watch['profiles'][number]) => p;
+// The same rule db/003-immutable-claims.sql enforces: superseding is final, and only an ai-draft claim changes editor.
+const claimEdited = (now: Watch['claims'][number], old: Watch['claims'][number]) =>
+  !isDeepStrictEqual(claimCore(now), claimCore(old))
+  || (now.editor !== old.editor && (old.editor !== 'ai-draft' || !now.editor))
+  || (old.status === 'superseded' && now.status !== 'superseded')
+  || (old.superseded_by !== undefined && now.superseded_by !== old.superseded_by);
+const profileCore =({ status, ...p }: Watch['profiles'][number]) => p;
 
 export function planPublish(live: Catalogue, local: Catalogue, id: string) {
   const next = local.watches.find(w => w.id === id);
@@ -39,14 +45,16 @@ export function planPublish(live: Catalogue, local: Catalogue, id: string) {
   const added = next.profiles.filter(p => !current?.profiles.some(o => o.version === p.version));
   for (const p of added) changes.push(`add version ${p.version} (${p.status}, by ${p.editor})`);
 
-  for (const old of current?.claims ?? []) {
-    const now = next.claims.find(c => c.id === old.id);
-    if (!now) { problems.push(`claim "${old.id}" was removed; mark it superseded instead`); continue; }
-    if (!isDeepStrictEqual(claimCore(now), claimCore(old)) || (now.editor !== old.editor && old.editor !== 'ai-draft'))
-      problems.push(`claim "${old.id}" was edited; supersede it with a new claim instead`);
-    else if (!isDeepStrictEqual(now, old)) changes.push(`claim "${old.id}": ${now.editor !== old.editor ? `verified by ${now.editor}` : 'status updated'}`);
+  for (const old of current?.claims ?? [])
+    if (!next.claims.some(c => c.id === old.id)) problems.push(`claim "${old.id}" was removed; mark it superseded instead`);
+  // Claims are shared between records, so compare against the live claim whichever record cites it.
+  const liveClaims = new Map(live.watches.flatMap(w => w.claims.map(c => [c.id, c] as const)));
+  for (const now of next.claims) {
+    const old = liveClaims.get(now.id);
+    if (old && claimEdited(now, old)) problems.push(`claim "${now.id}" was edited; supersede it with a new claim instead`);
+    else if (!current?.claims.some(o => o.id === now.id)) changes.push(`add claim "${now.id}"`);
+    else if (!isDeepStrictEqual(now, old)) changes.push(`claim "${now.id}": ${now.editor !== old!.editor ? `verified by ${now.editor}` : 'status updated'}`);
   }
-  for (const c of next.claims) if (!current?.claims.some(o => o.id === c.id)) changes.push(`add claim "${c.id}"`);
   if (current && !isDeepStrictEqual(next.provenance, current.provenance)) changes.push(`provenance: ${current.provenance.length} → ${next.provenance.length} entries`);
   const meta = ({ claims, profiles, provenance, ...m }: Watch) => m;
   if (current && !isDeepStrictEqual(meta(next), meta(current))) changes.push('record details changed');
