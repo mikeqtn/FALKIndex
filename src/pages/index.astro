@@ -220,7 +220,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       </dl>
       <p class="compare-note" aria-live="polite">Same maker, different archetypes: {differ.length} of 7 measures differ.</p>
       <p class="small compare-links"><a href={recordUrl(infinity.id)}>{infinity.brandName} {infinity.model}</a><a href={recordUrl(resurgence.id)}>{resurgence.brandName} {resurgence.model}</a></p>
-      <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
+      <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData).replaceAll('<', '\\u003c')} />
     </div>
   </section>
 
