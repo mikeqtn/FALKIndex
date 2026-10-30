@@ -202,13 +202,14 @@ dl.pairs dd { margin: 0; }
 
 /* ── Footer: the mark, built large ────────────────────── */
 .site-footer { margin-top: var(--s-10); padding: var(--s-8) 0 var(--s-6); background: var(--c-surface-sunk); }
-.footer-mark { display: flex; align-items: flex-end; gap: 4px; height: clamp(120px, 26svh, 260px); margin-bottom: var(--s-8); }
-.footer-mark span {
-  flex: 1; display: grid; place-items: end start; padding: 0 0 0.04em 0.08em; border-radius: 6px;
-  background: var(--c-edge); color: var(--c-surface-sunk);
-  font: 800 clamp(48px, 10vw, 168px)/0.78 var(--f-sans); font-stretch: 62%; letter-spacing: -0.02em; overflow: hidden;
+/* The header lockup returns as one line across the full measure: the seven-segment mark at cap height, then the name. */
+.site-footer .wrap { container-type: inline-size; }
+.footer-mark {
+  display: flex; align-items: baseline; gap: 0.08em; margin: 0 0 var(--s-8); color: var(--c-ink); white-space: nowrap;
+  font: 800 23cqi/0.8 var(--f-sans); font-stretch: 62%; letter-spacing: -0.035em;
 }
-.footer-mark span.gap { flex: 0.35; background: none; }
+.footer-mark .mark { gap: 0.04em; height: 0.7em; }
+.footer-mark .mark i { width: 0.08em; border-radius: 0; }
 .footer-cols { display: grid; gap: var(--s-6); grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .footer-cols h2 { font-size: 15px; line-height: 20px; font-stretch: 100%; font-weight: 600; letter-spacing: 0; margin-bottom: var(--s-3); }
 .footer-cols ul { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; font-size: 15px; }
@@ -218,10 +219,6 @@ dl.pairs dd { margin: 0; }
 .footer-base p { max-width: 72ch; }
 @media (max-width: 799px) {
   .footer-cols { grid-template-columns: 1fr 1fr; }
-  .footer-mark { flex-wrap: wrap; height: auto; align-items: stretch; }
-  .footer-mark span { flex: 1 1 0; height: 18svh; font-size: 17vw; }
-  /* The space becomes a row break, so the mark reads FALK over INDEX. */
-  .footer-mark span.gap { flex: 0 0 100%; height: 0; }
 }
 
 /* ── Provisional banner ───────────────────────────────── */
