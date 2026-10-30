@@ -245,8 +245,10 @@ test('deleting an account erases personal details, keeps contributions, and cuts
   await db.query('INSERT INTO falk_affiliation(account_id,organization_id) VALUES($1,$2)',[member.id,org]);
   await db.query("INSERT INTO falk_professional_verification(account_id,label,evidence_url,verified_by) VALUES($1,'Watchmaker at X','https://example.test/me',$2)",[member.id,admin.id]);
   await db.query("INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at,accepted_by) VALUES($1,$2,'editor',$3,'inv_test',now(),$4)",[realm(),member.email,admin.id,member.id]);
-  const guest = (await db.query(`INSERT INTO falk_submission(target_kind,original_proposal,explanation,evidence,submitter_name,submitter_email)
-    VALUES('evidence','{}','sent as a guest','[]','Real Name',$1) RETURNING id`,[member.email])).rows[0].id;
+  // Guest corrections are always about a watch (falk_submission_guest_watch_only).
+  const watch = (await db.query('SELECT id FROM falk_watch LIMIT 1')).rows[0].id;
+  const guest = (await db.query(`INSERT INTO falk_submission(target_kind,watch_id,original_proposal,explanation,evidence,submitter_name,submitter_email)
+    VALUES('watch',$2,'{}','sent as a guest','[]','Real Name',$1) RETURNING id`,[member.email,watch])).rows[0].id;
   const authored = (await db.query(`INSERT INTO falk_submission(author_id,target_kind,original_proposal,explanation,evidence)
     VALUES($1,'evidence','{}','sent as a member','[]') RETURNING id`,[member.id])).rows[0].id;
 
