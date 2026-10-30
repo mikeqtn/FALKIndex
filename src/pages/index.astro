@@ -312,10 +312,12 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 </Base>
 
 <style>
-  /* Hero board: the name tile beside a real movement, under the 60px nav at 1440 × 900. */
-  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(560px, calc(100svh - 76px)); gap: 8px; padding-top: 8px; }
+  /* Hero board: the name tile beside a real movement, under the 60px nav at 1440 × 900. It fills the screen, and
+     grows past it when the heading (sized by width) needs more room, as on wide but short windows. */
+  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(max(560px, calc(100svh - 76px)), auto); gap: 8px; padding-top: 8px; }
   .tile { margin: 0; border-radius: var(--r-plate); background: var(--c-surface); overflow: hidden; }
-  .t-name { grid-column: 1 / 8; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-7); padding: var(--s-6); }
+  /* Not clipped: a clipped tile counts as zero height, so the row would not grow and the buttons were cut off. */
+  .t-name { grid-column: 1 / 8; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-7); padding: var(--s-6); overflow: visible; }
   .display { font-size: clamp(48px, 6.4vw, 100px); line-height: 0.94; font-stretch: 70%; font-weight: 640; letter-spacing: -0.035em; max-width: 8em; }
   .t-name-head { display: grid; gap: var(--s-6); }
   .t-name-foot { display: grid; gap: var(--s-4); }

@@ -80,3 +80,19 @@ test('desktop: a header search suggestion opens that record, and a broad search 
     assert.match(await search('tudor'), /^\/records\/\?q=tudor$/, 'several matches: Enter searches');
   } finally { await desktop.close(); }
 });
+
+// The hero heading grows with window width but the hero was capped at window height, so on wide, short
+// windows its buttons ran past the bottom of the tile and were cut off.
+test('desktop: the home page hero keeps its buttons inside the tile on short, wide windows', async () => {
+  const desktop = await chromium.launch();
+  try {
+    for (const [width, height] of [[1300, 560], [1440, 620], [1920, 600], [1440, 900]]) {
+      const page = await desktop.newPage({ viewport: { width, height } });
+      await page.goto(`${base}/`, { waitUntil: 'load' });
+      const overflow = await page.evaluate(() => document.querySelector('.t-name-foot .actions')!.getBoundingClientRect().bottom
+        - document.querySelector('.t-name')!.getBoundingClientRect().bottom);
+      assert.ok(overflow <= 0, `at ${width}×${height} the hero buttons run ${overflow}px past the tile`);
+      await page.close();
+    }
+  } finally { await desktop.close(); }
+});
