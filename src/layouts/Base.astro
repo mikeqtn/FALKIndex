@@ -2,13 +2,13 @@
 import '../styles/global.css';
 import '../styles/accounts.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
-import { correctionUrl, getCatalogue, variant } from '../lib/data.ts';
+import { correctionUrl, getCatalogue, recordUrl, variant } from '../lib/data.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 const { methodology, records } = await getCatalogue(Astro.locals);
 // Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
-// fields, in the same order, as the records page searches, so a chosen suggestion always finds its record.
+// fields, in the same order, as the records page searches; `u` is the record page a chosen suggestion opens.
 const suggestJson = JSON.stringify(records.map(r => ({
-  b: r.brandName, m: r.model, v: variant(r),
+  b: r.brandName, m: r.model, v: variant(r), u: recordUrl(r.id),
   s: [r.brandName, r.model, r.reference, r.caliber, r.generation, r.route_label].filter(Boolean).join(' ').toLowerCase(),
 }))).replaceAll('<', '\\u003c');
 
@@ -178,19 +178,20 @@ const links = [
         e.preventDefault(); q.focus();
       });
       // Header search suggestions: a list under the box as the reader types. Arrow keys move through it, Enter or a
-      // click fills the box with that record and runs the search, Escape closes it. Without script the form still searches.
+      // click opens that record's page, Escape closes it. Enter with nothing highlighted opens the record when only one
+      // matches, and otherwise searches the records page. Without script the form still searches.
       {
         const input = document.getElementById('nav-q') as HTMLInputElement;
         const list = document.getElementById('nav-suggest') as HTMLUListElement;
         const status = document.getElementById('nav-suggest-status')!;
-        const data: { b: string; m: string; v: string; s: string }[] = JSON.parse(document.getElementById('nav-suggest-data')!.textContent!);
+        const data: { b: string; m: string; v: string; s: string; u: string }[] = JSON.parse(document.getElementById('nav-suggest-data')!.textContent!);
         let shown: typeof data = [];
         let active = -1;
         const close = () => { list.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); active = -1; };
         const choose = (i: number) => {
           input.value = `${shown[i].b} ${shown[i].m}`;
           close();
-          input.form!.requestSubmit();
+          location.assign(shown[i].u);
         };
         const mark = (i: number) => {
           active = i;
@@ -230,7 +231,7 @@ const links = [
           if (list.hidden || !shown.length) return;
           if (e.key === 'ArrowDown') { e.preventDefault(); mark((active + 1) % shown.length); }
           else if (e.key === 'ArrowUp') { e.preventDefault(); mark(active <= 0 ? shown.length - 1 : active - 1); }
-          else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); choose(active); }
+          else if (e.key === 'Enter' && (active >= 0 || shown.length === 1)) { e.preventDefault(); choose(Math.max(active, 0)); }
         });
       }
       const root = document.documentElement;
