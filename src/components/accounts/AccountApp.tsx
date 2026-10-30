@@ -20,6 +20,34 @@ const fieldLabels: Partial<Record<keyof ProfileInput, string>> = {
   qualificationDetails: 'Qualification context', professionalAffiliations: 'Professional affiliations',
 };
 
+// Deleting erases the member's personal details and closes their sign-in; their contributions stay,
+// credited to a deleted member (see deleteAccount in server/accounts.ts).
+function DeleteAccount() {
+  const clerk = useClerk();
+  const [confirm, setConfirm] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  async function remove(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setBusy(true); setError('');
+    try {
+      await api('/api/account', { method: 'DELETE', body: JSON.stringify({ confirm }) });
+      await clerk.signOut().catch(() => {});
+      window.location.assign('/');
+    } catch (e) { setError(handleAccountError(e)); setBusy(false); }
+  }
+  return (
+    <form className="account-panel account-stack" aria-labelledby="delete-heading" onSubmit={remove}>
+      <div><h2 id="delete-heading">Delete your account</h2>
+        <p className="account-help">This erases your email, names, profile, photo, organization disclosures and verifications, and closes your sign-in. Corrections and other contributions you made stay in the public record, credited to a deleted member. It cannot be undone.</p></div>
+      {error && <div className="account-error" role="alert">{error}</div>}
+      <div className="account-field"><label htmlFor="delete-confirm">Type DELETE to confirm</label>
+        <input id="delete-confirm" autoComplete="off" value={confirm} onChange={e => setConfirm(e.target.value)} /></div>
+      <div className="account-actions"><button className="account-button" type="submit" disabled={busy || confirm.trim().toLowerCase() !== 'delete'}>{busy ? 'Deleting…' : 'Delete my account'}</button></div>
+    </form>
+  );
+}
+
 function AccountEditor() {
   const clerk = useClerk();
   const [account, setAccount] = useState<Account | null>(null);
@@ -120,7 +148,8 @@ function AccountEditor() {
     } finally { setBusy(false); }
   }
   if (loading) return <div className="account-panel account-loading" role="status"><span className="sr-only">Loading account</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>;
-  if (error && !account) return <div className="account-panel account-stack"><div className="account-error" role="alert">{error}</div><button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Try again</button></div>;
+  // Suspended and unverified members cannot load their account, but may still delete it.
+  if (error && !account) return <div className="account-stack"><div className="account-panel account-stack"><div className="account-error" role="alert">{error}</div><button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Try again</button></div><DeleteAccount /></div>;
 
   const statusText = account?.status === 'suspended' ? 'Account suspended' : account?.emailVerified ? 'Email verified' : 'Email not verified';
   return (
@@ -177,6 +206,7 @@ function AccountEditor() {
           </fieldset>
           <div className="account-actions"><button className="account-button" type="submit" disabled={busy}>{busy ? 'Saving profile…' : 'Save profile'}</button><a className="account-button secondary" href="/records/">Return to catalogue</a></div>
         </form>
+        <DeleteAccount />
       </div>
     </div>
   );
