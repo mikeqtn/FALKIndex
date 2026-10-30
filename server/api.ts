@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
 import { Router } from 'express';
 import { z } from 'zod';
-import { getAuth } from '@clerk/express';
+import { clerkClient, getAuth } from '@clerk/express';
 import { profileInput, qualificationOptions } from '../src/accounts/contracts.ts';
 import { pool } from './db.ts';
-import { authenticatedAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
+import { authenticatedAccount, deleteAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
 import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
@@ -58,6 +58,20 @@ api.patch('/account', async (req,res) => {
   await saveProfile(account,input);
   const { username,...profile } = input;
   res.json({account:{...account,username,onboarded:true,profile:{...profile,imageUrl:account.profile.imageUrl}}});
+});
+// A member deletes their account. Suspended and unverified members may do so too: it is their data.
+// The FALK details go first, then the Clerk user. If Clerk fails, signing in again makes a fresh, empty
+// account (its old Clerk link is already cut), and deleting that one finishes the job.
+api.delete('/account', async (req,res) => {
+  const { account } = await authenticatedAccount(req,undefined,false);
+  const { confirm } = z.object({confirm:z.string().max(20)}).strict().parse(req.body);
+  const { clerkId } = await transaction(db => deleteAccount(account.id,confirm,db));
+  try { await clerkClient.users.deleteUser(clerkId); }
+  catch {
+    console.error('Account deleted, but the Clerk user could not be deleted');
+    throw new HttpError(502,'Your FALK details are deleted, but your sign-in could not be closed. Sign in again and delete once more to finish.');
+  }
+  res.json({ok:true});
 });
 api.get('/profiles/:username', async (req,res) => {
   const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/).parse(req.params.username);

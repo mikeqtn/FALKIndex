@@ -96,3 +96,17 @@ test('desktop: the home page hero keeps its buttons inside the tile on short, wi
     }
   } finally { await desktop.close(); }
 });
+
+// Two automated accessibility (axe) findings: small tap targets on /sources/, and tabpanel on <article>.
+test('desktop: source links are large enough to tap, and the archetype tab panels use an element that allows the role', async () => {
+  const desktop = await chromium.launch();
+  try {
+    const page = await desktop.newPage({ viewport: { width: 1280, height: 900 } });
+    await page.goto(`${base}/sources/`, { waitUntil: 'load' });
+    const small = await page.$$eval('.meta a', links => links.map(a => a.getBoundingClientRect().height).filter(h => h < 24));
+    assert.deepEqual(small, [], 'every source link is at least 24px tall');
+    await page.goto(`${base}/`, { waitUntil: 'load' });
+    const panels = await page.$$eval('[role="tabpanel"]', els => els.map(el => el.tagName.toLowerCase()));
+    assert.ok(panels.length > 0 && panels.every(tag => tag === 'section'), `tab panels are ${[...new Set(panels)]}`);
+  } finally { await desktop.close(); }
+});

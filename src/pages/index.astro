@@ -118,7 +118,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       </div>
       <div class="arch-panels">
         {archetypes.map(a => (
-          <article class="tile apanel" role="tabpanel" id={`apanel-${a.slug}`} aria-labelledby={`atab-${a.slug}`}>
+          <section class="tile apanel" role="tabpanel" id={`apanel-${a.slug}`} aria-labelledby={`atab-${a.slug}`}>
             <div class="ap-text">
               <h3 class="ap-name">{a.name}</h3>
               <p class="ap-short">{a.copy.short}</p>
@@ -150,7 +150,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
                 <a href={archetypeUrl(a.code)}>More about {a.name}</a>
               </div>
             </div>
-          </article>
+          </section>
         ))}
       </div>
     </div>
