@@ -66,11 +66,6 @@ const archived = all.filter(s => s.archived_url).length;
 </Base>
 
 <style>
-  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
-  .figures li { display: grid; gap: var(--s-1); }
-  .figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-  .figures span { font-size: 15px; color: #C9D3E2; }
-
   .toolbar { position: sticky; top: var(--nav-h); z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-4); padding: var(--s-3) 0; background: var(--c-page); }
   .find { flex: 1 1 320px; max-width: 480px; }
   .find input { width: 100%; }

@@ -1,116 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProfileStrip from '../components/ProfileStrip.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
-const { record, dimension } = await getCatalogue(Astro.locals);
+const { record, records, sources } = await getCatalogue(Astro.locals);
+const brands = new Set(records.map(r => r.brand)).size;
+const claims = records.reduce((n, r) => n + r.claims.length, 0);
 
-// The exploded watch: one plate per dimension, top to bottom as it comes apart, each shaded by a record's score.
-const LAYERS = [
-  { d: 'DH', part: 'Dial and hands' },
-  { d: 'EX', part: 'Case, crown and lugs' },
-  { d: 'WE', part: 'Balance, assembly and regulation' },
-  { d: 'CF', part: 'Bridges and their finishing' },
-  { d: 'MM', part: 'Wheel train' },
-  { d: 'MA', part: 'Mainplate and calibre layout' },
-  { d: 'PD', part: 'Caseback, and the brief behind it all' },
-] as const;
-// Four routes from a hand-made watch to a contract-built one.
-const shown = ['roger-w-smith/series-2', 'rolex/submariner-124060', 'fleming/series-1', 'baltic/aquascaphe'].map(id => {
-  const r = record(id);
-  return { name: `${r.brandName} ${r.model}`, url: recordUrl(r.id), levels: Object.fromEntries(LAYERS.map(({ d }) => [d, r.profile.scores[d].value ?? 'U'])) };
-});
-const first = shown[0];
-
-// Toothed wheel as one path: four points per tooth, with the arbor hole cut out (evenodd).
-const gear = (cx: number, cy: number, r: number, n: number) => {
-  const pts = Array.from({ length: n * 4 }, (_, i) => {
-    const a = (i / (n * 4)) * Math.PI * 2, rr = i % 4 === 1 || i % 4 === 2 ? r : r - 5;
-    return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`;
-  });
-  const h = r * 0.3;
-  return `M${pts.join('L')}Z M${cx - h},${cy} a${h},${h} 0 1,0 ${2 * h},0 a${h},${h} 0 1,0 ${-2 * h},0Z`;
-};
-const ring = (cx: number, cy: number, r: number) => `M${cx - r},${cy} a${r},${r} 0 1,0 ${2 * r},0 a${r},${r} 0 1,0 ${-2 * r},0Z`;
-const spiral = Array.from({ length: 90 }, (_, i) => {
-  const t = i / 6, r = 2 + t * 1.25;
-  return `${i ? 'L' : 'M'}${(132 + r * Math.cos(t)).toFixed(1)},${(118 + r * Math.sin(t)).toFixed(1)}`;
-}).join('');
-const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
+const example = record('fleming/series-1');
 ---
 <Base title="About" nav="about">
-  <header class="about-head" data-rise>
-    <div class="intro">
+  <header class="doc-head" data-rise>
+    <div>
       <h1>About</h1>
       <p class="lead">FALK records where the work on a watch really happens, and the evidence for it, one model at a time.</p>
     </div>
-
-    <figure class="exploded" data-records={JSON.stringify(shown)}>
-      <div class="stage" role="img" aria-label="A watch taken apart into seven plates, one for each FALK dimension, each shaded by how much of it the brand makes itself.">
-        <div class="watch">
-          {LAYERS.map(({ d }, i) => (
-            <div class="layer" data-d={d} data-level={first.levels[d]} style={`--i:${LAYERS.length - 1 - i}`}>
-              <svg viewBox="-10 -10 220 220" aria-hidden="true">
-                {d === 'PD' && <>
-                  <path class="f" fill-rule="evenodd" d={`${ring(100, 100, 90)} ${ring(100, 100, 52)}`} />
-                  {Array.from({ length: 6 }, (_, k) => <circle class="o" cx={100 + 71 * Math.cos(k * Math.PI / 3)} cy={100 + 71 * Math.sin(k * Math.PI / 3)} r="4" />)}
-                </>}
-                {d === 'MA' && <path class="f" fill-rule="evenodd" d={`${ring(100, 100, 80)} ${ring(100, 100, 9)} ${ring(138, 78, 6)} ${ring(70, 128, 7)} ${ring(132, 118, 8)} ${ring(60, 70, 5)}`} />}
-                {d === 'MM' && <>
-                  <path class="f" fill-rule="evenodd" d={gear(100, 100, 34, 28)} />
-                  <path class="f" fill-rule="evenodd" d={gear(141, 76, 18, 16)} />
-                  <path class="f" fill-rule="evenodd" d={gear(68, 130, 24, 20)} />
-                  <path class="f" fill-rule="evenodd" d={gear(62, 70, 14, 12)} />
-                </>}
-                {d === 'CF' && <>
-                  <path class="f" fill-rule="evenodd" d={`M28,100 A72,72 0 0,1 172,100 L150,100 A22,22 0 0,0 110,104 L28,104Z ${ring(100, 70, 5)}`} />
-                  <path class="f" d="M40,128 L104,128 Q112,156 92,170 A74,74 0 0,1 40,128Z" />
-                  <path class="cotes" d="M28,100 A72,72 0 0,1 172,100 L150,100 A22,22 0 0,0 110,104 L28,104Z" />
-                  <circle class="jewel" cx="100" cy="70" r="4" /><circle class="jewel" cx="141" cy="76" r="3.5" /><circle class="jewel" cx="68" cy="140" r="3.5" />
-                </>}
-                {d === 'WE' && <>
-                  <path class="f" fill-rule="evenodd" d={`${ring(132, 118, 30)} ${ring(132, 118, 25)}`} />
-                  <path class="f" d="M131,92h2v52h-2z M106,117h52v2h-52z" />
-                  <path class="o" fill="none" d={spiral} />
-                  <path class="f" d="M100,100 L126,112 L122,118 Z" />
-                </>}
-                {d === 'EX' && <>
-                  <path class="f" fill-rule="evenodd" d={`${ring(100, 100, 96)} ${ring(100, 100, 82)} M66,6 h18 l-4,-14 h-10z M116,6 h18 l-4,-14 h-10z M66,194 h18 l-4,14 h-10z M116,194 h18 l-4,14 h-10z`} />
-                  <path class="f" d="M195,92 h12 a3,3 0 0,1 3,3 v10 a3,3 0 0,1 -3,3 h-12z" />
-                </>}
-                {d === 'DH' && <>
-                  <circle class="f" cx="100" cy="100" r="80" />
-                  {ticks.map(a => <rect class="on" x="98" y="26" width="4" height={a % 90 ? 9 : 16} transform={`rotate(${a} 100 100)`} />)}
-                  <rect class="on" x="97" y="52" width="6" height="52" rx="3" transform="rotate(-60 100 100)" />
-                  <rect class="on" x="98" y="34" width="4" height="70" rx="2" transform="rotate(60 100 100)" />
-                  <circle class="on" cx="100" cy="100" r="6" />
-                </>}
-              </svg>
-            </div>
-          ))}
-        </div>
-      </div>
-      <figcaption>
-        <p class="switch" hidden>
-          {shown.map((s, i) => <button type="button" class="btn secondary" aria-pressed={i === 0 ? 'true' : 'false'} data-i={i}>{s.name}</button>)}
-        </p>
-        <ul class="key">
-          {LAYERS.map(({ d, part }) => (
-            <li data-d={d}>
-              <span class="sw" data-level={first.levels[d]} aria-hidden="true" />
-              <span><abbr title={dimension[d].label}>{d}</abbr> {dimension[d].label}<span class="small muted">{part}</span></span>
-              <span class="num">{first.levels[d]}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="small muted">Darker plates are made more in-house; hatched means no evidence yet. <a class="rec" href={first.url}>Open the {first.name} record</a></p>
-      </figcaption>
-    </figure>
+    <ul class="turned figures">
+      <li><b data-roll={records.length}>{records.length}</b><span>watch records</span></li>
+      <li><b data-roll={brands}>{brands}</b><span>brands</span></li>
+      <li><b data-roll={claims}>{claims}</b><span>sourced claims</span></li>
+      <li><b data-roll={sources.size}>{sources.size}</b><span>public sources</span></li>
+    </ul>
   </header>
 
   <section class="doc-row" data-rise>
     <h2>What FALK is</h2>
-    <div class="body">
-      <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
-      <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+    <div class="stack-l">
+      <div class="body">
+        <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
+        <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+      </div>
+      <div class="plate example">
+        <ProfileStrip caption={`${example.brandName} ${example.model}`} columns={[{ scores: example.profile.scores }]} />
+        <p class="small"><a href={recordUrl(example.id)}>Open this record</a></p>
+      </div>
     </div>
   </section>
 
@@ -146,129 +68,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     <h2>Right of reply</h2>
     <p class="body">A brand or watchmaker described on this site can reply to any record. Send the correction form with the evidence you want considered; if the editors keep a judgment you dispute, your contradicting evidence is added to the record as a visible claim beside the score, not hidden. Profiles are editorial research judgments, not verdicts on quality, and are revised when better evidence appears.</p>
   </section>
-
-  <svg width="0" height="0" class="defs" aria-hidden="true">
-    <pattern id="falk-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.5" height="6" class="hatch" /></pattern>
-    <pattern id="falk-cotes" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><rect width="6" height="12" class="cote" /></pattern>
-  </svg>
 </Base>
 
 <style>
-  .about-head { display: grid; gap: var(--s-6) var(--s-7); padding: var(--s-8) 0 0; }
-  .about-head h1 { font-size: clamp(56px, 7.4vw, 112px); line-height: .9; font-stretch: 68%; font-weight: 660; letter-spacing: -0.03em; }
-  .intro > * + * { margin-top: var(--s-4); }
-  /* The figure's stage and key join the header's grid: title and key on the left, the watch beside them. */
-  .exploded { display: contents; }
-  @media (min-width: 1024px) {
-    .about-head { grid-template-columns: 5fr 7fr; grid-template-areas: 'intro stage' 'key stage'; align-items: start; }
-    .intro { grid-area: intro; }
-    .stage { grid-area: stage; position: sticky; top: var(--nav-h); }
-    figcaption { grid-area: key; }
-  }
-
-  /* The stage: CSS 3D, plates stacked in Z and pulled apart. Without script it rests exploded at a fixed angle. */
-  .stage { position: relative; container-type: inline-size; aspect-ratio: 1; max-width: 760px; width: 100%; justify-self: center; perspective: 220cqi; touch-action: pan-y; cursor: grab; user-select: none; }
-  .stage:active { cursor: grabbing; }
-  @media (max-width: 1023px) { .stage { margin-block: -9vw; } }
-  .watch { position: absolute; inset: 22% 22% 22%; transform-style: preserve-3d; transform: rotateX(60deg) rotateZ(-30deg); --gap: 9.5cqi; }
-  .exploded.closed .watch { --gap: 0.6cqi; }
-  .layer { position: absolute; inset: 0; transform: translateZ(calc((var(--i) - 3) * var(--gap) + var(--lift, 0px))); transition: transform 1100ms var(--ease), opacity var(--d-open) var(--ease); }
-  .layer svg { display: block; width: 100%; height: 100%; overflow: visible; }
-  .exploded.focus .layer:not(.on) { opacity: .22; }
-  .layer.on { --lift: 4cqi; }
-
-  /* Shading by level, the same ramp as the profile strips. */
-  /* Dark plates take a light edge so a stack of them still reads as separate parts. */
-  [data-level] { --st: var(--c-ink); }
-  [data-level="0"] { --lv: var(--c-page); --on: var(--c-ink); }
-  [data-level="1"] { --lv: var(--c-level-1); --on: var(--n-1); }
-  [data-level="2"] { --lv: var(--c-level-2); --on: var(--n-2); }
-  [data-level="3"] { --lv: var(--c-level-3); --on: var(--n-3); }
-  [data-level="4"] { --lv: var(--c-level-4); --on: var(--n-4); --st: var(--c-level-2); }
-  [data-level="5"] { --lv: var(--c-level-5); --on: var(--n-5); --st: var(--c-level-3); }
-  [data-level="U"] { --lv: url(#falk-hatch); --on: var(--c-ink); }
-  .f { fill: var(--lv); stroke: var(--st); stroke-width: 1.4; stroke-linejoin: round; transition: fill var(--d-reveal) var(--ease); }
-  .o { stroke: var(--st); stroke-width: 1.2; fill: var(--c-page); }
-  .on { fill: var(--on); }
-  .cotes { fill: url(#falk-cotes); pointer-events: none; }
-  .jewel { fill: var(--c-action); }
-  .defs { position: absolute; }
-  .hatch { fill: var(--c-ink-2); }
-  .cote { fill: var(--c-ink); opacity: .12; }
-
-  /* The key: what each plate stands for and the selected record's level. */
-  figcaption > * + * { margin-top: var(--s-5); }
-  .switch { display: flex; flex-wrap: wrap; gap: var(--s-2); }
-  .switch .btn { min-height: 40px; padding: 0 var(--s-4); font-size: 14px; }
-  .switch .btn[aria-pressed="true"] { background: var(--c-ink); color: var(--c-ink-inverse); }
-  .key { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
-  .key li { display: grid; grid-template-columns: 28px 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-2) var(--s-3); border-radius: var(--r-control); background: var(--c-surface); transition: background var(--d-quick) var(--ease); }
-  .key li:hover, .key li.on { background: var(--c-surface-2); }
-  .key abbr { font-weight: 640; margin-right: var(--s-1); }
-  .key .small { display: block; }
-  .sw { width: 28px; height: 28px; border-radius: 6px; background: var(--lv); }
-  .sw[data-level="U"] { background: var(--pattern-unknown); }
-  .sw[data-level="0"] { box-shadow: inset 0 0 0 1.5px var(--c-level-3); } /* taste-skill-ignore: an empty swatch needs its outline to read as level 0 */
-  .num { font: 640 22px/1 var(--f-sans); font-stretch: 78%; min-width: 1ch; text-align: right; }
-
   .body { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); }
   .body > * + * { margin-top: var(--s-4); }
-
-  @media (prefers-reduced-motion: reduce) { .layer, .f { transition: none; } }
+  .stack-l > * + * { margin-top: var(--s-6); }
+  .example { max-width: 640px; }
 </style>
-
-<script>
-  type Shown = { name: string; url: string; levels: Record<string, number | 'U'> };
-  const fig = document.querySelector<HTMLElement>('.exploded')!;
-  const watch = fig.querySelector<HTMLElement>('.watch')!, stage = fig.querySelector<HTMLElement>('.stage')!;
-  const shown: Shown[] = JSON.parse(fig.dataset.records!);
-  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Pick a record: every plate, swatch and figure takes its levels.
-  const switcher = fig.querySelector<HTMLElement>('.switch')!;
-  switcher.hidden = false;
-  switcher.addEventListener('click', e => {
-    const b = (e.target as HTMLElement).closest('button');
-    if (!b) return;
-    const s = shown[Number(b.dataset.i)];
-    switcher.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    fig.querySelectorAll<HTMLElement>('.layer').forEach(l => { l.dataset.level = String(s.levels[l.dataset.d!]); });
-    fig.querySelectorAll<HTMLElement>('.key li').forEach(li => {
-      const v = String(s.levels[li.dataset.d!]);
-      li.querySelector<HTMLElement>('.sw')!.dataset.level = v;
-      li.querySelector('.num')!.textContent = v;
-    });
-    const a = fig.querySelector<HTMLAnchorElement>('.rec')!;
-    a.href = s.url; a.textContent = `Open the ${s.name} record`;
-  });
-
-  // Point at a dimension in the key and its plate lifts out of the stack.
-  fig.querySelectorAll<HTMLElement>('.key li').forEach(li => {
-    const layer = fig.querySelector(`.layer[data-d="${li.dataset.d}"]`)!;
-    li.addEventListener('pointerenter', () => { fig.classList.add('focus'); layer.classList.add('on'); li.classList.add('on'); });
-    li.addEventListener('pointerleave', () => { fig.classList.remove('focus'); layer.classList.remove('on'); li.classList.remove('on'); });
-  });
-
-  // It turns slowly while on screen, comes apart as it arrives, and can be dragged round.
-  let rz = -30, rx = 58, drag: { x: number; y: number } | null = null, visible = false, raf = 0;
-  const draw = () => { watch.style.transform = `rotateX(${rx}deg) rotateZ(${rz}deg)`; };
-  const tick = () => { if (!drag) { rz += 0.06; draw(); } raf = visible ? requestAnimationFrame(tick) : 0; };
-  if (!still) {
-    fig.classList.add('closed');
-    new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible) { setTimeout(() => fig.classList.remove('closed'), 250); if (!raf) raf = requestAnimationFrame(tick); }
-    }).observe(stage);
-  }
-  stage.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; stage.setPointerCapture(e.pointerId); });
-  stage.addEventListener('pointermove', e => {
-    if (!drag) return;
-    rz -= (e.clientX - drag.x) * 0.4;
-    rx = Math.min(80, Math.max(20, rx - (e.clientY - drag.y) * 0.3));
-    drag = { x: e.clientX, y: e.clientY };
-    draw();
-  });
-  const release = () => { drag = null; };
-  stage.addEventListener('pointerup', release);
-  stage.addEventListener('pointercancel', release);
-</script>
