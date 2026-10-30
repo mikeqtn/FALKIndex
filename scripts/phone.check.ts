@@ -60,3 +60,22 @@ test('desktop: typing in the header search leaves the page where it is, and sect
     assert.ok(gap >= 0 && gap < 40, `#rules lands ${gap}px below the header`);
   } finally { await desktop.close(); }
 });
+
+test('desktop: a header search suggestion opens that record, and a broad search still lists records', async () => {
+  const desktop = await chromium.launch();
+  try {
+    const page = await desktop.newPage({ viewport: { width: 1400, height: 900 } });
+    const search = async (text: string, pick?: 'click' | 'arrow') => {
+      await page.goto(`${base}/methodology/`, { waitUntil: 'load' });
+      await page.locator('#nav-q').fill(text);
+      if (pick === 'click') await page.locator('#nav-suggest li[role="option"]').first().dispatchEvent('pointerdown');
+      else { if (pick === 'arrow') await page.keyboard.press('ArrowDown'); await page.keyboard.press('Enter'); }
+      await page.waitForLoadState('load');
+      return new URL(page.url()).pathname + new URL(page.url()).search;
+    };
+    assert.equal(await search('speedmaster moonwatch', 'click'), '/records/omega/speedmaster-moonwatch-3861/');
+    assert.equal(await search('speedmaster moonwatch', 'arrow'), '/records/omega/speedmaster-moonwatch-3861/');
+    assert.equal(await search('speedmaster moonwatch'), '/records/omega/speedmaster-moonwatch-3861/', 'one match: Enter opens it');
+    assert.match(await search('tudor'), /^\/records\/\?q=tudor$/, 'several matches: Enter searches');
+  } finally { await desktop.close(); }
+});
