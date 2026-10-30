@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
-import Picture from '../components/Picture.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
-const { record } = await getCatalogue(Astro.locals);
+const { record, records, sources } = await getCatalogue(Astro.locals);
+const brands = new Set(records.map(r => r.brand)).size;
+const claims = records.reduce((n, r) => n + r.claims.length, 0);
 
 const example = record('fleming/series-1');
 ---
@@ -13,10 +14,12 @@ const example = record('fleming/series-1');
       <h1>About</h1>
       <p class="lead">FALK records where the work on a watch really happens, and the evidence for it, one model at a time.</p>
     </div>
-    <figure class="hero-photo">
-      <Picture src="/images/movements/omega-1861-1600.jpg" srcset="/images/movements/omega-1861-800.jpg 800w, /images/movements/omega-1861-1600.jpg 1600w" sizes="(min-width: 1024px) 40vw, 100vw" width={1600} height={1067} alt="An Omega calibre 1861 chronograph movement, its bridges and jewels exposed." />
-      <figcaption class="small muted"><a href={recordUrl('omega/speedmaster-moonwatch-3861')}>Omega cal. 1861, base of the 3861</a></figcaption>
-    </figure>
+    <ul class="turned figures">
+      <li><b data-roll={records.length}>{records.length}</b><span>watch records</span></li>
+      <li><b data-roll={brands}>{brands}</b><span>brands</span></li>
+      <li><b data-roll={claims}>{claims}</b><span>sourced claims</span></li>
+      <li><b data-roll={sources.size}>{sources.size}</b><span>public sources</span></li>
+    </ul>
   </header>
 
   <section class="doc-row" data-rise>
@@ -68,9 +71,6 @@ const example = record('fleming/series-1');
 </Base>
 
 <style>
-  .hero-photo { margin: 0; }
-  .hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-plate); }
-  .hero-photo figcaption { margin-top: var(--s-2); }
   .body { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); }
   .body > * + * { margin-top: var(--s-4); }
   .stack-l > * + * { margin-top: var(--s-6); }

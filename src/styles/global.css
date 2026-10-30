@@ -374,6 +374,11 @@ blockquote.excerpt { margin: var(--s-2) 0; padding-left: var(--s-4); border-left
 /* A photograph's <picture> wrapper takes no box of its own, so layouts style the <img> as before. */
 picture { display: contents; }
 .turned a { color: inherit; }
+/* Headline figures on a turned plate, beside a reading page's title. */
+.figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
+.figures li { display: grid; gap: var(--s-1); }
+.figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.figures span { font-size: 15px; color: #C9D3E2; }
 .turned .btn.secondary { background: rgb(255 255 255 / .1); color: #F7F8FA; }
 .turned .btn.secondary:hover { background: rgb(255 255 255 / .18); }
 
