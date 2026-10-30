@@ -40,7 +40,7 @@ export default function PublicProfileApp({ username }: { username: string }) {
         {profile.status === 'suspended' && <p className="account-notice">This account is suspended. Previously published contributions remain attributed.</p>}
         {profile.bio && <p className="account-intro">{profile.bio}</p>}
         <div className="account-actions">
-          {profile.website && <a className="account-button secondary" href={profile.website} target="_blank" rel="noreferrer">Website</a>}
+          {profile.website && <a className="account-button secondary" href={profile.website} target="_blank" rel="nofollow ugc noreferrer">Website</a>}
         </div>
       </header>
       <section className="account-panel account-stack">
