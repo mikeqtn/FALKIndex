@@ -70,7 +70,8 @@ test('desktop: a header search suggestion opens that record, and a broad search 
       await page.locator('#nav-q').fill(text);
       if (pick === 'click') await page.locator('#nav-suggest li[role="option"]').first().dispatchEvent('pointerdown');
       else { if (pick === 'arrow') await page.keyboard.press('ArrowDown'); await page.keyboard.press('Enter'); }
-      await page.waitForLoadState('load');
+      // The methodology page is already loaded, so wait for the address to change, not for "load".
+      await page.waitForURL(url => url.pathname !== '/methodology/');
       return new URL(page.url()).pathname + new URL(page.url()).search;
     };
     assert.equal(await search('speedmaster moonwatch', 'click'), '/records/omega/speedmaster-moonwatch-3861/');
