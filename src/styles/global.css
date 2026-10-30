@@ -57,7 +57,11 @@
 /* ── Base ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + var(--s-4)); }
+html { -webkit-text-size-adjust: 100%; }
+/* Anchor jumps, focused fields and scrollIntoView stop below the sticky header. This is a margin on
+   the targets, not scroll-padding on <html>: the header's own search box sits inside that padding,
+   so the browser scrolled the page up on every keystroke trying to bring it into view. */
+[id]:not(.site-nav *) { scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
 body {
   margin: 0; background: var(--c-page); color: var(--c-ink);
   font: 400 16px/1.5 var(--f-sans); font-variant-numeric: tabular-nums; letter-spacing: -0.005em;

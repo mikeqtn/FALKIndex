@@ -4,7 +4,7 @@ import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { webkit, devices } from 'playwright';
+import { chromium, webkit, devices } from 'playwright';
 import { createApp, attachProductionSite } from '../server/index.ts';
 
 assert.ok(existsSync('dist/server/entry.mjs'), 'Run npm run build before npm run test:phone');
@@ -43,3 +43,20 @@ for (const name of ['iPhone SE', 'iPhone 14']) {
     await context.close();
   });
 }
+
+// The header search sits in the sticky header. Scroll-padding on <html> once made the browser scroll
+// the page up on every keystroke there, trying to bring the box out from "under" the header.
+test('desktop: typing in the header search leaves the page where it is, and section links still clear the header', async () => {
+  const desktop = await chromium.launch();
+  try {
+    const page = await desktop.newPage({ viewport: { width: 1400, height: 900 } });
+    await page.goto(`${base}/methodology/`, { waitUntil: 'load' });
+    await page.evaluate(() => scrollTo(0, 1500));
+    await page.locator('#nav-q').focus();
+    for (const key of 'omega') await page.keyboard.type(key);
+    assert.equal(await page.evaluate(() => scrollY), 1500);
+    await page.evaluate(() => { (document.activeElement as HTMLElement).blur(); location.hash = 'rules'; });
+    const gap = await page.evaluate(() => document.getElementById('rules')!.getBoundingClientRect().top - document.querySelector('.site-nav')!.getBoundingClientRect().bottom);
+    assert.ok(gap >= 0 && gap < 40, `#rules lands ${gap}px below the header`);
+  } finally { await desktop.close(); }
+});
