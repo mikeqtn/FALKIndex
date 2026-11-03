@@ -25,7 +25,12 @@ a quality score or a ranking.
 - **Site:** [Astro](https://astro.build), with React for the account pages.
 - **Host:** a Node/Express server (`server/`) that serves the APIs and the Astro build.
 - **Database:** PostgreSQL. The catalogue is rebuilt from relational data and
-  validated on every request.
+  validated, then shared by requests for up to 15 seconds (`CATALOGUE_TTL_MS`;
+  `src/lib/catalogue-cache.ts`). If a reload fails, the last good copy is served.
+- **Load limits:** rendered pages and share images have a per-visitor budget per
+  minute (`server/pageLimit.ts`). `PAGE_RATE_LIMIT` is `log` (the default: never
+  blocks, logs who goes over), `enforce` or `off`; `PAGE_RATE_PER_MINUTE` (120)
+  and `IMAGE_RATE_PER_MINUTE` (30) set the budgets.
 - **Accounts:** [Clerk](https://clerk.com). Browsing the catalogue never requires an account.
 - **Seed data:** YAML in `data/`, imported into PostgreSQL once.
 

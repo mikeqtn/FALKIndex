@@ -17,7 +17,9 @@ const { classification, dimension, orgs, records } = await getCatalogue(Astro.lo
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
 if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
-const discussions = (await recordThreads(r.id)).length;
+// The thread count is live forum data, not part of the cached catalogue. If the database is unavailable the record
+// still renders from the last good catalogue, with the discussion link but no count.
+const discussions = await recordThreads(r.id).then(threads => threads.length, () => 0);
 const noProfile = p.confidence === 'D';
 const details = [
   ['Generation', r.generation], ['Reference', r.reference], ['Caliber', r.caliber], ['Production route', r.route_label],

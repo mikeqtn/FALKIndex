@@ -14,6 +14,7 @@ import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { waitForDatabase } from './db.ts';
+import { pageLimit, type PageLimitOptions } from './pageLimit.ts';
 import { clerkHostFor, clerkProxyFor } from '../src/accounts/clerk-host.ts';
 
 // Baseline browser protections, always enforced. The script policy comes from Astro on rendered pages and is
@@ -89,7 +90,7 @@ export function createApp() {
   });
   return app;
 }
-export async function attachProductionSite(app: express.Express) {
+export async function attachProductionSite(app: express.Express, limits?: PageLimitOptions) {
   // The Astro middleware adapter does not serve its client assets itself.
   // Never let a successful HTML response conceal broken JS/CSS after Publish.
   app.use(express.static(resolve('dist/client'),{
@@ -99,6 +100,8 @@ export async function attachProductionSite(app: express.Express) {
     },
   }));
   const { handler } = await import(pathToFileURL(resolve('dist/server/entry.mjs')).href);
+  // Static files were answered above; everything left is a rendered page or a generated share image.
+  app.use(pageLimit(limits));
   app.use(pagePolicy());
   app.use(handler);
 }
