@@ -1,6 +1,7 @@
 import { ClerkProvider } from '@clerk/react';
 import { publishableKeyFromHost } from '@clerk/react/internal';
 import type { ReactNode } from 'react';
+import { clerkHostFor, clerkProxyFor } from '../../accounts/clerk-host.ts';
 import '../../styles/accounts.css';
 
 // Colours come from the site tokens so the card follows light and dark mode.
@@ -59,10 +60,10 @@ export const authCardAppearance = {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const clerkPubKey = publishableKeyFromHost(
-    window.location.hostname,
+    clerkHostFor(window.location.hostname),
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
   );
-  const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
+  const clerkProxyUrl = clerkProxyFor(window.location.hostname) ?? import.meta.env.VITE_CLERK_PROXY_URL;
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   return (

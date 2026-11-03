@@ -289,3 +289,15 @@ test('the main site and the forum do not load each other\'s stylesheets on their
   }
 });
 
+test('forum pages allow sign-in through the main site', async () => {
+  for (const route of ['/forum/', '/forum/new/']) {
+    const response = await fetch(`${base}${route}`, { headers:{ 'x-forwarded-host':'forum.falkindex.com' } });
+    const policy = response.headers.get('content-security-policy-report-only') ?? '';
+    const directive = (name: string) => policy.split(';').find(d => d.trim().startsWith(`${name} `)) ?? '';
+    for (const name of ['script-src', 'connect-src']) {
+      assert.match(directive(name), /https:\/\/falkindex\.com(\s|$)/, `${route} ${name}`);
+      assert.match(directive(name), /https:\/\/clerk\.falkindex\.com(\s|$)/, `${route} ${name}`);
+      assert.doesNotMatch(directive(name), /clerk\.forum\.falkindex\.com/, `${route} ${name}`);
+    }
+  }
+});
