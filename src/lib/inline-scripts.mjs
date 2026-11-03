@@ -13,3 +13,8 @@ export const MENU_SCRIPT = `(() => {
 })();`;
 
 export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT];
+
+// Clerk Protect (bot protection on sign-in and sign-up). It probes its hosts on several ports (443, 8443, 18443, 2082,
+// 992), hence the :* on connect-src. Shared by astro.config.mjs and Base.astro, which replaces connect-src per request.
+export const CLERK_PROTECT_SCRIPTS = ['https://cdn.protect.clerk.com', 'https://*.client.protect.clerk.com'];
+export const CLERK_PROTECT_CONNECT = 'https://*.client.protect.clerk.com:*';
