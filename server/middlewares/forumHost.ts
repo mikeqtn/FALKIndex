@@ -3,9 +3,9 @@ import { getClerkProxyHost } from './clerkProxyMiddleware.ts';
 
 // The forum's pages live under /forum. With FORUM_HOST set (production: forum.falkindex.com),
 // that host serves them at its root and the main site's /forum links redirect there. The API,
-// Clerk proxy, sign-in pages and static files are shared, so sign-in happens on the forum's own
+// Clerk proxy and static files are shared, and the forum has its own sign-in pages, so sign-in happens on its own
 // origin. Without FORUM_HOST (the Replit preview has one host) the forum stays at /forum.
-const SHARED = /^\/(api|_astro|sign-in|sign-up|@|node_modules|src)(\/|$)|\.[a-z0-9]+$/i;
+const SHARED = /^\/(api|_astro|@|node_modules|src)(\/|$)|\.[a-z0-9]+$/i;
 const FORUM_PATH = /^\/forum(\/|$)/;
 
 export function forumHost(host = process.env.FORUM_HOST): RequestHandler {
