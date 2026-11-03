@@ -19,5 +19,5 @@ export function allowClerkForHost(astro: Pick<AstroGlobal, 'csp' | 'request'>) {
   const proxyOrigin = proxy ? new URL(proxy).origin : '';
   astro.csp.insertScriptResource(`https://clerk.${clerkHost}`);
   if (proxyOrigin) astro.csp.insertScriptResource(proxyOrigin);
-  astro.csp.insertDirective(`connect-src 'self' https://clerk.${clerkHost} ${proxyOrigin} ${CLERK_PROTECT_CONNECT}`.replace(/\s+/g, ' '));
+  astro.csp.insertDirective(`connect-src 'self' https://clerk.${clerkHost}${proxyOrigin ? ` ${proxyOrigin}` : ''} ${CLERK_PROTECT_CONNECT}`);
 }
