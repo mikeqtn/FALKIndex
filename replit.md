@@ -87,8 +87,12 @@ Publishing uses the Autoscale target with a Node server:
 - Build command: `npm run build`.
 - Run command: `npm start`.
 - Astro emits `dist/client` assets and `dist/server/entry.mjs`.
-- Replit Publish manages development-to-production schema changes. Review its
-  database step, including the append-only guard functions/triggers.
+- Replit Publish copies schema changes from the development database to production,
+  so a new migration must exist in development first. After pulling one, run
+  `npm run db:setup` in the Replit Shell, then publish, and check that the database
+  step lists the new tables. Skipping this publishes code that expects tables
+  production doesn't have. Review the step, including the append-only guard
+  functions/triggers.
 - Initial production data needs the validated catalogue seed; never run an
   unconditional import or schema migration at startup. Later publishing must
   preserve production contributions, not replace them with development data.
