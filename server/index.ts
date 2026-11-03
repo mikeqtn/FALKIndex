@@ -26,7 +26,7 @@ function securityHeaders(_req: express.Request,res: express.Response,next: expre
   res.setHeader('Content-Security-Policy',`base-uri 'self'; object-src 'none'; img-src 'self' data: https://img.clerk.com${production ? "; frame-ancestors 'none'" : ''}`);
   if (production) {
     res.setHeader('X-Frame-Options','DENY');
-    res.setHeader('Strict-Transport-Security','max-age=31536000');
+    res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');
   }
   next();
 }
@@ -101,6 +101,8 @@ export async function start() {
   let devProxy: ReturnType<typeof createFixedProxyMiddleware> | undefined;
   let stopping = false;
   if (process.env.NODE_ENV === 'production') {
+    // Rate-limit keys are keyed hashes of visitor IPs; with a public default key they could be reversed.
+    if (!process.env.SESSION_SECRET) throw new Error('SESSION_SECRET must be set in production. Use a long random value, e.g. `openssl rand -hex 32`.');
     // Every page reads the catalogue from the database. Load it once before listening, so a cold database is awake
     // and the deploy health check on "/" gets a fast answer. If it is still unreachable, serve anyway and let requests retry.
     await waitForDatabase(loadCatalogue);

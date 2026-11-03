@@ -196,3 +196,13 @@ test('the forum renders for anonymous readers, and record pages link to their di
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
 });
+
+test('data embedded in pages cannot close its own script tag', async () => {
+  const html = await (await fetch(`${base}/`)).text();
+  const blocks = [...html.matchAll(/<script type="application\/(?:ld\+)?json"[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+  assert.ok(blocks.length >= 3, 'structured data, search suggestions and compare data');
+  for (const block of blocks) {
+    assert.doesNotMatch(block, /</, 'every < is escaped as \\u003c');
+    JSON.parse(block);
+  }
+});

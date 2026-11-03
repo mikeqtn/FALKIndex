@@ -35,7 +35,7 @@ const scope = `FROM falk_submission s
   LEFT JOIN falk_organization t ON t.id=s.organization_id
   LEFT JOIN falk_account a ON a.id=s.author_id
   WHERE (s.author_id IS NULL OR a.realm=$1)`;
-const summaryColumns = `s.id,s.status,s.created_at,s.target_kind,s.watch_id,s.author_id,s.submitter_name,
+const summaryColumns = `s.id,s.status,s.created_at,s.target_kind,s.watch_id,s.author_id,s.submitter_name,a.deleted_at,
   a.username,w.payload->>'model' AS model,o.payload->>'name' AS brand,t.payload->>'name' AS organization,
   left(s.explanation,240) AS excerpt,
   CASE WHEN jsonb_typeof(s.evidence)='array' THEN jsonb_array_length(s.evidence) ELSE 0 END AS evidence_count`;
@@ -46,7 +46,7 @@ function summaryFrom(row: any): ReviewSummary {
     subject:row.watch_id ? [row.brand,row.model].filter(Boolean).join(' ') || row.watch_id
       : row.organization ? `Organization: ${row.organization}` : row.target_kind === 'evidence' ? 'Evidence proposal' : 'New record proposal',
     submitter:row.author_id
-      ? {kind:'member',label:row.username ? `@${row.username}` : 'Member (profile incomplete)'}
+      ? {kind:'member',label:row.username ? `@${row.username}` : row.deleted_at ? 'Deleted member' : 'Member (profile incomplete)'}
       : {kind:'guest',label:row.submitter_name || 'Anonymous guest'},
     excerpt:row.excerpt,evidenceCount:row.evidence_count,
   };

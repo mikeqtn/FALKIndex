@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
-import { enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
+import { deleteAccount, enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
 import { adminAccountQuery, createInvitation, protectLastAdmin } from '../server/admin.ts';
 import { CORRECTIONS_PER_HOUR, rateLimitKey, requireSameOrigin } from '../server/api.ts';
 import { isClerkImage, profileInput } from '../src/accounts/contracts.ts';
@@ -222,3 +222,57 @@ test('guest corrections are capped per hour, counting invalid attempts', async (
     assert.match((await limited.json()).error,/last hour/);
   } finally { await clear(); }
 });
+
+// A member with a full profile and history, in a rolled-back transaction.
+async function withMember(run: (db: import('pg').PoolClient, add: (role?: string) => Promise<{id: string; username: string; email: string}>) => Promise<void>) {
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    const add = async (role = 'contributor') => {
+      const username = `del_${randomUUID().slice(0,8)}`, email = `${username}@example.test`;
+      const id = (await db.query('INSERT INTO falk_account(realm,clerk_id,username,role,email_verified) VALUES($1,$2,$3,$4,true) RETURNING id',
+        [realm(),`test-${randomUUID()}`,username,role])).rows[0].id;
+      await db.query("INSERT INTO falk_account_private(account_id,email,real_name) VALUES($1,$2,'Real Name')",[id,email]);
+      await db.query("INSERT INTO falk_member_profile(account_id,display_name,bio,website) VALUES($1,'Shown','A bio','https://example.test')",[id]);
+      return {id,username,email};
+    };
+    await run(db,add);
+  } finally { await db.query('ROLLBACK'); db.release(); }
+}
+test('deleting an account erases personal details, keeps contributions, and cuts the sign-in link', () => withMember(async (db,add) => {
+  const member = await add(), admin = await add('admin');
+  const org = (await db.query('SELECT id FROM falk_organization LIMIT 1')).rows[0].id;
+  await db.query('INSERT INTO falk_affiliation(account_id,organization_id) VALUES($1,$2)',[member.id,org]);
+  await db.query("INSERT INTO falk_professional_verification(account_id,label,evidence_url,verified_by) VALUES($1,'Watchmaker at X','https://example.test/me',$2)",[member.id,admin.id]);
+  await db.query("INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at,accepted_by) VALUES($1,$2,'editor',$3,'inv_test',now(),$4)",[realm(),member.email,admin.id,member.id]);
+  // Guest corrections are always about a watch (falk_submission_guest_watch_only).
+  const watch = (await db.query('SELECT id FROM falk_watch LIMIT 1')).rows[0].id;
+  const guest = (await db.query(`INSERT INTO falk_submission(target_kind,watch_id,original_proposal,explanation,evidence,submitter_name,submitter_email)
+    VALUES('watch',$2,'{}','sent as a guest','[]','Real Name',$1) RETURNING id`,[member.email,watch])).rows[0].id;
+  const authored = (await db.query(`INSERT INTO falk_submission(author_id,target_kind,original_proposal,explanation,evidence)
+    VALUES($1,'evidence','{}','sent as a member','[]') RETURNING id`,[member.id])).rows[0].id;
+
+  await assert.rejects(deleteAccount(member.id,'yes',db),/Type DELETE/);
+  const { clerkId } = await deleteAccount(member.id,' Delete ',db);
+  assert.match(clerkId,/^test-/,'the Clerk user to delete next');
+  const row = (await db.query(`SELECT a.username,a.clerk_id,a.role,a.status,a.deleted_at IS NOT NULL AS deleted,x.email,x.real_name,p.display_name,p.bio,p.website
+    FROM falk_account a JOIN falk_account_private x ON x.account_id=a.id JOIN falk_member_profile p ON p.account_id=a.id WHERE a.id=$1`,[member.id])).rows[0];
+  assert.deepEqual(row,{username:null,clerk_id:`deleted:${member.id}`,role:'contributor',status:'suspended',deleted:true,email:'',real_name:'',display_name:'',bio:'',website:''});
+  assert.equal(await publicProfile(member.username,db),null);
+  assert.equal((await db.query('SELECT count(*)::int AS n FROM falk_affiliation WHERE account_id=$1 AND ended_at IS NULL',[member.id])).rows[0].n,0);
+  assert.deepEqual((await db.query('SELECT label,evidence_url,revoked_at IS NOT NULL AS revoked FROM falk_professional_verification WHERE account_id=$1',[member.id])).rows,
+    [{label:'Removed: account deleted',evidence_url:'',revoked:true}]);
+  assert.equal((await db.query('SELECT email FROM falk_invitation WHERE accepted_by=$1',[member.id])).rows[0].email,'');
+  assert.deepEqual((await db.query('SELECT submitter_name,submitter_email FROM falk_submission WHERE id=$1',[guest])).rows[0],{submitter_name:null,submitter_email:null});
+  assert.equal((await db.query('SELECT explanation FROM falk_submission WHERE id=$1',[authored])).rows[0].explanation,'sent as a member','contributions stay');
+  assert.equal((await db.query("SELECT count(*)::int AS n FROM falk_audit_event WHERE actor_id=$1 AND action='account_deleted'",[member.id])).rows[0].n,1);
+  await assert.rejects(deleteAccount(member.id,'delete',db),/not found/,'only once');
+}));
+test('the last active administrator cannot delete their account', () => withMember(async (db,add) => {
+  // Within this rolled-back transaction, set aside any administrators already in the database.
+  await db.query("UPDATE falk_account SET status='suspended' WHERE realm=$1 AND role='admin'",[realm()]);
+  const only = await add('admin');
+  await assert.rejects(deleteAccount(only.id,'delete',db),/last active administrator/);
+  await add('admin');
+  await deleteAccount(only.id,'delete',db);
+}));

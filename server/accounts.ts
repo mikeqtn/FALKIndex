@@ -44,7 +44,8 @@ function accountFrom(row: any): Account {
 
 // Identity verification comes from Clerk's server API, never a form/JWT custom role.
 // Dev and production identities are partitioned, including the one-time admin grant.
-export async function authenticatedAccount(req: Request, roles?: readonly Role[]) {
+// `enforce: false` is only for deleting the account: suspended and unverified members may still do that.
+export async function authenticatedAccount(req: Request, roles?: readonly Role[], enforce = true) {
   const userId = getAuth(req).userId;
   if (!userId) throw new HttpError(401, 'Sign in to continue.');
   const identity = await clerkClient.users.getUser(userId);
@@ -93,7 +94,7 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
     }
     return accountFrom((await db.query(`${accountSelect} WHERE a.id=$1`, [row.id])).rows[0]);
   });
-  enforceAccount(account,roles);
+  if (enforce) enforceAccount(account,roles);
   account.profile.brandTies = (await pool.query('SELECT organization_id FROM falk_affiliation WHERE account_id=$1 AND ended_at IS NULL ORDER BY organization_id', [account.id])).rows.map(r => r.organization_id);
   return { account, email };
 }
@@ -150,4 +151,39 @@ export async function publicProfile(username: string, db: Pick<Pool,'query'> = p
     contributions:contributions.rows.map(r => ({id:r.id,title:r.target,url:`/records/${r.target}/`,createdAt:r.createdAt.toISOString()})),
     editorialActions:actions.rows,
   };
+}
+
+/**
+ * A member deletes their account. Their personal details are erased: email, names, profile, photo,
+ * disclosures, verification details, invitation emails, and contact details on guest corrections
+ * sent from their email. The row stays, marked deleted, with its link to Clerk cut, so contributions
+ * and the append-only history keep an author (shown as a deleted member). Returns the Clerk user id,
+ * which the caller then deletes from Clerk.
+ */
+export async function deleteAccount(accountId: string, confirm: string, db: PoolClient) {
+  if (confirm.trim().toLowerCase() !== 'delete') throw new HttpError(400,'Type DELETE to confirm.');
+  // The same lock as role changes, so this cannot race the last-administrator check.
+  await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
+  const row = (await db.query(`SELECT a.id,a.clerk_id,a.role,a.status,a.deleted_at,x.email FROM falk_account a
+    JOIN falk_account_private x ON x.account_id=a.id WHERE a.id=$1 AND a.realm=$2 FOR UPDATE OF a`, [accountId,realm()])).rows[0];
+  if (!row || row.deleted_at) throw new HttpError(404,'Account not found.');
+  if (row.role === 'admin' && row.status === 'active') {
+    const admins = (await db.query("SELECT count(*)::int AS n FROM falk_account WHERE realm=$1 AND role='admin' AND status='active'", [realm()])).rows[0].n;
+    if (admins <= 1) throw new HttpError(409,'You are the last active administrator. Make another member an administrator first.');
+  }
+  await db.query(`UPDATE falk_account SET username=NULL,role='contributor',status='suspended',clerk_id='deleted:'||id::text,deleted_at=now()
+    WHERE id=$1`, [accountId]);
+  await db.query("UPDATE falk_account_private SET email='',real_name='' WHERE account_id=$1", [accountId]);
+  await db.query(`UPDATE falk_member_profile SET display_name='',show_real_name=false,bio='',qualifications='{}',qualification_details='',
+    professional_affiliations='',website='',image_url='' WHERE account_id=$1`, [accountId]);
+  await db.query('UPDATE falk_affiliation SET ended_at=now() WHERE account_id=$1 AND ended_at IS NULL', [accountId]);
+  await db.query(`UPDATE falk_professional_verification SET label='Removed: account deleted',evidence_url='',
+    revoked_at=coalesce(revoked_at,now()),revocation_reason=coalesce(revocation_reason,'Account deleted by the member') WHERE account_id=$1`, [accountId]);
+  if (row.email) {
+    await db.query("UPDATE falk_invitation SET email='' WHERE realm=$1 AND (accepted_by=$2 OR email=$3)", [realm(),accountId,row.email]);
+    await db.query('UPDATE falk_submission SET submitter_name=NULL,submitter_email=NULL WHERE author_id IS NULL AND lower(submitter_email)=$1', [row.email]);
+  }
+  // No personal details in the audit record, as everywhere else.
+  await audit(db,accountId,accountId,'account_deleted','The member deleted their account');
+  return { clerkId:row.clerk_id as string };
 }

@@ -59,3 +59,8 @@ externalPort = 3002
 [[ports]]
 localPort = 5099
 externalPort = 4200
+
+[userenv]
+
+[userenv.production]
+FORUM_HOST = "forum.falkindex.com"
