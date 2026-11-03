@@ -122,7 +122,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .f-category h3 { font: 600 20px/26px var(--f-serif); letter-spacing: -.008em; }
 .f-category > div:first-child p { margin-top: 2px; max-width: 62ch; color: var(--c-ink-2); }
 .f-category > div:first-child .f-latest { margin-top: 8px; }
-.f-latest a { color: var(--c-ink); font-weight: 500; }
+.f-latest a { color: var(--c-ink); font-weight: 500; overflow-wrap: anywhere; }
 .f-latest a:hover { color: var(--c-action); }
 .f-figure { text-align: right; white-space: nowrap; }
 .f-figure b { display: block; font-weight: 560; }
