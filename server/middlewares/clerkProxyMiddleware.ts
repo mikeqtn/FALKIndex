@@ -42,6 +42,11 @@ export const CLERK_PROXY_PATH = '/api/__clerk';
  * (clerkMiddleware callback) and this proxy middleware agree on which
  * hostname is canonical — otherwise multi-domain/custom-domain flows
  * break.
+ *
+ * In the app, siteHost (./siteHost.ts) runs first: it checks the host
+ * against the allowlist, writes the result to Host and removes
+ * x-forwarded-host. So inside the app this returns an allowed host; the
+ * x-forwarded-host branch only matters when this is used on its own.
  */
 export function getClerkProxyHost(req: {
   headers: IncomingHttpHeaders;

@@ -70,6 +70,8 @@ API, Clerk proxy, sign-in pages and static files are shared
 (`server/middlewares/forumHost.ts`). Without `FORUM_HOST`, as in the preview, the
 forum is at `/forum/`. To set it up, add `forum.falkindex.com` as a custom domain
 on the deployment and its DNS record, and allow the domain in the Auth pane.
+`FORUM_HOST` is also added to the server's host allowlist; any other domain added to
+the deployment must be listed in `SITE_HOSTS` (see README) or it is served as falkindex.com.
 
 The forum is its own site: `src/layouts/ForumLayout.astro` and `src/styles/forum.css`, with no main-site
 header, footer or stylesheet. To create its categories and starter threads, run

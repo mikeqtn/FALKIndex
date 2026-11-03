@@ -9,6 +9,7 @@ import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { forumHost } from './middlewares/forumHost.ts';
+import { hostPolicy, siteHost, type HostPolicy } from './middlewares/siteHost.ts';
 import { pagePolicy, reportReceiver } from './csp.ts';
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
@@ -33,10 +34,12 @@ function securityHeaders(_req: express.Request,res: express.Response,next: expre
   next();
 }
 
-export function createApp() {
+export function createApp(hosts: HostPolicy = hostPolicy()) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy',1);
+  // First of all: settle which allowed host this request is for, so nothing below reads a forged one.
+  app.use(siteHost(hosts));
   app.use((req,res,next) => {
     const started = process.hrtime.bigint();
     res.once('finish',() => {
@@ -126,6 +129,7 @@ export async function start() {
     event:'server.ready',
     port,
     mode:process.env.NODE_ENV ?? 'development',
+    hosts:[...(hostPolicy().allowed ?? ['any'])],
     startupDurationMs:Math.round(Number(process.hrtime.bigint()-startupStarted)/1_000_000),
   })));
   if (devProxy) server.on('upgrade', devProxy.upgrade);
