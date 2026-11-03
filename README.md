@@ -52,6 +52,14 @@ profile image to link previews. It is read at build time, so set it before
 On Replit, the publishing build command in `.replit` sets it for you. See
 [`replit.md`](replit.md) for Replit, publishing and first-admin setup.
 
+The server answers only to the hostnames it is configured for
+(`server/middlewares/siteHost.ts`). In production that is `falkindex.com` plus
+`FORUM_HOST`; set `SITE_HOSTS` (comma-separated, canonical first) to change the
+list, for example for a staging domain. A request for any other host is served
+as the canonical host. `TRUST_FORWARDED_HOST=0` makes the server ignore the
+proxy's `X-Forwarded-Host` and use `Host` alone. In development, with no
+`SITE_HOSTS`, any host is accepted.
+
 ## Check your changes
 
 ```sh
