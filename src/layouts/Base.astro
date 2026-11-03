@@ -3,7 +3,20 @@ import '../styles/global.css';
 import '../styles/accounts.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import { correctionUrl, getCatalogue, recordUrl, variant } from '../lib/data.ts';
+import { forumHref } from '../lib/forum.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
+// Hashed for the Content Security Policy in astro.config.mjs.
+import { MENU_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
+import { getClerkProxyHost } from '../../server/middlewares/clerkProxyMiddleware.ts';
+// Clerk's production Frontend API is clerk.<this host> (see publishableKeyFromHost in AuthProvider.tsx), so it differs
+// between falkindex.com and the forum's host. Allow it per request; the hostname is checked before it enters the policy.
+// Astro.url is no help here: without an allowedDomains list Astro reports every host as localhost. The host is read
+// the way the server's Clerk middleware reads it, so both agree. Astro.csp exists only in built pages, not under `astro dev`.
+const host = (getClerkProxyHost({ headers: Object.fromEntries(Astro.request.headers) }) ?? '').toLowerCase().replace(/:\d+$/, '');
+if (Astro.csp && /^[a-z0-9.-]+$/.test(host)) {
+  Astro.csp.insertScriptResource(`https://clerk.${host}`);
+  Astro.csp.insertDirective(`connect-src 'self' https://clerk.${host}`);
+}
 const { methodology, records } = await getCatalogue(Astro.locals);
 // Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
 // fields, in the same order, as the records page searches; `u` is the record page a chosen suggestion opens.
@@ -63,10 +76,7 @@ const links = [
     </>}
     <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
     {ldJson && <script type="application/ld+json" set:html={ldJson} />}
-    <script is:inline>
-      // Apply a saved theme before first paint; with no saved choice the system setting applies.
-      try { const t = localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
-    </script>
+    <script is:inline set:html={THEME_SCRIPT} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -78,6 +88,7 @@ const links = [
           <div class="nav-links">
             <ul>
               {links.map(([key, href, label]) => <li><a href={href} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
+              <li><a href={forumHref('/')}>Forum</a></li>
             </ul>
             <form class="nav-search" action="/records/" method="get" role="search">
               <label class="sr-only" for="nav-q">Search records</label>
@@ -101,14 +112,7 @@ const links = [
         </details>
       </nav>
     </header>
-    <script is:inline>
-      // The menu renders open so links work without script; below 1100px it folds behind "Menu".
-      (() => {
-        const menu = document.querySelector('.nav-menu'), wide = matchMedia('(min-width: 1100px)');
-        const fit = () => { menu.open = wide.matches; };
-        fit(); wide.addEventListener('change', fit);
-      })();
-    </script>
+    <script is:inline set:html={MENU_SCRIPT} />
     <slot name="banner" />
     <main id="main" class="wrap"><slot /></main>
     <footer class="site-footer">
@@ -129,7 +133,7 @@ const links = [
           </div>
           <div>
             <h2>Take part</h2>
-            <ul><li><a href={correctionUrl()}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
+            <ul><li><a href={forumHref('/')}>The FALK Forum</a></li><li><a href={correctionUrl()}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
           </div>
           <div>
             <h2>Terms</h2>
