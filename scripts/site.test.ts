@@ -109,7 +109,8 @@ test('pages carry baseline security headers, and production also blocks framing'
 });
 
 test('pages send a report-only script policy that hashes every inline script', async () => {
-  for (const [route, cookie] of [['/',''],['/records/',''],['/sign-in',''],['/methodology/','__client_uat=1791917601']]) {
+  // The forum has its own layout, so it is checked separately; a new is:inline script there would go unhashed.
+  for (const [route, cookie] of [['/',''],['/records/',''],['/sign-in',''],['/methodology/','__client_uat=1791917601'],['/forum/',''],['/forum/new','__client_uat=1791917601']]) {
     const response = await fetch(`${base}${route}`,{headers:cookie ? {cookie} : {}});
     const policy = response.headers.get('content-security-policy-report-only') ?? '';
     const scriptSrc = policy.split(';').find(d => d.trim().startsWith('script-src')) ?? '';
