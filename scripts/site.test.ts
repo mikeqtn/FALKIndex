@@ -7,6 +7,7 @@ import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
 import { keepBaseline, toReportOnly } from '../server/csp.ts';
 import { createApp,attachProductionSite } from '../server/index.ts';
+import { DIRECT_BRANDS, RETAIL_BRANDS, publisherTie } from '../src/lib/publisher.ts';
 
 const dist = 'dist';
 assert.ok(existsSync('dist/server/entry.mjs'),'Run npm run build before npm test');
@@ -247,6 +248,15 @@ test('every methodology archetype has plain-English copy and its own section on 
   const page = read(join(dist, 'archetypes/index.html'));
   for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
   assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
+});
+
+test('records of brands the publisher sells carry a disclosure, and only those', () => {
+  for (const id of [...DIRECT_BRANDS, ...RETAIL_BRANDS]) assert.ok(dataset.organizations.some((o: any) => o.id === id), `${id} is not a catalogue brand`);
+  for (const watch of dataset.watches.filter((w: any) => w.profiles.some((p: any) => p.status === 'published'))) {
+    const html = read(join(dist, `records/${watch.id}/index.html`));
+    assert.equal(html.includes('Disclosure: FALK'), !!publisherTie(watch.brand), watch.id);
+    if (DIRECT_BRANDS.has(watch.brand)) assert.match(html, /deals directly with this brand/, watch.id);
+  }
 });
 
 test('the forum links to the terms and privacy pages, and the publisher is named', async () => {

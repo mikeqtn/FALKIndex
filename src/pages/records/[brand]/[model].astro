@@ -6,6 +6,7 @@ import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
+import { publisherTie } from '../../../lib/publisher.ts';
 import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
@@ -92,6 +93,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         <a href={`/records/${r.id}.json`}>Download JSON</a>
       </div>
       <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
+      {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
     </aside>
   </div>
 

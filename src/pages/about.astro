@@ -3,7 +3,9 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import Picture from '../components/Picture.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
-const { record } = await getCatalogue(Astro.locals);
+import { DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED, RETAIL_BRANDS } from '../lib/publisher.ts';
+const { record, orgs } = await getCatalogue(Astro.locals);
+const brandList = (ids: Set<string>) => new Intl.ListFormat('en').format([...ids].map(id => orgs.get(id)!.name).sort((a, b) => a.localeCompare(b)));
 
 const example = record('fleming/series-1');
 ---
@@ -35,7 +37,11 @@ const example = record('fleming/series-1');
 
   <section class="doc-row" data-rise>
     <h2>Editorial independence</h2>
-    <p class="body">FALK's publisher, Falk Watches, LLC, sells watches, so it has a commercial interest in the watch market. You should know that when you read these records. There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+    <div class="body">
+      <p>FALK's publisher, Falk Watches, LLC, is a watch retailer. It buys and sells new and pre-owned watches, including many brands and models covered here, so it can benefit financially from how they are perceived.</p>
+      <p>It deals directly with {brandList(DIRECT_BRANDS)}. It has also sold or listed watches from {brandList(RETAIL_BRANDS)}. The records of these brands carry a note saying so. This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
+      <p>Brands cannot pay for placement or scores. There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+    </div>
   </section>
 
   <section class="doc-row" data-rise>
