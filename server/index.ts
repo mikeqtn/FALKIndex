@@ -9,12 +9,14 @@ import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { forumHost } from './middlewares/forumHost.ts';
+import { pagePolicy, reportReceiver } from './csp.ts';
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { waitForDatabase } from './db.ts';
 
-// Baseline browser protections. Scripts are not restricted by CSP yet: Clerk loads its own.
+// Baseline browser protections, always enforced. The script policy comes from Astro on rendered pages and is
+// report-only for now (see server/csp.ts).
 // Framing is blocked only in production, because Replit's preview pane shows the dev site in a frame.
 function securityHeaders(_req: express.Request,res: express.Response,next: express.NextFunction) {
   const production = process.env.NODE_ENV === 'production';
@@ -58,6 +60,8 @@ export function createApp() {
   });
   app.use(securityHeaders);
   app.use(compression());
+  // Before forumHost, so reports from the forum's host reach it rather than a /forum page.
+  app.use(reportReceiver());
   app.use(forumHost());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
   app.use(express.json({limit:'48kb'}));
@@ -92,6 +96,7 @@ export async function attachProductionSite(app: express.Express) {
     },
   }));
   const { handler } = await import(pathToFileURL(resolve('dist/server/entry.mjs')).href);
+  app.use(pagePolicy());
   app.use(handler);
 }
 export async function start() {
