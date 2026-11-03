@@ -42,7 +42,7 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
       <input id="forum-title" value={title} onChange={e => setTitle(e.target.value)} minLength={3} maxLength={150} required /></div>
     <div className="account-field"><label htmlFor="forum-body">Opening post</label>
       <textarea id="forum-body" value={body} onChange={e => setBody(e.target.value)} rows={10} maxLength={20000} required />
-      <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable. Cite sources for claims about how a watch is made.</p></div>
+      <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable. Cite sources for claims about how a watch is made. Your post is public, and by posting you agree to the <a href={links.terms}>terms of use</a>.</p></div>
     <div className="account-actions"><button className="account-button" disabled={busy}>Start thread</button></div>
   </form>;
 }

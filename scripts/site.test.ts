@@ -199,7 +199,7 @@ test('published evidence repeats the strip scores; a draft gets its own section'
   }
   const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
   assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
-  assert.match(fleming, /Based on the cited sources below.*Brands can <a href="[^"]+">reply with evidence/s, 'records carry the right-of-reply note');
+  assert.match(fleming, /Based on the cited sources below.*Brands can <a href="[^"]+"[^>]*>reply with evidence/s, 'records carry the right-of-reply note');
 });
 
 test('sources, supplier and corrections pages are built', { skip }, () => {
@@ -224,6 +224,13 @@ test('every methodology archetype has plain-English copy and its own section on 
   const page = read(join(dist, 'archetypes/index.html'));
   for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
   assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
+});
+
+test('the forum links to the terms and privacy pages, and the publisher is named', async () => {
+  const forum = await (await fetch(`${base}/forum/`)).text();
+  assert.match(forum, /href="[^"]*\/terms\/"/);
+  assert.match(forum, /href="[^"]*\/privacy\/"/);
+  assert.match(read(join(dist, 'terms/index.html')), /Falk Watches, LLC/);
 });
 
 test('the forum renders for anonymous readers, and record pages link to their discussions', async () => {

@@ -31,5 +31,5 @@ export const onForumHost = (headers: Headers) => {
 };
 
 /** The links a forum island needs, worked out on the server where FORUM_HOST is known. */
-export const forumLinks = () => ({ forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });
+export const forumLinks = () => ({ terms: siteHref('/terms/'), forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });
 export type ForumLinks = ReturnType<typeof forumLinks>;
