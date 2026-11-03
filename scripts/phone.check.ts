@@ -21,7 +21,7 @@ after(async () => { await browser.close(); await new Promise<void>(resolve => se
 
 // One record with photos, one with a profile and none, one still at confidence D, plus every other public page.
 const pages = ['/', '/records/', '/records/nomos/tangente-neomatik/', '/records/jn-shapiro/resurgence/', '/records/omega/speedmaster-moonwatch-3861/',
-  '/archetypes/', '/methodology/', '/sources/', '/data/', '/about/', '/organizations/tudor/', '/corrections/', '/no-such-page/',
+  '/archetypes/', '/methodology/', '/sources/', '/data/', '/about/', '/privacy/', '/terms/', '/organizations/tudor/', '/corrections/', '/no-such-page/',
   '/forum/', '/forum/search/?q=movement', '/forum/new/', '/forum/notifications/', '/forum/moderation/', '/forum/records/nomos/tangente-neomatik/', '/forum/no-such-category/'];
 const missing = new Set(['/no-such-page/', '/forum/no-such-category/']);
 

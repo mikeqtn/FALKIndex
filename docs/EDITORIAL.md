@@ -32,7 +32,7 @@ Marketing words ("in-house", "manufacture", "handmade") are where research start
 
 A claim is one factual statement, in our words, backed by one source.
 
-- `statement`: what the source establishes. No scores and no adjectives like "exceptional".
+- `statement`: what the source establishes. No scores and no adjectives like "exceptional". Attribute rather than assert: "Nomos states the escapement is made in Glashütte", not "the escapement is made in Glashütte". A record reports what sources say; it never claims FALK checked the watch itself.
 - `excerpt`: a short **verbatim** quote. Copy it from the page; never retype it from memory or from a summary.
 - `dimensions`: every dimension the fact bears on.
 - `date_checked`: the day you read it.
@@ -81,6 +81,14 @@ Relationship is `internal`, `in_group` (owned by the same group, per rule "Group
 - On approval: set the new profile to `published` and the previous one to `superseded`. Run `npm run validate`; it rejects a published profile that lacks a rationale or a supporting claim.
 - Load it into the live catalogue with `npm run db:publish -- <brand/model> --reviewer <username>`. It prints the plan; add `--apply` to write it. The reviewer must be an editor or admin who did not write the version. Existing versions and claims cannot be rewritten, only superseded. Then run `npm run db:export` and commit, so `data/` matches.
 
-## 8. AI-assisted drafts
+## 8. Publisher conflicts
+
+FALK's publisher, Falk Watches, LLC, sells watches, including many brands in this index. `src/lib/publisher.ts` lists them.
+
+- For a record of one of those brands, anyone with a stake in Falk Watches, or paid by it, cannot be the only reviewer. A reviewer with no such tie must approve the version.
+- Review the list every quarter against the store and the inventory, and update the date in that file. Add a brand once the company sells or lists it.
+- Only brand names go in the list. Inventory counts, costs and customer details are private and stay out of this public repo.
+
+## 9. AI-assisted drafts
 
 Drafts prepared with AI use `editor: ai-draft` and stay `draft` until a human reviewer has checked every excerpt against the live page. The reviewer replaces `ai-draft` with their own handle on the claims they verify.

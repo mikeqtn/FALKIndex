@@ -25,5 +25,5 @@ export const hasSession = (cookie: string | null) => (cookie ?? '').split(/;\s*/
   .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
 
 /** The links a forum island needs, worked out on the server where FORUM_HOST is known. */
-export const forumLinks = () => ({ forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });
+export const forumLinks = () => ({ terms: siteHref('/terms/'), forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });
 export type ForumLinks = ReturnType<typeof forumLinks>;

@@ -7,6 +7,7 @@ import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
 import { keepBaseline, toReportOnly } from '../server/csp.ts';
 import { createApp,attachProductionSite } from '../server/index.ts';
+import { DIRECT_BRANDS, RETAIL_BRANDS, publisherTie } from '../src/lib/publisher.ts';
 import { hostPolicy } from '../server/middlewares/siteHost.ts';
 
 const dist = 'dist';
@@ -34,7 +35,7 @@ for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) =>
   await snapshot(`/records/${watch.id}/`,`records/${watch.id}/index.html`);
   await snapshot(`/records/${watch.id}.json`,`records/${watch.id}.json`);
 }
-for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes']) await snapshot(`/${route}/`,`${route}/index.html`);
+for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes','terms']) await snapshot(`/${route}/`,`${route}/index.html`);
 const files = [...cache.keys()];
 const read = (f: string) => {
   assert.ok(cache.has(f),`Missing rendered response ${f}`);
@@ -237,6 +238,7 @@ test('published evidence repeats the strip scores; a draft gets its own section'
   }
   const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
   assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
+  assert.match(fleming, /Based on the cited sources below.*Brands can <a href="[^"]+"[^>]*>reply with evidence/s, 'records carry the right-of-reply note');
 });
 
 test('sources, supplier and corrections pages are built', { skip }, () => {
@@ -249,6 +251,8 @@ test('sources, supplier and corrections pages are built', { skip }, () => {
   const corrections = read(join(dist, 'corrections/index.html'));
   assert.match(corrections, /<form id="correction"[^>]*action="\/api\/corrections"/);
   assert.match(corrections, /stored privately for editors/);
+  assert.match(read(join(dist, 'terms/index.html')), /CC BY-SA 4\.0[\s\S]*at least 13/, 'terms cover licensing and minimum age');
+  assert.match(read(join(dist, 'terms/index.html')), /published by Falk Watches, LLC[\s\S]*endorse or sponsor[\s\S]*Legal notices[\s\S]*penalty of perjury/, 'terms name the publisher and cover trademarks, legal notices and copyright');
   assert.doesNotMatch(corrections, /github\.com\/mikeqtn\/FALKIndex\/issues\/new|PUBLIC_CORRECTIONS_ENDPOINT/);
 });
 
@@ -259,6 +263,22 @@ test('every methodology archetype has plain-English copy and its own section on 
   const page = read(join(dist, 'archetypes/index.html'));
   for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
   assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
+});
+
+test('records of brands the publisher sells carry a disclosure, and only those', () => {
+  for (const id of [...DIRECT_BRANDS, ...RETAIL_BRANDS]) assert.ok(dataset.organizations.some((o: any) => o.id === id), `${id} is not a catalogue brand`);
+  for (const watch of dataset.watches.filter((w: any) => w.profiles.some((p: any) => p.status === 'published'))) {
+    const html = read(join(dist, `records/${watch.id}/index.html`));
+    assert.equal(html.includes('Disclosure: FALK'), !!publisherTie(watch.brand), watch.id);
+    if (DIRECT_BRANDS.has(watch.brand)) assert.match(html, /deals directly with this brand/, watch.id);
+  }
+});
+
+test('the forum links to the terms and privacy pages, and the publisher is named', async () => {
+  const forum = await (await fetch(`${base}/forum/`)).text();
+  assert.match(forum, /href="[^"]*\/terms\/"/);
+  assert.match(forum, /href="[^"]*\/privacy\/"/);
+  assert.match(read(join(dist, 'terms/index.html')), /Falk Watches, LLC/);
 });
 
 test('the forum renders for anonymous readers, and record pages link to their discussions', async () => {

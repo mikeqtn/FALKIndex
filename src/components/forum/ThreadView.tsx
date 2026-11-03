@@ -93,7 +93,7 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
         : <form className="account-stack" onSubmit={send}>
           <label htmlFor="forum-reply">Your reply</label>
           <textarea id="forum-reply" value={reply} onChange={e => setReply(e.target.value)} rows={6} maxLength={20000} required />
-          <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable.</p>
+          <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable. Your reply is public, and by posting you agree to the <a href={links.terms}>terms of use</a>.</p>
           <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Post reply</button></div>
         </form>}
     </section>

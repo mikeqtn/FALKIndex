@@ -103,7 +103,7 @@ export function check(raw: ReturnType<typeof load>) {
       const at = `${file}:profiles.${i}`;
       if (p.version !== i + 1) err(`${at}.version`, `expected version ${i + 1}, found ${p.version}`);
       if (published[0] && p.version < published[0].version && p.status !== 'superseded') err(`${at}.status`, 'older than the published profile, must be superseded');
-      // EDITORIAL.md §8: AI drafts stay drafts until a human reviewer puts their own handle on them.
+      // EDITORIAL.md §9: AI drafts stay drafts until a human reviewer puts their own handle on them.
       if (p.status === 'published' && p.editor === 'ai-draft') err(`${at}.editor`, 'an ai-draft profile cannot be published');
 
       // Invariant 6: controlled vocabulary of archetypes, no descriptors, no duplicates.
