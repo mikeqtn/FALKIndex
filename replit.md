@@ -61,6 +61,16 @@ They fail, rather than skip, when a server build is missing.
   edit proposals, publishing from review, public record history, and
   methodology administration are subsequent phases, not implemented UI.
 
+## Forum
+
+The forum's pages live under `src/pages/forum/` and are served by the same
+deployment. In production, set `FORUM_HOST=forum.falkindex.com`: that host then
+serves the forum at its root, `falkindex.com/forum/*` redirects there, and the
+API, Clerk proxy, sign-in pages and static files are shared
+(`server/middlewares/forumHost.ts`). Without `FORUM_HOST`, as in the preview, the
+forum is at `/forum/`. To set it up, add `forum.falkindex.com` as a custom domain
+on the deployment and its DNS record, and allow the domain in the Auth pane.
+
 ## Publish
 
 Publishing uses the Autoscale target with a Node server:
