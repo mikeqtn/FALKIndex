@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createServer } from 'node:http';
+import { createHash } from 'node:crypto';
 import { createApp,attachProductionSite } from '../server/index.ts';
 
 const dist = 'dist';
@@ -104,6 +105,43 @@ test('pages carry baseline security headers, and production also blocks framing'
     assert.match(prod.headers.get('content-security-policy') ?? '',/frame-ancestors 'none'/);
     assert.match(prod.headers.get('strict-transport-security') ?? '',/max-age=\d+/);
   } finally { process.env.NODE_ENV = env; }
+});
+
+test('pages send a report-only script policy that hashes every inline script', async () => {
+  for (const [route, cookie] of [['/',''],['/records/',''],['/sign-in',''],['/methodology/','__client_uat=1791917601']]) {
+    const response = await fetch(`${base}${route}`,{headers:cookie ? {cookie} : {}});
+    const policy = response.headers.get('content-security-policy-report-only') ?? '';
+    const scriptSrc = policy.split(';').find(d => d.trim().startsWith('script-src')) ?? '';
+    assert.ok(scriptSrc,`${route}: no report-only script-src`);
+    assert.doesNotMatch(scriptSrc,/'unsafe-inline'|'unsafe-eval'/,route);
+    assert.match(scriptSrc,/https:\/\/clerk\.127\.0\.0\.1(\s|$)/,`${route}: Clerk's per-host script origin`);
+    assert.match(policy,/report-uri \/csp-report/);
+    assert.equal(response.headers.get('reporting-endpoints'),'csp="/csp-report"');
+    // The enforced baseline stays separate and unchanged.
+    assert.match(response.headers.get('content-security-policy') ?? '',/img-src 'self' data: https:\/\/img\.clerk\.com/);
+    const html = await response.text();
+    const inline = [...html.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/g)]
+      .filter(([,attrs]) => !/type="application\/(ld\+)?json"/.test(attrs!));
+    assert.ok(inline.length >= 2,`${route}: expected the layout's inline scripts`);
+    for (const [,,body] of inline) {
+      const hash = createHash('sha256').update(body!).digest('base64');
+      assert.ok(scriptSrc.includes(`'sha256-${hash}'`),`${route}: inline script without a hash: ${body!.trim().slice(0,60)}`);
+    }
+  }
+});
+
+test('CSP reports in both browser formats are accepted and logged without query strings', async () => {
+  const logged: string[] = [];
+  const warn = console.warn;
+  console.warn = (line: string) => { logged.push(line); };
+  try {
+    const post = (type: string, body: string) => fetch(`${base}/csp-report`,{method:'POST',headers:{'content-type':type},body});
+    assert.equal((await post('application/csp-report',JSON.stringify({'csp-report':{'document-uri':'https://falkindex.com/records/?q=private','effective-directive':'script-src-elem','blocked-uri':'inline'}}))).status,204);
+    assert.equal((await post('application/reports+json',JSON.stringify([{type:'csp-violation',body:{documentURL:'https://falkindex.com/a?token=x',effectiveDirective:'script-src-elem',blockedURL:'https://cdn.example/x.js?v=1'}}]))).status,204);
+    assert.equal((await post('application/csp-report','{"csp-report":{}}')).status,204);
+  } finally { console.warn = warn; }
+  const events = logged.map(line => JSON.parse(line)).filter(e => e.event === 'csp.violation');
+  assert.deepEqual(events.map(e => [e.page,e.blocked]),[['https://falkindex.com/records/','inline'],['https://falkindex.com/a','https://cdn.example/x.js']]);
 });
 
 test('only readers with a Clerk session load the account menu; everyone else gets plain links', async () => {
