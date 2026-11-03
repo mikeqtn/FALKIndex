@@ -40,7 +40,8 @@ async function actor(db: PoolClient, id: string, roles?: readonly Role[]) {
 }
 
 const authorColumns = (a: string, m: string) => `${a}.username,${m}.display_name,${m}.image_url`;
-const authorFrom = (row: any) => ({ username:row.username, displayName:row.display_name ?? row.username, imageUrl:isClerkImage(row.image_url ?? '') ? row.image_url : '' });
+// Deleting an account clears its username and name but keeps its posts (see deleteAccount), so both can be missing.
+const authorFrom = (row: any) => ({ username:(row.username ?? null) as string | null, displayName:(row.display_name || row.username || 'Deleted member') as string, imageUrl:isClerkImage(row.image_url ?? '') ? row.image_url as string : '' });
 const threadColumns = `t.id,t.category_id,t.title,t.watch_id,t.pinned,t.locked,t.created_at,t.last_post_at,${authorColumns('a','m')},
   greatest((SELECT count(*)::int FROM falk_forum_post p WHERE p.thread_id=t.id AND p.hidden_at IS NULL)-1,0) AS replies`;
 const threadJoins = 'FROM falk_forum_thread t JOIN falk_account a ON a.id=t.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id';
@@ -50,10 +51,26 @@ function threadFrom(row: any) {
 }
 
 export async function listCategories(db: Queryable = pool) {
-  const rows = await db.query(`SELECT c.id,c.name,c.description,count(t.id)::int AS threads,max(t.last_post_at) AS last_post_at
+  const rows = await db.query(`SELECT c.id,c.name,c.description,count(t.id)::int AS threads,max(t.last_post_at) AS last_post_at,l.id AS latest_id,l.title AS latest_title
     FROM falk_forum_category c LEFT JOIN falk_forum_thread t ON t.category_id=c.id AND t.hidden_at IS NULL
-    GROUP BY c.id ORDER BY c.position,c.id`);
-  return rows.rows.map(r => ({ id:r.id, name:r.name, description:r.description, threads:r.threads, lastPostAt:r.last_post_at?.toISOString() ?? null }));
+    LEFT JOIN LATERAL (SELECT id,title FROM falk_forum_thread WHERE category_id=c.id AND hidden_at IS NULL ORDER BY last_post_at DESC,id LIMIT 1) l ON true
+    GROUP BY c.id,l.id,l.title ORDER BY c.position,c.id`);
+  return rows.rows.map(r => ({ id:r.id as string, name:r.name as string, description:r.description as string, threads:r.threads as number, lastPostAt:(r.last_post_at?.toISOString() ?? null) as string | null,
+    latest:r.latest_id ? { id:r.latest_id as string, title:r.latest_title as string } : null }));
+}
+
+/** The threads with the newest posts, across every category, for the forum home. */
+export async function recentThreads(limit = 5, db: Queryable = pool) {
+  const rows = await db.query(`SELECT ${threadColumns},c.name AS category_name ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id
+    WHERE t.hidden_at IS NULL ORDER BY t.last_post_at DESC,t.id LIMIT $1`, [limit]);
+  return rows.rows.map(r => ({ ...threadFrom(r), categoryName:r.category_name as string }));
+}
+
+/** The records with threads about them, most recently active first. */
+export async function recordsUnderDiscussion(limit = 4, db: Queryable = pool) {
+  const rows = await db.query(`SELECT watch_id,count(*)::int AS threads FROM falk_forum_thread WHERE watch_id IS NOT NULL AND hidden_at IS NULL
+    GROUP BY watch_id ORDER BY max(last_post_at) DESC,watch_id LIMIT $1`, [limit]);
+  return rows.rows.map(r => ({ id:r.watch_id as string, threads:r.threads as number }));
 }
 
 export async function listThreads(categoryId: string, page: number, db: Queryable = pool) {

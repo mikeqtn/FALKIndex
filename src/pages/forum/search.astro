@@ -1,16 +1,17 @@
 ---
-import Base from '../../layouts/Base.astro';
+import ForumLayout from '../../layouts/ForumLayout.astro';
 import ThreadList from '../../components/forum/ThreadList.astro';
 import { searchForum, searchQuery } from '../../../server/forum.ts';
-const query = searchQuery.safeParse({ q:Astro.url.searchParams.get('q') ?? '' });
+const asked = Astro.url.searchParams.get('q') ?? '';
+const query = searchQuery.safeParse({ q:asked });
 const threads = query.success ? await searchForum(query.data.q) : [];
 ---
-<Base forum title="Search the forum">
-  <header class="doc-head"><div><h1>Search the forum</h1></div></header>
-  <form class="forum-search" method="get" role="search">
+<ForumLayout title="Search the forum" description="Search thread titles and posts on the FALK Forum.">
+  <header class="f-title"><div><h1>Search the forum</h1></div></header>
+  <form class="f-search-page" method="get" role="search">
     <label class="sr-only" for="forum-q">Search the forum</label>
-    <input id="forum-q" type="search" name="q" value={Astro.url.searchParams.get('q') ?? ''} placeholder="Words in titles and posts" minlength="2" maxlength="200" required />
-    <button class="btn" type="submit">Search</button>
+    <input id="forum-q" type="search" name="q" value={asked} placeholder="Words in titles and posts" minlength="2" maxlength="200" required />
+    <button class="f-button" type="submit">Search</button>
   </form>
-  {query.success && <ThreadList threads={threads} empty={`No threads match “${query.data.q}”.`} />}
-</Base>
+  {query.success && <ThreadList threads={threads} heading={`${threads.length} ${threads.length === 1 ? 'thread' : 'threads'} matching “${query.data.q}”`} empty={`No threads match “${query.data.q}”.`} />}
+</ForumLayout>

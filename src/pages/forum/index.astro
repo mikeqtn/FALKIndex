@@ -1,21 +1,56 @@
 ---
-import Base from '../../layouts/Base.astro';
-import { listCategories } from '../../../server/forum.ts';
-import { forumDate, forumPath } from '../../lib/forum.ts';
-const categories = await listCategories();
+import ForumLayout from '../../layouts/ForumLayout.astro';
+import CompactStrip from '../../components/CompactStrip.astro';
+import { listCategories, recentThreads, recordsUnderDiscussion } from '../../../server/forum.ts';
+import { getCatalogue } from '../../lib/data.ts';
+import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
+const [categories, recent, discussed, { records }] = await Promise.all([listCategories(), recentThreads(5), recordsUnderDiscussion(4), getCatalogue(Astro.locals)]);
+const underDiscussion = discussed.flatMap(d => {
+  const record = records.find(r => r.id === d.id);
+  return record ? [{ record, threads:d.threads }] : [];
+});
 ---
-<Base forum nav="forum" title="FALK Forum" description="The FALK Forum: discussion of watches, watchmaking and the FALK Index, under your FALK Index account.">
-  <header class="doc-head">
+<ForumLayout nav="home" title="FALK Forum">
+  <header class="f-title">
     <div>
       <h1>FALK Forum</h1>
-      <p class="lead">Talk about watches, how they are made, and the FALK Index itself. Anyone can read; post with your FALK Index account.</p>
+      <p class="f-lead">Collectors, journalists and watchmakers on who really makes a watch. Anyone can read; post with your FALK Index account.</p>
     </div>
+    <a class="f-button" href={forumPath('/new/')}>Start a thread</a>
   </header>
-  <ul class="forum-list forum-categories">
-    {categories.map(c => <li>
-      <a href={forumPath(`/${c.id}/`)}><strong>{c.name}</strong></a>
-      <p class="small">{c.description}</p>
-      <p class="small muted">{c.threads} {c.threads === 1 ? 'thread' : 'threads'}{c.lastPostAt && ` · last post ${forumDate(c.lastPostAt)}`}</p>
-    </li>)}
-  </ul>
-</Base>
+  <div class="f-with-rail">
+    <section aria-labelledby="f-categories">
+      <div class="f-columns"><h2 id="f-categories">Categories</h2><span>Threads</span><span>Last post</span></div>
+      {categories.length ? categories.map(c => <article class="f-category">
+        <div>
+          <h3><a href={forumPath(`/${c.id}/`)}>{c.name}</a></h3>
+          <p>{c.description}</p>
+          {c.latest && <p class="f-latest"><span>Latest: </span><a href={forumPath(`/t/${c.latest.id}`)}>{c.latest.title}</a></p>}
+        </div>
+        <div class="f-figure"><b>{c.threads}</b><span class="sr-only">{c.threads === 1 ? ' thread' : ' threads'}</span></div>
+        <div class="f-figure"><span>{c.lastPostAt ? forumDate(c.lastPostAt) : '–'}</span></div>
+      </article>) : <p class="f-empty">The categories have not been set up yet.</p>}
+    </section>
+    <aside class="f-rail" aria-label="Activity">
+      <section aria-labelledby="f-recent">
+        <div class="f-section-head"><h2 id="f-recent">Latest posts</h2></div>
+        {recent.length ? <ul class="f-rail-list">
+          {recent.map(t => <li>
+            <a class="f-rail-title" href={forumPath(`/t/${t.id}`)}>{t.title}</a>
+            <p>{t.categoryName} · {t.replies} {t.replies === 1 ? 'reply' : 'replies'} · {forumDate(t.lastPostAt)}</p>
+          </li>)}
+        </ul> : <p class="f-empty">No threads yet.</p>}
+      </section>
+      <section aria-labelledby="f-records">
+        <div class="f-section-head"><h2 id="f-records">Records under discussion</h2></div>
+        {underDiscussion.length ? <ul class="f-rail-list">
+          {underDiscussion.map(({ record, threads }) => <li class="f-rail-record">
+            <a class="f-rail-title" href={forumPath(`/records/${record.id}/`)}>{record.brandName} {record.model}</a>
+            <p>{threads} {threads === 1 ? 'thread' : 'threads'}</p>
+            <CompactStrip scores={record.profile.scores} />
+          </li>)}
+        </ul> : <p class="f-empty">No one has discussed a record yet. <a href={siteHref('/records/')}>Browse the records</a> and start with one you know.</p>}
+      </section>
+    </aside>
+  </div>
+</ForumLayout>

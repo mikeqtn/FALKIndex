@@ -190,9 +190,11 @@ test('the forum renders for anonymous readers, and record pages link to their di
   for (const path of ['/forum/', '/forum/search/?q=movement', '/forum/new/', `/forum/records/${record}/`, '/forum/notifications/']) {
     const response = await fetch(`${base}${path}`);
     assert.equal(response.status, 200, path);
-    assert.match(await response.text(), /FALK Forum/, path);
+    const html = await response.text();
+    assert.match(html, /FALK Forum/, path);
+    assert.doesNotMatch(html, /class="site-nav"|class="site-footer"/, `${path} is its own site, without the main site's header or footer`);
   }
-  for (const path of ['/forum/no-such-category/', '/forum/t/not-a-thread', '/forum/records/no/such-record/'])
+  for (const path of ['/forum/no-such-category/', '/forum/t/not-a-thread', '/forum/records/no/such-record/', '/forum/no/such/page/'])
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
 });

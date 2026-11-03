@@ -1,10 +1,11 @@
 import { useAuth } from '@clerk/react';
-import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties, type FormEvent } from 'react';
 import type { threadDetail } from '../../../server/forum.ts';
 import type { Account } from '../../accounts/contracts.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
-import { api, dateLabel, handleAccountError } from '../accounts/api';
+import { api, handleAccountError } from '../accounts/api';
 import type { ForumLinks } from '../../lib/forum.ts';
+import { forumDay, personHue, personInitial } from '../../lib/forum-people';
 import { PostBody } from './PostBody';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
@@ -14,7 +15,7 @@ interface Tools { account: Account | null, act: (run: () => Promise<unknown>, do
 
 const ask = (question: string) => window.prompt(question)?.trim() || null;
 
-function PostView({ post, links, locked, tools }: { post: Post, links: ForumLinks, locked: boolean, tools?: Tools }) {
+function PostView({ post, links, locked, starter, tools }: { post: Post, links: ForumLinks, locked: boolean, starter: boolean, tools?: Tools }) {
   const [editing, setEditing] = useState<string | null>(null);
   const moderator = tools?.account?.role === 'editor' || tools?.account?.role === 'admin';
   const save = (e: FormEvent) => {
@@ -24,11 +25,18 @@ function PostView({ post, links, locked, tools }: { post: Post, links: ForumLink
   const report = () => { const reason = ask('Why should moderators look at this post?'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }), 'Thanks. Moderators will review this post.'); };
   const toggle = () => { const reason = ask(post.hidden ? 'Why show this post again?' : 'Why hide this post? Readers will see that it was hidden.'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/${post.hidden ? 'show' : 'hide'}`, { method:'POST', body:JSON.stringify({ reason }) })); };
   return <article className={`forum-post${post.hidden ? ' hidden' : ''}`} id={`p-${post.id}`}>
-    <header className="small">
-      <a href={`${links.profile}${post.author.username}/`}><strong>{post.author.displayName}</strong> <span className="muted">@{post.author.username}</span></a>
-      <span className="muted"> · <a href={`#p-${post.id}`}>{dateLabel(post.createdAt)}</a>{post.editedAt && ' · edited'}</span>
+    <div className="forum-avatar" style={{ '--hue':personHue(post.author.username ?? post.author.displayName) } as CSSProperties} aria-hidden="true">
+      {post.author.imageUrl ? <img src={post.author.imageUrl} alt="" /> : personInitial(post.author.displayName)}
+    </div>
+    <div className="forum-post-main">
+    <header className="forum-post-head">
+      {post.author.username
+        ? <a href={`${links.profile}${post.author.username}/`}><strong>{post.author.displayName}</strong> @{post.author.username}</a>
+        : <strong>{post.author.displayName}</strong>}
+      {starter && <span className="f-pill quiet" style={{ margin:0 }}>Started this thread</span>}
+      <a href={`#p-${post.id}`}>{forumDay(post.createdAt)}</a>{post.editedAt && <span>Edited</span>}
     </header>
-    {post.body === null ? <p className="muted">A moderator hid this post.</p>
+    {post.body === null ? <p className="forum-hidden-note">A moderator hid this post.</p>
       : editing !== null ? <form className="account-stack" onSubmit={save}>
         <textarea aria-label="Edit your post" value={editing} onChange={e => setEditing(e.target.value)} rows={6} maxLength={20000} required />
         <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Save</button><button className="account-button secondary" type="button" onClick={() => setEditing(null)}>Cancel</button></div>
@@ -40,6 +48,7 @@ function PostView({ post, links, locked, tools }: { post: Post, links: ForumLink
       {!post.own && !post.hidden && <button type="button" onClick={report}>Report</button>}
       {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
     </div>}
+    </div>
   </article>;
 }
 
@@ -58,28 +67,29 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
     if (reason) tools?.act(() => api(`/api/forum/threads/${thread.id}/moderation`, { method:'POST', body:JSON.stringify({ ...change, reason }) }));
   };
   return <>
-    <header className="doc-head">
-      <div>
-        <p className="small muted"><a href={`${links.category}${thread.category}/`}>{thread.categoryName}</a>
-          {thread.record && <> · about <a href={`${links.record}${thread.record}/`}>{thread.record}</a></>}
-          {thread.pinned && ' · pinned'}{thread.locked && ' · locked'}{thread.hidden && ' · hidden from readers'}</p>
-        <h1>{thread.title}</h1>
-      </div>
+    <header className="forum-thread-head">
+      <p className="f-crumb"><a href={`${links.category}${thread.category}/`}>{thread.categoryName}</a></p>
+      <h1 className="forum-title">{thread.title}</h1>
+      {(thread.pinned || thread.locked || thread.hidden) && <p className="forum-flags">
+        {thread.pinned && <span className="f-pill">Pinned</span>}
+        {thread.locked && <span className="f-pill quiet">Locked</span>}
+        {thread.hidden && <span className="f-pill quiet">Hidden from readers</span>}
+      </p>}
     </header>
-    {moderator && <div className="forum-post-actions small" aria-label="Moderation">
+    {moderator && <div className="forum-post-actions forum-moderation" aria-label="Moderation">
       <button type="button" onClick={() => moderate({ pinned:!thread.pinned }, thread.pinned ? 'Why unpin this thread?' : 'Why pin this thread?')}>{thread.pinned ? 'Unpin' : 'Pin'}</button>
       <button type="button" onClick={() => moderate({ locked:!thread.locked }, thread.locked ? 'Why reopen this thread?' : 'Why lock this thread?')}>{thread.locked ? 'Unlock' : 'Lock'}</button>
       <button type="button" onClick={() => moderate({ hidden:!thread.hidden }, thread.hidden ? 'Why show this thread again?' : 'Why hide this thread from readers?')}>{thread.hidden ? 'Show thread' : 'Hide thread'}</button>
       {thread.hidden && thread.hiddenReason && <span className="muted">Hidden: {thread.hiddenReason}</span>}
     </div>}
-    <div className="forum-posts">{posts.map(post => <PostView key={post.id} post={post} links={links} locked={thread.locked} tools={tools} />)}</div>
-    {pages > 1 && <nav className="account-pagination small" aria-label="Pages">
+    <div className="forum-posts">{posts.map(post => <PostView key={post.id} post={post} links={links} locked={thread.locked} starter={!!post.author.username && post.author.username === thread.author.username} tools={tools} />)}</div>
+    {pages > 1 && <nav className="f-pages" aria-label="Pages">
       {Array.from({ length:pages }, (_, i) => i + 1).map(n => <a key={n} href={`?page=${n}`} aria-current={n === detail.page ? 'page' : undefined}>{n}</a>)}
     </nav>}
     <section className="forum-reply" aria-label="Reply">
-      {!account ? <p><a href={signInHref}>Sign in</a> to reply.</p>
-        : !account.onboarded ? <p><a href={links.account}>Choose a username</a> to reply.</p>
-        : thread.locked && !moderator ? <p className="muted">This thread is locked.</p>
+      {!account ? <p className="forum-reply-prompt"><a href={signInHref}>Sign in</a> with your FALK Index account to reply.</p>
+        : !account.onboarded ? <p className="forum-reply-prompt"><a href={links.account}>Choose a username</a> to reply.</p>
+        : thread.locked && !moderator ? <p className="forum-reply-prompt">This thread is locked.</p>
         : <form className="account-stack" onSubmit={send}>
           <label htmlFor="forum-reply">Your reply</label>
           <textarea id="forum-reply" value={reply} onChange={e => setReply(e.target.value)} rows={6} maxLength={20000} required />

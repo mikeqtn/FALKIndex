@@ -1,5 +1,6 @@
 ---
-import Base from '../../../../layouts/Base.astro';
+import ForumLayout from '../../../../layouts/ForumLayout.astro';
+import CompactStrip from '../../../../components/CompactStrip.astro';
 import ThreadList from '../../../../components/forum/ThreadList.astro';
 import { recordThreads } from '../../../../../server/forum.ts';
 import { getCatalogue } from '../../../../lib/data.ts';
@@ -8,17 +9,18 @@ import { forumPath, siteHref } from '../../../../lib/forum.ts';
 const RECORD_CATEGORY = 'falk-index';
 const { records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
-if (!r) return new Response('Record not found', { status:404 });
+if (!r) return Astro.rewrite('/forum/not-found/');
 const threads = await recordThreads(r.id);
 const name = `${r.brandName} ${r.model}`;
 ---
-<Base forum title={`Discussing ${name}`} description={`Forum threads about the FALK Index record for the ${name}.`}>
-  <header class="doc-head">
+<ForumLayout nav={RECORD_CATEGORY} title={`Discussing ${name}`} description={`Forum threads about the FALK Index record for the ${name}.`}>
+  <header class="f-title">
     <div>
-      <p class="small muted"><a href={forumPath('/')}>Forum</a> · <a href={siteHref(`/records/${r.id}/`)}>The record</a></p>
+      <p class="f-crumb"><a href={forumPath(`/${RECORD_CATEGORY}/`)}>FALK Index Discussion</a></p>
       <h1>Discussing the {name}</h1>
+      <p class="f-thread-record"><CompactStrip scores={r.profile.scores} /><a href={siteHref(`/records/${r.id}/`)}>Read the record and its evidence</a></p>
     </div>
-    <a class="btn" href={forumPath(`/new/?category=${RECORD_CATEGORY}&record=${encodeURIComponent(r.id)}`)}>Start a thread about it</a>
+    <a class="f-button" href={forumPath(`/new/?category=${RECORD_CATEGORY}&record=${encodeURIComponent(r.id)}`)}>Start a thread about it</a>
   </header>
-  <ThreadList threads={threads} empty="No one has discussed this record yet." />
-</Base>
+  <ThreadList threads={threads} hideRecord empty="No one has discussed this record yet." />
+</ForumLayout>

@@ -24,6 +24,12 @@ export const forumDate = (iso: string) => fmtDate(iso.slice(0, 10));
 export const hasSession = (cookie: string | null) => (cookie ?? '').split(/;\s*/)
   .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
 
+/** Is this request for the forum's own host? Sign-in pages are shared, and take the layout of the site they are on. */
+export const onForumHost = (headers: Headers) => {
+  const host = (headers.get('x-forwarded-host')?.split(',')[0] ?? headers.get('host') ?? '').trim().toLowerCase().replace(/:\d+$/, '');
+  return !!forumHost() && host === forumHost()!.toLowerCase();
+};
+
 /** The links a forum island needs, worked out on the server where FORUM_HOST is known. */
 export const forumLinks = () => ({ forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });
 export type ForumLinks = ReturnType<typeof forumLinks>;

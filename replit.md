@@ -71,6 +71,11 @@ API, Clerk proxy, sign-in pages and static files are shared
 forum is at `/forum/`. To set it up, add `forum.falkindex.com` as a custom domain
 on the deployment and its DNS record, and allow the domain in the Auth pane.
 
+The forum is its own site: `src/layouts/ForumLayout.astro` and `src/styles/forum.css`, with no main-site
+header, footer or stylesheet. To create its categories and starter threads, run
+`npm run forum:seed -- --author <administrator's username>`. It is safe to run again, and it never changes
+a thread that already exists. Edit the starter text in `scripts/forum-seed.ts` first if you want different wording.
+
 ## Publish
 
 Publishing uses the Autoscale target with a Node server:

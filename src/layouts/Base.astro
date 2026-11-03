@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/accounts.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import { correctionUrl, getCatalogue, recordUrl, variant } from '../lib/data.ts';
+import { forumHref } from '../lib/forum.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 const { methodology, records } = await getCatalogue(Astro.locals);
 // Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
@@ -78,7 +79,7 @@ const links = [
           <div class="nav-links">
             <ul>
               {links.map(([key, href, label]) => <li><a href={href} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
-              <li><a href="https://forum.falkindex.com">Forum</a></li>
+              <li><a href={forumHref('/')}>Forum</a></li>
             </ul>
             <form class="nav-search" action="/records/" method="get" role="search">
               <label class="sr-only" for="nav-q">Search records</label>
@@ -130,7 +131,7 @@ const links = [
           </div>
           <div>
             <h2>Take part</h2>
-            <ul><li><a href={correctionUrl()}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
+            <ul><li><a href={forumHref('/')}>The FALK Forum</a></li><li><a href={correctionUrl()}>Send a correction</a></li><li><a href="/sign-up">Create an account</a></li></ul>
           </div>
           <div>
             <h2>Terms</h2>

@@ -7,7 +7,7 @@ import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
 import { createThread, editPost, listCategories, listReports, listThreads, markRead, moderateThread, notifications,
-  recordThreads, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
+  recentThreads, recordsUnderDiscussion, recordThreads, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
 
 after(() => pool.end());
 
@@ -194,3 +194,22 @@ test('new threads are capped per hour, counting every attempt', async () => {
     assert.match((await limited.json()).error, /last hour/);
   } finally { await clear(); server.closeAllConnections(); server.close(); }
 });
+
+test('the forum home lists the latest thread per category, recent threads and records under discussion', () => members(async (db, m) => {
+  const { thread } = await createThread(m.alice, { category:'test-category', title:'Hello there', body:'First' }, db);
+  const category = (await listCategories(db)).find(c => c.id === 'test-category')!;
+  assert.deepEqual(category.latest, { id:thread, title:'Hello there' });
+  assert.equal((await recentThreads(1, db))[0].id, thread);
+  const record = (await db.query('SELECT id FROM falk_watch LIMIT 1')).rows[0].id;
+  await createThread(m.alice, { category:'test-category', title:'About a record', body:'Second', record }, db);
+  assert.deepEqual((await recordsUnderDiscussion(1, db))[0], { id:record, threads:1 });
+}));
+
+test('posts by a deleted member stay, shown as a deleted member with no profile link', () => members(async (db, m) => {
+  const { thread } = await createThread(m.alice, { category:'test-category', title:'Soon anonymous', body:'Still here' }, db);
+  await db.query("UPDATE falk_account SET username=NULL,deleted_at=now() WHERE id=$1", [m.alice]);
+  await db.query("UPDATE falk_member_profile SET display_name='' WHERE account_id=$1", [m.alice]);
+  const { posts } = (await threadDetail(thread, 1, null, db))!;
+  assert.equal(posts[0].body, 'Still here');
+  assert.deepEqual([posts[0].author.username, posts[0].author.displayName], [null, 'Deleted member']);
+}));

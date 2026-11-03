@@ -2,7 +2,8 @@ import { useAuth } from '@clerk/react';
 import { useCallback, useEffect, useState } from 'react';
 import type { listReports } from '../../../server/forum.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
-import { api, dateLabel, handleAccountError } from '../accounts/api';
+import { api, handleAccountError } from '../accounts/api';
+import { forumDay } from '../../lib/forum-people';
 import type { ForumLinks } from '../../lib/forum.ts';
 
 type Report = Awaited<ReturnType<typeof listReports>>[number];
@@ -30,7 +31,7 @@ function Queue({ links, signInHref }: { links: ForumLinks, signInHref: string })
     {notice && <div className="account-notice" role="status">{notice}</div>}
     {!reports ? !error && <p className="account-loading" role="status">Loading…</p>
       : reports.length ? <ul className="forum-list">{reports.map(r => <li key={r.id} className="account-panel account-stack">
-        <p className="small muted">Reported by @{r.reporter} · {dateLabel(r.createdAt)} · post by @{r.author}{r.postHidden && ' · already hidden'}</p>
+        <p className="small muted">Reported by {r.reporter ? `@${r.reporter}` : 'a deleted member'} · {forumDay(r.createdAt)} · post by {r.author ? `@${r.author}` : 'a deleted member'}{r.postHidden && ' · already hidden'}</p>
         <p><strong>Reason:</strong> {r.reason}</p>
         <blockquote className="small">{r.excerpt}</blockquote>
         <div className="account-actions">

@@ -2,7 +2,8 @@ import { useAuth } from '@clerk/react';
 import { useCallback, useEffect, useState } from 'react';
 import type { notifications } from '../../../server/forum.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
-import { api, dateLabel, handleAccountError } from '../accounts/api';
+import { api, handleAccountError } from '../accounts/api';
+import { forumDay } from '../../lib/forum-people';
 import type { ForumLinks } from '../../lib/forum.ts';
 
 type Inbox = Awaited<ReturnType<typeof notifications>>;
@@ -19,9 +20,9 @@ function Inbox({ links, signInHref }: { links: ForumLinks, signInHref: string })
   if (!inbox) return <p className="account-loading" role="status">Loading…</p>;
   return <div className="account-stack">
     <div className="account-actions"><span>{inbox.unread} unread</span>{inbox.unread > 0 && <button className="account-button secondary" type="button" onClick={readAll}>Mark all read</button>}</div>
-    {inbox.notifications.length ? <ul className="forum-list">{inbox.notifications.map(n => <li key={n.id} className={n.read ? 'muted' : undefined}>
+    {inbox.notifications.length ? <ul className="forum-list">{inbox.notifications.map(n => <li key={n.id} className={n.read ? 'muted' : 'forum-unread'}>
       <a href={`${links.thread}${n.thread.id}#p-${n.post}`}><strong>{n.author.displayName}</strong> replied in {n.thread.title}</a>
-      <span className="small muted"> · {dateLabel(n.createdAt)}</span>
+      <span className="small muted"> · {forumDay(n.createdAt)}</span>
     </li>)}</ul> : <p className="account-empty">No replies yet.</p>}
   </div>;
 }
