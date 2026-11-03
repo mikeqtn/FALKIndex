@@ -78,6 +78,7 @@ const links = [
           <div class="nav-links">
             <ul>
               {links.map(([key, href, label]) => <li><a href={href} aria-current={nav === key ? 'page' : undefined}>{label}</a></li>)}
+              <li><a href="https://forum.falkindex.com">Forum</a></li>
             </ul>
             <form class="nav-search" action="/records/" method="get" role="search">
               <label class="sr-only" for="nav-q">Search records</label>
