@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHmac } from 'node:crypto';
 import { Router } from 'express';
 import { z } from 'zod';
 import { clerkClient, getAuth } from '@clerk/express';
@@ -21,8 +21,10 @@ export function requireSameOrigin(origin: string | undefined, host: string | und
   } catch {}
   if (!valid) throw new HttpError(403,'This request must come from the FALK website.');
 }
+// Keys hold hashed IPs and user ids. A secret key stops anyone with the table from reversing them by trying every
+// IPv4 address. Production refuses to start without SESSION_SECRET (see start()); the fallback is for development only.
 export const rateLimitKey = (scope: string, who: string) =>
-  createHash('sha256').update(`${process.env.SESSION_SECRET ?? 'falk-rate-limit'}:${scope}:${who}`).digest('hex');
+  createHmac('sha256',process.env.SESSION_SECRET || 'falk-rate-limit-dev').update(`${scope}:${who}`).digest('hex');
 /** Count one hit; buckets are minute numbers, so an hourly bucket is the minute the hour starts. */
 async function hit(key: string, bucket: number) {
   const hits = await pool.query(`INSERT INTO falk_rate_limit(key,bucket) VALUES($1,$2)
