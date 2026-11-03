@@ -92,6 +92,8 @@ const archived = all.filter(s => s.archived_url).length;
   .srcs li > * { max-width: 72ch; }
   .srcs .title { font-size: 17px; font-weight: 560; }
   .meta { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-1); }
+  /* At least 24px tall, the WCAG 2.2 minimum for a tap target. */
+  .meta a { display: inline-flex; align-items: center; min-height: 24px; }
   .tier.primary { font-weight: 600; }
   .none { padding: var(--s-8) 0; font-size: var(--t-lead); }
   .link-btn { font: inherit; color: var(--c-action); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }

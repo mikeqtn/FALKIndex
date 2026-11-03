@@ -33,6 +33,8 @@ const archetypes = methodology.classifications.filter(c => c.kind === 'archetype
   return { ...c, copy: ARCHETYPES[c.code], recs, tagged, examples, pattern: pattern(recs), slug: c.code.replaceAll('_', '-') };
 });
 const descriptor = methodology.classifications.find(c => c.code === DESCRIPTOR.code)!;
+// The people behind the descriptor: every published record that carries it.
+const withDescriptor = comparable.filter(r => r.profile.independent_watchmaker);
 
 // Colour photographs of real movements, openly licensed (credits in the footer and public/images/movements/CREDITS.md).
 // Where the watch is in the index, the caption links to its record; none stands in for a record it is not.
@@ -94,9 +96,11 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
   <section class="arch" id="archetypes" aria-labelledby="arch-h">
     <div class="arch-head" data-rise>
-      <h2 id="arch-h" class="sec-h">A vocabulary for how watches are made</h2>
-      <div class="arch-intro">
+      <div class="arch-title">
+        <h2 id="arch-h" class="sec-h">A vocabulary for how watches are made</h2>
         <p class="arch-lead">Seven scores tell the full story. An archetype gives you the shorthand.</p>
+      </div>
+      <div class="arch-intro">
         <p>FALK groups watches into production archetypes: recognizable patterns across the seven scores, from design-led brands working with outside specialists to manufacturers that make most of their parts themselves. We hope these names become part of everyday collecting, so that knowing a watch's archetype tells you, in broad terms, how it was made.</p>
         <p><b>{NOT_A_RANKING}</b></p>
       </div>
@@ -114,7 +118,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       </div>
       <div class="arch-panels">
         {archetypes.map(a => (
-          <article class="tile apanel" role="tabpanel" id={`apanel-${a.slug}`} aria-labelledby={`atab-${a.slug}`}>
+          <section class="tile apanel" role="tabpanel" id={`apanel-${a.slug}`} aria-labelledby={`atab-${a.slug}`}>
             <div class="ap-text">
               <h3 class="ap-name">{a.name}</h3>
               <p class="ap-short">{a.copy.short}</p>
@@ -146,16 +150,31 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
                 <a href={archetypeUrl(a.code)}>More about {a.name}</a>
               </div>
             </div>
-          </article>
+          </section>
         ))}
       </div>
     </div>
 
     <div class="arch-foot">
-      <div class="tile descriptor" data-rise>
-        <h3>{descriptor.name}</h3>
-        <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
-        <p class="muted">{NOT_OWNERSHIP}</p>
+      <div class="descriptor" data-rise>
+        <div class="d-text">
+          <h3>{descriptor.name}</h3>
+          <p>{DESCRIPTOR.short} {DESCRIPTOR.means}</p>
+          <p class="muted">{NOT_OWNERSHIP}</p>
+        </div>
+        {withDescriptor.length > 0 && (
+          <div class="d-roll">
+            <p class="d-roll-h">{plural(withDescriptor.length, 'record')} {withDescriptor.length === 1 ? 'carries' : 'carry'} it, each with its own profile</p>
+            <ul>
+              {withDescriptor.map(r => (
+                <li>
+                  <a href={recordUrl(r.id)}><span>{r.brandName}</span> {r.model}</a>
+                  <CompactStrip scores={r.profile.scores} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div class="tile arch-more" data-rise>
         <figure class="arch-photo">
@@ -201,7 +220,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       </dl>
       <p class="compare-note" aria-live="polite">Same maker, different archetypes: {differ.length} of 7 measures differ.</p>
       <p class="small compare-links"><a href={recordUrl(infinity.id)}>{infinity.brandName} {infinity.model}</a><a href={recordUrl(resurgence.id)}>{resurgence.brandName} {resurgence.model}</a></p>
-      <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData)} />
+      <script type="application/json" id="compare-data" set:html={JSON.stringify(compareData).replaceAll('<', '\\u003c')} />
     </div>
   </section>
 
@@ -293,10 +312,12 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 </Base>
 
 <style>
-  /* Hero board: the name tile beside a real movement, under the 60px nav at 1440 × 900. */
-  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(560px, calc(100svh - 76px)); gap: 8px; padding-top: 8px; }
+  /* Hero board: the name tile beside a real movement, under the 60px nav at 1440 × 900. It fills the screen, and
+     grows past it when the heading (sized by width) needs more room, as on wide but short windows. */
+  .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(max(560px, calc(100svh - 76px)), auto); gap: 8px; padding-top: 8px; }
   .tile { margin: 0; border-radius: var(--r-plate); background: var(--c-surface); overflow: hidden; }
-  .t-name { grid-column: 1 / 8; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-7); padding: var(--s-6); }
+  /* Not clipped: a clipped tile counts as zero height, so the row would not grow and the buttons were cut off. */
+  .t-name { grid-column: 1 / 8; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-7); padding: var(--s-6); overflow: visible; }
   .display { font-size: clamp(48px, 6.4vw, 100px); line-height: 0.94; font-stretch: 70%; font-weight: 640; letter-spacing: -0.035em; max-width: 8em; }
   .t-name-head { display: grid; gap: var(--s-6); }
   .t-name-foot { display: grid; gap: var(--s-4); }
@@ -335,10 +356,12 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
 
   /* Archetypes: eight cards that select one panel. Without script every panel is shown in turn. */
   .arch { margin-top: var(--s-10); }
-  .arch-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5); align-items: end; }
-  .arch-head .sec-h { grid-column: 1 / 7; max-width: 11em; }
-  .arch-intro { grid-column: 7 / 13; display: grid; gap: var(--s-4); font-size: 18px; line-height: 1.5; max-width: 56ch; }
-  .arch-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; }
+  .arch-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5) var(--s-7); }
+  /* Heading and lead on the left, the body on the right, both from the same top line, so neither side is left empty. */
+  .arch-title { grid-column: 1 / 7; display: grid; align-content: start; gap: var(--s-5); }
+  .arch-head .sec-h { max-width: 11em; }
+  .arch-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -0.012em; max-width: 30ch; }
+  .arch-intro { grid-column: 7 / 13; display: grid; align-content: start; gap: var(--s-4); padding-top: var(--s-2); font-size: 18px; line-height: 1.5; max-width: 56ch; }
   .arch-intro b { font-weight: 600; }
   .explorer { margin-top: var(--s-8); display: grid; gap: 8px; }
   .arch-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -374,16 +397,34 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
   .ap-pattern h4 { margin-top: 0; }
   .ap-pattern .actions { margin-top: var(--s-3); }
   .js-arch .apanel h4:first-of-type { margin-top: var(--s-3); }
-  .arch-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
-  .descriptor { grid-column: 1 / 9; display: grid; align-content: start; gap: var(--s-3); padding: var(--s-6); }
-  .descriptor h3 { font-size: 22px; font-stretch: 84%; }
-  .descriptor p { font-size: 17px; line-height: 1.5; max-width: 72ch; }
-  .arch-more { grid-column: 9 / 13; display: flex; flex-direction: column; background: var(--c-surface-2); }
-  .arch-photo { margin: 0; flex: 1; min-height: 140px; }
-  .arch-photo :global(picture) { display: block; height: 100%; }
-  .arch-photo :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .arch-more-text { display: grid; justify-items: start; gap: var(--s-4); padding: var(--s-5) var(--s-6); }
-  .arch-more p { font-size: 17px; line-height: 1.5; }
+  /* The descriptor, set apart from the explorer: its definition beside the records that carry it, each with its own profile,
+     which shows the point of the definition: the descriptor never follows from scores. Surfaces step in tone only. */
+  .arch-foot { display: grid; gap: var(--s-7); margin-top: var(--s-9); }
+  .descriptor { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-7); align-items: start; }
+  .d-text { display: grid; align-content: start; gap: var(--s-3); }
+  .descriptor h3 { font-size: 28px; line-height: 1.1; font-stretch: 80%; font-weight: 620; letter-spacing: -0.015em; }
+  .d-text p { font-size: 18px; line-height: 1.5; max-width: 60ch; }
+  .d-roll { display: grid; align-content: start; gap: var(--s-3); }
+  .d-roll-h { font-size: 16px; color: var(--c-ink-2); }
+  .d-roll ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .d-roll li { position: relative; display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); min-height: 60px; padding: var(--s-2) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); transition: background var(--d-quick) var(--ease); }
+  .d-roll li:hover { background: var(--c-surface-2); }
+  .d-roll a { display: grid; color: var(--c-ink); font-size: 16px; font-weight: 580; line-height: 1.25; text-decoration: none; }
+  .d-roll a span { font-size: 13px; font-weight: 420; color: var(--c-ink-2); }
+  .d-roll a::after { content: ''; position: absolute; inset: 0; }
+  .d-roll a:focus-visible { outline: none; }
+  .d-roll li:has(a:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .d-roll :global(.cell) { width: 20px; height: 20px; font-size: 11px; }
+
+
+  /* The link to /archetypes/ as one slim strip, photograph to the left. */
+  .arch-more { display: flex; background: var(--c-surface-2); }
+  .arch-photo { position: relative; flex: 0 0 30%; margin: 0; min-height: 132px; }
+  .arch-photo :global(picture), .arch-photo :global(img) { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .arch-more-text { flex: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-4) var(--s-6); padding: var(--s-5) var(--s-6); }
+  .arch-more p { font-size: 18px; line-height: 1.45; max-width: 44ch; }
+  .arch-more .btn.secondary { background: var(--c-surface); }
+  .arch-more .btn.secondary:hover { background: var(--c-edge); }
 
   /* Comparison: the argument beside the live tool. */
   .cmp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px var(--s-5); margin-top: var(--s-10); align-items: start; }
@@ -490,8 +531,10 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .t-name { min-height: 56svh; padding: var(--s-5); }
     .m-stage { aspect-ratio: 4 / 3; }
     .how-text, .how-sample, .cmp-text, .t-compare, .explore-search, .explore-by, .open-lead, .open-data, .descriptor, .arch-more, .research-photo, .research-links { grid-column: 1 / -1; }
-    .arch-photo { flex: none; aspect-ratio: 16 / 7; }
-    .arch-head .sec-h, .arch-intro { grid-column: 1 / -1; }
+    .descriptor { grid-template-columns: 1fr; gap: var(--s-6); }
+    .arch-head { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+    .arch-title, .arch-intro { grid-column: 1; }
+    .arch-intro { padding-top: 0; }
     .arch-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ap-text, .ap-pattern { grid-column: 1 / -1; }
     .cmp-text { padding-right: 0; margin-bottom: var(--s-5); }
@@ -504,6 +547,10 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
     .how-text, .how-sample, .apanel, .explore-search, .explore-by, .open-lead, .research-links { padding: var(--s-5); }
     .explore-photo { margin: auto calc(-1 * var(--s-5)) calc(-1 * var(--s-5)); width: calc(100% + 2 * var(--s-5)); }
     .arch-more-text { padding: var(--s-5); }
+    .arch-foot { margin-top: var(--s-8); }
+    .d-roll ul { grid-template-columns: 1fr; }
+    .arch-more { flex-direction: column; }
+    .arch-photo { flex: none; aspect-ratio: 5 / 2; min-height: 0; }
     .sec-h { font-size: 10vw; }
     .arch-tabs button { min-height: 0; padding: var(--s-4); gap: var(--s-2); }
     .at-name { font-size: 18px; }

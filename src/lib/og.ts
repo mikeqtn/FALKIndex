@@ -80,9 +80,20 @@ ${body}
 </svg>`;
 }
 
+// Rasterising takes about 0.3s and blocks the server meanwhile, and the hosting edge marks these responses private,
+// so nothing upstream caches them. Keep the last image for each record (and the site card) and reuse it while its
+// SVG is unchanged; a republished profile changes the SVG and so draws a new image. At most one entry per record.
+const rendered = new Map<string, { svg: string, png: Buffer }>();
+function png(slot: string, svg: string) {
+  const hit = rendered.get(slot);
+  if (hit?.svg === svg) return hit.png;
+  const image = new Resvg(svg, { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } }).render().asPng();
+  rendered.set(slot, { svg, png:image });
+  return image;
+}
+
 export function recordPng(r: Record, labels: DimensionLabels) {
-  const svg = new Resvg(recordSvg(r, labels), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } });
-  return svg.render().asPng();
+  return png(`record:${r.id}`, recordSvg(r, labels));
 }
 
 // Share image for every page without its own: the name, the promise, and the seven levels as the mark.
@@ -98,5 +109,5 @@ ${bars}
 </svg>`;
 }
 export function sitePng(count: number) {
-  return new Resvg(siteSvg(count), { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: BODY } }).render().asPng();
+  return png('site', siteSvg(count));
 }

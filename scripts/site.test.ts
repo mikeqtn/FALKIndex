@@ -184,3 +184,13 @@ test('every methodology archetype has plain-English copy and its own section on 
   for (const code of new Set<string>(codes)) assert.match(page, new RegExp(`id="${code.replaceAll('_', '-')}"`), code);
   assert.doesNotMatch(page, />\s*(Total|Overall|Average)\b/, 'no summary figure on the archetypes page');
 });
+
+test('data embedded in pages cannot close its own script tag', async () => {
+  const html = await (await fetch(`${base}/`)).text();
+  const blocks = [...html.matchAll(/<script type="application\/(?:ld\+)?json"[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+  assert.ok(blocks.length >= 3, 'structured data, search suggestions and compare data');
+  for (const block of blocks) {
+    assert.doesNotMatch(block, /</, 'every < is escaped as \\u003c');
+    JSON.parse(block);
+  }
+});
