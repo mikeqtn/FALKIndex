@@ -7,19 +7,15 @@ import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 import { listCategories } from '../../server/forum.ts';
 import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
+// The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
 import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
+import { allowClerkForHost } from '../lib/page-csp.ts';
+allowClerkForHost(Astro);
 
 interface Props {
   title: string; description?: string;
   nav?: string; // the current sidebar item: 'home', 'new', or a category id
   ld?: object;
-}
-// Sign-in runs through the main site's Clerk proxy (src/accounts/clerk-host.ts), so the script policy allows it.
-// This has to come before the first await, or Astro has already fixed the policy.
-if (Astro.csp) {
-  Astro.csp.insertScriptResource('https://falkindex.com');
-  Astro.csp.insertScriptResource('https://clerk.falkindex.com');
-  Astro.csp.insertDirective("connect-src 'self' https://falkindex.com https://clerk.falkindex.com");
 }
 const { title, description = 'Discussion of watches, how they are made, and the FALK Index. Anyone can read; post with your FALK Index account.', nav, ld } = Astro.props;
 const pageTitle = title === 'FALK Forum' ? title : `${title}, FALK Forum`;
