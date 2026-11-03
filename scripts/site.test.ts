@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
+import { keepBaseline, toReportOnly } from '../server/csp.ts';
 import { createApp,attachProductionSite } from '../server/index.ts';
 
 const dist = 'dist';
@@ -115,6 +116,9 @@ test('pages send a report-only script policy that hashes every inline script', a
     assert.ok(scriptSrc,`${route}: no report-only script-src`);
     assert.doesNotMatch(scriptSrc,/'unsafe-inline'|'unsafe-eval'/,route);
     assert.match(scriptSrc,/https:\/\/clerk\.127\.0\.0\.1(\s|$)/,`${route}: Clerk's per-host script origin`);
+    // Clerk Protect runs on sign-in: its scripts, and probes on several ports.
+    assert.match(scriptSrc,/https:\/\/cdn\.protect\.clerk\.com https:\/\/\*\.client\.protect\.clerk\.com/,route);
+    assert.match(policy,/connect-src [^;]*https:\/\/\*\.client\.protect\.clerk\.com:\*/,route);
     assert.match(policy,/report-uri \/csp-report/);
     assert.equal(response.headers.get('reporting-endpoints'),'csp="/csp-report"');
     // The enforced baseline stays separate and unchanged.
@@ -138,10 +142,28 @@ test('CSP reports in both browser formats are accepted and logged without query 
     const post = (type: string, body: string) => fetch(`${base}/csp-report`,{method:'POST',headers:{'content-type':type},body});
     assert.equal((await post('application/csp-report',JSON.stringify({'csp-report':{'document-uri':'https://falkindex.com/records/?q=private','effective-directive':'script-src-elem','blocked-uri':'inline'}}))).status,204);
     assert.equal((await post('application/reports+json',JSON.stringify([{type:'csp-violation',body:{documentURL:'https://falkindex.com/a?token=x',effectiveDirective:'script-src-elem',blockedURL:'https://cdn.example/x.js?v=1'}}]))).status,204);
+    // Safari sends one Reporting API object, not an array, under the legacy content type.
+    assert.equal((await post('application/csp-report',JSON.stringify({type:'csp-violation',body:{documentURL:'https://falkindex.com/b',effectiveDirective:'script-src-attr',blockedURL:'inline'}}))).status,204);
     assert.equal((await post('application/csp-report','{"csp-report":{}}')).status,204);
+    assert.equal((await post('text/plain','hello')).status,204);
+    assert.equal((await post('application/csp-report',JSON.stringify({'csp-report':{x:'a'.repeat(20000)}}))).status,413);
   } finally { console.warn = warn; }
   const events = logged.map(line => JSON.parse(line)).filter(e => e.event === 'csp.violation');
-  assert.deepEqual(events.map(e => [e.page,e.blocked]),[['https://falkindex.com/records/','inline'],['https://falkindex.com/a','https://cdn.example/x.js']]);
+  assert.deepEqual(events.map(e => [e.page,e.blocked]),[['https://falkindex.com/records/','inline'],['https://falkindex.com/a','https://cdn.example/x.js'],['https://falkindex.com/b','inline']]);
+});
+
+test('enforcing the page policy keeps the baseline policy as a second header', () => {
+  const headers: Record<string,string|string[]> = {'content-security-policy':"script-src 'self'"};
+  keepBaseline(headers,"frame-ancestors 'none'");
+  assert.deepEqual(headers['content-security-policy'],["frame-ancestors 'none'","script-src 'self'"]);
+  assert.deepEqual(toReportOnly({'Content-Security-Policy':"script-src 'self'"}),{'Content-Security-Policy-Report-Only':"script-src 'self'"});
+});
+
+test('a forged host cannot add sources to the page policy', async () => {
+  const response = await fetch(`${base}/`,{headers:{'x-forwarded-host':"a.com; script-src *"}});
+  const policy = response.headers.get('content-security-policy-report-only') ?? '';
+  assert.doesNotMatch(policy,/a\.com|script-src \*/);
+  assert.match(policy,/script-src 'self'/);
 });
 
 test('only readers with a Clerk session load the account menu; everyone else gets plain links', async () => {
