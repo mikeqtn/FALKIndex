@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+// In the browser, Zod probes for `new Function` to speed up parsing; the script policy forbids eval, so the probe
+// files a CSP violation report on every account page. Skip the probe there. The server keeps the faster path.
+if (typeof window !== 'undefined') z.config({ jitless: true });
+
 export const ROLES = ['contributor', 'editor', 'admin'] as const;
 export type Role = typeof ROLES[number];
 export const qualificationOptions = [
