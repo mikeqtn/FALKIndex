@@ -64,6 +64,21 @@ npm test             # needs the build and a database
 CI runs the same steps against a PostgreSQL service on every push and pull
 request.
 
+## Script policy (CSP)
+
+Every rendered page carries a Content Security Policy that allows only this
+site's own scripts, Clerk and Cloudflare's sign-up check. Astro hashes each
+inline script at build time (`security.csp` in `astro.config.mjs`). Scripts
+that must stay `is:inline` go in `src/lib/inline-scripts.mjs`, so their hashes
+follow the text.
+
+The policy is **report-only** for now: browsers report violations to
+`/csp-report` but block nothing. They appear in the production logs as
+`csp.violation` events. Once those are clean across sign-in, sign-up, the
+account, review and admin pages and the forum, set `CSP_ENFORCE=1` to enforce
+it. The policy is not applied under `npm run dev`; test it with
+`npm run build && npm run preview`.
+
 ## Corrections
 
 Spotted something wrong? Use **Send a correction** on any record. You don't
