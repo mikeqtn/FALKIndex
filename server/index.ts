@@ -14,6 +14,7 @@ import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { waitForDatabase } from './db.ts';
+import { clerkHostFor, clerkProxyFor } from '../src/accounts/clerk-host.ts';
 
 // Baseline browser protections, always enforced. The script policy comes from Astro on rendered pages and is
 // report-only for now (see server/csp.ts).
@@ -65,12 +66,14 @@ export function createApp() {
   app.use(forumHost());
   app.use(CLERK_PROXY_PATH,clerkProxyMiddleware());
   app.use(express.json({limit:'48kb'}));
-  app.use(clerkMiddleware((req) => ({
-    publishableKey:publishableKeyFromHost(
-      getClerkProxyHost(req) ?? '',
-      process.env.CLERK_PUBLISHABLE_KEY,
-    ),
-  })));
+  app.use(clerkMiddleware((req) => {
+    const host = getClerkProxyHost(req) ?? '';
+    const proxyUrl = clerkProxyFor(host);
+    return {
+      publishableKey:publishableKeyFromHost(clerkHostFor(host),process.env.CLERK_PUBLISHABLE_KEY),
+      ...(proxyUrl ? {proxyUrl} : {}),
+    };
+  }));
   app.use('/api',api);
   app.use((error: any,_req: express.Request,res: express.Response,_next: express.NextFunction) => {
     // Too late for a JSON error: close the half-sent response instead of leaving the client hanging.
