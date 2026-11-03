@@ -32,7 +32,7 @@ Marketing words ("in-house", "manufacture", "handmade") are where research start
 
 A claim is one factual statement, in our words, backed by one source.
 
-- `statement`: what the source establishes. No scores and no adjectives like "exceptional".
+- `statement`: what the source establishes. No scores and no adjectives like "exceptional". Attribute rather than assert: "Nomos states the escapement is made in Glashütte", not "the escapement is made in Glashütte". A record reports what sources say; it never claims FALK checked the watch itself.
 - `excerpt`: a short **verbatim** quote. Copy it from the page; never retype it from memory or from a summary.
 - `dimensions`: every dimension the fact bears on.
 - `date_checked`: the day you read it.

@@ -31,7 +31,7 @@ for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) =>
   await snapshot(`/records/${watch.id}/`,`records/${watch.id}/index.html`);
   await snapshot(`/records/${watch.id}.json`,`records/${watch.id}.json`);
 }
-for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes']) await snapshot(`/${route}/`,`${route}/index.html`);
+for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes','terms']) await snapshot(`/${route}/`,`${route}/index.html`);
 const files = [...cache.keys()];
 const read = (f: string) => {
   assert.ok(cache.has(f),`Missing rendered response ${f}`);
@@ -161,6 +161,7 @@ test('published evidence repeats the strip scores; a draft gets its own section'
   }
   const fleming = read(join(dist, 'records/fleming/series-1/index.html'));
   assert.doesNotMatch(fleming, /Provisional record|v0\.2 reference dataset/, 'an evidenced record still shows seed wording');
+  assert.match(fleming, /Based on the cited sources below.*Brands can <a href="[^"]+">reply with evidence/s, 'records carry the right-of-reply note');
 });
 
 test('sources, supplier and corrections pages are built', { skip }, () => {
@@ -173,6 +174,8 @@ test('sources, supplier and corrections pages are built', { skip }, () => {
   const corrections = read(join(dist, 'corrections/index.html'));
   assert.match(corrections, /<form id="correction"[^>]*action="\/api\/corrections"/);
   assert.match(corrections, /stored privately for editors/);
+  assert.match(read(join(dist, 'terms/index.html')), /CC BY-SA 4\.0[\s\S]*at least 13/, 'terms cover licensing and minimum age');
+  assert.match(read(join(dist, 'terms/index.html')), /published by Falk Watches, LLC[\s\S]*endorse or sponsor[\s\S]*Legal notices[\s\S]*penalty of perjury/, 'terms name the publisher and cover trademarks, legal notices and copyright');
   assert.doesNotMatch(corrections, /github\.com\/mikeqtn\/FALKIndex\/issues\/new|PUBLIC_CORRECTIONS_ENDPOINT/);
 });
 

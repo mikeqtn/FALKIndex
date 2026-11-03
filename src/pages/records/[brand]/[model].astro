@@ -88,6 +88,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         <a class="btn" href={correctionUrl(r.id)}>Send a correction</a>
         <a href={`/records/${r.id}.json`}>Download JSON</a>
       </div>
+      <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
     </aside>
   </div>
 
