@@ -7,6 +7,10 @@ import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 import { listCategories } from '../../server/forum.ts';
 import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
+// The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
+import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
+import { allowClerkForHost } from '../lib/page-csp.ts';
+allowClerkForHost(Astro);
 
 interface Props {
   title: string; description?: string;
@@ -38,9 +42,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary" />
     {ldJson && <script type="application/ld+json" set:html={ldJson} />}
-    <script is:inline>
-      try { const t = localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
-    </script>
+    <script is:inline set:html={THEME_SCRIPT} />
   </head>
   <body class="f-body">
     <a class="sr-only f-skip" href="#main">Skip to content</a>

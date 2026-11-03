@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
 import { createHash } from 'node:crypto';
-import { INLINE_SCRIPTS } from './src/lib/inline-scripts.mjs';
+import { INLINE_SCRIPTS, CLERK_PROTECT_SCRIPTS, CLERK_PROTECT_CONNECT } from './src/lib/inline-scripts.mjs';
 
 export default defineConfig({
   trailingSlash: 'ignore',
@@ -18,8 +18,10 @@ export default defineConfig({
   security: {
     csp: {
       scriptDirective: {
-        // Clerk's script loads through the same-origin proxy (/api/__clerk); its bot check uses Cloudflare Turnstile.
-        resources: ["'self'", 'https://challenges.cloudflare.com'],
+        // Clerk's script loads through the same-origin proxy (/api/__clerk). Its bot protection (Clerk Protect) loads
+        // scripts from cdn.protect.clerk.com and per-instance *.client.protect.clerk.com hosts; seen on the live sign-in
+        // page on 2026-11-03. Turnstile stays listed in case Clerk falls back to a visible challenge.
+        resources: ["'self'", ...CLERK_PROTECT_SCRIPTS, 'https://challenges.cloudflare.com'],
         // Astro hashes its own scripts but not is:inline ones; Base.astro's come from this shared module.
         hashes: INLINE_SCRIPTS.map(s => `sha256-${createHash('sha256').update(s).digest('base64')}`),
       },
@@ -31,7 +33,7 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' data: https://img.clerk.com",
-        "connect-src 'self'",
+        `connect-src 'self' ${CLERK_PROTECT_CONNECT}`,
         "font-src 'self'",
         'frame-src https://challenges.cloudflare.com',
         "worker-src 'self' blob:",
