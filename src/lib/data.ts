@@ -1,5 +1,6 @@
-// Request-scoped approved catalogue. No startup snapshot or silent YAML fallback.
+// The approved catalogue, read from the database and cached briefly. No silent YAML fallback.
 import { loadCatalogue } from '../../server/catalogue.ts';
+import { createCatalogueCache } from './catalogue-cache.ts';
 import { DIMENSIONS, type Watch } from '../schema.ts';
 
 export { DIMENSIONS };
@@ -35,8 +36,14 @@ const citedBy = (sourceId: string) => watches.filter(w => w.claims.some(c => c.s
 return {methodologies,orgs,sources,watches,methodology,records,record,dimension,classification,appearances,orgPageIds,citedBy};
 }
 type Catalogue = ReturnType<typeof catalogue>;
+// Shared across requests in this instance; see catalogue-cache.ts. CATALOGUE_TTL_MS sets how stale a copy may get
+// before it is reloaded (default 15 s): a change published to the database shows within that time.
+const shared = createCatalogueCache(() => loadCatalogue().then(catalogue), {
+  ttlMs:Number(process.env.CATALOGUE_TTL_MS) || undefined,
+});
+/** The catalogue for this request: the same frozen snapshot for every call within one request. */
 export async function getCatalogue(locals: {catalogue?:Promise<Catalogue>} = {}): Promise<Catalogue> {
-  return locals.catalogue ??= loadCatalogue().then(catalogue);
+  return locals.catalogue ??= shared.get();
 }
 
 export const CONFIDENCE = { A: 'Strong primary evidence', B: 'Good evidence, limited gaps', C: 'Material gaps remain', D: 'Sparse or conflicting' } as const;

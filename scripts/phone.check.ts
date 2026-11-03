@@ -6,6 +6,7 @@ import { existsSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { chromium, webkit, devices } from 'playwright';
 import { createApp, attachProductionSite } from '../server/index.ts';
+import { pool } from '../server/db.ts';
 
 assert.ok(existsSync('dist/server/entry.mjs'), 'Run npm run build before npm run test:phone');
 const app = createApp();
@@ -20,9 +21,35 @@ after(async () => { await browser.close(); await new Promise<void>(resolve => se
 
 // One record with photos, one with a profile and none, one still at confidence D, plus every other public page.
 const pages = ['/', '/records/', '/records/nomos/tangente-neomatik/', '/records/jn-shapiro/resurgence/', '/records/omega/speedmaster-moonwatch-3861/',
-  '/archetypes/', '/methodology/', '/sources/', '/data/', '/about/', '/privacy/', '/organizations/tudor/', '/corrections/', '/no-such-page/'];
+  '/archetypes/', '/methodology/', '/sources/', '/data/', '/about/', '/privacy/', '/terms/', '/organizations/tudor/', '/corrections/', '/no-such-page/',
+  '/forum/', '/forum/search/?q=movement', '/forum/new/', '/forum/notifications/', '/forum/moderation/', '/forum/records/nomos/tangente-neomatik/', '/forum/no-such-category/'];
+const missing = new Set(['/no-such-page/', '/forum/no-such-category/']);
+
+// Category and thread pages need a thread, and CI's database starts with none. Its long unbroken text is
+// what pushes a phone page sideways. CI only, because forum threads and posts can't be deleted afterwards.
+if (process.env.CI) {
+  const word = 'Calibre'.repeat(18);
+  await pool.query("INSERT INTO falk_forum_category(id,name,description,position) VALUES('phone-check','Phone check','Test category',99) ON CONFLICT DO NOTHING");
+  const author = (await pool.query("INSERT INTO falk_account(realm,clerk_id,username,email_verified) VALUES('phone-check',gen_random_uuid()::text,'phone_check',true) RETURNING id")).rows[0].id;
+  const thread = (await pool.query("INSERT INTO falk_forum_thread(category_id,author_id,title,watch_id) VALUES('phone-check',$1,$2,'nomos/tangente-neomatik') RETURNING id", [author, `Movement ${word}`])).rows[0].id;
+  await pool.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3)', [thread, author, `See https://example.com/${word}/${word} and ${word}.`]);
+  pages.push('/forum/phone-check/', `/forum/t/${thread}/`);
+}
 
 for (const name of ['iPhone SE', 'iPhone 14']) {
+  test(`${name}: the forum and the main site link to each other`, async () => {
+    const context = await browser.newContext({ ...devices[name], reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.goto(`${base}/forum/`, { waitUntil: 'load' });
+    await page.locator('.f-menu-button').click(); // on a phone, the link back moves from the top bar to the menu
+    await page.locator('.f-side-home a').click();
+    await page.waitForURL(url => url.pathname === '/');
+    await page.locator('.nav-menu summary').click();
+    await page.locator('.nav-links a', { hasText: /^Forum$/ }).click();
+    await page.waitForURL(url => url.pathname === '/forum/');
+    await context.close();
+  });
+
   test(`${name}: no page scrolls sideways or throws`, async () => {
     const context = await browser.newContext({ ...devices[name], reducedMotion: 'reduce' });
     const page = await context.newPage();
@@ -30,7 +57,7 @@ for (const name of ['iPhone SE', 'iPhone 14']) {
     page.on('pageerror', e => errors.push(`${page.url()}: ${e.message}`));
     for (const path of pages) {
       const response = await page.goto(`${base}${path}`, { waitUntil: 'load' });
-      assert.equal(response!.status(), path === '/no-such-page/' ? 404 : 200, path);
+      assert.equal(response!.status(), missing.has(path) ? 404 : 200, path);
       const { overflow, wide } = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth - innerWidth,
         // The widest elements, to say where an overflow comes from.

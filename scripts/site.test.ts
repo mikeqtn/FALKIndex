@@ -8,6 +8,7 @@ import { createHash } from 'node:crypto';
 import { keepBaseline, toReportOnly } from '../server/csp.ts';
 import { createApp,attachProductionSite } from '../server/index.ts';
 import { DIRECT_BRANDS, RETAIL_BRANDS, publisherTie } from '../src/lib/publisher.ts';
+import { hostPolicy } from '../server/middlewares/siteHost.ts';
 
 const dist = 'dist';
 assert.ok(existsSync('dist/server/entry.mjs'),'Run npm run build before npm test');
@@ -168,6 +169,20 @@ test('a forged host cannot add sources to the page policy', async () => {
   assert.match(policy,/script-src 'self'/);
 });
 
+test('with an allowlist, a well-formed but unlisted host never reaches the page policy', async () => {
+  const listed = createApp(hostPolicy({SITE_HOSTS:'127.0.0.1'}));
+  await attachProductionSite(listed);
+  const strict = createServer(listed);
+  await new Promise<void>(resolve => strict.listen(0,'127.0.0.1',resolve));
+  try {
+    const port = (strict.address() as {port:number}).port;
+    const response = await fetch(`http://127.0.0.1:${port}/`,{headers:{'x-forwarded-host':'evil.example'}});
+    const policy = response.headers.get('content-security-policy-report-only') ?? '';
+    assert.doesNotMatch(policy,/evil\.example/);
+    assert.match(policy,/https:\/\/clerk\.127\.0\.0\.1[ ;]/);
+  } finally { strict.closeAllConnections(); await new Promise<void>(resolve => strict.close(() => resolve())); }
+});
+
 test('only readers with a Clerk session load the account menu; everyone else gets plain links', async () => {
   const page = async (cookie?: string) => (await fetch(`${base}/methodology/`,{headers:cookie ? {cookie} : {}})).text();
   for (const html of [await page(), await page('__client_uat=0')]) {
@@ -320,4 +335,23 @@ test('forum pages allow sign-in through the main site', async () => {
       assert.doesNotMatch(directive(name), /clerk\.forum\.falkindex\.com/, `${route} ${name}`);
     }
   }
+});
+
+test('pages and share images are rate limited per visitor; static files are not counted', async () => {
+  const limited = createApp();
+  await attachProductionSite(limited,{mode:'enforce',pagesPerMinute:2,imagesPerMinute:1,log:() => {}});
+  const strict = createServer(limited);
+  await new Promise<void>(resolve => strict.listen(0,'127.0.0.1',resolve));
+  try {
+    const at = `http://127.0.0.1:${(strict.address() as {port:number}).port}`;
+    const asset = (await import('node:fs')).readdirSync('dist/client/_astro').find(f => f.endsWith('.js'))!;
+    for (let i = 0; i < 5; i++) assert.equal((await fetch(`${at}/_astro/${asset}`)).status,200,'static files are free');
+    assert.equal((await fetch(`${at}/about/`)).status,200);
+    assert.equal((await fetch(`${at}/methodology/`)).status,200);
+    const blocked = await fetch(`${at}/sources/`);
+    assert.equal(blocked.status,429);
+    assert.ok(blocked.headers.get('retry-after'));
+    assert.equal((await fetch(`${at}/og/site.png`)).status,200);
+    assert.equal((await fetch(`${at}/og/site.png`)).status,429);
+  } finally { strict.closeAllConnections(); await new Promise<void>(resolve => strict.close(() => resolve())); }
 });

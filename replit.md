@@ -35,8 +35,10 @@ They fail, rather than skip, when a server build is missing.
   `data/sources.yaml` from the database (methodology is left as authored).
   Run it with the production `DATABASE_URL` and commit the result to keep git
   in step with live edits.
-- The catalogue is reconstructed from relational data and validated on every
-  request, using a request-local cache and a consistent read transaction.
+- The catalogue is reconstructed from relational data and validated in a
+  consistent read transaction, then shared by requests in an instance for up to
+  15 seconds (`CATALOGUE_TTL_MS`). A change published to the database appears
+  within that time; if a reload fails, the last good copy keeps being served.
 - Clerk setup provisions its keys. Use the workspace Auth pane for login
   settings; no external Clerk dashboard or manually shared passwords.
 - Configure `FALK_BOOTSTRAP_ADMIN_EMAIL` privately with the trusted initial
@@ -70,6 +72,8 @@ API, Clerk proxy, sign-in pages and static files are shared
 (`server/middlewares/forumHost.ts`). Without `FORUM_HOST`, as in the preview, the
 forum is at `/forum/`. To set it up, add `forum.falkindex.com` as a custom domain
 on the deployment and its DNS record, and allow the domain in the Auth pane.
+`FORUM_HOST` is also added to the server's host allowlist; any other domain added to
+the deployment must be listed in `SITE_HOSTS` (see README) or it is served as falkindex.com.
 
 The forum is its own site: `src/layouts/ForumLayout.astro` and `src/styles/forum.css`, with no main-site
 header, footer or stylesheet. To create its categories and starter threads, run

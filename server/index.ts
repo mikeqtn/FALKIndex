@@ -9,11 +9,13 @@ import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
 import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { forumHost } from './middlewares/forumHost.ts';
+import { hostPolicy, siteHost, type HostPolicy } from './middlewares/siteHost.ts';
 import { pagePolicy, reportReceiver } from './csp.ts';
 import { HttpError } from './accounts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { waitForDatabase } from './db.ts';
+import { pageLimit, type PageLimitOptions } from './pageLimit.ts';
 import { clerkHostFor, clerkProxyFor } from '../src/accounts/clerk-host.ts';
 
 // Baseline browser protections, always enforced. The script policy comes from Astro on rendered pages and is
@@ -34,10 +36,12 @@ function securityHeaders(_req: express.Request,res: express.Response,next: expre
   next();
 }
 
-export function createApp() {
+export function createApp(hosts: HostPolicy = hostPolicy()) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy',1);
+  // First of all: settle which allowed host this request is for, so nothing below reads a forged one.
+  app.use(siteHost(hosts));
   app.use((req,res,next) => {
     const started = process.hrtime.bigint();
     res.once('finish',() => {
@@ -89,7 +93,7 @@ export function createApp() {
   });
   return app;
 }
-export async function attachProductionSite(app: express.Express) {
+export async function attachProductionSite(app: express.Express, limits?: PageLimitOptions) {
   // The Astro middleware adapter does not serve its client assets itself.
   // Never let a successful HTML response conceal broken JS/CSS after Publish.
   app.use(express.static(resolve('dist/client'),{
@@ -99,6 +103,8 @@ export async function attachProductionSite(app: express.Express) {
     },
   }));
   const { handler } = await import(pathToFileURL(resolve('dist/server/entry.mjs')).href);
+  // Static files were answered above; everything left is a rendered page or a generated share image.
+  app.use(pageLimit(limits));
   app.use(pagePolicy());
   app.use(handler);
 }
@@ -129,6 +135,7 @@ export async function start() {
     event:'server.ready',
     port,
     mode:process.env.NODE_ENV ?? 'development',
+    hosts:[...(hostPolicy().allowed ?? ['any'])],
     startupDurationMs:Math.round(Number(process.hrtime.bigint()-startupStarted)/1_000_000),
   })));
   if (devProxy) server.on('upgrade', devProxy.upgrade);
