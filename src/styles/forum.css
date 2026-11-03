@@ -202,8 +202,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .f-pages { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: var(--s-4); }
 .f-pages a { display: grid; place-items: center; min-width: 32px; height: 32px; border-radius: var(--r-control); }
 .f-pages a[aria-current="page"] { background: var(--c-tint); color: var(--c-tint-ink); font-weight: 600; }
-.account-auth-slot { max-width: 520px; }
-.account-auth-intro { margin-bottom: var(--s-4); }
 
 @media (max-width: 1180px) {
   .f-with-rail { grid-template-columns: minmax(0, 1fr); }

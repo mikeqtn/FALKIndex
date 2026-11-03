@@ -247,6 +247,25 @@ test('data embedded in pages cannot close its own script tag', async () => {
   }
 });
 
+test('the main site and the forum do not load each other\'s stylesheets on their sign-in pages', async () => {
+  const css = async (path: string) => {
+    const response = await fetch(`${base}${path}`);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    const sheets = [...html.matchAll(/<link[^>]+href="([^"]+\.css)"/g)].map(m => m[1]);
+    assert.ok(sheets.length, `${path} loads a stylesheet`);
+    return { html, styles:(await Promise.all(sheets.map(async s => (await fetch(`${base}${s}`)).text()))).join('\n') };
+  };
+  for (const path of ['/sign-in', '/sign-up']) {
+    const main = await css(path);
+    assert.match(main.html, /class="site-nav"/, path);
+    assert.doesNotMatch(main.styles, /\.f-frame|account-auth-slot[^{]*\{[^}]*max-width/, `${path} has no forum styles`);
+    const forum = await css(`/forum${path}/`);
+    assert.match(forum.html, /class="f-frame"/, path);
+    assert.doesNotMatch(forum.styles, /\.site-nav|account-auth-slot[^{]*\{[^}]*max-width/, `the forum's ${path} has no main-site styles`);
+  }
+});
+
 test('forum pages allow sign-in through the main site, and hash their inline scripts', async () => {
   for (const route of ['/forum/', '/forum/new/']) {
     const response = await fetch(`${base}${route}`);
@@ -261,4 +280,3 @@ test('forum pages allow sign-in through the main site, and hash their inline scr
       assert.ok(directive('script-src').includes(`sha256-${createHash('sha256').update(script).digest('base64')}`), `${route}: ${script.slice(0, 50)}`);
   }
 });
-

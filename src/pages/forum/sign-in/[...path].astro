@@ -1,0 +1,10 @@
+---
+// The forum's own copy of this page: one page with both layouts would load both sites' stylesheets.
+// On the forum host, /sign-in is served from here (server/middlewares/forumHost.ts).
+export const prerender = false;
+import ForumLayout from '../../../layouts/ForumLayout.astro';
+import { SignInPage } from '../../../components/accounts/AuthPages';
+---
+<ForumLayout title="Sign in">
+  <div class="account-auth-slot"><SignInPage client:only="react" /></div>
+</ForumLayout>
