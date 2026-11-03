@@ -246,3 +246,19 @@ test('data embedded in pages cannot close its own script tag', async () => {
     JSON.parse(block);
   }
 });
+
+test('forum pages allow sign-in through the main site, and hash their inline scripts', async () => {
+  for (const route of ['/forum/', '/forum/new/']) {
+    const response = await fetch(`${base}${route}`);
+    const policy = response.headers.get('content-security-policy-report-only') ?? '';
+    const directive = (name: string) => policy.split(';').find(d => d.trim().startsWith(`${name} `)) ?? '';
+    assert.match(directive('script-src'), /https:\/\/falkindex\.com(\s|$)/, route);
+    assert.match(directive('connect-src'), /https:\/\/falkindex\.com(\s|$)/, route);
+    const html = await response.text();
+    const inline = [...html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*type="application)[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]).filter(Boolean);
+    assert.ok(inline.length, route);
+    for (const script of inline)
+      assert.ok(directive('script-src').includes(`sha256-${createHash('sha256').update(script).digest('base64')}`), `${route}: ${script.slice(0, 50)}`);
+  }
+});
+
