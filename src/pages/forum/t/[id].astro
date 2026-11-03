@@ -1,0 +1,43 @@
+---
+import ForumLayout from '../../../layouts/ForumLayout.astro';
+import CompactStrip from '../../../components/CompactStrip.astro';
+import ThreadView from '../../../components/forum/ThreadView.tsx';
+import { pageQuery, threadDetail } from '../../../../server/forum.ts';
+import { getCatalogue } from '../../../lib/data.ts';
+import { forumDate, forumLinks, forumPath, hasSession, siteHref, signInHref } from '../../../lib/forum.ts';
+const id = Astro.params.id ?? '';
+const page = pageQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined });
+// The server renders the public view; a signed-in reader's own and moderator view loads in the browser.
+const detail = /^[0-9a-f-]{36}$/.test(id) && page.success ? await threadDetail(id, page.data.page, null) : null;
+if (!detail) return Astro.rewrite('/forum/not-found/');
+const { thread } = detail;
+const first = detail.posts.find(p => p.body)?.body ?? '';
+const { records } = await getCatalogue(Astro.locals);
+const record = thread.record ? records.find(r => r.id === thread.record) : undefined;
+---
+<ForumLayout nav={thread.category} title={thread.title} description={first.slice(0, 160)}>
+  <div class="f-with-rail">
+    <div style="min-width: 0">
+      <ThreadView client:load detail={detail} links={forumLinks()} signedIn={hasSession(Astro.request.headers.get('cookie'))} signInHref={signInHref(Astro.url.pathname)} />
+    </div>
+    <aside class="f-rail" aria-label="About this thread">
+      {record && <section aria-labelledby="f-about-record">
+        <div class="f-section-head"><h2 id="f-about-record">The record</h2></div>
+        <ul class="f-rail-list"><li class="f-rail-record">
+          <a class="f-rail-title" href={siteHref(`/records/${record.id}/`)}>{record.brandName} {record.model}</a>
+          <CompactStrip scores={record.profile.scores} />
+          <p style="margin-top: 8px"><a href={forumPath(`/records/${record.id}/`)}>Other threads about this record</a></p>
+        </li></ul>
+      </section>}
+      <section aria-labelledby="f-about-thread">
+        <div class="f-section-head"><h2 id="f-about-thread">This thread</h2></div>
+        <dl class="f-rail-facts">
+          <dt>Category</dt><dd><a href={forumPath(`/${thread.category}/`)}>{thread.categoryName}</a></dd>
+          <dt>Started</dt><dd>{forumDate(thread.createdAt)}</dd>
+          <dt>Last post</dt><dd>{forumDate(thread.lastPostAt)}</dd>
+          <dt>Replies</dt><dd>{thread.replies}</dd>
+        </dl>
+      </section>
+    </aside>
+  </div>
+</ForumLayout>

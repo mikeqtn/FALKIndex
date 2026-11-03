@@ -4,6 +4,7 @@ import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import express from 'express';
 import { forumHost } from '../server/middlewares/forumHost.ts';
+import { onForumHost } from '../src/lib/forum.ts';
 
 // Answers with the path the next handler saw, so the rewrite is visible.
 async function serve(host?: string) {
@@ -52,4 +53,14 @@ test('without FORUM_HOST the forum stays at /forum on the one host', async () =>
     assert.equal((await get('/forum/', 'falkindex.replit.dev')).body, '/forum/');
     assert.equal((await get('/', 'falkindex.replit.dev')).body, '/');
   } finally { close(); }
+});
+
+test('shared pages can tell they are on the forum host', async () => {
+  const was = process.env.FORUM_HOST;
+  process.env.FORUM_HOST = 'forum.example.com';
+  try {
+    assert.equal(onForumHost(new Headers({ host:'forum.example.com:443' })), true);
+    assert.equal(onForumHost(new Headers({ host:'internal', 'x-forwarded-host':'FORUM.example.com, proxy' })), true);
+    assert.equal(onForumHost(new Headers({ host:'example.com' })), false);
+  } finally { if (was === undefined) delete process.env.FORUM_HOST; else process.env.FORUM_HOST = was; }
 });

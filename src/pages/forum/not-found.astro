@@ -1,0 +1,9 @@
+---
+import ForumLayout from '../../layouts/ForumLayout.astro';
+import { forumPath } from '../../lib/forum.ts';
+Astro.response.status = 404;
+---
+<ForumLayout title="Page not found">
+  <header class="f-title"><div><h1>Page not found</h1><p class="f-lead">This page isn't on the forum. It may have moved, or a moderator may have hidden the thread.</p></div></header>
+  <p><a class="f-button" href={forumPath('/')}>Go to the forum home</a></p>
+</ForumLayout>

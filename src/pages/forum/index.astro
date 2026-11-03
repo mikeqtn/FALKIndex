@@ -1,13 +1,56 @@
 ---
-import Base from '../../layouts/Base.astro';
-// Placeholder while the forum is built (served at forum.falkindex.com through server/middlewares/forumHost.ts).
-// The account menu in the header shows whether a FALK sign-in carries over to this host.
+import ForumLayout from '../../layouts/ForumLayout.astro';
+import CompactStrip from '../../components/CompactStrip.astro';
+import { listCategories, recentThreads, recordsUnderDiscussion } from '../../../server/forum.ts';
+import { getCatalogue } from '../../lib/data.ts';
+import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
+const [categories, recent, discussed, { records }] = await Promise.all([listCategories(), recentThreads(5), recordsUnderDiscussion(4), getCatalogue(Astro.locals)]);
+const underDiscussion = discussed.flatMap(d => {
+  const record = records.find(r => r.id === d.id);
+  return record ? [{ record, threads:d.threads }] : [];
+});
 ---
-<Base title="Forum" description="The FALK Forum, for discussing watches, watchmaking and the FALK Index.">
-  <header class="doc-head" data-rise>
+<ForumLayout nav="home" title="FALK Forum">
+  <header class="f-title">
     <div>
       <h1>FALK Forum</h1>
-      <p class="lead">The forum is being built. It will use your FALK Index account.</p>
+      <p class="f-lead">Collectors, journalists and watchmakers on who really makes a watch. Anyone can read; post with your FALK Index account.</p>
     </div>
+    <a class="f-button" href={forumPath('/new/')}>Start a thread</a>
   </header>
-</Base>
+  <div class="f-with-rail">
+    <section aria-labelledby="f-categories">
+      <div class="f-columns"><h2 id="f-categories">Categories</h2><span>Threads</span><span>Last post</span></div>
+      {categories.length ? categories.map(c => <article class="f-category">
+        <div>
+          <h3><a href={forumPath(`/${c.id}/`)}>{c.name}</a></h3>
+          <p>{c.description}</p>
+          {c.latest && <p class="f-latest"><span>Latest: </span><a href={forumPath(`/t/${c.latest.id}`)}>{c.latest.title}</a></p>}
+        </div>
+        <div class="f-figure"><b>{c.threads}</b><span class="sr-only">{c.threads === 1 ? ' thread' : ' threads'}</span></div>
+        <div class="f-figure"><span>{c.lastPostAt ? forumDate(c.lastPostAt) : '–'}</span></div>
+      </article>) : <p class="f-empty">The categories have not been set up yet.</p>}
+    </section>
+    <aside class="f-rail" aria-label="Activity">
+      <section aria-labelledby="f-recent">
+        <div class="f-section-head"><h2 id="f-recent">Latest posts</h2></div>
+        {recent.length ? <ul class="f-rail-list">
+          {recent.map(t => <li>
+            <a class="f-rail-title" href={forumPath(`/t/${t.id}`)}>{t.title}</a>
+            <p>{t.categoryName} · {t.replies} {t.replies === 1 ? 'reply' : 'replies'} · {forumDate(t.lastPostAt)}</p>
+          </li>)}
+        </ul> : <p class="f-empty">No threads yet.</p>}
+      </section>
+      <section aria-labelledby="f-records">
+        <div class="f-section-head"><h2 id="f-records">Records under discussion</h2></div>
+        {underDiscussion.length ? <ul class="f-rail-list">
+          {underDiscussion.map(({ record, threads }) => <li class="f-rail-record">
+            <a class="f-rail-title" href={forumPath(`/records/${record.id}/`)}>{record.brandName} {record.model}</a>
+            <p>{threads} {threads === 1 ? 'thread' : 'threads'}</p>
+            <CompactStrip scores={record.profile.scores} />
+          </li>)}
+        </ul> : <p class="f-empty">No one has discussed a record yet. <a href={siteHref('/records/')}>Browse the records</a> and start with one you know.</p>}
+      </section>
+    </aside>
+  </div>
+</ForumLayout>

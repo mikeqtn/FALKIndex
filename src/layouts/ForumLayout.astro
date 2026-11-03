@@ -1,0 +1,117 @@
+---
+// The FALK Forum's own site: its own shell, type and colour. It shares accounts, the database and the
+// record strip with falkindex.com and nothing else, so it does not use Base.astro or global.css.
+import '../styles/forum.css';
+import '../styles/accounts.css';
+import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2?url';
+import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
+import { listCategories } from '../../server/forum.ts';
+import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
+
+interface Props {
+  title: string; description?: string;
+  nav?: string; // the current sidebar item: 'home', 'new', or a category id
+  ld?: object;
+}
+const { title, description = 'Discussion of watches, how they are made, and the FALK Index. Anyone can read; post with your FALK Index account.', nav, ld } = Astro.props;
+const pageTitle = title === 'FALK Forum' ? title : `${title}, FALK Forum`;
+const canonical = forumCanonical(Astro.url.pathname);
+const ldJson = ld && JSON.stringify({ '@context': 'https://schema.org', ...ld }).replaceAll('<', '\\u003c');
+const categories = await listCategories();
+const signedIn = hasSession(Astro.request.headers.get('cookie'));
+const q = Astro.url.searchParams.get('q') ?? '';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:site_name" content="FALK Forum" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+    {ldJson && <script type="application/ld+json" set:html={ldJson} />}
+    <script is:inline>
+      try { const t = localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
+    </script>
+  </head>
+  <body class="f-body">
+    <a class="sr-only f-skip" href="#main">Skip to content</a>
+    <div class="f-frame">
+      <details class="f-side" id="f-menu" open>
+        <summary class="f-menu-button">Menu</summary>
+        <nav class="f-side-nav" aria-label="Forum">
+          <ul>
+            <li><a href={forumPath('/')} aria-current={nav === 'home' ? 'page' : undefined}>Forum home</a></li>
+            <li><a href={forumPath('/new/')} aria-current={nav === 'new' ? 'page' : undefined}>Start a thread</a></li>
+          </ul>
+          <h2>Categories</h2>
+          <ul>
+            {categories.map(c => <li><a href={forumPath(`/${c.id}/`)} aria-current={nav === c.id ? 'page' : undefined}>{c.name}</a></li>)}
+          </ul>
+          <h2>FALK Index</h2>
+          <ul>
+            <li class="f-side-home"><a href={siteHref('/') || '/'}>FALK Index home</a></li>
+            <li><a href={siteHref('/records/')}>Records</a></li>
+            <li><a href={siteHref('/methodology/')}>Methodology</a></li>
+            <li><a href={siteHref('/about/')}>About the project</a></li>
+          </ul>
+        </nav>
+      </details>
+      <header class="f-top">
+        <a class="f-wordmark" href={forumPath('/')}>
+          <span class="f-mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Forum
+        </a>
+        <form class="f-search" action={forumPath('/search/')} method="get" role="search">
+          <label class="sr-only" for="f-q">Search the forum</label>
+          <input id="f-q" type="search" name="q" value={q} placeholder="Search threads and posts" minlength="2" maxlength="200" />
+        </form>
+        <div class="f-top-end">
+          <button class="f-theme" type="button" aria-label="Dark mode" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
+          </button>
+          {signedIn
+            ? <AccountNavigation client:only="react" site={siteHref('')} forum={{ replies:forumPath('/notifications/'), moderation:forumPath('/moderation/') }}>
+                <span slot="fallback" class="account-nav" role="status"><span class="sr-only">Loading account navigation</span><span class="account-skeleton" style="width: 84px" aria-hidden="true" /></span>
+              </AccountNavigation>
+            : <span class="account-nav"><a href="/sign-in">Sign in</a><a class="account-button" href="/sign-up">Create account</a></span>}
+          <a class="f-switch" href={siteHref('/') || '/'}>FALK Index</a>
+        </div>
+      </header>
+      <main id="main" class="f-canvas"><slot /></main>
+    </div>
+    <script>
+      // The menu renders open so its links work without script; below 900px it folds behind "Menu".
+      const menu = document.getElementById('f-menu') as HTMLDetailsElement, wide = matchMedia('(min-width: 900px)');
+      const fit = () => { menu.open = wide.matches; };
+      fit(); wide.addEventListener('change', fit);
+      const root = document.documentElement;
+      const toggle = document.querySelector<HTMLButtonElement>('.f-theme')!;
+      const systemDark = matchMedia('(prefers-color-scheme: dark)');
+      const isDark = () => (root.dataset.theme ?? (systemDark.matches ? 'dark' : 'light')) === 'dark';
+      const sync = () => toggle.setAttribute('aria-pressed', String(isDark()));
+      toggle.addEventListener('click', () => {
+        const theme = isDark() ? 'light' : 'dark';
+        root.dataset.theme = theme;
+        try { localStorage.setItem('falk-theme', theme); } catch {}
+        sync();
+      });
+      systemDark.addEventListener('change', sync);
+      sync();
+      // "/" jumps to forum search.
+      addEventListener('keydown', e => {
+        const t = e.target as HTMLElement;
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || t.closest('input, textarea, select, [contenteditable]')) return;
+        const q = document.getElementById('f-q') as HTMLInputElement;
+        if (q.offsetParent) { e.preventDefault(); q.focus(); }
+      });
+    </script>
+  </body>
+</html>
