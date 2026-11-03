@@ -35,8 +35,10 @@ They fail, rather than skip, when a server build is missing.
   `data/sources.yaml` from the database (methodology is left as authored).
   Run it with the production `DATABASE_URL` and commit the result to keep git
   in step with live edits.
-- The catalogue is reconstructed from relational data and validated on every
-  request, using a request-local cache and a consistent read transaction.
+- The catalogue is reconstructed from relational data and validated in a
+  consistent read transaction, then shared by requests in an instance for up to
+  15 seconds (`CATALOGUE_TTL_MS`). A change published to the database appears
+  within that time; if a reload fails, the last good copy keeps being served.
 - Clerk setup provisions its keys. Use the workspace Auth pane for login
   settings; no external Clerk dashboard or manually shared passwords.
 - Configure `FALK_BOOTSTRAP_ADMIN_EMAIL` privately with the trusted initial

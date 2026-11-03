@@ -316,3 +316,22 @@ test('forum pages allow sign-in through the main site', async () => {
     }
   }
 });
+
+test('pages and share images are rate limited per visitor; static files are not counted', async () => {
+  const limited = createApp();
+  await attachProductionSite(limited,{mode:'enforce',pagesPerMinute:2,imagesPerMinute:1,log:() => {}});
+  const strict = createServer(limited);
+  await new Promise<void>(resolve => strict.listen(0,'127.0.0.1',resolve));
+  try {
+    const at = `http://127.0.0.1:${(strict.address() as {port:number}).port}`;
+    const asset = (await import('node:fs')).readdirSync('dist/client/_astro').find(f => f.endsWith('.js'))!;
+    for (let i = 0; i < 5; i++) assert.equal((await fetch(`${at}/_astro/${asset}`)).status,200,'static files are free');
+    assert.equal((await fetch(`${at}/about/`)).status,200);
+    assert.equal((await fetch(`${at}/methodology/`)).status,200);
+    const blocked = await fetch(`${at}/sources/`);
+    assert.equal(blocked.status,429);
+    assert.ok(blocked.headers.get('retry-after'));
+    assert.equal((await fetch(`${at}/og/site.png`)).status,200);
+    assert.equal((await fetch(`${at}/og/site.png`)).status,429);
+  } finally { strict.closeAllConnections(); await new Promise<void>(resolve => strict.close(() => resolve())); }
+});
