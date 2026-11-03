@@ -1,0 +1,10 @@
+---
+// The forum's own copy of this page: one page with both layouts would load both sites' stylesheets.
+// On the forum host, /sign-up is served from here (server/middlewares/forumHost.ts).
+export const prerender = false;
+import ForumLayout from '../../../layouts/ForumLayout.astro';
+import { SignUpPage } from '../../../components/accounts/AuthPages';
+---
+<ForumLayout title="Create account">
+  <div class="account-auth-slot"><SignUpPage client:only="react" /></div>
+</ForumLayout>
