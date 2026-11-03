@@ -1,58 +1,6 @@
 /* Tokens from docs/DESIGN.md §3. Rhodium plate, blued steel ink, one ruby for action, gilt for provisional.
    2026-10 refresh: a deeper steel ground, tonal surfaces instead of rules, one Archivo voice set larger and tighter. */
-@import '@fontsource-variable/archivo/wdth.css';
-@import '@fontsource-variable/source-serif-4/opsz.css';
-@import '@fontsource-variable/source-serif-4/opsz-italic.css';
-
-:root {
-  color-scheme: light dark;
-  --c-page: #E8EBEF; --c-surface: #F7F8FA; --c-surface-2: #FFFFFF; --c-surface-sunk: #DCE0E6; --c-edge: #C9CFD8;
-  --c-ink: #14233F; --c-ink-2: #4A5361; --c-ink-inverse: #F7F8FA;
-  --c-action: #9C1A33; --c-action-hover: #7D1428; --c-focus: #9C1A33;
-  --c-gilt: #A07A2C; --c-gilt-tint: #F1E7D2; --c-gilt-ink: #6E5218;
-  --c-level-0: transparent; --c-level-1: #D5DCE6; --c-level-2: #AFBCCF; --c-level-3: #7F93B0; --c-level-4: #4A6288; --c-level-5: #14233F;
-  /* numeral colour per level: light mode 0–3 ink, 4–5 inverse */
-  --n-0: var(--c-ink); --n-1: var(--c-ink); --n-2: var(--c-ink); --n-3: var(--c-ink); --n-4: var(--c-ink-inverse); --n-5: var(--c-ink-inverse);
-  --pattern-unknown: repeating-linear-gradient(45deg, var(--c-ink-2) 0 1.5px, transparent 1.5px 6px); /* taste-skill-ignore: technical hatching encodes U (no evidence), DESIGN.md §2 */
-
-  --f-sans: 'Archivo Variable', system-ui, sans-serif;
-  --f-serif: 'Source Serif 4 Variable', Georgia, serif;
-
-  /* Type: five steps do the visible work. Display tracking pulls negative as the size grows. */
-  --t-display: clamp(48px, 6.6vw, 100px);
-  --t-h1: clamp(34px, 3.4vw, 48px);
-  --t-h2: clamp(32px, 3.6vw, 52px);
-  --t-lead: clamp(19px, 1.7vw, 24px);
-
-  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 144px;
-  --page-max: 1280px; --gutter: 16px; --measure: 68ch;
-  --r-control: 8px; --r-plate: 10px;
-  --edge: 1px solid var(--c-edge);
-  --nav-h: 60px;
-  --ease: cubic-bezier(.2, .7, .2, 1); --d-quick: 140ms; --d-open: 220ms; --d-reveal: 480ms;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --c-page: #0B121E; --c-surface: #111A2A; --c-surface-2: #172238; --c-surface-sunk: #070C15; --c-edge: #24324B;
-    --c-ink: #E8EDF4; --c-ink-2: #A0ABBD; --c-ink-inverse: #0B121E;
-    --c-action: #EC7A8E; --c-action-hover: #F49AAA; --c-focus: #EC7A8E;
-    --c-gilt: #C9A25A; --c-gilt-tint: #2A2414; --c-gilt-ink: #D9B871;
-    --c-level-1: #26375A; --c-level-2: #3C5482; --c-level-3: #6680AE; --c-level-4: #9DB1D3; --c-level-5: #DCE2EA;
-    --n-3: var(--c-ink-inverse); --n-4: var(--c-ink-inverse); --n-5: var(--c-ink-inverse);
-  }
-}
-/* The header toggle stamps data-theme; these mirror the system dark tokens above. */
-:root[data-theme="dark"] {
-  --c-page: #0B121E; --c-surface: #111A2A; --c-surface-2: #172238; --c-surface-sunk: #070C15; --c-edge: #24324B;
-  --c-ink: #E8EDF4; --c-ink-2: #A0ABBD; --c-ink-inverse: #0B121E;
-  --c-action: #EC7A8E; --c-action-hover: #F49AAA; --c-focus: #EC7A8E;
-  --c-gilt: #C9A25A; --c-gilt-tint: #2A2414; --c-gilt-ink: #D9B871;
-  --c-level-1: #26375A; --c-level-2: #3C5482; --c-level-3: #6680AE; --c-level-4: #9DB1D3; --c-level-5: #DCE2EA;
-  --n-3: var(--c-ink-inverse); --n-4: var(--c-ink-inverse); --n-5: var(--c-ink-inverse);
-}
-:root[data-theme="light"] { color-scheme: light; }
-:root[data-theme="dark"] { color-scheme: dark; }
-@media (min-width: 1024px) { :root { --gutter: 32px; } }
+@import './shared.css';
 
 /* ── Base ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
@@ -115,11 +63,6 @@ dl.pairs dd { margin: 0; }
 .site-nav .wrap { display: flex; align-items: center; gap: var(--s-2) var(--s-5); min-height: var(--nav-h); }
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; gap: 10px; font: 700 21px/1 var(--f-sans); font-stretch: 68%; letter-spacing: -0.01em; color: var(--c-ink); text-decoration: none; white-space: nowrap; }
 .wordmark:hover { color: var(--c-ink); text-decoration: none; }
-.mark { display: inline-flex; gap: 2px; height: 18px; align-items: stretch; }
-.mark i { width: 4px; border-radius: 1px; }
-.mark i:nth-child(1), .mark i:nth-child(4), .mark i:nth-child(7) { background: var(--c-level-5); }
-.mark i:nth-child(2), .mark i:nth-child(6) { background: var(--c-level-3); }
-.mark i:nth-child(3), .mark i:nth-child(5) { background: var(--c-level-2); }
 /* <details> ignores display: contents, so on wide screens it simply takes the rest of the bar. */
 .nav-menu { flex: 1; min-width: 0; }
 .nav-menu > summary { display: none; }
@@ -250,7 +193,7 @@ dl.pairs dd { margin: 0; }
 .seg.l3 { background: var(--c-level-3); border-color: var(--c-level-3); }
 .seg.l4 { background: var(--c-level-4); border-color: var(--c-level-4); }
 .seg.l5 { background: var(--c-level-5); border-color: var(--c-level-5); }
-.seg.lu, .cell.lu { background: var(--pattern-unknown); }
+.seg.lu { background: var(--pattern-unknown); }
 .seg.lu { border-color: var(--c-ink-2); }
 @media (prefers-reduced-motion: no-preference) {
   .strip.animate .seg[class*=" l"] { animation: seg-fill var(--d-reveal) var(--ease) both; animation-delay: calc(var(--i) * 60ms); }
@@ -258,19 +201,6 @@ dl.pairs dd { margin: 0; }
 }
 
 /* ── Profile strip, compact ───────────────────────────── */
-.cstrip { display: inline-flex; gap: 2px; }
-.cell {
-  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 2px;
-  font: 700 12px/1 var(--f-sans); border: 1.5px solid transparent;
-}
-.cell.l0 { border-color: var(--c-edge); color: var(--n-0); }
-.cell.l1 { background: var(--c-level-1); color: var(--n-1); }
-.cell.l2 { background: var(--c-level-2); color: var(--n-2); }
-.cell.l3 { background: var(--c-level-3); color: var(--n-3); }
-.cell.l4 { background: var(--c-level-4); color: var(--n-4); }
-.cell.l5 { background: var(--c-level-5); color: var(--n-5); }
-.cell.lu { border-color: var(--c-ink-2); }
-.cell.lu span { background: var(--c-surface); padding: 0 2px; }
 .codes { display: inline-flex; gap: 2px; }
 .codes span { width: 28px; text-align: center; font: 700 12px/1 var(--f-sans); font-stretch: 62%; }
 .m-codes { display: none; }

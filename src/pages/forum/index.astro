@@ -20,6 +20,7 @@ const underDiscussion = discussed.flatMap(d => {
   </header>
   <div class="f-with-rail">
     <section aria-labelledby="f-categories">
+      <div class="f-plate">
       <div class="f-columns"><h2 id="f-categories">Categories</h2><span>Threads</span><span>Last post</span></div>
       {categories.length ? categories.map(c => <article class="f-category">
         <div>
@@ -30,6 +31,7 @@ const underDiscussion = discussed.flatMap(d => {
         <div class="f-figure"><b>{c.threads}</b><span class="sr-only">{c.threads === 1 ? ' thread' : ' threads'}</span></div>
         <div class="f-figure"><span>{c.lastPostAt ? forumDate(c.lastPostAt) : '–'}</span></div>
       </article>) : <p class="f-empty">The categories have not been set up yet.</p>}
+      </div>
     </section>
     <aside class="f-rail" aria-label="Activity">
       <section aria-labelledby="f-recent">
@@ -37,7 +39,8 @@ const underDiscussion = discussed.flatMap(d => {
         {recent.length ? <ul class="f-rail-list">
           {recent.map(t => <li>
             <a class="f-rail-title" href={forumPath(`/t/${t.id}`)}>{t.title}</a>
-            <p>{t.categoryName} · {t.replies} {t.replies === 1 ? 'reply' : 'replies'} · {forumDate(t.lastPostAt)}</p>
+            <p>{t.categoryName}</p>
+            <p>{t.replies} {t.replies === 1 ? 'reply' : 'replies'} · {forumDate(t.lastPostAt)}</p>
           </li>)}
         </ul> : <p class="f-empty">No threads yet.</p>}
       </section>

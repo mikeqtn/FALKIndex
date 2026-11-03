@@ -1,6 +1,6 @@
 ---
-// The FALK Forum's own site: its own shell, type and colour. It shares accounts, the database and the
-// record strip with falkindex.com and nothing else, so it does not use Base.astro or global.css.
+// The FALK Forum's own site: its own shell and layout, in FALK Index's colours and type (src/styles/shared.css).
+// It does not use Base.astro or global.css, whose page styles would load on every forum page.
 import '../styles/forum.css';
 import '../styles/accounts.css';
 import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2?url';
@@ -71,7 +71,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
       </details>
       <header class="f-top">
         <a class="f-wordmark" href={forumPath('/')}>
-          <span class="f-mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Forum
+          <span class="mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Forum
         </a>
         <form class="f-search" action={forumPath('/search/')} method="get" role="search">
           <label class="sr-only" for="f-q">Search the forum</label>

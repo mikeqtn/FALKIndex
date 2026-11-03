@@ -1,11 +1,11 @@
 import { useAuth } from '@clerk/react';
-import { useCallback, useEffect, useState, type CSSProperties, type FormEvent } from 'react';
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import type { threadDetail } from '../../../server/forum.ts';
 import type { Account } from '../../accounts/contracts.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
 import { api, handleAccountError } from '../accounts/api';
 import type { ForumLinks } from '../../lib/forum.ts';
-import { forumDay, personHue, personInitial } from '../../lib/forum-people';
+import { forumDay, personInitial } from '../../lib/forum-people';
 import { PostBody } from './PostBody';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
@@ -25,7 +25,7 @@ function PostView({ post, links, locked, starter, tools }: { post: Post, links: 
   const report = () => { const reason = ask('Why should moderators look at this post?'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }), 'Thanks. Moderators will review this post.'); };
   const toggle = () => { const reason = ask(post.hidden ? 'Why show this post again?' : 'Why hide this post? Readers will see that it was hidden.'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/${post.hidden ? 'show' : 'hide'}`, { method:'POST', body:JSON.stringify({ reason }) })); };
   return <article className={`forum-post${post.hidden ? ' hidden' : ''}`} id={`p-${post.id}`}>
-    <div className="forum-avatar" style={{ '--hue':personHue(post.author.username ?? post.author.displayName) } as CSSProperties} aria-hidden="true">
+    <div className="forum-avatar" aria-hidden="true">
       {post.author.imageUrl ? <img src={post.author.imageUrl} alt="" /> : personInitial(post.author.displayName)}
     </div>
     <div className="forum-post-main">

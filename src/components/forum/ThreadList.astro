@@ -8,8 +8,9 @@ interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord
 const { threads, empty, heading = 'Threads', hideRecord = false } = Astro.props;
 const { records } = await getCatalogue(Astro.locals);
 ---
+{threads.length ? <div class="f-plate">
 <div class="f-columns"><span>{heading}</span><span>Replies</span><span>Last post</span></div>
-{threads.length ? <ul class="f-threads">
+ <ul class="f-threads">
   {threads.map(t => {
     const record = !hideRecord && t.record ? records.find(r => r.id === t.record) : undefined;
     return <li>
@@ -29,4 +30,5 @@ const { records } = await getCatalogue(Astro.locals);
       <div class="f-figure"><span>{forumDate(t.lastPostAt)}</span></div>
     </li>;
   })}
-</ul> : <p class="f-empty">{empty}</p>}
+</ul>
+</div> : <p class="f-empty">{empty}</p>}
