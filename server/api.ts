@@ -6,6 +6,7 @@ import { profileInput, qualificationOptions } from '../src/accounts/contracts.ts
 import { pool } from './db.ts';
 import { authenticatedAccount, deleteAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
 import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
+import { clientKey, minuteCounter } from './pageLimit.ts';
 import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
 import { transaction } from './db.ts';
@@ -26,22 +27,24 @@ export function requireSameOrigin(origin: string | undefined, host: string | und
 // IPv4 address. Production refuses to start without SESSION_SECRET (see start()); the fallback is for development only.
 export const rateLimitKey = (scope: string, who: string) =>
   createHmac('sha256',process.env.SESSION_SECRET || 'falk-rate-limit-dev').update(`${scope}:${who}`).digest('hex');
-/** Count one hit; buckets are minute numbers, so an hourly bucket is the minute the hour starts. */
+/** Count one hit toward an hourly cap; a bucket is the minute number the hour starts. These survive restarts and are shared across instances. */
 async function hit(key: string, bucket: number) {
   const hits = await pool.query(`INSERT INTO falk_rate_limit(key,bucket) VALUES($1,$2)
     ON CONFLICT(key,bucket) DO UPDATE SET hits=falk_rate_limit.hits+1 RETURNING hits`, [key,bucket]);
+  // Clear older hours now and then so the table stays small.
+  if (Math.random() < 0.01) await pool.query('DELETE FROM falk_rate_limit WHERE bucket<$1', [bucket-60]);
   return hits.rows[0].hits as number;
 }
+// Per-minute budgets are kept in memory, so an API call costs no database write. As with pageLimit.ts, each Autoscale
+// instance counts separately: the limit is per instance. The hourly caps on writes that are never deleted stay exact.
+const minuteHit = minuteCounter();
 api.use(async (req,_res,next) => {
   if (!['GET','HEAD','OPTIONS'].includes(req.method)) {
     requireSameOrigin(req.get('origin'),getClerkProxyHost(req),req.protocol);
     if (!req.is('application/json')) throw new HttpError(415,'Send application/json.');
   }
-  const bucket = Math.floor(Date.now()/60000);
   const write = !['GET','HEAD','OPTIONS'].includes(req.method);
-  const hits = await hit(rateLimitKey(write ? 'write' : 'read',getAuth(req).userId ?? req.ip ?? ''),bucket);
-  // Keep an hour of buckets for the hourly limits; clear older ones now and then so the table stays small.
-  if (Math.random() < 0.01) await pool.query('DELETE FROM falk_rate_limit WHERE bucket<$1', [bucket-60]);
+  const hits = minuteHit(`${write ? 'write' : 'read'}:${getAuth(req).userId ?? clientKey(req.ip)}`);
   if (hits > (write ? 30 : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
   next();
 });

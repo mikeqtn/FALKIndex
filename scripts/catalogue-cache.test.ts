@@ -1,6 +1,24 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createCatalogueCache, deepFreeze } from '../src/lib/catalogue-cache.ts';
+import { createCatalogueCache, createTtlMap, deepFreeze } from '../src/lib/catalogue-cache.ts';
+
+test('createTtlMap expires values, forgets on delete, and stays within its size', () => {
+  let t = 0;
+  const map = createTtlMap<number>({ ttlMs:30_000, maxEntries:2, now:() => t });
+  map.set('a', 1);
+  t = 29_999;
+  assert.equal(map.get('a'), 1);
+  t = 30_000;
+  assert.equal(map.get('a'), undefined, 'expired');
+  map.set('a', 1);
+  map.delete('a');
+  assert.equal(map.get('a'), undefined, 'deleted');
+  map.set('a', 1);
+  map.set('b', 2);
+  map.set('c', 3);
+  assert.equal(map.get('a'), undefined, 'full: started again');
+  assert.equal(map.get('c'), 3);
+});
 
 // A loader whose results and failures the test controls, and a clock it moves by hand.
 function harness() {

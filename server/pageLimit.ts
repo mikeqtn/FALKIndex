@@ -3,7 +3,7 @@ import type { RequestHandler } from 'express';
 /**
  * Per-visitor limits on rendered pages and generated share images, kept in this instance's memory.
  *
- * The API has its own database-backed limits (server/api.ts); static files are served before this runs. Pages and
+ * The API has its own limits (server/api.ts); static files are served before this runs. Pages and
  * share images are anonymous and fairly expensive to render, so each visitor gets a budget per minute. Counting
  * happens in memory, adding no database write to a page view. With several Autoscale instances each counts
  * separately, so the effective limit is per instance: a first line of defence, not an exact quota.
@@ -32,6 +32,21 @@ export function clientKey(ip: string | undefined) {
   const left = head ? head.split(':') : [], right = tail ? tail.split(':') : [];
   const groups = ip.includes('::') ? [...left, ...Array(Math.max(8 - left.length - right.length, 0)).fill('0'), ...right] : left;
   return `${groups.slice(0, 4).map(g => g.replace(/^0+(?=.)/, '')).join(':')}::/64`;
+}
+
+/** Counts hits per key in the current minute, in memory. Past `maxClients`, new keys this minute count as 0, so the table stays bounded. */
+export function minuteCounter({ maxClients = 100_000, now = Date.now }: { maxClients?: number; now?: () => number } = {}) {
+  let window = Math.floor(now() / 60_000);
+  let counts = new Map<string, number>();
+  return (key: string) => {
+    const current = Math.floor(now() / 60_000);
+    if (current !== window) { window = current; counts = new Map(); }
+    const known = counts.get(key);
+    if (known === undefined && counts.size >= maxClients) return 0;
+    const hits = (known ?? 0) + 1;
+    counts.set(key, hits);
+    return hits;
+  };
 }
 
 const modeFrom = (value: string | undefined): LimitMode => value === 'enforce' || value === 'off' ? value : 'log';

@@ -45,6 +45,25 @@ export function createCatalogueCache<T extends object>(load: () => Promise<T>, {
   };
 }
 
+/** Values that expire after `ttlMs`. When full it starts again empty: the cost is a few extra lookups, and memory stays bounded. */
+export function createTtlMap<V>({ ttlMs, maxEntries = 10_000, now = Date.now }: { ttlMs: number; maxEntries?: number; now?: () => number }) {
+  const entries = new Map<string, { value: V; at: number }>();
+  return {
+    get(key: string) {
+      const entry = entries.get(key);
+      if (!entry) return undefined;
+      if (now() - entry.at < ttlMs) return entry.value;
+      entries.delete(key);
+      return undefined;
+    },
+    set(key: string, value: V) {
+      if (entries.size >= maxEntries && !entries.has(key)) entries.clear();
+      entries.set(key, { value, at:now() });
+    },
+    delete(key: string) { entries.delete(key); },
+  };
+}
+
 const refuse = () => { throw new TypeError('The shared catalogue is read-only'); };
 /** Freeze objects, arrays, Maps and Sets all the way down; Map and Set writers throw. Functions are left as they are. */
 export function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {

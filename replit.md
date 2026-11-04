@@ -37,7 +37,7 @@ They fail, rather than skip, when a server build is missing.
   in step with live edits.
 - The catalogue is reconstructed from relational data and validated in a
   consistent read transaction, then shared by requests in an instance for up to
-  15 seconds (`CATALOGUE_TTL_MS`). A change published to the database appears
+  5 minutes (`CATALOGUE_TTL_MS`). A change published to the database appears
   within that time; if a reload fails, the last good copy keeps being served.
 - Clerk setup provisions its keys. Use the workspace Auth pane for login
   settings; no external Clerk dashboard or manually shared passwords.

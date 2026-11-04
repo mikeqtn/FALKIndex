@@ -11,7 +11,7 @@ import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
 import { forumHref } from '../../../lib/forum.ts';
-import { recordThreads } from '../../../../server/forum.ts';
+import { recordThreadCount } from '../../../../server/forum.ts';
 import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
 const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
@@ -20,7 +20,7 @@ if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
 // The thread count is live forum data, not part of the cached catalogue. If the database is unavailable the record
 // still renders from the last good catalogue, with the discussion link but no count.
-const discussions = await recordThreads(r.id).then(threads => threads.length, () => 0);
+const discussions = await recordThreadCount(r.id);
 const noProfile = p.confidence === 'D';
 const details = [
   ['Generation', r.generation], ['Reference', r.reference], ['Caliber', r.caliber], ['Production route', r.route_label],
