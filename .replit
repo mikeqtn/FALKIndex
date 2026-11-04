@@ -64,3 +64,6 @@ externalPort = 4200
 
 [userenv.production]
 FORUM_HOST = "forum.falkindex.com"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-e70bf5ff-4478-4f22-9bf0-962e277f563e"
