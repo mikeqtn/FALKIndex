@@ -70,6 +70,16 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-rail > section { background: var(--c-surface); border-radius: var(--r-plate); overflow: hidden; }
 .f-section-head { padding: 12px var(--s-4); }
 .f-section-head h2 { font: 600 16px/22px var(--f-sans); letter-spacing: -0.01em; }
+.f-section-link { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.f-section-link a { color: var(--c-action); font-size: 14px; }
+
+/* The way back up, and the sort tabs above a thread list. */
+.f-back { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; margin-bottom: var(--s-1); color: var(--c-action); font-size: 15px; font-weight: 560; overflow-wrap: anywhere; }
+.f-back::before { content: '←'; }
+.f-sorts { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-3); }
+.f-sorts a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--s-3); border-radius: var(--r-control); color: var(--c-ink-2); white-space: nowrap; }
+.f-sorts a:hover { background: var(--c-surface-2); color: var(--c-ink); text-decoration: none; }
+.f-sorts a[aria-current] { background: var(--c-action); color: var(--c-ink-inverse); font-weight: 560; }
 
 /* Plates: lists sit on a surface one tone up from the ground, with rows split by the site's edge. */
 .f-plate, .forum-posts, .forum-list { background: var(--c-surface); border-radius: var(--r-plate); overflow: hidden; }
@@ -115,7 +125,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .forum-thread-head { margin-bottom: var(--s-5); }
 .forum-thread-head .f-pill { margin: 0 6px 0 0; }
 .forum-flags { margin-top: var(--s-3); }
-.forum-post { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: var(--s-3); padding: var(--s-5); }
+.forum-post { padding: var(--s-5); }
 .forum-post + .forum-post { border-top: var(--edge); }
 .forum-post:target { background: var(--c-surface-2); }
 .forum-post.hidden { background: var(--c-surface-sunk); }
@@ -133,13 +143,49 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .forum-post-actions { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; margin-top: var(--s-2); color: var(--c-ink-2); font-size: 13px; }
 .forum-post-actions button { min-height: 32px; padding: 0; background: none; border: 0; color: var(--c-ink-2); cursor: pointer; }
 .forum-post-actions button:hover { color: var(--c-action); text-decoration: underline; text-underline-offset: 3px; }
+.forum-post-actions a { display: inline-flex; align-items: center; min-height: 32px; }
 .forum-moderation { margin-bottom: var(--s-3); }
+
+/* Replies to replies. --indent is the avatar plus its gap, so a line runs down under each avatar. */
+.forum-posts { --indent: 32px; --face: 24px; }
+.forum-post-main .forum-avatar, .forum-fold .forum-avatar { flex: none; width: var(--face); height: var(--face); font-size: 12px; }
+.forum-tree-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); padding: var(--s-2) var(--s-5); border-top: var(--edge); }
+.forum-tree-head h2 { font: 600 16px/22px var(--f-sans); letter-spacing: -0.01em; }
+.forum-tree-head .forum-post-actions { margin: 0; }
+.forum-tree > li { padding: var(--s-4) var(--s-5); border-top: var(--edge); }
+.forum-tree, .forum-replies { list-style: none; }
+.forum-replies { margin-top: var(--s-2); padding-left: var(--indent); }
+.forum-replies > li { padding-top: var(--s-3); }
+.forum-fold { position: relative; }
+.forum-fold > summary { margin: 0; min-height: var(--face); list-style: none; cursor: pointer; }
+.forum-fold > summary::-webkit-details-marker { display: none; }
+.forum-fold-label { margin-left: auto; color: var(--c-ink-2); font-size: 13px; }
+.forum-fold > summary:hover .forum-fold-label { color: var(--c-action); }
+.forum-fold[open] > summary .when-closed, .forum-fold:not([open]) > summary .when-open { display: none; }
+.forum-fold:not([open]) > summary .when-closed { color: var(--c-action); font-weight: 560; }
+.forum-fold-body { margin-top: var(--s-1); padding-left: var(--indent); scroll-margin-top: calc(var(--top) + 48px); }
+.forum-fold-body:target { background: var(--c-surface-2); }
+.forum-fold-body.hidden .forum-body { color: var(--c-ink-2); }
+.forum-rail-line { position: absolute; top: calc(var(--face) + 4px); bottom: 0; left: 0; width: var(--face); padding: 0; background: none; border: 0; cursor: pointer; }
+.forum-rail-line::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--c-edge); }
+.forum-rail-line:hover::before { width: 2px; background: var(--c-action); }
+.forum-inline-reply { margin-top: var(--s-3); }
+.forum-inline-reply textarea { min-height: 100px; }
+.forum-flash { position: sticky; top: calc(var(--top) + 8px); z-index: 5; margin-bottom: var(--s-3); }
+#forum-reply { scroll-margin-top: calc(var(--top) + 48px); }
+
+/* The reason dialog for reports and moderation. */
+.forum-dialog { width: min(480px, calc(100vw - 32px)); padding: var(--s-5); background: var(--c-surface); color: var(--c-ink); border: var(--edge); border-radius: var(--r-plate); }
+.forum-dialog::backdrop { background: rgb(0 0 0 / .5); }
+.forum-dialog h2 { font: 600 20px/26px var(--f-sans); letter-spacing: -0.01em; }
+.forum-dialog label { font-weight: 600; }
+.forum-dialog textarea { width: 100%; padding: 12px; background: var(--c-page); border: 1px solid var(--c-edge); border-radius: var(--r-control); font-size: 16px; line-height: 24px; resize: vertical; }
 .forum-reply { margin-top: var(--s-5); padding: var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); }
 .forum-reply-prompt { font-size: 15px; }
 .forum-reply-prompt a { color: var(--c-action); font-weight: 560; text-decoration: underline; text-underline-offset: 3px; }
 .forum-reply label { font-weight: 600; }
-.forum-reply textarea, .forum-form textarea, .forum-post textarea { width: 100%; min-height: 140px; padding: 12px; background: var(--c-page); border: 1px solid var(--c-edge); border-radius: var(--r-control); font: 400 17px/26px var(--f-serif); resize: vertical; }
-.forum-reply textarea:hover, .forum-form textarea:hover, .forum-post textarea:hover { border-color: var(--c-ink-2); }
+.forum-reply textarea, .forum-form textarea, .forum-post textarea, .forum-fold-body textarea { width: 100%; min-height: 140px; padding: 12px; background: var(--c-page); border: 1px solid var(--c-edge); border-radius: var(--r-control); font: 400 17px/26px var(--f-serif); resize: vertical; }
+.forum-reply textarea:hover, .forum-form textarea:hover, .forum-post textarea:hover, .forum-fold-body textarea:hover { border-color: var(--c-ink-2); }
 .forum-form { max-width: 76ch; padding: var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); }
 .forum-form input, .forum-form select { font-size: 16px; }
 
@@ -186,12 +232,19 @@ button, input, textarea, select { font: inherit; color: inherit; }
   .f-columns > :not(:first-child) { display: none; }
   .f-category, .f-threads > li { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-4); padding-inline: var(--s-4); }
   .f-category > .f-figure:last-child, .f-threads > li > .f-figure:last-child { display: none; }
-  .forum-post { grid-template-columns: 32px minmax(0, 1fr); column-gap: 10px; padding: var(--s-4); }
+  .forum-post { padding: var(--s-4); }
   .forum-avatar { width: 32px; height: 32px; font-size: 13px; }
   .forum-body { font-size: 16px; line-height: 25px; }
-  .forum-post-actions button { min-height: 44px; }
+  .forum-post-actions button, .forum-post-actions a { min-height: 44px; }
+  .forum-posts { --indent: 22px; --face: 20px; }
+  .forum-tree-head { padding-inline: var(--s-4); }
+  .forum-tree > li { padding: var(--s-3) var(--s-3); }
+  .forum-fold > summary { min-height: 44px; }
+  .forum-replies .forum-replies .forum-replies { padding-left: 8px; }
+  .forum-fold .forum-handle { display: none; }
+  .f-sorts a { min-height: 44px; }
   .forum-reply, .forum-form { padding: var(--s-4); }
-  .forum-reply textarea, .forum-form textarea, .forum-post textarea { font-size: 16px; }
+  .forum-reply textarea, .forum-form textarea, .forum-post textarea, .forum-fold-body textarea { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

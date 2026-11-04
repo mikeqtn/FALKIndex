@@ -56,6 +56,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
           </ul>
           <h2>Categories</h2>
           <ul>
+            <li><a href={forumPath('/threads/')} aria-current={nav === 'threads' ? 'page' : undefined}>All threads</a></li>
             {categories.map(c => <li><a href={forumPath(`/${c.id}/`)} aria-current={nav === c.id ? 'page' : undefined}>{c.name}</a></li>)}
           </ul>
           <h2>FALK Index</h2>
