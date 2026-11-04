@@ -7,7 +7,7 @@ import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
 import { createThread, editPost, listAllThreads, listCategories, listQuery, listReports, listThreads, markRead, MAX_REPLY_DEPTH, moderateThread, notifications, POSTS_PAGE,
-  recentThreads, recordsUnderDiscussion, recordThreads, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
+  recentThreads, recordsUnderDiscussion, recordThreads, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail, vote, voteInput } from '../server/forum.ts';
 
 after(() => pool.end());
 
@@ -125,12 +125,12 @@ test('threads list, read, link to records and are found by search', () => member
   assert.deepEqual(detail.posts.map(p => p.body), ['Asking about case suppliers.', 'Mostly specialist case makers.']);
 }));
 
-test('a reply notifies everyone else in the thread, and a locked thread takes only moderators', () => members(async (db, m) => {
+test('a reply notifies the thread author, and a locked thread takes only moderators', () => members(async (db, m) => {
   const { thread:id } = await createThread(m.alice, thread, db);
   await reply(m.bob, id, { body:'First reply.' }, db);
   await reply(m.editor, id, { body:'Second reply.' }, db);
   assert.equal((await notifications(m.alice, db)).unread, 2);
-  assert.equal((await notifications(m.bob, db)).unread, 1, 'only the later reply');
+  assert.equal((await notifications(m.bob, db)).unread, 0, 'not for a reply to someone else');
   assert.equal((await notifications(m.editor, db)).unread, 0, 'not for your own reply');
   await markRead(m.alice, {}, db);
   assert.equal((await notifications(m.alice, db)).unread, 0);
@@ -303,4 +303,69 @@ test('thread pages split by conversation, keeping each one whole', () => members
   assert.equal(one.total, POSTS_PAGE + 1, 'nested replies do not add pages');
   assert.equal(one.posts.length, POSTS_PAGE);
   assert.deepEqual(two.posts.map(p => p.id), [replies.at(-1), nested]);
+}));
+
+test('the replies list holds replies to your thread or comment, and nobody else\'s', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post:bobs } = await reply(m.bob, id, { body:'From Bob.' }, db);
+  const { post:toBob } = await reply(m.editor, id, { body:'To Bob.', parent:bobs }, db);
+  const inbox = async (who: string) => (await notifications(who, db)).notifications.map(n => [n.post, n.kind]);
+  assert.deepEqual(await inbox(m.bob), [[toBob, 'comment']]);
+  assert.deepEqual((await inbox(m.alice)).map(([, kind]) => kind), ['thread', 'thread'], 'the author hears about every reply');
+  await reply(m.bob, id, { body:'Answering.', parent:toBob }, db);
+  assert.equal((await inbox(m.editor)).length, 1, 'the person replied to');
+  assert.equal((await inbox(m.bob)).length, 1, 'not for your own reply');
+  const { post:mine } = await reply(m.alice, id, { body:'The author, in a comment.' }, db);
+  await reply(m.bob, id, { body:'To the author.', parent:mine }, db);
+  const alice = await inbox(m.alice);
+  assert.equal(alice.length, 4, 'once per reply, and not for the author\'s own');
+  assert.ok(alice.some(([, kind]) => kind === 'comment'), 'a reply to your comment says so');
+}));
+
+test('older notifications stay only on threads you started', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.bob, id, { body:'A reply.' }, db);
+  await db.query('DELETE FROM falk_forum_notification WHERE post_id=$1', [post]);
+  await db.query('INSERT INTO falk_forum_notification(account_id,post_id) VALUES($1,$3),($2,$3)', [m.alice, m.editor, post]);
+  const [author, bystander] = [await notifications(m.alice, db), await notifications(m.editor, db)];
+  assert.deepEqual([author.unread, author.notifications[0].kind], [1, 'thread']);
+  assert.deepEqual([bystander.unread, bystander.notifications], [0, []]);
+}));
+
+test('a reply past the depth cap still notifies the person replied to', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  let parent = (await reply(m.bob, id, { body:'Depth 0' }, db)).post;
+  for (let depth = 1; depth <= MAX_REPLY_DEPTH; depth++) parent = (await reply(m.bob, id, { body:`Depth ${depth}`, parent }, db)).post;
+  const { post } = await reply(m.editor, id, { body:'Beyond the cap', parent }, db);
+  assert.ok((await notifications(m.bob, db)).notifications.some(n => n.post === post && n.kind === 'comment'));
+}));
+
+test('members vote once per comment, can change or take it back, and readers see only the total', () => members(async (db, m) => {
+  const { thread:id, post:opening } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.bob, id, { body:'Vote on me.' }, db);
+  const seen = async (viewer: { id: string, role: 'contributor' } | null) => {
+    const p = (await threadDetail(id, 1, viewer, db))!.posts.find(x => x.id === post)!;
+    return [p.score, p.myVote];
+  };
+  const alice = { id:m.alice, role:'contributor' as const };
+  await vote(m.alice, post, { value:1 }, db);
+  await vote(m.alice, post, { value:1 }, db);
+  await vote(m.editor, post, { value:1 }, db);
+  assert.deepEqual(await seen(alice), [2, 1]);
+  assert.deepEqual(await seen(null), [2, 0], 'a reader has no vote of their own');
+  await vote(m.alice, post, { value:-1 }, db);
+  assert.deepEqual(await seen(alice), [0, -1], 'changing a vote replaces it');
+  await vote(m.alice, post, { value:0 }, db);
+  assert.deepEqual(await seen(alice), [1, 0], 'taking it back removes it');
+  assert.equal(voteInput.safeParse({ value:5 }).success, false);
+  await refused(db, 'INSERT INTO falk_forum_vote(post_id,account_id,value) VALUES($1,$2,5)', [post, m.alice], /check constraint/);
+  await assert.rejects(vote(m.bob, post, { value:1 }, db), /your own comment/);
+  await assert.rejects(vote(m.bob, opening, { value:1 }, db), /Only comments/);
+  await assert.rejects(vote(m.unverified, post, { value:1 }, db), /Verify your email/);
+  await assert.rejects(vote(m.suspended, post, { value:1 }, db), /suspended/);
+  await moderateThread(m.editor, id, { locked:true, reason:'Settled' }, db);
+  await assert.rejects(vote(m.alice, post, { value:1 }, db), /locked/);
+  await moderateThread(m.editor, id, { locked:false, reason:'Reopened' }, db);
+  await setPostHidden(m.editor, post, true, 'Off topic', db);
+  await assert.rejects(vote(m.alice, post, { value:1 }, db), /not found/);
 }));

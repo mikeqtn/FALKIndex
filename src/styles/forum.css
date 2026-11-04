@@ -169,6 +169,12 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .forum-rail-line { position: absolute; top: calc(var(--face) + 4px); bottom: 0; left: 0; width: var(--face); padding: 0; background: none; border: 0; cursor: pointer; }
 .forum-rail-line::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--c-edge); }
 .forum-rail-line:hover::before { width: 2px; background: var(--c-action); }
+.forum-votes { display: inline-flex; align-items: center; gap: 2px; }
+.forum-votes a, .forum-post-actions .forum-votes button { display: inline-grid; place-items: center; min-width: 28px; min-height: 32px; color: var(--c-ink-2); font-size: 12px; }
+.forum-votes a:hover { color: var(--c-action); text-decoration: none; }
+.forum-post-actions .forum-votes button:hover { text-decoration: none; }
+.forum-post-actions .forum-votes button[aria-pressed="true"] { color: var(--c-action); }
+.forum-score { min-width: 18px; color: var(--c-ink); font-weight: 600; text-align: center; }
 .forum-inline-reply { margin-top: var(--s-3); }
 .forum-inline-reply textarea { min-height: 100px; }
 .forum-flash { position: sticky; top: calc(var(--top) + 8px); z-index: 5; margin-bottom: var(--s-3); }
@@ -236,6 +242,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   .forum-avatar { width: 32px; height: 32px; font-size: 13px; }
   .forum-body { font-size: 16px; line-height: 25px; }
   .forum-post-actions button, .forum-post-actions a { min-height: 44px; }
+  .forum-votes a, .forum-post-actions .forum-votes button { min-width: 36px; min-height: 44px; }
   .forum-posts { --indent: 22px; --face: 20px; }
   .forum-tree-head { padding-inline: var(--s-4); }
   .forum-tree > li { padding: var(--s-3) var(--s-3); }

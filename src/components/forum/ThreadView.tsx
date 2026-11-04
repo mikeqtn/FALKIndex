@@ -14,7 +14,7 @@ type Post = Detail['posts'][number];
 type Reply = Post & { replies: Reply[] };
 interface Props { detail: Detail, links: ForumLinks, signedIn: boolean, signInHref: string }
 interface Tools { account: Account | null, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
-interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, send: (body: string, parent?: string) => Promise<boolean> | undefined }
+interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, signInHref: string, send: (body: string, parent?: string) => Promise<boolean> | undefined }
 
 /** Conversations start closed from this depth when they have replies, so a large thread stays readable. */
 const OPEN_DEPTH = 3;
@@ -41,6 +41,21 @@ function Author({ post, links, starter }: { post: Post, links: ForumLinks, start
     {starter && <span className="f-pill quiet" style={{ margin:0 }} title="Started this thread">Author</span>}
     <a href={`#p-${post.id}`}>{forumDay(post.createdAt)}</a>{post.editedAt && <span>Edited</span>}
   </>;
+}
+
+// A comment's score. Readers without an account get arrows that lead to sign-in; a member's own
+// comment, or one in a locked thread, shows just the number.
+function Votes({ post, shared }: { post: Post, shared: Shared }) {
+  const { tools, thread, signInHref } = shared;
+  const cast = (value: -1 | 1) => tools?.act(() => api(`/api/forum/posts/${post.id}/vote`, { method:'POST', body:JSON.stringify({ value:post.myVote === value ? 0 : value }) }));
+  const score = <span className="forum-score">{post.score}<span className="sr-only"> points</span></span>;
+  if (!tools) return <span className="forum-votes"><a href={signInHref} aria-label="Sign in to upvote">▲</a>{score}<a href={signInHref} aria-label="Sign in to downvote">▼</a></span>;
+  if (!tools.account?.onboarded || post.own || thread.locked) return <span className="forum-votes">{score}</span>;
+  return <span className="forum-votes">
+    <button type="button" aria-label="Upvote" aria-pressed={post.myVote === 1} onClick={() => cast(1)}>▲</button>
+    {score}
+    <button type="button" aria-label="Downvote" aria-pressed={post.myVote === -1} onClick={() => cast(-1)}>▼</button>
+  </span>;
 }
 
 // A post's text and what a member can do with it. opening is the thread's first post, which is
@@ -71,6 +86,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     run:reason => api(`/api/forum/posts/${post.id}/${post.hidden ? 'show' : 'hide'}`, { method:'POST', body:JSON.stringify({ reason }) }),
   });
   const canReply = tools?.account?.onboarded && (!thread.locked || moderator) && (!post.hidden || moderator);
+  const votable = !opening && !post.hidden;
   return <>
     {post.body === null ? <p className="forum-hidden-note">A moderator hid this post.</p>
       : editing !== null ? <form className="account-stack" onSubmit={save}>
@@ -79,11 +95,14 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
       </form>
       : <div className="forum-body"><PostBody text={post.body} /></div>}
     {post.hidden && post.hiddenReason && <p className="small muted">Hidden: {post.hiddenReason}</p>}
-    {tools?.account && editing === null && replying === null && <div className="forum-post-actions small">
-      {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
-      {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
-      {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
-      {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+    {editing === null && replying === null && (tools?.account || votable) && <div className="forum-post-actions small">
+      {votable && <Votes post={post} shared={shared} />}
+      {tools?.account && <>
+        {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
+        {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
+        {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
+        {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+      </>}
     </div>}
     {replying !== null && <form className="account-stack forum-inline-reply" onSubmit={answer}>
       <textarea aria-label={`Reply to ${post.author.displayName}`} value={replying} onChange={e => setReplying(e.target.value)} rows={4} maxLength={20000} required autoFocus />
@@ -162,7 +181,7 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   });
   const foldAll = (open: boolean) => tree.current?.querySelectorAll('details').forEach(fold => { fold.open = open; });
 
-  const shared: Shared = { links, thread, tools, send:(body, parent) => send?.(body, parent) };
+  const shared: Shared = { links, thread, tools, signInHref, send:(body, parent) => send?.(body, parent) };
   const top = conversations(posts);
   const opening = detail.page === 1 ? top.shift() : undefined;
   return <>
