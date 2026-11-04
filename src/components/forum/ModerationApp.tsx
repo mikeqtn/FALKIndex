@@ -5,6 +5,7 @@ import { AuthProvider } from '../accounts/AuthProvider';
 import { api, handleAccountError } from '../accounts/api';
 import { forumDay } from '../../lib/forum-people';
 import type { ForumLinks } from '../../lib/forum.ts';
+import { ReasonDialog, type ReasonRequest } from './ReasonDialog';
 
 type Report = Awaited<ReturnType<typeof listReports>>[number];
 
@@ -13,20 +14,25 @@ function Queue({ links, signInHref }: { links: ForumLinks, signInHref: string })
   const [reports, setReports] = useState<Report[] | null>(null);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [asking, setAsking] = useState<ReasonRequest | null>(null);
   const load = useCallback(() => api<{ reports: Report[] }>('/api/forum/reports').then(r => setReports(r.reports)).catch(e => setError(handleAccountError(e))), []);
   useEffect(() => { if (isLoaded && isSignedIn) load(); }, [isLoaded, isSignedIn, load]);
-  const resolve = async (report: Report, resolution: 'hidden' | 'dismissed') => {
-    const reason = window.prompt(resolution === 'hidden' ? 'Why hide this post? Readers will see that it was hidden.' : 'Why dismiss this report?')?.trim();
-    if (!reason) return;
+  const resolve = (report: Report, resolution: 'hidden' | 'dismissed') => {
     setError(''); setNotice('');
-    try {
-      await api(`/api/forum/reports/${report.id}/resolution`, { method:'POST', body:JSON.stringify({ resolution, reason }) });
-      setNotice(resolution === 'hidden' ? 'The post is hidden and its reports are closed.' : 'The report is dismissed.');
-      await load();
-    } catch (e) { setError(handleAccountError(e)); }
+    setAsking({
+      title:resolution === 'hidden' ? 'Hide this post' : 'Dismiss this report',
+      help:resolution === 'hidden' ? 'Readers will see that a moderator hid it. Your reason goes to the audit log.' : 'The post stays up. Your reason goes to the audit log.',
+      action:resolution === 'hidden' ? 'Hide post' : 'Dismiss report',
+      run:async reason => {
+        await api(`/api/forum/reports/${report.id}/resolution`, { method:'POST', body:JSON.stringify({ resolution, reason }) });
+        setNotice(resolution === 'hidden' ? 'The post is hidden and its reports are closed.' : 'The report is dismissed.');
+        await load();
+      },
+    });
   };
   if (isLoaded && !isSignedIn) return <p><a href={signInHref}>Sign in</a> as an editor or administrator.</p>;
   return <div className="account-stack">
+    {asking && <ReasonDialog request={asking} onClose={() => setAsking(null)} />}
     {error && <div className="account-error" role="alert">{error}</div>}
     {notice && <div className="account-notice" role="status">{notice}</div>}
     {!reports ? !error && <p className="account-loading" role="status">Loading…</p>

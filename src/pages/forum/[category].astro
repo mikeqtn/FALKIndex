@@ -1,25 +1,21 @@
 ---
 import ForumLayout from '../../layouts/ForumLayout.astro';
-import ThreadList from '../../components/forum/ThreadList.astro';
-import { listThreads, pageQuery } from '../../../server/forum.ts';
+import ThreadBrowser from '../../components/forum/ThreadBrowser.astro';
+import { listQuery, listThreads } from '../../../server/forum.ts';
 import { forumPath } from '../../lib/forum.ts';
 const id = Astro.params.category ?? '';
-const page = pageQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined });
-const listing = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(id) && page.success ? await listThreads(id, page.data.page) : null;
-if (!listing) return Astro.rewrite('/forum/not-found/');
-const pages = Math.ceil(listing.total / listing.pageSize);
+const query = listQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined, sort:Astro.url.searchParams.get('sort') ?? undefined });
+const listing = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(id) && query.success ? await listThreads(id, query.data.page, query.data.sort) : null;
+if (!listing || !query.success) return Astro.rewrite('/forum/not-found/');
 ---
 <ForumLayout nav={id} title={listing.category.name} description={listing.category.description}>
   <header class="f-title">
     <div>
-      <p class="f-crumb"><a href={forumPath('/')}>Forum home</a></p>
+      <a class="f-back" href={forumPath('/')}>Back to forum home</a>
       <h1>{listing.category.name}</h1>
       <p class="f-lead">{listing.category.description}</p>
     </div>
     <a class="f-button" href={forumPath(`/new/?category=${id}`)}>Start a thread</a>
   </header>
-  <ThreadList threads={listing.threads} heading={`${listing.total} ${listing.total === 1 ? 'thread' : 'threads'}`} empty="No threads here yet. Start the first one." />
-  {pages > 1 && <nav class="f-pages" aria-label="Pages">
-    {Array.from({ length:pages }, (_, i) => i + 1).map(n => <a href={`?page=${n}`} aria-current={n === listing.page ? 'page' : undefined}>{n}</a>)}
-  </nav>}
+  <ThreadBrowser listing={listing} sort={query.data.sort} empty="No threads here yet. Start the first one." />
 </ForumLayout>

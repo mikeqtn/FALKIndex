@@ -35,7 +35,7 @@ const underDiscussion = discussed.flatMap(d => {
     </section>
     <aside class="f-rail" aria-label="Activity">
       <section aria-labelledby="f-recent">
-        <div class="f-section-head"><h2 id="f-recent">Latest posts</h2></div>
+        <div class="f-section-head f-section-link"><h2 id="f-recent">Latest posts</h2><a href={forumPath('/threads/')}>All threads</a></div>
         {recent.length ? <ul class="f-rail-list">
           {recent.map(t => <li>
             <a class="f-rail-title" href={forumPath(`/t/${t.id}`)}>{t.title}</a>

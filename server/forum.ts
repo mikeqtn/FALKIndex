@@ -15,18 +15,26 @@ const MODERATORS = ['editor','admin'] as const;
 const isModerator = (viewer: Viewer) => viewer?.role === 'editor' || viewer?.role === 'admin';
 export const THREADS_PAGE = 25;
 export const POSTS_PAGE = 50;
+/** Replying below this depth stays at this depth, so a conversation can always go on but cannot run off a phone screen. */
+export const MAX_REPLY_DEPTH = 6;
+/** Sort orders for thread lists. There are no votes or views, so popular means most replies. */
+export const THREAD_SORTS = { active:'Recent activity', newest:'Newest', day:'Popular: 24 hours', week:'Popular: 7 days', all:'Popular: all time' } as const;
+export type ThreadSort = keyof typeof THREAD_SORTS;
+const POPULAR_SINCE: Partial<Record<ThreadSort, string>> = { day:'24 hours', week:'7 days' };
 
 const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const body = z.string().trim().min(1,'Write something first.').max(20000);
 const reason = z.string().trim().min(3,'Give a reason of at least 3 characters.').max(1000);
 export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional() }).strict();
 export const postInput = z.object({ body }).strict();
+export const replyInput = z.object({ body, parent:z.uuid().optional() }).strict();
 export const reasonInput = z.object({ reason }).strict();
 export const threadModeration = z.object({ pinned:z.boolean().optional(), locked:z.boolean().optional(), hidden:z.boolean().optional(), reason }).strict()
   .refine(m => m.pinned !== undefined || m.locked !== undefined || m.hidden !== undefined, 'Choose what to change.');
 export const reportResolution = z.object({ resolution:z.enum(['hidden','dismissed']), reason }).strict();
 export const readInput = z.object({ ids:z.array(z.uuid()).max(100).optional() }).strict();
 export const pageQuery = z.object({ page:z.coerce.number().int().min(1).max(10000).default(1) });
+export const listQuery = pageQuery.extend({ sort:z.enum(['active','newest','day','week','all']).catch('active') });
 export const searchQuery = z.object({ q:z.string().trim().min(2).max(200) });
 
 /** The acting member, read again inside the transaction so a suspension or demotion applies at once. */
@@ -73,33 +81,58 @@ export async function recordsUnderDiscussion(limit = 4, db: Queryable = pool) {
   return rows.rows.map(r => ({ id:r.watch_id as string, threads:r.threads as number }));
 }
 
-export async function listThreads(categoryId: string, page: number, db: Queryable = pool) {
-  const category = (await db.query('SELECT id,name,description FROM falk_forum_category WHERE id=$1', [categoryId])).rows[0];
-  if (!category) return null;
+// Pins lead only the default order: a pinned thread is not the newest or the most popular for being pinned.
+const SORT_ORDER: Record<ThreadSort, string> = {
+  active:'t.pinned DESC,t.last_post_at DESC,t.id',
+  newest:'t.created_at DESC,t.id',
+  day:'w.recent DESC,t.last_post_at DESC,t.id',
+  week:'w.recent DESC,t.last_post_at DESC,t.id',
+  all:'replies DESC,t.last_post_at DESC,t.id',
+};
+
+// ponytail: counts replies per thread on every popular listing, fine at forum scale; keep a rollup table if this slows.
+async function threadPage(categoryId: string | null, page: number, sort: ThreadSort, db: Queryable) {
+  const since = POPULAR_SINCE[sort];
+  // Visible replies inside the window: the opening post is the thread's earliest and does not count.
+  const recent = since ? `JOIN LATERAL (SELECT count(*)::int AS recent FROM falk_forum_post p WHERE p.thread_id=t.id AND p.hidden_at IS NULL
+    AND p.created_at>now()-interval '${since}' AND p.created_at>(SELECT min(created_at) FROM falk_forum_post WHERE thread_id=t.id)) w ON w.recent>0` : '';
+  const where = `WHERE t.hidden_at IS NULL${categoryId ? ' AND t.category_id=$1' : ''}`;
   const [rows, total] = await querySeries(db,[
-    `SELECT ${threadColumns} ${threadJoins} WHERE t.category_id=$1 AND t.hidden_at IS NULL
-      ORDER BY t.pinned DESC,t.last_post_at DESC,t.id LIMIT ${THREADS_PAGE} OFFSET ${(page-1)*THREADS_PAGE}`,
-    'SELECT count(*)::int AS count FROM falk_forum_thread WHERE category_id=$1 AND hidden_at IS NULL',
-  ],[categoryId]);
-  return { category, threads:rows.rows.map(threadFrom), total:total.rows[0].count, page, pageSize:THREADS_PAGE };
+    `SELECT ${threadColumns},c.name AS category_name${since ? ',w.recent' : ''} ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id ${recent} ${where}
+      ORDER BY ${SORT_ORDER[sort]} LIMIT ${THREADS_PAGE} OFFSET ${(page-1)*THREADS_PAGE}`,
+    `SELECT count(*)::int AS count FROM falk_forum_thread t ${recent} ${where}`,
+  ],categoryId ? [categoryId] : []);
+  return { threads:rows.rows.map(r => ({ ...threadFrom(r), categoryName:r.category_name as string, recentReplies:r.recent as number | undefined })), total:total.rows[0].count as number, page, pageSize:THREADS_PAGE };
 }
 
-/** A thread and one page of its posts. Hidden posts keep their place but only moderators see their text. */
+export async function listThreads(categoryId: string, page: number, sort: ThreadSort = 'active', db: Queryable = pool) {
+  const category = (await db.query('SELECT id,name,description FROM falk_forum_category WHERE id=$1', [categoryId])).rows[0];
+  if (!category) return null;
+  return { category, ...await threadPage(categoryId,page,sort,db) };
+}
+
+export const listAllThreads = (page: number, sort: ThreadSort = 'active', db: Queryable = pool) => threadPage(null,page,sort,db);
+
+/** A thread and one page of its conversations: posts with no parent, each with all its replies, oldest first so parents come before children. Hidden posts keep their place but only moderators see their text. */
 export async function threadDetail(id: string, page: number, viewer: Viewer, db: Queryable = pool) {
   const moderator = isModerator(viewer);
   const row = (await db.query(`SELECT ${threadColumns},c.name AS category_name,t.hidden_at,t.hidden_reason
     ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id WHERE t.id=$1`, [id])).rows[0];
   if (!row || (row.hidden_at && !moderator)) return null;
   const [posts, total] = await querySeries(db,[
-    `SELECT p.id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')}
-      FROM falk_forum_post p JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
-      WHERE p.thread_id=$1 ORDER BY p.created_at,p.id LIMIT ${POSTS_PAGE} OFFSET ${(page-1)*POSTS_PAGE}`,
-    'SELECT count(*)::int AS count FROM falk_forum_post WHERE thread_id=$1',
+    `WITH RECURSIVE tree AS (
+        (SELECT id FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL ORDER BY created_at,id LIMIT ${POSTS_PAGE} OFFSET ${(page-1)*POSTS_PAGE})
+        UNION ALL SELECT c.id FROM falk_forum_post c JOIN tree ON c.parent_id=tree.id
+      )
+      SELECT p.id,p.parent_id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')}
+      FROM tree JOIN falk_forum_post p ON p.id=tree.id JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
+      ORDER BY p.created_at,p.id`,
+    'SELECT count(*)::int AS count FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL',
   ],[id]);
   return {
     thread:{ ...threadFrom(row), categoryName:row.category_name, hidden:!!row.hidden_at, hiddenReason:moderator ? row.hidden_reason : null },
     posts:posts.rows.map(p => ({
-      id:p.id, author:authorFrom(p), createdAt:p.created_at.toISOString(), editedAt:p.edited_at?.toISOString() ?? null,
+      id:p.id, parentId:p.parent_id as string | null, author:authorFrom(p), createdAt:p.created_at.toISOString(), editedAt:p.edited_at?.toISOString() ?? null,
       hidden:!!p.hidden_at, body:p.hidden_at && !moderator ? null : p.body,
       hiddenReason:moderator ? p.hidden_reason : null, own:viewer?.id === p.author_id,
     })),
@@ -131,13 +164,21 @@ export async function createThread(actorId: string, input: z.infer<typeof thread
   return { thread:thread.id as string, post:post.id as string };
 }
 
-/** A reply notifies everyone who has posted in the thread, except the person replying. */
-export async function reply(actorId: string, threadId: string, input: z.infer<typeof postInput>, db: PoolClient) {
+/** A reply notifies everyone who has posted in the thread, except the person replying. Replying to the opening post is replying to the thread. */
+export async function reply(actorId: string, threadId: string, input: z.infer<typeof replyInput>, db: PoolClient) {
   const me = await actor(db,actorId);
   const thread = (await db.query('SELECT locked,hidden_at FROM falk_forum_thread WHERE id=$1 FOR SHARE', [threadId])).rows[0];
   if (!thread || (thread.hidden_at && !isModerator(me))) throw new HttpError(404,'Thread not found.');
   if (thread.locked && !isModerator(me)) throw new HttpError(403,'This thread is locked.');
-  const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3) RETURNING id', [threadId,me.id,input.body])).rows[0];
+  let parent: string | null = null, depth = 0;
+  if (input.parent) {
+    const target = (await db.query(`SELECT parent_id,depth,hidden_at,id=(SELECT id FROM falk_forum_post WHERE thread_id=$2 ORDER BY created_at,id LIMIT 1) AS opening
+      FROM falk_forum_post WHERE id=$1 AND thread_id=$2 FOR SHARE`, [input.parent,threadId])).rows[0];
+    if (!target) throw new HttpError(404,'That post is not in this thread.');
+    if (target.hidden_at && !isModerator(me)) throw new HttpError(409,'A moderator hid this post, so it cannot be replied to.');
+    if (!target.opening) [parent,depth] = target.depth >= MAX_REPLY_DEPTH ? [target.parent_id,target.depth] : [input.parent,target.depth+1];
+  }
+  const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body,parent_id,depth) VALUES($1,$2,$3,$4,$5) RETURNING id', [threadId,me.id,input.body,parent,depth])).rows[0];
   await db.query(`INSERT INTO falk_forum_notification(account_id,post_id)
     SELECT DISTINCT author_id,$2::uuid FROM falk_forum_post WHERE thread_id=$1 AND author_id<>$3 ON CONFLICT DO NOTHING`, [threadId,post.id,me.id]);
   return { post:post.id as string };
@@ -269,8 +310,8 @@ const read = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn,true);
 const forum = Router();
 forum.get('/categories', async (_req,res) => { res.json({ categories:await read(db => listCategories(db)) }); });
 forum.get('/categories/:id/threads', async (req,res) => {
-  const { page } = pageQuery.parse(req.query);
-  const listing = await read(db => listThreads(slug.parse(req.params.id),page,db));
+  const { page, sort } = listQuery.parse(req.query);
+  const listing = await read(db => listThreads(slug.parse(req.params.id),page,sort,db));
   if (!listing) throw new HttpError(404,'Category not found.');
   res.json(listing);
 });
@@ -294,7 +335,7 @@ forum.post('/threads', async (req,res) => {
   res.status(201).json(await write(db => createThread(id,input,db)));
 });
 forum.post('/threads/:id/posts', async (req,res) => {
-  const id = await member(req), thread = z.uuid().parse(req.params.id), input = postInput.parse(req.body);
+  const id = await member(req), thread = z.uuid().parse(req.params.id), input = replyInput.parse(req.body);
   res.status(201).json(await write(db => reply(id,thread,input,db)));
 });
 forum.patch('/posts/:id', async (req,res) => {

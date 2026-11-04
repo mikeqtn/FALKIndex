@@ -3,9 +3,9 @@ import type { recordThreads } from '../../../server/forum.ts';
 import CompactStrip from '../CompactStrip.astro';
 import { getCatalogue } from '../../lib/data.ts';
 import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
-type Thread = Awaited<ReturnType<typeof recordThreads>>[number];
-interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord?: boolean }
-const { threads, empty, heading = 'Threads', hideRecord = false } = Astro.props;
+type Thread = Awaited<ReturnType<typeof recordThreads>>[number] & { categoryName?: string, recentReplies?: number };
+interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord?: boolean; showCategory?: boolean }
+const { threads, empty, heading = 'Threads', hideRecord = false, showCategory = false } = Astro.props;
 const { records } = await getCatalogue(Astro.locals);
 ---
 {threads.length ? <div class="f-plate">
@@ -20,6 +20,8 @@ const { records } = await getCatalogue(Astro.locals);
         {t.locked && <span class="f-pill quiet">Locked</span>}
         <p class="f-thread-meta">
           Started by {t.author.username ? <a href={siteHref(`/people/${t.author.username}/`)}>{t.author.displayName}</a> : t.author.displayName}
+          {showCategory && t.categoryName && <> in <a href={forumPath(`/${t.category}/`)}>{t.categoryName}</a></>}
+          {t.recentReplies && <> · {t.recentReplies} recent {t.recentReplies === 1 ? 'reply' : 'replies'}</>}
         </p>
         {record && <p class="f-thread-record">
           <CompactStrip scores={record.profile.scores} />

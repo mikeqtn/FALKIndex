@@ -1,0 +1,19 @@
+---
+import ForumLayout from '../../layouts/ForumLayout.astro';
+import ThreadBrowser from '../../components/forum/ThreadBrowser.astro';
+import { listAllThreads, listQuery } from '../../../server/forum.ts';
+import { forumPath } from '../../lib/forum.ts';
+const query = listQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined, sort:Astro.url.searchParams.get('sort') ?? undefined });
+if (!query.success) return Astro.rewrite('/forum/not-found/');
+const listing = await listAllThreads(query.data.page, query.data.sort);
+---
+<ForumLayout nav="threads" title="All threads" description="Every thread on the FALK Forum, by recent activity, newest or most popular.">
+  <header class="f-title">
+    <div>
+      <a class="f-back" href={forumPath('/')}>Back to forum home</a>
+      <h1>All threads</h1>
+    </div>
+    <a class="f-button" href={forumPath('/new/')}>Start a thread</a>
+  </header>
+  <ThreadBrowser listing={listing} sort={query.data.sort} empty="No threads yet. Start the first one." showCategory />
+</ForumLayout>
