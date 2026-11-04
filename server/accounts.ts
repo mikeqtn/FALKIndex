@@ -3,6 +3,7 @@ import { clerkClient, getAuth } from '@clerk/express';
 import type { Request } from 'express';
 import type { Pool, PoolClient } from 'pg';
 import { pool, querySeries, transaction } from './db.ts';
+import { createTtlMap } from '../src/lib/catalogue-cache.ts';
 import { isClerkImage, profileInput, type Account, type ProfileInput, type Role, type PublicProfile } from '../src/accounts/contracts.ts';
 
 export class HttpError extends Error {
@@ -28,8 +29,9 @@ export function enforceAccount(account: Pick<Account,'role'|'status'|'emailVerif
 export async function audit(db: PoolClient, actor: string | null, target: string | null, action: string, reason: string, payload: object = {}) {
   await db.query('INSERT INTO falk_audit_event(actor_id,target_id,action,reason,payload) VALUES($1,$2,$3,$4,$5)', [actor,target,action,reason,payload]);
 }
-const accountSelect = `SELECT a.*,p.*,x.email,x.real_name FROM falk_account a
-  JOIN falk_member_profile p ON p.account_id=a.id JOIN falk_account_private x ON x.account_id=a.id`;
+const accountSelect = `SELECT a.*,p.*,x.email,x.real_name,
+  (SELECT coalesce(array_agg(f.organization_id ORDER BY f.organization_id),'{}') FROM falk_affiliation f WHERE f.account_id=a.id AND f.ended_at IS NULL) AS brand_ties
+  FROM falk_account a JOIN falk_member_profile p ON p.account_id=a.id JOIN falk_account_private x ON x.account_id=a.id`;
 function accountFrom(row: any): Account {
   return {
     id: row.id, username: row.username, role: row.role, status: row.status,
@@ -37,10 +39,24 @@ function accountFrom(row: any): Account {
     profile: {
       displayName: row.display_name, realName: row.real_name, showRealName: row.show_real_name,
       bio: row.bio, qualifications: row.qualifications, qualificationDetails: row.qualification_details,
-      professionalAffiliations: row.professional_affiliations, website: row.website, imageUrl: isClerkImage(row.image_url) ? row.image_url : '', brandTies: [],
+      professionalAffiliations: row.professional_affiliations, website: row.website, imageUrl: isClerkImage(row.image_url) ? row.image_url : '', brandTies: row.brand_ties,
     },
   };
 }
+/**
+ * The account, when this request has nothing to write: it exists in this realm, matches Clerk, and no invitation is
+ * waiting. Almost every request is this case, so it takes one read and no locks. Anything else returns undefined and
+ * goes through the full transaction in authenticatedAccount.
+ */
+export async function unchangedAccount(clerkId: string, verified: boolean, email: string, photo: string, db: Pick<Pool,'query'> = pool) {
+  const row = (await db.query(`${accountSelect} WHERE a.clerk_id=$1 AND a.realm=$2 AND a.email_verified=$3 AND x.email=$4 AND p.image_url=$5
+    AND NOT ($3 AND EXISTS(SELECT 1 FROM falk_invitation i WHERE i.realm=$2 AND i.email=$4 AND i.accepted_by IS NULL AND i.expires_at>now()))`,
+  [clerkId,realm(),verified,email,photo])).rows[0];
+  return row ? accountFrom(row) : undefined;
+}
+
+// Clerk's last answer for verified members in good standing. A ban or lock in Clerk can take this long to apply to plain reads.
+const recentIdentities = createTtlMap<{ email: string, photo: string }>({ ttlMs:30_000 });
 
 // Identity verification comes from Clerk's server API, never a form/JWT custom role.
 // Dev and production identities are partitioned, including the one-time admin grant.
@@ -48,6 +64,17 @@ function accountFrom(row: any): Account {
 export async function authenticatedAccount(req: Request, roles?: readonly Role[], enforce = true) {
   const userId = getAuth(req).userId;
   if (!userId) throw new HttpError(401, 'Sign in to continue.');
+  // A plain read may reuse Clerk's recent answer, but only if the database already agrees and nothing needs writing.
+  // Staff routes, writes, the account page (?fresh) and every other case ask Clerk below. The status check stays live.
+  const recent = !roles && req.method === 'GET' && req.query.fresh === undefined ? recentIdentities.get(userId) : undefined;
+  if (recent) {
+    const account = await unchangedAccount(userId,true,recent.email,recent.photo);
+    if (account) {
+      enforceAccount(account);
+      return { account, email:recent.email };
+    }
+  }
+  recentIdentities.delete(userId);
   const identity = await clerkClient.users.getUser(userId);
   const primary = identity.emailAddresses.find(e => e.id === identity.primaryEmailAddressId);
   if (!primary || identity.banned || identity.locked) throw new HttpError(403, 'A verified, active email identity is required.');
@@ -55,18 +82,20 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
   const email = normalizeEmail(primary.emailAddress);
   const bootstrapEmail = process.env.FALK_BOOTSTRAP_ADMIN_EMAIL;
   const bootstrap = !!bootstrapEmail && normalizeEmail(bootstrapEmail) === email;
-  const account = await transaction(async db => {
+  // Keep the public photo in step with the member's Clerk account; no upload means no photo.
+  const photo = identity.hasImage && isClerkImage(identity.imageUrl) ? identity.imageUrl : '';
+  if (verified && !bootstrap) recentIdentities.set(userId,{ email, photo });
+  // The bootstrap administrator always takes the transaction, which applies the one-time grant.
+  const account = (!bootstrap && await unchangedAccount(userId,verified,email,photo)) || await transaction(async db => {
     // All privileged role changes share this lock. Most sign-ins have no grant to apply,
     // so take it only then, and before any row lock, in the same order as the admin routes.
     const grant = verified && (bootstrap || !!(await db.query(`SELECT 1 FROM falk_invitation WHERE realm=$1 AND email=$2
       AND accepted_by IS NULL AND expires_at>now() LIMIT 1`, [realm(),email])).rowCount);
     if (grant) await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`falk:roles:${realm()}`]);
-    await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,$3) ON CONFLICT(clerk_id) DO UPDATE SET email_verified=EXCLUDED.email_verified WHERE falk_account.realm=EXCLUDED.realm', [realm(),userId,verified]);
+    await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,$3) ON CONFLICT(clerk_id) DO UPDATE SET email_verified=EXCLUDED.email_verified WHERE falk_account.realm=EXCLUDED.realm AND falk_account.email_verified IS DISTINCT FROM EXCLUDED.email_verified', [realm(),userId,verified]);
     const row = (await db.query('SELECT * FROM falk_account WHERE clerk_id=$1 AND realm=$2 FOR UPDATE', [userId,realm()])).rows[0];
     if (!row) throw new HttpError(403, 'This identity belongs to a different authentication environment.');
-    await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2) ON CONFLICT(account_id) DO UPDATE SET email=EXCLUDED.email', [row.id,email]);
-    // Keep the public photo in step with the member's Clerk account; no upload means no photo.
-    const photo = identity.hasImage && isClerkImage(identity.imageUrl) ? identity.imageUrl : '';
+    await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2) ON CONFLICT(account_id) DO UPDATE SET email=EXCLUDED.email WHERE falk_account_private.email IS DISTINCT FROM EXCLUDED.email', [row.id,email]);
     await db.query(`INSERT INTO falk_member_profile(account_id,image_url) VALUES($1,$2)
       ON CONFLICT(account_id) DO UPDATE SET image_url=EXCLUDED.image_url WHERE falk_member_profile.image_url IS DISTINCT FROM EXCLUDED.image_url`, [row.id,photo]);
     if (grant && row.status === 'active') {
@@ -95,7 +124,6 @@ export async function authenticatedAccount(req: Request, roles?: readonly Role[]
     return accountFrom((await db.query(`${accountSelect} WHERE a.id=$1`, [row.id])).rows[0]);
   });
   if (enforce) enforceAccount(account,roles);
-  account.profile.brandTies = (await pool.query('SELECT organization_id FROM falk_affiliation WHERE account_id=$1 AND ended_at IS NULL ORDER BY organization_id', [account.id])).rows.map(r => r.organization_id);
   return { account, email };
 }
 

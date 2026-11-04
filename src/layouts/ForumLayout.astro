@@ -5,7 +5,7 @@ import '../styles/forum.css';
 import '../styles/accounts.css';
 import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2?url';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
-import { listCategories } from '../../server/forum.ts';
+import { navCategories } from '../../server/forum.ts';
 import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 // The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
 import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
@@ -21,7 +21,7 @@ const { title, description = 'Discussion of watches, how they are made, and the 
 const pageTitle = title === 'FALK Forum' ? title : `${title}, FALK Forum`;
 const canonical = forumCanonical(Astro.url.pathname);
 const ldJson = ld && JSON.stringify({ '@context': 'https://schema.org', ...ld }).replaceAll('<', '\\u003c');
-const categories = await listCategories();
+const categories = await navCategories();
 const signedIn = hasSession(Astro.request.headers.get('cookie'));
 const q = Astro.url.searchParams.get('q') ?? '';
 ---

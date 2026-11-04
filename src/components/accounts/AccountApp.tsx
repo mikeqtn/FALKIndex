@@ -66,7 +66,7 @@ function AccountEditor() {
   useEffect(() => {
     let alive = true;
     Promise.all([
-      api<{ account: Account; email: string }>('/api/account'),
+      api<{ account: Account; email: string }>('/api/account?fresh=1'),
       api<Meta>('/api/accounts/meta').catch(reason => {
         if (alive) setMetaWarning(handleAccountError(reason));
         return { qualificationOptions, organizations: [] };

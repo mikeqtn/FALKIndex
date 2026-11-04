@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import express from 'express';
-import { clientKey, pageLimit, type PageLimitOptions } from '../server/pageLimit.ts';
+import { clientKey, minuteCounter, pageLimit, type PageLimitOptions } from '../server/pageLimit.ts';
 
 async function serve(options: PageLimitOptions) {
   const app = express();
@@ -18,6 +18,18 @@ async function serve(options: PageLimitOptions) {
   return { get, close:() => { server.closeAllConnections(); server.close(); } };
 }
 const clock = (start = 1_800_000_000_000) => { let t = start; return { now:() => t, tick:(ms: number) => { t += ms; } }; };
+
+test('minuteCounter counts per key, resets each minute, and stops adding keys at the cap', () => {
+  const c = clock(), hit = minuteCounter({ maxClients:2, now:c.now });
+  assert.equal(hit('a'), 1);
+  assert.equal(hit('a'), 2);
+  assert.equal(hit('b'), 1);
+  assert.equal(hit('c'), 0, 'over the cap, a new key is not counted');
+  assert.equal(hit('a'), 3, 'known keys keep counting');
+  c.tick(60_000);
+  assert.equal(hit('a'), 1);
+  assert.equal(hit('c'), 1);
+});
 
 test('enforce: pages and share images have separate budgets, per visitor, and reset each minute', async () => {
   const c = clock(), logs: any[] = [];

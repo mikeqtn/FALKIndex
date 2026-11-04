@@ -5,6 +5,7 @@ import type { Pool, PoolClient } from 'pg';
 import { isClerkImage, type Role } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
+import { createCatalogueCache } from '../src/lib/catalogue-cache.ts';
 
 // The FALK Forum (forum.falkindex.com). Anyone may read; posting needs a verified, active
 // account with a username. Editors and administrators moderate: nothing is deleted, only
@@ -66,6 +67,20 @@ export async function listCategories(db: Queryable = pool) {
   return rows.rows.map(r => ({ id:r.id as string, name:r.name as string, description:r.description as string, threads:r.threads as number, lastPostAt:(r.last_post_at?.toISOString() ?? null) as string | null,
     latest:r.latest_id ? { id:r.latest_id as string, title:r.latest_title as string } : null }));
 }
+
+// Read on every record page and forum page, so served from memory; these may lag by up to their TTL.
+const shortCache = <T extends object>(name: string, ttlMs: number, load: () => Promise<T>) => createCatalogueCache(load,{
+  ttlMs, log:line => console.error(JSON.stringify({ ...line, event:`${name}.reload_failed` })),
+});
+const categoryNames = shortCache('forum.categories',60_000,async () =>
+  (await pool.query('SELECT id,name FROM falk_forum_category ORDER BY position,id')).rows as { id: string, name: string }[]);
+/** Category ids and names for navigation and forms. */
+export const navCategories = () => categoryNames.get();
+const threadCounts = shortCache('forum.thread_counts',30_000,async () => new Map((await pool.query(
+  'SELECT watch_id,count(*)::int AS threads FROM falk_forum_thread WHERE watch_id IS NOT NULL AND hidden_at IS NULL GROUP BY watch_id',
+)).rows.map(r => [r.watch_id as string, r.threads as number])));
+/** How many visible threads discuss a record; 0 if the database is unavailable and nothing is cached. */
+export const recordThreadCount = (watchId: string) => threadCounts.get().then(counts => counts.get(watchId) ?? 0, () => 0);
 
 /** The threads with the newest posts, across every category, for the forum home. */
 export async function recentThreads(limit = 5, db: Queryable = pool) {
@@ -304,11 +319,12 @@ async function viewerOf(req: Request): Promise<Viewer> {
 }
 const member = async (req: Request) => (await authenticatedAccount(req)).account.id;
 const write = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn);
-// Reads that re-check the actor take a row lock, so they use write(); read() is for public reads.
+// Reads that re-check the actor take a row lock, so they use write(); read() is for public reads of several statements
+// that must agree. A single statement needs no transaction.
 const read = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn,true);
 
 const forum = Router();
-forum.get('/categories', async (_req,res) => { res.json({ categories:await read(db => listCategories(db)) }); });
+forum.get('/categories', async (_req,res) => { res.json({ categories:await listCategories() }); });
 forum.get('/categories/:id/threads', async (req,res) => {
   const { page, sort } = listQuery.parse(req.query);
   const listing = await read(db => listThreads(slug.parse(req.params.id),page,sort,db));
@@ -324,11 +340,11 @@ forum.get('/threads/:id', async (req,res) => {
   res.json(detail);
 });
 forum.get('/records/:brand/:model', async (req,res) => {
-  res.json({ threads:await read(db => recordThreads(`${slug.parse(req.params.brand)}/${slug.parse(req.params.model)}`,db)) });
+  res.json({ threads:await recordThreads(`${slug.parse(req.params.brand)}/${slug.parse(req.params.model)}`) });
 });
 forum.get('/search', async (req,res) => {
   const { q } = searchQuery.parse(req.query);
-  res.json({ threads:await read(db => searchForum(q,db)) });
+  res.json({ threads:await searchForum(q) });
 });
 forum.post('/threads', async (req,res) => {
   const id = await member(req), input = threadInput.parse(req.body);
