@@ -295,6 +295,15 @@ test('the forum renders for anonymous readers, and record pages link to their di
   assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
 });
 
+test('signed out, "Start a thread" has a hidden notice to reveal in place of leaving the page', async () => {
+  const page = async (path: string, cookie = '') => (await fetch(`${base}${path}`, { headers:{ cookie } })).text();
+  const forum = await page('/forum/');
+  assert.match(forum, /<a[^>]*class="f-button"[^>]*data-needs-account/);
+  assert.match(forum, /<p[^>]*id="f-needs-account"[^>]*hidden/);
+  assert.doesNotMatch(await page('/forum/', '__client_uat=1791917601'), /id="f-needs-account"/, 'signed in, the link goes to the form');
+  assert.doesNotMatch(await page('/forum/new/'), /id="f-needs-account"/, 'the new-thread page says it itself');
+});
+
 test('data embedded in pages cannot close its own script tag', async () => {
   const html = await (await fetch(`${base}/`)).text();
   const blocks = [...html.matchAll(/<script type="application\/(?:ld\+)?json"[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]);

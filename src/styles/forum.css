@@ -97,6 +97,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .f-side-nav a[aria-current="page"] { background: var(--c-tint); color: var(--c-tint-ink); }
 
 .f-canvas { grid-column: 2; grid-row: 2; min-width: 0; padding: 28px var(--pad) 64px; }
+#f-needs-account { margin-bottom: var(--s-5); }
 
 /* Title row */
 .f-title { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-5); margin-bottom: var(--s-5); }
@@ -184,7 +185,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .forum-moderation { margin-bottom: var(--s-3); }
 .forum-reply { margin-top: var(--s-5); max-width: 76ch; }
 .forum-reply-prompt { padding: var(--s-4); background: var(--c-surface-2); border-radius: var(--r-plate); font-size: 15px; }
-.forum-reply-prompt a { color: var(--c-action); font-weight: 560; text-decoration: underline; text-underline-offset: 2px; }
+.forum-reply-prompt a, #f-needs-account a { color: var(--c-action); font-weight: 560; text-decoration: underline; text-underline-offset: 2px; }
 .forum-reply label { font-weight: 600; }
 .forum-reply textarea, .forum-form textarea, .forum-post textarea { width: 100%; min-height: 140px; padding: 12px; background: var(--c-page); border: 1px solid var(--c-ink-2); border-radius: var(--r-control); font: 400 17px/26px var(--f-serif); resize: vertical; }
 .forum-form { max-width: 76ch; }

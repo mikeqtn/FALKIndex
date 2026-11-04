@@ -1,0 +1,132 @@
+---
+// Common answers, then a private message to the support inbox (server/support.ts).
+import Base from '../layouts/Base.astro';
+import { correctionUrl } from '../lib/data.ts';
+---
+<Base title="Help" description="Answers to common questions about FALK accounts and the forum, and a private way to contact support.">
+  <header class="doc-head" data-rise>
+    <div><h1>Help</h1></div>
+    <p class="lead">Answers to common questions, and a private way to reach us if they don't solve it.</p>
+  </header>
+
+  <div class="layout">
+    <section class="answers" aria-labelledby="common">
+      <h2 id="common">Common questions</h2>
+      <details>
+        <summary>I can't sign in</summary>
+        <p>Go to the <a href="/sign-in">sign-in page</a> and use the email address on your account. If that doesn't work, send us a message from that address.</p>
+      </details>
+      <details>
+        <summary>I'm asked to verify my email</summary>
+        <p>Accounts need a verified email address. Look for the verification email, including in your spam folder. If it hasn't arrived, send us a message.</p>
+      </details>
+      <details>
+        <summary>How do I change my username or profile?</summary>
+        <p>Sign in and open your <a href="/account/">account page</a>. Your username, display name, bio and photo are all changed there.</p>
+      </details>
+      <details>
+        <summary>How do I delete my account?</summary>
+        <p>Use the delete option on your <a href="/account/">account page</a>. This can't be undone. Your forum posts and corrections stay, credited to a deleted member.</p>
+      </details>
+      <details>
+        <summary>A record looks wrong</summary>
+        <p><a href={correctionUrl()}>Send a correction</a> with links to your evidence. An editor checks every correction against its sources.</p>
+      </details>
+      <details>
+        <summary>A forum post breaks the rules</summary>
+        <p>Use Report on the post, and a moderator will review it.</p>
+      </details>
+      <p class="small muted">For privacy requests, see the <a href="/privacy/">privacy policy</a>. For legal notices, see the <a href="/terms/">terms of use</a>.</p>
+    </section>
+
+    <div class="form-plate">
+      <h2>Contact support</h2>
+      <form id="support" class="stack form" method="post" action="/api/support">
+        <div class="field">
+          <label for="topic">What is this about?</label>
+          <select id="topic" name="topic" required>
+            <option value="account">Account or sign-in</option>
+            <option value="forum">The forum</option>
+            <option value="website">Something on the site</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="7" maxlength="5000" required></textarea>
+          <p class="small muted">Tell us what you were trying to do and what happened. Never include your password.</p>
+        </div>
+        <div class="field">
+          <label for="email">Your email address</label>
+          <input id="email" type="email" name="email" autocomplete="email" maxlength="254" required />
+        </div>
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <p class="small muted">We use your email address only to reply. Your message goes privately to FALK support and is never published. By sending, you agree to the <a href="/terms/">terms of use</a> and confirm you are 13 or older (16 in the EU or UK). See the <a href="/privacy/">privacy policy</a>.</p>
+        <noscript><p class="small muted">This form needs JavaScript. You can email <a href="mailto:support@falkindex.com">support@falkindex.com</a> instead.</p></noscript>
+        <p><button class="btn" type="submit">Send message</button></p>
+        <p class="err" id="send-err" role="alert" hidden></p>
+      </form>
+      <div id="sent" class="stack" role="status" tabindex="-1" hidden>
+        <p><b>Message sent.</b> We'll reply to the email address you gave.</p>
+      </div>
+      <p class="small muted email">Prefer email? Write to <a href="mailto:support@falkindex.com">support@falkindex.com</a>.</p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .layout { display: grid; gap: var(--s-6); }
+  .layout > * { min-width: 0; }
+  @media (min-width: 1024px) { .layout { grid-template-columns: 5fr 6fr; align-items: start; } }
+  .layout h2 { font-size: 24px; line-height: 30px; font-stretch: 90%; margin-bottom: var(--s-4); }
+  .answers details { border-top: 1px solid var(--c-edge); }
+  .answers details:last-of-type { border-bottom: 1px solid var(--c-edge); }
+  .answers summary { display: list-item; padding: var(--s-3) 0; font-weight: 560; cursor: pointer; }
+  .answers details p { padding-bottom: var(--s-4); }
+  .answers > p { margin-top: var(--s-4); }
+  .form-plate { padding: var(--s-6); background: var(--c-surface); border-radius: var(--r-plate); }
+  @media (max-width: 639px) { .form-plate { padding: var(--s-4); } }
+  .form-plate :where(input[type="email"], select, textarea) { background: var(--c-page); }
+  .form.stack > * + * { margin-top: var(--s-5); }
+  .field { display: grid; gap: var(--s-1); min-width: 0; }
+  .field select, .field input, .field textarea { width: 100%; max-width: 100%; }
+  label { font-weight: 560; }
+  textarea { font: inherit; padding: var(--s-2) var(--s-3); resize: vertical; }
+  .err { color: var(--c-ink); font-size: 14px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; } /* taste-skill-ignore: off-screen spam trap, not a rule */
+  .email { margin-top: var(--s-5); }
+</style>
+
+<script>
+  const form = document.getElementById('support') as HTMLFormElement;
+  const error = document.getElementById('send-err')!;
+  const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const fail = (reason: string) => {
+    submit.disabled = false;
+    submit.textContent = 'Send message';
+    error.textContent = `Message not sent. ${reason} Your text is still here. You can try again or email support@falkindex.com.`;
+    error.hidden = false;
+  };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    error.hidden = true;
+    submit.disabled = true;
+    submit.textContent = 'Sending…';
+    let res: Response;
+    try {
+      res = await fetch('/api/support', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+    } catch { return fail('The site could not be reached.'); }
+    if (!res.ok) {
+      const reason = await res.json().then(j => typeof j.error === 'string' ? j.error : '').catch(() => '');
+      return fail(reason || `Error ${res.status}.`);
+    }
+    form.hidden = true;
+    const sent = document.getElementById('sent')!;
+    sent.hidden = false;
+    sent.focus();
+  });
+</script>
