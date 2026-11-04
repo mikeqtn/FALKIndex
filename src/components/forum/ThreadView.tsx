@@ -8,13 +8,14 @@ import type { ForumLinks } from '../../lib/forum.ts';
 import { forumDay, personInitial } from '../../lib/forum-people';
 import { PostBody } from './PostBody';
 import { ReasonDialog, type ReasonRequest } from './ReasonDialog';
+import { imageUrl, useImagePicker } from './ImagePicker';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
 type Post = Detail['posts'][number];
 type Reply = Post & { replies: Reply[] };
 interface Props { detail: Detail, links: ForumLinks, signedIn: boolean, signInHref: string }
 interface Tools { account: Account | null, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
-interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, signInHref: string, send: (body: string, parent?: string) => Promise<boolean> | undefined }
+interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, signInHref: string, send: (body: string, parent?: string, images?: string[]) => Promise<boolean> | undefined }
 
 /** Conversations start closed from this depth when they have replies, so a large thread stays readable. */
 const OPEN_DEPTH = 3;
@@ -58,12 +59,32 @@ function Votes({ post, shared }: { post: Post, shared: Shared }) {
   </span>;
 }
 
+// A post's images. Readers get a note where a moderator hid one; moderators still see it, to review.
+function PostImages({ post, tools }: { post: Post, tools?: Tools }) {
+  const moderator = isModerator(tools);
+  const act = (id: string, path: 'hide' | 'show' | 'purge', title: string, help: string, action: string) => tools?.ask({
+    title, help, action, run:reason => api(`/api/forum/images/${id}/${path}`, { method:'POST', body:JSON.stringify({ reason }) }),
+  });
+  return <div className="forum-images">{post.images.map(image => <figure key={image.id}>
+    {image.hidden && !moderator ? <p className="forum-hidden-note">A moderator hid this image.</p>
+      : <a href={imageUrl(image.id)} target="_blank" rel="noopener"><img src={imageUrl(image.id)} width={image.width} height={image.height} alt={`Attached by ${post.author.displayName}`} loading="lazy" /></a>}
+    {image.hidden && image.hiddenReason && <figcaption className="small muted">Hidden: {image.hiddenReason}</figcaption>}
+    {moderator && <div className="forum-post-actions small">
+      {image.hidden
+        ? <button type="button" onClick={() => act(image.id, 'show', 'Show this image again', 'Readers will see this image again. Your reason goes to the audit log.', 'Show image')}>Show image</button>
+        : <button type="button" onClick={() => act(image.id, 'hide', 'Hide this image', 'Readers will see that a moderator hid it. Your reason goes to the audit log.', 'Hide image')}>Hide image</button>}
+      {tools?.account?.role === 'admin' && <button type="button" onClick={() => act(image.id, 'purge', 'Delete this image permanently', 'This deletes the file for good and cannot be undone. Use it for material that must not be kept. Your reason goes to the audit log.', 'Delete permanently')}>Delete permanently</button>}
+    </div>}
+  </figure>)}</div>;
+}
+
 // A post's text and what a member can do with it. opening is the thread's first post, which is
 // reported as the thread and replied to from the form at the foot of the page.
 function PostContent({ post, shared, opening }: { post: Post, shared: Shared, opening: boolean }) {
   const { thread, tools } = shared;
   const [editing, setEditing] = useState<string | null>(null);
   const [replying, setReplying] = useState<string | null>(null);
+  const attach = useImagePicker();
   const moderator = isModerator(tools);
   const save = (e: FormEvent) => {
     e.preventDefault();
@@ -71,7 +92,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   };
   const answer = (e: FormEvent) => {
     e.preventDefault();
-    shared.send(replying ?? '', post.id)?.then(ok => { if (ok) setReplying(null); });
+    shared.send(replying ?? '', post.id, attach.ids)?.then(ok => { if (ok) { setReplying(null); attach.clear(); } });
   };
   const report = () => tools?.ask({
     title:opening ? 'Report this thread' : 'Report this post',
@@ -94,6 +115,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
         <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Save</button><button className="account-button secondary" type="button" onClick={() => setEditing(null)}>Cancel</button></div>
       </form>
       : <div className="forum-body"><PostBody text={post.body} /></div>}
+    {post.images.length > 0 && <PostImages post={post} tools={tools} />}
     {post.hidden && post.hiddenReason && <p className="small muted">Hidden: {post.hiddenReason}</p>}
     {editing === null && replying === null && (tools?.account || votable) && <div className="forum-post-actions small">
       {votable && <Votes post={post} shared={shared} />}
@@ -106,7 +128,8 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     </div>}
     {replying !== null && <form className="account-stack forum-inline-reply" onSubmit={answer}>
       <textarea aria-label={`Reply to ${post.author.displayName}`} value={replying} onChange={e => setReplying(e.target.value)} rows={4} maxLength={20000} required autoFocus />
-      <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Post reply</button><button className="account-button secondary" type="button" onClick={() => setReplying(null)}>Cancel</button></div>
+      {attach.picker}
+      <div className="account-actions"><button className="account-button" disabled={tools?.busy || attach.uploading}>Post reply</button><button className="account-button secondary" type="button" onClick={() => setReplying(null)}>Cancel</button></div>
     </form>}
   </>;
 }
@@ -141,6 +164,7 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   const { thread, posts } = detail;
   const [reply, setReply] = useState('');
   const [posted, setPosted] = useState<string | null>(null);
+  const attach = useImagePicker();
   const categoryHref = `${links.category}${thread.category}/`;
   const [back, setBack] = useState({ href:categoryHref, label:thread.categoryName as string });
   const tree = useRef<HTMLDivElement>(null);
@@ -165,14 +189,14 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   }, []);
   useEffect(() => { if (posted) document.getElementById(`p-${posted}`)?.scrollIntoView({ block:'center' }); }, [posted, posts]);
 
-  const send = tools && ((body: string, parent?: string) => {
+  const send = tools && ((body: string, parent?: string, images?: string[]) => {
     let id = '';
-    return tools.act(async () => { id = (await api<{ post: string }>(`/api/forum/threads/${thread.id}/posts`, { method:'POST', body:JSON.stringify({ body, parent }) })).post; }, 'Your reply was posted.')
+    return tools.act(async () => { id = (await api<{ post: string }>(`/api/forum/threads/${thread.id}/posts`, { method:'POST', body:JSON.stringify({ body, parent, ...(images?.length ? { images } : {}) }) })).post; }, 'Your reply was posted.')
       .then(ok => { if (ok) setPosted(id); return ok; });
   });
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    send?.(reply)?.then(ok => { if (ok) setReply(''); });
+    send?.(reply, undefined, attach.ids)?.then(ok => { if (ok) { setReply(''); attach.clear(); } });
   };
   const moderate = (change: Record<string, boolean>, title: string, action: string) => tools?.ask({
     title, action,
@@ -181,7 +205,7 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   });
   const foldAll = (open: boolean) => tree.current?.querySelectorAll('details').forEach(fold => { fold.open = open; });
 
-  const shared: Shared = { links, thread, tools, signInHref, send:(body, parent) => send?.(body, parent) };
+  const shared: Shared = { links, thread, tools, signInHref, send:(body, parent, images) => send?.(body, parent, images) };
   const top = conversations(posts);
   const opening = detail.page === 1 ? top.shift() : undefined;
   return <>
@@ -228,8 +252,9 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
         : <form className="account-stack" onSubmit={submit}>
           <label htmlFor="forum-reply">Reply to the thread</label>
           <textarea id="forum-reply" value={reply} onChange={e => setReply(e.target.value)} rows={6} maxLength={20000} required />
+          {attach.picker}
           <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable. Your reply is public, and by posting you agree to the <a href={links.terms}>terms of use</a>.</p>
-          <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Post reply</button></div>
+          <div className="account-actions"><button className="account-button" disabled={tools?.busy || attach.uploading}>Post reply</button></div>
         </form>}
     </section>
   </>;

@@ -87,6 +87,10 @@ Publishing uses the Autoscale target with a Node server:
 - Build command: `npm run build`.
 - Run command: `npm start`.
 - Astro emits `dist/client` assets and `dist/server/entry.mjs`.
+- Forum images are stored in Replit Object Storage. Create one bucket in the App
+  Storage tool before publishing them; without it, uploads answer 503 and the rest of
+  the forum carries on. Set `FORUM_IMAGE_DIR` to use a local folder instead (tests only;
+  Autoscale disks do not last).
 - Replit Publish copies schema changes from the development database to production,
   so a new migration must exist in development first. After pulling one, run
   `npm run db:setup` in the Replit Shell, then publish, and check that the database

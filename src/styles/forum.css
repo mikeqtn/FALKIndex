@@ -175,6 +175,18 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .forum-post-actions .forum-votes button:hover { text-decoration: none; }
 .forum-post-actions .forum-votes button[aria-pressed="true"] { color: var(--c-action); }
 .forum-score { min-width: 18px; color: var(--c-ink); font-weight: 600; text-align: center; }
+.forum-images { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-3); }
+.forum-images figure { margin: 0; min-width: 0; max-width: 100%; }
+.forum-images img { display: block; width: auto; max-width: 100%; height: auto; max-height: 320px; border-radius: var(--r-control); }
+.forum-images figure:not(:only-child) img { height: 150px; }
+.forum-picker { display: grid; gap: var(--s-2); }
+.forum-picked { display: flex; flex-wrap: wrap; gap: var(--s-3); list-style: none; }
+.forum-picked li { display: grid; gap: var(--s-1); justify-items: start; }
+.forum-picked img { width: 96px; height: 96px; object-fit: cover; border-radius: var(--r-control); }
+.forum-picked button { min-height: 32px; padding: 0; background: none; border: 0; color: var(--c-ink-2); font-size: 13px; cursor: pointer; }
+.forum-picked button:hover { color: var(--c-action); text-decoration: underline; }
+.forum-add-image { position: relative; justify-self: start; cursor: pointer; font-weight: 560; }
+.forum-add-image:focus-within { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .forum-inline-reply { margin-top: var(--s-3); }
 .forum-inline-reply textarea { min-height: 100px; }
 .forum-flash { position: sticky; top: calc(var(--top) + 8px); z-index: 5; margin-bottom: var(--s-3); }
@@ -244,6 +256,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   .forum-post-actions button, .forum-post-actions a { min-height: 44px; }
   .forum-votes a, .forum-post-actions .forum-votes button { min-width: 36px; min-height: 44px; }
   .forum-posts { --indent: 22px; --face: 20px; }
+  .forum-picked button { min-height: 44px; }
   .forum-tree-head { padding-inline: var(--s-4); }
   .forum-tree > li { padding: var(--s-3) var(--s-3); }
   .forum-fold > summary { min-height: 44px; }
