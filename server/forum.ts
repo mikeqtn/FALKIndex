@@ -1,4 +1,5 @@
-import { Router, type Request } from 'express';
+import { randomUUID } from 'node:crypto';
+import express, { Router, type Request } from 'express';
 import { z } from 'zod';
 import { getAuth } from '@clerk/express';
 import type { Pool, PoolClient } from 'pg';
@@ -6,6 +7,7 @@ import { isClerkImage, type Role } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
 import { createCatalogueCache } from '../src/lib/catalogue-cache.ts';
+import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from './forumImages.ts';
 
 // The FALK Forum (forum.falkindex.com). Anyone may read; posting needs a verified, active
 // account with a username. Editors and administrators moderate: nothing is deleted, only
@@ -18,6 +20,7 @@ export const THREADS_PAGE = 25;
 export const POSTS_PAGE = 50;
 /** Replying below this depth stays at this depth, so a conversation can always go on but cannot run off a phone screen. */
 export const MAX_REPLY_DEPTH = 6;
+export const FORUM_MAX_IMAGES = 4;
 /** Sort orders for thread lists. Votes rate comments, not threads, so popular means most replies. */
 export const THREAD_SORTS = { active:'Recent activity', newest:'Newest', day:'Popular: 24 hours', week:'Popular: 7 days', all:'Popular: all time' } as const;
 export type ThreadSort = keyof typeof THREAD_SORTS;
@@ -26,9 +29,10 @@ const POPULAR_SINCE: Partial<Record<ThreadSort, string>> = { day:'24 hours', wee
 const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const body = z.string().trim().min(1,'Write something first.').max(20000);
 const reason = z.string().trim().min(3,'Give a reason of at least 3 characters.').max(1000);
-export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional() }).strict();
+const images = z.array(z.uuid()).max(FORUM_MAX_IMAGES).refine(ids => new Set(ids).size === ids.length, 'Attach an image only once.').optional();
+export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional(), images }).strict();
 export const postInput = z.object({ body }).strict();
-export const replyInput = z.object({ body, parent:z.uuid().optional() }).strict();
+export const replyInput = z.object({ body, parent:z.uuid().optional(), images }).strict();
 export const voteInput = z.object({ value:z.union([z.literal(-1),z.literal(0),z.literal(1)]) }).strict();
 export const reasonInput = z.object({ reason }).strict();
 export const threadModeration = z.object({ pinned:z.boolean().optional(), locked:z.boolean().optional(), hidden:z.boolean().optional(), reason }).strict()
@@ -129,6 +133,8 @@ export async function listThreads(categoryId: string, page: number, sort: Thread
 
 export const listAllThreads = (page: number, sort: ThreadSort = 'active', db: Queryable = pool) => threadPage(null,page,sort,db);
 
+type PostImage = { id: string, width: number, height: number, hidden: boolean, hiddenReason: string | null };
+
 /** A thread and one page of its conversations: posts with no parent, each with all its replies, oldest first so parents come before children. Hidden posts keep their place but only moderators see their text. */
 export async function threadDetail(id: string, page: number, viewer: Viewer, db: Queryable = pool) {
   const moderator = isModerator(viewer);
@@ -141,7 +147,9 @@ export async function threadDetail(id: string, page: number, viewer: Viewer, db:
     )
     SELECT p.id,p.parent_id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')},
       (SELECT coalesce(sum(v.value),0)::int FROM falk_forum_vote v WHERE v.post_id=p.id) AS score,
-      (SELECT v.value FROM falk_forum_vote v WHERE v.post_id=p.id AND v.account_id=$2::uuid) AS my_vote
+      (SELECT v.value FROM falk_forum_vote v WHERE v.post_id=p.id AND v.account_id=$2::uuid) AS my_vote,
+      (SELECT coalesce(json_agg(json_build_object('id',i.id,'width',i.width,'height',i.height,'hidden',i.hidden_at IS NOT NULL,'hiddenReason',i.hidden_reason) ORDER BY i.position),'[]')
+        FROM falk_forum_image i WHERE i.post_id=p.id AND i.purged_at IS NULL) AS images
     FROM tree JOIN falk_forum_post p ON p.id=tree.id JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
     ORDER BY p.created_at,p.id`, [id,viewer?.id ?? null]);
   const total = await db.query('SELECT count(*)::int AS count FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL', [id]);
@@ -152,6 +160,8 @@ export async function threadDetail(id: string, page: number, viewer: Viewer, db:
       hidden:!!p.hidden_at, body:p.hidden_at && !moderator ? null : p.body,
       hiddenReason:moderator ? p.hidden_reason : null, own:viewer?.id === p.author_id,
       score:p.score as number, myVote:(p.my_vote ?? 0) as -1 | 0 | 1,
+      // A hidden image keeps its place; a hidden post shows readers none of its images.
+      images:(p.hidden_at && !moderator ? [] : p.images as PostImage[]).map(i => ({ ...i, hiddenReason:moderator ? i.hiddenReason : null })),
     })),
     total:total.rows[0].count, page, pageSize:POSTS_PAGE,
   };
@@ -178,6 +188,7 @@ export async function createThread(actorId: string, input: z.infer<typeof thread
   const thread = (await db.query('INSERT INTO falk_forum_thread(category_id,author_id,title,watch_id) VALUES($1,$2,$3,$4) RETURNING id',
     [input.category,me.id,input.title,input.record || null])).rows[0];
   const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3) RETURNING id', [thread.id,me.id,input.body])).rows[0];
+  await attachImages(db,me.id,post.id,input.images);
   return { thread:thread.id as string, post:post.id as string };
 }
 
@@ -201,9 +212,62 @@ export async function reply(actorId: string, threadId: string, input: z.infer<ty
   }
   recipients.delete(me.id);
   const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body,parent_id,depth) VALUES($1,$2,$3,$4,$5) RETURNING id', [threadId,me.id,input.body,parent,depth])).rows[0];
+  await attachImages(db,me.id,post.id,input.images);
   await db.query(`INSERT INTO falk_forum_notification(account_id,post_id,kind)
     SELECT account,$1::uuid,kind FROM unnest($2::uuid[],$3::text[]) AS r(account,kind) ON CONFLICT DO NOTHING`, [post.id,[...recipients.keys()],[...recipients.values()]]);
   return { post:post.id as string };
+}
+
+/** Attaches a member's own uploads to their new post, in the order given. An image can be attached only once. */
+async function attachImages(db: PoolClient, memberId: string, postId: string, ids: string[] = []) {
+  if (!ids.length) return;
+  const attached = await db.query(`UPDATE falk_forum_image i SET post_id=$1,position=o.position FROM unnest($2::uuid[]) WITH ORDINALITY AS o(id,position)
+    WHERE i.id=o.id AND i.uploader_id=$3 AND i.post_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL`, [postId,ids,memberId]);
+  if (attached.rowCount !== ids.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
+}
+
+/** Records an image that has already been rebuilt and stored. */
+export async function addImage(actorId: string, id: string, image: { width: number, height: number, bytes: number }, db: PoolClient) {
+  const me = await actor(db,actorId);
+  await db.query('INSERT INTO falk_forum_image(id,uploader_id,width,height,bytes) VALUES($1,$2,$3,$4,$5)', [id,me.id,image.width,image.height,image.bytes]);
+  return id;
+}
+
+/** Forgets this member's uploads that never reached a post, and returns them so their bytes can go too. */
+// ponytail: runs on a member's next upload, so strays of someone who never returns stay until a scheduled sweep exists.
+export async function clearUnattachedImages(memberId: string, db: PoolClient) {
+  const rows = await db.query(`DELETE FROM falk_forum_image WHERE uploader_id=$1 AND post_id IS NULL AND created_at<now()-interval '1 day' RETURNING id`, [memberId]);
+  return rows.rows.map(r => r.id as string);
+}
+
+/** Whether this reader may see an image. viewer is a function so public images never touch the account system. */
+export async function imageForServing(id: string, viewer: () => Promise<Viewer>, db: Queryable = pool) {
+  const row = (await db.query(`SELECT i.uploader_id,i.post_id,i.hidden_at,i.purged_at,p.hidden_at AS post_hidden,t.hidden_at AS thread_hidden
+    FROM falk_forum_image i LEFT JOIN falk_forum_post p ON p.id=i.post_id LEFT JOIN falk_forum_thread t ON t.id=p.thread_id WHERE i.id=$1`, [id])).rows[0];
+  if (!row || row.purged_at) return { allowed:false, public:false };
+  if (row.post_id && !row.hidden_at && !row.post_hidden && !row.thread_hidden) return { allowed:true, public:true };
+  const reader = await viewer();
+  return { allowed:isModerator(reader) || (!row.post_id && reader?.id === row.uploader_id), public:false };
+}
+
+export async function setImageHidden(actorId: string, imageId: string, hidden: boolean, why: string, db: PoolClient) {
+  const me = await actor(db,actorId,MODERATORS);
+  const image = (await db.query('SELECT uploader_id,post_id,hidden_at,purged_at FROM falk_forum_image WHERE id=$1 FOR UPDATE', [imageId])).rows[0];
+  if (!image || image.purged_at) throw new HttpError(404,'Image not found.');
+  if (!!image.hidden_at === hidden) throw new HttpError(409,hidden ? 'This image is already hidden.' : 'This image is not hidden.');
+  await db.query('UPDATE falk_forum_image SET hidden_at=$2,hidden_by=$3,hidden_reason=$4 WHERE id=$1', [imageId,hidden ? new Date() : null,hidden ? me.id : null,hidden ? why : null]);
+  await audit(db,me.id,image.uploader_id,hidden ? 'forum_image_hidden' : 'forum_image_shown',why,{ image:imageId,post:image.post_id });
+  return { hidden };
+}
+
+/** Takes an image off the forum for good. The caller deletes the bytes once this has committed. The one exception to "nothing is deleted", for material that must not be kept up. */
+export async function purgeImage(actorId: string, imageId: string, why: string, db: PoolClient) {
+  const me = await actor(db,actorId,['admin']);
+  const image = (await db.query('SELECT uploader_id,post_id FROM falk_forum_image WHERE id=$1 FOR UPDATE', [imageId])).rows[0];
+  if (!image) throw new HttpError(404,'Image not found.');
+  await db.query('UPDATE falk_forum_image SET purged_at=coalesce(purged_at,now()),purged_by=coalesce(purged_by,$2) WHERE id=$1', [imageId,me.id]);
+  await audit(db,me.id,image.uploader_id,'forum_image_purged',why,{ image:imageId,post:image.post_id });
+  return { purged:true };
 }
 
 /** Sets this member's vote on a comment, or takes it back with 0. Opening posts, your own comments, hidden comments and locked threads take no votes. */
@@ -383,6 +447,47 @@ forum.post('/threads/:id/posts', async (req,res) => {
 forum.patch('/posts/:id', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = postInput.parse(req.body);
   res.json(await write(db => editPost(id,post,input,db)));
+});
+// Checks the member before reading the body, so an anonymous caller never gets 8 MB read or an image decoded.
+forum.post('/images', async (req,res,next) => {
+  const id = await member(req);
+  await write(db => actor(db,id));
+  res.locals.member = id;
+  next();
+}, express.raw({ type:() => true, limit:MAX_UPLOAD_BYTES }), async (req,res) => {
+  const memberId = res.locals.member as string;
+  if (!Buffer.isBuffer(req.body)) throw new HttpError(400,'Choose an image to upload.');
+  const image = await rebuildImage(req.body), id = randomUUID();
+  const strays = await write(db => clearUnattachedImages(memberId,db));
+  await Promise.allSettled(strays.map(removeImage));
+  await storeImage(id,image.data);
+  try { await write(db => addImage(memberId,id,{ width:image.width, height:image.height, bytes:image.data.length },db)); }
+  catch (error) { await removeImage(id).catch(() => {}); throw error; }
+  res.status(201).json({ image:{ id, width:image.width, height:image.height } });
+});
+forum.get('/images/:id', async (req,res) => {
+  const id = z.uuid().parse(req.params.id);
+  const access = await read(db => imageForServing(id,() => viewerOf(req),db));
+  if (!access.allowed) throw new HttpError(404,'Image not found.');
+  const data = await loadImage(id);
+  // Only ever a WebP we made, and nothing a browser could run even if that were wrong.
+  res.set({ 'Content-Type':'image/webp', 'Content-Disposition':'inline', 'X-Content-Type-Options':'nosniff',
+    'Content-Security-Policy':"default-src 'none'; sandbox", 'Cross-Origin-Resource-Policy':'same-origin',
+    'Cache-Control':access.public ? 'public, max-age=300' : 'private, no-store' }).send(data);
+});
+forum.post('/images/:id/hide', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  res.json(await write(db => setImageHidden(id,image,true,why,db)));
+});
+forum.post('/images/:id/show', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  res.json(await write(db => setImageHidden(id,image,false,why,db)));
+});
+forum.post('/images/:id/purge', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  const result = await write(db => purgeImage(id,image,why,db));
+  await removeImage(image);
+  res.json(result);
 });
 forum.post('/posts/:id/vote', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = voteInput.parse(req.body);

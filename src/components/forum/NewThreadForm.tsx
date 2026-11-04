@@ -4,6 +4,7 @@ import type { Account } from '../../accounts/contracts.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
 import { api, handleAccountError } from '../accounts/api';
 import type { ForumLinks } from '../../lib/forum.ts';
+import { useImagePicker } from './ImagePicker';
 
 interface Props {
   categories: { id: string, name: string }[], category: string,
@@ -18,6 +19,7 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
   const [body, setBody] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const attach = useImagePicker();
   useEffect(() => {
     if (!isLoaded) return;
     if (!isSignedIn) { setAccount(null); return; }
@@ -26,7 +28,7 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
   const submit = async (e: FormEvent) => {
     e.preventDefault(); setBusy(true); setError('');
     try {
-      const { thread } = await api<{ thread: string }>('/api/forum/threads', { method:'POST', body:JSON.stringify({ category, title, body, ...(record ? { record:record.id } : {}) }) });
+      const { thread } = await api<{ thread: string }>('/api/forum/threads', { method:'POST', body:JSON.stringify({ category, title, body, ...(record ? { record:record.id } : {}), ...(attach.ids.length ? { images:attach.ids } : {}) }) });
       window.location.assign(`${links.thread}${thread}`);
     } catch (e) { setError(handleAccountError(e)); setBusy(false); }
   };
@@ -43,7 +45,8 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
     <div className="account-field"><label htmlFor="forum-body">Opening post</label>
       <textarea id="forum-body" value={body} onChange={e => setBody(e.target.value)} rows={10} maxLength={20000} required />
       <p className="small muted">Plain text. Leave a blank line between paragraphs; links are made clickable. Cite sources for claims about how a watch is made. Your post is public, and by posting you agree to the <a href={links.terms}>terms of use</a>.</p></div>
-    <div className="account-actions"><button className="account-button" disabled={busy}>Start thread</button></div>
+    {attach.picker}
+    <div className="account-actions"><button className="account-button" disabled={busy || attach.uploading}>Start thread</button></div>
   </form>;
 }
 

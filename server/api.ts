@@ -41,7 +41,8 @@ const minuteHit = minuteCounter();
 api.use(async (req,_res,next) => {
   if (!['GET','HEAD','OPTIONS'].includes(req.method)) {
     requireSameOrigin(req.get('origin'),getClerkProxyHost(req),req.protocol);
-    if (!req.is('application/json')) throw new HttpError(415,'Send application/json.');
+    const upload = req.path === '/forum/images' && req.is(['image/jpeg','image/png','image/webp']);
+    if (!upload && !req.is('application/json')) throw new HttpError(415,'Send application/json.');
   }
   const write = !['GET','HEAD','OPTIONS'].includes(req.method);
   const hits = minuteHit(`${write ? 'write' : 'read'}:${getAuth(req).userId ?? clientKey(req.ip)}`);
@@ -100,6 +101,7 @@ api.post('/corrections', async (req,res) => {
 // Forum posts are never deleted either, so new threads and replies are capped per hour too.
 export const FORUM_THREADS_PER_HOUR = 5;
 export const FORUM_POSTS_PER_HOUR = 30;
+export const FORUM_IMAGES_PER_HOUR = 20;
 const hourly = (scope: string, limit: number, message: string): RequestHandler => async (req,_res,next) => {
   const hour = Math.floor(Date.now()/3600000)*60;
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
@@ -107,6 +109,7 @@ const hourly = (scope: string, limit: number, message: string): RequestHandler =
 };
 api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
+api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have uploaded a lot of images in the last hour. Please try again later.'));
 api.use('/admin',admin);
 api.use('/review',review);
 api.use('/forum',forum);
