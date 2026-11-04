@@ -15,13 +15,13 @@ function Inbox({ links, signInHref }: { links: ForumLinks, signInHref: string })
   const load = useCallback(() => api<Inbox>('/api/forum/notifications').then(setInbox).catch(e => setError(handleAccountError(e))), []);
   useEffect(() => { if (isLoaded && isSignedIn) load(); }, [isLoaded, isSignedIn, load]);
   const readAll = () => api('/api/forum/notifications/read', { method:'POST', body:'{}' }).then(load).catch(e => setError(handleAccountError(e)));
-  if (isLoaded && !isSignedIn) return <p><a href={signInHref}>Sign in</a> to see replies to your threads.</p>;
+  if (isLoaded && !isSignedIn) return <p><a href={signInHref}>Sign in</a> to see replies to your threads and comments.</p>;
   if (error) return <div className="account-error" role="alert">{error}</div>;
   if (!inbox) return <p className="account-loading" role="status">Loading…</p>;
   return <div className="account-stack">
     <div className="account-actions"><span>{inbox.unread} unread</span>{inbox.unread > 0 && <button className="account-button secondary" type="button" onClick={readAll}>Mark all read</button>}</div>
     {inbox.notifications.length ? <ul className="forum-list">{inbox.notifications.map(n => <li key={n.id} className={n.read ? 'muted' : 'forum-unread'}>
-      <a href={`${links.thread}${n.thread.id}#p-${n.post}`}><strong>{n.author.displayName}</strong> replied in {n.thread.title}</a>
+      <a href={`${links.thread}${n.thread.id}#p-${n.post}`}><strong>{n.author.displayName}</strong> replied to your {n.kind} in {n.thread.title}</a>
       <span className="small muted"> · {forumDay(n.createdAt)}</span>
     </li>)}</ul> : <p className="account-empty">No replies yet.</p>}
   </div>;

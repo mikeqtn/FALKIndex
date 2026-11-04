@@ -4,6 +4,6 @@ import NotificationsApp from '../../components/forum/NotificationsApp.tsx';
 import { forumLinks, signInHref } from '../../lib/forum.ts';
 ---
 <ForumLayout title="Replies">
-  <header class="f-title"><div><h1>Replies</h1><p class="f-lead">New posts in threads you have taken part in.</p></div></header>
+  <header class="f-title"><div><h1>Replies</h1><p class="f-lead">Replies to your threads and comments.</p></div></header>
   <NotificationsApp client:only="react" links={forumLinks()} signInHref={signInHref(Astro.url.pathname)} />
 </ForumLayout>
