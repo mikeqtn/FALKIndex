@@ -98,6 +98,7 @@ api.post('/corrections', async (req,res) => {
 // Forum posts are never deleted either, so new threads and replies are capped per hour too.
 export const FORUM_THREADS_PER_HOUR = 5;
 export const FORUM_POSTS_PER_HOUR = 30;
+export const FORUM_REPORTS_PER_HOUR = 20;
 const hourly = (scope: string, limit: number, message: string): RequestHandler => async (req,_res,next) => {
   const hour = Math.floor(Date.now()/3600000)*60;
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
@@ -105,6 +106,7 @@ const hourly = (scope: string, limit: number, message: string): RequestHandler =
 };
 api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
+api.post('/forum/posts/:id/reports',hourly('forum-report',FORUM_REPORTS_PER_HOUR,'You have sent several reports in the last hour. Please try again later.'));
 // Each help message is a paid email to a real inbox, so cap it per visitor and, against many addresses at once, for the site.
 export const SUPPORT_PER_HOUR = 5;
 export const SUPPORT_SITE_PER_HOUR = 60;

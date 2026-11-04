@@ -3,7 +3,7 @@ import { HttpError } from './accounts.ts';
 
 const SUPPORT_TO = 'support@falkindex.com';
 // Postmark sends only from a verified domain, so this must stay on falkindex.com. Replies go to the visitor (ReplyTo).
-const SUPPORT_FROM = 'FALK Index help form <help-form@falkindex.com>';
+const SUPPORT_FROM = 'FALK Index <help-form@falkindex.com>';
 const TOPICS = { account:'Account or sign-in', forum:'The forum', website:'Something on the site', other:'Something else' } as const;
 
 export const supportInput = z.object({
@@ -17,9 +17,13 @@ const unavailable = () => new HttpError(503,'The help form is not working right 
 
 /**
  * Forward a help-form message to the support inbox. It is not stored here, and nothing is ever sent to the address the
- * visitor typed, so the form cannot be used to email a stranger. Logs never include the message or the address.
+ * visitor typed, so the form cannot be used to email a stranger.
  */
-export async function sendSupportMessage(input: z.infer<typeof supportInput>) {
+export const sendSupportMessage = (input: z.infer<typeof supportInput>) => emailSupportInbox(
+  `Help form: ${TOPICS[input.topic]}`,`From: ${input.email}\nTopic: ${TOPICS[input.topic]}\n\n${input.message}`,input.email);
+
+/** Email the support inbox, the only address this site sends to. Logs never include the content or an address. */
+export async function emailSupportInbox(subject: string, text: string, replyTo?: string) {
   const token = process.env.POSTMARK_SERVER_TOKEN;
   if (!token) { console.error(JSON.stringify({ event:'support.not_configured' })); throw unavailable(); }
   let response: Response;
@@ -28,9 +32,8 @@ export async function sendSupportMessage(input: z.infer<typeof supportInput>) {
       method:'POST',
       headers:{ 'Content-Type':'application/json', Accept:'application/json', 'X-Postmark-Server-Token':token },
       body:JSON.stringify({
-        From:SUPPORT_FROM, To:SUPPORT_TO, ReplyTo:input.email,
-        Subject:`Help form: ${TOPICS[input.topic]}`,
-        TextBody:`From: ${input.email}\nTopic: ${TOPICS[input.topic]}\n\n${input.message}`,
+        From:SUPPORT_FROM, To:SUPPORT_TO, ...(replyTo ? { ReplyTo:replyTo } : {}),
+        Subject:subject, TextBody:text,
         MessageStream:'outbound', TrackOpens:false, TrackLinks:'None',
       }),
       signal:AbortSignal.timeout(10000),

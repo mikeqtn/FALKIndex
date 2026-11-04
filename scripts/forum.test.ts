@@ -6,8 +6,8 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
-import { createThread, editPost, listCategories, listReports, listThreads, markRead, moderateThread, notifications,
-  recentThreads, recordsUnderDiscussion, recordThreads, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
+import { alertModerators, createThread, editPost, listCategories, listReports, listThreads, markRead, moderateThread, NEW_MEMBER, notifications,
+  recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
 
 after(() => pool.end());
 
@@ -201,8 +201,114 @@ test('the forum home lists the latest thread per category, recent threads and re
   assert.deepEqual(category.latest, { id:thread, title:'Hello there' });
   assert.equal((await recentThreads(1, db))[0].id, thread);
   const record = (await db.query('SELECT id FROM falk_watch LIMIT 1')).rows[0].id;
-  await createThread(m.alice, { category:'test-category', title:'About a record', body:'Second', record }, db);
+  await createThread(m.bob, { category:'test-category', title:'About a record', body:'Second', record }, db);
   assert.deepEqual((await recordsUnderDiscussion(1, db))[0], { id:record, threads:1 });
+}));
+
+// Give a member enough age and visible posts to count as established, in a thread of their own.
+async function establish(db: PoolClient, id: string, hiddenBy?: string) {
+  await db.query(`UPDATE falk_account SET created_at=now() - make_interval(days => $2) WHERE id=$1`, [id, NEW_MEMBER.days + 1]);
+  const thread = (await db.query("INSERT INTO falk_forum_thread(category_id,author_id,title,created_at) VALUES('test-category',$1,'Older thread',now() - interval '2 days') RETURNING id", [id])).rows[0].id;
+  await db.query(`INSERT INTO falk_forum_post(thread_id,author_id,body,created_at,hidden_at,hidden_by,hidden_reason)
+    SELECT $1,$2,'Older post '||n,now() - interval '2 days',$3::timestamptz,$4::uuid,$5 FROM generate_series(1,$6::int) n`,
+    [thread, id, hiddenBy ? new Date() : null, hiddenBy ?? null, hiddenBy ? 'Spam' : null, NEW_MEMBER.posts]);
+  return thread as string;
+}
+const linked = 'See https://spam.example/deal for more.';
+
+test('new members cannot post links, in threads, replies or edits, until they are established', () => members(async (db, m) => {
+  await assert.rejects(createThread(m.alice, { ...thread, body:linked }, db), /cannot post links/);
+  await assert.rejects(createThread(m.alice, { ...thread, title:'Deals at https://spam.example' }, db), /cannot post links/);
+  const { thread:id, post } = await createThread(m.alice, thread, db);
+  await assert.rejects(reply(m.bob, id, { body:linked }, db), /cannot post links/);
+  await assert.rejects(editPost(m.alice, post, { body:linked }, db), /cannot post links/);
+  await reply(m.editor, id, { body:linked }, db);
+  // Old enough, but without enough visible posts: what a moderator hid does not count.
+  await establish(db, m.bob, m.editor);
+  await assert.rejects(reply(m.bob, id, { body:linked }, db), /cannot post links/);
+  await establish(db, m.alice);
+  await editPost(m.alice, post, { body:linked }, db);
+}));
+
+test('new members have lower hourly limits, and established members do not', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  await assert.rejects(createThread(m.alice, { ...thread, body:'A second opening post.' }, db), /one thread an hour/);
+  for (let i = 1; i < NEW_MEMBER.postsPerHour; i++) await reply(m.alice, id, { body:`Reply number ${i}` }, db);
+  await assert.rejects(reply(m.alice, id, { body:'One reply too many' }, db), /five times an hour/);
+  await establish(db, m.alice);
+  await reply(m.alice, id, { body:'One more, now established' }, db);
+  await createThread(m.alice, { ...thread, body:'A second opening post.' }, db);
+}));
+
+test('the same long text is refused within a day, but short replies and unchanged edits are fine', () => members(async (db, m) => {
+  const text = 'This exact sentence, posted more than once.';
+  const { thread:id, post } = await createThread(m.alice, { ...thread, body:text }, db);
+  await assert.rejects(reply(m.alice, id, { body:`  ${text.toUpperCase().replaceAll(' ', '\n')} ` .trim() }, db), /already posted/);
+  await editPost(m.alice, post, { body:text }, db);
+  await reply(m.alice, id, { body:'Thanks!' }, db);
+  await reply(m.alice, id, { body:'Thanks!' }, db);
+  await reply(m.bob, id, { body:text }, db);
+  await reply(m.editor, id, { body:text }, db);
+  await reply(m.editor, id, { body:text }, db);
+  await db.query("UPDATE falk_forum_post SET hidden_at=now(),hidden_by=$2,hidden_reason='Spam' WHERE id=$1", [post, m.editor]);
+  await assert.rejects(reply(m.alice, id, { body:text }, db), /already posted/, 'hiding it does not let it be posted again');
+}));
+
+test('a moderator can hide everything by a contributor and suspend them in one step', () => members(async (db, m) => {
+  const { thread:id, post } = await createThread(m.alice, thread, db);
+  const second = (await reply(m.alice, id, { body:'More from the same member.' }, db)).post;
+  const { thread:other } = await createThread(m.bob, { ...thread, body:'A thread by someone else.' }, db);
+  const bystander = (await reply(m.bob, id, { body:'A reply by someone else.' }, db)).post;
+  const onOther = (await reply(m.alice, other, { body:'A reply on another thread.' }, db)).post;
+  const { report } = await reportPost(m.bob, post, { reason:'Spam' }, db);
+  await assert.rejects(removeMember(m.bob, post, 'Spam', db), /permission/);
+  assert.deepEqual(await removeMember(m.editor, second, 'Spam wave', db), { posts:3, threads:1 });
+  const hidden = async (ids: string[]) => (await db.query('SELECT count(*)::int AS count FROM falk_forum_post WHERE id=ANY($1) AND hidden_at IS NOT NULL', [ids])).rows[0].count;
+  assert.equal(await hidden([post, second, onOther]), 3);
+  assert.equal(await hidden([bystander]), 0, "another member's reply is not hidden");
+  assert.equal(await threadDetail(id, 1, null, db), null, 'their thread is hidden');
+  assert.ok(await threadDetail(other, 1, null, db), "another member's thread stays");
+  assert.ok(!(await listReports(m.editor, db)).some(r => r.id === report), 'open reports are settled');
+  await assert.rejects(reply(m.alice, other, { body:'Back again.' }, db), /suspended/);
+  const audited = (await db.query("SELECT reason,payload FROM falk_audit_event WHERE action='forum_member_removed' AND target_id=$1", [m.alice])).rows;
+  assert.deepEqual(audited, [{ reason:'Spam wave', payload:{ posts:3, threads:1 } }]);
+}));
+
+test('one-step removal cannot reach a moderator', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const theirs = (await reply(m.editor, id, { body:'A note from an editor.' }, db)).post;
+  await assert.rejects(removeMember(m.editor, theirs, 'Testing', db), /administrator/);
+  assert.equal((await db.query('SELECT status FROM falk_account WHERE id=$1', [m.editor])).rows[0].status, 'active');
+}));
+
+test('a report emails the support inbox without naming the reporter, up to a cap, and never fails the report', () => members(async (db, m) => {
+  const { thread:id, post } = await createThread(m.alice, thread, db);
+  const { report } = await reportPost(m.bob, post, { reason:'Looks like spam' }, db);
+  const realFetch = globalThis.fetch, token = process.env.POSTMARK_SERVER_TOKEN;
+  const sent: any[] = [];
+  let respond = () => Response.json({ ErrorCode:0 });
+  globalThis.fetch = (async (_url: any, init: any) => { sent.push(JSON.parse(init.body)); return respond(); }) as typeof fetch;
+  process.env.POSTMARK_SERVER_TOKEN = 'test-token';
+  try {
+    await alertModerators(report, db);
+    assert.equal(sent.length, 1);
+    assert.equal(sent[0].To, 'support@falkindex.com');
+    assert.equal(sent[0].Subject, `Forum report: ${thread.title}`);
+    assert.match(sent[0].TextBody, /Looks like spam/);
+    const reporter = (await db.query('SELECT username FROM falk_account WHERE id=$1', [m.bob])).rows[0].username;
+    assert.ok(!JSON.stringify(sent[0]).includes(reporter));
+    assert.equal(sent[0].ReplyTo, undefined);
+    respond = () => Response.json({ ErrorCode:10 }, { status:422 });
+    await alertModerators(report, db);
+    sent.length = 0;
+    await db.query(`WITH p AS (INSERT INTO falk_forum_post(thread_id,author_id,body) SELECT $1,$2,'Bulk' FROM generate_series(1,$4::int) RETURNING id)
+      INSERT INTO falk_forum_report(post_id,reporter_id,reason) SELECT id,$3,'Bulk' FROM p`, [id, m.alice, m.bob, REPORT_ALERTS_PER_HOUR]);
+    await alertModerators(report, db);
+    assert.equal(sent.length, 0, 'over the cap, reports wait in the queue');
+  } finally {
+    globalThis.fetch = realFetch;
+    if (token === undefined) delete process.env.POSTMARK_SERVER_TOKEN; else process.env.POSTMARK_SERVER_TOKEN = token;
+  }
 }));
 
 test('posts by a deleted member stay, shown as a deleted member with no profile link', () => members(async (db, m) => {

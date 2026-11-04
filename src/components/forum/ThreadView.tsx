@@ -24,6 +24,7 @@ function PostView({ post, links, locked, starter, tools }: { post: Post, links: 
   };
   const report = () => { const reason = ask('Why should moderators look at this post?'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }), 'Thanks. Moderators will review this post.'); };
   const toggle = () => { const reason = ask(post.hidden ? 'Why show this post again?' : 'Why hide this post? Readers will see that it was hidden.'); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/${post.hidden ? 'show' : 'hide'}`, { method:'POST', body:JSON.stringify({ reason }) })); };
+  const remove = () => { const reason = ask(`This hides all of @${post.author.username}'s posts and threads and suspends their account. Why?`); if (reason) tools?.act(() => api(`/api/forum/posts/${post.id}/remove-member`, { method:'POST', body:JSON.stringify({ reason }) }), `@${post.author.username} is suspended and their posts are hidden.`); };
   return <article className={`forum-post${post.hidden ? ' hidden' : ''}`} id={`p-${post.id}`}>
     <div className="forum-avatar" style={{ '--hue':personHue(post.author.username ?? post.author.displayName) } as CSSProperties} aria-hidden="true">
       {post.author.imageUrl ? <img src={post.author.imageUrl} alt="" /> : personInitial(post.author.displayName)}
@@ -47,6 +48,7 @@ function PostView({ post, links, locked, starter, tools }: { post: Post, links: 
       {post.own && !post.hidden && !locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
       {!post.own && !post.hidden && <button type="button" onClick={report}>Report</button>}
       {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+      {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}
     </div>}
     </div>
   </article>;
