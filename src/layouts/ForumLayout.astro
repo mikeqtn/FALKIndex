@@ -97,6 +97,17 @@ const q = Astro.url.searchParams.get('q') ?? '';
       const menu = document.getElementById('f-menu') as HTMLDetailsElement, wide = matchMedia('(min-width: 900px)');
       const fit = () => { menu.open = wide.matches; };
       fit(); wide.addEventListener('change', fit);
+      // "/" jumps to forum search.
+      addEventListener('keydown', e => {
+        const t = e.target as HTMLElement;
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || t.closest('input, textarea, select, [contenteditable]')) return;
+        const q = document.getElementById('f-q') as HTMLInputElement;
+        if (q.offsetParent) { e.preventDefault(); q.focus(); }
+      });
+    </script>
+    <script>
+      // Separate from the script above, which stays small enough for Astro to inline, so the menu folds without waiting for a file.
+      import { saveTheme } from '../lib/inline-scripts.mjs';
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>('.f-theme')!;
       const systemDark = matchMedia('(prefers-color-scheme: dark)');
@@ -105,18 +116,11 @@ const q = Astro.url.searchParams.get('q') ?? '';
       toggle.addEventListener('click', () => {
         const theme = isDark() ? 'light' : 'dark';
         root.dataset.theme = theme;
-        try { localStorage.setItem('falk-theme', theme); } catch {}
+        saveTheme(theme);
         sync();
       });
       systemDark.addEventListener('change', sync);
       sync();
-      // "/" jumps to forum search.
-      addEventListener('keydown', e => {
-        const t = e.target as HTMLElement;
-        if (e.key !== '/' || e.metaKey || e.ctrlKey || t.closest('input, textarea, select, [contenteditable]')) return;
-        const q = document.getElementById('f-q') as HTMLInputElement;
-        if (q.offsetParent) { e.preventDefault(); q.focus(); }
-      });
     </script>
   </body>
 </html>
