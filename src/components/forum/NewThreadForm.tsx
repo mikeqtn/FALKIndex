@@ -20,9 +20,10 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
   const [error, setError] = useState('');
   useEffect(() => {
     if (!isLoaded) return;
-    if (!isSignedIn) { setAccount(null); return; }
+    // The server redirects when there's no session cookie; this catches a cookie left over from an expired session.
+    if (!isSignedIn) { window.location.replace(signInHref); return; }
     api<{ account: Account }>('/api/account').then(r => setAccount(r.account)).catch(e => { setError(handleAccountError(e)); setAccount(null); });
-  }, [isLoaded, isSignedIn]);
+  }, [isLoaded, isSignedIn, signInHref]);
   const submit = async (e: FormEvent) => {
     e.preventDefault(); setBusy(true); setError('');
     try {

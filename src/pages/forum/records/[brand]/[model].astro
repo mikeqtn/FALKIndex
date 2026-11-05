@@ -20,7 +20,7 @@ const name = `${r.brandName} ${r.model}`;
       <h1>Discussing the {name}</h1>
       <p class="f-thread-record"><CompactStrip scores={r.profile.scores} /><a href={siteHref(`/records/${r.id}/`)}>Read the record and its evidence</a></p>
     </div>
-    <a class="f-button" href={forumPath(`/new/?category=${RECORD_CATEGORY}&record=${encodeURIComponent(r.id)}`)} data-needs-account>Start a thread about it</a>
+    <a class="f-button" href={forumPath(`/new/?category=${RECORD_CATEGORY}&record=${encodeURIComponent(r.id)}`)}>Start a thread about it</a>
   </header>
   <ThreadList threads={threads} hideRecord empty="No one has discussed this record yet." />
 </ForumLayout>

@@ -52,7 +52,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
         <nav class="f-side-nav" aria-label="Forum">
           <ul>
             <li><a href={forumPath('/')} aria-current={nav === 'home' ? 'page' : undefined}>Forum home</a></li>
-            <li><a href={forumPath('/new/')} data-needs-account aria-current={nav === 'new' ? 'page' : undefined}>Start a thread</a></li>
+            <li><a href={forumPath('/new/')} aria-current={nav === 'new' ? 'page' : undefined}>Start a thread</a></li>
           </ul>
           <h2>Categories</h2>
           <ul>
@@ -91,9 +91,6 @@ const q = Astro.url.searchParams.get('q') ?? '';
         </div>
       </header>
       <main id="main" class="f-canvas">
-        {!signedIn && nav !== 'new' && <p id="f-needs-account" class="account-error" role="alert" tabindex="-1" hidden>
-          <a href="/sign-in">Sign in</a> with your FALK Index account, or <a href="/sign-up">create one</a>, to start a thread.
-        </p>}
         <slot />
       </main>
     </div>
@@ -115,16 +112,6 @@ const q = Astro.url.searchParams.get('q') ?? '';
       });
       systemDark.addEventListener('change', sync);
       sync();
-      // Signed out, "Start a thread" explains itself here. Without script the link still reaches the new-thread page, which says the same.
-      const needsAccount = document.getElementById('f-needs-account');
-      if (needsAccount) addEventListener('click', e => {
-        const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-needs-account]');
-        if (!link) return;
-        e.preventDefault();
-        needsAccount.querySelectorAll('a').forEach(a => { a.search = `?redirect_url=${encodeURIComponent(link.pathname + link.search)}`; });
-        needsAccount.hidden = false;
-        needsAccount.focus();
-      });
       // "/" jumps to forum search.
       addEventListener('keydown', e => {
         const t = e.target as HTMLElement;

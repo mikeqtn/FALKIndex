@@ -16,7 +16,7 @@ const pages = Math.ceil(listing.total / listing.pageSize);
       <h1>{listing.category.name}</h1>
       <p class="f-lead">{listing.category.description}</p>
     </div>
-    <a class="f-button" href={forumPath(`/new/?category=${id}`)} data-needs-account>Start a thread</a>
+    <a class="f-button" href={forumPath(`/new/?category=${id}`)}>Start a thread</a>
   </header>
   <ThreadList threads={listing.threads} heading={`${listing.total} ${listing.total === 1 ? 'thread' : 'threads'}`} empty="No threads here yet. Start the first one." />
   {pages > 1 && <nav class="f-pages" aria-label="Pages">
