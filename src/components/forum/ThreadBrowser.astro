@@ -7,7 +7,7 @@ const pages = Math.ceil(listing.total / listing.pageSize);
 const quiet = { day:'No replies in the last 24 hours.', week:'No replies in the last 7 days.' } as Partial<Record<ThreadSort, string>>;
 ---
 <nav class="f-sorts" aria-label="Sort threads">
-  {Object.entries(THREAD_SORTS).map(([key, label]) => <a href={`?sort=${key}`} aria-current={key === sort ? 'true' : undefined}>{label}</a>)}
+  {Object.entries(THREAD_SORTS).map(([key, label]) => <a href={`?sort=${key}`} data-astro-prefetch aria-current={key === sort ? 'true' : undefined}>{label}</a>)}
 </nav>
 <ThreadList threads={listing.threads} heading={`${listing.total} ${listing.total === 1 ? 'thread' : 'threads'}`} empty={quiet[sort] ?? empty} showCategory={showCategory} />
 {pages > 1 && <nav class="f-pages" aria-label="Pages">

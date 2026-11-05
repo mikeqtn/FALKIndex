@@ -3,6 +3,9 @@
    members write, as the main site keeps it for evidence prose. accounts.css reads the same tokens for the forms. */
 @import './shared.css';
 
+/* Cross-fade between forum pages instead of blanking. Browsers without support reload as usual. */
+@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }
 
 *, *::before, *::after { box-sizing: border-box; }
