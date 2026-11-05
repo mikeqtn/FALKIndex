@@ -194,6 +194,14 @@ test('only readers with a Clerk session load the account menu; everyone else get
   }
 });
 
+test('signed in, the server draws the account links so the menu does not wait for Clerk', async () => {
+  const headers = { cookie:'__client_uat=1791917601' };
+  const site = await (await fetch(`${base}/methodology/`,{headers})).text();
+  assert.match(site,/<a href="\/account">Account<\/a><button type="button" disabled[^>]*>Sign out<\/button>/);
+  const forum = await (await fetch(`${base}/forum/threads/`,{headers})).text();
+  assert.match(forum,/<a href="\/forum\/notifications\/">Replies<\/a><a href="\/account">Account<\/a><button type="button" disabled[^>]*>Sign out<\/button>/);
+});
+
 test('no exported JSON has an aggregate field', { skip }, () => {
   const walk = (v: unknown, at: string): void => {
     if (Array.isArray(v)) return v.forEach((x, i) => walk(x, `${at}[${i}]`));
