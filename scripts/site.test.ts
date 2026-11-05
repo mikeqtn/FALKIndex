@@ -299,7 +299,7 @@ test('forum tabs load ahead of the click, but Start a thread does not', async ()
   const html = await (await fetch(`${base}/forum/threads/`)).text();
   const links = [...html.matchAll(/<a\b[^>]*>/g)].map(m => m[0]);
   const marked = (href: string) => links.filter(a => a.includes(`href="${href}"`)).some(a => a.includes('data-astro-prefetch'));
-  assert.ok(marked('?sort=new'), 'sort tabs');
+  assert.ok(marked('?sort=newest'), 'sort tabs');
   assert.ok(marked('/forum/threads/'), 'sidebar');
   assert.ok(!marked('/forum/new/'), 'Start a thread redirects to sign-in when signed out');
 });
