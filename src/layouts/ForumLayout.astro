@@ -85,7 +85,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
           </button>
           {signedIn
             ? <AccountNavigation client:only="react" site={siteHref('')} forum={{ replies:forumPath('/notifications/'), moderation:forumPath('/moderation/') }}>
-                <span slot="fallback" class="account-nav" role="status"><span class="sr-only">Loading account navigation</span><span class="account-skeleton" style="width: 84px" aria-hidden="true" /></span>
+                <span slot="fallback" class="account-nav"><a href={forumPath('/notifications/')}>Replies</a><a href={`${siteHref('')}/account`}>Account</a><button type="button" disabled>Sign out</button></span>
               </AccountNavigation>
             : <span class="account-nav"><a href="/sign-in">Sign in</a><a class="account-button" href="/sign-up">Create account</a></span>}
           <a class="f-switch" href={siteHref('/') || '/'}>FALK Index</a>
