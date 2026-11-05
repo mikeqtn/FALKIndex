@@ -106,6 +106,12 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     action:post.hidden ? 'Show post' : 'Hide post',
     run:reason => api(`/api/forum/posts/${post.id}/${post.hidden ? 'show' : 'hide'}`, { method:'POST', body:JSON.stringify({ reason }) }),
   });
+  const remove = () => tools?.ask({
+    title:`Hide everything by @${post.author.username} and suspend them`,
+    help:'This hides all of their posts and threads and suspends their account. Your reason goes to the audit log.',
+    action:'Hide all and suspend',
+    run:reason => api(`/api/forum/posts/${post.id}/remove-member`, { method:'POST', body:JSON.stringify({ reason }) }),
+  }, `@${post.author.username} is suspended and their posts are hidden.`);
   const canReply = tools?.account?.onboarded && (!thread.locked || moderator) && (!post.hidden || moderator);
   const votable = !opening && !post.hidden;
   return <>
@@ -124,6 +130,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
         {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
         {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
         {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+        {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}
       </>}
     </div>}
     {replying !== null && <form className="account-stack forum-inline-reply" onSubmit={answer}>

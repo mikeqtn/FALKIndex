@@ -3,7 +3,9 @@ import ForumLayout from '../../layouts/ForumLayout.astro';
 import NewThreadForm from '../../components/forum/NewThreadForm.tsx';
 import { navCategories } from '../../../server/forum.ts';
 import { getCatalogue } from '../../lib/data.ts';
-import { forumLinks, signInHref } from '../../lib/forum.ts';
+import { forumLinks, hasSession, signInHref } from '../../lib/forum.ts';
+const signIn = signInHref(Astro.url.pathname + Astro.url.search);
+if (!hasSession(Astro.request.headers.get('cookie'))) return Astro.redirect(signIn);
 const { records } = await getCatalogue(Astro.locals);
 const categories = await navCategories();
 const requested = Astro.url.searchParams.get('category') ?? '';
@@ -13,5 +15,5 @@ const record = found ? { id:found.id, name:`${found.brandName} ${found.model}` }
 ---
 <ForumLayout nav="new" title="Start a thread">
   <header class="f-title"><div><h1>Start a thread</h1></div></header>
-  <NewThreadForm client:only="react" categories={categories} category={category} record={record} links={forumLinks()} signInHref={signInHref(Astro.url.pathname + Astro.url.search)} />
+  <NewThreadForm client:only="react" categories={categories} category={category} record={record} links={forumLinks()} signInHref={signIn} />
 </ForumLayout>

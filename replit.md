@@ -75,6 +75,9 @@ on the deployment and its DNS record, and allow the domain in the Auth pane.
 `FORUM_HOST` is also added to the server's host allowlist; any other domain added to
 the deployment must be listed in `SITE_HOSTS` (see README) or it is served as falkindex.com.
 
+Spam controls: turn on Clerk's bot sign-up protection, through the workspace Auth pane (the page policy already allows its challenge).
+New-member limits are `NEW_MEMBER` in `server/forum.ts`. Report alerts go to the support inbox through Postmark.
+
 The forum is its own site: `src/layouts/ForumLayout.astro` and `src/styles/forum.css`, with no main-site
 header, footer or stylesheet. To create its categories and starter threads, run
 `npm run forum:seed -- --author <administrator's username>`. It is safe to run again, and it never changes

@@ -6,6 +6,8 @@ import type { Pool, PoolClient } from 'pg';
 import { isClerkImage, type Role } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
+import { emailSupportInbox } from './support.ts';
+import { hasLink } from '../src/lib/post-text.ts';
 import { createCatalogueCache } from '../src/lib/catalogue-cache.ts';
 import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from './forumImages.ts';
 
@@ -181,10 +183,34 @@ export async function searchForum(q: string, db: Queryable = pool) {
   return rows.rows.map(threadFrom);
 }
 
+// Spam pays through links and volume, so a new member gets neither until they have a little history. A post a
+// moderator hid does not count towards it. ponytail: limits are read from the posts themselves, so two requests at the
+// same instant can both pass; the hourly limits in api.ts still apply. Moderators are exempt from all of this.
+export const NEW_MEMBER = { days:3, posts:3, threadsPerHour:1, postsPerHour:5 };
+const DUPLICATE_MIN_LENGTH = 20; // Shorter replies, such as "Thanks!", are often repeated in good faith.
+async function screenPost(db: PoolClient, me: { id: string, role: Role }, body: string, post: { title?: string, editing?: string }) {
+  if (isModerator(me)) return;
+  const { established, threads, posts } = (await db.query(`SELECT
+    a.created_at <= now() - make_interval(days => $2) AND (SELECT count(*) FROM falk_forum_post p WHERE p.author_id=a.id AND p.hidden_at IS NULL) >= $3 AS established,
+    (SELECT count(*)::int FROM falk_forum_thread t WHERE t.author_id=a.id AND t.created_at > now() - interval '1 hour') AS threads,
+    (SELECT count(*)::int FROM falk_forum_post p WHERE p.author_id=a.id AND p.created_at > now() - interval '1 hour') AS posts
+    FROM falk_account a WHERE a.id=$1`, [me.id,NEW_MEMBER.days,NEW_MEMBER.posts])).rows[0];
+  if (!established) {
+    if (hasLink(`${post.title ?? ''} ${body}`)) throw new HttpError(403,`New accounts cannot post links yet. You can once your account is ${NEW_MEMBER.days} days old and has ${NEW_MEMBER.posts} visible posts.`);
+    if (!post.editing && post.title !== undefined && threads >= NEW_MEMBER.threadsPerHour) throw new HttpError(429,'New accounts can start one thread an hour. Please try again later.');
+    if (!post.editing && posts >= NEW_MEMBER.postsPerHour) throw new HttpError(429,'New accounts can post five times an hour. Please try again later.');
+  }
+  if (body.length < DUPLICATE_MIN_LENGTH && !hasLink(body)) return;
+  const duplicate = await db.query(`SELECT 1 FROM falk_forum_post WHERE author_id=$1 AND created_at > now() - interval '1 day' AND id IS DISTINCT FROM $2::uuid
+    AND lower(regexp_replace(body,'\\s+',' ','g'))=lower(regexp_replace($3,'\\s+',' ','g')) LIMIT 1`, [me.id,post.editing ?? null,body]);
+  if (duplicate.rowCount) throw new HttpError(409,'You have already posted this in the last day.');
+}
+
 export async function createThread(actorId: string, input: z.infer<typeof threadInput>, db: PoolClient) {
   const me = await actor(db,actorId);
   if (!(await db.query('SELECT 1 FROM falk_forum_category WHERE id=$1', [input.category])).rowCount) throw new HttpError(400,'Choose a category.');
   if (input.record && !(await db.query('SELECT 1 FROM falk_watch WHERE id=$1', [input.record])).rowCount) throw new HttpError(400,'Choose a record from the catalogue.');
+  await screenPost(db,me,input.body,{ title:input.title });
   const thread = (await db.query('INSERT INTO falk_forum_thread(category_id,author_id,title,watch_id) VALUES($1,$2,$3,$4) RETURNING id',
     [input.category,me.id,input.title,input.record || null])).rows[0];
   const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3) RETURNING id', [thread.id,me.id,input.body])).rows[0];
@@ -198,6 +224,7 @@ export async function reply(actorId: string, threadId: string, input: z.infer<ty
   const thread = (await db.query('SELECT author_id,locked,hidden_at FROM falk_forum_thread WHERE id=$1 FOR SHARE', [threadId])).rows[0];
   if (!thread || (thread.hidden_at && !isModerator(me))) throw new HttpError(404,'Thread not found.');
   if (thread.locked && !isModerator(me)) throw new HttpError(403,'This thread is locked.');
+  await screenPost(db,me,input.body,{});
   let parent: string | null = null, depth = 0;
   const recipients = new Map<string, 'thread' | 'comment'>([[thread.author_id,'thread']]);
   if (input.parent) {
@@ -294,6 +321,7 @@ export async function editPost(actorId: string, postId: string, input: z.infer<t
   if (post.author_id !== me.id) throw new HttpError(403,'You can only edit your own posts.');
   if (post.hidden_at) throw new HttpError(409,'A moderator hid this post, so it cannot be edited.');
   if (post.locked || post.thread_hidden) throw new HttpError(409,'This thread is locked.');
+  await screenPost(db,me,input.body,{ editing:postId });
   await db.query('UPDATE falk_forum_post SET body=$2 WHERE id=$1', [postId,input.body]);
   return { post:postId };
 }
@@ -308,6 +336,21 @@ export async function reportPost(actorId: string, postId: string, input: z.infer
     ON CONFLICT(post_id,reporter_id) DO NOTHING RETURNING id`, [postId,me.id,input.reason]);
   if (!report.rowCount) throw new HttpError(409,'You have already reported this post.');
   return { report:report.rows[0].id as string };
+}
+
+/**
+ * Email the support inbox about a new report, without the reporter's name. Past the hourly cap the report still waits
+ * in the queue, so a burst cannot flood the inbox or the email bill. A failed alert must never fail the report.
+ */
+export const REPORT_ALERTS_PER_HOUR = 20;
+export async function alertModerators(reportId: string, db: Queryable = pool) {
+  try {
+    const row = (await db.query(`SELECT r.reason,t.title,(SELECT count(*)::int FROM falk_forum_report WHERE created_at > now() - interval '1 hour') AS recent
+      FROM falk_forum_report r JOIN falk_forum_post p ON p.id=r.post_id JOIN falk_forum_thread t ON t.id=p.thread_id WHERE r.id=$1`, [reportId])).rows[0];
+    if (!row || row.recent > REPORT_ALERTS_PER_HOUR) return;
+    const queue = process.env.FORUM_HOST ? `https://${process.env.FORUM_HOST}/moderation/` : 'https://falkindex.com/forum/moderation/';
+    await emailSupportInbox(`Forum report: ${row.title}`,`A post in "${row.title}" was reported.\n\nReason:\n${row.reason}\n\nReview it: ${queue}`);
+  } catch { console.error(JSON.stringify({ event:'forum.report_alert_failed' })); }
 }
 
 /** Hide a post and close its open reports as handled. Returns false if it was already hidden. */
@@ -334,6 +377,24 @@ export async function setPostHidden(actorId: string, postId: string, hidden: boo
   await db.query('UPDATE falk_forum_post SET hidden_at=NULL,hidden_by=NULL,hidden_reason=NULL WHERE id=$1', [postId]);
   await audit(db,me.id,post.author_id,'forum_post_shown',why,{post:postId,thread:post.thread_id});
   return { hidden };
+}
+
+/**
+ * Deal with a spammer in one step: hide everything they have posted and suspend the account. Editors may suspend no one
+ * else, so this reaches only contributors. An administrator can undo the suspension; each post is shown again by hand.
+ */
+export async function removeMember(actorId: string, postId: string, why: string, db: PoolClient) {
+  const me = await actor(db,actorId,MODERATORS);
+  const post = (await db.query('SELECT author_id FROM falk_forum_post WHERE id=$1', [postId])).rows[0];
+  if (!post) throw new HttpError(404,'Post not found.');
+  const target = (await db.query('SELECT role FROM falk_account WHERE id=$1 FOR UPDATE', [post.author_id])).rows[0];
+  if (target.role !== 'contributor') throw new HttpError(403,'Only an administrator can suspend an editor or administrator, from the account controls.');
+  const posts = (await db.query('SELECT id FROM falk_forum_post WHERE author_id=$1 AND hidden_at IS NULL ORDER BY created_at,id', [post.author_id])).rows;
+  for (const { id } of posts) await hide(db,me.id,id,why);
+  const threads = await db.query(`UPDATE falk_forum_thread SET hidden_at=now(),hidden_by=$2,hidden_reason=$3 WHERE author_id=$1 AND hidden_at IS NULL`, [post.author_id,me.id,why]);
+  await db.query("UPDATE falk_account SET status='suspended' WHERE id=$1", [post.author_id]);
+  await audit(db,me.id,post.author_id,'forum_member_removed',why,{ posts:posts.length, threads:threads.rowCount });
+  return { posts:posts.length, threads:threads.rowCount ?? 0 };
 }
 
 /** Pin, lock or hide a thread. A thread that is hidden again keeps its first hiding record. */
@@ -495,7 +556,13 @@ forum.post('/posts/:id/vote', async (req,res) => {
 });
 forum.post('/posts/:id/reports', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = reasonInput.parse(req.body);
-  res.status(201).json(await write(db => reportPost(id,post,input,db)));
+  const result = await write(db => reportPost(id,post,input,db));
+  await alertModerators(result.report);
+  res.status(201).json(result);
+});
+forum.post('/posts/:id/remove-member', async (req,res) => {
+  const id = await member(req), post = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  res.json(await write(db => removeMember(id,post,why,db)));
 });
 forum.post('/posts/:id/hide', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);

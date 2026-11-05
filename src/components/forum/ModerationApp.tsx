@@ -30,6 +30,16 @@ function Queue({ links, signInHref }: { links: ForumLinks, signInHref: string })
       },
     });
   };
+  const remove = async (report: Report) => {
+    const reason = window.prompt(`This hides all of @${report.author}'s posts and threads and suspends their account. Why?`)?.trim();
+    if (!reason) return;
+    setError(''); setNotice('');
+    try {
+      const { posts, threads } = await api<{ posts: number, threads: number }>(`/api/forum/posts/${report.post}/remove-member`, { method:'POST', body:JSON.stringify({ reason }) });
+      setNotice(`@${report.author} is suspended. Hid ${posts} ${posts === 1 ? 'post' : 'posts'} and ${threads} ${threads === 1 ? 'thread' : 'threads'}.`);
+      await load();
+    } catch (e) { setError(handleAccountError(e)); }
+  };
   if (isLoaded && !isSignedIn) return <p><a href={signInHref}>Sign in</a> as an editor or administrator.</p>;
   return <div className="account-stack">
     {asking && <ReasonDialog request={asking} onClose={() => setAsking(null)} />}
@@ -44,6 +54,7 @@ function Queue({ links, signInHref }: { links: ForumLinks, signInHref: string })
           <a href={`${links.thread}${r.thread.id}#p-${r.post}`}>Open in {r.thread.title}</a>
           <button className="account-button" type="button" onClick={() => resolve(r, 'hidden')}>Hide post</button>
           <button className="account-button secondary" type="button" onClick={() => resolve(r, 'dismissed')}>Dismiss</button>
+          {r.author && <button className="account-button secondary" type="button" onClick={() => remove(r)}>Hide all and suspend</button>}
         </div>
       </li>)}</ul>
       : <p className="account-empty">No open reports.</p>}

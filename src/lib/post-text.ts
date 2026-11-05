@@ -3,6 +3,8 @@
 // the browser bundle can use it; PostBody.tsx renders the result and React escapes the text.
 const LINK = /(https?:\/\/[^\s<>"]*[^\s<>".,;:!?)\]'])/;
 export type Piece = { text: string, href?: string };
+/** Whether any of this text would become a clickable link. */
+export const hasLink = (text: string) => LINK.test(text);
 
 /** Paragraphs, each a list of lines, each a list of text and link pieces. */
 export const postParagraphs = (text: string): Piece[][][] => text.trim().split(/\n\s*\n/).map(paragraph =>

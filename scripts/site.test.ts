@@ -283,7 +283,7 @@ test('the forum links to the terms and privacy pages, and the publisher is named
 
 test('the forum renders for anonymous readers, and record pages link to their discussions', async () => {
   const record = dataset.watches.find((w:any) => w.profiles.some((p:any) => p.status==='published')).id;
-  for (const path of ['/forum/', '/forum/search/?q=movement', '/forum/new/', `/forum/records/${record}/`, '/forum/notifications/']) {
+  for (const path of ['/forum/', '/forum/search/?q=movement', `/forum/records/${record}/`, '/forum/notifications/']) {
     const response = await fetch(`${base}${path}`);
     assert.equal(response.status, 200, path);
     const html = await response.text();
@@ -293,6 +293,15 @@ test('the forum renders for anonymous readers, and record pages link to their di
   for (const path of ['/forum/no-such-category/', '/forum/t/not-a-thread', '/forum/records/no/such-record/', '/forum/no/such/page/'])
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
+});
+
+test('signed out, "Start a thread" goes to sign-in and comes back to the form', async () => {
+  const open = (path: string, cookie = '') => fetch(`${base}${path}`, { redirect:'manual', headers:{ cookie } });
+  const out = await open('/forum/new/?category=general');
+  assert.equal(out.status, 302);
+  assert.equal(out.headers.get('location'), `/sign-in?redirect_url=${encodeURIComponent('/forum/new/?category=general')}`);
+  assert.equal((await open('/forum/new/', '__client_uat=0')).status, 302, 'signed out sets this cookie to 0');
+  assert.equal((await open('/forum/new/', '__client_uat=1791917601')).status, 200, 'signed in, the link goes to the form');
 });
 
 test('data embedded in pages cannot close its own script tag', async () => {
@@ -325,7 +334,7 @@ test('the main site and the forum do not load each other\'s stylesheets on their
 });
 
 test('forum pages allow sign-in through the main site', async () => {
-  for (const route of ['/forum/', '/forum/new/']) {
+  for (const route of ['/forum/', '/forum/sign-in/']) {
     const response = await fetch(`${base}${route}`, { headers:{ 'x-forwarded-host':'forum.falkindex.com' } });
     const policy = response.headers.get('content-security-policy-report-only') ?? '';
     const directive = (name: string) => policy.split(';').find(d => d.trim().startsWith(`${name} `)) ?? '';

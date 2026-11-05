@@ -47,6 +47,7 @@ export CLERK_PUBLISHABLE_KEY=pk_test_…
 export VITE_CLERK_PUBLISHABLE_KEY=$CLERK_PUBLISHABLE_KEY
 export CLERK_SECRET_KEY=sk_test_…
 export SESSION_SECRET=$(openssl rand -hex 32)   # required in production; keys the rate-limit hashes
+export POSTMARK_SERVER_TOKEN=…                  # sends the /help/ form to support@falkindex.com; without it the form reports an error
 npm run db:setup     # development schema only; never run it in production
 npm run db:import    # loads data/ into an empty database
 npm run dev          # http://localhost:5000
