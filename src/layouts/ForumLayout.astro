@@ -1,11 +1,11 @@
 ---
-// The FALK Forum's own site: its own shell, type and colour. It shares accounts, the database and the
-// record strip with falkindex.com and nothing else, so it does not use Base.astro or global.css.
+// The FALK Forum's own site: its own shell and layout, in FALK Index's colours and type (src/styles/shared.css).
+// It does not use Base.astro or global.css, whose page styles would load on every forum page.
 import '../styles/forum.css';
 import '../styles/accounts.css';
 import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2?url';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
-import { listCategories } from '../../server/forum.ts';
+import { navCategories } from '../../server/forum.ts';
 import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 // The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
 import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
@@ -21,7 +21,7 @@ const { title, description = 'Discussion of watches, how they are made, and the 
 const pageTitle = title === 'FALK Forum' ? title : `${title}, FALK Forum`;
 const canonical = forumCanonical(Astro.url.pathname);
 const ldJson = ld && JSON.stringify({ '@context': 'https://schema.org', ...ld }).replaceAll('<', '\\u003c');
-const categories = await listCategories();
+const categories = await navCategories();
 const signedIn = hasSession(Astro.request.headers.get('cookie'));
 const q = Astro.url.searchParams.get('q') ?? '';
 ---
@@ -56,6 +56,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
           </ul>
           <h2>Categories</h2>
           <ul>
+            <li><a href={forumPath('/threads/')} aria-current={nav === 'threads' ? 'page' : undefined}>All threads</a></li>
             {categories.map(c => <li><a href={forumPath(`/${c.id}/`)} aria-current={nav === c.id ? 'page' : undefined}>{c.name}</a></li>)}
           </ul>
           <h2>FALK Index</h2>
@@ -72,7 +73,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
       </details>
       <header class="f-top">
         <a class="f-wordmark" href={forumPath('/')}>
-          <span class="f-mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Forum
+          <span class="mark" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></span>FALK Forum
         </a>
         <form class="f-search" action={forumPath('/search/')} method="get" role="search">
           <label class="sr-only" for="f-q">Search the forum</label>
@@ -99,6 +100,17 @@ const q = Astro.url.searchParams.get('q') ?? '';
       const menu = document.getElementById('f-menu') as HTMLDetailsElement, wide = matchMedia('(min-width: 900px)');
       const fit = () => { menu.open = wide.matches; };
       fit(); wide.addEventListener('change', fit);
+      // "/" jumps to forum search.
+      addEventListener('keydown', e => {
+        const t = e.target as HTMLElement;
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || t.closest('input, textarea, select, [contenteditable]')) return;
+        const q = document.getElementById('f-q') as HTMLInputElement;
+        if (q.offsetParent) { e.preventDefault(); q.focus(); }
+      });
+    </script>
+    <script>
+      // Separate from the script above, which stays small enough for Astro to inline, so the menu folds without waiting for a file.
+      import { saveTheme } from '../lib/inline-scripts.mjs';
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>('.f-theme')!;
       const systemDark = matchMedia('(prefers-color-scheme: dark)');
@@ -107,18 +119,11 @@ const q = Astro.url.searchParams.get('q') ?? '';
       toggle.addEventListener('click', () => {
         const theme = isDark() ? 'light' : 'dark';
         root.dataset.theme = theme;
-        try { localStorage.setItem('falk-theme', theme); } catch {}
+        saveTheme(theme);
         sync();
       });
       systemDark.addEventListener('change', sync);
       sync();
-      // "/" jumps to forum search.
-      addEventListener('keydown', e => {
-        const t = e.target as HTMLElement;
-        if (e.key !== '/' || e.metaKey || e.ctrlKey || t.closest('input, textarea, select, [contenteditable]')) return;
-        const q = document.getElementById('f-q') as HTMLInputElement;
-        if (q.offsetParent) { e.preventDefault(); q.focus(); }
-      });
     </script>
   </body>
 </html>

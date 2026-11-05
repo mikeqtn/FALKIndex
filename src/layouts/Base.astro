@@ -139,6 +139,7 @@ const links = [
       </div>
     </footer>
     <script>
+      import { saveTheme } from '../lib/inline-scripts.mjs';
       // Sections marked data-rise lift their parts in once as they enter. Without script, or with reduced motion, they simply show.
       const rise = document.querySelectorAll<HTMLElement>('[data-rise]');
       if (rise.length && 'IntersectionObserver' in window) {
@@ -238,7 +239,7 @@ const links = [
       toggle.addEventListener('click', () => {
         const theme = isDark() ? 'light' : 'dark';
         root.dataset.theme = theme;
-        try { localStorage.setItem('falk-theme', theme); } catch {}
+        saveTheme(theme);
         sync();
       });
       systemDark.addEventListener('change', sync);

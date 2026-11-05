@@ -1,9 +1,10 @@
-import { test, after } from 'node:test';
+import { test, after, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
-import { deleteAccount, enforceAccount, invitationRole, publicProfile, realm } from '../server/accounts.ts';
+import { authenticatedAccount, deleteAccount, enforceAccount, invitationRole, publicProfile, realm, unchangedAccount } from '../server/accounts.ts';
+import { clerkClient } from '@clerk/express';
 import { adminAccountQuery, createInvitation, protectLastAdmin } from '../server/admin.ts';
 import { CORRECTIONS_PER_HOUR, rateLimitKey, requireSameOrigin } from '../server/api.ts';
 import { isClerkImage, profileInput } from '../src/accounts/contracts.ts';
@@ -18,6 +19,60 @@ test('database catalogue exactly preserves the validated YAML corpus and profile
   // compare every complete watch by its identity, not incidental array order.
   assert.deepEqual({...actual,watches:new Map(actual.watches.map(w => [w.id,w]))},
     {...expected,watches:new Map(expected.watches.map(w => [w.id,w]))});
+});
+test('the no-write account read only answers when Clerk matches and no invitation is waiting', async () => {
+  const db = await pool.connect();
+  try {
+    await db.query('BEGIN');
+    const clerkId = `user_${randomUUID()}`, email = `${randomUUID()}@example.com`, photo = 'https://img.clerk.com/a.png';
+    const { id } = (await db.query('INSERT INTO falk_account(realm,clerk_id,email_verified) VALUES($1,$2,true) RETURNING id', [realm(),clerkId])).rows[0];
+    await db.query('INSERT INTO falk_account_private(account_id,email) VALUES($1,$2)', [id,email]);
+    await db.query('INSERT INTO falk_member_profile(account_id,image_url) VALUES($1,$2)', [id,photo]);
+    const read = (verified: boolean, mail: string, image: string, who = clerkId) => unchangedAccount(who,verified,mail,image,db as any);
+    const account = await read(true,email,photo);
+    assert.equal(account?.id,id);
+    assert.deepEqual(account?.profile.brandTies,[]);
+    assert.equal(await read(false,email,photo),undefined,'verification changed');
+    assert.equal(await read(true,'other@example.com',photo),undefined,'email changed');
+    assert.equal(await read(true,email,''),undefined,'photo changed');
+    assert.equal(await read(true,email,photo,'user_missing'),undefined,'no account yet');
+    await db.query(`INSERT INTO falk_invitation(realm,email,role,created_by,provider_id,expires_at)
+      VALUES($1,$2,'editor',$3,'inv_test',now()+interval '1 day')`, [realm(),email,id]);
+    assert.equal(await read(true,email,photo),undefined,'an invitation is waiting');
+  } finally { await db.query('ROLLBACK'); db.release(); }
+});
+test('plain reads may reuse Clerk\'s answer; writes, staff routes, ?fresh and bans do not', async () => {
+  const userId = `user_${randomUUID()}`, email = `${randomUUID()}@example.com`;
+  const identity = { primaryEmailAddressId:'e', emailAddresses:[{ id:'e', emailAddress:email, verification:{ status:'verified' } }],
+    banned:false, locked:false, hasImage:false, imageUrl:'' };
+  const getUser = mock.method(clerkClient.users,'getUser',async () => identity as any);
+  // Stands in for clerkMiddleware, which brands req.auth so getAuth accepts it.
+  const auth = Object.assign(() => ({ userId, tokenType:'session_token' }), { [Symbol.for('@clerk/express.auth')]:true });
+  const req = (method: string, query = {}) => ({ method, query, auth }) as any;
+  const calls = () => getUser.mock.callCount();
+  try {
+    const first = await authenticatedAccount(req('GET'));
+    assert.equal(calls(),1,'the first read asks Clerk');
+    assert.equal((await authenticatedAccount(req('GET'))).account.id,first.account.id);
+    assert.equal(calls(),1,'the next read reuses the answer');
+    await authenticatedAccount(req('GET',{ fresh:'1' }));
+    assert.equal(calls(),2,'?fresh asks Clerk');
+    await authenticatedAccount(req('PATCH'));
+    assert.equal(calls(),3,'a write asks Clerk');
+    await assert.rejects(authenticatedAccount(req('GET'),['admin']),/permission/);
+    assert.equal(calls(),4,'a staff route asks Clerk');
+    await pool.query("UPDATE falk_account SET status='suspended' WHERE id=$1",[first.account.id]);
+    await assert.rejects(authenticatedAccount(req('GET')),/suspended/);
+    assert.equal(calls(),4,'a suspension applies at once, without asking Clerk');
+    await pool.query("UPDATE falk_account SET status='active' WHERE id=$1",[first.account.id]);
+    identity.banned = true;
+    await authenticatedAccount(req('GET'));
+    assert.equal(calls(),4,'a ban in Clerk can lag on plain reads');
+    await assert.rejects(authenticatedAccount(req('POST')),/verified, active/);
+    assert.equal(calls(),5,'but a write sees it');
+    await assert.rejects(authenticatedAccount(req('GET')),/verified, active/);
+    assert.equal(calls(),6,'and once seen, reads stop reusing the old answer');
+  } finally { getUser.mock.restore(); }
 });
 test('unverified and suspended accounts fail closed for every role', () => {
   for (const role of ['contributor','editor','admin'] as const) {

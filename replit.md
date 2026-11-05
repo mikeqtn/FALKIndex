@@ -37,7 +37,7 @@ They fail, rather than skip, when a server build is missing.
   in step with live edits.
 - The catalogue is reconstructed from relational data and validated in a
   consistent read transaction, then shared by requests in an instance for up to
-  15 seconds (`CATALOGUE_TTL_MS`). A change published to the database appears
+  5 minutes (`CATALOGUE_TTL_MS`). A change published to the database appears
   within that time; if a reload fails, the last good copy keeps being served.
 - Clerk setup provisions its keys. Use the workspace Auth pane for login
   settings; no external Clerk dashboard or manually shared passwords.
@@ -90,8 +90,16 @@ Publishing uses the Autoscale target with a Node server:
 - Build command: `npm run build`.
 - Run command: `npm start`.
 - Astro emits `dist/client` assets and `dist/server/entry.mjs`.
-- Replit Publish manages development-to-production schema changes. Review its
-  database step, including the append-only guard functions/triggers.
+- Forum images are stored in Replit Object Storage. Create one bucket in the App
+  Storage tool before publishing them; without it, uploads answer 503 and the rest of
+  the forum carries on. Set `FORUM_IMAGE_DIR` to use a local folder instead (tests only;
+  Autoscale disks do not last).
+- Replit Publish copies schema changes from the development database to production,
+  so a new migration must exist in development first. After pulling one, run
+  `npm run db:setup` in the Replit Shell, then publish, and check that the database
+  step lists the new tables. Skipping this publishes code that expects tables
+  production doesn't have. Review the step, including the append-only guard
+  functions/triggers.
 - Initial production data needs the validated catalogue seed; never run an
   unconditional import or schema migration at startup. Later publishing must
   preserve production contributions, not replace them with development data.

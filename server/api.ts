@@ -6,6 +6,7 @@ import { profileInput, qualificationOptions } from '../src/accounts/contracts.ts
 import { pool } from './db.ts';
 import { authenticatedAccount, deleteAccount, HttpError, publicProfile, saveProfile } from './accounts.ts';
 import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
+import { clientKey, minuteCounter } from './pageLimit.ts';
 import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
 import { transaction } from './db.ts';
@@ -27,22 +28,25 @@ export function requireSameOrigin(origin: string | undefined, host: string | und
 // IPv4 address. Production refuses to start without SESSION_SECRET (see start()); the fallback is for development only.
 export const rateLimitKey = (scope: string, who: string) =>
   createHmac('sha256',process.env.SESSION_SECRET || 'falk-rate-limit-dev').update(`${scope}:${who}`).digest('hex');
-/** Count one hit; buckets are minute numbers, so an hourly bucket is the minute the hour starts. */
+/** Count one hit toward an hourly cap; a bucket is the minute number the hour starts. These survive restarts and are shared across instances. */
 async function hit(key: string, bucket: number) {
   const hits = await pool.query(`INSERT INTO falk_rate_limit(key,bucket) VALUES($1,$2)
     ON CONFLICT(key,bucket) DO UPDATE SET hits=falk_rate_limit.hits+1 RETURNING hits`, [key,bucket]);
+  // Clear older hours now and then so the table stays small.
+  if (Math.random() < 0.01) await pool.query('DELETE FROM falk_rate_limit WHERE bucket<$1', [bucket-60]);
   return hits.rows[0].hits as number;
 }
+// Per-minute budgets are kept in memory, so an API call costs no database write. As with pageLimit.ts, each Autoscale
+// instance counts separately: the limit is per instance. The hourly caps on writes that are never deleted stay exact.
+const minuteHit = minuteCounter();
 api.use(async (req,_res,next) => {
   if (!['GET','HEAD','OPTIONS'].includes(req.method)) {
     requireSameOrigin(req.get('origin'),getClerkProxyHost(req),req.protocol);
-    if (!req.is('application/json')) throw new HttpError(415,'Send application/json.');
+    const upload = req.path === '/forum/images' && req.is(['image/jpeg','image/png','image/webp']);
+    if (!upload && !req.is('application/json')) throw new HttpError(415,'Send application/json.');
   }
-  const bucket = Math.floor(Date.now()/60000);
   const write = !['GET','HEAD','OPTIONS'].includes(req.method);
-  const hits = await hit(rateLimitKey(write ? 'write' : 'read',getAuth(req).userId ?? req.ip ?? ''),bucket);
-  // Keep an hour of buckets for the hourly limits; clear older ones now and then so the table stays small.
-  if (Math.random() < 0.01) await pool.query('DELETE FROM falk_rate_limit WHERE bucket<$1', [bucket-60]);
+  const hits = minuteHit(`${write ? 'write' : 'read'}:${getAuth(req).userId ?? clientKey(req.ip)}`);
   if (hits > (write ? 30 : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
   next();
 });
@@ -99,6 +103,7 @@ api.post('/corrections', async (req,res) => {
 export const FORUM_THREADS_PER_HOUR = 5;
 export const FORUM_POSTS_PER_HOUR = 30;
 export const FORUM_REPORTS_PER_HOUR = 20;
+export const FORUM_IMAGES_PER_HOUR = 20;
 const hourly = (scope: string, limit: number, message: string): RequestHandler => async (req,_res,next) => {
   const hour = Math.floor(Date.now()/3600000)*60;
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
@@ -106,6 +111,7 @@ const hourly = (scope: string, limit: number, message: string): RequestHandler =
 };
 api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
+api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have uploaded a lot of images in the last hour. Please try again later.'));
 api.post('/forum/posts/:id/reports',hourly('forum-report',FORUM_REPORTS_PER_HOUR,'You have sent several reports in the last hour. Please try again later.'));
 // Each help message is a paid email to a real inbox, so cap it per visitor and, against many addresses at once, for the site.
 export const SUPPORT_PER_HOUR = 5;

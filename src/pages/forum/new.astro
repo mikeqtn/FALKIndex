@@ -1,13 +1,13 @@
 ---
 import ForumLayout from '../../layouts/ForumLayout.astro';
 import NewThreadForm from '../../components/forum/NewThreadForm.tsx';
-import { listCategories } from '../../../server/forum.ts';
+import { navCategories } from '../../../server/forum.ts';
 import { getCatalogue } from '../../lib/data.ts';
 import { forumLinks, hasSession, signInHref } from '../../lib/forum.ts';
 const signIn = signInHref(Astro.url.pathname + Astro.url.search);
 if (!hasSession(Astro.request.headers.get('cookie'))) return Astro.redirect(signIn);
 const { records } = await getCatalogue(Astro.locals);
-const categories = (await listCategories()).map(({ id, name }) => ({ id, name }));
+const categories = await navCategories();
 const requested = Astro.url.searchParams.get('category') ?? '';
 const category = categories.some(c => c.id === requested) ? requested : '';
 const found = records.find(r => r.id === Astro.url.searchParams.get('record'));

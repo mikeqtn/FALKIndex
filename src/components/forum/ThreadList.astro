@@ -3,13 +3,14 @@ import type { recordThreads } from '../../../server/forum.ts';
 import CompactStrip from '../CompactStrip.astro';
 import { getCatalogue } from '../../lib/data.ts';
 import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
-type Thread = Awaited<ReturnType<typeof recordThreads>>[number];
-interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord?: boolean }
-const { threads, empty, heading = 'Threads', hideRecord = false } = Astro.props;
+type Thread = Awaited<ReturnType<typeof recordThreads>>[number] & { categoryName?: string, recentReplies?: number };
+interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord?: boolean; showCategory?: boolean }
+const { threads, empty, heading = 'Threads', hideRecord = false, showCategory = false } = Astro.props;
 const { records } = await getCatalogue(Astro.locals);
 ---
+{threads.length ? <div class="f-plate">
 <div class="f-columns"><span>{heading}</span><span>Replies</span><span>Last post</span></div>
-{threads.length ? <ul class="f-threads">
+ <ul class="f-threads">
   {threads.map(t => {
     const record = !hideRecord && t.record ? records.find(r => r.id === t.record) : undefined;
     return <li>
@@ -19,6 +20,8 @@ const { records } = await getCatalogue(Astro.locals);
         {t.locked && <span class="f-pill quiet">Locked</span>}
         <p class="f-thread-meta">
           Started by {t.author.username ? <a href={siteHref(`/people/${t.author.username}/`)}>{t.author.displayName}</a> : t.author.displayName}
+          {showCategory && t.categoryName && <> in <a href={forumPath(`/${t.category}/`)}>{t.categoryName}</a></>}
+          {t.recentReplies && <> · {t.recentReplies} recent {t.recentReplies === 1 ? 'reply' : 'replies'}</>}
         </p>
         {record && <p class="f-thread-record">
           <CompactStrip scores={record.profile.scores} />
@@ -29,4 +32,5 @@ const { records } = await getCatalogue(Astro.locals);
       <div class="f-figure"><span>{forumDate(t.lastPostAt)}</span></div>
     </li>;
   })}
-</ul> : <p class="f-empty">{empty}</p>}
+</ul>
+</div> : <p class="f-empty">{empty}</p>}

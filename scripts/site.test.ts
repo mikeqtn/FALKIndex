@@ -364,3 +364,22 @@ test('pages and share images are rate limited per visitor; static files are not 
     assert.equal((await fetch(`${at}/og/site.png`)).status,429);
   } finally { strict.closeAllConnections(); await new Promise<void>(resolve => strict.close(() => resolve())); }
 });
+
+test('the main site and the forum share one set of colours, the logo mark and the record strip', async () => {
+  const styles = async (path: string) => {
+    const html = await (await fetch(`${base}${path}`)).text();
+    const sheets = [...html.matchAll(/<link[^>]+href="([^"]+\.css)"/g)].map(m => m[1]);
+    return (await Promise.all(sheets.map(async s => (await fetch(`${base}${s}`)).text()))).join('\n');
+  };
+  const [main, forum] = await Promise.all([styles('/records/'), styles('/forum/')]);
+  // Each hex value must appear in both stylesheets: page ground and ink, light and dark, and the action colour.
+  for (const colour of ['#e8ebef', '#14233f', '#9c1a33', '#0b121e', '#ec7a8e'])
+    for (const [site, css] of [['main site', main], ['forum', forum]])
+      assert.ok(css.toLowerCase().includes(colour), `${site} has ${colour}`);
+  assert.doesNotMatch(forum, /\.site-nav/, 'the forum keeps its own layout');
+  for (const shared of ['.mark i', '.cstrip', '.cell.lu']) {
+    assert.ok(main.includes(shared), `main site has ${shared}`);
+    assert.ok(forum.includes(shared), `forum has ${shared}`);
+  }
+});
+

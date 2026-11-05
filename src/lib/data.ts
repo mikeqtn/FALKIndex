@@ -37,9 +37,9 @@ return {methodologies,orgs,sources,watches,methodology,records,record,dimension,
 }
 type Catalogue = ReturnType<typeof catalogue>;
 // Shared across requests in this instance; see catalogue-cache.ts. CATALOGUE_TTL_MS sets how stale a copy may get
-// before it is reloaded (default 15 s): a change published to the database shows within that time.
+// before it is reloaded (default 5 minutes): a change published to the database shows within that time.
 const shared = createCatalogueCache(() => loadCatalogue().then(catalogue), {
-  ttlMs:Number(process.env.CATALOGUE_TTL_MS) || undefined,
+  ttlMs:Number(process.env.CATALOGUE_TTL_MS) || 300_000,
 });
 /** The catalogue for this request: the same frozen snapshot for every call within one request. */
 export async function getCatalogue(locals: {catalogue?:Promise<Catalogue>} = {}): Promise<Catalogue> {

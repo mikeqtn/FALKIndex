@@ -2,8 +2,23 @@
 // Content Security Policy, so they live here: Base.astro prints them and astro.config.mjs hashes the same strings.
 // Edit them freely; the hash follows the text. Plain .mjs so the config can import it without a build step.
 
-/** Apply a saved theme before first paint; with no saved choice the system setting applies. */
-export const THEME_SCRIPT = `try { const t = localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}`;
+/**
+ * Apply a saved theme before first paint; with no saved choice the system setting applies. The cookie is shared by
+ * falkindex.com and forum.falkindex.com, whose localStorage is separate; localStorage covers browsers that block cookies.
+ */
+export const THEME_SCRIPT = `try { const t = /(?:^|; )falk-theme=(light|dark)/.exec(document.cookie)?.[1] ?? localStorage.getItem('falk-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}`;
+
+/**
+ * Remember a chosen theme on both sites. Other hosts (local development, the Replit preview) keep it to themselves.
+ * @param {string} theme
+ * @param {{ hostname: string, protocol: string }} [where]
+ */
+export function saveTheme(theme, { hostname, protocol } = location) {
+  const domain = /(^|\.)falkindex\.com$/.test(hostname) ? '; Domain=falkindex.com' : '';
+  const secure = protocol === 'https:' ? '; Secure' : '';
+  try { document.cookie = `falk-theme=${theme}; Path=/; Max-Age=31536000${domain}; SameSite=Lax${secure}`; } catch {}
+  try { localStorage.setItem('falk-theme', theme); } catch {}
+}
 
 /** The menu renders open so links work without script; below 1100px it folds behind "Menu". */
 export const MENU_SCRIPT = `(() => {

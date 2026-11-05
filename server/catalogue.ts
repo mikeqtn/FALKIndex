@@ -4,10 +4,10 @@ import type { Watch } from '../src/schema.ts';
 
 /** Reconstruct the existing public schema, never member/private/moderation tables. */
 export async function loadCatalogue() {
-  return transaction(async pool => {
+  // Only the reads hold a connection; assembling and validating the catalogue afterwards does not need one.
   const [
     methods,organizations,sources,storedWatches,claims,provenance,profiles,scores,evidence,
-  ] = await querySeries(pool,[
+  ] = await transaction(db => querySeries(db,[
     'SELECT id,payload FROM falk_methodology ORDER BY id',
     'SELECT id,payload FROM falk_organization ORDER BY id',
     'SELECT id,payload FROM falk_source ORDER BY id',
@@ -18,7 +18,7 @@ export async function loadCatalogue() {
     'SELECT watch_id,version,status,payload FROM falk_profile_version ORDER BY watch_id,version',
     'SELECT watch_id,version,dimension,value,rationale FROM falk_dimension_score',
     'SELECT watch_id,version,dimension,claim_id,stance,note FROM falk_score_evidence ORDER BY position,id',
-  ]);
+  ]),true);
   if (!storedWatches.rowCount) throw new Error('The catalogue has not been imported. Run the explicit catalogue import before serving.');
   const watches = storedWatches.rows.map(w => ({
     ...w.payload,
@@ -41,5 +41,4 @@ export async function loadCatalogue() {
   });
   if (validated.errors.length) throw new Error(`Database catalogue validation failed:\n${validated.errors.join('\n')}`);
   return validated.parsed;
-  },true);
 }

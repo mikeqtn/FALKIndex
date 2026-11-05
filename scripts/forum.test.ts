@@ -6,8 +6,8 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
-import { alertModerators, createThread, editPost, listCategories, listReports, listThreads, markRead, moderateThread, NEW_MEMBER, notifications,
-  recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail } from '../server/forum.ts';
+import { alertModerators, createThread, editPost, listAllThreads, listCategories, listQuery, listReports, listThreads, markRead, MAX_REPLY_DEPTH, moderateThread, NEW_MEMBER, notifications, POSTS_PAGE,
+  recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail, vote, voteInput } from '../server/forum.ts';
 
 after(() => pool.end());
 
@@ -115,7 +115,7 @@ test('threads list, read, link to records and are found by search', () => member
   const watch = (await db.query('SELECT id FROM falk_watch LIMIT 1')).rows[0].id;
   const { thread:id } = await createThread(m.alice, { ...thread, record:watch }, db);
   await reply(m.bob, id, { body:'Mostly specialist case makers.' }, db);
-  const listing = (await listThreads('test-category', 1, db))!;
+  const listing = (await listThreads('test-category', 1, 'active', db))!;
   assert.deepEqual(listing.threads.map(t => [t.id, t.replies]), [[id, 1]]);
   assert.equal((await listCategories(db)).find(c => c.id === 'test-category')?.threads, 1);
   assert.deepEqual((await recordThreads(watch, db)).map(t => t.id), [id]);
@@ -125,12 +125,12 @@ test('threads list, read, link to records and are found by search', () => member
   assert.deepEqual(detail.posts.map(p => p.body), ['Asking about case suppliers.', 'Mostly specialist case makers.']);
 }));
 
-test('a reply notifies everyone else in the thread, and a locked thread takes only moderators', () => members(async (db, m) => {
+test('a reply notifies the thread author, and a locked thread takes only moderators', () => members(async (db, m) => {
   const { thread:id } = await createThread(m.alice, thread, db);
   await reply(m.bob, id, { body:'First reply.' }, db);
   await reply(m.editor, id, { body:'Second reply.' }, db);
   assert.equal((await notifications(m.alice, db)).unread, 2);
-  assert.equal((await notifications(m.bob, db)).unread, 1, 'only the later reply');
+  assert.equal((await notifications(m.bob, db)).unread, 0, 'not for a reply to someone else');
   assert.equal((await notifications(m.editor, db)).unread, 0, 'not for your own reply');
   await markRead(m.alice, {}, db);
   assert.equal((await notifications(m.alice, db)).unread, 0);
@@ -174,7 +174,7 @@ test('a hidden thread disappears for readers but not for moderators', () => memb
   assert.equal(await threadDetail(id, 1, null, db), null);
   assert.equal(await threadDetail(id, 1, { id:m.alice, role:'contributor' }, db), null);
   assert.equal((await threadDetail(id, 1, { id:m.editor, role:'editor' }, db))!.thread.hiddenReason, 'Duplicate thread');
-  assert.deepEqual((await listThreads('test-category', 1, db))!.threads, []);
+  assert.deepEqual((await listThreads('test-category', 1, 'active', db))!.threads, []);
   assert.ok(!(await searchForum('cases', db)).some(t => t.id === id));
   await assert.rejects(reply(m.bob, id, { body:'Hello?' }, db), /not found/);
 }));
@@ -318,4 +318,164 @@ test('posts by a deleted member stay, shown as a deleted member with no profile 
   const { posts } = (await threadDetail(thread, 1, null, db))!;
   assert.equal(posts[0].body, 'Still here');
   assert.deepEqual([posts[0].author.username, posts[0].author.displayName], [null, 'Deleted member']);
+}));
+
+test('thread sorts rank by activity, age and replies in their window, and windows drop quiet threads', () => members(async (db, m) => {
+  const start = async (title: string, age: string, ...replyAges: string[]) => {
+    const id = (await db.query(`INSERT INTO falk_forum_thread(category_id,author_id,title,created_at,last_post_at) VALUES('test-category',$1,$2,now()-$3::interval,now()-$3::interval) RETURNING id`, [m.alice, title, age])).rows[0].id as string;
+    await db.query(`INSERT INTO falk_forum_post(thread_id,author_id,body,created_at) VALUES($1,$2,'Opening',now()-$3::interval)`, [id, m.alice, age]);
+    for (const ago of replyAges) await db.query(`INSERT INTO falk_forum_post(thread_id,author_id,body,created_at) VALUES($1,$2,'Reply',now()-$3::interval)`, [id, m.bob, ago]);
+    return id;
+  };
+  const old = await start('Old and long', '30 days', '29 days', '29 days', '29 days', '6 days');
+  const busy = await start('Busy this week', '10 days', '3 days', '2 days', '90 minutes');
+  const hot = await start('Hot today', '2 days', '2 hours', '1 hour');
+  const fresh = await start('Brand new', '1 minute');
+  const order = async (sort: 'active'|'newest'|'day'|'week'|'all') => {
+    const listing = (await listThreads('test-category', 1, sort, db))!;
+    return { ids:listing.threads.map(t => t.id), total:listing.total, recent:listing.threads.map(t => t.recentReplies) };
+  };
+  assert.deepEqual((await order('active')).ids, [fresh, hot, busy, old]);
+  assert.deepEqual((await order('newest')).ids, [fresh, hot, busy, old]);
+  assert.deepEqual((await order('all')).ids.slice(0, 1), [old], 'most replies ever');
+  const day = await order('day');
+  assert.deepEqual([day.ids, day.total, day.recent], [[hot, busy], 2, [2, 1]], 'a new thread with no replies is not popular yet');
+  const week = await order('week');
+  assert.deepEqual([week.ids, week.total, week.recent], [[busy, hot, old], 3, [3, 2, 1]]);
+  await db.query('UPDATE falk_forum_thread SET pinned=true WHERE id=$1', [old]);
+  assert.equal((await order('active')).ids[0], old, 'a pin leads the default order');
+  assert.equal((await order('newest')).ids[0], fresh, 'but not the others');
+  assert.ok((await listAllThreads(1, 'newest', db)).threads.some(t => t.id === hot && t.categoryName === 'Test'), 'the all-threads list spans categories');
+  assert.equal(listQuery.parse({ sort:'nonsense' }).sort, 'active', 'an unknown sort falls back');
+  assert.equal(listQuery.parse({}).sort, 'active');
+}));
+
+test('a hidden reply does not count toward a popular window', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.bob, id, { body:'Spam' }, db);
+  assert.equal((await listThreads('test-category', 1, 'day', db))!.total, 1);
+  await setPostHidden(m.editor, post, true, 'Spam link', db);
+  assert.equal((await listThreads('test-category', 1, 'day', db))!.total, 0);
+}));
+
+test('replies nest under their parent, and a reply to the opening post is a reply to the thread', () => members(async (db, m) => {
+  const { thread:id, post:opening } = await createThread(m.alice, thread, db);
+  const { post:direct } = await reply(m.bob, id, { body:'Direct' }, db);
+  const { post:nested } = await reply(m.alice, id, { body:'Nested', parent:direct }, db);
+  const { post:viaOpening } = await reply(m.bob, id, { body:'Via opening', parent:opening }, db);
+  const parents = new Map((await threadDetail(id, 1, null, db))!.posts.map(p => [p.id, p.parentId]));
+  assert.deepEqual([parents.get(opening), parents.get(direct), parents.get(nested), parents.get(viaOpening)], [null, null, direct, null]);
+  assert.equal((await listThreads('test-category', 1, 'active', db))!.threads[0].replies, 3, 'nested replies count');
+  assert.equal((await notifications(m.bob, db)).unread, 1, 'the person replied to hears about it');
+}));
+
+test('a reply cannot attach to a post in another thread, by the API or the database', () => members(async (db, m) => {
+  await establish(db, m.alice); // past the new-account limits
+  const { thread:one } = await createThread(m.alice, thread, db);
+  const { thread:two, post } = await createThread(m.alice, { ...thread, title:'Another thread' }, db);
+  const { post:other } = await reply(m.bob, two, { body:'Elsewhere' }, db);
+  await assert.rejects(reply(m.bob, one, { body:'Wrong thread', parent:other }, db), /not in this thread/);
+  await assert.rejects(reply(m.bob, one, { body:'Wrong thread', parent:post }, db), /not in this thread/);
+  await refused(db, 'INSERT INTO falk_forum_post(thread_id,author_id,body,parent_id) VALUES($1,$2,$3,$4)', [one, m.bob, 'Wrong thread', other], /foreign key/);
+}));
+
+test('a hidden post takes replies only from moderators, keeps the replies it has, and a parent cannot be changed', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post:direct } = await reply(m.bob, id, { body:'Direct' }, db);
+  const { post:nested } = await reply(m.alice, id, { body:'Nested', parent:direct }, db);
+  await setPostHidden(m.editor, direct, true, 'Off topic', db);
+  await assert.rejects(reply(m.alice, id, { body:'Hello?', parent:direct }, db), /hid this post/);
+  await reply(m.editor, id, { body:'A note', parent:direct }, db);
+  const posts = (await threadDetail(id, 1, null, db))!.posts;
+  assert.deepEqual([posts.find(p => p.id === direct)?.body, posts.find(p => p.id === nested)?.body], [null, 'Nested']);
+  await refused(db, 'UPDATE falk_forum_post SET parent_id=NULL WHERE id=$1', [nested], /cannot be moved/);
+}));
+
+test('nesting stops at the cap: deeper replies stay at that level, under the same parent', () => members(async (db, m) => {
+  await establish(db, m.bob); // past the new-account limits
+  const { thread:id } = await createThread(m.alice, thread, db);
+  let parent = (await reply(m.bob, id, { body:'Depth 0' }, db)).post;
+  for (let depth = 1; depth <= MAX_REPLY_DEPTH; depth++) parent = (await reply(m.bob, id, { body:`Depth ${depth}`, parent }, db)).post;
+  const { post:beyond } = await reply(m.bob, id, { body:'Beyond the cap', parent }, db);
+  const rows = new Map((await db.query('SELECT id,parent_id,depth FROM falk_forum_post WHERE thread_id=$1', [id])).rows.map(r => [r.id, r]));
+  assert.equal(rows.get(parent).depth, MAX_REPLY_DEPTH);
+  assert.deepEqual([rows.get(beyond).depth, rows.get(beyond).parent_id], [MAX_REPLY_DEPTH, rows.get(parent).parent_id]);
+}));
+
+test('thread pages split by conversation, keeping each one whole', () => members(async (db, m) => {
+  await establish(db, m.bob); // past the new-account limits
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const replies: string[] = [];
+  for (let i = 0; i < POSTS_PAGE; i++) replies.push((await reply(m.bob, id, { body:`Reply ${i}` }, db)).post);
+  const { post:nested } = await reply(m.alice, id, { body:'On the second page', parent:replies.at(-1) }, db);
+  const [one, two] = [(await threadDetail(id, 1, null, db))!, (await threadDetail(id, 2, null, db))!];
+  assert.equal(one.total, POSTS_PAGE + 1, 'nested replies do not add pages');
+  assert.equal(one.posts.length, POSTS_PAGE);
+  assert.deepEqual(two.posts.map(p => p.id), [replies.at(-1), nested]);
+}));
+
+test('the replies list holds replies to your thread or comment, and nobody else\'s', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post:bobs } = await reply(m.bob, id, { body:'From Bob.' }, db);
+  const { post:toBob } = await reply(m.editor, id, { body:'To Bob.', parent:bobs }, db);
+  const inbox = async (who: string) => (await notifications(who, db)).notifications.map(n => [n.post, n.kind]);
+  assert.deepEqual(await inbox(m.bob), [[toBob, 'comment']]);
+  assert.deepEqual((await inbox(m.alice)).map(([, kind]) => kind), ['thread', 'thread'], 'the author hears about every reply');
+  await reply(m.bob, id, { body:'Answering.', parent:toBob }, db);
+  assert.equal((await inbox(m.editor)).length, 1, 'the person replied to');
+  assert.equal((await inbox(m.bob)).length, 1, 'not for your own reply');
+  const { post:mine } = await reply(m.alice, id, { body:'The author, in a comment.' }, db);
+  await reply(m.bob, id, { body:'To the author.', parent:mine }, db);
+  const alice = await inbox(m.alice);
+  assert.equal(alice.length, 4, 'once per reply, and not for the author\'s own');
+  assert.ok(alice.some(([, kind]) => kind === 'comment'), 'a reply to your comment says so');
+}));
+
+test('older notifications stay only on threads you started', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.bob, id, { body:'A reply.' }, db);
+  await db.query('DELETE FROM falk_forum_notification WHERE post_id=$1', [post]);
+  await db.query('INSERT INTO falk_forum_notification(account_id,post_id) VALUES($1,$3),($2,$3)', [m.alice, m.editor, post]);
+  const [author, bystander] = [await notifications(m.alice, db), await notifications(m.editor, db)];
+  assert.deepEqual([author.unread, author.notifications[0].kind], [1, 'thread']);
+  assert.deepEqual([bystander.unread, bystander.notifications], [0, []]);
+}));
+
+test('a reply past the depth cap still notifies the person replied to', () => members(async (db, m) => {
+  await establish(db, m.bob); // past the new-account limits
+  const { thread:id } = await createThread(m.alice, thread, db);
+  let parent = (await reply(m.bob, id, { body:'Depth 0' }, db)).post;
+  for (let depth = 1; depth <= MAX_REPLY_DEPTH; depth++) parent = (await reply(m.bob, id, { body:`Depth ${depth}`, parent }, db)).post;
+  const { post } = await reply(m.editor, id, { body:'Beyond the cap', parent }, db);
+  assert.ok((await notifications(m.bob, db)).notifications.some(n => n.post === post && n.kind === 'comment'));
+}));
+
+test('members vote once per comment, can change or take it back, and readers see only the total', () => members(async (db, m) => {
+  const { thread:id, post:opening } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.bob, id, { body:'Vote on me.' }, db);
+  const seen = async (viewer: { id: string, role: 'contributor' } | null) => {
+    const p = (await threadDetail(id, 1, viewer, db))!.posts.find(x => x.id === post)!;
+    return [p.score, p.myVote];
+  };
+  const alice = { id:m.alice, role:'contributor' as const };
+  await vote(m.alice, post, { value:1 }, db);
+  await vote(m.alice, post, { value:1 }, db);
+  await vote(m.editor, post, { value:1 }, db);
+  assert.deepEqual(await seen(alice), [2, 1]);
+  assert.deepEqual(await seen(null), [2, 0], 'a reader has no vote of their own');
+  await vote(m.alice, post, { value:-1 }, db);
+  assert.deepEqual(await seen(alice), [0, -1], 'changing a vote replaces it');
+  await vote(m.alice, post, { value:0 }, db);
+  assert.deepEqual(await seen(alice), [1, 0], 'taking it back removes it');
+  assert.equal(voteInput.safeParse({ value:5 }).success, false);
+  await refused(db, 'INSERT INTO falk_forum_vote(post_id,account_id,value) VALUES($1,$2,5)', [post, m.alice], /check constraint/);
+  await assert.rejects(vote(m.bob, post, { value:1 }, db), /your own comment/);
+  await assert.rejects(vote(m.bob, opening, { value:1 }, db), /Only comments/);
+  await assert.rejects(vote(m.unverified, post, { value:1 }, db), /Verify your email/);
+  await assert.rejects(vote(m.suspended, post, { value:1 }, db), /suspended/);
+  await moderateThread(m.editor, id, { locked:true, reason:'Settled' }, db);
+  await assert.rejects(vote(m.alice, post, { value:1 }, db), /locked/);
+  await moderateThread(m.editor, id, { locked:false, reason:'Reopened' }, db);
+  await setPostHidden(m.editor, post, true, 'Off topic', db);
+  await assert.rejects(vote(m.alice, post, { value:1 }, db), /not found/);
 }));

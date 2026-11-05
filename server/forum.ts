@@ -1,4 +1,5 @@
-import { Router, type Request } from 'express';
+import { randomUUID } from 'node:crypto';
+import express, { Router, type Request } from 'express';
 import { z } from 'zod';
 import { getAuth } from '@clerk/express';
 import type { Pool, PoolClient } from 'pg';
@@ -7,6 +8,8 @@ import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
 import { emailSupportInbox } from './support.ts';
 import { hasLink } from '../src/lib/post-text.ts';
+import { createCatalogueCache } from '../src/lib/catalogue-cache.ts';
+import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from './forumImages.ts';
 
 // The FALK Forum (forum.falkindex.com). Anyone may read; posting needs a verified, active
 // account with a username. Editors and administrators moderate: nothing is deleted, only
@@ -17,18 +20,29 @@ const MODERATORS = ['editor','admin'] as const;
 const isModerator = (viewer: Viewer) => viewer?.role === 'editor' || viewer?.role === 'admin';
 export const THREADS_PAGE = 25;
 export const POSTS_PAGE = 50;
+/** Replying below this depth stays at this depth, so a conversation can always go on but cannot run off a phone screen. */
+export const MAX_REPLY_DEPTH = 6;
+export const FORUM_MAX_IMAGES = 4;
+/** Sort orders for thread lists. Votes rate comments, not threads, so popular means most replies. */
+export const THREAD_SORTS = { active:'Recent activity', newest:'Newest', day:'Popular: 24 hours', week:'Popular: 7 days', all:'Popular: all time' } as const;
+export type ThreadSort = keyof typeof THREAD_SORTS;
+const POPULAR_SINCE: Partial<Record<ThreadSort, string>> = { day:'24 hours', week:'7 days' };
 
 const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/);
 const body = z.string().trim().min(1,'Write something first.').max(20000);
 const reason = z.string().trim().min(3,'Give a reason of at least 3 characters.').max(1000);
-export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional() }).strict();
+const images = z.array(z.uuid()).max(FORUM_MAX_IMAGES).refine(ids => new Set(ids).size === ids.length, 'Attach an image only once.').optional();
+export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional(), images }).strict();
 export const postInput = z.object({ body }).strict();
+export const replyInput = z.object({ body, parent:z.uuid().optional(), images }).strict();
+export const voteInput = z.object({ value:z.union([z.literal(-1),z.literal(0),z.literal(1)]) }).strict();
 export const reasonInput = z.object({ reason }).strict();
 export const threadModeration = z.object({ pinned:z.boolean().optional(), locked:z.boolean().optional(), hidden:z.boolean().optional(), reason }).strict()
   .refine(m => m.pinned !== undefined || m.locked !== undefined || m.hidden !== undefined, 'Choose what to change.');
 export const reportResolution = z.object({ resolution:z.enum(['hidden','dismissed']), reason }).strict();
 export const readInput = z.object({ ids:z.array(z.uuid()).max(100).optional() }).strict();
 export const pageQuery = z.object({ page:z.coerce.number().int().min(1).max(10000).default(1) });
+export const listQuery = pageQuery.extend({ sort:z.enum(['active','newest','day','week','all']).catch('active') });
 export const searchQuery = z.object({ q:z.string().trim().min(2).max(200) });
 
 /** The acting member, read again inside the transaction so a suspension or demotion applies at once. */
@@ -61,6 +75,20 @@ export async function listCategories(db: Queryable = pool) {
     latest:r.latest_id ? { id:r.latest_id as string, title:r.latest_title as string } : null }));
 }
 
+// Read on every record page and forum page, so served from memory; these may lag by up to their TTL.
+const shortCache = <T extends object>(name: string, ttlMs: number, load: () => Promise<T>) => createCatalogueCache(load,{
+  ttlMs, log:line => console.error(JSON.stringify({ ...line, event:`${name}.reload_failed` })),
+});
+const categoryNames = shortCache('forum.categories',60_000,async () =>
+  (await pool.query('SELECT id,name FROM falk_forum_category ORDER BY position,id')).rows as { id: string, name: string }[]);
+/** Category ids and names for navigation and forms. */
+export const navCategories = () => categoryNames.get();
+const threadCounts = shortCache('forum.thread_counts',30_000,async () => new Map((await pool.query(
+  'SELECT watch_id,count(*)::int AS threads FROM falk_forum_thread WHERE watch_id IS NOT NULL AND hidden_at IS NULL GROUP BY watch_id',
+)).rows.map(r => [r.watch_id as string, r.threads as number])));
+/** How many visible threads discuss a record; 0 if the database is unavailable and nothing is cached. */
+export const recordThreadCount = (watchId: string) => threadCounts.get().then(counts => counts.get(watchId) ?? 0, () => 0);
+
 /** The threads with the newest posts, across every category, for the forum home. */
 export async function recentThreads(limit = 5, db: Queryable = pool) {
   const rows = await db.query(`SELECT ${threadColumns},c.name AS category_name ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id
@@ -75,35 +103,67 @@ export async function recordsUnderDiscussion(limit = 4, db: Queryable = pool) {
   return rows.rows.map(r => ({ id:r.watch_id as string, threads:r.threads as number }));
 }
 
-export async function listThreads(categoryId: string, page: number, db: Queryable = pool) {
-  const category = (await db.query('SELECT id,name,description FROM falk_forum_category WHERE id=$1', [categoryId])).rows[0];
-  if (!category) return null;
+// Pins lead only the default order: a pinned thread is not the newest or the most popular for being pinned.
+const SORT_ORDER: Record<ThreadSort, string> = {
+  active:'t.pinned DESC,t.last_post_at DESC,t.id',
+  newest:'t.created_at DESC,t.id',
+  day:'w.recent DESC,t.last_post_at DESC,t.id',
+  week:'w.recent DESC,t.last_post_at DESC,t.id',
+  all:'replies DESC,t.last_post_at DESC,t.id',
+};
+
+// ponytail: counts replies per thread on every popular listing, fine at forum scale; keep a rollup table if this slows.
+async function threadPage(categoryId: string | null, page: number, sort: ThreadSort, db: Queryable) {
+  const since = POPULAR_SINCE[sort];
+  // Visible replies inside the window: the opening post is the thread's earliest and does not count.
+  const recent = since ? `JOIN LATERAL (SELECT count(*)::int AS recent FROM falk_forum_post p WHERE p.thread_id=t.id AND p.hidden_at IS NULL
+    AND p.created_at>now()-interval '${since}' AND p.created_at>(SELECT min(created_at) FROM falk_forum_post WHERE thread_id=t.id)) w ON w.recent>0` : '';
+  const where = `WHERE t.hidden_at IS NULL${categoryId ? ' AND t.category_id=$1' : ''}`;
   const [rows, total] = await querySeries(db,[
-    `SELECT ${threadColumns} ${threadJoins} WHERE t.category_id=$1 AND t.hidden_at IS NULL
-      ORDER BY t.pinned DESC,t.last_post_at DESC,t.id LIMIT ${THREADS_PAGE} OFFSET ${(page-1)*THREADS_PAGE}`,
-    'SELECT count(*)::int AS count FROM falk_forum_thread WHERE category_id=$1 AND hidden_at IS NULL',
-  ],[categoryId]);
-  return { category, threads:rows.rows.map(threadFrom), total:total.rows[0].count, page, pageSize:THREADS_PAGE };
+    `SELECT ${threadColumns},c.name AS category_name${since ? ',w.recent' : ''} ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id ${recent} ${where}
+      ORDER BY ${SORT_ORDER[sort]} LIMIT ${THREADS_PAGE} OFFSET ${(page-1)*THREADS_PAGE}`,
+    `SELECT count(*)::int AS count FROM falk_forum_thread t ${recent} ${where}`,
+  ],categoryId ? [categoryId] : []);
+  return { threads:rows.rows.map(r => ({ ...threadFrom(r), categoryName:r.category_name as string, recentReplies:r.recent as number | undefined })), total:total.rows[0].count as number, page, pageSize:THREADS_PAGE };
 }
 
-/** A thread and one page of its posts. Hidden posts keep their place but only moderators see their text. */
+export async function listThreads(categoryId: string, page: number, sort: ThreadSort = 'active', db: Queryable = pool) {
+  const category = (await db.query('SELECT id,name,description FROM falk_forum_category WHERE id=$1', [categoryId])).rows[0];
+  if (!category) return null;
+  return { category, ...await threadPage(categoryId,page,sort,db) };
+}
+
+export const listAllThreads = (page: number, sort: ThreadSort = 'active', db: Queryable = pool) => threadPage(null,page,sort,db);
+
+type PostImage = { id: string, width: number, height: number, hidden: boolean, hiddenReason: string | null };
+
+/** A thread and one page of its conversations: posts with no parent, each with all its replies, oldest first so parents come before children. Hidden posts keep their place but only moderators see their text. */
 export async function threadDetail(id: string, page: number, viewer: Viewer, db: Queryable = pool) {
   const moderator = isModerator(viewer);
   const row = (await db.query(`SELECT ${threadColumns},c.name AS category_name,t.hidden_at,t.hidden_reason
     ${threadJoins} JOIN falk_forum_category c ON c.id=t.category_id WHERE t.id=$1`, [id])).rows[0];
   if (!row || (row.hidden_at && !moderator)) return null;
-  const [posts, total] = await querySeries(db,[
-    `SELECT p.id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')}
-      FROM falk_forum_post p JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
-      WHERE p.thread_id=$1 ORDER BY p.created_at,p.id LIMIT ${POSTS_PAGE} OFFSET ${(page-1)*POSTS_PAGE}`,
-    'SELECT count(*)::int AS count FROM falk_forum_post WHERE thread_id=$1',
-  ],[id]);
+  const posts = await db.query(`WITH RECURSIVE tree AS (
+      (SELECT id FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL ORDER BY created_at,id LIMIT ${POSTS_PAGE} OFFSET ${(page-1)*POSTS_PAGE})
+      UNION ALL SELECT c.id FROM falk_forum_post c JOIN tree ON c.parent_id=tree.id
+    )
+    SELECT p.id,p.parent_id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')},
+      (SELECT coalesce(sum(v.value),0)::int FROM falk_forum_vote v WHERE v.post_id=p.id) AS score,
+      (SELECT v.value FROM falk_forum_vote v WHERE v.post_id=p.id AND v.account_id=$2::uuid) AS my_vote,
+      (SELECT coalesce(json_agg(json_build_object('id',i.id,'width',i.width,'height',i.height,'hidden',i.hidden_at IS NOT NULL,'hiddenReason',i.hidden_reason) ORDER BY i.position),'[]')
+        FROM falk_forum_image i WHERE i.post_id=p.id AND i.purged_at IS NULL) AS images
+    FROM tree JOIN falk_forum_post p ON p.id=tree.id JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
+    ORDER BY p.created_at,p.id`, [id,viewer?.id ?? null]);
+  const total = await db.query('SELECT count(*)::int AS count FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL', [id]);
   return {
     thread:{ ...threadFrom(row), categoryName:row.category_name, hidden:!!row.hidden_at, hiddenReason:moderator ? row.hidden_reason : null },
     posts:posts.rows.map(p => ({
-      id:p.id, author:authorFrom(p), createdAt:p.created_at.toISOString(), editedAt:p.edited_at?.toISOString() ?? null,
+      id:p.id, parentId:p.parent_id as string | null, author:authorFrom(p), createdAt:p.created_at.toISOString(), editedAt:p.edited_at?.toISOString() ?? null,
       hidden:!!p.hidden_at, body:p.hidden_at && !moderator ? null : p.body,
       hiddenReason:moderator ? p.hidden_reason : null, own:viewer?.id === p.author_id,
+      score:p.score as number, myVote:(p.my_vote ?? 0) as -1 | 0 | 1,
+      // A hidden image keeps its place; a hidden post shows readers none of its images.
+      images:(p.hidden_at && !moderator ? [] : p.images as PostImage[]).map(i => ({ ...i, hiddenReason:moderator ? i.hiddenReason : null })),
     })),
     total:total.rows[0].count, page, pageSize:POSTS_PAGE,
   };
@@ -154,20 +214,103 @@ export async function createThread(actorId: string, input: z.infer<typeof thread
   const thread = (await db.query('INSERT INTO falk_forum_thread(category_id,author_id,title,watch_id) VALUES($1,$2,$3,$4) RETURNING id',
     [input.category,me.id,input.title,input.record || null])).rows[0];
   const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3) RETURNING id', [thread.id,me.id,input.body])).rows[0];
+  await attachImages(db,me.id,post.id,input.images);
   return { thread:thread.id as string, post:post.id as string };
 }
 
-/** A reply notifies everyone who has posted in the thread, except the person replying. */
-export async function reply(actorId: string, threadId: string, input: z.infer<typeof postInput>, db: PoolClient) {
+/** A reply notifies the thread's author and the person replied to, but never the person replying. Replying to the opening post is replying to the thread. */
+export async function reply(actorId: string, threadId: string, input: z.infer<typeof replyInput>, db: PoolClient) {
   const me = await actor(db,actorId);
-  const thread = (await db.query('SELECT locked,hidden_at FROM falk_forum_thread WHERE id=$1 FOR SHARE', [threadId])).rows[0];
+  const thread = (await db.query('SELECT author_id,locked,hidden_at FROM falk_forum_thread WHERE id=$1 FOR SHARE', [threadId])).rows[0];
   if (!thread || (thread.hidden_at && !isModerator(me))) throw new HttpError(404,'Thread not found.');
   if (thread.locked && !isModerator(me)) throw new HttpError(403,'This thread is locked.');
   await screenPost(db,me,input.body,{});
-  const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3) RETURNING id', [threadId,me.id,input.body])).rows[0];
-  await db.query(`INSERT INTO falk_forum_notification(account_id,post_id)
-    SELECT DISTINCT author_id,$2::uuid FROM falk_forum_post WHERE thread_id=$1 AND author_id<>$3 ON CONFLICT DO NOTHING`, [threadId,post.id,me.id]);
+  let parent: string | null = null, depth = 0;
+  const recipients = new Map<string, 'thread' | 'comment'>([[thread.author_id,'thread']]);
+  if (input.parent) {
+    const target = (await db.query(`SELECT author_id,parent_id,depth,hidden_at,id=(SELECT id FROM falk_forum_post WHERE thread_id=$2 ORDER BY created_at,id LIMIT 1) AS opening
+      FROM falk_forum_post WHERE id=$1 AND thread_id=$2 FOR SHARE`, [input.parent,threadId])).rows[0];
+    if (!target) throw new HttpError(404,'That post is not in this thread.');
+    if (target.hidden_at && !isModerator(me)) throw new HttpError(409,'A moderator hid this post, so it cannot be replied to.');
+    if (!target.opening) {
+      [parent,depth] = target.depth >= MAX_REPLY_DEPTH ? [target.parent_id,target.depth] : [input.parent,target.depth+1];
+      recipients.set(target.author_id,'comment');
+    }
+  }
+  recipients.delete(me.id);
+  const post = (await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body,parent_id,depth) VALUES($1,$2,$3,$4,$5) RETURNING id', [threadId,me.id,input.body,parent,depth])).rows[0];
+  await attachImages(db,me.id,post.id,input.images);
+  await db.query(`INSERT INTO falk_forum_notification(account_id,post_id,kind)
+    SELECT account,$1::uuid,kind FROM unnest($2::uuid[],$3::text[]) AS r(account,kind) ON CONFLICT DO NOTHING`, [post.id,[...recipients.keys()],[...recipients.values()]]);
   return { post:post.id as string };
+}
+
+/** Attaches a member's own uploads to their new post, in the order given. An image can be attached only once. */
+async function attachImages(db: PoolClient, memberId: string, postId: string, ids: string[] = []) {
+  if (!ids.length) return;
+  const attached = await db.query(`UPDATE falk_forum_image i SET post_id=$1,position=o.position FROM unnest($2::uuid[]) WITH ORDINALITY AS o(id,position)
+    WHERE i.id=o.id AND i.uploader_id=$3 AND i.post_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL`, [postId,ids,memberId]);
+  if (attached.rowCount !== ids.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
+}
+
+/** Records an image that has already been rebuilt and stored. */
+export async function addImage(actorId: string, id: string, image: { width: number, height: number, bytes: number }, db: PoolClient) {
+  const me = await actor(db,actorId);
+  await db.query('INSERT INTO falk_forum_image(id,uploader_id,width,height,bytes) VALUES($1,$2,$3,$4,$5)', [id,me.id,image.width,image.height,image.bytes]);
+  return id;
+}
+
+/** Forgets this member's uploads that never reached a post, and returns them so their bytes can go too. */
+// ponytail: runs on a member's next upload, so strays of someone who never returns stay until a scheduled sweep exists.
+export async function clearUnattachedImages(memberId: string, db: PoolClient) {
+  const rows = await db.query(`DELETE FROM falk_forum_image WHERE uploader_id=$1 AND post_id IS NULL AND created_at<now()-interval '1 day' RETURNING id`, [memberId]);
+  return rows.rows.map(r => r.id as string);
+}
+
+/** Whether this reader may see an image. viewer is a function so public images never touch the account system. */
+export async function imageForServing(id: string, viewer: () => Promise<Viewer>, db: Queryable = pool) {
+  const row = (await db.query(`SELECT i.uploader_id,i.post_id,i.hidden_at,i.purged_at,p.hidden_at AS post_hidden,t.hidden_at AS thread_hidden
+    FROM falk_forum_image i LEFT JOIN falk_forum_post p ON p.id=i.post_id LEFT JOIN falk_forum_thread t ON t.id=p.thread_id WHERE i.id=$1`, [id])).rows[0];
+  if (!row || row.purged_at) return { allowed:false, public:false };
+  if (row.post_id && !row.hidden_at && !row.post_hidden && !row.thread_hidden) return { allowed:true, public:true };
+  const reader = await viewer();
+  return { allowed:isModerator(reader) || (!row.post_id && reader?.id === row.uploader_id), public:false };
+}
+
+export async function setImageHidden(actorId: string, imageId: string, hidden: boolean, why: string, db: PoolClient) {
+  const me = await actor(db,actorId,MODERATORS);
+  const image = (await db.query('SELECT uploader_id,post_id,hidden_at,purged_at FROM falk_forum_image WHERE id=$1 FOR UPDATE', [imageId])).rows[0];
+  if (!image || image.purged_at) throw new HttpError(404,'Image not found.');
+  if (!!image.hidden_at === hidden) throw new HttpError(409,hidden ? 'This image is already hidden.' : 'This image is not hidden.');
+  await db.query('UPDATE falk_forum_image SET hidden_at=$2,hidden_by=$3,hidden_reason=$4 WHERE id=$1', [imageId,hidden ? new Date() : null,hidden ? me.id : null,hidden ? why : null]);
+  await audit(db,me.id,image.uploader_id,hidden ? 'forum_image_hidden' : 'forum_image_shown',why,{ image:imageId,post:image.post_id });
+  return { hidden };
+}
+
+/** Takes an image off the forum for good. The caller deletes the bytes once this has committed. The one exception to "nothing is deleted", for material that must not be kept up. */
+export async function purgeImage(actorId: string, imageId: string, why: string, db: PoolClient) {
+  const me = await actor(db,actorId,['admin']);
+  const image = (await db.query('SELECT uploader_id,post_id FROM falk_forum_image WHERE id=$1 FOR UPDATE', [imageId])).rows[0];
+  if (!image) throw new HttpError(404,'Image not found.');
+  await db.query('UPDATE falk_forum_image SET purged_at=coalesce(purged_at,now()),purged_by=coalesce(purged_by,$2) WHERE id=$1', [imageId,me.id]);
+  await audit(db,me.id,image.uploader_id,'forum_image_purged',why,{ image:imageId,post:image.post_id });
+  return { purged:true };
+}
+
+/** Sets this member's vote on a comment, or takes it back with 0. Opening posts, your own comments, hidden comments and locked threads take no votes. */
+export async function vote(actorId: string, postId: string, input: z.infer<typeof voteInput>, db: PoolClient) {
+  const me = await actor(db,actorId);
+  const post = (await db.query(`SELECT p.author_id,p.hidden_at,t.locked,t.hidden_at AS thread_hidden,
+    p.id=(SELECT id FROM falk_forum_post WHERE thread_id=p.thread_id ORDER BY created_at,id LIMIT 1) AS opening
+    FROM falk_forum_post p JOIN falk_forum_thread t ON t.id=p.thread_id WHERE p.id=$1`, [postId])).rows[0];
+  if (!post || post.hidden_at || post.thread_hidden) throw new HttpError(404,'Comment not found.');
+  if (post.opening) throw new HttpError(400,'Only comments take votes.');
+  if (post.author_id === me.id) throw new HttpError(400,'You cannot vote on your own comment.');
+  if (post.locked) throw new HttpError(409,'This thread is locked.');
+  if (input.value) await db.query(`INSERT INTO falk_forum_vote(post_id,account_id,value) VALUES($1,$2,$3)
+    ON CONFLICT(post_id,account_id) DO UPDATE SET value=EXCLUDED.value`, [postId,me.id,input.value]);
+  else await db.query('DELETE FROM falk_forum_vote WHERE post_id=$1 AND account_id=$2', [postId,me.id]);
+  return { value:input.value };
 }
 
 export async function editPost(actorId: string, postId: string, input: z.infer<typeof postInput>, db: PoolClient) {
@@ -293,17 +436,20 @@ export async function resolveReport(actorId: string, reportId: string, input: z.
   return { resolution:input.resolution };
 }
 
+// Rows with no kind predate targeted notifications; see db/008-forum-votes.sql.
+const forThisMember = '(n.kind IS NOT NULL OR t.author_id=n.account_id)';
+
 export async function notifications(actorId: string, db: PoolClient) {
   const me = await actor(db,actorId);
   const [rows, unread] = await querySeries(db,[
-    `SELECT n.id,n.created_at,n.read_at,p.id AS post_id,t.id AS thread_id,t.title,${authorColumns('a','m')}
+    `SELECT n.id,n.kind,n.created_at,n.read_at,p.id AS post_id,t.id AS thread_id,t.title,${authorColumns('a','m')}
       FROM falk_forum_notification n JOIN falk_forum_post p ON p.id=n.post_id JOIN falk_forum_thread t ON t.id=p.thread_id
       JOIN falk_account a ON a.id=p.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id
-      WHERE n.account_id=$1 AND p.hidden_at IS NULL AND t.hidden_at IS NULL ORDER BY n.created_at DESC,n.id LIMIT 50`,
+      WHERE n.account_id=$1 AND p.hidden_at IS NULL AND t.hidden_at IS NULL AND ${forThisMember} ORDER BY n.created_at DESC,n.id LIMIT 50`,
     `SELECT count(*)::int AS count FROM falk_forum_notification n JOIN falk_forum_post p ON p.id=n.post_id
-      JOIN falk_forum_thread t ON t.id=p.thread_id WHERE n.account_id=$1 AND n.read_at IS NULL AND p.hidden_at IS NULL AND t.hidden_at IS NULL`,
+      JOIN falk_forum_thread t ON t.id=p.thread_id WHERE n.account_id=$1 AND n.read_at IS NULL AND p.hidden_at IS NULL AND t.hidden_at IS NULL AND ${forThisMember}`,
   ],[me.id]);
-  return { unread:unread.rows[0].count, notifications:rows.rows.map(n => ({ id:n.id, createdAt:n.created_at.toISOString(), read:!!n.read_at,
+  return { unread:unread.rows[0].count, notifications:rows.rows.map(n => ({ id:n.id, kind:(n.kind ?? 'thread') as 'thread' | 'comment', createdAt:n.created_at.toISOString(), read:!!n.read_at,
     post:n.post_id, thread:{ id:n.thread_id, title:n.title }, author:authorFrom(n) })) };
 }
 
@@ -324,14 +470,15 @@ async function viewerOf(req: Request): Promise<Viewer> {
 }
 const member = async (req: Request) => (await authenticatedAccount(req)).account.id;
 const write = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn);
-// Reads that re-check the actor take a row lock, so they use write(); read() is for public reads.
+// Reads that re-check the actor take a row lock, so they use write(); read() is for public reads of several statements
+// that must agree. A single statement needs no transaction.
 const read = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn,true);
 
 const forum = Router();
-forum.get('/categories', async (_req,res) => { res.json({ categories:await read(db => listCategories(db)) }); });
+forum.get('/categories', async (_req,res) => { res.json({ categories:await listCategories() }); });
 forum.get('/categories/:id/threads', async (req,res) => {
-  const { page } = pageQuery.parse(req.query);
-  const listing = await read(db => listThreads(slug.parse(req.params.id),page,db));
+  const { page, sort } = listQuery.parse(req.query);
+  const listing = await read(db => listThreads(slug.parse(req.params.id),page,sort,db));
   if (!listing) throw new HttpError(404,'Category not found.');
   res.json(listing);
 });
@@ -344,23 +491,68 @@ forum.get('/threads/:id', async (req,res) => {
   res.json(detail);
 });
 forum.get('/records/:brand/:model', async (req,res) => {
-  res.json({ threads:await read(db => recordThreads(`${slug.parse(req.params.brand)}/${slug.parse(req.params.model)}`,db)) });
+  res.json({ threads:await recordThreads(`${slug.parse(req.params.brand)}/${slug.parse(req.params.model)}`) });
 });
 forum.get('/search', async (req,res) => {
   const { q } = searchQuery.parse(req.query);
-  res.json({ threads:await read(db => searchForum(q,db)) });
+  res.json({ threads:await searchForum(q) });
 });
 forum.post('/threads', async (req,res) => {
   const id = await member(req), input = threadInput.parse(req.body);
   res.status(201).json(await write(db => createThread(id,input,db)));
 });
 forum.post('/threads/:id/posts', async (req,res) => {
-  const id = await member(req), thread = z.uuid().parse(req.params.id), input = postInput.parse(req.body);
+  const id = await member(req), thread = z.uuid().parse(req.params.id), input = replyInput.parse(req.body);
   res.status(201).json(await write(db => reply(id,thread,input,db)));
 });
 forum.patch('/posts/:id', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = postInput.parse(req.body);
   res.json(await write(db => editPost(id,post,input,db)));
+});
+// Checks the member before reading the body, so an anonymous caller never gets 8 MB read or an image decoded.
+forum.post('/images', async (req,res,next) => {
+  const id = await member(req);
+  await write(db => actor(db,id));
+  res.locals.member = id;
+  next();
+}, express.raw({ type:() => true, limit:MAX_UPLOAD_BYTES }), async (req,res) => {
+  const memberId = res.locals.member as string;
+  if (!Buffer.isBuffer(req.body)) throw new HttpError(400,'Choose an image to upload.');
+  const image = await rebuildImage(req.body), id = randomUUID();
+  const strays = await write(db => clearUnattachedImages(memberId,db));
+  await Promise.allSettled(strays.map(removeImage));
+  await storeImage(id,image.data);
+  try { await write(db => addImage(memberId,id,{ width:image.width, height:image.height, bytes:image.data.length },db)); }
+  catch (error) { await removeImage(id).catch(() => {}); throw error; }
+  res.status(201).json({ image:{ id, width:image.width, height:image.height } });
+});
+forum.get('/images/:id', async (req,res) => {
+  const id = z.uuid().parse(req.params.id);
+  const access = await read(db => imageForServing(id,() => viewerOf(req),db));
+  if (!access.allowed) throw new HttpError(404,'Image not found.');
+  const data = await loadImage(id);
+  // Only ever a WebP we made, and nothing a browser could run even if that were wrong.
+  res.set({ 'Content-Type':'image/webp', 'Content-Disposition':'inline', 'X-Content-Type-Options':'nosniff',
+    'Content-Security-Policy':"default-src 'none'; sandbox", 'Cross-Origin-Resource-Policy':'same-origin',
+    'Cache-Control':access.public ? 'public, max-age=300' : 'private, no-store' }).send(data);
+});
+forum.post('/images/:id/hide', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  res.json(await write(db => setImageHidden(id,image,true,why,db)));
+});
+forum.post('/images/:id/show', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  res.json(await write(db => setImageHidden(id,image,false,why,db)));
+});
+forum.post('/images/:id/purge', async (req,res) => {
+  const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);
+  const result = await write(db => purgeImage(id,image,why,db));
+  await removeImage(image);
+  res.json(result);
+});
+forum.post('/posts/:id/vote', async (req,res) => {
+  const id = await member(req), post = z.uuid().parse(req.params.id), input = voteInput.parse(req.body);
+  res.json(await write(db => vote(id,post,input,db)));
 });
 forum.post('/posts/:id/reports', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = reasonInput.parse(req.body);
