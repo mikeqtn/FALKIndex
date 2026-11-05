@@ -9,6 +9,8 @@ export default defineConfig({
   output: 'server',
   adapter: node({mode:'middleware'}),
   integrations: [react()],
+  // Only links marked data-astro-prefetch: each prefetch is a rendered page that counts toward the visitor's page limit.
+  prefetch: { prefetchAll:false, defaultStrategy:'hover' },
   server: { host: '0.0.0.0', port: 5000, allowedHosts: true },
   vite: { envPrefix:['PUBLIC_','VITE_'], server: { allowedHosts: true } },
   // Script policy for every rendered page. Astro hashes each inline script it outputs (island hydration,
