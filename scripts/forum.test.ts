@@ -372,7 +372,7 @@ test('replies nest under their parent, and a reply to the opening post is a repl
 test('a reply cannot attach to a post in another thread, by the API or the database', () => members(async (db, m) => {
   await establish(db, m.alice); // past the new-account limits
   const { thread:one } = await createThread(m.alice, thread, db);
-  const { thread:two, post } = await createThread(m.alice, { ...thread, title:'Another thread' }, db);
+  const { thread:two, post } = await createThread(m.alice, { ...thread, title:'Another thread', body:'A different opening post.' }, db);
   const { post:other } = await reply(m.bob, two, { body:'Elsewhere' }, db);
   await assert.rejects(reply(m.bob, one, { body:'Wrong thread', parent:other }, db), /not in this thread/);
   await assert.rejects(reply(m.bob, one, { body:'Wrong thread', parent:post }, db), /not in this thread/);
