@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import NewWatchApp from '../../components/accounts/NewWatchApp';
+import { DIMENSIONS, SOURCE_TYPE, getCatalogue, variant } from '../../lib/data.ts';
+const { dimension, orgs, records } = await getCatalogue(Astro.locals);
+
+const PRIMARY = ['manufacturer', 'workshop', 'supplier_disclosure'];
+const organizations = [...orgs.values()].map(o => ({ id: o.id, name: o.name })).sort((a, b) => a.name.localeCompare(b.name));
+const existing = records.map(r => ({ id: r.id, brand: r.brand, brandName: r.brandName, model: r.model, variant: variant(r) }));
+const dimensions = DIMENSIONS.map(code => ({ value: code, label: dimension[code].label }));
+const sourceTypes = Object.entries(SOURCE_TYPE).map(([value, label]) =>
+  ({ value, label: `${label[0].toUpperCase()}${label.slice(1)}${PRIMARY.includes(value) ? ' (primary)' : ''}` }));
+---
+<Base title="Propose a new watch" nav="records" description="Members with a verified email can propose a watch for the FALK Index, with sourced facts for an editor to review.">
+  <NewWatchApp client:only="react" organizations={organizations} records={existing} dimensions={dimensions} sourceTypes={sourceTypes} />
+</Base>

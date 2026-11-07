@@ -35,7 +35,7 @@ for (const watch of dataset.watches.filter((w:any) => w.profiles.some((p:any) =>
   await snapshot(`/records/${watch.id}/`,`records/${watch.id}/index.html`);
   await snapshot(`/records/${watch.id}.json`,`records/${watch.id}.json`);
 }
-for (const route of ['sources','organizations/la-joux-perret','corrections','sign-up','archetypes','terms']) await snapshot(`/${route}/`,`${route}/index.html`);
+for (const route of ['sources','organizations/la-joux-perret','corrections','records/new','sign-up','archetypes','terms']) await snapshot(`/${route}/`,`${route}/index.html`);
 const files = [...cache.keys()];
 const read = (f: string) => {
   assert.ok(cache.has(f),`Missing rendered response ${f}`);
