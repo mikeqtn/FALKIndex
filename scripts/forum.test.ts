@@ -6,7 +6,7 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
-import { alertModerators, createThread, editPost, listAllThreads, listCategories, listQuery, listReports, listThreads, markRead, MAX_REPLY_DEPTH, moderateThread, NEW_MEMBER, notifications, POSTS_PAGE,
+import { alertModerators, createThread, deletePost, editPost, listAllThreads, listCategories, listQuery, listReports, listThreads, markRead, MAX_REPLY_DEPTH, moderateThread, NEW_MEMBER, notifications, POSTS_PAGE,
   recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail, vote, voteInput } from '../server/forum.ts';
 
 after(() => pool.end());
@@ -147,6 +147,19 @@ test('only the author edits a post, and not once it is hidden', () => members(as
   assert.equal((await threadDetail(id, 1, null, db))!.posts[0].body, 'Fixed a typo.');
   await setPostHidden(m.editor, post, true, 'Off topic', db);
   await assert.rejects(editPost(m.alice, post, { body:'Again.' }, db), /hid this post/);
+}));
+
+test('only the author deletes a post; readers see it was deleted, and no moderator can show it again', () => members(async (db, m) => {
+  const { thread:id } = await createThread(m.alice, thread, db);
+  const { post } = await reply(m.alice, id, { body:'Second thoughts.' }, db);
+  await assert.rejects(deletePost(m.bob, post, db), /your own posts/);
+  await deletePost(m.alice, post, db);
+  const deleted = (await threadDetail(id, 1, null, db))!.posts.find(p => p.id === post)!;
+  assert.deepEqual([deleted.body, deleted.deleted], [null, true]);
+  await assert.rejects(deletePost(m.alice, post, db), /already hidden/);
+  await assert.rejects(editPost(m.alice, post, { body:'Back.' }, db), /hid this post/);
+  await assert.rejects(reply(m.bob, id, { body:'Huh?', parent:post }, db), /deleted it/);
+  await assert.rejects(setPostHidden(m.editor, post, false, 'Restore', db), /cannot be shown again/);
 }));
 
 test('reports reach moderators, and hiding the post settles them and hides its text from readers', () => members(async (db, m) => {

@@ -107,6 +107,10 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     action:'Send report',
     run:reason => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }),
   }, 'Thanks. Moderators will review your report.');
+  const del = () => {
+    if (!confirm('Delete this post? Readers will see that you deleted it, and replies to it stay up. This cannot be undone.')) return;
+    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'DELETE' }), 'Your post was deleted.');
+  };
   const toggle = () => tools?.ask({
     title:post.hidden ? 'Show this post again' : 'Hide this post',
     help:post.hidden ? 'Readers will see this post again. Your reason goes to the audit log.' : 'Readers will see that a moderator hid it, and replies to it stay up. Your reason goes to the audit log.',
@@ -122,7 +126,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   const canReply = tools?.account?.onboarded && (!thread.locked || moderator) && (!post.hidden || moderator);
   const votable = !opening && !post.hidden;
   return <>
-    {post.body === null ? <p className="forum-hidden-note">A moderator hid this post.</p>
+    {post.body === null ? <p className="forum-hidden-note">{post.deleted ? 'Its author deleted this post.' : 'A moderator hid this post.'}</p>
       : editing !== null ? <form className="account-stack" onSubmit={save}>
         <textarea aria-label="Edit your post" value={editing} onChange={e => setEditing(e.target.value)} rows={6} maxLength={20000} required />
         {revise.picker}
@@ -137,8 +141,9 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
       {tools?.account && <>
         {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
         {post.own && !post.hidden && !thread.locked && <button type="button" onClick={edit}>Edit</button>}
+        {post.own && !post.hidden && <button type="button" onClick={del}>Delete</button>}
         {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
-        {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+        {moderator && !post.deleted && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
         {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}
       </>}
     </div>}

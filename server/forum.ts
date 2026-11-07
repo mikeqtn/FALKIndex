@@ -148,7 +148,7 @@ export async function threadDetail(id: string, page: number, viewer: Viewer, db:
       (SELECT id FROM falk_forum_post WHERE thread_id=$1 AND parent_id IS NULL ORDER BY created_at,id LIMIT ${POSTS_PAGE} OFFSET ${(page-1)*POSTS_PAGE})
       UNION ALL SELECT c.id FROM falk_forum_post c JOIN tree ON c.parent_id=tree.id
     )
-    SELECT p.id,p.parent_id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_reason,${authorColumns('a','m')},
+    SELECT p.id,p.parent_id,p.author_id,p.body,p.created_at,p.edited_at,p.hidden_at,p.hidden_by,p.hidden_reason,${authorColumns('a','m')},
       (SELECT coalesce(sum(v.value),0)::int FROM falk_forum_vote v WHERE v.post_id=p.id) AS score,
       (SELECT v.value FROM falk_forum_vote v WHERE v.post_id=p.id AND v.account_id=$2::uuid) AS my_vote,
       (SELECT coalesce(json_agg(json_build_object('id',i.id,'width',i.width,'height',i.height,'hidden',i.hidden_at IS NOT NULL,'hiddenReason',i.hidden_reason) ORDER BY i.position),'[]')
@@ -160,7 +160,7 @@ export async function threadDetail(id: string, page: number, viewer: Viewer, db:
     thread:{ ...threadFrom(row), categoryName:row.category_name, hidden:!!row.hidden_at, hiddenReason:moderator ? row.hidden_reason : null },
     posts:posts.rows.map(p => ({
       id:p.id, parentId:p.parent_id as string | null, author:authorFrom(p), createdAt:p.created_at.toISOString(), editedAt:p.edited_at?.toISOString() ?? null,
-      hidden:!!p.hidden_at, body:p.hidden_at && !moderator ? null : p.body,
+      hidden:!!p.hidden_at, deleted:!!p.hidden_at && p.hidden_by === p.author_id, body:p.hidden_at && !moderator ? null : p.body,
       hiddenReason:moderator ? p.hidden_reason : null, own:viewer?.id === p.author_id,
       score:p.score as number, myVote:(p.my_vote ?? 0) as -1 | 0 | 1,
       // A hidden image keeps its place; a hidden post shows readers none of its images.
@@ -232,7 +232,7 @@ export async function reply(actorId: string, threadId: string, input: z.infer<ty
     const target = (await db.query(`SELECT author_id,parent_id,depth,hidden_at,id=(SELECT id FROM falk_forum_post WHERE thread_id=$2 ORDER BY created_at,id LIMIT 1) AS opening
       FROM falk_forum_post WHERE id=$1 AND thread_id=$2 FOR SHARE`, [input.parent,threadId])).rows[0];
     if (!target) throw new HttpError(404,'That post is not in this thread.');
-    if (target.hidden_at && !isModerator(me)) throw new HttpError(409,'A moderator hid this post, so it cannot be replied to.');
+    if (target.hidden_at && !isModerator(me)) throw new HttpError(409,'A moderator hid this post, or its author deleted it, so it cannot be replied to.');
     if (!target.opening) {
       [parent,depth] = target.depth >= MAX_REPLY_DEPTH ? [target.parent_id,target.depth] : [input.parent,target.depth+1];
       recipients.set(target.author_id,'comment');
@@ -344,6 +344,21 @@ export async function editPost(actorId: string, postId: string, input: z.infer<t
   return { post:postId, removedImages };
 }
 
+/**
+ * The author takes back their own post. Posts are never deleted from the database, so it is hidden with the author as
+ * the one who hid it: readers see that it was deleted, moderators can still read it, and no one can show it again.
+ */
+export async function deletePost(actorId: string, postId: string, db: PoolClient) {
+  const me = await actor(db,actorId);
+  const post = (await db.query('SELECT author_id,thread_id,hidden_at FROM falk_forum_post WHERE id=$1 FOR UPDATE', [postId])).rows[0];
+  if (!post) throw new HttpError(404,'Post not found.');
+  if (post.author_id !== me.id) throw new HttpError(403,'You can only delete your own posts.');
+  if (post.hidden_at) throw new HttpError(409,'This post is already hidden.');
+  await db.query('UPDATE falk_forum_post SET hidden_at=now(),hidden_by=$2,hidden_reason=$3 WHERE id=$1', [postId,me.id,'Deleted by its author']);
+  await audit(db,me.id,me.id,'forum_post_deleted','Deleted by its author',{post:postId,thread:post.thread_id});
+  return { deleted:true };
+}
+
 export async function reportPost(actorId: string, postId: string, input: z.infer<typeof reasonInput>, db: PoolClient) {
   const me = await actor(db,actorId);
   const post = (await db.query(`SELECT p.author_id FROM falk_forum_post p JOIN falk_forum_thread t ON t.id=p.thread_id
@@ -389,9 +404,10 @@ export async function setPostHidden(actorId: string, postId: string, hidden: boo
     if (!(await hide(db,me.id,postId,why))) throw new HttpError(409,'This post is already hidden.');
     return { hidden };
   }
-  const post = (await db.query('SELECT author_id,thread_id,hidden_at FROM falk_forum_post WHERE id=$1 FOR UPDATE', [postId])).rows[0];
+  const post = (await db.query('SELECT author_id,thread_id,hidden_at,hidden_by FROM falk_forum_post WHERE id=$1 FOR UPDATE', [postId])).rows[0];
   if (!post) throw new HttpError(404,'Post not found.');
   if (!post.hidden_at) throw new HttpError(409,'This post is not hidden.');
+  if (post.hidden_by === post.author_id) throw new HttpError(409,'Its author deleted this post, so it cannot be shown again.');
   await db.query('UPDATE falk_forum_post SET hidden_at=NULL,hidden_by=NULL,hidden_reason=NULL WHERE id=$1', [postId]);
   await audit(db,me.id,post.author_id,'forum_post_shown',why,{post:postId,thread:post.thread_id});
   return { hidden };
@@ -531,6 +547,10 @@ forum.patch('/posts/:id', async (req,res) => {
   res.json(result);
 });
 // Checks the member before reading the body, so an anonymous caller never gets 8 MB read or an image decoded.
+forum.delete('/posts/:id', async (req,res) => {
+  const id = await member(req), post = z.uuid().parse(req.params.id);
+  res.json(await write(db => deletePost(id,post,db)));
+});
 forum.post('/images', async (req,res,next) => {
   const id = await member(req);
   await write(db => actor(db,id));
