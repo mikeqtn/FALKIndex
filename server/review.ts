@@ -114,6 +114,7 @@ export async function submissionDetail(id: string, actorId: string, db: Queryabl
     authorUsername:row.username,staleBase:row.stale_base,
     conflicts:await reviewerConflicts(db,actorId,id),
     selfAuthored:await isSelfAuthored(db,actorId,row),
+    proposal:null,
     events:events.rows.map(e => ({id:e.id,action:e.action,note:e.note ?? '',createdAt:e.created_at.toISOString(),actor:e.actor})),
   };
 }

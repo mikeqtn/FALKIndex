@@ -24,6 +24,7 @@
 | Q13 | Every edit is reviewed by an editor before it is published (like Wikipedia's pending changes). Editors cannot approve their own edits. Accounts carry a free-text background ("watch blogger", "hobbyist") shown on every edit; a separate "Do you work for a watch brand?" question records brand ties, and edits to those brands' records are flagged. | Adopted 2026-10-20 |
 | Q14 | Replit PostgreSQL replaces the `data/` YAML as the source of truth. `data/` remains as an exported copy. See PLAN.md Phase 5. | Adopted 2026-10-20 |
 | Q15 | Hosted on Replit (Autoscale deployment, Astro/Node server); public catalogue pages read Replit PostgreSQL at request time. The owner explicitly chose independent FALK accounts via Replit-managed Clerk, not Replit accounts. App roles and private/public profile separation live in PostgreSQL. | Updated 2026-10-20 |
+| Q16 | Members with a verified email can propose a new watch; guests can only correct existing records. The form asks for the brand (existing, or a new one described inline), model details and at least one sourced fact, never scores or an archetype. On approval the editor picks the archetype and the record goes live at once as version 1: published, all seven dimensions U, confidence D, written by the contributor. The page shows "Not enough evidence for a profile yet" until a later reviewed version adds scores. | Adopted 2026-11-06 |
 
 ## Appendix A owner decisions
 
