@@ -9,12 +9,37 @@ type Queue = { submissions: ReviewSummary[]; total: number; page: number; pageSi
 const submitterRoles: Record<string, string> = { brand: 'The brand', watchmaker: 'The watchmaker', reader: 'A reader', other: 'Other' };
 const actionLabels: Record<ReviewAction, string> = { approve: 'Accepted', reject: 'Rejected', request_info: 'Requested information' };
 const isOpen = (status: ReviewStatus) => status === 'pending' || status === 'needs_info';
+/** Names for the codes in a new-watch proposal, from the methodology and catalogue (pages/editor/review.astro). */
+type Labels = { archetypes: { code: string; name: string }[]; dimensions: Record<string, string>; sourceTypes: Record<string, string>; organizations: Record<string, string> };
+const newBrandKinds: Record<string, string> = { brand: 'Brand', atelier: 'Atelier or workshop', individual: 'Individual watchmaker' };
+
+function ProposalDetail({ proposal, labels }: { proposal: NonNullable<ReviewDetail['proposal']>; labels: Labels }) {
+  const { input } = proposal;
+  const brand = input.brand;
+  const made = input.productionStart ? `${input.productionStart} to ${input.productionEnd ?? 'present'}` : input.productionEnd ? `until ${input.productionEnd}` : '';
+  const details = [['Reference', input.reference], ['Generation', input.generation], ['Caliber', input.caliber], ['Made', made]].filter(([, v]) => v);
+  return <>
+    <dl className="review-facts">
+      <div><dt>Proposed record</dt><dd><code>{proposal.proposedId}</code></dd></div>
+      <div><dt>Brand</dt><dd>{'id' in brand ? labels.organizations[brand.id] ?? brand.id
+        : <>{brand.name} <span className="account-chip">New brand</span><span className="account-help"> · {newBrandKinds[brand.kind] ?? brand.kind}{brand.country ? ` · ${brand.country}` : ''}</span>{brand.website && <> · <a href={brand.website} target="_blank" rel="noreferrer noopener">{brand.website}</a></>}</>}</dd></div>
+      <div><dt>Model</dt><dd>{input.model}</dd></div>
+      {details.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+    </dl>
+    {input.notes && <div><p className="account-label">Notes</p><blockquote className="review-quote">{input.notes}</blockquote></div>}
+    <div><p className="account-label">Sourced facts</p><ol className="review-evidence">{input.claims.map((c, i) => <li key={i}>
+      <p>{c.statement}</p>
+      {c.excerpt && <blockquote className="review-quote">{c.excerpt}</blockquote>}
+      <p className="account-help"><a href={c.url} target="_blank" rel="noreferrer noopener">{c.title || c.url}</a> · {labels.sourceTypes[c.sourceType] ?? c.sourceType} · {c.dimensions.map(d => labels.dimensions[d] ?? d).join(', ')}</p>
+    </li>)}</ol></div>
+  </>;
+}
 
 function StatusChip({ status }: { status: ReviewStatus }) {
   return <span className={`account-chip review-status ${status}`}>{reviewStatusLabels[status]}</span>;
 }
 
-function ReviewConsole() {
+function ReviewConsole({ labels }: { labels: Labels }) {
   const [status, setStatus] = useState<ReviewStatus>('pending');
   const [search, setSearch] = useState('');
   const [appliedSearch, setAppliedSearch] = useState('');
@@ -24,6 +49,8 @@ function ReviewConsole() {
   const [detail, setDetail] = useState<ReviewDetail | null>(null);
   const [detailError, setDetailError] = useState('');
   const [note, setNote] = useState('');
+  const [archetype, setArchetype] = useState('');
+  const [published, setPublished] = useState('');
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -76,19 +103,22 @@ function ReviewConsole() {
   }
   function select(id: string) {
     selectedRef.current = id;
-    setSelected(id); setDetail(null); setNote(''); setError(''); setNotice('');
+    setSelected(id); setDetail(null); setNote(''); setArchetype(''); setPublished(''); setError(''); setNotice('');
     detailRef.current?.focus();
     loadDetail(id);
   }
   async function decide(action: ReviewAction) {
     if (!detail) return;
     if (note.trim().length < 10) { setError('Explain your decision in at least 10 characters. The note is kept in the review history.'); return; }
+    const publishes = action === 'approve' && detail.proposal;
+    if (publishes && !archetype) { setError('Choose the archetype before accepting. The record is published with it.'); document.getElementById('review-archetype')?.focus(); return; }
     const id = detail.id;
-    setBusy(true); setError(''); setNotice('');
+    setBusy(true); setError(''); setNotice(''); setPublished('');
     try {
       await api<{ status: ReviewStatus }>(`/api/review/submissions/${encodeURIComponent(id)}/decisions`, {
-        method: 'POST', body: JSON.stringify({ action, expectedStatus: detail.status, note: note.trim() }),
+        method: 'POST', body: JSON.stringify({ action, expectedStatus: detail.status, note: note.trim(), ...(publishes ? { archetype } : {}) }),
       });
+      if (publishes) setPublished(detail.proposal!.proposedId);
       setNote(''); setNotice(`${actionLabels[action]}. The decision and your note are in the review history.`);
     } catch (reasonValue) {
       setError(handleAccountError(reasonValue));
@@ -107,7 +137,7 @@ function ReviewConsole() {
       <header className="account-heading"><div><p className="account-kicker">FALK Index / Editorial</p><h1 className="account-title">Review queue</h1><p className="account-intro">Check each correction against its evidence and record a decision. Every decision needs a note, and the original submission is never changed.</p></div></header>
       <div className="account-stack" style={{ marginTop: 22 }}>
         {error && <div className="account-error" role="alert" tabIndex={-1}>{error}</div>}
-        {notice && <div ref={noticeRef} tabIndex={-1} className="account-notice" role="status">{notice}</div>}
+        {notice && <div ref={noticeRef} tabIndex={-1} className="account-notice" role="status">{notice}{published && <> The record is live: <a href={`/records/${published}/`}>/records/{published}/</a></>}</div>}
         <nav className="review-tabs" aria-label="Review status">
           {REVIEW_STATUSES.map(item => <button key={item} type="button" aria-pressed={status === item} onClick={() => chooseStatus(item)}>{reviewStatusLabels[item]}<span className="review-count">{queue?.counts[item] ?? '–'}</span></button>)}
         </nav>
@@ -133,7 +163,7 @@ function ReviewConsole() {
               : detailError && !detail ? <div className="account-error" role="alert">{detailError} <button className="account-button secondary" type="button" onClick={() => loadDetail(selected)}>Retry</button></div>
               : !detail ? <div className="account-loading" role="status"><span className="sr-only">Loading submission</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>
               : <>
-                <div className="account-heading"><div><p className="account-kicker">Correction · {dateLabel(detail.createdAt)}</p><h2>{detail.record ? <a href={`/records/${detail.record.id}/`} target="_blank" rel="noreferrer">{detail.record.name}</a> : detail.subject}</h2></div><StatusChip status={detail.status} /></div>
+                <div className="account-heading"><div><p className="account-kicker">{detail.proposal ? 'New watch proposal' : 'Correction'} · {dateLabel(detail.createdAt)}</p><h2>{detail.proposal && detail.status === 'approved' ? <a href={`/records/${detail.proposal.proposedId}/`} target="_blank" rel="noreferrer">{detail.subject}</a> : detail.record ? <a href={`/records/${detail.record.id}/`} target="_blank" rel="noreferrer">{detail.record.name}</a> : detail.subject}</h2></div><StatusChip status={detail.status} /></div>
                 {detail.selfAuthored && <div className="account-error">You submitted this. Another editor must review it.</div>}
                 {detail.conflicts.length > 0 && <div className="account-error">You have a disclosed relationship with {detail.conflicts.join(', ')}. Another editor must review this submission.</div>}
                 {detail.staleBase && <div className="account-notice">The record has changed since this was submitted. Check the correction against the current version.</div>}
@@ -141,11 +171,12 @@ function ReviewConsole() {
                   <div><dt>Submitted by</dt><dd>{detail.authorUsername ? <a href={`/people/${detail.authorUsername}`}>{detail.submitter.label}</a> : detail.submitter.label}{detail.submitterRole && <span className="account-help"> · {submitterRoles[detail.submitterRole] ?? detail.submitterRole}</span>}</dd></div>
                   {detail.contact && <div><dt>Private contact</dt><dd>{detail.contact.email ? <a href={`mailto:${encodeURIComponent(detail.contact.email)}`}>{detail.contact.email}</a> : 'None provided'}<span className="account-help"> · for editorial follow-up only, never published</span></dd></div>}
                 </dl>
-                <div><p className="account-label">What should change, and why</p><blockquote className="review-quote">{detail.explanation}</blockquote></div>
-                <div><p className="account-label">Evidence</p>{detail.evidence.length ? <ol className="review-evidence">{detail.evidence.map(url => <li key={url}>{/^https?:\/\//i.test(url) ? <a href={url} target="_blank" rel="noreferrer noopener">{url}</a> : url}</li>)}</ol> : <p className="account-help">No evidence links.</p>}</div>
+                <div><p className="account-label">{detail.proposal ? 'Why it belongs in the index' : 'What should change, and why'}</p><blockquote className="review-quote">{detail.explanation}</blockquote></div>
+                {detail.proposal ? <ProposalDetail proposal={detail.proposal} labels={labels} /> : <div><p className="account-label">Evidence</p>{detail.evidence.length ? <ol className="review-evidence">{detail.evidence.map(url => <li key={url}>{/^https?:\/\//i.test(url) ? <a href={url} target="_blank" rel="noreferrer noopener">{url}</a> : url}</li>)}</ol> : <p className="account-help">No evidence links.</p>}</div>}
                 {detail.events.length > 0 && <div><p className="account-label">Review history</p><ul className="account-list">{detail.events.map(event => <li key={event.id}><strong>{actionLabels[event.action] ?? event.action}</strong><span className="account-help"> · {event.actor} · {dateLabel(event.createdAt)}</span><p className="review-note">{event.note}</p></li>)}</ul></div>}
                 {isOpen(detail.status) && !blocked && <form className="account-stack review-decision" onSubmit={event => event.preventDefault()}>
-                  <div className="account-field"><label htmlFor="review-note">Decision note (at least 10 characters)</label><textarea id="review-note" required minLength={10} value={note} onChange={e => setNote(e.target.value)} /><small>Accepting records the decision only. The public record changes when an editor publishes a new profile version.</small></div>
+                  <div className="account-field"><label htmlFor="review-note">Decision note (at least 10 characters)</label><textarea id="review-note" required minLength={10} value={note} onChange={e => setNote(e.target.value)} /><small>{detail.proposal ? 'Accepting publishes the record at once as version 1, with every dimension U and confidence D.' : 'Accepting records the decision only. The public record changes when an editor publishes a new profile version.'}</small></div>
+                  {detail.proposal && <div className="account-field"><label htmlFor="review-archetype">Archetype (required to accept)</label><select id="review-archetype" value={archetype} onChange={e => setArchetype(e.target.value)}><option value="">Choose an archetype</option>{labels.archetypes.map(a => <option key={a.code} value={a.code}>{a.name}</option>)}</select><small>Judge it from the whole proposal; the contributor does not suggest one. <a href="/archetypes/" target="_blank" rel="noreferrer">What the archetypes mean</a></small></div>}
                   <div className="account-actions">
                     <button className="account-button" type="button" disabled={busy} onClick={() => decide('approve')}>Accept</button>
                     <button className="account-button secondary" type="button" disabled={busy || !!noReplyChannel} onClick={() => decide('request_info')}>Request information</button>
@@ -161,13 +192,13 @@ function ReviewConsole() {
   );
 }
 
-function ReviewSession() {
+function ReviewSession({ labels }: { labels: Labels }) {
   const { isLoaded, isSignedIn } = useAuth();
   if (!isLoaded) return <div className="account-shell"><p role="status">Checking your session…</p></div>;
   if (!isSignedIn) return <div className="account-shell"><h1 className="account-title">Review queue</h1><p>Sign in with an editor account to review submissions.</p><a className="account-button" href="/sign-in?redirect_url=%2Feditor%2Freview">Sign in</a></div>;
-  return <ReviewConsole />;
+  return <ReviewConsole labels={labels} />;
 }
 
-export default function EditorReviewApp() {
-  return <AuthProvider><ReviewSession /></AuthProvider>;
+export default function EditorReviewApp({ labels }: { labels: Labels }) {
+  return <AuthProvider><ReviewSession labels={labels} /></AuthProvider>;
 }

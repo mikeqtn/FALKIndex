@@ -1,7 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
 import EditorReviewApp from '../../components/accounts/EditorReviewApp';
+import { SOURCE_TYPE, getCatalogue } from '../../lib/data.ts';
+// Labels for new-watch proposals: the archetype an editor assigns on approval, and names for codes in the proposal.
+const { dimension, methodology, orgs } = await getCatalogue(Astro.locals);
+const labels = {
+  archetypes: methodology.classifications.filter(c => c.kind === 'archetype').map(c => ({ code: c.code, name: c.name })),
+  dimensions: Object.fromEntries(Object.entries(dimension).map(([code, d]) => [code, d.label])),
+  sourceTypes: { ...SOURCE_TYPE } as Record<string, string>,
+  organizations: Object.fromEntries([...orgs.values()].map(o => [o.id, o.name])),
+};
 ---
 <Base title="Review queue">
-  <EditorReviewApp client:only="react" />
+  <EditorReviewApp client:only="react" labels={labels} />
 </Base>

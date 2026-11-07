@@ -6,6 +6,9 @@ import { createApp } from '../server/index.ts';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { correctionInput, saveCorrection } from '../server/corrections.ts';
+import { loadCatalogue } from '../server/catalogue.ts';
+import { anyArchetype, saveNewWatch } from '../server/newWatch.ts';
+import type { Account } from '../src/accounts/contracts.ts';
 import { decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
 
 const note = 'Checked every evidence link against the record.';
@@ -122,6 +125,48 @@ test('information cannot be requested from a guest without contact details', asy
     const { id } = await saveCorrection(correctionInput.parse({record:watch,role:'reader',correction:'No contact details given.',evidence:['https://example.com/a']}),db);
     await assert.rejects(decideSubmission(editor.id,id,{action:'request_info',expectedStatus:'pending',note},db),/no contact details/);
     assert.equal((await decideSubmission(editor.id,id,{action:'reject',expectedStatus:'pending',note},db)).status,'rejected');
+  });
+});
+// DECISIONS.md Q16: approving a new watch publishes it as version 1, all U, confidence D.
+test('approving a new-watch proposal publishes it; it needs an archetype and another editor', async () => {
+  await rolledBack(async db => {
+    const author = await member(db,'contributor');
+    const editor = await member(db,'editor');
+    const live = await loadCatalogue();
+    const brand = (await db.query('SELECT id FROM falk_organization WHERE id IN (SELECT brand_id FROM falk_watch) ORDER BY id LIMIT 1')).rows[0].id;
+    const { id, proposedId } = await saveNewWatch({id:author.id,username:author.username} as Account,{
+      brand:{id:brand}, model:`Proposal ${randomUUID().slice(0,8)}`, explanation:'A model FALK does not list yet.',
+      claims:[{statement:'The brand states the case is made in-house.',url:'https://example.com/case',sourceType:'manufacturer',dimensions:['EX']}],
+    },live,db);
+    assert.equal((await db.query('SELECT 1 FROM falk_watch WHERE id=$1', [proposedId])).rowCount,0,'nothing is public before approval');
+    const detail = await submissionDetail(id,editor.id,db);
+    assert.equal(detail?.proposal?.proposedId,proposedId);
+    assert.match(detail?.subject ?? '',/^New watch: /);
+    assert.ok((await listSubmissions(reviewQuery.parse({search:detail!.proposal!.input.model}),db)).total >= 1);
+
+    const approve = {action:'approve' as const,expectedStatus:'pending' as const,note};
+    await assert.rejects(decideSubmission(editor.id,id,approve,db),/archetype/);
+    await assert.rejects(decideSubmission(editor.id,id,{...approve,archetype:'independent_watchmaker'},db),/archetype from the methodology/);
+    await assert.rejects(decideSubmission(editor.id,id,{...approve,action:'reject',archetype:anyArchetype(live)},db),/only when approving/);
+    // The brand tie is found from the proposal, before any record exists.
+    const tied = await member(db,'editor');
+    await db.query('INSERT INTO falk_affiliation(account_id,organization_id) VALUES($1,$2)', [tied.id,brand]);
+    await assert.rejects(decideSubmission(tied.id,id,{...approve,archetype:anyArchetype(live)},db),/disclosed relationship/);
+
+    const result = await decideSubmission(editor.id,id,{...approve,archetype:anyArchetype(live)},db);
+    assert.deepEqual(result,{status:'approved',record:proposedId});
+    const watch = (await db.query(`SELECT w.brand_id,r.reviewer_id,r.actor_id,r.kind FROM falk_watch w
+      JOIN falk_revision r ON r.id=w.current_revision_id WHERE w.id=$1`, [proposedId])).rows[0];
+    assert.deepEqual(watch,{brand_id:brand,reviewer_id:editor.id,actor_id:author.id,kind:'approval'});
+    const profile = (await db.query('SELECT version,status,payload FROM falk_profile_version WHERE watch_id=$1', [proposedId])).rows;
+    assert.deepEqual(profile.map(p => [p.version,p.status,p.payload.confidence,p.payload.editor]),[[1,'published','D',author.username]]);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM falk_dimension_score WHERE watch_id=$1 AND value IS NULL', [proposedId])).rows[0].n,7);
+
+    // Guests may correct records but never propose new ones (db/011).
+    await db.query('SAVEPOINT guest');
+    await assert.rejects(db.query(`INSERT INTO falk_submission(author_id,target_kind,original_proposal,explanation,evidence)
+      VALUES(NULL,'watch','{}','A guest proposal','[]')`),/falk_submission_guest_watch_only/);
+    await db.query('ROLLBACK TO SAVEPOINT guest');
   });
 });
 test('search text is literal, not a LIKE pattern', async () => {
