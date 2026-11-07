@@ -93,6 +93,11 @@
 .account-divider { height: 1px; border: 0; background: var(--c-edge); margin: 20px 0; }
 .account-details { padding: 16px; background: var(--c-page); border: var(--edge); border-radius: var(--r-control); }
 .account-details summary { cursor: pointer; font-weight: 650; }
+.account-field small.account-field-error, .account-field-error { color: var(--c-ink); font-weight: 650; }
+.account-field-error::before { content: '! '; color: var(--c-action); }
+fieldset.account-field { border: 0; margin: 0; padding: 0; }
+fieldset.account-field[aria-invalid="true"] .account-toggle { border-color: var(--c-action); }
+.nw-similar { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; overflow-wrap: anywhere; }
 .review-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
 .review-tabs button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: var(--edge); border-radius: var(--r-control); background: var(--c-surface); color: var(--c-ink); font: 600 14px/1 var(--f-sans); cursor: pointer; }
 .review-tabs button:hover { border-color: var(--c-action); color: var(--c-action); }
