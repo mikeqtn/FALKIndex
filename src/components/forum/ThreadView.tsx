@@ -107,10 +107,12 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     action:'Send report',
     run:reason => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }),
   }, 'Thanks. Moderators will review your report.');
-  const del = () => {
-    if (!confirm('Delete this post? Readers will see that you deleted it, and replies to it stay up. This cannot be undone.')) return;
-    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'DELETE', body:'{}' }), 'Your post was deleted.');
-  };
+  const del = () => tools?.ask({
+    title:'Delete this post?',
+    help:'Readers will see that you deleted it, and replies to it stay up. This cannot be undone.',
+    action:'Delete post', confirmOnly:true,
+    run:() => api(`/api/forum/posts/${post.id}`, { method:'DELETE', body:'{}' }),
+  }, 'Your post was deleted.');
   const toggle = () => tools?.ask({
     title:post.hidden ? 'Show this post again' : 'Hide this post',
     help:post.hidden ? 'Readers will see this post again. Your reason goes to the audit log.' : 'Readers will see that a moderator hid it, and replies to it stay up. Your reason goes to the audit log.',
