@@ -33,7 +33,7 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
       window.location.assign(`${links.thread}${thread}`);
     } catch (e) { setError(handleAccountError(e)); setBusy(false); }
   };
-  if (account === undefined) return <p className="account-loading" role="status">Loading…</p>;
+  if (account === undefined) return <FormSkeleton />;
   if (!account) return <p><a href={signInHref}>Sign in</a> with your FALK Index account to start a thread.</p>;
   if (!account.onboarded) return <p><a href={links.account}>Choose a username</a> on your account page first.</p>;
   return <form className="account-stack forum-form" onSubmit={submit}>
@@ -49,6 +49,18 @@ function Form({ categories, category: initial, record, links, signInHref }: Prop
     {attach.picker}
     <div className="account-actions"><button className="account-button" disabled={busy || attach.uploading}>Start thread</button></div>
   </form>;
+}
+
+/** The form's shape in placeholders (forum.css .f-skel), from the page's first HTML until the account is checked. */
+export function FormSkeleton() {
+  const field = (control: string) => <div className="account-field"><i className="f-skel f-skel-label" /><i className={`f-skel ${control}`} /></div>;
+  return <div className="account-stack forum-form" role="status">
+    <span className="sr-only">Loading the form…</span>
+    {field('f-skel-field')}
+    {field('f-skel-field')}
+    {field('f-skel-area')}
+    <i className="f-skel f-skel-button" />
+  </div>;
 }
 
 export default function NewThreadForm(props: Props) {
