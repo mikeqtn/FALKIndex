@@ -22,29 +22,38 @@ const unavailable = () => new HttpError(503,'The help form is not working right 
 export const sendSupportMessage = (input: z.infer<typeof supportInput>) => emailSupportInbox(
   `Help form: ${TOPICS[input.topic]}`,`From: ${input.email}\nTopic: ${TOPICS[input.topic]}\n\n${input.message}`,input.email);
 
-/** Email the support inbox, the only address this site sends to. Logs never include the content or an address. */
-export async function emailSupportInbox(subject: string, text: string, replyTo?: string) {
+/** Email the support inbox. Logs never include the content or an address. */
+export const emailSupportInbox = (subject: string, text: string, replyTo?: string) =>
+  sendEmail({ from:SUPPORT_FROM, to:SUPPORT_TO, subject, text, replyTo }, 'support');
+
+/**
+ * Send one plain-text email through Postmark. The site sends only to its own support inbox and to a member's own
+ * verified account address (server/notify.ts), never to an address typed into a form. Throws a 503 on failure;
+ * `scope` names the log events.
+ */
+export async function sendEmail(message: { from: string; to: string; subject: string; text: string; replyTo?: string }, scope: string) {
   const token = process.env.POSTMARK_SERVER_TOKEN;
-  if (!token) { console.error(JSON.stringify({ event:'support.not_configured' })); throw unavailable(); }
+  if (!token) { console.error(JSON.stringify({ event:`${scope}.not_configured` })); throw unavailable(); }
   let response: Response;
   try {
     response = await fetch('https://api.postmarkapp.com/email',{
       method:'POST',
       headers:{ 'Content-Type':'application/json', Accept:'application/json', 'X-Postmark-Server-Token':token },
       body:JSON.stringify({
-        From:SUPPORT_FROM, To:SUPPORT_TO, ...(replyTo ? { ReplyTo:replyTo } : {}),
-        Subject:subject, TextBody:text,
+        From:message.from, To:message.to, ...(message.replyTo ? { ReplyTo:message.replyTo } : {}),
+        // A subject is one line; a member-written watch name must not add a header.
+        Subject:message.subject.replace(/[\r\n]+/g,' '), TextBody:message.text,
         MessageStream:'outbound', TrackOpens:false, TrackLinks:'None',
       }),
       signal:AbortSignal.timeout(10000),
     });
   } catch (error: any) {
-    console.error(JSON.stringify({ event:'support.send_failed', errorName:error?.name ?? 'Error' }));
+    console.error(JSON.stringify({ event:`${scope}.send_failed`, errorName:error?.name ?? 'Error' }));
     throw unavailable();
   }
   if (!response.ok) {
     const errorCode = await response.json().then(body => body?.ErrorCode).catch(() => undefined);
-    console.error(JSON.stringify({ event:'support.send_failed', status:response.status, errorCode }));
+    console.error(JSON.stringify({ event:`${scope}.send_failed`, status:response.status, errorCode }));
     throw unavailable();
   }
 }

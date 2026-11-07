@@ -8,6 +8,7 @@ import { realm } from '../server/accounts.ts';
 import { correctionInput, saveCorrection } from '../server/corrections.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { anyArchetype, saveNewWatch } from '../server/newWatch.ts';
+import { notifyAuthor } from '../server/notify.ts';
 import { replyInput, type Account } from '../src/accounts/contracts.ts';
 import { myContributions, replyToRequest, decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
 
@@ -233,6 +234,33 @@ test('the author answers a request for information, and the submission goes back
     // An editor still looking at the old "information requested" state must reload first.
     await assert.rejects(decideSubmission(editor.id,id,{action:'approve',expectedStatus:'needs_info',note},db),/changed this submission/);
     assert.equal((await decideSubmission(editor.id,id,{action:'approve',expectedStatus:'pending',note},db)).status,'approved');
+  });
+});
+test('decision emails go only to active, verified members, never to guests', async () => {
+  await rolledBack(async db => {
+    const sent: any[] = [];
+    const realFetch = globalThis.fetch;
+    const token = process.env.POSTMARK_SERVER_TOKEN;
+    process.env.POSTMARK_SERVER_TOKEN = 'test-token';
+    globalThis.fetch = (async (url: any, init?: any) => String(url).startsWith('https://api.postmarkapp.com/')
+      ? (sent.push(JSON.parse(init.body)), Response.json({ErrorCode:0})) : realFetch(url,init)) as typeof fetch;
+    try {
+      const author = await member(db,'contributor');
+      await db.query("UPDATE falk_account_private SET email='author@example.invalid' WHERE account_id=$1", [author.id]);
+      const watch = (await db.query('SELECT id FROM falk_watch ORDER BY id LIMIT 1')).rows[0].id;
+      const id = (await db.query(`INSERT INTO falk_submission(author_id,target_kind,watch_id,original_proposal,explanation,evidence)
+        VALUES($1,'watch',$2,'{"type":"correction"}','The dial is made by a named supplier.','[]') RETURNING id`, [author.id,watch])).rows[0].id;
+      assert.equal(await notifyAuthor(id,'request_info','Which page?',null,db),true);
+      assert.deepEqual(sent.map(m => m.To),['author@example.invalid']);
+      await db.query("UPDATE falk_account SET status='suspended' WHERE id=$1", [author.id]);
+      assert.equal(await notifyAuthor(id,'reject',note,null,db),false,'suspended members are not emailed');
+      const { submission } = await guestCorrection(db);
+      assert.equal(await notifyAuthor(submission.id,'reject',note,null,db),false,'guests are never emailed');
+      assert.equal(sent.length,1);
+    } finally {
+      globalThis.fetch = realFetch;
+      if (token === undefined) delete process.env.POSTMARK_SERVER_TOKEN; else process.env.POSTMARK_SERVER_TOKEN = token;
+    }
   });
 });
 test('search text is literal, not a LIKE pattern', async () => {
