@@ -33,7 +33,8 @@ const body = z.string().trim().min(1,'Write something first.').max(20000);
 const reason = z.string().trim().min(3,'Give a reason of at least 3 characters.').max(1000);
 const images = z.array(z.uuid()).max(FORUM_MAX_IMAGES).refine(ids => new Set(ids).size === ids.length, 'Attach an image only once.').optional();
 export const threadInput = z.object({ category:slug, title:z.string().trim().min(3).max(150), body, record:z.string().trim().max(200).optional(), images }).strict();
-export const postInput = z.object({ body }).strict();
+/** images, when given, is the post's full list of images after the edit: any left out are deleted, new uploads are attached. */
+export const postInput = z.object({ body, images }).strict();
 export const replyInput = z.object({ body, parent:z.uuid().optional(), images }).strict();
 export const voteInput = z.object({ value:z.union([z.literal(-1),z.literal(0),z.literal(1)]) }).strict();
 export const reasonInput = z.object({ reason }).strict();
@@ -245,12 +246,28 @@ export async function reply(actorId: string, threadId: string, input: z.infer<ty
   return { post:post.id as string };
 }
 
-/** Attaches a member's own uploads to their new post, in the order given. An image can be attached only once. */
+/** Puts images on a post in the order given: ones already on it, or the member's own new uploads. An upload can be attached only once. */
 async function attachImages(db: PoolClient, memberId: string, postId: string, ids: string[] = []) {
   if (!ids.length) return;
   const attached = await db.query(`UPDATE falk_forum_image i SET post_id=$1,position=o.position FROM unnest($2::uuid[]) WITH ORDINALITY AS o(id,position)
-    WHERE i.id=o.id AND i.uploader_id=$3 AND i.post_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL`, [postId,ids,memberId]);
+    WHERE i.id=o.id AND i.hidden_at IS NULL AND i.purged_at IS NULL AND (i.post_id=$1 OR (i.post_id IS NULL AND i.uploader_id=$3))`, [postId,ids,memberId]);
   if (attached.rowCount !== ids.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
+}
+
+/** Makes ids the post's images. Ones a moderator hid stay, for review, and still count toward the limit.
+ * Returns the images taken off, whose bytes the caller deletes once this has committed. */
+async function replaceImages(db: PoolClient, memberId: string, postId: string, ids: string[]) {
+  const current = (await db.query('SELECT id,hidden_at FROM falk_forum_image WHERE post_id=$1 AND purged_at IS NULL FOR UPDATE', [postId])).rows;
+  const hidden = new Set(current.filter(i => i.hidden_at).map(i => i.id as string));
+  const wanted = ids.filter(id => !hidden.has(id));
+  if (wanted.length + hidden.size > FORUM_MAX_IMAGES) throw new HttpError(400,`A post can have up to ${FORUM_MAX_IMAGES} images.`);
+  const removed = current.filter(i => !i.hidden_at && !wanted.includes(i.id)).map(i => i.id as string);
+  if (removed.length) {
+    await db.query('UPDATE falk_forum_image SET purged_at=now(),purged_by=$2 WHERE id=ANY($1::uuid[])', [removed,memberId]);
+    await audit(db,memberId,memberId,'forum_image_removed','Removed by the author while editing',{ post:postId, images:removed });
+  }
+  await attachImages(db,memberId,postId,wanted);
+  return removed;
 }
 
 /** Records an image that has already been rebuilt and stored. */
@@ -323,7 +340,8 @@ export async function editPost(actorId: string, postId: string, input: z.infer<t
   if (post.locked || post.thread_hidden) throw new HttpError(409,'This thread is locked.');
   await screenPost(db,me,input.body,{ editing:postId });
   await db.query('UPDATE falk_forum_post SET body=$2 WHERE id=$1', [postId,input.body]);
-  return { post:postId };
+  const removedImages = input.images ? await replaceImages(db,me.id,postId,input.images) : [];
+  return { post:postId, removedImages };
 }
 
 export async function reportPost(actorId: string, postId: string, input: z.infer<typeof reasonInput>, db: PoolClient) {
@@ -507,7 +525,10 @@ forum.post('/threads/:id/posts', async (req,res) => {
 });
 forum.patch('/posts/:id', async (req,res) => {
   const id = await member(req), post = z.uuid().parse(req.params.id), input = postInput.parse(req.body);
-  res.json(await write(db => editPost(id,post,input,db)));
+  const { removedImages, ...result } = await write(db => editPost(id,post,input,db));
+  // The edit has committed, so a failed delete only leaves bytes that nothing serves any more.
+  await Promise.allSettled(removedImages.map(removeImage));
+  res.json(result);
 });
 // Checks the member before reading the body, so an anonymous caller never gets 8 MB read or an image decoded.
 forum.post('/images', async (req,res,next) => {
