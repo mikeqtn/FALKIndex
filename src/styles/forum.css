@@ -19,6 +19,10 @@
 .f-skel-short { width: 62%; }
 .f-skel-meta { width: 30%; height: 12px; }
 .f-skel-block { height: 72px; }
+.f-skel-label { width: 96px; height: 14px; }
+.f-skel-field { height: 44px; }
+.f-skel-area { height: 240px; }
+.f-skel-button { width: 132px; height: 44px; }
 @media (prefers-reduced-motion: reduce) { .f-skel { animation: none; background: var(--c-edge); } }
 
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }
