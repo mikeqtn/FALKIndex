@@ -31,12 +31,17 @@
   @view-transition { navigation: auto; }
   .f-canvas { view-transition-name: f-canvas; }
   ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(f-canvas) { animation: none; }
-  ::view-transition-old(f-canvas) { animation: f-out 150ms ease-in both; }
-  ::view-transition-new(f-canvas) { animation: f-in 280ms cubic-bezier(.2, .8, .2, 1) 60ms both; }
-  .f-enter { animation: f-in 280ms cubic-bezier(.2, .8, .2, 1) both; }
+  /* One overlapping cross-fade, not out-then-in, so there is no blank beat between the shapes and the page. */
+  ::view-transition-old(f-canvas) { animation: f-out 220ms ease-out both; }
+  ::view-transition-new(f-canvas) { animation: f-in 320ms cubic-bezier(.2, .8, .2, 1) both; }
+  .f-enter { animation: f-in 320ms cubic-bezier(.2, .8, .2, 1) both; }
+  /* The shapes themselves fade in rather than replacing the page in one frame. */
+  .f-canvas[data-skeleton] > .f-skeleton { animation: f-fade 200ms ease-out both; }
 }
 @keyframes f-out { to { opacity: 0; } }
-@keyframes f-in { from { opacity: 0; transform: translateY(6px); filter: blur(2px); } }
+@keyframes f-fade { from { opacity: 0; } }
+/* Opacity and a small rise only: both stay on the compositor, so a long page's snapshot doesn't stutter. */
+@keyframes f-in { from { opacity: 0; transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .f-skel { animation: none; background: var(--c-edge); } }
 
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }
