@@ -82,19 +82,16 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-side { grid-column: 1; grid-row: 2; }
 .f-menu-button { display: none; }
 .f-side-home { display: none; } /* the top bar has this link; on a phone it moves to the menu */
-/* The forum's own menu sits on two plates, separated by tone as the main site's surfaces are: the whole forum, then its
-   categories. Links to the main site follow as a quieter list, off the plates, since they leave the forum. Starting a
-   thread lives at the top of each page, where it knows the category. Radii are concentric: plate 10px = 4px + 6px link. */
-.f-side-nav { position: sticky; top: var(--top); display: grid; align-content: start; gap: var(--s-3); padding: 12px 8px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--c-edge) transparent; }
-.f-side-group { padding: 4px; background: var(--c-surface); border-radius: var(--r-plate); }
-.f-side-nav h2 { margin: 0; padding: 10px 8px 6px; color: var(--c-ink); font: 650 13px/18px var(--f-sans); letter-spacing: 0.005em; }
-.f-side-nav a { display: flex; align-items: center; min-height: 36px; padding: 7px 8px; border-radius: 6px; color: var(--c-ink-2); font-size: 14px; line-height: 18px; transition: background-color var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
-.f-side-nav a:hover { background: var(--c-surface-2); color: var(--c-ink); text-decoration: none; }
-/* The current page: a raised step, the shell's 1px ruby line, and a heavier weight. */
-.f-side-nav a[aria-current="page"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 600; box-shadow: inset 1px 0 0 var(--c-action); }
-.f-side-site { margin-top: var(--s-2); padding: 0 4px; }
-.f-side-site h2 { padding-top: 0; color: var(--c-ink-2); }
-.f-side-site a { min-height: 30px; padding-block: 5px; font-size: 13px; }
+/* The menu lies flat on the page: three groups (the whole forum, its categories, the main site) separated by space
+   alone, each under a small quiet heading. The current page is lifted a step and set in full ink; hovering lifts a
+   row half as far. No plates, rules or accent bars. Starting a thread lives at the top of each page, where it knows
+   the category. */
+.f-side-nav { position: sticky; top: var(--top); display: grid; align-content: start; gap: var(--s-5); padding: 16px 8px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--c-edge) transparent; }
+.f-side-nav h2 { margin: 0 0 4px; padding: 0 10px; color: color-mix(in srgb, var(--c-ink-2) 85%, var(--c-page)); font: 600 12px/16px var(--f-sans); letter-spacing: 0.01em; }
+.f-side-nav ul { display: grid; gap: 1px; }
+.f-side-nav a { display: flex; align-items: center; min-height: 32px; padding: 6px 10px; border-radius: 6px; color: var(--c-ink-2); font-size: 14px; line-height: 18px; transition: background-color var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+.f-side-nav a:hover { background: var(--c-surface); color: var(--c-ink); text-decoration: none; }
+.f-side-nav a[aria-current="page"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 560; }
 
 .f-canvas { grid-column: 2; grid-row: 2; min-width: 0; padding: 20px var(--pad) 64px; }
 

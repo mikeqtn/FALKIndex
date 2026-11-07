@@ -50,7 +50,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
       <details class="f-side" id="f-menu" open>
         <summary class="f-menu-button">Menu</summary>
         <nav class="f-side-nav" aria-label="Forum">
-          <ul class="f-side-group">
+          <ul>
             <li><a href={forumPath('/')} data-astro-prefetch aria-current={nav === 'home' ? 'page' : undefined}>Forum home</a></li>
             <li><a href={forumPath('/threads/')} data-astro-prefetch aria-current={nav === 'threads' ? 'page' : undefined}>All threads</a></li>
           </ul>
@@ -60,7 +60,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
             {categories.map(c => <li><a href={forumPath(`/${c.id}/`)} data-astro-prefetch aria-current={nav === c.id ? 'page' : undefined}>{c.name}</a></li>)}
           </ul>
           </div>
-          <div class="f-side-site">
+          <div class="f-side-group">
           <h2>FALK Index</h2>
           <ul>
             <li class="f-side-home"><a href={siteHref('/') || '/'}>FALK Index home</a></li>
