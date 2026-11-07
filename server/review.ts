@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import type { Pool, PoolClient } from 'pg';
-import { REVIEW_ACTIONS, REVIEW_STATUSES, type ReviewAction, type ReviewDetail, type ReviewStatus, type ReviewSummary } from '../src/accounts/contracts.ts';
+import { REVIEW_ACTIONS, REVIEW_STATUSES, type MyContribution, type ReviewAction, type ReviewDetail, type ReviewStatus, type ReviewSummary } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
 import { newWatchInput } from '../src/accounts/contracts.ts';
@@ -80,6 +80,28 @@ export async function listSubmissions(query: z.infer<typeof reviewQuery>, db: Qu
     submissions:rows.rows.map(summaryFrom),total:total.rows[0].count,page:query.page,pageSize:PAGE,
     counts:Object.fromEntries(REVIEW_STATUSES.map(status => [status,counts.rows.find(r => r.status === status)?.count ?? 0])) as Record<ReviewStatus,number>,
   };
+}
+
+/** A member's own submissions, newest first, with the decisions on each. */
+export async function myContributions(accountId: string, db: Queryable = pool): Promise<MyContribution[]> {
+  const rows = (await db.query(`SELECT ${summaryColumns},s.explanation,s.evidence,s.original_proposal->>'type' AS type
+    ${scope} AND s.author_id=$2 ORDER BY s.created_at DESC,s.id LIMIT 200`, [realm(),accountId])).rows;
+  if (!rows.length) return [];
+  const events = (await db.query(`SELECT id,submission_id,action,payload->>'note' AS note,created_at FROM falk_review_event
+    WHERE submission_id=ANY($1::uuid[]) ORDER BY created_at,id`, [rows.map(r => r.id)])).rows;
+  return rows.map(row => {
+    const newWatch = row.type === 'new_watch';
+    const recordId = newWatch ? (row.status === 'approved' ? row.proposed_id : null) : row.watch_id;
+    return {
+      id:row.id,status:row.status,createdAt:row.created_at.toISOString(),subject:summaryFrom(row).subject,
+      kind:newWatch ? 'new_watch' : 'correction',
+      record:recordId ? {id:recordId,url:`/records/${recordId}/`} : null,
+      explanation:row.explanation,
+      evidence:Array.isArray(row.evidence) ? row.evidence.filter((url: unknown) => typeof url === 'string') : [],
+      events:events.filter(e => e.submission_id === row.id)
+        .map(e => ({id:e.id,action:e.action,note:e.note ?? '',createdAt:e.created_at.toISOString()})),
+    };
+  });
 }
 
 /**

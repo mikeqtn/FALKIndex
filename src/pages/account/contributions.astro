@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import MyContributionsApp from '../../components/accounts/MyContributionsApp';
+---
+<Base title="My contributions">
+  <MyContributionsApp client:only="react" />
+</Base>

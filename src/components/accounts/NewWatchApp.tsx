@@ -109,7 +109,7 @@ function Proposal({ organizations, records, dimensions, sourceTypes }: Props) {
 
   if (sent) return <div id="nw-sent" className="account-panel account-stack" role="status" tabIndex={-1}>
     <h2>Proposal sent</h2>
-    <p>An editor will check your facts against their sources. If it is accepted, the watch goes live as a new record at <code>/records/{sent}/</code>, with no scores until a later reviewed version adds them.</p>
+    <p>An editor will check your facts against their sources. If it is accepted, the watch goes live as a new record at <code>/records/{sent}/</code>, with no scores until a later reviewed version adds them. Follow it on <a href="/account/contributions/">My contributions</a>.</p>
     <p className="account-help">Proposed record id: <code>{sent}</code>.</p>
     <div className="account-actions"><a className="account-button secondary" href="/records/">Back to records</a></div>
   </div>;

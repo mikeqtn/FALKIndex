@@ -93,6 +93,18 @@ export interface ReviewSummary {
   submitter: { kind: 'guest' | 'member'; label: string };
   excerpt: string; evidenceCount: number;
 }
+/**
+ * A member's own submission, for My contributions. Editor decisions and their notes are shown, since they are written
+ * as feedback to the author; who decided, other people's submissions and private contact details are not.
+ */
+export interface MyContribution {
+  id: string; status: ReviewStatus; createdAt: string; subject: string;
+  kind: 'correction' | 'new_watch';
+  /** The record it concerns: an existing record, or a new watch once it is published. */
+  record: { id: string; url: string } | null;
+  explanation: string; evidence: string[];
+  events: { id: string; action: ReviewAction; note: string; createdAt: string }[];
+}
 /** Editor-only view. Guest contact details never leave the review API. */
 export interface ReviewDetail extends ReviewSummary {
   explanation: string; evidence: string[]; submitterRole: string | null;

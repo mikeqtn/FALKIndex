@@ -12,7 +12,7 @@ import { correctionInput, saveCorrection } from './corrections.ts';
 import { saveNewWatch } from './newWatch.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { transaction } from './db.ts';
-import review from './review.ts';
+import review, { myContributions } from './review.ts';
 import forum from './forum.ts';
 import { sendSupportMessage, supportInput } from './support.ts';
 
@@ -82,6 +82,11 @@ api.delete('/account', async (req,res) => {
     throw new HttpError(502,'Your FALK details are deleted, but your sign-in could not be closed. Sign in again and delete once more to finish.');
   }
   res.json({ok:true});
+});
+// A member's own submissions and the feedback on them. Suspended members may still read their own.
+api.get('/account/contributions', async (req,res) => {
+  const { account } = await authenticatedAccount(req,undefined,false);
+  res.json({contributions:await myContributions(account.id)});
 });
 api.get('/profiles/:username', async (req,res) => {
   const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/).parse(req.params.username);
