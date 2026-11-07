@@ -8,6 +8,7 @@ import { newWatchInput, replyInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { applyPublish } from '../scripts/publish-record.ts';
 import { buildNewWatch, isArchetype, planNewWatch } from './newWatch.ts';
+import { notifyAuthor } from './notify.ts';
 
 type Queryable = Pick<Pool | PoolClient, 'query'>;
 const EDITORS = ['editor','admin'] as const;
@@ -238,6 +239,9 @@ review.get('/submissions/:id', async (req,res) => {
 review.post('/submissions/:id/decisions', async (req,res) => {
   const id = z.uuid().parse(req.params.id);
   const input = reviewDecision.parse(req.body);
-  res.status(201).json(await transaction(db => decideSubmission(res.locals.account.id,id,input,db)));
+  const result = await transaction(db => decideSubmission(res.locals.account.id,id,input,db));
+  // Only after the decision is committed, so the member is never told about a decision that rolled back.
+  await notifyAuthor(id,input.action,input.note,result.record ?? null);
+  res.status(201).json(result);
 });
 export default review;
