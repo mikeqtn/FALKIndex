@@ -3,8 +3,23 @@
    members write, as the main site keeps it for evidence prose. accounts.css reads the same tokens for the forms. */
 @import './shared.css';
 
-/* Cross-fade between forum pages instead of blanking. Browsers without support reload as usual. */
-@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+/* While the next forum page loads, the canvas shows placeholder shapes in the theme's surface tones (ForumLayout.astro):
+   posts for a thread, rows for a list. The shimmer is accounts.css's, and stops under reduced motion. */
+.f-skeleton { display: none; }
+.f-canvas[data-skeleton] > :not(.f-skeleton) { display: none; }
+.f-canvas[data-skeleton] > .f-skeleton { display: grid; gap: var(--s-4); }
+.f-canvas[data-skeleton="thread"] .f-skel-list, .f-canvas[data-skeleton="list"] .f-skel-thread { display: none; }
+.f-skel-list, .f-skel-thread { display: grid; gap: var(--s-4); }
+.f-skel-card { display: grid; gap: 12px; padding: var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); }
+.f-skel-head { display: flex; align-items: center; gap: 12px; }
+.f-skel { display: block; width: 100%; height: 16px; border-radius: 4px; background: linear-gradient(90deg, var(--c-edge) 25%, color-mix(in srgb, var(--c-edge) 50%, var(--c-surface-2)) 50%, var(--c-edge) 75%); background-size: 200% 100%; animation: account-shimmer 1.4s linear infinite; }
+.f-skel-title { height: 32px; width: 55%; }
+.f-skel-avatar { flex: none; width: 34px; height: 34px; border-radius: 50%; }
+.f-skel-name { width: 180px; height: 14px; }
+.f-skel-short { width: 62%; }
+.f-skel-meta { width: 30%; height: 12px; }
+.f-skel-block { height: 72px; }
+@media (prefers-reduced-motion: reduce) { .f-skel { animation: none; background: var(--c-edge); } }
 
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }
 

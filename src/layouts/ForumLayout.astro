@@ -93,6 +93,18 @@ const q = Astro.url.searchParams.get('q') ?? '';
       </header>
       <main id="main" class="f-canvas">
         <slot />
+        <div class="f-skeleton" aria-hidden="true">
+          <i class="f-skel f-skel-title" />
+          <div class="f-skel-thread">
+            {[0, 1, 2].map(n => <div class="f-skel-card">
+              <div class="f-skel-head"><i class="f-skel f-skel-avatar" /><i class="f-skel f-skel-name" /></div>
+              {n === 0 ? <i class="f-skel f-skel-block" /> : <><i class="f-skel" /><i class="f-skel f-skel-short" /></>}
+            </div>)}
+          </div>
+          <div class="f-skel-list">
+            {[0, 1, 2, 3, 4, 5].map(() => <div class="f-skel-card"><i class="f-skel f-skel-short" /><i class="f-skel f-skel-meta" /></div>)}
+          </div>
+        </div>
       </main>
     </div>
     <script>
@@ -124,6 +136,32 @@ const q = Astro.url.searchParams.get('q') ?? '';
       });
       systemDark.addEventListener('change', sync);
       sync();
+    </script>
+    <script>
+      // While the next page on this site loads, swap the canvas for placeholder shapes (forum.css: .f-skeleton).
+      // The short wait keeps prefetched pages, which arrive at once, from flashing them.
+      const main = document.getElementById('main')!;
+      let timer = 0;
+      const loading = (url: URL) => {
+        if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
+        clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          main.dataset.skeleton = url.pathname.includes('/t/') ? 'thread' : 'list';
+          main.setAttribute('aria-busy', 'true');
+        }, 120);
+      };
+      // Runs after React's handlers, so links and forms the page handles itself (defaultPrevented) are left alone.
+      document.addEventListener('click', e => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const link = (e.target as Element).closest?.('a[href]') as HTMLAnchorElement | null;
+        if (link && !link.target && !link.hasAttribute('download')) loading(new URL(link.href));
+      });
+      document.addEventListener('submit', e => {
+        const form = e.target as HTMLFormElement;
+        if (!e.defaultPrevented && form.method === 'get') loading(new URL(form.action));
+      });
+      // Back and forward can restore this page from the browser's cache, placeholders and all.
+      addEventListener('pageshow', () => { clearTimeout(timer); delete main.dataset.skeleton; main.removeAttribute('aria-busy'); });
     </script>
   </body>
 </html>
