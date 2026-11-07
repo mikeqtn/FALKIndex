@@ -52,6 +52,13 @@ export const REVIEW_STATUSES = ['pending', 'needs_info', 'approved', 'rejected',
 export type ReviewStatus = typeof REVIEW_STATUSES[number];
 export const REVIEW_ACTIONS = ['approve', 'reject', 'request_info'] as const;
 export type ReviewAction = typeof REVIEW_ACTIONS[number];
+/** Entries in a submission's history: editor decisions, and the author's replies to a request for information. */
+export type ReviewEventAction = ReviewAction | 'reply';
+export const replyInput = z.object({
+  text: z.string().trim().min(10, 'Write at least 10 characters').max(5000),
+  evidence: z.array(z.url().max(2000).refine(s => /^https?:\/\//i.test(s), 'Use an https:// or http:// URL')).max(10).default([]),
+}).strict();
+export type ReplyInput = z.input<typeof replyInput>;
 export const reviewStatusLabels: Record<ReviewStatus, string> = {
   pending: 'Pending', needs_info: 'Information requested', approved: 'Accepted',
   rejected: 'Rejected', withdrawn: 'Withdrawn',
@@ -103,7 +110,7 @@ export interface MyContribution {
   /** The record it concerns: an existing record, or a new watch once it is published. */
   record: { id: string; url: string } | null;
   explanation: string; evidence: string[];
-  events: { id: string; action: ReviewAction; note: string; createdAt: string }[];
+  events: { id: string; action: ReviewEventAction; note: string; evidence: string[]; createdAt: string }[];
 }
 /** Editor-only view. Guest contact details never leave the review API. */
 export interface ReviewDetail extends ReviewSummary {
@@ -113,5 +120,5 @@ export interface ReviewDetail extends ReviewSummary {
   conflicts: string[]; selfAuthored: boolean;
   /** Set for a new-watch proposal: what was sent, and the record id it will publish to. */
   proposal: { proposedId: string; input: NewWatchInput } | null;
-  events: { id: string; action: ReviewAction; note: string; createdAt: string; actor: string }[];
+  events: { id: string; action: ReviewEventAction; note: string; evidence: string[]; createdAt: string; actor: string }[];
 }

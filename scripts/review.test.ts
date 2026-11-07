@@ -8,8 +8,8 @@ import { realm } from '../server/accounts.ts';
 import { correctionInput, saveCorrection } from '../server/corrections.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { anyArchetype, saveNewWatch } from '../server/newWatch.ts';
-import type { Account } from '../src/accounts/contracts.ts';
-import { myContributions, decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
+import { replyInput, type Account } from '../src/accounts/contracts.ts';
+import { myContributions, replyToRequest, decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
 
 const note = 'Checked every evidence link against the record.';
 test('only open submissions can be decided, and each action has one outcome', () => {
@@ -31,6 +31,15 @@ test('decisions require a reason and cannot smuggle extra fields', () => {
   ]) assert.equal(reviewDecision.safeParse(input).success,false);
   assert.equal(reviewQuery.parse({status:''}).status,undefined);
   assert.equal(reviewQuery.safeParse({status:'published'}).success,false);
+});
+
+test('a reply needs real text, and its links must be web addresses', () => {
+  assert.deepEqual(replyInput.parse({text:'The case maker is named on page 4.'}).evidence,[]);
+  for (const input of [
+    {text:'too short'},
+    {text:'The case maker is named on page 4.',evidence:['javascript:alert(1)']},
+    {text:'The case maker is named on page 4.',status:'approved'},
+  ]) assert.equal(replyInput.safeParse(input).success,false);
 });
 
 async function rolledBack(fn: (db: PoolClient) => Promise<void>) {
@@ -195,6 +204,37 @@ test('My contributions lists only your own submissions, with editor feedback and
     assert.deepEqual(await myContributions(editor.id,db),[]);
   });
 });
+test('the author answers a request for information, and the submission goes back to the queue', async () => {
+  await rolledBack(async db => {
+    const author = await member(db,'contributor');
+    const stranger = await member(db,'contributor');
+    const editor = await member(db,'editor');
+    const watch = (await db.query('SELECT id,current_revision_id FROM falk_watch ORDER BY id LIMIT 1')).rows[0];
+    const id = (await db.query(`INSERT INTO falk_submission(author_id,target_kind,watch_id,base_revision_id,original_proposal,explanation,evidence)
+      VALUES($1,'watch',$2,$3,'{"type":"correction"}','The dial is made by a named supplier.','["https://example.com/a"]') RETURNING id`,
+      [author.id,watch.id,watch.current_revision_id])).rows[0].id;
+    const reply = {text:'The supplier is named on page 4 of the brochure.',evidence:['https://example.com/brochure.pdf']};
+    await assert.rejects(replyToRequest(author.id,id,reply,db),/No editor is waiting/,'nothing to answer yet');
+
+    await decideSubmission(editor.id,id,{action:'request_info',expectedStatus:'pending',note:'Which page names the supplier?'},db);
+    await assert.rejects(replyToRequest(stranger.id,id,reply,db),/not found/,'only the author can reply');
+    assert.deepEqual(await replyToRequest(author.id,id,reply,db),{status:'pending'});
+    await assert.rejects(replyToRequest(author.id,id,reply,db),/No editor is waiting/,'one reply per request');
+
+    const detail = await submissionDetail(id,editor.id,db);
+    assert.equal(detail?.status,'pending');
+    assert.deepEqual(detail?.events.map(e => [e.action,e.note,e.evidence,e.actor]),[
+      ['request_info','Which page names the supplier?',[],`@${editor.username}`],
+      ['reply',reply.text,reply.evidence,`@${author.username}`],
+    ]);
+    const original = (await db.query('SELECT explanation,evidence FROM falk_submission WHERE id=$1', [id])).rows[0];
+    assert.deepEqual(original,{explanation:'The dial is made by a named supplier.',evidence:['https://example.com/a']},'the original is unchanged');
+    assert.deepEqual((await myContributions(author.id,db))[0].events.at(-1)?.action,'reply');
+    // An editor still looking at the old "information requested" state must reload first.
+    await assert.rejects(decideSubmission(editor.id,id,{action:'approve',expectedStatus:'needs_info',note},db),/changed this submission/);
+    assert.equal((await decideSubmission(editor.id,id,{action:'approve',expectedStatus:'pending',note},db)).status,'approved');
+  });
+});
 test('search text is literal, not a LIKE pattern', async () => {
   await rolledBack(async db => {
     await guestCorrection(db);
@@ -229,6 +269,8 @@ test('anonymous and cross-site requests cannot reach the review queue', async ()
   assert.equal(anonymous.status,401);
   assert.equal(anonymous.headers.get('cache-control'),'no-store');
   assert.equal((await fetch(`${base}/api/account/contributions`)).status,401);
+  const replyUrl = `${base}/api/account/contributions/${randomUUID()}/replies`;
+  assert.equal((await fetch(replyUrl,{method:'POST',headers:{'Content-Type':'application/json',Origin:base},body:'{}'})).status,401);
   const url = `${base}/api/review/submissions/${randomUUID()}/decisions`;
   const body = JSON.stringify({action:'approve',expectedStatus:'pending',note});
   assert.equal((await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body})).status,403);

@@ -12,7 +12,7 @@ import { correctionInput, saveCorrection } from './corrections.ts';
 import { saveNewWatch } from './newWatch.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { transaction } from './db.ts';
-import review, { myContributions } from './review.ts';
+import review, { myContributions, replyToRequest } from './review.ts';
 import forum from './forum.ts';
 import { sendSupportMessage, supportInput } from './support.ts';
 
@@ -116,6 +116,13 @@ const hourly = (scope: string, limit: number, message: string): RequestHandler =
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
   next();
 };
+// Replies are kept for good, like the submissions they answer, so they are capped per hour too.
+export const REPLIES_PER_HOUR = 10;
+api.post('/account/contributions/:id/replies',hourly('reply',REPLIES_PER_HOUR,'You have sent several replies in the last hour. Please try again later.'),async (req,res) => {
+  const { account } = await authenticatedAccount(req);
+  const id = z.uuid().parse(req.params.id);
+  res.status(201).json(await transaction(db => replyToRequest(account.id,id,req.body,db)));
+});
 // Members propose new watches (DECISIONS.md Q16). Proposals are kept for review, so they are capped per hour.
 export const NEW_WATCHES_PER_HOUR = 5;
 api.post('/contributions/watches',hourly('new-watch',NEW_WATCHES_PER_HOUR,'You have proposed several watches in the last hour. Please try again later.'),async (req,res) => {
