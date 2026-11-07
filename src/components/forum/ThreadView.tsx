@@ -85,10 +85,17 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   const [editing, setEditing] = useState<string | null>(null);
   const [replying, setReplying] = useState<string | null>(null);
   const attach = useImagePicker();
+  const revise = useImagePicker();
   const moderator = isModerator(tools);
+  // Images a moderator hid stay on the post whatever the edit, so they are left out of the picker.
+  const edit = () => {
+    revise.reset(post.images.filter(i => !i.hidden).map(i => i.id), post.images.filter(i => i.hidden).length);
+    setEditing(post.body);
+  };
   const save = (e: FormEvent) => {
     e.preventDefault();
-    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'PATCH', body:JSON.stringify({ body:editing }) }), 'Your post was updated.').then(ok => { if (ok) setEditing(null); });
+    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'PATCH', body:JSON.stringify({ body:editing, images:revise.ids }) }), 'Your post was updated.')
+      .then(ok => { if (ok) { setEditing(null); revise.clear(); } });
   };
   const answer = (e: FormEvent) => {
     e.preventDefault();
@@ -118,16 +125,18 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     {post.body === null ? <p className="forum-hidden-note">A moderator hid this post.</p>
       : editing !== null ? <form className="account-stack" onSubmit={save}>
         <textarea aria-label="Edit your post" value={editing} onChange={e => setEditing(e.target.value)} rows={6} maxLength={20000} required />
-        <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Save</button><button className="account-button secondary" type="button" onClick={() => setEditing(null)}>Cancel</button></div>
+        {revise.picker}
+        <p className="small muted">Images you remove are deleted when you save.</p>
+        <div className="account-actions"><button className="account-button" disabled={tools?.busy || revise.uploading}>Save</button><button className="account-button secondary" type="button" onClick={() => { setEditing(null); revise.clear(); }}>Cancel</button></div>
       </form>
       : <div className="forum-body"><PostBody text={post.body} /></div>}
-    {post.images.length > 0 && <PostImages post={post} tools={tools} />}
+    {post.images.length > 0 && (editing === null || post.images.some(i => i.hidden)) && <PostImages post={editing === null ? post : { ...post, images:post.images.filter(i => i.hidden) }} tools={tools} />}
     {post.hidden && post.hiddenReason && <p className="small muted">Hidden: {post.hiddenReason}</p>}
     {editing === null && replying === null && (tools?.account || votable) && <div className="forum-post-actions small">
       {votable && <Votes post={post} shared={shared} />}
       {tools?.account && <>
         {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
-        {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
+        {post.own && !post.hidden && !thread.locked && <button type="button" onClick={edit}>Edit</button>}
         {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
         {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
         {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}

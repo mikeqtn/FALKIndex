@@ -9,7 +9,7 @@ import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
-import { addImage, clearUnattachedImages, createThread, FORUM_MAX_IMAGES, imageForServing, purgeImage, reply, replyInput, setImageHidden, setPostHidden, threadDetail } from '../server/forum.ts';
+import { addImage, clearUnattachedImages, createThread, editPost, FORUM_MAX_IMAGES, imageForServing, purgeImage, reply, replyInput, setImageHidden, setPostHidden, threadDetail } from '../server/forum.ts';
 import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from '../server/forumImages.ts';
 
 let dir = '';
@@ -136,6 +136,38 @@ test('only administrators purge, and a purged image is gone for everyone, with t
   assert.equal((await imageForServing(id, async () => ({ id:m.admin, role:'admin' }), db)).allowed, false);
   assert.deepEqual((await threadDetail(thread, 1, { id:m.admin, role:'admin' }, db))!.posts[0].images, []);
   assert.equal((await db.query("SELECT count(*)::int c FROM falk_audit_event WHERE action='forum_image_purged' AND actor_id=$1", [m.admin])).rows[0].c, 1);
+}));
+
+test('editing a post removes, adds and reorders its images', () => members(async (db, m) => {
+  const [one, two, three] = [await image(m.alice, db), await image(m.alice, db), await image(m.alice, db)];
+  const { thread, post } = await createThread(m.alice, opening([one, two]), db);
+  const shown = async () => (await threadDetail(thread, 1, null, db))!.posts[0].images.map(i => i.id);
+  await editPost(m.alice, post, { body:'Have a look.' }, db);
+  assert.deepEqual(await shown(), [one, two], 'leaving images out of the edit keeps them');
+  const { removedImages } = await editPost(m.alice, post, { body:'Swapped one.', images:[three, two] }, db);
+  assert.deepEqual(removedImages, [one]);
+  assert.deepEqual(await shown(), [three, two]);
+  assert.equal((await imageForServing(one, async () => ({ id:m.admin, role:'admin' }), db)).allowed, false, 'a removed image is gone for everyone');
+  assert.equal((await db.query("SELECT count(*)::int c FROM falk_audit_event WHERE action='forum_image_removed' AND actor_id=$1", [m.alice])).rows[0].c, 1);
+  await assert.rejects(editPost(m.alice, post, { body:'Back.', images:[one] }, db), /no longer available/, 'a removed image cannot come back');
+  await assert.rejects(editPost(m.alice, post, { body:'Theirs.', images:[await image(m.bob, db)] }, db), /no longer available/, 'someone else\'s upload');
+  const { post:other } = await reply(m.alice, thread, { body:'More.', images:[await image(m.alice, db)] }, db);
+  const elsewhere = (await threadDetail(thread, 1, null, db))!.posts.find(p => p.id === other)!.images[0].id;
+  await assert.rejects(editPost(m.alice, post, { body:'Moved.', images:[elsewhere] }, db), /no longer available/, 'an image on another post');
+  await editPost(m.alice, post, { body:'None.', images:[] }, db);
+  assert.deepEqual(await shown(), []);
+}));
+
+test('editing keeps images a moderator hid, and they count toward the limit', () => members(async (db, m) => {
+  const ids = await Promise.all(Array.from({ length:FORUM_MAX_IMAGES }, () => image(m.alice, db)));
+  const { thread, post } = await createThread(m.alice, opening(ids), db);
+  await setImageHidden(m.editor, ids[0], true, 'Not a watch', db);
+  const { removedImages } = await editPost(m.alice, post, { body:'Fewer.', images:[ids[1]] }, db);
+  assert.deepEqual(removedImages.sort(), [ids[2], ids[3]].sort());
+  const left = (await threadDetail(thread, 1, { id:m.editor, role:'editor' }, db))!.posts[0].images.map(i => i.id).sort();
+  assert.deepEqual(left, [ids[0], ids[1]].sort());
+  const extra = await Promise.all([1, 2, 3].map(() => image(m.alice, db)));
+  await assert.rejects(editPost(m.alice, post, { body:'Too many.', images:[ids[1], ...extra] }, db), /up to/);
 }));
 
 test('only your own day-old unattached images are cleared', () => members(async (db, m) => {
