@@ -109,7 +109,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   }, 'Thanks. Moderators will review your report.');
   const del = () => {
     if (!confirm('Delete this post? Readers will see that you deleted it, and replies to it stay up. This cannot be undone.')) return;
-    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'DELETE' }), 'Your post was deleted.');
+    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'DELETE', body:'{}' }), 'Your post was deleted.');
   };
   const toggle = () => tools?.ask({
     title:post.hidden ? 'Show this post again' : 'Hide this post',
