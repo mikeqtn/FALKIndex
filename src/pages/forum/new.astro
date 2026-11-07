@@ -1,13 +1,14 @@
 ---
 import ForumLayout from '../../layouts/ForumLayout.astro';
-import NewThreadForm, { FormSkeleton } from '../../components/forum/NewThreadForm.tsx';
+import NewThreadForm from '../../components/forum/NewThreadForm.tsx';
 import { navCategories } from '../../../server/forum.ts';
 import { getCatalogue } from '../../lib/data.ts';
 import { forumLinks, hasSession, signInHref } from '../../lib/forum.ts';
 const signIn = signInHref(Astro.url.pathname + Astro.url.search);
 if (!hasSession(Astro.request.headers.get('cookie'))) return Astro.redirect(signIn);
-const { records } = await getCatalogue(Astro.locals);
-const categories = await navCategories();
+// The form renders on the server when it knows the reader; otherwise as placeholders until the browser checks.
+const [account, { records }, categories] = await Promise.all([Astro.locals.account?.() ?? null, getCatalogue(Astro.locals), navCategories()]);
+if (account) Astro.response.headers.set('Cache-Control', 'private, no-store');
 const requested = Astro.url.searchParams.get('category') ?? '';
 const category = categories.some(c => c.id === requested) ? requested : '';
 const found = records.find(r => r.id === Astro.url.searchParams.get('record'));
@@ -15,7 +16,5 @@ const record = found ? { id:found.id, name:`${found.brandName} ${found.model}` }
 ---
 <ForumLayout nav="new" title="Start a thread">
   <header class="f-title"><div><h1>Start a thread</h1></div></header>
-  <NewThreadForm client:only="react" categories={categories} category={category} record={record} links={forumLinks()} signInHref={signIn}>
-    <div slot="fallback"><FormSkeleton /></div>
-  </NewThreadForm>
+  <NewThreadForm client:load categories={categories} category={category} record={record} links={forumLinks()} signInHref={signIn} account={account && { onboarded:account.onboarded }} />
 </ForumLayout>

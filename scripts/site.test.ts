@@ -333,7 +333,10 @@ test('signed out, "Start a thread" goes to sign-in and comes back to the form', 
   assert.equal(out.status, 302);
   assert.equal(out.headers.get('location'), `/sign-in?redirect_url=${encodeURIComponent('/forum/new/?category=general')}`);
   assert.equal((await open('/forum/new/', '__client_uat=0')).status, 302, 'signed out sets this cookie to 0');
-  assert.equal((await open('/forum/new/', '__client_uat=1791917601')).status, 200, 'signed in, the link goes to the form');
+  const signedIn = await open('/forum/new/', '__client_uat=1791917601');
+  assert.equal(signedIn.status, 200, 'signed in, the link goes to the form');
+  // A session the server can't confirm (no Clerk token here) gets the form's shape in its first HTML, not a blank.
+  assert.match(await signedIn.text(), /class="f-skel f-skel-area"/);
 });
 
 test('data embedded in pages cannot close its own script tag', async () => {
