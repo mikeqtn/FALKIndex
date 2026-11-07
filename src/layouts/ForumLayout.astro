@@ -162,6 +162,11 @@ const q = Astro.url.searchParams.get('q') ?? '';
       });
       // Back and forward can restore this page from the browser's cache, placeholders and all.
       addEventListener('pageshow', () => { clearTimeout(timer); delete main.dataset.skeleton; main.removeAttribute('aria-busy'); });
+      // Fade from the shapes into the next page (forum.css), but only if they were showing: a page that arrived first
+      // swaps in at once, as before.
+      addEventListener('pageswap', e => {
+        if (!main.dataset.skeleton) (e as Event & { viewTransition?: { skipTransition(): void } | null }).viewTransition?.skipTransition();
+      });
     </script>
   </body>
 </html>

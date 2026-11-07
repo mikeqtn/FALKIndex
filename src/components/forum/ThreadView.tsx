@@ -15,7 +15,7 @@ type Reply = Post & { replies: Reply[] };
 // Only what the thread needs, since the page's HTML carries it.
 type Reader = Pick<Account, 'role' | 'onboarded'>;
 interface Props { detail: Detail, links: ForumLinks, signedIn: boolean, account?: Reader | null, signInHref: string }
-interface Tools { account: Reader | null, checking?: boolean, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
+interface Tools { account: Reader | null, checking?: boolean, late?: boolean, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
 interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, signInHref: string, send: (body: string, parent?: string, images?: string[]) => Promise<boolean> | undefined }
 
 /** Conversations start closed from this depth when they have replies, so a large thread stays readable. */
@@ -274,7 +274,7 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
         : !account ? <p className="forum-reply-prompt"><a href={signInHref}>Sign in</a> with your FALK Index account to reply.</p>
         : !account.onboarded ? <p className="forum-reply-prompt"><a href={links.account}>Choose a username</a> to reply.</p>
         : thread.locked && !moderator ? <p className="forum-reply-prompt">This thread is locked.</p>
-        : <form className="account-stack" onSubmit={submit}>
+        : <form className={`account-stack${tools?.late ? ' f-enter' : ''}`} onSubmit={submit}>
           <label htmlFor="forum-reply">Reply to the thread</label>
           <textarea id="forum-reply" value={reply} onChange={e => setReply(e.target.value)} rows={6} maxLength={20000} required />
           {attach.picker}
@@ -314,7 +314,9 @@ function Interactive({ detail: initial, links, signInHref, account: known }: Pro
     setMessage(null);
     setAsking({ ...request, run:async reason => { await request.run(reason); await reload(); if (done) setMessage({ kind:'notice', text:done }); } });
   };
-  const tools: Tools = { account, checking, busy, act, ask };
+  // The reply form settles in only where it replaces placeholders, not when the server sent it ready.
+  const [late] = useState(!known);
+  const tools: Tools = { account, checking, late, busy, act, ask };
   return <>
     {mounted && checking && <AccountCheck onAccount={found} />}
     {message && <div className={`forum-flash ${message.kind === 'error' ? 'account-error' : 'account-notice'}`} role={message.kind === 'error' ? 'alert' : 'status'}>{message.text}</div>}

@@ -23,6 +23,20 @@
 .f-skel-field { height: 44px; }
 .f-skel-area { height: 240px; }
 .f-skel-button { width: 132px; height: 44px; }
+
+/* Leaving the placeholders. Between pages, only the canvas changes: its shapes fade out quickly and the next page
+   settles in, while the header and menu stay still. ForumLayout skips this unless the shapes were showing. Inside a
+   page, content that replaces shapes (.f-enter) settles in the same way. Exits are shorter and quieter than entrances. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .f-canvas { view-transition-name: f-canvas; }
+  ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(f-canvas) { animation: none; }
+  ::view-transition-old(f-canvas) { animation: f-out 150ms ease-in both; }
+  ::view-transition-new(f-canvas) { animation: f-in 280ms cubic-bezier(.2, .8, .2, 1) 60ms both; }
+  .f-enter { animation: f-in 280ms cubic-bezier(.2, .8, .2, 1) both; }
+}
+@keyframes f-out { to { opacity: 0; } }
+@keyframes f-in { from { opacity: 0; transform: translateY(6px); filter: blur(2px); } }
 @media (prefers-reduced-motion: reduce) { .f-skel { animation: none; background: var(--c-edge); } }
 
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }

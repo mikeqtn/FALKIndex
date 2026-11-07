@@ -17,6 +17,8 @@ interface Props {
 // Without an account from the server (the dev server, or a failed lookup), placeholders show until the browser checks.
 export default function NewThreadForm({ categories, category: initial, record, links, signInHref, account: known }: Props) {
   const [account, setAccount] = useState<Writer | null | undefined>(known ?? undefined);
+  // A form that replaces placeholders settles in (forum.css .f-enter); one the server sent ready just shows.
+  const [late] = useState(known == null);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const found = useCallback((found: Account | null, failure?: unknown) => {
@@ -41,7 +43,7 @@ export default function NewThreadForm({ categories, category: initial, record, l
   if (account === undefined) return <>{mounted && <AccountCheck onAccount={found} />}<FormSkeleton /></>;
   if (!account) return <>{error && <div className="account-error" role="alert">{error}</div>}<p><a href={signInHref}>Sign in</a> with your FALK Index account to start a thread.</p></>;
   if (!account.onboarded) return <p><a href={links.account}>Choose a username</a> on your account page first.</p>;
-  return <form className="account-stack forum-form" onSubmit={submit}>
+  return <form className={`account-stack forum-form${late ? ' f-enter' : ''}`} onSubmit={submit}>
     {error && <div className="account-error" role="alert">{error}</div>}
     {record && <p className="small">About <a href={`${links.record}${record.id}/`}>{record.name}</a></p>}
     <div className="account-field"><label htmlFor="forum-category">Category</label>
