@@ -5,6 +5,8 @@ export interface ReasonRequest {
   title: string;
   help: string;
   action: string;
+  /** The action button's text while the request runs, such as "Deleting…". */
+  busyAction?: string;
   /** Only confirm, with no reason asked, for a member's own irreversible action such as deleting a post. */
   confirmOnly?: boolean;
   run: (reason: string) => Promise<unknown>;
@@ -25,8 +27,8 @@ export function ReasonDialog({ request, onClose }: { request: ReasonRequest, onC
     catch (failure) { setError(handleAccountError(failure)); }
     finally { setBusy(false); }
   };
-  return <dialog ref={dialog} className="forum-dialog" aria-labelledby="forum-dialog-title" onClose={onClose}>
-    <form className="account-stack" onSubmit={submit}>
+  return <dialog ref={dialog} className="forum-dialog" aria-labelledby="forum-dialog-title" onClose={onClose} onCancel={e => { if (busy) e.preventDefault(); }}>
+    <form className="account-stack" onSubmit={submit} aria-busy={busy}>
       <h2 id="forum-dialog-title">{request.title}</h2>
       <p className="muted">{request.help}</p>
       {error && <div className="account-error" role="alert">{error}</div>}
@@ -35,8 +37,8 @@ export function ReasonDialog({ request, onClose }: { request: ReasonRequest, onC
         <textarea id="forum-dialog-reason" value={reason} onChange={e => setReason(e.target.value)} rows={4} minLength={3} maxLength={1000} required autoFocus />
       </>}
       <div className="account-actions">
-        <button className={request.confirmOnly ? 'account-button danger' : 'account-button'} disabled={busy}>{request.action}</button>
-        <button className="account-button secondary" type="button" autoFocus={request.confirmOnly} onClick={() => dialog.current?.close()}>Cancel</button>
+        <button className={request.confirmOnly ? 'account-button danger' : 'account-button'} disabled={busy}>{busy ? request.busyAction ?? 'Working…' : request.action}</button>
+        <button className="account-button secondary" type="button" autoFocus={request.confirmOnly} disabled={busy} onClick={() => dialog.current?.close()}>Cancel</button>
       </div>
     </form>
   </dialog>;
