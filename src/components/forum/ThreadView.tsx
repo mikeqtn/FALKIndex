@@ -1,8 +1,7 @@
-import { useAuth } from '@clerk/react';
 import { useCallback, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react';
 import type { threadDetail } from '../../../server/forum.ts';
 import type { Account } from '../../accounts/contracts.ts';
-import { AuthProvider } from '../accounts/AuthProvider';
+import { AccountCheck } from '../accounts/AccountCheck';
 import { api, handleAccountError } from '../accounts/api';
 import type { ForumLinks } from '../../lib/forum.ts';
 import { forumDay, personInitial } from '../../lib/forum-people';
@@ -286,17 +285,6 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   </>;
 }
 
-// Asks Clerk, then the API, who is reading. Only needed when the server could not say (the dev server, or a failed lookup).
-function AccountCheck({ onAccount }: { onAccount: (account: Account | null) => void }) {
-  const { isLoaded, isSignedIn } = useAuth();
-  useEffect(() => {
-    if (!isLoaded) return;
-    if (!isSignedIn) { onAccount(null); return; }
-    api<{ account: Account }>('/api/account').then(r => onAccount(r.account), () => onAccount(null));
-  }, [isLoaded, isSignedIn, onAccount]);
-  return null;
-}
-
 // Signed in: this reader's view of the thread (their own posts, and for moderators the hidden ones), acting through the
 // API and reloading after each change. The server usually renders it with the account already; otherwise it is checked
 // here, with a placeholder where the reply form goes, so a member never sees "Sign in" first.
@@ -328,7 +316,7 @@ function Interactive({ detail: initial, links, signInHref, account: known }: Pro
   };
   const tools: Tools = { account, checking, busy, act, ask };
   return <>
-    {mounted && checking && <AuthProvider><AccountCheck onAccount={found} /></AuthProvider>}
+    {mounted && checking && <AccountCheck onAccount={found} />}
     {message && <div className={`forum-flash ${message.kind === 'error' ? 'account-error' : 'account-notice'}`} role={message.kind === 'error' ? 'alert' : 'status'}>{message.text}</div>}
     {asking && <ReasonDialog request={asking} onClose={() => setAsking(null)} />}
     <ThreadBody detail={detail} links={links} tools={tools} signInHref={signInHref} />
