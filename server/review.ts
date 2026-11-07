@@ -4,7 +4,7 @@ import type { Pool, PoolClient } from 'pg';
 import { REVIEW_ACTIONS, REVIEW_STATUSES, type MyContribution, type ReviewAction, type ReviewDetail, type ReviewStatus, type ReviewSummary } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
-import { newWatchInput } from '../src/accounts/contracts.ts';
+import { newWatchInput, replyInput } from '../src/accounts/contracts.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { applyPublish } from '../scripts/publish-record.ts';
 import { buildNewWatch, isArchetype, planNewWatch } from './newWatch.ts';
@@ -82,12 +82,29 @@ export async function listSubmissions(query: z.infer<typeof reviewQuery>, db: Qu
   };
 }
 
+const links = (value: unknown) => Array.isArray(value) ? value.filter((url): url is string => typeof url === 'string') : [];
+
+/**
+ * The author answers a request for information. The reply joins the append-only history and the submission goes
+ * back to the queue as pending; the original submission is never changed.
+ */
+export async function replyToRequest(accountId: string, id: string, body: unknown, db: PoolClient) {
+  const input = replyInput.parse(body);
+  const submission = (await db.query('SELECT status FROM falk_submission WHERE id=$1 AND author_id=$2 FOR UPDATE', [id,accountId])).rows[0];
+  if (!submission) throw new HttpError(404,'Submission not found.');
+  if (submission.status !== 'needs_info') throw new HttpError(409,'No editor is waiting on a reply to this submission.');
+  await db.query("UPDATE falk_submission SET status='pending' WHERE id=$1", [id]);
+  await db.query(`INSERT INTO falk_review_event(submission_id,actor_id,action,payload) VALUES($1,$2,'reply',$3)`,
+    [id,accountId,{note:input.text,evidence:input.evidence,from:'needs_info',to:'pending'}]);
+  return {status:'pending' as const};
+}
+
 /** A member's own submissions, newest first, with the decisions on each. */
 export async function myContributions(accountId: string, db: Queryable = pool): Promise<MyContribution[]> {
   const rows = (await db.query(`SELECT ${summaryColumns},s.explanation,s.evidence,s.original_proposal->>'type' AS type
     ${scope} AND s.author_id=$2 ORDER BY s.created_at DESC,s.id LIMIT 200`, [realm(),accountId])).rows;
   if (!rows.length) return [];
-  const events = (await db.query(`SELECT id,submission_id,action,payload->>'note' AS note,created_at FROM falk_review_event
+  const events = (await db.query(`SELECT id,submission_id,action,payload->>'note' AS note,payload->'evidence' AS evidence,created_at FROM falk_review_event
     WHERE submission_id=ANY($1::uuid[]) ORDER BY created_at,id`, [rows.map(r => r.id)])).rows;
   return rows.map(row => {
     const newWatch = row.type === 'new_watch';
@@ -99,7 +116,7 @@ export async function myContributions(accountId: string, db: Queryable = pool): 
       explanation:row.explanation,
       evidence:Array.isArray(row.evidence) ? row.evidence.filter((url: unknown) => typeof url === 'string') : [],
       events:events.filter(e => e.submission_id === row.id)
-        .map(e => ({id:e.id,action:e.action,note:e.note ?? '',createdAt:e.created_at.toISOString()})),
+        .map(e => ({id:e.id,action:e.action,note:e.note ?? '',evidence:links(e.evidence),createdAt:e.created_at.toISOString()})),
     };
   });
 }
@@ -134,7 +151,7 @@ export async function submissionDetail(id: string, actorId: string, db: Queryabl
     (s.watch_id IS NOT NULL AND s.base_revision_id IS DISTINCT FROM w.current_revision_id) AS stale_base
     ${scope} AND s.id=$2`, [realm(),id])).rows[0];
   if (!row) return null;
-  const events = await db.query(`SELECT e.id,e.action,e.payload->>'note' AS note,e.created_at,
+  const events = await db.query(`SELECT e.id,e.action,e.payload->>'note' AS note,e.payload->'evidence' AS evidence,e.created_at,
     coalesce('@'||a.username,'Editor') AS actor FROM falk_review_event e
     LEFT JOIN falk_account a ON a.id=e.actor_id WHERE e.submission_id=$1 ORDER BY e.created_at,e.id`, [id]);
   return {
@@ -148,7 +165,7 @@ export async function submissionDetail(id: string, actorId: string, db: Queryabl
     selfAuthored:await isSelfAuthored(db,actorId,row),
     proposal:row.original_proposal?.type === 'new_watch'
       ? {proposedId:row.original_proposal.proposedId,input:row.original_proposal.input} : null,
-    events:events.rows.map(e => ({id:e.id,action:e.action,note:e.note ?? '',createdAt:e.created_at.toISOString(),actor:e.actor})),
+    events:events.rows.map(e => ({id:e.id,action:e.action,note:e.note ?? '',evidence:links(e.evidence),createdAt:e.created_at.toISOString(),actor:e.actor})),
   };
 }
 

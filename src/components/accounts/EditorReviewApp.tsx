@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useAuth } from '@clerk/react';
-import type { ReviewAction, ReviewDetail, ReviewStatus, ReviewSummary } from '../../accounts/contracts';
+import type { ReviewAction, ReviewDetail, ReviewEventAction, ReviewStatus, ReviewSummary } from '../../accounts/contracts';
 import { REVIEW_STATUSES, reviewStatusLabels } from '../../accounts/contracts';
 import { api, ApiError, dateLabel, handleAccountError } from './api';
 import { AuthProvider } from './AuthProvider';
 
 type Queue = { submissions: ReviewSummary[]; total: number; page: number; pageSize: number; counts: Record<ReviewStatus, number> };
 const submitterRoles: Record<string, string> = { brand: 'The brand', watchmaker: 'The watchmaker', reader: 'A reader', other: 'Other' };
-const actionLabels: Record<ReviewAction, string> = { approve: 'Accepted', reject: 'Rejected', request_info: 'Requested information' };
+const actionLabels: Record<ReviewEventAction, string> = { approve: 'Accepted', reject: 'Rejected', request_info: 'Requested information', reply: 'Author replied' };
 const isOpen = (status: ReviewStatus) => status === 'pending' || status === 'needs_info';
 /** Names for the codes in a new-watch proposal, from the methodology and catalogue (pages/editor/review.astro). */
 type Labels = { archetypes: { code: string; name: string }[]; dimensions: Record<string, string>; sourceTypes: Record<string, string>; organizations: Record<string, string> };
@@ -173,7 +173,7 @@ function ReviewConsole({ labels }: { labels: Labels }) {
                 </dl>
                 <div><p className="account-label">{detail.proposal ? 'Why it belongs in the index' : 'What should change, and why'}</p><blockquote className="review-quote">{detail.explanation}</blockquote></div>
                 {detail.proposal ? <ProposalDetail proposal={detail.proposal} labels={labels} /> : <div><p className="account-label">Evidence</p>{detail.evidence.length ? <ol className="review-evidence">{detail.evidence.map(url => <li key={url}>{/^https?:\/\//i.test(url) ? <a href={url} target="_blank" rel="noreferrer noopener">{url}</a> : url}</li>)}</ol> : <p className="account-help">No evidence links.</p>}</div>}
-                {detail.events.length > 0 && <div><p className="account-label">Review history</p><ul className="account-list">{detail.events.map(event => <li key={event.id}><strong>{actionLabels[event.action] ?? event.action}</strong><span className="account-help"> · {event.actor} · {dateLabel(event.createdAt)}</span><p className="review-note">{event.note}</p></li>)}</ul></div>}
+                {detail.events.length > 0 && <div><p className="account-label">Review history</p><ul className="account-list">{detail.events.map(event => <li key={event.id}><strong>{actionLabels[event.action] ?? event.action}</strong><span className="account-help"> · {event.actor} · {dateLabel(event.createdAt)}</span><p className="review-note">{event.note}</p>{event.evidence.length > 0 && <ol className="review-evidence">{event.evidence.map(url => <li key={url}><a href={url} target="_blank" rel="noreferrer noopener">{url}</a></li>)}</ol>}</li>)}</ul></div>}
                 {isOpen(detail.status) && !blocked && <form className="account-stack review-decision" onSubmit={event => event.preventDefault()}>
                   <div className="account-field"><label htmlFor="review-note">Decision note (at least 10 characters)</label><textarea id="review-note" required minLength={10} value={note} onChange={e => setNote(e.target.value)} /><small>{detail.proposal ? 'Accepting publishes the record at once as version 1, with every dimension U and confidence D.' : 'Accepting records the decision only. The public record changes when an editor publishes a new profile version.'}</small></div>
                   {detail.proposal && <div className="account-field"><label htmlFor="review-archetype">Archetype (required to accept)</label><select id="review-archetype" value={archetype} onChange={e => setArchetype(e.target.value)}><option value="">Choose an archetype</option>{labels.archetypes.map(a => <option key={a.code} value={a.code}>{a.name}</option>)}</select><small>Judge it from the whole proposal; the contributor does not suggest one. <a href="/archetypes/" target="_blank" rel="noreferrer">What the archetypes mean</a></small></div>}
