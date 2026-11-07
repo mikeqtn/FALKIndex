@@ -82,11 +82,21 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-side { grid-column: 1; grid-row: 2; }
 .f-menu-button { display: none; }
 .f-side-home { display: none; } /* the top bar has this link; on a phone it moves to the menu */
-.f-side-nav { position: sticky; top: var(--top); padding: 12px 12px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; }
-.f-side-nav h2 { margin: 24px 8px 8px; color: var(--c-ink-2); font: 500 13px/18px var(--f-sans); }
-.f-side-nav a { display: flex; align-items: center; min-height: 36px; padding: 7px 8px; border-radius: var(--r-control); color: var(--c-ink-2); font-size: 14px; line-height: 18px; }
+/* The menu is three plates, separated by tone as the main site's surfaces are: the forum's own way in and its main
+   action, its categories, then the main site. Radii are concentric: plate 10px = 4px padding + 6px link. */
+.f-side-nav { position: sticky; top: var(--top); display: grid; align-content: start; gap: var(--s-3); padding: 12px 8px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; }
+.f-side-group { padding: 4px; background: var(--c-surface); border-radius: var(--r-plate); }
+.f-side-nav h2 { margin: 0; padding: 10px 8px 6px; color: var(--c-ink); font: 650 13px/18px var(--f-sans); letter-spacing: 0.005em; }
+.f-side-nav a { display: flex; align-items: center; min-height: 36px; padding: 7px 8px; border-radius: 6px; color: var(--c-ink-2); font-size: 14px; line-height: 18px; transition: background-color var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
 .f-side-nav a:hover { background: var(--c-surface-sunk); color: var(--c-ink); text-decoration: none; }
-.f-side-nav a[aria-current="page"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 560; }
+/* The current page: a raised step and the shell's 1px ruby line. */
+.f-side-nav a[aria-current="page"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 560; box-shadow: inset 1px 0 0 var(--c-action); }
+.f-side-main { display: grid; gap: 4px; }
+.f-side-nav .f-side-home-link { color: var(--c-ink); font-size: 15px; font-weight: 600; }
+/* Starting a thread is the forum's main action, so it takes the primary button, filling the plate. */
+.f-side-nav .f-side-start { display: flex; width: 100%; min-height: 44px; border-radius: 6px; color: var(--c-ink-inverse); font-size: 15px; }
+.f-side-nav .f-side-start:hover { background: var(--c-action-hover); color: var(--c-ink-inverse); }
+.f-side-nav .f-side-start[aria-current="page"] { background: var(--c-action-hover); color: var(--c-ink-inverse); box-shadow: none; }
 
 .f-canvas { grid-column: 2; grid-row: 2; min-width: 0; padding: 20px var(--pad) 64px; }
 
