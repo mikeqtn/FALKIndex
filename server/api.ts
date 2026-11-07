@@ -9,6 +9,8 @@ import { getClerkProxyHost } from './middlewares/clerkProxyMiddleware.ts';
 import { clientKey, minuteCounter } from './pageLimit.ts';
 import admin from './admin.ts';
 import { correctionInput, saveCorrection } from './corrections.ts';
+import { saveNewWatch } from './newWatch.ts';
+import { loadCatalogue } from './catalogue.ts';
 import { transaction } from './db.ts';
 import review from './review.ts';
 import forum from './forum.ts';
@@ -109,6 +111,15 @@ const hourly = (scope: string, limit: number, message: string): RequestHandler =
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
   next();
 };
+// Members propose new watches (DECISIONS.md Q16). Proposals are kept for review, so they are capped per hour.
+export const NEW_WATCHES_PER_HOUR = 5;
+api.post('/contributions/watches',hourly('new-watch',NEW_WATCHES_PER_HOUR,'You have proposed several watches in the last hour. Please try again later.'),async (req,res) => {
+  const { account } = await authenticatedAccount(req);
+  // Checked against the catalogue as it is now, not the page cache, so a just-published record counts.
+  const live = await loadCatalogue();
+  const submission = await transaction(db => saveNewWatch(account,req.body,live,db));
+  res.status(201).json({submission});
+});
 api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
 api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have uploaded a lot of images in the last hour. Please try again later.'));

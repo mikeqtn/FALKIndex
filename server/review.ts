@@ -4,6 +4,10 @@ import type { Pool, PoolClient } from 'pg';
 import { REVIEW_ACTIONS, REVIEW_STATUSES, type ReviewAction, type ReviewDetail, type ReviewStatus, type ReviewSummary } from '../src/accounts/contracts.ts';
 import { pool, querySeries, transaction } from './db.ts';
 import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from './accounts.ts';
+import { newWatchInput } from '../src/accounts/contracts.ts';
+import { loadCatalogue } from './catalogue.ts';
+import { applyPublish } from '../scripts/publish-record.ts';
+import { buildNewWatch, isArchetype, planNewWatch } from './newWatch.ts';
 
 type Queryable = Pick<Pool | PoolClient, 'query'>;
 const EDITORS = ['editor','admin'] as const;
@@ -19,6 +23,8 @@ export const reviewDecision = z.object({
   // The client states what it reviewed, so two editors cannot silently overwrite each other.
   expectedStatus:z.enum(REVIEW_STATUSES),
   note:z.string().trim().min(10,'Explain the decision in at least 10 characters').max(2000),
+  // Approving a new watch publishes it, and the editor names its production archetype (DECISIONS.md Q16).
+  archetype:z.string().regex(/^[a-z_]+$/).max(100).optional(),
 }).strict();
 
 const outcome: Record<ReviewAction,ReviewStatus> = {approve:'approved',reject:'rejected',request_info:'needs_info'};
@@ -37,6 +43,7 @@ const scope = `FROM falk_submission s
   WHERE (s.author_id IS NULL OR a.realm=$1)`;
 const summaryColumns = `s.id,s.status,s.created_at,s.target_kind,s.watch_id,s.author_id,s.submitter_name,a.deleted_at,
   a.username,w.payload->>'model' AS model,o.payload->>'name' AS brand,t.payload->>'name' AS organization,
+  s.original_proposal->>'proposedId' AS proposed_id,s.original_proposal->>'proposedName' AS proposed_name,
   left(s.explanation,240) AS excerpt,
   CASE WHEN jsonb_typeof(s.evidence)='array' THEN jsonb_array_length(s.evidence) ELSE 0 END AS evidence_count`;
 function summaryFrom(row: any): ReviewSummary {
@@ -44,6 +51,7 @@ function summaryFrom(row: any): ReviewSummary {
     id:row.id,status:row.status,createdAt:row.created_at.toISOString(),targetKind:row.target_kind,
     record:row.watch_id ? {id:row.watch_id,name:[row.brand,row.model].filter(Boolean).join(' ') || row.watch_id} : null,
     subject:row.watch_id ? [row.brand,row.model].filter(Boolean).join(' ') || row.watch_id
+      : row.proposed_name ? `New watch: ${row.proposed_name}`
       : row.organization ? `Organization: ${row.organization}` : row.target_kind === 'evidence' ? 'Evidence proposal' : 'New record proposal',
     submitter:row.author_id
       ? {kind:'member',label:row.username ? `@${row.username}` : row.deleted_at ? 'Deleted member' : 'Member (profile incomplete)'}
@@ -57,7 +65,8 @@ export async function listSubmissions(query: z.infer<typeof reviewQuery>, db: Qu
   const values = [realm(),query.status ?? null,`%${query.search.replace(/[\\%_]/g,'\\$&')}%`];
   const where = `${scope} AND ($2::text IS NULL OR s.status=$2)
     AND (s.explanation ILIKE $3 OR coalesce(s.watch_id,'') ILIKE $3 OR coalesce(w.payload->>'model','') ILIKE $3
-      OR coalesce(o.payload->>'name','') ILIKE $3 OR coalesce(t.payload->>'name','') ILIKE $3)`;
+      OR coalesce(o.payload->>'name','') ILIKE $3 OR coalesce(t.payload->>'name','') ILIKE $3
+      OR coalesce(s.original_proposal->>'proposedName','') ILIKE $3)`;
   const [rows, total] = await querySeries(db,[
     // Open work is served oldest first so nothing starves; decided work newest first.
     `SELECT ${summaryColumns} ${where}
@@ -85,6 +94,7 @@ async function reviewerConflicts(db: Queryable, actorId: string, submissionId: s
     WHERE s.id=$2 AND (f.ended_at IS NULL OR f.ended_at>s.created_at) AND (
       f.organization_id=s.organization_id OR
       f.organization_id=(SELECT brand_id FROM falk_watch WHERE id=s.watch_id) OR
+      f.organization_id=s.original_proposal->'input'->'brand'->>'id' OR
       f.organization_id IN (SELECT performer_id FROM falk_provenance WHERE watch_id=s.watch_id AND performer_id IS NOT NULL))
     ORDER BY name`, [actorId,submissionId]);
   return rows.rows.map(r => r.name as string);
@@ -97,7 +107,7 @@ async function isSelfAuthored(db: Queryable, actorId: string, submission: {autho
 }
 
 export async function submissionDetail(id: string, actorId: string, db: Queryable = pool): Promise<ReviewDetail | null> {
-  const row = (await db.query(`SELECT ${summaryColumns},s.explanation,s.evidence,s.submitter_email,
+  const row = (await db.query(`SELECT ${summaryColumns},s.explanation,s.evidence,s.submitter_email,s.original_proposal,
     s.original_proposal->>'submitterRole' AS submitter_role,
     (s.watch_id IS NOT NULL AND s.base_revision_id IS DISTINCT FROM w.current_revision_id) AS stale_base
     ${scope} AND s.id=$2`, [realm(),id])).rows[0];
@@ -114,18 +124,23 @@ export async function submissionDetail(id: string, actorId: string, db: Queryabl
     authorUsername:row.username,staleBase:row.stale_base,
     conflicts:await reviewerConflicts(db,actorId,id),
     selfAuthored:await isSelfAuthored(db,actorId,row),
-    proposal:null,
+    proposal:row.original_proposal?.type === 'new_watch'
+      ? {proposedId:row.original_proposal.proposedId,input:row.original_proposal.input} : null,
     events:events.rows.map(e => ({id:e.id,action:e.action,note:e.note ?? '',createdAt:e.created_at.toISOString(),actor:e.actor})),
   };
 }
 
-/** Record an editorial decision. Accepting a correction does not change the public record. */
+/**
+ * Record an editorial decision. Accepting a correction does not change the public record; accepting a
+ * new watch publishes it in the same transaction, through the same plan as `npm run db:publish`.
+ */
 export async function decideSubmission(actorId: string, id: string, input: z.infer<typeof reviewDecision>, db: PoolClient) {
   // FOR SHARE makes a concurrent suspension or demotion wait for this decision, or win before it.
-  const actor = (await db.query('SELECT role,status,email_verified AS "emailVerified" FROM falk_account WHERE id=$1 AND realm=$2 FOR SHARE', [actorId,realm()])).rows[0];
+  const actor = (await db.query('SELECT role,status,username,email_verified AS "emailVerified" FROM falk_account WHERE id=$1 AND realm=$2 FOR SHARE', [actorId,realm()])).rows[0];
   if (!actor) throw new HttpError(403,'You do not have permission to perform this action.');
   enforceAccount(actor,EDITORS);
-  const submission = (await db.query(`SELECT s.id,s.status,s.author_id,s.submitter_email,s.watch_id,s.organization_id
+  const submission = (await db.query(`SELECT s.id,s.status,s.author_id,s.submitter_email,s.watch_id,s.organization_id,
+    s.original_proposal,s.created_at,a.username AS author_username
     ${scope} AND s.id=$2 FOR UPDATE OF s`, [realm(),id])).rows[0];
   if (!submission) throw new HttpError(404,'Submission not found.');
   if (await isSelfAuthored(db,actorId,submission)) throw new HttpError(403,'Another editor must review your own submission.');
@@ -136,11 +151,34 @@ export async function decideSubmission(actorId: string, id: string, input: z.inf
     throw new HttpError(409,'This guest left no contact details, so they cannot be asked for more information.');
   }
   const status = nextStatus(submission.status,input.action);
+  const newWatch = submission.original_proposal?.type === 'new_watch';
+  if (input.archetype && !(newWatch && input.action === 'approve')) throw new HttpError(400,'An archetype is chosen only when approving a new watch.');
+  const record = newWatch && input.action === 'approve'
+    ? await publishNewWatch(db,submission,actor.username,input.archetype)
+    : submission.watch_id ?? submission.organization_id ?? submission.original_proposal?.proposedId ?? null;
   await db.query('UPDATE falk_submission SET status=$2 WHERE id=$1', [id,status]);
   await db.query('INSERT INTO falk_review_event(submission_id,actor_id,action,payload) VALUES($1,$2,$3,$4)',
-    [id,actorId,input.action,{note:input.note,from:submission.status,to:status}]);
-  await audit(db,actorId,null,`submission_${input.action}`,input.note,{submission:id,record:submission.watch_id ?? submission.organization_id});
-  return {status};
+    [id,actorId,input.action,{note:input.note,from:submission.status,to:status,...(newWatch ? {record} : {})}]);
+  await audit(db,actorId,null,`submission_${input.action}`,input.note,{submission:id,record});
+  return {status,...(newWatch && input.action === 'approve' ? {record} : {})};
+}
+
+/** Publish an approved new-watch proposal as its version 1. Returns the new record id. */
+async function publishNewWatch(db: PoolClient, submission: any, reviewer: string | null, archetype: string | undefined) {
+  if (!archetype) throw new HttpError(400,'Choose the production archetype before approving a new watch.');
+  if (!reviewer) throw new HttpError(403,'Choose a public username before publishing records.');
+  const live = await loadCatalogue();
+  if (!isArchetype(live,archetype)) throw new HttpError(400,'Choose a production archetype from the methodology.');
+  const built = buildNewWatch(newWatchInput.parse(submission.original_proposal.input),live,{
+    // A deleted member's work stays attributed, without a username to link to.
+    username:submission.author_username ?? 'former-member', archetype,
+    checkedOn:submission.created_at.toISOString().slice(0,10), today:new Date().toISOString().slice(0,10),
+  });
+  // A null base revision: if someone else publishes this record first, applyPublish refuses instead of overwriting it.
+  try { await applyPublish(db,planNewWatch(live,built),reviewer,null); }
+  // applyPublish's own refusals are plain Errors written for editors; database errors (with a code) are not shown.
+  catch (e) { throw e instanceof HttpError || (e as any)?.code ? e : new HttpError(409,(e as Error).message); }
+  return built.watch.id;
 }
 
 const review = Router();
