@@ -165,7 +165,7 @@ function AccountEditor() {
         <section className="account-panel account-stack" aria-labelledby="private-heading">
           <div className="account-heading"><div><h2 id="private-heading">Account status</h2><p>{email}</p></div><span className={`account-chip ${account?.emailVerified ? 'verified' : ''}`}>{statusText}</span></div>
           <div className="account-meta"><span>Role: {account?.role}</span><span>Joined {account?.createdAt ? dateLabel(account.createdAt) : '—'}</span></div>
-          {account?.username && <p><a href={`/people/${encodeURIComponent(account.username)}`}>View your public profile</a></p>}
+          {account?.username && <p><a href={`/people/${encodeURIComponent(account.username)}`}>View your public profile</a> · <a href="/account/contributions/">My contributions</a></p>}
           <p className="account-help">Role and email verification are managed separately from qualifications. Self-reported qualifications never grant contributor, editor or administrator access.</p>
         </section>
         <form className="account-panel account-stack" onSubmit={save} noValidate>

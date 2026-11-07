@@ -9,7 +9,7 @@ import { correctionInput, saveCorrection } from '../server/corrections.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
 import { anyArchetype, saveNewWatch } from '../server/newWatch.ts';
 import type { Account } from '../src/accounts/contracts.ts';
-import { decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
+import { myContributions, decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
 
 const note = 'Checked every evidence link against the record.';
 test('only open submissions can be decided, and each action has one outcome', () => {
@@ -169,6 +169,32 @@ test('approving a new-watch proposal publishes it; it needs an archetype and ano
     await db.query('ROLLBACK TO SAVEPOINT guest');
   });
 });
+test('My contributions lists only your own submissions, with editor feedback and the record once it is live', async () => {
+  await rolledBack(async db => {
+    const author = await member(db,'contributor');
+    const other = await member(db,'contributor');
+    const editor = await member(db,'editor');
+    const live = await loadCatalogue();
+    const brand = (await db.query('SELECT id FROM falk_organization WHERE id IN (SELECT brand_id FROM falk_watch) ORDER BY id LIMIT 1')).rows[0].id;
+    const propose = (who: {id: string; username: string}) => saveNewWatch({id:who.id,username:who.username} as Account,{
+      brand:{id:brand}, model:`Mine ${randomUUID().slice(0,8)}`, explanation:'A model FALK does not list yet.',
+      claims:[{statement:'The brand states the case is made in-house.',url:'https://example.com/case',sourceType:'manufacturer',dimensions:['EX']}],
+    },live,db);
+    const mine = await propose(author);
+    await propose(other);
+    await guestCorrection(db);
+
+    let list = await myContributions(author.id,db);
+    assert.deepEqual(list.map(c => [c.id,c.kind,c.status,c.record]),[[mine.id,'new_watch','pending',null]],'nothing of anyone else, no link before approval');
+    const decision = 'Accepted: the case claim matches the brand page.';
+    await decideSubmission(editor.id,mine.id,{action:'approve',expectedStatus:'pending',note:decision,archetype:anyArchetype(live)},db);
+    list = await myContributions(author.id,db);
+    assert.deepEqual(list[0].record,{id:mine.proposedId,url:`/records/${mine.proposedId}/`});
+    assert.deepEqual(list[0].events.map(e => [e.action,e.note]),[['approve',decision]]);
+    assert.doesNotMatch(JSON.stringify(list),new RegExp(editor.username),'who decided is not shown');
+    assert.deepEqual(await myContributions(editor.id,db),[]);
+  });
+});
 test('search text is literal, not a LIKE pattern', async () => {
   await rolledBack(async db => {
     await guestCorrection(db);
@@ -202,6 +228,7 @@ test('anonymous and cross-site requests cannot reach the review queue', async ()
   const anonymous = await fetch(`${base}/api/review/submissions`);
   assert.equal(anonymous.status,401);
   assert.equal(anonymous.headers.get('cache-control'),'no-store');
+  assert.equal((await fetch(`${base}/api/account/contributions`)).status,401);
   const url = `${base}/api/review/submissions/${randomUUID()}/decisions`;
   const body = JSON.stringify({action:'approve',expectedStatus:'pending',note});
   assert.equal((await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body})).status,403);
