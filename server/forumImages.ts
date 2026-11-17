@@ -1,5 +1,6 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import type { RequestHandler, Response } from 'express';
 import sharp from 'sharp';
 import { HttpError } from './accounts.ts';
 
@@ -9,6 +10,39 @@ export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const MAX_INPUT_PIXELS = 64_000_000; // refuses decompression bombs: small files that expand to huge images
 const MAX_EDGE = 2000;
 const UNREADABLE = 'That file could not be read as a JPEG, PNG or WebP image.';
+const MAX_CONCURRENT_IMAGE_UPLOADS = 2;
+let activeImageUploads = 0;
+
+/** Per-instance cap, acquired before reading the raw request body and decoding it. */
+export function acquireImageUploadSlot() {
+  if (activeImageUploads >= MAX_CONCURRENT_IMAGE_UPLOADS) return undefined;
+  activeImageUploads++;
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    activeImageUploads--;
+  };
+}
+
+/** Hold a slot across body parsing; release it on every response path, including parser errors. */
+export const limitConcurrentImageUploads: RequestHandler = (_req, res, next) => {
+  const release = acquireImageUploadSlot();
+  if (!release) {
+    res.setHeader('Retry-After', '10');
+    return next(new HttpError(429, 'Image processing is busy. Please try again shortly.'));
+  }
+  res.locals.releaseImageUploadSlot = release;
+  res.once('finish', release);
+  res.once('close', release);
+  next();
+};
+
+/** Free the slot as soon as decoding finishes; response listeners remain as an error-path safety net. */
+export function releaseImageUploadSlot(res: Response) {
+  const release = res.locals.releaseImageUploadSlot as (() => void) | undefined;
+  release?.();
+}
 
 /** The first bytes must already say JPEG, PNG or WebP, so no other decoder in the image library sees member files. */
 function hasImageSignature(input: Buffer) {

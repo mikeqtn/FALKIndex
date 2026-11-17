@@ -10,7 +10,7 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { addImage, clearUnattachedImages, createThread, editPost, FORUM_MAX_IMAGES, imageForServing, purgeImage, reply, replyInput, setImageHidden, setPostHidden, threadDetail } from '../server/forum.ts';
-import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from '../server/forumImages.ts';
+import { acquireImageUploadSlot, loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from '../server/forumImages.ts';
 
 let dir = '';
 before(async () => { dir = await mkdtemp(join(tmpdir(), 'falk-images-')); process.env.FORUM_IMAGE_DIR = dir; });
@@ -25,6 +25,21 @@ test('JPEG, PNG and WebP all come back as new WebP files with no metadata', asyn
     assert.equal((await sharp(data).metadata()).format, 'webp');
     assert.deepEqual([width, height], [64, 48]);
   }
+});
+
+test('concurrent image uploads are capped and slots release only once', () => {
+  const first = acquireImageUploadSlot(), second = acquireImageUploadSlot();
+  assert.ok(first); assert.ok(second);
+  assert.equal(acquireImageUploadSlot(), undefined, 'a third upload is rejected while both slots are active');
+  first();
+  first();
+  const third = acquireImageUploadSlot();
+  assert.ok(third, 'a slot becomes available after release');
+  second();
+  third();
+  const reusable = acquireImageUploadSlot();
+  assert.ok(reusable, 'all slots are reusable after release');
+  reusable();
 });
 
 test('location data and other metadata do not survive', async () => {
@@ -173,9 +188,11 @@ test('editing keeps images a moderator hid, and they count toward the limit', ()
 test('only your own day-old unattached images are cleared', () => members(async (db, m) => {
   const [old, fresh, others] = [await image(m.alice, db), await image(m.alice, db), await image(m.bob, db)];
   const kept = await image(m.alice, db);
+  await storeImage(old, Buffer.from('expired image bytes'));
   await createThread(m.alice, opening([kept]), db);
   await db.query("UPDATE falk_forum_image SET created_at=now()-interval '2 days' WHERE id=ANY($1)", [[old, others, kept]]);
   assert.deepEqual(await clearUnattachedImages(m.alice, db), [old]);
+  await assert.rejects(loadImage(old));
   const left = (await db.query('SELECT id FROM falk_forum_image WHERE id=ANY($1)', [[old, fresh, others, kept]])).rows.map(r => r.id).sort();
   assert.deepEqual(left, [fresh, others, kept].sort());
 }));

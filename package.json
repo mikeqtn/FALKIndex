@@ -15,6 +15,7 @@
     "db:import": "node --disable-warning=ExperimentalWarning scripts/import-catalogue.ts",
     "db:export": "node --disable-warning=ExperimentalWarning scripts/export-catalogue.ts",
     "forum:seed": "node --disable-warning=ExperimentalWarning scripts/forum-seed.ts",
+    "cleanup:forum-images": "node --disable-warning=ExperimentalWarning scripts/cleanup-forum-images.ts",
     "db:publish": "node --disable-warning=ExperimentalWarning scripts/publish-record.ts",
     "bootstrap:admin": "node --disable-warning=ExperimentalWarning scripts/bootstrap-admin.ts",
     "typecheck": "tsc --noEmit",

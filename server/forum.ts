@@ -9,7 +9,9 @@ import { audit, authenticatedAccount, enforceAccount, HttpError, realm } from '.
 import { emailSupportInbox } from './support.ts';
 import { hasLink } from '../src/lib/post-text.ts';
 import { createCatalogueCache } from '../src/lib/catalogue-cache.ts';
-import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from './forumImages.ts';
+import { loadImage, limitConcurrentImageUploads, MAX_UPLOAD_BYTES, rebuildImage, releaseImageUploadSlot, removeImage, storeImage } from './forumImages.ts';
+import { clearUnattachedImages } from './forumImageCleanup.ts';
+export { clearUnattachedImages } from './forumImageCleanup.ts';
 
 // The FALK Forum (forum.falkindex.com). Anyone may read; posting needs a verified, active
 // account with a username. Editors and administrators moderate: nothing is deleted, only
@@ -293,13 +295,6 @@ export async function addImage(actorId: string, id: string, image: { width: numb
   const me = await actor(db,actorId);
   await db.query('INSERT INTO falk_forum_image(id,uploader_id,width,height,bytes) VALUES($1,$2,$3,$4,$5)', [id,me.id,image.width,image.height,image.bytes]);
   return id;
-}
-
-/** Forgets this member's uploads that never reached a post, and returns them so their bytes can go too. */
-// ponytail: runs on a member's next upload, so strays of someone who never returns stay until a scheduled sweep exists.
-export async function clearUnattachedImages(memberId: string, db: PoolClient) {
-  const rows = await db.query(`DELETE FROM falk_forum_image WHERE uploader_id=$1 AND post_id IS NULL AND message_id IS NULL AND created_at<now()-interval '1 day' RETURNING id`, [memberId]);
-  return rows.rows.map(r => r.id as string);
 }
 
 /** Whether this reader may see an image. viewer is a function so public images never touch the account system.
@@ -586,16 +581,21 @@ forum.post('/images', async (req,res,next) => {
   await write(db => actor(db,id));
   res.locals.member = id;
   next();
-}, express.raw({ type:() => true, limit:MAX_UPLOAD_BYTES }), async (req,res) => {
+}, limitConcurrentImageUploads, express.raw({ type:() => true, limit:MAX_UPLOAD_BYTES }), async (req,res) => {
   const memberId = res.locals.member as string;
-  if (!Buffer.isBuffer(req.body)) throw new HttpError(400,'Choose an image to upload.');
-  const image = await rebuildImage(req.body), id = randomUUID();
-  const strays = await write(db => clearUnattachedImages(memberId,db));
-  await Promise.allSettled(strays.map(removeImage));
-  await storeImage(id,image.data);
-  try { await write(db => addImage(memberId,id,{ width:image.width, height:image.height, bytes:image.data.length },db)); }
-  catch (error) { await removeImage(id).catch(() => {}); throw error; }
-  res.status(201).json({ image:{ id, width:image.width, height:image.height } });
+  try {
+    if (!Buffer.isBuffer(req.body)) throw new HttpError(400,'Choose an image to upload.');
+    const image = await rebuildImage(req.body);
+    releaseImageUploadSlot(res);
+    const id = randomUUID();
+    await write(db => clearUnattachedImages(memberId,db));
+    await storeImage(id,image.data);
+    try { await write(db => addImage(memberId,id,{ width:image.width, height:image.height, bytes:image.data.length },db)); }
+    catch (error) { await removeImage(id).catch(() => {}); throw error; }
+    res.status(201).json({ image:{ id, width:image.width, height:image.height } });
+  } finally {
+    releaseImageUploadSlot(res);
+  }
 });
 forum.get('/images/:id', async (req,res) => {
   const id = z.uuid().parse(req.params.id);
