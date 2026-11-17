@@ -146,6 +146,12 @@ api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have up
 api.post('/forum/messages/with/:username',hourly('forum-message',FORUM_MESSAGES_PER_HOUR,'You have sent a lot of messages in the last hour. Please try again later.'));
 // Every edit keeps the earlier text, so edits are capped the same way.
 api.patch('/forum/messages/:id',hourly('forum-message-edit',FORUM_MESSAGES_PER_HOUR,'You have edited a lot of messages in the last hour. Please try again later.'));
+// Post edits keep their history too, and votes are a write each, so both get an hourly cap on top of the
+// per-instance minute budget.
+export const FORUM_POST_EDITS_PER_HOUR = 60;
+export const FORUM_VOTES_PER_HOUR = 300;
+api.patch('/forum/posts/:id',hourly('forum-post-edit',FORUM_POST_EDITS_PER_HOUR,'You have edited a lot of posts in the last hour. Please try again later.'));
+api.post('/forum/posts/:id/vote',hourly('forum-vote',FORUM_VOTES_PER_HOUR,'You have voted a lot in the last hour. Please try again later.'));
 api.post('/forum/posts/:id/reports',hourly('forum-report',FORUM_REPORTS_PER_HOUR,'You have sent several reports in the last hour. Please try again later.'));
 // Each help message is a paid email to a real inbox, so cap it per visitor and, against many addresses at once, for the site.
 export const SUPPORT_PER_HOUR = 5;
