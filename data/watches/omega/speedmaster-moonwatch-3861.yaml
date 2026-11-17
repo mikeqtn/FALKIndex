@@ -101,7 +101,7 @@ claims:
       - MA
       - PD
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-antimagnetic
     statement: Omega says it conceived its movements with antimagnetic materials such as the silicon balance spring.
     excerpt: we've conceived movements with antimagnetic materials, such as the silicon balance spring, capable of withstanding the highest fields.
@@ -109,7 +109,7 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-finish-spec
     statement: Omega specifies a rhodium-plated finish with straight Geneva waves on the bridges, without saying who applies it.
     excerpt: Rhodium-plated finish, bridges with straight Geneva waves.
@@ -117,7 +117,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-anodisation
     statement: Omega credits its own anodisation process for harder aluminium bezel rings, without saying where it is carried out.
     excerpt: OMEGA’s special anodisation process has achieved aluminium bezel rings that are nearly double as hard as regular versions
@@ -125,7 +125,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: osm3861-water-test
     statement: Omega says every watch is immersed and pressure-tested to its rated water resistance.
     excerpt: not just some but all watches are fully immersed in water and pressure is applied up to the point of the guaranteed water resistance.
@@ -133,7 +133,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: omega-biel-assembly
     statement: Omega says its Biel production building handles watch assembly and bracelets, and combines its assembly and testing under one roof.
     excerpt: All steps, including T2 (watch assembly), T3 (bracelets), and T4 (shipping), as well as stock and logistics, will now be completed inside the new building.
@@ -142,7 +142,7 @@ claims:
       - WE
       - EX
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: omega-biel-metas
     statement: Omega says the Biel building houses its quality control, including METAS testing for Master Chronometer certification.
     excerpt: the new building has also been created to house OMEGA’s quality and technical control processes, including the METAS testing for Master Chronometer certification.
@@ -150,7 +150,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: omega-villeret-calibres
     statement: Swatch Group says Omega produces its Master Chronometer calibres at its factory in Villeret.
     excerpt: In 2015, Omega inaugurated its state-of-the art factory and tech space in Villeret, Switzerland where it produces the exclusive timepieces and revolutionary Master Chronometer calibers
@@ -159,7 +159,7 @@ claims:
       - MM
       - WE
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 3861 architecture (1861 lineage with co-axial escapement)
@@ -281,7 +281,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 4 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 2; PD 5 \u2192 U; confidence B \u2192 D; classification Integrated Manufacture \u2192 Industrial Manufacture. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -356,8 +356,8 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
+    status: published
+    editor: falk-index
     change_note: "Adds Omega's own Moonwatch product page and factory story, and Swatch Group's production-sites page. Changes from version 2: MM U → 2; PD U → 4; confidence D → C. Three of seven dimensions remain U (EX, DH, CF)."
     created_on: 2026-10-29
     scores:

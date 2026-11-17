@@ -72,6 +72,50 @@ claims:
       - EX
     date_checked: 2026-10-21
     editor: falk-index
+  - id: um1s-assembly-inhouse
+    statement: Unimatic's About page says that in 2021 the brand brought assembly and testing in-house, near Milan.
+    excerpt: We brought assembly and testing in-house, near Milan, to ensure each watch meets our high standards.
+    source: unimatic-about
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: um1s-suppliers-italy
+    statement: Unimatic's About page says production is made in Italy in collaboration with suppliers, without naming them or the parts they make.
+    excerpt: Production is Made in Italy in collaboration with the leading suppliers available to ensure the best quality in our market segment.
+    source: unimatic-about
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: um1s-gp-assembled
+    statement: A Gear Patrol article reports that all Unimatic watches are assembled, tested and packaged near Milan.
+    excerpt: All Unimatic watches are assembled, tested and packaged a mere 30-minute drive from Milan.
+    source: unimatic-gearpatrol-2023
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: um1s-gp-dial-makers
+    statement: The same Gear Patrol article reports that Unimatic's dial and strap manufacturers are located near Milan, which describes the dials as coming from separate manufacturers; none is named.
+    excerpt: The dial and strap manufacturers are also close by.
+    source: unimatic-gearpatrol-2023
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: um1s-supplier-countries
+    statement: In a Smalltalk interview, co-founder Giovanni Moro says Unimatic's suppliers are mainly in Italy, Switzerland, Japan and Hong Kong.
+    excerpt: Our suppliers are distributed mainly in Italy, Switzerland, Japan and Hong Kong.
+    source: unimatic-smalltalk-moro
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW200-1)
@@ -91,15 +135,24 @@ provenance:
   - dimension: EX
     component: Case (S Series steel case)
     relationship: unknown
-    note: Case maker not named; the brand designed a new case. Production is said to be in Italy, without detail.
+    note: Case maker not named; the brand designed a new case. Unimatic says production is with suppliers in Italy, and Moro names supplier countries, but no source says who makes the case.
     claims:
       - um1s-case-new
       - um1s-case-height
       - um1s-italy-production
+      - um1s-suppliers-italy
+      - um1s-supplier-countries
   - dimension: DH
-    component: Dial and hands
+    component: Dial
+    relationship: external_specialist
+    note: Gear Patrol reports that the dial manufacturers are near Milan, which places dial making outside Unimatic; the maker is not named.
+    claims:
+      - um1s-gp-dial-makers
+      - um1s-suppliers-italy
+  - dimension: DH
+    component: Hands
     relationship: unknown
-    note: No source names dial or hand makers.
+    note: No source names the hand maker.
     claims: []
   - dimension: CF
     component: Finishing
@@ -107,10 +160,13 @@ provenance:
     note: No source describes movement or case finishing beyond the supplier standard.
     claims: []
   - dimension: WE
-    component: Assembly
-    relationship: unknown
-    note: Production in Italy is mentioned only in a programme summary; who assembles is not stated.
+    component: Assembly and testing
+    performer: unimatic
+    relationship: internal
+    note: Unimatic says it brought assembly and testing in-house near Milan in 2021, before the S-series launch in 2022. No source describes regulation or movement adjustment.
     claims:
+      - um1s-assembly-inhouse
+      - um1s-gp-assembled
       - um1s-italy-production
   - dimension: PD
     component: Design
@@ -152,7 +208,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 3 \u2192 2; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -212,5 +268,98 @@ profiles:
           - claim: um1s-case-new
             stance: supports
             note: New case design.
+    classification:
+      - contract_microbrand
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Unimatic's own About page, a 2023 Gear Patrol article and a 2022 Smalltalk interview with co-founder Giovanni Moro. Changes from version 2: DH U → 0; WE U → 2; confidence D → C. Two of seven dimensions remain U (EX, CF)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: Reviews report a stock Sellita SW200-1 across the S-series (um1s-sw200, um1s-all-sw200), replacing the earlier Seiko NH35 (um1s-switch). No source describes any modification, so not 1.
+        evidence:
+          - claim: um1s-sw200
+            stance: supports
+            note: Sellita SW200-1.
+          - claim: um1s-all-sw200
+            stance: supports
+            note: Across the S-series.
+          - claim: um1s-switch
+            stance: context
+            note: Earlier NH35.
+      MM:
+        value: 0
+        rationale: The complete movement is a bought-in Sellita SW200-1 (um1s-sw200, um1s-all-sw200). No source says any movement part is made by Unimatic.
+        evidence:
+          - claim: um1s-sw200
+            stance: supports
+            note: External movement.
+          - claim: um1s-all-sw200
+            stance: supports
+            note: External movement across the series.
+      EX:
+        value: null
+        rationale: The brand designed a new, thinner case (um1s-case-new), but no source names its maker. Unimatic says production is with suppliers in Italy (um1s-suppliers-italy) and Moro lists supplier countries (um1s-supplier-countries), which suggests external case making without stating it, so this stays U.
+        evidence:
+          - claim: um1s-case-new
+            stance: context
+            note: Design, not maker.
+          - claim: um1s-suppliers-italy
+            stance: context
+            note: Suppliers, parts not named.
+          - claim: um1s-supplier-countries
+            stance: context
+            note: Supplier countries, parts not named.
+          - claim: um1s-italy-production
+            stance: context
+            note: No detail.
+      DH:
+        value: 0
+        rationale: Gear Patrol reports that Unimatic's dial manufacturers are near Milan (um1s-gp-dial-makers), placing dial making with outside firms, and Unimatic says production relies on suppliers (um1s-suppliers-italy). No source names the hand maker or describes any dial or hand operation done by Unimatic. Borderline with U, since the dial evidence is secondary and hands are not documented.
+        evidence:
+          - claim: um1s-gp-dial-makers
+            stance: supports
+            note: Dials come from separate manufacturers.
+          - claim: um1s-suppliers-italy
+            stance: context
+            note: Brand relies on suppliers, parts not named.
+      CF:
+        value: null
+        rationale: No source documents movement or case finishing done by Unimatic. The in-house assembly line (um1s-assembly-inhouse) covers assembly and testing, not decoration or hand finishing.
+        evidence: []
+      WE:
+        value: 2
+        rationale: Unimatic says it brought assembly and testing in-house near Milan in 2021 (um1s-assembly-inhouse), before the 2022 S-series, and Gear Patrol reports that all Unimatic watches are assembled, tested and packaged there (um1s-gp-assembled). Both statements are universal, so they apply to this model. No source describes regulation or movement adjustment, so not 3; borderline with 1 because regulation is not documented.
+        evidence:
+          - claim: um1s-assembly-inhouse
+            stance: supports
+            note: Brand states in-house assembly and testing.
+          - claim: um1s-gp-assembled
+            stance: supports
+            note: All watches assembled and tested near Milan.
+          - claim: um1s-italy-production
+            stance: context
+            note: No detail.
+      PD:
+        value: 2
+        rationale: The founders, industrial designers (um1s-designers), designed a new, thinner case around a stock movement (um1s-case-new), working with outside suppliers (um1s-suppliers-italy, um1s-supplier-countries). No source describes bespoke components or supplier-directed engineering, so not 3.
+        evidence:
+          - claim: um1s-designers
+            stance: supports
+            note: Designer founders.
+          - claim: um1s-case-new
+            stance: supports
+            note: New case design.
+          - claim: um1s-suppliers-italy
+            stance: context
+            note: Works through suppliers.
+          - claim: um1s-supplier-countries
+            stance: context
+            note: Supplier network.
     classification:
       - contract_microbrand

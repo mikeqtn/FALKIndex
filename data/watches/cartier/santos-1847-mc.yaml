@@ -72,6 +72,101 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: cs1847-created-developed
+    statement: "Cartier's movements page (2021–2023 version) says the 1847 MC was entirely created and developed by Cartier watchmakers and engineers."
+    excerpt: "This mechanical self-winding movement was entirely created and developed by Cartier watchmakers and engineers."
+    source: cartier-movements-page-us
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-adjusted
+    statement: "The same Cartier page says each 1847 MC movement is individually adjusted by a watchmaker, using its adjustment system."
+    excerpt: "Thanks to its adjustment system, each movement is individually and meticulously adjusted by a watchmaker to ensure high precision"
+    source: cartier-movements-page-us
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-antimagnetic
+    statement: "The same Cartier page says the 1847 MC escapement was designed with non-magnetic components to resist magnetic fields."
+    excerpt: "To effectively resist the strong magnetic fields a watch can be exposed to in everyday life and maintain its precision, the escape mechanism has been designed with non-magnetic components."
+    source: cartier-movements-page-us
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-assembled-caption
+    statement: "A 2015 Cartier press image caption, reproduced by The Jewellery Editor, says calibre 1847 was developed and assembled by Cartier's watch manufactory in Switzerland."
+    excerpt: "The round dial of the new Clé collection, with its classic Roman numerals and guilloché centre, houses a cutting-edge automatic movement developed and assembled by Cartier"
+    source: jewelleryeditor-cle-1847-caption
+    dimensions:
+      - WE
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-santos-case-bracelet
+    statement: "A 2022 webChronos feature on the Santos de Cartier, labelled Cartier PR, says Cartier once outsourced exterior components but now produces the case and then the bracelet in its La Chaux-de-Fonds factory."
+    excerpt: "Cartier previously outsourced the manufacture of exterior components, but now produces first the case and then the bracelet in its La Chaux-de-Fonds factory."
+    source: webchronos-santos-2022
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-shaped-case-crafts
+    statement: "Cartier's operations page says producing a shaped case takes more than 50 operations across stamping, machining, polishing and assembly; it does not name models."
+    excerpt: "Producing a shaped case requires more than 50 operations spread across four main crafts: stamping, machining, polishing and assembly"
+    source: cartier-operations-page-us
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-hand-polishing
+    statement: "The same Cartier page says polishers' hands produce the alternating polished and brushed finishes of a Cartier watch."
+    excerpt: "Then, the polishers' hands are responsible for achieving the complex finishes of a Cartier watch"
+    source: cartier-operations-page-us
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-watch-checks
+    statement: "The same Cartier page says assembled watches undergo individual checks of chronometry and water resistance."
+    excerpt: "Once assembled, the watches are subject to rigorous individual checks where the chronometry and water resistance are evaluated"
+    source: cartier-operations-page-us
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-blued-hands
+    statement: "The same Cartier page says Cartier has mastered the production of blued-steel hands; it does not name models."
+    excerpt: "Cartier has mastered the savoir-faire involved in producing hands."
+    source: cartier-operations-page-us
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-villars-assembly
+    statement: "Cartier's manufacture page says steel and gold watches are produced and assembled in Villars-sur-Glâne, in the canton of Fribourg."
+    excerpt: "Steel and gold watches are produced and assembled in Villars-sur-Glâne, located in the canton of Fribourg."
+    source: cartier-manufacture-page-us
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cs1847-valfleurier-1904
+    statement: "A 2010 Europa Star article says the component parts of Cartier's earlier calibre 1904 MC are made in Buttes by Val Fleurier, a Richemont group company; it predates and does not mention the 1847 MC."
+    excerpt: "its component parts are made in Buttes, by Val Fleurier, a company belonging to the Richemont group"
+    source: europastar-swiss-watch-planet-2
+    dimensions:
+      - MM
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber 1847 MC design
@@ -84,41 +179,70 @@ provenance:
       - cs1847-in-santos
       - cs1847-construction
       - cs1847-components
+      - cs1847-created-developed
+      - cs1847-antimagnetic
   - dimension: MM
     component: Movement components (plates, bridges, wheels)
     relationship: unknown
-    note: Cartier says it produces its own movements in La Chaux-de-Fonds, but no source breaks down which 1847 MC parts are made there versus by Richemont group or outside suppliers.
+    note: Cartier says it produces its own movements in La Chaux-de-Fonds, but no source breaks down which 1847 MC parts are made there versus by Richemont group or outside suppliers. A 2010 report says parts for the earlier 1904 MC were made in-group by Val Fleurier (Richemont) in Buttes; no source ties ValFleurier to the 1847 MC.
     claims:
       - cs1847-lcdf-manufacture
+      - cs1847-valfleurier-1904
   - dimension: MM
     component: Hairspring, escapement, mainspring, jewels
     relationship: unknown
     note: No source names suppliers for regulating-organ parts.
     claims: []
   - dimension: EX
-    component: Case, crown and SmartLink bracelet
+    component: Case and SmartLink bracelet
+    performer: cartier
+    relationship: internal
+    valid_from: 2018
+    note: A 2022 Santos feature (labelled Cartier PR) says Cartier produces the case and then the bracelet in La Chaux-de-Fonds; Cartier's own pages describe its shaped-case production and steel-watch production in Villars-sur-Glâne without naming the Santos.
+    claims:
+      - cs1847-specs
+      - cs1847-santos-case-bracelet
+      - cs1847-shaped-case-crafts
+      - cs1847-villars-assembly
+  - dimension: EX
+    component: Crown and sapphire crystal
     relationship: unknown
-    note: Product page describes the parts but not who makes them.
+    note: Product page describes the parts but no source names who makes them.
     claims:
       - cs1847-specs
   - dimension: DH
     component: Dial and hands
     relationship: unknown
+    note: Cartier says it produces blued-steel hands, but no source ties that to the Santos's hands or names the dial maker.
     claims:
       - cs1847-specs
+      - cs1847-blued-hands
   - dimension: CF
     component: Movement decoration (stamped Côtes de Genève)
     relationship: unknown
     note: Decoration is described as basic and stamped; who applies it is not stated.
     claims:
       - cs1847-decoration
+  - dimension: CF
+    component: Case polishing and satin-brushing
+    performer: cartier
+    relationship: internal
+    note: Cartier describes hand polishing within its shaped-case production; tied to the Santos only through the secondary report that Cartier makes the Santos case.
+    claims:
+      - cs1847-shaped-case-crafts
+      - cs1847-hand-polishing
+      - cs1847-santos-case-bracelet
   - dimension: WE
     component: Movement production and assembly
     performer: cartier
     relationship: internal
-    note: Based on Cartier's La Chaux-de-Fonds manufacture producing its own movements; no source specifically describes 1847 MC assembly.
+    note: Cartier says each 1847 MC is individually adjusted by a watchmaker, and a 2015 Cartier caption says the calibre is assembled by its manufactory. Cartier says steel watches are assembled in Villars-sur-Glâne and checked individually.
     claims:
       - cs1847-lcdf-manufacture
+      - cs1847-adjusted
+      - cs1847-assembled-caption
+      - cs1847-villars-assembly
+      - cs1847-watch-checks
   - dimension: PD
     component: Design and development
     performer: cartier
@@ -127,6 +251,8 @@ provenance:
     claims:
       - cs1847-new-calibre
       - cs1847-richemont
+      - cs1847-created-developed
+      - cs1847-antimagnetic
 profiles:
   - version: 1
     methodology: v0.2
@@ -159,7 +285,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -222,6 +348,129 @@ profiles:
           - claim: cs1847-new-calibre
             stance: supports
             note: New calibre.
+          - claim: cs1847-richemont
+            stance: context
+            note: Group ownership.
+    classification:
+      - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Cartier's own movements, manufacture and operations pages, a 2022 webChronos Santos feature (labelled Cartier PR), a 2015 Cartier press caption reproduced by The Jewellery Editor, and a 2010 Europa Star report on Cartier's movement production. Changes from version 2: EX U → 3; CF U → 1; WE U → 3; confidence D → C. Two of seven dimensions remain U (MM, DH)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 4
+        rationale: The 1847 MC was newly developed as Cartier's most affordable in-house calibre (cs1847-new-calibre), and Cartier says it was entirely created and developed by its own watchmakers and engineers, with a non-magnetic escapement (cs1847-created-developed, cs1847-antimagnetic). Cartier is part of Richemont, whose ValFleurier made parts for Cartier's earlier 1904 MC (cs1847-valfleurier-1904), and no independent source describes how much engineering came from group partners, so this stays 4 rather than 5; borderline with 5.
+        evidence:
+          - claim: cs1847-new-calibre
+            stance: supports
+            note: Newly developed calibre.
+          - claim: cs1847-created-developed
+            stance: supports
+            note: Cartier credits its own watchmakers and engineers.
+          - claim: cs1847-construction
+            stance: supports
+            note: Construction details.
+          - claim: cs1847-antimagnetic
+            stance: supports
+            note: Non-magnetic escapement design.
+          - claim: cs1847-in-santos
+            stance: supports
+            note: Used in the Santos.
+          - claim: cs1847-components
+            stance: context
+            note: Component count.
+          - claim: cs1847-valfleurier-1904
+            stance: context
+            note: In-group partner on an earlier calibre.
+      MM:
+        value: null
+        rationale: Cartier has produced movements in La Chaux-de-Fonds since 2001, and a 2015 caption says the 1847 MC is assembled by its manufactory, but no source says which 1847 MC parts are made by Cartier, by Richemont's ValFleurier or by outside suppliers. A 2010 report puts the 1904 MC's parts at ValFleurier in Buttes (in-group), which does not establish where 1847 MC parts are made. A general statement cannot place a level.
+        evidence:
+          - claim: cs1847-lcdf-manufacture
+            stance: context
+            note: General manufacture statement.
+          - claim: cs1847-valfleurier-1904
+            stance: context
+            note: Different calibre; in-group parts maker.
+      EX:
+        value: 3
+        rationale: A 2022 Santos feature (labelled Cartier PR, secondary) says Cartier now produces the Santos's case and then its bracelet in La Chaux-de-Fonds (cs1847-santos-case-bracelet). Cartier's own pages describe its shaped-case production from stamping to assembly and say steel watches are produced in Villars-sur-Glâne, though without naming the Santos (cs1847-shaped-case-crafts, cs1847-villars-assembly). Case and bracelet are two principal families; the crown and sapphire crystal makers are not named, so not 4. Borderline with 2, as the model tie rests on one sponsored secondary source.
+        evidence:
+          - claim: cs1847-santos-case-bracelet
+            stance: supports
+            note: Santos case and bracelet made by Cartier.
+          - claim: cs1847-shaped-case-crafts
+            stance: supports
+            note: Cartier's shaped-case production; not model-specific.
+          - claim: cs1847-villars-assembly
+            stance: context
+            note: Steel-watch production site.
+          - claim: cs1847-specs
+            stance: context
+            note: Crown and crystal makers not named.
+      DH:
+        value: null
+        rationale: Cartier says it produces blued-steel hands (cs1847-blued-hands), but no source ties that to the Santos's sword hands, and no source names the dial maker. U.
+        evidence:
+          - claim: cs1847-specs
+            stance: context
+            note: Makers not named.
+          - claim: cs1847-blued-hands
+            stance: context
+            note: Brand capability, not tied to this model.
+      CF:
+        value: 1
+        rationale: Cartier says its shaped-case production includes polishing, and that polishers' hands achieve the alternating polished and brushed finishes (cs1847-shaped-case-crafts, cs1847-hand-polishing); a secondary source says the Santos case is made by Cartier (cs1847-santos-case-bracelet). That is limited manual finishing, counted here as craft separately from the physical case manufacture scored in EX. The movement decoration is stamped (cs1847-decoration), so not 2. Borderline with U, since the model tie runs through one secondary source.
+        evidence:
+          - claim: cs1847-hand-polishing
+            stance: supports
+            note: Hand polishing by Cartier.
+          - claim: cs1847-shaped-case-crafts
+            stance: supports
+            note: Polishing within case production.
+          - claim: cs1847-santos-case-bracelet
+            stance: supports
+            note: Ties case production to the Santos.
+          - claim: cs1847-decoration
+            stance: context
+            note: Movement decoration stamped.
+      WE:
+        value: 3
+        rationale: Cartier says each 1847 MC movement is individually adjusted by a watchmaker (cs1847-adjusted), a 2015 Cartier caption says the calibre is assembled by its manufactory (cs1847-assembled-caption), and Cartier says steel watches are assembled in Villars-sur-Glâne and individually checked for chronometry and water resistance (cs1847-villars-assembly, cs1847-watch-checks). That is movement adjustment plus assembly, regulation and testing. The 1847 MC is a simple automatic with no complication work described, so not 4.
+        evidence:
+          - claim: cs1847-adjusted
+            stance: supports
+            note: Every movement adjusted by a watchmaker.
+          - claim: cs1847-assembled-caption
+            stance: supports
+            note: Movement assembled by Cartier.
+          - claim: cs1847-villars-assembly
+            stance: supports
+            note: Steel watches assembled by Cartier.
+          - claim: cs1847-watch-checks
+            stance: supports
+            note: Individual chronometry and water-resistance checks.
+          - claim: cs1847-lcdf-manufacture
+            stance: context
+            note: General statement.
+      PD:
+        value: 4
+        rationale: Cartier developed a new calibre as an affordable in-house base for its classic models, and says its own watchmakers and engineers created it, including a non-magnetic escapement (cs1847-new-calibre, cs1847-created-developed, cs1847-antimagnetic). That is extensive original technical development. Not 5, as nothing shows invention that defines the watch.
+        evidence:
+          - claim: cs1847-new-calibre
+            stance: supports
+            note: New calibre.
+          - claim: cs1847-created-developed
+            stance: supports
+            note: Development by Cartier.
+          - claim: cs1847-antimagnetic
+            stance: supports
+            note: Antimagnetic design.
           - claim: cs1847-richemont
             stance: context
             note: Group ownership.

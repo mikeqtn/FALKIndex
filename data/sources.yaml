@@ -382,7 +382,7 @@
   source_type: specialist_reference
   tier: secondary
   published_on: 2024-10-17
-  archived_url: https://web.archive.org/web/20260611183529/https://wornandwound.com/review/hands-on-the-atelier-wen-perception-mu/
+  archived_url: https://web.archive.org/web/20241208053836/https://wornandwound.com/review/hands-on-the-atelier-wen-perception-mu/
 - id: deployant-atelier-wen-perception
   url: https://deployant.com/review-the-new-atelier-wen-perception-with-handmade-guilloche-dial/
   title: "Review: The New Atelier Wen Perception, with Handmade Guilloché Dial (Deployant)"
@@ -1499,3 +1499,196 @@
   published_on: 2020-10-29
   archived_url: https://web.archive.org/web/20260110200740/https://wornandwound.com/introducing-the-aquis-date-calibre-400-the-first-watch-featuring-a-new-in-house-movement-from-oris/
   notes: Zach Kazan. Excerpt confirmed. Wayback lookup failed; archive status unknown.
+- id: cartier-movements-page-us
+  url: https://www.cartier.com/en-us/movements.html
+  title: Movements (Cartier, US site)
+  publisher: cartier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20230404183232/https://www.cartier.com/en-us/movements.html
+  notes: The 2021–2023 version of this page carries the long 1847 MC description; the 2025 version and the en-de page (cartier-movements-page) carry a shorter one.
+- id: cartier-manufacture-page-us
+  url: https://www.cartier.com/en-us/manufacture.html
+  title: Manufacture (Cartier, US site)
+  publisher: cartier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20241209161420/https://www.cartier.com/en-us/manufacture.html
+- id: cartier-operations-page-us
+  url: https://www.cartier.com/en-us/operations.html
+  title: Operations (Cartier, US site)
+  publisher: cartier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260611141041/https://www.cartier.com/en-us/operations.html
+- id: webchronos-santos-2022
+  url: https://en.webchronos.net/features/82835/
+  title: Cartier's Santos de Cartier, an icon of the watch industry that continues to evolve after a century (webChronos)
+  source_type: press
+  tier: secondary
+  published_on: 2022-08-01
+  archived_url: https://web.archive.org/web/20260810073313/https://en.webchronos.net/features/82835/
+  notes: Labelled "Cartier PR" on the page (a sponsored feature by Chronos Japan); English text is a translation of the Japanese original.
+- id: jewelleryeditor-cle-1847-caption
+  url: https://thejewelleryeditor.com/images/the-round-dial-of-the-new-cle-collection-with-its-classic-roman-numerals-and-guilloche-centre-houses-a-cutting-edge-automatic-movement-developed-and-assembled-by-cartiers-watch-manufactory-in-switzerland-calibre-1847-eric-maillet-cartier
+  title: Clé de Cartier calibre 1847 image caption (The Jewellery Editor)
+  source_type: press
+  tier: secondary
+  published_on: 2015-05-29
+  archived_url: https://web.archive.org/web/20261117180453/https://www.thejewelleryeditor.com/images/the-round-dial-of-the-new-cle-collection-with-its-classic-roman-numerals-and-guilloche-centre-houses-a-cutting-edge-automatic-movement-developed-and-assembled-by-cartiers-watch-manufactory-in-switzerland-calibre-1847-eric-maillet-cartier
+  notes: Press image caption credited "Eric Maillet © Cartier"; date is the upload date shown on the page.
+- id: europastar-swiss-watch-planet-2
+  url: https://www.europastar.com/magazine/features/1004082710-the-swiss-watch-planet-in-movement-part-2.html
+  title: The Swiss watch planet in movement – Part 2 (Europa Star)
+  source_type: press
+  tier: secondary
+  published_on: 2010-09-01
+  archived_url: https://web.archive.org/web/20260521192738/https://www.europastar.com/magazine/features/1004082710-the-swiss-watch-planet-in-movement-part-2.html
+  notes: The page gives "September 2010" only, so the day is approximate.
+- id: wornandwound-kurono-intro-2019
+  url: https://wornandwound.com/introducing-the-kurono-by-independent-watchmaker-hajime-asaoka/
+  title: Introducing the Kurono by Independent Watchmaker Hajime Asaoka (Zach Kazan, Worn & Wound)
+  source_type: press
+  tier: secondary
+  published_on: 2019-10-15
+  archived_url: https://web.archive.org/web/20261117175718/https://wornandwound.com/introducing-the-kurono-by-independent-watchmaker-hajime-asaoka/
+- id: deployant-kurono-classic-review
+  url: https://deployant.com/review-asaokas-kurono-classic-midnight-blue-and-eggshell-white/
+  title: "Review: Asaoka's Kurono Classic - Midnight Blue and Eggshell White (Deployant)"
+  source_type: press
+  tier: secondary
+  published_on: 2019-12-19
+  archived_url: https://web.archive.org/web/20260711145617/https://deployant.com/review-asaokas-kurono-classic-midnight-blue-and-eggshell-white/
+- id: kurono-words-from-the-designer
+  url: https://kuronotokyo.com/pages/words-from-the-designer
+  title: Words From the Designer - Hajime Asaoka (Kurono Tokyo)
+  publisher: kurono-tokyo
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20220810022420/https://kuronotokyo.com/pages/words-from-the-designer
+  notes: Interview about the first Kurono (Miyota 90S5); the same text is on /pages/about-us-090322.
+- id: fratello-kurono-chronograph-3
+  url: https://www.fratellowatches.com/kurono-tokyo-chronograph-3/
+  title: "Introducing: The New Kurono Tokyo Chronograph 3 Hisui (Fratello)"
+  source_type: press
+  tier: secondary
+  published_on: 2023-11-19
+  archived_url: https://web.archive.org/web/20251206210630/https://www.fratellowatches.com/kurono-tokyo-chronograph-3/
+- id: lesablier-chronosport-landing
+  url: https://www.lesablierwatches.com/chronosport
+  title: Chronosport (Lesablier)
+  publisher: lesablier
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260714034537/https://www.lesablierwatches.com/chronosport
+  notes: Chronosport landing page on the old lesablierwatches.com site, separate from /product-page/chronosport. 'design, mould and tool every last component' and 'only third-party component' excerpts confirmed in the archived copy (also in the 2022-05-18 and 2024-05-22 snapshots).
+- id: monochrome-longines-zulu-time
+  url: https://monochrome-watches.com/longines-spirit-zulu-time-gmt-watch-hands-on-review-video-price/
+  title: Longines Spirit Zulu Time GMT - Hands-On Review, Video & Price (Monochrome)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-03-23
+  archived_url: https://web.archive.org/web/20260209031532/https://monochrome-watches.com/longines-spirit-zulu-time-gmt-watch-hands-on-review-video-price/
+- id: ming-37-02-product
+  url: https://www.ming.watch/featured-product/ming-37-02-minimalist
+  title: MING 37.02 Minimalist (MING product page)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260917022533/https://www.ming.watch/featured-product/ming-37-02-minimalist
+- id: ming-journal-lcdf-facility
+  url: https://www.ming.watch/journals-new/ming-celebrates-a-new-facility-in-la-chaux-de-fonds
+  title: MING celebrates a new facility in La Chaux-de-Fonds (MING Journal)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  published_on: 2024-08-30
+  archived_url: https://web.archive.org/web/20260807155140/https://www.ming.watch/journals-new/ming-celebrates-a-new-facility-in-la-chaux-de-fonds
+- id: ming-about-us
+  url: https://www.ming.watch/about-us
+  title: About MING (MING)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261011130618/https://www.ming.watch/about-us
+- id: ming-journal-squeezed-industry
+  url: https://www.ming.watch/journals-new/operating-a-watch-company-in-a-squeezed-industry
+  title: Operating A Watch Company In A Squeezed Industry (MING Journal)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  published_on: 2022-09-20
+  archived_url: https://web.archive.org/web/20260512065507/https://www.ming.watch/journals-new/operating-a-watch-company-in-a-squeezed-industry
+- id: ming-faq
+  url: https://www.ming.watch/frequently-asked-questions
+  title: Frequently asked questions (MING)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261117180131/https://www.ming.watch/frequently-asked-questions
+- id: ming-journal-reflecting-2024
+  url: https://www.ming.watch/journals-new/reflecting-on-2024
+  title: Reflecting on 2024 (MING Journal)
+  publisher: ming
+  source_type: manufacturer
+  tier: primary
+  published_on: 2024-12-18
+  archived_url: https://web.archive.org/web/20260721102410/https://www.ming.watch/journals-new/reflecting-on-2024
+- id: europastar-ming-qa-2024
+  url: https://www.europastar.com/the-watch-files/independent-watchmakers/1004114148-we-re-bursting-with-ideas-for-new-ming-models.html
+  title: "“We’re bursting with ideas for new Ming models” (Serge Maillard, Europa Star)"
+  source_type: technical_interview
+  tier: secondary
+  archived_url: https://web.archive.org/web/20250915101624/https://www.europastar.com/the-watch-files/independent-watchmakers/1004114148-we-re-bursting-with-ideas-for-new-ming-models.html
+  notes: Published March 2024 (exact day not shown).
+- id: monochrome-ming-thein-interview-2025
+  url: https://monochrome-watches.com/interview-ming-thein-ming-watches-on-past-present-and-future-of-brand/
+  title: MING Watches' Founder Ming Thein on The Past, Present and Future of an Unusual Watch Brand (Monochrome Watches)
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2025-06-18
+  archived_url: https://web.archive.org/web/20260422123646/https://monochrome-watches.com/interview-ming-thein-ming-watches-on-past-present-and-future-of-brand/
+- id: mywatchsite-oris-calibre-400-coquet
+  url: https://www.my-watchsite.com/blog/the-oris-calibre-400-revolution-in-the-making/
+  title: "The Oris Calibre 400: revolution-in-the-making (My Watch Site)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2020-10-16
+  archived_url: https://web.archive.org/web/20260808125446/https://www.my-watchsite.com/blog/the-oris-calibre-400-revolution-in-the-making/
+  notes: Nicolas Yvon interviews Vincent Coquet, commercial and marketing director of Oris France. Excerpts confirmed in the raw snapshot.
+- id: unimatic-about
+  url: https://www.unimaticwatches.com/pages/about
+  title: About Us (UNIMATIC)
+  publisher: unimatic
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261008174059/https://www.unimaticwatches.com/pages/about
+- id: unimatic-gearpatrol-2023
+  url: https://www.gearpatrol.com/watches/a44765452/unimatic-watches/
+  title: Unimatic Makes Heirloom Watches that Cost Less Than Your Seiko
+  source_type: press
+  tier: secondary
+  published_on: 2023-08-16
+  archived_url: https://web.archive.org/web/20240120034940/https://www.gearpatrol.com/watches/a44765452/unimatic-watches/
+- id: unimatic-smalltalk-moro
+  url: https://the-smalltalk.com/giovanni-moro-unimatic/
+  title: "Giovanni Moro, Interpreting Time In Italian Way: Unimatic Watch"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2022-06-24
+  archived_url: https://web.archive.org/web/20260308073029/https://www.the-smalltalk.com/giovanni-moro-unimatic/
+- id: zrc-expertise-movement
+  url: https://zrc1904.com/expertise/movement/
+  title: "Expertise: Movement"
+  publisher: zrc
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260715160525/https://zrc1904.com/expertise/movement/
+- id: zrc-paperjam-brunet-2024
+  url: https://paperjam.lu/article/nous-faisons-montres-plongee-t
+  title: "«Nous faisons les montres de plongée comme elles devraient l’être»"
+  source_type: press
+  tier: secondary
+  published_on: 2024-10-02
+  archived_url: https://web.archive.org/web/20260417045450/https://paperjam.lu/article/nous-faisons-montres-plongee-t
+  notes: Paperjam (Luxembourg) profile of ZRC CEO Georges Brunet, in French.

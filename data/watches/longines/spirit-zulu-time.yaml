@@ -72,23 +72,97 @@ claims:
       - DH
     date_checked: 2026-10-21
     editor: falk-index
+  - id: lgzt-mono-modified
+    statement: A Monochrome review describes cal. L844.4 as an exclusive and extensively modified version of the ETA A31, without saying who did the modification.
+    excerpt: Inside the watch is the automatic calibre L844.4, an exclusive and extensively modified version of the calibre ETA A31.
+    source: monochrome-longines-zulu-time
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-mono-base
+    statement: The same review's specification lists cal. L844.4 as based on the ETA A31.L411 and calls it proprietary.
+    excerpt: Calibre L844.4 (base ETA A31.L411) - proprietary - automatic - 21 jewels
+    source: monochrome-longines-zulu-time
+    dimensions:
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-codeveloped
+    statement: Longines' CEO said that, through its relationship with ETA, Longines developed two movements for the high-volume market, one men's and one ladies'.
+    excerpt: And thanks to our excellent relationship with ETA, we developed two movements specifically for the highvolume market, one men’s and one ladies’.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-a31
+    statement: Longines' CEO said the men's movement started from the ETA 2892A2, which became the A31 at Longines.
+    excerpt: For the men’s watch movement, we started with the ETA 2892A2, which at Longines became the A31.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-eta-workshops
+    statement: Longines' CEO said the work on these movements is done in dedicated ETA workshops on Longines' premises, employing 250 people.
+    excerpt: "All that is done in dedicated ETA workshops on our own premises: 250 people work there."
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-case-suppliers
+    statement: Longines' CEO spoke of the evolution of case manufacturers and said he tours Longines' suppliers every month, without naming them or a model.
+    excerpt: And then it’s impressive to see how the case manufacturers have evolved. I do a tour of our suppliers every month.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-hands-dials
+    statement: In the same passage on suppliers, Longines' CEO said hand production is largely automated but dial production much less so, without saying where either is made.
+    excerpt: Hand production is also largely automated now, but much less so the dials.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lgzt-es-service
+    statement: Longines' CEO said customer service on the basic calibres is done in Longines' workshops at St-Imier or in Swatch Group branches worldwide.
+    excerpt: All the customer service on the basic calibres is done either in our workshops at St-Imier or directly in the 37 branches of the Swatch Group all over the world.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Cal. L844.4 (ETA A31-family GMT base)
     performer: eta
     relationship: in_group
-    note: ETA and Longines are both Swatch Group. Sources differ on the base reference (A31.411 vs A31.L01).
+    note: ETA and Longines are both Swatch Group. Sources differ on the base reference (A31.411, A31.L01, A31.L411). Longines' CEO says the A31 started from the ETA 2892A2 and was developed with ETA. Monochrome calls L844.4 extensively modified but does not say by whom.
     claims:
       - lgzt-l8444-eta
       - lgzt-a31l01
       - lgzt-eta-only
+      - lgzt-mono-modified
+      - lgzt-mono-base
+      - lgzt-es-codeveloped
+      - lgzt-es-a31
   - dimension: MM
     component: Movement parts
     performer: eta
     relationship: in_group
+    note: Longines' CEO (2018) says work on the A31-family movements is done in dedicated ETA workshops on Longines' premises; no source names which parts of L844.4 are made there.
     claims:
       - lgzt-l8444-eta
       - lgzt-eta-only
+      - lgzt-es-eta-workshops
   - dimension: MM
     component: Silicon balance spring
     relationship: unknown
@@ -99,8 +173,10 @@ provenance:
   - dimension: EX
     component: Case, ceramic bezel insert and bracelet
     relationship: unknown
+    note: Longines' CEO (2018) refers to case manufacturers among the suppliers he tours, which suggests external case making, but no source names the maker of this model's case, bezel insert or bracelet.
     claims:
       - lgzt-case
+      - lgzt-es-case-suppliers
   - dimension: DH
     component: Dial and hands
     relationship: unknown
@@ -108,6 +184,7 @@ provenance:
     claims:
       - lgzt-dial
       - lgzt-no-dials-hands
+      - lgzt-es-hands-dials
   - dimension: CF
     component: Finishing
     relationship: unknown
@@ -115,17 +192,22 @@ provenance:
   - dimension: WE
     component: Assembly, regulation and chronometer certification
     relationship: unknown
-    note: COSC certification is stated; who assembles and regulates the movement and watch is not stated.
+    note: COSC certification is stated; who assembles and regulates the movement and watch is not stated. Longines' CEO says ETA workshops on Longines' premises work on the A31-family movements and that basic-calibre service is done in Longines' St-Imier workshops, but neither describes assembly or regulation of this model.
     claims:
       - lgzt-silicon-cosc
       - lgzt-silicon
+      - lgzt-es-eta-workshops
+      - lgzt-es-service
   - dimension: PD
     component: Product design and caliber specification
     performer: longines
     relationship: internal
-    note: The caliber is described as exclusive to Longines; no source describes the design process.
+    note: The caliber is described as exclusive to Longines. Longines' CEO says Longines developed its A31 men's movement with ETA, the base family of L844.4; ETA (in-group) carries out the movement work.
     claims:
       - lgzt-l8444-eta
+      - lgzt-mono-modified
+      - lgzt-es-codeveloped
+      - lgzt-es-a31
 profiles:
   - version: 1
     methodology: v0.2
@@ -158,7 +240,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -224,5 +306,113 @@ profiles:
         value: null
         rationale: No collected claim is tagged PD; the exclusive calibre is credited under MA.
         evidence: []
+    classification:
+      - design_led_etablisseur
+  - version: 3
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds a Monochrome hands-on review and further passages from the 2018 Europa Star interview with Longines' CEO. Changes from version 2: PD U → 3. Confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 1
+        rationale: Cal. L844.4 is exclusive to Longines but built on an ETA A31 base, itself from the 2892-A2; sources differ on the exact base (A31.411, A31.L01, A31.L411). Monochrome calls it extensively modified, which alone could point to 2, but no source says what was changed or who engineered it, and ETA is an in-group supplier whose own calibre stays external even in a version exclusive to the brand. Custom specification of a group calibre; borderline with 2.
+        evidence:
+          - claim: lgzt-l8444-eta
+            stance: supports
+            note: Exclusive ETA-based calibre.
+          - claim: lgzt-a31l01
+            stance: supports
+            note: ETA A31 base.
+          - claim: lgzt-mono-base
+            stance: supports
+            note: ETA A31.L411 base.
+          - claim: lgzt-es-a31
+            stance: supports
+            note: A31 started from the ETA 2892A2.
+          - claim: lgzt-mono-modified
+            stance: context
+            note: Extensive modification stated, not described or attributed.
+          - claim: lgzt-eta-only
+            stance: context
+            note: ETA movements only.
+      MM:
+        value: 0
+        rationale: Longines' CEO said the company stopped making movements in 1988 and works solely with ETA, an in-group supplier to many brands; he adds that work on the A31-family movements is done in dedicated ETA workshops on Longines' premises. That is ETA, in-group, producing a group calibre in a Longines version, so it stays external under the in-group rule. The silicon hairspring maker is not named.
+        evidence:
+          - claim: lgzt-eta-only
+            stance: supports
+            note: No movement production since 1988.
+          - claim: lgzt-l8444-eta
+            stance: supports
+            note: ETA base.
+          - claim: lgzt-es-eta-workshops
+            stance: context
+            note: ETA workshops on Longines' premises; in-group, not Longines.
+          - claim: lgzt-silicon
+            stance: context
+            note: Hairspring maker not named.
+      EX:
+        value: null
+        rationale: No source names the case, bezel insert or bracelet maker for this model. Longines' CEO refers to case manufacturers among the suppliers he tours, and says Longines made cases until 1988, but neither statement is tied to this watch.
+        evidence:
+          - claim: lgzt-case
+            stance: context
+            note: Maker not named.
+          - claim: lgzt-es-case-suppliers
+            stance: context
+            note: Brand-wide mention of case suppliers.
+          - claim: lgzt-no-dials-hands
+            stance: context
+            note: Pre-1988 situation.
+      DH:
+        value: null
+        rationale: Longines made no dials or hands up to 1988, and its CEO's later remark on hand and dial automation does not say where they are made. No source names the current makers for this model.
+        evidence:
+          - claim: lgzt-no-dials-hands
+            stance: context
+            note: Historical.
+          - claim: lgzt-es-hands-dials
+            stance: context
+            note: Production location not stated.
+          - claim: lgzt-dial
+            stance: context
+            note: Maker not named.
+      CF:
+        value: null
+        rationale: No source documents any finishing performed by Longines on this model.
+        evidence: []
+      WE:
+        value: null
+        rationale: The movement is COSC-certified, but no source says who assembles, regulates or cases it. Longines' CEO mentions ETA workshops on Longines' premises and after-sales service in St-Imier, neither of which describes assembly or regulation of this watch.
+        evidence:
+          - claim: lgzt-silicon-cosc
+            stance: context
+            note: Certification only.
+          - claim: lgzt-es-eta-workshops
+            stance: context
+            note: In-group movement work, not described as assembly or regulation.
+          - claim: lgzt-es-service
+            stance: context
+            note: After-sales service only.
+      PD:
+        value: 3
+        rationale: Longines' CEO says Longines developed its A31 men's movement together with ETA, starting from the 2892A2, and the L844.4 in this watch is an exclusive A31-based calibre that Monochrome calls extensively modified. That is bespoke, supplier-directed movement development, carried out with an in-group supplier. Not 4, because no source describes original technical systems by Longines; borderline with 2, since the sources are secondary and no source describes the development of L844.4 itself.
+        evidence:
+          - claim: lgzt-es-codeveloped
+            stance: supports
+            note: Movements developed with ETA.
+          - claim: lgzt-es-a31
+            stance: supports
+            note: A31 is Longines' version of the 2892A2.
+          - claim: lgzt-mono-modified
+            stance: supports
+            note: Exclusive, extensively modified calibre.
+          - claim: lgzt-l8444-eta
+            stance: supports
+            note: Exclusive to Longines.
     classification:
       - design_led_etablisseur
