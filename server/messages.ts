@@ -94,13 +94,13 @@ export async function sendMessage(actorId: string, name: string, input: z.infer<
   return { message:{ id:message.id as string, mine:true, body:input.body, createdAt:message.created_at.toISOString() as string } };
 }
 
-/** Marks my conversation with a member read up to now. */
+/** Marks my conversation with a member read up to now. Clock time, as messages use, so a message written earlier in the same transaction counts as read. */
 export async function markConversationRead(actorId: string, name: string, db: PoolClient) {
   const me = await actor(db,actorId);
   const other = await memberNamed(db,name);
   const [a,b] = pair(me.id,other.id);
   const column = a === me.id ? 'read_a' : 'read_b';
-  const rows = await db.query(`UPDATE falk_forum_conversation SET ${column}=now() WHERE member_a=$1 AND member_b=$2`, [a,b]);
+  const rows = await db.query(`UPDATE falk_forum_conversation SET ${column}=greatest(clock_timestamp(),last_message_at) WHERE member_a=$1 AND member_b=$2`, [a,b]);
   return { read:(rows.rowCount ?? 0) > 0 };
 }
 
