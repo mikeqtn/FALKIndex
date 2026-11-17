@@ -19,10 +19,12 @@ provenance:
       - fl-s1-chronode
   - dimension: EX
     component: Case (tantalum, platinum, rose gold)
-    relationship: unknown
-    note: Designed by the brand; maker not named.
+    relationship: external_specialist
+    note: Designed by the brand; Europa Star and Fratello name Efteor (SA), a Swiss casemaker, as the maker. Efteor has no organization record yet, so no performer is set.
     claims:
       - fl-s1-case-design
+      - fl-s1-efteor-europastar
+      - fl-s1-efteor-fratello
   - dimension: DH
     component: Dials
     performer: comblemine
@@ -31,9 +33,10 @@ provenance:
       - fl-s1-dials
   - dimension: WE
     component: Assembly and regulation
-    relationship: unknown
-    note: No source says where or by whom.
-    claims: []
+    relationship: external_specialist
+    note: Fleming says it works with partners such as Chronode and Fabrika for manufacturing, finishing and assembly; no source names who assembles and regulates the Series 1.
+    claims:
+      - fl-s1-partners-assembly
   - dimension: PD
     component: Product design and supplier direction
     performer: fleming
@@ -104,6 +107,32 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+  - id: fl-s1-efteor-europastar
+    statement: A Europa Star article says the Series 1 case was crafted by Efteor, a boutique casemaker.
+    excerpt: The svelte 9-millimeter case, featuring a layered architecture crafted by Efteor (a boutique casemaker supplying the likes of
+    source: europastar-fleming-next-gen
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: fl-s1-efteor-fratello
+    statement: A Fratello article says Efteor SA crafted the Series 1 tantalum cases.
+    excerpt: Finally, Efteor SA has crafted the tantalum cases. Essentially, this watch is from an all-star lineup of high-end Swiss suppliers.
+    source: fratello-fleming-series-1-tantalum
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: fl-s1-partners-assembly
+    statement: Fleming says it works with partners such as Chronode and Fabrika for manufacturing, finishing and assembly, while keeping design in-house.
+    excerpt: While we work with incredible partners like Chronode, Fabrika, and others for manufacturing, finishing, and assembly, we do not buy off-the-shelf components or surrender design control to anyone else.
+    source: fleming-complete-integration
+    dimensions:
+      - EX
+      - WE
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
 profiles:
   - version: 1
     methodology: v0.2
@@ -136,7 +165,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: MA 4 → 3 (sources describe a modified Chronode C101, not a new caliber); EX 0 → U and WE 1 → U (no source on the case maker or assembly); PD 5 → 4 (the engineering is Chronode's). Confidence B → C: all evidence is secondary, and the brand site could not be read. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
@@ -202,5 +231,92 @@ profiles:
           - claim: fl-s1-mojon
             stance: supports
             note: Commissioned technical development.
+    classification:
+      - design_led_etablisseur
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds Fleming's own 'Complete Integration' editorial (fleming.watch, 2026), a Europa Star article (2024) and a Fratello hands-on (2024). Changes from version 2: EX U → 0; WE U → 0 (borderline with 1); confidence stays C. None of the seven dimensions remain U."
+    scores:
+      MA:
+        value: 3
+        rationale: The FM-01 is Chronode's C101 with a new balance bridge, click spring assembly and power reserve indication, developed with Jean-François Mojon. That is more than a cosmetic change but not a new caliber. Level 2 is defensible; 4 would need a source showing broader re-engineering.
+        evidence:
+          - claim: fl-s1-c101
+            stance: supports
+            note: Base caliber.
+          - claim: fl-s1-modified
+            stance: supports
+            note: Extent of modification.
+          - claim: fl-s1-mojon
+            stance: context
+            note: Engineering partner.
+      MM:
+        value: 0
+        rationale: The movement is made by Chronode; no movement part is made by the brand.
+        evidence:
+          - claim: fl-s1-chronode
+            stance: supports
+            note: Movement created by Chronode.
+      EX:
+        value: 0
+        rationale: Europa Star (fl-s1-efteor-europastar) and Fratello (fl-s1-efteor-fratello) both say the case is made by Efteor, an outside Swiss casemaker, and Fleming itself says partners handle its manufacturing (fl-s1-partners-assembly). No source describes any exterior part made by the brand, so the exterior is scored external. The case design is the brand's (fl-s1-case-design), which counts under PD, not here.
+        evidence:
+          - claim: fl-s1-efteor-europastar
+            stance: supports
+            note: Names Efteor as casemaker.
+          - claim: fl-s1-efteor-fratello
+            stance: supports
+            note: Corroborates Efteor for the tantalum cases.
+          - claim: fl-s1-partners-assembly
+            stance: supports
+            note: Brand says manufacturing is done by partners.
+          - claim: fl-s1-case-design
+            stance: context
+            note: Design only, not manufacture.
+      DH:
+        value: 0
+        rationale: All dials are made by Comblémine. Hands are not covered by any source.
+        evidence:
+          - claim: fl-s1-dials
+            stance: supports
+            note: External dial maker.
+      CF:
+        value: 0
+        rationale: No internal craft is documented; the hand finishing belongs to Comblémine and Chronode.
+        evidence:
+          - claim: fl-s1-dials
+            stance: supports
+            note: Dial craft is external.
+          - claim: fl-s1-not-watchmaker
+            stance: context
+            note: No in-house workshop is described.
+      WE:
+        value: 0
+        rationale: Fleming says it relies on partners such as Chronode and Fabrika for manufacturing, finishing and assembly (fl-s1-partners-assembly), a statement about how the brand makes its watches rather than about one model, and no source describes any assembly, casing, regulation or quality control done by the brand. The brand was not founded by a watchmaker (fl-s1-not-watchmaker). Borderline with 1, since no source names who assembles the Series 1 or rules out final checks by the brand.
+        evidence:
+          - claim: fl-s1-partners-assembly
+            stance: supports
+            note: Brand says assembly is done by partners.
+          - claim: fl-s1-not-watchmaker
+            stance: context
+            note: The brand has no described watchmaking team.
+      PD:
+        value: 4
+        rationale: The brand designed the watch, held the case to its design through two years of development, and commissioned the movement modifications; its own editorial says it keeps design control while partners manufacture (fl-s1-partners-assembly). The deep engineering is Chronode's, so 5 is not supported on current evidence.
+        evidence:
+          - claim: fl-s1-case-design
+            stance: supports
+            note: Original design direction.
+          - claim: fl-s1-mojon
+            stance: supports
+            note: Commissioned technical development.
+          - claim: fl-s1-partners-assembly
+            stance: supports
+            note: Brand keeps design control over partner work.
     classification:
       - design_led_etablisseur

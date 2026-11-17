@@ -101,6 +101,31 @@ claims:
       - MM
     date_checked: 2026-10-21
     editor: falk-index
+  - id: hmecs-robb-assembly-finishing
+    statement: A 2025 Robb Report Singapore article says Moser's design, manufacturing, assembly and finishing are all done within its manufacture.
+    excerpt: With design, manufacturing, as well as assembly and finishing all done within its integrated manufacture, H. Moser & Cie. is more than living up to its independent mantle.
+    source: robbreport-sg-h-moser-manufacture
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: hmecs-rev-modular-escapement
+    statement: A 2026 Revolution manufacture visit reports that Moser's modular escapement lets the whole regulating organ be assembled and adjusted separately before it is fitted to the movement.
+    excerpt: allows the entire regulating organ to be assembled and adjusted independently before being installed into the movement, reducing time spent in service
+    source: revolution-h-moser-manufacture-2026
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: hmecs-rev-subassembly
+    statement: The same Revolution article describes a sub-assembly room at the manufacture where the modular escapement is assembled.
+    excerpt: a range of sub-assembly work takes place, from fitting impulse jewels to safety rollers to assembling the modular escapement or the tourbillon with its cylindrical hairspring.
+    source: revolution-h-moser-manufacture-2026
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: HMC 200 automatic caliber
@@ -148,10 +173,12 @@ provenance:
     claims: []
   - dimension: CF
     component: Movement decoration (double stripes, perlage)
-    relationship: unknown
-    note: Decoration is described, but the performer is not stated.
+    performer: h-moser
+    relationship: internal
+    note: A 2025 Robb Report article says finishing is done within the manufacture (brand-wide, universal wording). This conflicts in part with the CEO's 2024 statement that anglage is done externally; the anglage row is kept separate.
     claims:
       - hmecs-finishing
+      - hmecs-robb-assembly-finishing
   - dimension: CF
     component: Anglage (bevelling)
     relationship: external_specialist
@@ -161,9 +188,13 @@ provenance:
       - hmecs-anglage-external
   - dimension: WE
     component: Assembly and regulation
-    relationship: unknown
-    note: No fetched source explicitly describes who assembles and regulates the HMC 200.
-    claims: []
+    performer: h-moser
+    relationship: internal
+    note: Brand-wide sources describe assembly in the manufacture and a sub-assembly room where the modular escapement (the interchangeable regulating organ the HMC 200 uses) is assembled and adjusted. No source describes HMC 200 regulation specifically.
+    claims:
+      - hmecs-robb-assembly-finishing
+      - hmecs-rev-modular-escapement
+      - hmecs-rev-subassembly
   - dimension: PD
     component: Design and movement development
     performer: h-moser
@@ -283,7 +314,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: PD U → 4, scored by content from the existing calibre claims (EDITORIAL §5), which the previous version had left unscored because none was tagged PD. 3 of 7 dimensions remain unknown, so confidence is C.
     created_on: 2026-10-22
@@ -354,6 +385,102 @@ profiles:
         value: null
         rationale: No source describes who assembles and regulates the HMC 200.
         evidence: []
+      PD:
+        value: 4
+        rationale: 'Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser''s own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary.'
+        evidence:
+          - claim: hmecs-hmc200-inhouse
+            stance: supports
+            note: Own calibre.
+          - claim: hmecs-straumann
+            stance: supports
+            note: Interchangeable regulating organ.
+          - claim: hmecs-double-hairspring
+            stance: supports
+            note: Double hairspring, per Moser.
+    classification:
+      - independent_manufacture
+  - version: 4
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds a 2025 Robb Report Singapore manufacture feature and a 2026 Revolution manufacture visit. Changes from version 3: CF U \u2192 1; WE U \u2192 3; confidence stays C. One of seven dimensions remains U (DH)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 4
+        rationale: Specialist reporting describes the HMC 200 as Moser's in-house calibre. A single secondary claim cannot show the engineering is substantially mastered internally, so 4.
+        evidence:
+          - claim: hmecs-hmc200-inhouse
+            stance: supports
+            note: In-house calibre.
+      MM:
+        value: 4
+        rationale: The regulating organ, hairspring and escape wheels come from the sister company Precision Engineering, credited as in-group. The split of plates, bridges and wheels is not published, so this is 4 rather than 5.
+        evidence:
+          - claim: hmecs-pe-regulating
+            stance: supports
+            note: Sister company makes the regulating organ.
+          - claim: hmecs-sjx-hairspring
+            stance: supports
+            note: Hairspring made by Precision Engineering.
+          - claim: hmecs-pe-components
+            stance: supports
+            note: Hairsprings and escape wheels.
+          - claim: hmecs-pe-site
+            stance: supports
+            note: Same site, from wire.
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Hairsprings and escapements in the group.
+          - claim: hmecs-meylan-control
+            stance: supports
+            note: Common control.
+          - claim: hmecs-straumann
+            stance: context
+            note: Straumann hairspring.
+          - claim: hmecs-double-hairspring
+            stance: context
+            note: Double hairspring.
+      EX:
+        value: 0
+        rationale: In 2019 Moser's CEO said cases are not made in-house. The case maker is not named.
+        evidence:
+          - claim: hmecs-cases-dials-external
+            stance: supports
+            note: Cases external.
+      DH:
+        value: null
+        rationale: Dials are not made in-house, per the CEO in 2019, and dial making was only being explored in 2024. No source names the dial maker or covers the hands, and no source ties a group company to Moser's dials. At most 2 if the hands are internal, otherwise 0, so it stays U.
+        evidence: []
+      CF:
+        value: 1
+        rationale: A 2025 Robb Report article says finishing is done within Moser's manufacture (hmecs-robb-assembly-finishing), which places the stripes and perlage (hmecs-finishing) internally. In 2024 the CEO said anglage, the most skilled hand-finishing step, was done externally (hmecs-anglage-external), and external work does not count. Scored 1 for limited internal decoration; borderline with 2, but the brand-wide magazine claim and the CEO statement conflict, and no source shows anglage was brought in-house.
+        evidence:
+          - claim: hmecs-robb-assembly-finishing
+            stance: supports
+            note: Finishing done in the manufacture (brand-wide, universal wording).
+          - claim: hmecs-finishing
+            stance: context
+            note: Decoration on the HMC 200.
+          - claim: hmecs-anglage-external
+            stance: contradicts
+            note: Anglage external in 2024.
+      WE:
+        value: 3
+        rationale: Robb Report says assembly is done within the manufacture (hmecs-robb-assembly-finishing). Revolution describes a sub-assembly room where the modular escapement is assembled, and says it lets the regulating organ be assembled and adjusted before fitting (hmecs-rev-modular-escapement, hmecs-rev-subassembly); the HMC 200 uses this interchangeable regulating organ (hmecs-straumann). That is assembly plus adjustment work, so 3. Not 4, because the HMC 200 has no complication and no source describes its regulation specifically; borderline with 2, since all claims are brand-wide and secondary.
+        evidence:
+          - claim: hmecs-robb-assembly-finishing
+            stance: supports
+            note: Assembly in the manufacture.
+          - claim: hmecs-rev-modular-escapement
+            stance: supports
+            note: Regulating organ assembled and adjusted.
+          - claim: hmecs-rev-subassembly
+            stance: supports
+            note: Escapement sub-assembly on site.
       PD:
         value: 4
         rationale: 'Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser''s own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary.'

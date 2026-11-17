@@ -99,6 +99,73 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: h2rep-a11-specialists
+    statement: Habring² says all components of the A11 movement family are produced with the help of specialists in the DACH region, most of them small family-owned businesses.
+    excerpt: All components of the A11-family are produced with the help of skilled specialists in the DACH-region, most of them small family owned businesses.
+    source: habring2-faqs
+    dimensions:
+      - MM
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-a11-drawings
+    statement: Habring² says all A11 components are produced under its direction and to production drawings issued by Habring Uhrentechnik OG.
+    excerpt: All components of the A11 are produced under direction and following production drawings issued by Habring Uhrentechnik OG.
+    source: habring2-faqs
+    dimensions:
+      - MM
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-ultra-rotating
+    statement: A lecture recap reports that a supplier called Ultra makes all of Habring²'s rotating parts such as the pinions.
+    excerpt: Ultra now makes all of Habring²’s rotating parts such as the pinions.
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-anchors
+    statement: A 2014 manufacture visit reports seeing Habring² manufacture anchors (pallet forks) for its escapements.
+    excerpt: specifically, the manufacturing of unique anchors, the scaling of hairsprings
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-plates-modified
+    statement: The same 2014 visit reports that Habring² receives raw base materials for movement plates, balance wheels and balance springs and modifies them in its workshops.
+    excerpt: the Habring2 manufacture receives base materials for movement plates, balance wheels and balance springs in a relatively raw form, meaning that they are all painstakingly modified in the workshops.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-wheels-2014
+    statement: The same 2014 visit reports trainee watchmakers crafting wheels for the then-new A11 movement.
+    excerpt: we were greeted by two young watchmakers-to-be, in the process of crafting wheels for the new movement.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-benzinger-hands
+    statement: An aBlogtoWatch article on the Habring² Benzinger edition of the five-minute repeater reports that Maria Habring flame-blues the hands, while Jochen Benzinger does the engraving, guilloche and skeletonising.
+    excerpt: The hands are flame-blued by Maria Habring, while the engravings, guilloche, and skeleton aspects are handled by Jochen according to the customer’s wishes.
+    source: ablogtowatch-habring2-benzinger-repeater
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: h2rep-benzinger-a11
+    statement: The same article reports the Benzinger edition of the repeater comes in three designs in a 42 mm grade 5 titanium case.
+    excerpt: Offered in three different designs, the Repeater comes in a 42mm Grade 5 Titanium case that features a matte finish.
+    source: ablogtowatch-habring2-benzinger-repeater
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: A11B base movement
@@ -125,18 +192,45 @@ provenance:
       - h2rep-hairspring-scaling
   - dimension: MM
     component: Base movement parts
-    relationship: unknown
-    note: Habring² works with ~25 suppliers; the parts split for the A11B is not stated.
+    relationship: contract
+    note: Habring² says all A11-family components are produced with outside specialists in the DACH region to its own production drawings; it works with ~25 suppliers. Which A11B parts each supplier makes is not stated.
     claims:
+      - h2rep-a11-specialists
+      - h2rep-a11-drawings
       - h2rep-25-suppliers
+  - dimension: MM
+    component: Pinions and other rotating parts
+    relationship: external_specialist
+    note: HSNY recap (2019) names the supplier only as 'Ultra'. This conflicts with a 2014 report of wheels being made in Habring²'s workshop; the later report is taken as current.
+    claims:
+      - h2rep-ultra-rotating
+      - h2rep-wheels-2014
+  - dimension: MM
+    component: Anchors and plate rework
+    performer: habring2
+    relationship: internal
+    note: Reported at the 2014 launch of the A11 movement, which is this watch's base; plates arrive as raw blanks and are reworked in-house.
+    claims:
+      - h2rep-anchors
+      - h2rep-plates-modified
   - dimension: EX
     component: Titanium case
     relationship: unknown
+    note: No source reached names the case maker (searched the Habring² repeater page and FAQs, Deployant, aBlogtoWatch and HSNY).
     claims:
       - h2rep-case
   - dimension: DH
-    component: Dial ring and hands
+    component: Hand bluing
+    performer: habring2
+    relationship: internal
+    note: Reported for the Benzinger edition of this repeater; the maker of the hand blanks is not named.
+    claims:
+      - h2rep-benzinger-hands
+      - h2rep-hands
+  - dimension: DH
+    component: Dial ring and hand blanks
     relationship: unknown
+    note: No source names who makes the rhodium-plated dial ring or the hand blanks.
     claims:
       - h2rep-hands
   - dimension: CF
@@ -271,7 +365,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: PD U → 4, scored by content from the existing movement claims (EDITORIAL §5), which the previous version had left unscored because none was tagged PD. 3 of 7 dimensions remain unknown, so confidence is C.
     created_on: 2026-10-22
@@ -346,6 +440,126 @@ profiles:
           - claim: h2rep-a11-d90
             stance: supports
             note: Own A11B base with an integrated module.
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Module integrated and assembled in-house.
+          - claim: h2rep-earlier-eta
+            stance: context
+            note: The earlier version used an ETA base.
+    classification:
+      - watchmaking_atelier
+  - version: 4
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds Habring²'s FAQs (habring2-faqs), an aBlogtoWatch article on the Benzinger edition of the repeater (ablogtowatch-habring2-benzinger-repeater), and further passages from the HSNY lecture recap and the 2014 aBlogtoWatch manufacture visit. Changes from version 3: MM U → 1; DH U → 1; confidence stays C. One of seven dimensions remains U (EX)."
+    scores:
+      MA:
+        value: 4
+        rationale: The repeater combines Habring²'s own A11B base with a bought-in Dubois-Depraz D90 five-minute repeater module (h2rep-a11-d90, h2rep-module-spec). The base is proprietary, but the defining complication is external engineering, so this is 4.
+        evidence:
+          - claim: h2rep-a11-d90
+            stance: supports
+            note: Own base, external module.
+          - claim: h2rep-module-spec
+            stance: supports
+            note: D90 module.
+          - claim: h2rep-earlier-eta
+            stance: context
+            note: Earlier ETA base.
+      MM:
+        value: 1
+        rationale: The striking module is bought complete from Dubois-Depraz (h2rep-buys-module), the balance spring comes from Carl Haas (h2rep-carl-haas), Ultra makes all rotating parts (h2rep-ultra-rotating), and Habring² says all A11 components are produced with outside specialists to its drawings (h2rep-a11-specialists, h2rep-a11-drawings). The internal work reported is on the A11 base, where anchors are made and raw plate blanks reworked in the workshop (h2rep-anchors, h2rep-plates-modified), from a 2014 visit. Borderline with 2, which the Erwin reaches on similar base-movement evidence; this record stays at 1 because a complete bought-in module makes up much of this movement.
+        evidence:
+          - claim: h2rep-anchors
+            stance: supports
+            note: Anchors made in-house (2014).
+          - claim: h2rep-plates-modified
+            stance: supports
+            note: Plate blanks reworked in-house (2014).
+          - claim: h2rep-a11-specialists
+            stance: supports
+            note: A11 components produced with outside specialists.
+          - claim: h2rep-a11-drawings
+            stance: context
+            note: Produced to Habring² drawings, i.e. contract work.
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Module bought in.
+          - claim: h2rep-carl-haas
+            stance: supports
+            note: External balance spring.
+          - claim: h2rep-ultra-rotating
+            stance: supports
+            note: External rotating parts.
+          - claim: h2rep-wheels-2014
+            stance: context
+            note: 2014 wheel making, superseded by the 2019 Ultra report.
+          - claim: h2rep-hairspring-scaling
+            stance: context
+            note: Adjustment work, credited under WE.
+          - claim: h2rep-25-suppliers
+            stance: context
+            note: Supplier network.
+      EX:
+        value: null
+        rationale: A titanium case is specified, but no source names its maker.
+        evidence: []
+      DH:
+        value: 1
+        rationale: An aBlogtoWatch article on the Benzinger edition of this repeater reports that Maria Habring flame-blues the hands (h2rep-benzinger-hands); this reading treats that edition, a 42 mm titanium repeater (h2rep-benzinger-a11), as a version of this model. Bluing is a minor internal operation; no source names who makes the hand blanks or the rhodium-plated dial ring (h2rep-hands), so this is not 2.
+        evidence:
+          - claim: h2rep-benzinger-hands
+            stance: supports
+            note: Hands flame-blued by Maria Habring.
+          - claim: h2rep-benzinger-a11
+            stance: context
+            note: Ties the Benzinger edition to this repeater.
+          - claim: h2rep-hands
+            stance: context
+            note: Hand-blued steel hands; blank maker not named.
+      CF:
+        value: 3
+        rationale: Habring² finishes the movement by hand in-house, with polished edges, engraving and perlage (h2rep-finishing, h2rep-buys-module). The Benzinger edition's engraving and guilloche are by an outside engraver and do not raise this score.
+        evidence:
+          - claim: h2rep-finishing
+            stance: supports
+            note: Hand finishing.
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Finished in-house.
+          - claim: h2rep-benzinger-hands
+            stance: context
+            note: Benzinger decoration is external artisan work.
+      WE:
+        value: 4
+        rationale: The movement is assembled in-house, Richard Habring does the final assembly and sound tuning, and hairsprings are scaled in-house (h2rep-buys-module, h2rep-final-assembly, h2rep-hairspring-scaling). Complication work with adjustment; not 5, because most movement parts are made outside.
+        evidence:
+          - claim: h2rep-buys-module
+            stance: supports
+            note: Assembled in-house.
+          - claim: h2rep-final-assembly
+            stance: supports
+            note: Final assembly and tuning.
+          - claim: h2rep-hairspring-scaling
+            stance: supports
+            note: Hairspring scaling.
+      PD:
+        value: 4
+        rationale: 'Scored by content (EDITORIAL §5): the repeater is built on Habring²''s own A11B base, whose components are produced to Habring² production drawings (h2rep-a11-drawings), with a bought-in Dubois-Depraz module integrated, finished and tuned in-house (h2rep-a11-d90, h2rep-buys-module). Borderline with 3, because the defining complication is a supplier''s module.'
+        evidence:
+          - claim: h2rep-a11-d90
+            stance: supports
+            note: Own A11B base with an integrated module.
+          - claim: h2rep-a11-drawings
+            stance: supports
+            note: Habring² directs supplier production by its own drawings.
+          - claim: h2rep-a11-specialists
+            stance: context
+            note: Parts produced by outside specialists.
           - claim: h2rep-buys-module
             stance: supports
             note: Module integrated and assembled in-house.

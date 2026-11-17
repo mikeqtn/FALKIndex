@@ -503,7 +503,7 @@
   source_type: press
   tier: secondary
   published_on: 2023-02-02
-  archived_url: https://web.archive.org/web/20261022015206/https://timeandtidewatches.com/introducing-honouring-the-first-with-maki-e-magic-the-new-grand-seiko-sbgw295-limited-edition/
+  archived_url: https://web.archive.org/web/20261022015159/https://timeandtidewatches.com/the-independedit-christopher-ward-bel-canto-could-prove-the-bargain-of-the-year/
   notes: Shortlink form; canonical slug not captured.
 - id: watchonista-cw-bel-canto
   url: https://www.watchonista.com/watches/christopher-ward-london-c1-bel-canto/
@@ -1692,3 +1692,365 @@
   published_on: 2024-10-02
   archived_url: https://web.archive.org/web/20260417045450/https://paperjam.lu/article/nous-faisons-montres-plongee-t
   notes: Paperjam (Luxembourg) profile of ZRC CEO Georges Brunet, in French.
+- id: lange-lange-1-page
+  url: https://www.alange-soehne.com/eu-en/timepieces/lange-1
+  title: LANGE 1 (A. Lange & Söhne)
+  publisher: a-lange-sohne
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261015201505/https://www.alange-soehne.com/eu-en/timepieces/lange-1
+- id: timeandtide-designing-lange-part-2
+  url: https://timeandtidewatches.com/insight-designing-lange-sohne-part-2-detail-dial/
+  title: "INSIGHT: Designing A. Lange & Söhne – part 2, the detail in the dial (Time+Tide)"
+  source_type: press
+  tier: secondary
+  published_on: 2018-02-02
+  archived_url: https://web.archive.org/web/20210301190245/https://timeandtidewatches.com/insight-designing-lange-sohne-part-2-detail-dial/
+- id: sjx-lange-dial-making
+  url: https://watchesbysjx.com/2025/09/dial-making-materials-lange-sohne.html
+  title: "Explained: Dial Making at A. Lange & Söhne (SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2025-09-25
+  archived_url: https://web.archive.org/web/20260315020211/https://watchesbysjx.com/2025/09/dial-making-materials-lange-sohne.html
+- id: sjx-akrivia-ak06-review
+  url: https://watchesbysjx.com/2020/04/akrivia-ak-06-review.html
+  title: "Up Close: Akrivia AK-06 (JX Su, SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2020-04-03
+  archived_url: https://web.archive.org/web/20260215143753/https://watchesbysjx.com/2020/04/akrivia-ak-06-review.html
+- id: sjx-inside-akrivia-2024
+  url: https://watchesbysjx.com/2024/01/akrivia-workshop-visit-rexhep-rexhepi.html
+  title: "Inside Akrivia – Artisanal Manufacturing in Geneva (Brandon Moore, SJX)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-01-02
+  archived_url: https://web.archive.org/web/20240623084713/https://watchesbysjx.com/2024/01/akrivia-workshop-visit-rexhep-rexhepi.html
+- id: anordain-introducing-fabrik
+  url: https://anordain.com/blogs/news/introducing-the-fabrik-collection
+  title: Introducing the Fabrik Collection (anOrdain)
+  publisher: anordain
+  source_type: manufacturer
+  tier: primary
+  published_on: 2023-03-17
+  archived_url: https://web.archive.org/web/20230331202939/https://anordain.com/blogs/news/introducing-the-fabrik-collection
+- id: quillandpad-anordain-model-1-long-term
+  url: https://quillandpad.com/2018/10/23/anordain-offers-affordable-enamel-dials-made-in-scotland-powered-by-swiss-mechanical-movements-results-of-long-term-test/
+  title: "anOrdain Offers Affordable Enamel Dials Made In Scotland Powered By Swiss Mechanical Movements: Results Of Long-Term Test (Elizabeth Doerr, Quill & Pad)"
+  source_type: press
+  tier: secondary
+  published_on: 2018-10-23
+  archived_url: https://web.archive.org/web/20260308004937/https://quillandpad.com/2018/10/23/anordain-offers-affordable-enamel-dials-made-in-scotland-powered-by-swiss-mechanical-movements-results-of-long-term-test/
+  notes: Long-term test of the first-generation Model 1 (39 mm, Sellita SW200); predates the Fabrik.
+- id: thehourmarkers-atelier-wen-v3
+  url: https://thehourmarkers.com/articles/atelier-wen-perception-v3
+  title: Atelier Wen Perception V3 Redefines Modern Watchmaking (The Hour Markers)
+  source_type: press
+  tier: secondary
+  published_on: 2026-05-19
+  archived_url: https://web.archive.org/web/20260616213141/https://thehourmarkers.com/articles/atelier-wen-perception-v3
+- id: sjx-ap-16202-review
+  url: https://watchesbysjx.com/2022/04/audemars-piguet-royal-oak-jumbo-16202-review.html
+  title: "In-Depth: Audemars Piguet Royal Oak “Jumbo” Ref. 16202 and the Cal. 7121 (SJX Watches)"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-04-27
+  archived_url: https://web.archive.org/web/20260427081825/https://watchesbysjx.com/2022/04/audemars-piguet-royal-oak-jumbo-16202-review.html
+- id: sjx-ap-craft-at-scale
+  url: https://watchesbysjx.com/2026/03/craft-at-scale-audemars-piguets-industrial-strategy.html
+  title: "Craft at Scale: Audemars Piguet’s Industrial Strategy (SJX Watches, interview with CIO Lucas Raggi)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2026-03-06
+  archived_url: https://web.archive.org/web/20260306031138/https://watchesbysjx.com/2026/03/craft-at-scale-audemars-piguets-industrial-strategy.html
+- id: sjx-ap-arc-manufacture
+  url: https://watchesbysjx.com/2026/01/audemars-piguet-arc-manufacture-le-brassus.html
+  title: Audemars Piguet Inaugurates Arc Manufacture in Le Brassus (SJX Watches)
+  source_type: press
+  tier: secondary
+  published_on: 2026-01-26
+  archived_url: https://web.archive.org/web/20260216081129/https://watchesbysjx.com/2026/01/audemars-piguet-arc-manufacture-le-brassus.html
+- id: ap-savoir-faire-decoration
+  url: https://www.audemarspiguet.com/com/en/about/savoir-faire/decoration.html
+  title: Decoration and finishing techniques (Audemars Piguet)
+  publisher: audemars-piguet
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260310003319/https://www.audemarspiguet.com/com/en/about/savoir-faire/decoration.html
+- id: apchronicles-royal-oak-bracelets
+  url: https://apchronicles.audemarspiguet.com/en/article/royal-oak-bracelets
+  title: Royal Oak Bracelets (AP Chronicles, Audemars Piguet Heritage)
+  publisher: audemars-piguet
+  source_type: manufacturer
+  tier: primary
+  published_on: 2022-05-10
+  archived_url: https://web.archive.org/web/20261116004519/https://apchronicles.audemarspiguet.com/en/article/royal-oak-bracelets
+- id: cw-c1-bel-canto-product
+  url: https://www.christopherward.com/c1-bel-canto-blue.html
+  title: C1 Bel Canto Limited Edition, Our finest hour (Christopher Ward)
+  publisher: christopher-ward
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20221205160632/https://www.christopherward.com/c1-bel-canto-blue.html
+- id: timefiles-cw-swiss-side
+  url: https://timefiles.ch/post/the-daring-swiss-side-of-christopher-ward/
+  title: The Daring Swiss Side of Christopher Ward (Time Files)
+  source_type: press
+  tier: secondary
+  published_on: 2024-03-18
+  archived_url: https://web.archive.org/web/20260813061957/https://timefiles.ch/post/the-daring-swiss-side-of-christopher-ward/
+- id: europastar-cw-transformation
+  url: https://www.europastar.com/the-watch-files/portraits/1004115591-christopher-ward-the-story-behind-a.html
+  title: "Christopher Ward: the story behind a transformation (Europa Star)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2025-11-01
+  archived_url: https://web.archive.org/web/20260716110823/https://www.europastar.com/the-watch-files/portraits/1004115591-christopher-ward-the-story-behind-a.html
+  notes: Day of publication not shown (November 2025). Interview with Mike France and Jörg Bader.
+- id: manufacturingtoday-cw
+  url: https://manufacturing-today.com/news/discover-what-makes-christopher-wards-unique-watches-sell-out-within-hours/
+  title: Discover what makes Christopher Ward's unique watches sell out within hours (Manufacturing Today)
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2026-06-02
+  archived_url: https://web.archive.org/web/20261117182149/https://manufacturing-today.com/news/discover-what-makes-christopher-wards-unique-watches-sell-out-within-hours/
+  notes: Interview with COO Sarah Baumann and supply-chain director Paul Wright.
+- id: bfh-cw-industry-fellow
+  url: https://www.bfh.ch/fr/actualites/news/2025/entreprise-horlogere-en-plein-essor/
+  title: Une entreprise horlogère en plein essor – grâce au savoir-faire de la BFH-TI notamment (BFH)
+  source_type: press
+  tier: secondary
+  published_on: 2025-09-11
+  archived_url: https://web.archive.org/web/20260520012548/https://www.bfh.ch/fr/actualites/news/2025/entreprise-horlogere-en-plein-essor/
+  notes: French-language; excerpt is verbatim French. Bern University of Applied Sciences story on its work with Christopher Ward.
+- id: timekeepers-db25-perpetual-sky
+  url: https://timekeepers.club/articles/novelties/de-bethune-db25-perpetual-sky
+  title: De Bethune DB25 Perpetual Sky (Timekeepers Club)
+  source_type: press
+  tier: secondary
+  published_on: 2025-11-22
+  archived_url: https://web.archive.org/web/20260517030210/https://timekeepers.club/articles/novelties/de-bethune-db25-perpetual-sky
+  notes: Reproduces De Bethune launch text in the brand's own voice ("our artisans", a Denis Flageollet quote).
+- id: quillandpad-db28xs-starry-seas
+  url: https://quillandpad.com/2024/03/22/de-bethune-db28xs-starry-seas-reviewed-by-tim-mosso/
+  title: De Bethune DB28XS Starry Seas Reviewed by Tim Mosso (Quill & Pad)
+  source_type: press
+  tier: secondary
+  published_on: 2024-03-22
+  archived_url: https://web.archive.org/web/20260613062524/https://quillandpad.com/2024/03/22/de-bethune-db28xs-starry-seas-reviewed-by-tim-mosso/
+  notes: The author writes "From my vantage point within a business group that owns De Bethune", so he is not independent of the brand.
+- id: debethune-db25-moon-phase-starry-sky
+  url: https://www.debethune.ch/collections/db25/db25-moon-phase-starry-sky/
+  title: DB25 Moon Phase Starry Sky (De Bethune)
+  publisher: de-bethune
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260429160312/https://www.debethune.ch/collections/db25/db25-moon-phase-starry-sky/
+- id: farer-our-story
+  url: https://farer.com/pages/our-story
+  title: Our Story (Farer)
+  publisher: farer
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261117181826/https://farer.com/pages/our-story
+- id: esquireuk-farer-more-than-micro-brand-2019
+  url: https://www.esquire.com/uk/watches/a33817014/why-farer-more-than-micro-brand/
+  title: "A very modern adventure: why Farer is more than a micro brand (Esquire UK)"
+  source_type: press
+  tier: secondary
+  published_on: 2019-02-28
+  archived_url: https://web.archive.org/web/20261117181743/https://www.esquire.com/uk/watches/a33817014/why-farer-more-than-micro-brand/
+- id: oracleoftime-farer-independent-watchmaking-2024
+  url: https://oracleoftime.com/farers-independent-watchmaking/
+  title: Farer's Independent Watchmaking is as Bold as Their Colour Palette (Oracle of Time)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2024-07-11
+  archived_url: https://web.archive.org/web/20250319115027/https://oracleoftime.com/farers-independent-watchmaking/
+- id: fleming-complete-integration
+  url: https://www.fleming.watch/editorial/complete-integration
+  title: "Complete Integration (Fleming Editorial)"
+  publisher: fleming
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260715014505/https://www.fleming.watch/editorial/complete-integration
+- id: europastar-fleming-next-gen
+  url: https://www.europastar.com/the-watch-files/watchmaking-in-the-usa/1004114520-fleming-brings-next-gen-expression-to-haute.html
+  title: Fleming brings next-gen expression to haute horlogerie (Europa Star)
+  source_type: press
+  tier: secondary
+  published_on: 2024-07-19
+  archived_url: https://web.archive.org/web/20260608173155/https://www.europastar.com/the-watch-files/watchmaking-in-the-usa/1004114520-fleming-brings-next-gen-expression-to-haute.html
+- id: fratello-fleming-series-1-tantalum
+  url: https://fratellowatches.com/introducing-the-fleming-series-1-tantalum/
+  title: Introducing The Fleming Series 1 Tantalum (Michael Stockton, Fratello)
+  source_type: press
+  tier: secondary
+  published_on: 2024-03-11
+  archived_url: https://web.archive.org/web/20260208142334/https://www.fratellowatches.com/introducing-the-fleming-series-1-tantalum/
+- id: fpjourne-invenit-et-fecit
+  url: https://www.fpjourne.com/en/invenit-et-fecit
+  title: Invenit et Fecit (F.P.Journe)
+  publisher: fp-journe
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260915064157/https://www.fpjourne.com/en/invenit-et-fecit
+- id: robbreport-sg-h-moser-manufacture
+  url: https://robbreport.com.sg/h-moser-cie-manufacture/
+  title: How the H.Moser & Cie. manufacture drives the brand's creativity (Robb Report Singapore)
+  source_type: press
+  tier: secondary
+  published_on: 2025-12-31
+  archived_url: https://web.archive.org/web/20260714190345/https://robbreport.com.sg/h-moser-cie-manufacture/
+- id: revolution-h-moser-manufacture-2026
+  url: https://revolutionwatch.com/inside-the-h-moser-cie-manufacture-in-schaffhausen
+  title: Inside the H. Moser & Cie. Manufacture in Schaffhausen (Revolution Watch)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-02-06
+  archived_url: https://web.archive.org/web/20260316235617/https://revolutionwatch.com/inside-the-h-moser-cie-manufacture-in-schaffhausen/
+- id: ablogtowatch-habring2-benzinger-repeater
+  url: https://www.ablogtowatch.com/habring2-benzinger-5-minute-repeater-watch/
+  title: Habring2 Benzinger 5-Minute Repeater Watch (Richard Cantley, aBlogtoWatch)
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2016-06-16
+  archived_url: https://web.archive.org/web/20250209114914/https://www.ablogtowatch.com/habring2-benzinger-5-minute-repeater-watch/
+- id: revolution-jn-shapiro-radiant
+  url: https://revolutionwatch.com/joshua-shapiro-introduces-the-infinity-weave-series-radiant/
+  title: J.N. Shapiro Introduces the Infinity Weave Series Radiant (Cheryl Chia, Revolution)
+  source_type: press
+  tier: secondary
+  published_on: 2026-06-16
+  archived_url: https://web.archive.org/web/20260722075533/https://revolutionwatch.com/joshua-shapiro-introduces-the-infinity-weave-series-radiant/
+- id: jns-about-page
+  url: https://www.jnshapirowatches.com/about/
+  title: Joshua Shapiro (J.N. Shapiro)
+  publisher: jn-shapiro
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260514170439/https://www.jnshapirowatches.com/about/
+- id: jns-service-page
+  url: https://www.jnshapirowatches.com/service/
+  title: Service (J.N. Shapiro)
+  publisher: jn-shapiro
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261015202328/https://www.jnshapirowatches.com/service/
+- id: kudoke-tremblage-2026
+  url: https://www.kudoke.eu/en/2026/04/07/kudoke-12_tremblage_en/
+  title: KUDOKE 1 & 2 Tremblage (Kudoke)
+  publisher: kudoke
+  source_type: manufacturer
+  tier: primary
+  published_on: 2026-04-07
+  archived_url: https://web.archive.org/web/20260719031938/https://www.kudoke.eu/en/2026/04/07/kudoke-12_tremblage_en/
+- id: kudoke-2-sen-2026
+  url: https://www.kudoke.eu/en/2026/07/15/kudoke-2-sen/
+  title: KUDOKE 2 SEN (Kudoke)
+  publisher: kudoke
+  source_type: manufacturer
+  tier: primary
+  published_on: 2026-07-15
+  archived_url: https://web.archive.org/web/20260813032102/https://www.kudoke.eu/en/2026/07/15/kudoke-2-sen/
+- id: ophion-ablogtowatch-786-review
+  url: https://www.ablogtowatch.com/ophion-oph-786-watch-review/
+  title: Ophion OPH 786 Watch Review
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-05-25
+  archived_url: https://web.archive.org/web/20241204212951/https://www.ablogtowatch.com/ophion-oph-786-watch-review/
+  notes: Reviews the pre-Vélos OPH 786.
+- id: ophion-monochrome-786-review
+  url: https://monochrome-watches.com/review-ophion-oph-786-specs-price/
+  title: Review of the Ophion OPH 786
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2018-07-30
+  archived_url: https://web.archive.org/web/20260209012653/https://monochrome-watches.com/review-ophion-oph-786-specs-price/
+  notes: Reviews the pre-Vélos OPH 786.
+- id: ophion-limitededition-velos-blue
+  url: https://www.thelimitededition.co.uk/ophion-oph-786-velos-blue-guilloche-dial-review/
+  title: Ophion OPH 786 Vélos - Blue Guilloché Dial Review
+  source_type: press
+  tier: secondary
+  published_on: 2022-02-03
+  archived_url: https://web.archive.org/web/20260213134454/https://www.thelimitededition.co.uk/ophion-oph-786-velos-blue-guilloche-dial-review/
+  notes: Published by a UK retailer that sells Ophion.
+- id: rolex-geography-of-excellence
+  url: https://www.rolex.com/watchmaking/excellence-in-the-making/geography-of-excellence
+  title: "Watchmaking - Geography of excellence"
+  publisher: rolex
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260520225429/https://www.rolex.com/watchmaking/excellence-in-the-making/geography-of-excellence
+  notes: Live rolex.com returns 403 to scripted requests; read from the Wayback copy.
+- id: rolex-submariner-m124060-0001
+  url: https://www.rolex.com/watches/submariner/m124060-0001
+  title: "Rolex Submariner watch: Oystersteel - m124060-0001"
+  publisher: rolex
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261103101540/https://www.rolex.com/watches/submariner/m124060-0001
+  notes: Model product page. Live rolex.com returns 403 to scripted requests; read from the Wayback copy.
+- id: sartory-billard-sb05-design-guide
+  url: https://sartory-billard.com/pages/sb05-design-guide
+  title: SB05 Design Guide (Sartory Billard)
+  publisher: sartory-billard
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20260402134349/https://sartory-billard.com/pages/sb05-design-guide
+- id: sartory-billard-gphg-2022-sb05
+  url: https://gphg.org/en/watches/sb-05-black-mother-of-pearl-and-darken-grained-titanium
+  title: "Sartory Billard SB05 Black mother of pearl and darken grained titanium (GPHG 2022 entry)"
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20251112134818/https://www.gphg.org/en/watches/sb-05-black-mother-of-pearl-and-darken-grained-titanium
+  notes: Hosted by the GPHG foundation; the description is the brand's own first-person submission by Armand Billard for GPHG 2022.
+- id: underd0g-teddybaldassarre-brand-review
+  url: https://teddybaldassarre.com/blogs/watches/studio-underd0g-brand-review
+  title: "Studio Underd0g Brand Review: Fun Design And Serious Watchmaking Under $2,000"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-08-13
+  archived_url: https://web.archive.org/web/20260819123436/https://teddybaldassarre.com/blogs/watches/studio-underd0g-brand-review
+- id: underd0g-production-update-2022
+  url: https://underd0g.com/pages/production-update
+  title: Production Update (orders placed 26.04.2022)
+  publisher: studio-underd0g
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20250907013337/https://underd0g.com/pages/production-update
+  notes: Brand production log; the cited entry is dated 14.06.2022.
+- id: tudor-watch-manufacture-page
+  url: https://www.tudorwatch.com/en/inside-tudor/watchmaking/watch-manufacture
+  title: The TUDOR Watch Manufacture
+  publisher: tudor
+  source_type: manufacturer
+  tier: primary
+  archived_url: https://web.archive.org/web/20261014065653/https://www.tudorwatch.com/en/inside-tudor/watchmaking/watch-manufacture
+  notes: Live page returned 403 to automated access on 2026-11-17; read from the Wayback snapshot.
+- id: tudor-fratello-suppliers-2026
+  url: https://www.fratellowatches.com/how-are-tudor-watches-made-celebrating-100-years-with-a-behind-the-scenes-look/
+  title: "How Are Tudor Watches Made? Celebrating 100 Years With A Behind-The-Scenes Look"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2026-02-24
+  archived_url: https://web.archive.org/web/20260422145558/https://www.fratellowatches.com/how-are-tudor-watches-made-celebrating-100-years-with-a-behind-the-scenes-look/
+  notes: Author Nacho Conde Garzón. Supplier tour naming EMP, Kenitec, Joseph Baume, Orolux, Detech and Montremo, and the steps done at Kenissi and Tudor in Le Locle.
+- id: tudor-gearpatrol-rolex-vs-tudor-2022
+  url: https://www.gearpatrol.com/watches/a40512339/tudor-vs-rolex/
+  title: "Rolex vs. Tudor Watches: What Is Actually the Difference?"
+  source_type: press
+  tier: secondary
+  published_on: 2022-07-08
+  archived_url: https://web.archive.org/web/20230512155609/https://www.gearpatrol.com/watches/a40512339/tudor-vs-rolex/
+  notes: Author Zen Love.
+- id: vacheron-fratello-manufacture-visit
+  url: https://www.fratellowatches.com/manufacture-visit-vacheron-constantin/
+  title: "Manufacture Visit: Thomas Goes Behind The Scenes At Vacheron Constantin"
+  source_type: specialist_reference
+  tier: secondary
+  published_on: 2022-07-24
+  archived_url: https://web.archive.org/web/20260517022821/https://www.fratellowatches.com/manufacture-visit-vacheron-constantin/

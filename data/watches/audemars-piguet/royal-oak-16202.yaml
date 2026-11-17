@@ -89,6 +89,94 @@ claims:
       - CF
     date_checked: 2026-10-21
     editor: falk-index
+  - id: ro16202-sjx-stud-holder-hand
+    statement: An SJX review of the 16202 reports that the 7121's steel stud holder is straight grained on top and mirror polished by hand on its bevels.
+    excerpt: The steel stud holder, for instance, is straight grained on top and mirror polished – by hand – on its bevels.
+    source: sjx-ap-16202-review
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-sjx-rotor-hand
+    statement: The same review reports that the anglage of the 7121's rotor is polished by hand, citing its 14 inward angles.
+    excerpt: The anglage of the rotor is polished by hand, as evidenced by the 14 inward angles.
+    source: sjx-ap-16202-review
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-sjx-cnc-bevels
+    statement: The same review reports that the diamond-cut anglage on the 7121's bridges is done with a CNC machine, as on other AP movements.
+    excerpt: This type of bevelling is done with a CNC machine and has long been a trademark of AP movements
+    source: sjx-ap-16202-review
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-sjx-less-manual
+    statement: The same review says the production process for the 7121 needs less manual adjustment of components by hand than the calibre 2121 did.
+    excerpt: the production process for the cal. 7121 is more streamlined, requiring less manual intervention in terms of adjusting components by hand, compared to the cal. 2121
+    source: sjx-ap-16202-review
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-ap-hand-decoration
+    statement: Audemars Piguet's decoration page says the brand decorates the components of its movements by hand.
+    excerpt: Audemars Piguet decorated by hand the hundreds of miniature components of its movements to the slightest details.
+    source: ap-savoir-faire-decoration
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-ap-jewelling
+    statement: The same page says that, before movement components are fitted to the mainplate, the watchmakers carry out a pre-assembly step known as jewelling.
+    excerpt: the watchmakers must carry out a crucial pre-assembly procedure known as jewelling, which is vital in reducing friction
+    source: ap-savoir-faire-decoration
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-raggi-assembly
+    statement: In an SJX interview, Audemars Piguet's chief industrial officer Lucas Raggi says the brand's volume still allows it to assemble all its watches by hand.
+    excerpt: we are operating at a volume that still allows us today to assemble all our watches by hand
+    source: sjx-ap-craft-at-scale
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-raggi-third-party
+    statement: The same SJX article reports that Audemars Piguet still sources some parts and ebauches from third parties, without naming which movements they go into.
+    excerpt: The brand still sources some parts and ebauches from third parties
+    source: sjx-ap-craft-at-scale
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-meyrin-division
+    statement: An SJX report on the Arc manufacture says Audemars Piguet's case and bracelet division is based in Meyrin, Geneva, and was due to move to a new building in 2026.
+    excerpt: The brand’s case and bracelet division, currently based in the Geneva suburb of Meyrin, is set to move into a new home later this year.
+    source: sjx-ap-arc-manufacture
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-centror-group
+    statement: Audemars Piguet's heritage site says the Geneva firm Centror joined the Audemars Piguet group in 1991 after taking on production of Royal Oak cases in precious materials.
+    excerpt: the Geneva-based firm Centror, which joined the Audemars Piguet group in 1991 after taking on the production of Royal Oak cases in precious materials
+    source: apchronicles-royal-oak-bracelets
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ro16202-centror-bracelets
+    statement: The same article says Centror gradually began producing gold bracelets and acquiring the expertise for steel ones, while most were still made by specialist workshops; it does not name the 16202 or bracelet 1240 in this passage.
+    excerpt: gradually began producing gold bracelets and acquiring the expertise required to manufacture the steel variants, even though most of them were still made by specialist workshops
+    source: apchronicles-royal-oak-bracelets
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 7121 design
@@ -105,9 +193,10 @@ provenance:
     component: Movement parts production
     performer: audemars-piguet
     relationship: internal
-    note: Brand text says "conceived and produced" by AP; no part-by-part breakdown found.
+    note: Brand text says "conceived and produced" by AP; no part-by-part breakdown found. An SJX article says AP still sources some parts and ebauches from third parties, without naming the movements.
     claims:
       - ro16202-7121-conceived
+      - ro16202-raggi-third-party
   - dimension: MM
     component: Hairspring, escapement and mainspring
     relationship: unknown
@@ -116,10 +205,13 @@ provenance:
   - dimension: EX
     component: Case and bracelet
     relationship: unknown
-    note: Case hand-finishing is stated; the case and bracelet maker is not named.
+    note: Case hand-finishing is stated; the case and bracelet maker is not named. AP has an in-group case and bracelet division in Meyrin (Centror, in the group since 1991), but AP's own history says most steel bracelets were still made by specialist workshops, and no source ties the 16202's case or bracelet 1240 to Meyrin.
     claims:
       - ro16202-case-bracelet-spec
       - ro16202-case-hand-finished
+      - ro16202-meyrin-division
+      - ro16202-centror-group
+      - ro16202-centror-bracelets
   - dimension: DH
     component: Petite Tapisserie guilloché dial
     performer: audemars-piguet
@@ -136,18 +228,26 @@ provenance:
     claims: []
   - dimension: CF
     component: Movement decoration
-    relationship: unknown
-    note: Finishes are listed (including machine bevelling) but no source says where they are applied.
+    performer: audemars-piguet
+    relationship: internal
+    note: AP says it decorates its movement components by hand. An SJX review of the 16202 reports hand-polished bevels on the stud holder and rotor, and CNC-machined anglage on the bridges.
     claims:
       - ro16202-movement-finish
       - ro16202-finish-list
+      - ro16202-ap-hand-decoration
+      - ro16202-sjx-stud-holder-hand
+      - ro16202-sjx-rotor-hand
+      - ro16202-sjx-cnc-bevels
   - dimension: WE
     component: Assembly and regulation
     performer: audemars-piguet
     relationship: internal
-    note: Inferred from "produced by Audemars Piguet engineers and watchmakers"; no explicit assembly statement found.
+    note: AP's chief industrial officer says the brand assembles all its watches by hand, and AP describes its watchmakers jewelling movements before assembly. No source describes regulation or testing of the 7121.
     claims:
       - ro16202-7121-conceived
+      - ro16202-raggi-assembly
+      - ro16202-ap-jewelling
+      - ro16202-sjx-less-manual
   - dimension: PD
     component: Design and technical development
     performer: audemars-piguet
@@ -186,7 +286,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 4 \u2192 3; EX 3 \u2192 U; CF 5 \u2192 U; WE 5 \u2192 U; confidence B \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -254,6 +354,123 @@ profiles:
         value: null
         rationale: No collected claim describes assembly or regulation of the 16202. "Produced by engineers and watchmakers" is credited under MA and MM.
         evidence: []
+      PD:
+        value: 5
+        rationale: Five years of development produced a new calibre engineered for the reference's 8.1 mm case. Original engineering defines the watch.
+        evidence:
+          - claim: ro16202-7121-development
+            stance: supports
+            note: Five years of development.
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Engineered for the case.
+    classification:
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Audemars Piguet's decoration page and its AP Chronicles article on Royal Oak bracelets, an SJX in-depth review of the 16202, an SJX interview with AP's chief industrial officer, and an SJX report on the Arc manufacture. Changes from version 2: CF U → 2; WE U → 2; confidence stays C. One of seven dimensions remains U (EX)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: Calibre 7121 was conceived by Audemars Piguet engineers over five years for the 8.1 mm case, replacing the Jaeger-LeCoultre-designed 2121. That is proprietary architecture developed internally.
+        evidence:
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Conceived by AP engineers.
+          - claim: ro16202-7121-development
+            stance: supports
+            note: Five years of development.
+          - claim: ro16202-replaces-2121
+            stance: supports
+            note: Replaces a JLC-designed calibre.
+          - claim: ro16202-barrel
+            stance: context
+            note: Construction details.
+      MM:
+        value: 3
+        rationale: Brand text says the 7121 was "conceived and produced" by AP, but no source breaks down which parts are made in-house, and the hairspring and escapement are unattributed. An SJX article adds that AP still buys some parts and ebauches from third parties, without naming the movements. A significant portion is credited; 4 would need a part-by-part source.
+        evidence:
+          - claim: ro16202-7121-conceived
+            stance: supports
+            note: Produced by AP.
+          - claim: ro16202-finish-list
+            stance: context
+            note: 268 components; no breakdown.
+          - claim: ro16202-raggi-third-party
+            stance: context
+            note: Some parts bought in; movements not named.
+      EX:
+        value: null
+        rationale: The case and bracelet are specified and described as hand-finished, but no source names who makes them for the 16202. AP has an in-group case and bracelet division in Meyrin (Centror), but its own history says most steel bracelets were still made by specialist workshops, and no source ties this reference's case or bracelet to Meyrin. A brand capability without a tie to the model stays context, so EX remains U.
+        evidence:
+          - claim: ro16202-case-bracelet-spec
+            stance: context
+            note: Maker not named.
+          - claim: ro16202-case-hand-finished
+            stance: context
+            note: Finishing, not manufacture.
+          - claim: ro16202-meyrin-division
+            stance: context
+            note: In-group case and bracelet division; not tied to the 16202.
+          - claim: ro16202-centror-group
+            stance: context
+            note: Centror made precious-metal Royal Oak cases; no reference named.
+          - claim: ro16202-centror-bracelets
+            stance: context
+            note: Steel bracelets mostly from specialist workshops in the period described.
+      DH:
+        value: 3
+        rationale: Brand text says the Jumbo guilloché dials are entirely produced in AP's atelier, brought back in-house around 2012. Hands and applied indices are unattributed, so this is substantial dial manufacture rather than 4.
+        evidence:
+          - claim: ro16202-dial-atelier
+            stance: supports
+            note: Dials made in the atelier.
+          - claim: ro16202-dial-back-inhouse
+            stance: supports
+            note: Dial production in-house since about 2012.
+      CF:
+        value: 2
+        rationale: An SJX review of the 16202 reports hand-polished bevels on the stud holder and hand-polished anglage on the rotor, and AP's own decoration page says it decorates its movement components by hand, which places the handwork inside the brand. The same review says the bridge anglage is cut by CNC machine, and the caliber summary lists machine bevelling, so the main movement finish is not handwork; that is regular skilled handwork that is not central, not 3. Borderline with 3; the hand-finished case is not counted because no source says where it is finished.
+        evidence:
+          - claim: ro16202-sjx-stud-holder-hand
+            stance: supports
+            note: Hand-polished bevels on the stud holder.
+          - claim: ro16202-sjx-rotor-hand
+            stance: supports
+            note: Hand-polished rotor anglage.
+          - claim: ro16202-ap-hand-decoration
+            stance: supports
+            note: AP says it decorates its movement components by hand.
+          - claim: ro16202-sjx-cnc-bevels
+            stance: contradicts
+            note: Bridge anglage is machine-cut.
+          - claim: ro16202-finish-list
+            stance: context
+            note: Machine bevelling listed.
+          - claim: ro16202-movement-finish
+            stance: context
+            note: Finishes listed.
+          - claim: ro16202-case-hand-finished
+            stance: context
+            note: Location not stated.
+      WE:
+        value: 2
+        rationale: AP's chief industrial officer says the brand assembles all its watches by hand, a universal statement that covers the 16202, and AP's decoration page says its watchmakers jewel movements before assembly. No claim describes regulation, adjustment or testing of the 7121, and an SJX review says the 7121 needs less manual adjustment than the 2121. That supports complete assembly but not the regulation and testing level 3 requires; borderline with 3.
+        evidence:
+          - claim: ro16202-raggi-assembly
+            stance: supports
+            note: All AP watches assembled by hand.
+          - claim: ro16202-ap-jewelling
+            stance: supports
+            note: Jewelling before movement assembly.
+          - claim: ro16202-sjx-less-manual
+            stance: context
+            note: Less hand adjustment than the 2121.
       PD:
         value: 5
         rationale: Five years of development produced a new calibre engineered for the reference's 8.1 mm case. Original engineering defines the watch.

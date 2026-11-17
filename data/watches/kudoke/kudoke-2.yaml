@@ -97,6 +97,32 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: kud2-tremblage-inhouse
+    statement: Kudoke says that for its tremblage dials, introduced for the Kudoke 1 and Kudoke 2, the engraving is carried out entirely in-house, from the first touch of the graver to the final finish, including the electroplating.
+    excerpt: At KUDOKE, this process is carried out entirely in-house, from the first touch of the graver to the final finish, including the electroplating.
+    source: kudoke-tremblage-2026
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: kud2-tremblage-option
+    statement: Kudoke says the tremblage dials are an optional execution of the Kudoke 1 and Kudoke 2, offered at a surcharge.
+    excerpt: The Tremblage versions are now available as an option for the KUDOKE 1 and KUDOKE 2 models, for an additional charge of 3,750 EUR plus VAT.
+    source: kudoke-tremblage-2026
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: kud2-sen-weifa
+    statement: Kudoke says that for the nine-piece Kudoke 2 SEN edition, which has a hand-guilloché dial and a hand-engraved sky disc, every engraving, surface and finish is executed by hand in its Weifa workshop. The statement covers this edition, not the standard Kudoke 2.
+    excerpt: Every engraving, every surface and every finish is executed by hand in our workshop in Weifa.
+    source: kudoke-2-sen-2026
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Kaliber 1 base movement
@@ -129,10 +155,19 @@ provenance:
   - dimension: DH
     component: 24-hour disc (hand-engraved, electroplated)
     relationship: unknown
-    note: SJX attributes the engraving to Kudoke's signature hand-engraving; Deployant says an artisan in Glashütte. Unresolved who engraves the disc and who makes the dial blank and hands.
+    note: "SJX (2020) describes the disc as hand-engraved; Deployant (2020) says an unnamed artisan in Glashütte engraves it. Kudoke (2026) says every engraving on the Kudoke 2 SEN edition, including its sky disc, is done by hand in its Weifa workshop. Who engraves the standard disc, and who makes the dial blank, chapter rings and hands, is not stated."
     claims:
       - kud2-disc-engraved
       - kud2-disc-artisan
+      - kud2-sen-weifa
+  - dimension: DH
+    component: Tremblage dial option (engraving and electroplating)
+    performer: kudoke
+    relationship: internal
+    note: Optional dial execution at a surcharge, introduced in 2026.
+    claims:
+      - kud2-tremblage-inhouse
+      - kud2-tremblage-option
   - dimension: CF
     component: Movement finishing and balance-cock engraving
     performer: kudoke
@@ -186,7 +221,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: true
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 2; MM 2 \u2192 U; EX 1 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; PD 4 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Artisan Atelier. Claim kud2-manufactory is superseded by kud2-weifa-handfinish: its excerpt could not be found on the cited page. PD no longer draws on it. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -247,6 +282,102 @@ profiles:
           - claim: kud2-disc-artisan
             stance: context
             note: "Disc engraved by an unnamed artisan."
+          - claim: kud2-disc-engraved
+            stance: context
+            note: "Disc hand-engraved and plated; engraver not named."
+      WE:
+        value: 3
+        rationale: Kudoke and a small team assemble the movement. No source describes regulation or testing, so this is 3.
+        evidence:
+          - claim: kud2-felix-parts
+            stance: supports
+            note: Assembly by Kudoke.
+          - claim: kud2-habring-dev
+            stance: supports
+            note: Kudoke assembles.
+          - claim: kud2-weifa-handfinish
+            stance: supports
+            note: Handcrafted at the Weifa manufacture (brand-level).
+      PD:
+        value: 3
+        rationale: Kudoke designs the watch and its dial-side 24-hour module on a co-developed base. That is bespoke development around a partner's movement.
+        evidence:
+          - claim: kud2-kaliber1-24h
+            stance: supports
+            note: Own module.
+    classification:
+      - artisan_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: true
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds two Kudoke pages: the KUDOKE 1 & 2 Tremblage post (kudoke-tremblage-2026) and the KUDOKE 2 SEN post (kudoke-2-sen-2026). Changes from version 2: DH U → 2; confidence C unchanged. Two of seven dimensions remain U (MM, EX): no source reached says which movement parts Kudoke makes or who makes the case."
+    scores:
+      MA:
+        value: 2
+        rationale: Kudoke calls the Kaliber 1 in-house, but SJX reports it was developed with Habring², on a Valjoux 7750-derived gear train. Kudoke's own contribution is the dial-side 24-hour modification, a meaningful module; borderline with 3.
+        evidence:
+          - claim: kud2-kaliber1-24h
+            stance: supports
+            note: Dial-side 24-hour modification.
+          - claim: kud2-habring-dev
+            stance: supports
+            note: Developed with Habring².
+          - claim: kud2-7750-architecture
+            stance: supports
+            note: 7750-derived architecture.
+      MM:
+        value: null
+        rationale: Habring² produces many of the movement's components, and no source says which, if any, Kudoke makes.
+        evidence: []
+      EX:
+        value: null
+        rationale: SJX describes the steel case, but no source names its maker.
+        evidence: []
+      DH:
+        value: 2
+        rationale: "Kudoke says it engraves and electroplates its tremblage dials, an optional Kudoke 2 execution, entirely in-house (kud2-tremblage-inhouse, kud2-tremblage-option). It also says every engraving on the Kudoke 2 SEN edition, sky disc included, is done in its Weifa workshop (kud2-sen-weifa). This reads as one meaningful dial stage, hand engraving and plating, performed internally. Borderline with 1: both statements cover an option or an edition. For the standard disc, Deployant (2020) credits an unnamed artisan in Glashütte, and no source names who makes the dial blank, chapter rings or hands."
+        evidence:
+          - claim: kud2-tremblage-inhouse
+            stance: supports
+            note: In-house engraving and electroplating of tremblage dials.
+          - claim: kud2-tremblage-option
+            stance: context
+            note: Tremblage is an optional Kudoke 2 dial.
+          - claim: kud2-sen-weifa
+            stance: supports
+            note: Every engraving on the Kudoke 2 SEN done in Weifa.
+          - claim: kud2-disc-engraved
+            stance: context
+            note: Sky disc hand-engraved and plated; engraver not named.
+          - claim: kud2-disc-artisan
+            stance: contradicts
+            note: 2020 review credits the disc to an artisan in Glashütte.
+      CF:
+        value: 4
+        rationale: "Kudoke finishes the movement by hand, with a raised hand-engraved balance cock, and says each of its watches is engraved and finished by hand at its Weifa manufactory. Its 2026 statements on in-house tremblage engraving and on the Kudoke 2 SEN add to this. Hand engraving is a major internal craft. Not 5: a 2020 review credits the standard 24-hour disc's engraving to an unnamed artisan in Glashütte."
+        evidence:
+          - claim: kud2-balance-cock
+            stance: supports
+            note: "Hand finishing and hand-engraved balance cock."
+          - claim: kud2-habring-dev
+            stance: supports
+            note: "Kudoke finishes and assembles."
+          - claim: kud2-weifa-handfinish
+            stance: supports
+            note: "Brand-wide statement covering each watch."
+          - claim: kud2-tremblage-inhouse
+            stance: supports
+            note: "In-house tremblage engraving, offered on the Kudoke 2."
+          - claim: kud2-sen-weifa
+            stance: supports
+            note: "Every engraving and finish on the Kudoke 2 SEN done in Weifa."
+          - claim: kud2-disc-artisan
+            stance: context
+            note: "Disc engraved by an unnamed artisan (2020)."
           - claim: kud2-disc-engraved
             stance: context
             note: "Disc hand-engraved and plated; engraver not named."

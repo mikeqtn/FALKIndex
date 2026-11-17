@@ -105,6 +105,71 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: rrcc-emaillart-dial
+    statement: A March 2018 SJX report on the prototype says the enamel dials are made by the Geneva enameller Emaill’Art.
+    excerpt: They are made by Geneva enameller Emaill’Art, a workshop that has done dials for Vacheron Constantin and Laurent Ferrier.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-hands-akrivia
+    statement: The same SJX report says the Chronomètre Contemporain hands are made by hand in the Akrivia workshop.
+    excerpt: Consequently, the hands are produced by hand in the Akrivia workshop.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-deployant-plates-external
+    statement: A December 2018 Deployant interview, published with the commercial release of the Chronomètre Contemporain, reports that bridges and plates are designed and finished in-house but that Akrivia did not yet own the facilities to make them.
+    excerpt: Though the bridges and plates are designed and finished in-house, Akrivia does not own the facilities to manufacture them yet.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-deployant-final-release
+    statement: The Deployant interview says the watch it photographed is the final commercial release of the Chronomètre Contemporain.
+    excerpt: This is the final commercial release version, with small detail changes to the dial, and massive finishing refinements to the movement
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-mhc-early-supplier
+    statement: A 2024 SJX workshop visit reports that Akrivia relied on suppliers such as MHC in its early days.
+    excerpt: Reliant on suppliers like MHC in its early days, the brand has made significant strides in recent years to bring the most critical operations in-house
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-cases-previously-outsourced
+    statement: The 2024 SJX visit reports that cases, some movement plates and bridges, and straps were previously outsourced and are now made in Akrivia's workshops.
+    excerpt: Components that were previously outsourced, such as cases, some movement plates and bridges, and straps, are now made in the brand’s workshops.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - EX
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-case-workshop-rrccii
+    statement: The 2024 SJX visit reports that the case workshop, opened in 2019, makes cases for the RRCC II and future Akrivia watches; it does not mention the first Chronomètre Contemporain.
+    excerpt: With the assistance of lathes and other analog rotary tools, the craftsmen in this workshop produce cases for the RRCCII, as well as all future Akrivia watches
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: rrcc-adjusted-single-watchmaker
+    statement: The 2024 SJX visit reports that at the Akrivia atelier each watch is finished, assembled, adjusted, cased and tested by a single watchmaker.
+    excerpt: This is where each watch is finished, assembled, adjusted, cased, and tested by a single watchmaker from start to finish.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre RRCC-01 design
@@ -115,28 +180,42 @@ provenance:
       - rrcc-ateliers-in-house
   - dimension: MM
     component: Movement components
-    relationship: unknown
-    note: "The maker says every component is made in-house; a 2018 report on the prototype says most come from suppliers."
+    relationship: external_specialist
+    valid_from: 2018
+    note: "The maker says every component is made in-house; 2018 reports say most components, including bridges and plates, came from suppliers, and a 2024 report names MHC as an early supplier. No source ties a named supplier to this calibre."
     claims:
       - rrcc-crafted-finished-akrivia
       - rrcc-ateliers-in-house
       - rrcc-2018-suppliers
+      - rrcc-deployant-plates-external
+      - rrcc-mhc-early-supplier
+      - rrcc-cases-previously-outsourced
   - dimension: EX
     component: Case (Chronomètre Contemporain I)
-    relationship: unknown
+    relationship: external_specialist
     valid_from: 2018
-    note: The case workshop opened in 2019 and the maker calls the CC II case its first in-house conventional case; the CC I case maker is not named.
+    note: The case workshop opened in 2019, after the CC I launch; the maker says the CC II case is now made in-house, and a 2024 report says cases were previously outsourced. The CC I case maker is not named.
     claims:
       - rrcc-case-workshop-2019
       - rrcc2-first-in-house-case
+      - rrcc-cases-previously-outsourced
+      - rrcc-case-workshop-rrccii
   - dimension: DH
     component: Grand feu enamel dial
     relationship: external_specialist
-    note: SJX (2018) names an unnamed Geneva enameller. The in-house enamel workshop opened only in 2024.
+    note: SJX (March 2018) names the enameller as Emaill’Art (no organization record yet); a December 2018 SJX caption describes a Geneva enameller trained by Dominique Baron. The in-house enamel workshop opened only in 2024.
     claims:
+      - rrcc-emaillart-dial
       - rrcc-sjx-enameller
       - rrcc-enamel-dial
       - rrcc-enamel-workshop-2024
+  - dimension: DH
+    component: Hands
+    performer: akrivia
+    relationship: internal
+    note: Reported for the 2018 prototype; SJX said dial details might change for production.
+    claims:
+      - rrcc-hands-akrivia
   - dimension: CF
     component: Movement hand finishing
     performer: akrivia
@@ -194,7 +273,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: true
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 3; confidence B \u2192 C. The maker's in-house claims are marked disputed by a 2018 report that most components came from suppliers. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -262,6 +341,117 @@ profiles:
           - claim: rrcc-one-watchmaker
             stance: supports
             note: One watchmaker per watch.
+          - claim: rrcc-besancon
+            stance: context
+            note: External chronometer trials.
+      PD:
+        value: 5
+        rationale: Rexhep Rexhepi designed the watch around his atelier's own calibre.
+        evidence:
+          - claim: rrcc-design
+            stance: supports
+            note: Designed by Rexhepi.
+    classification:
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: true
+    status: published
+    editor: falk-index
+    change_note: "Adds a December 2018 Deployant interview on the commercial release, a 2024 SJX visit to the Akrivia workshops, and further passages from the March 2018 SJX prototype report (Emaill’Art dial, hands made at Akrivia). Changes from version 2: MM U → 0; EX U → 0; DH U → 2; confidence stays C. None of the seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 4
+        rationale: The maker says every component is conceived in-house. No claim in this record describes the calibre's design, and a general statement cannot show the engineering is mastered internally, so 4.
+        evidence:
+          - claim: rrcc-ateliers-in-house
+            stance: supports
+            note: Conceived in-house.
+      MM:
+        value: 0
+        rationale: "Three secondary sources agree that at the time of this watch the movement parts were made outside: SJX (March 2018) says most components came from suppliers, Deployant (December 2018, on the commercial release) says Akrivia could not yet make bridges and plates, and SJX (2024) says plates and bridges were previously outsourced, with MHC named as an early supplier. The maker's statements that every component is made in-house are general and current, and are contradicted for this period. No source names a movement part made internally, so 0; borderline with 1, since \"most\" leaves room for unnamed parts."
+        evidence:
+          - claim: rrcc-2018-suppliers
+            stance: supports
+            note: Most components from suppliers.
+          - claim: rrcc-deployant-plates-external
+            stance: supports
+            note: Bridges and plates not made in-house in 2018.
+          - claim: rrcc-deployant-final-release
+            stance: context
+            note: Ties the interview to the commercial release.
+          - claim: rrcc-cases-previously-outsourced
+            stance: supports
+            note: Plates and bridges previously outsourced.
+          - claim: rrcc-mhc-early-supplier
+            stance: context
+            note: Named early supplier, not tied to this calibre.
+          - claim: rrcc-crafted-finished-akrivia
+            stance: contradicts
+            note: "Maker: every component in-house (disputed)."
+          - claim: rrcc-ateliers-in-house
+            stance: contradicts
+            note: "Maker: everything made in-house (disputed)."
+      EX:
+        value: 0
+        rationale: "The watch launched in 2018; Akrivia's case workshop opened in 2019, the maker says the CC II case is now produced in-house, and SJX (2024) says cases were previously outsourced and that the workshop makes cases for the RRCC II and later watches. Read together, the CC I case was made outside, so 0. Borderline: no source names the CC I case maker, and none covers the crown or other exterior parts."
+        evidence:
+          - claim: rrcc-cases-previously-outsourced
+            stance: supports
+            note: Cases previously outsourced.
+          - claim: rrcc-case-workshop-rrccii
+            stance: supports
+            note: Workshop cases begin with RRCC II.
+          - claim: rrcc2-first-in-house-case
+            stance: supports
+            note: CC II case now in-house.
+          - claim: rrcc-case-workshop-2019
+            stance: context
+            note: Case workshop from 2019.
+      DH:
+        value: 2
+        rationale: "SJX (March 2018) reports that the hands are made by hand in the Akrivia workshop, one meaningful production stage internal. The grand feu dial is made outside, by Emaill’Art per SJX, and Akrivia's own enamel workshop opened only in 2024, so not 3. Borderline: the hands report describes the prototype, and SJX said dial details might change for production."
+        evidence:
+          - claim: rrcc-hands-akrivia
+            stance: supports
+            note: Hands made at Akrivia.
+          - claim: rrcc-emaillart-dial
+            stance: context
+            note: Dial by an external enameller.
+          - claim: rrcc-sjx-enameller
+            stance: context
+            note: External enameller.
+          - claim: rrcc-enamel-dial
+            stance: context
+            note: Enameller not named.
+          - claim: rrcc-enamel-workshop-2024
+            stance: context
+            note: Later workshop.
+      CF:
+        value: 5
+        rationale: Every component is hand-finished at the atelier, with anglage, black polish and Côtes de Genève. Master-level finishing defines the watch.
+        evidence:
+          - claim: rrcc-crafted-finished-akrivia
+            stance: supports
+            note: Hand-finished in-house.
+          - claim: rrcc-finishing-techniques
+            stance: supports
+            note: Techniques.
+          - claim: rrcc-ateliers-in-house
+            stance: supports
+            note: Hand-finished in-house.
+      WE:
+        value: 3
+        rationale: Each watchmaker completes a whole watch from start to finish. SJX (2024) says each watch is also adjusted by that watchmaker, but the report describes the atelier six years after this watch's launch and does not name it, so it is context and the score stays at 3; borderline with 4. The chronometer trials were external.
+        evidence:
+          - claim: rrcc-one-watchmaker
+            stance: supports
+            note: One watchmaker per watch.
+          - claim: rrcc-adjusted-single-watchmaker
+            stance: context
+            note: Adjustment described in 2024, not tied to this model.
           - claim: rrcc-besancon
             stance: context
             note: External chronometer trials.

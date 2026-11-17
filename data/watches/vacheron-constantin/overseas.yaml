@@ -107,6 +107,24 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: vco-fratello-all-but-cases
+    statement: A 2022 Fratello manufacture-visit report says that, except for cases and bracelets, everything is made in-house, including the hairspring.
+    excerpt: Except for cases and bracelets, everything is made in-house. That includes the toughest part to produce, the hairspring.
+    source: vacheron-fratello-manufacture-visit
+    dimensions:
+      - EX
+      - MM
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: vco-fratello-case-suppliers
+    statement: The Fratello report says Vacheron Constantin sources its cases from multiple suppliers.
+    excerpt: Cases are sourced from multiple suppliers, forming the exception to the everything-in-house rule.
+    source: vacheron-fratello-manufacture-visit
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 5100 design and development
@@ -134,22 +152,26 @@ provenance:
   - dimension: EX
     component: Case
     relationship: unknown
-    note: SJX says cases are made outside the manufacture and "may" come from in-group supplier Donzé Baume (Richemont). Not confirmed for the Overseas.
+    note: "SJX says cases are made outside the manufacture and \"may\" come from in-group supplier Donzé Baume (Richemont); Fratello (2022) says cases come from multiple suppliers. Whether the Overseas case is in-group or external is not established."
     claims:
       - vco-cases-elsewhere
+      - vco-fratello-case-suppliers
+      - vco-fratello-all-but-cases
   - dimension: EX
     component: Bracelet and quick-change system
     relationship: unknown
-    note: Bracelet maker not named.
+    note: Fratello (2022) says bracelets are not made in-house; the bracelet maker, and whether it is in-group, is not named.
     claims:
       - vco-bracelet-system
+      - vco-fratello-all-but-cases
   - dimension: DH
     component: Dial
     relationship: unknown
-    note: Most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève; Overseas dial maker not named.
+    note: "SJX says most dials are made outside the manufacture, some by third parties such as Les Cadraniers de Genève. Fratello's broader statement that everything except cases and bracelets is made in-house conflicts with this; the dials it shows being made in-house are métiers d'art pieces. The Overseas dial maker is not named."
     claims:
       - vco-cases-elsewhere
       - vco-dials-third-party
+      - vco-fratello-all-but-cases
   - dimension: DH
     component: Hands
     relationship: unknown

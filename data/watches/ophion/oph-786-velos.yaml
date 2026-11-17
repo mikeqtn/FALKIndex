@@ -95,6 +95,30 @@ claims:
       - CF
     date_checked: 2026-10-21
     editor: falk-index
+  - id: oph786-abtw-assembly-germany
+    statement: A 2018 aBlogtoWatch review of the earlier OPH 786 says Ophion's cases, dials and assembly came from Germany.
+    excerpt: Ophion uses movements and hands from Switzerland, while cases, dials, and assembly are from Germany.
+    source: ophion-ablogtowatch-786-review
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: oph786-mono-assembled-germany
+    statement: A 2018 Monochrome review of the earlier OPH 786 says Ophion watches are assembled in Germany.
+    excerpt: Certainly, watches are not produced there (they are assembled in Germany) but this is where Miguel Morales Ribas, the founder, comes from.
+    source: ophion-monochrome-786-review
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: oph786-le-atelier
+    statement: A review published by a UK retailer of Ophion says the Vélos base calibre was disassembled in the Ophion atelier and rebuilt with custom bridges.
+    excerpt: Disassembled in the Ophion atelier, the base calibre has been transformed, replacing the original main plate with custom made bridges.
+    source: ophion-limitededition-velos-blue
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base calibre (TT 718)
@@ -153,8 +177,11 @@ provenance:
   - dimension: WE
     component: Assembly and regulation
     relationship: unknown
-    note: No source reached says where or by whom the Vélos is assembled.
-    claims: []
+    note: Two 2018 reviews of the earlier OPH 786 say Ophion watches were assembled in Germany, but the Vélos changed suppliers (its case is now Swiss, from Voutilainen-Cattin), so those statements are not tied to this model. A 2022 retailer review of the Vélos says the base calibre was disassembled in "the Ophion atelier" without saying where that is or who assembles and regulates the watch. No source names the Vélos assembler.
+    claims:
+      - oph786-abtw-assembly-germany
+      - oph786-mono-assembled-germany
+      - oph786-le-atelier
   - dimension: PD
     component: Design and supplier direction
     performer: ophion

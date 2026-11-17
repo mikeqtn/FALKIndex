@@ -79,15 +79,85 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: am1f-v3-cador-partnership
+    statement: anOrdain's launch post says the Fabrik collection continues its partnership with Cador, with dials in semi-matte and transparent coloured lacquers.
+    excerpt: The Fabrik collection continues our partnership with Cador, forming a new series of non-limited watches in a range of semi-matte and transparent coloured lacquers
+    source: anordain-introducing-fabrik
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-out-of-house
+    statement: The same post calls the Fabrik dial production out-of-house, contrasting it with the brand's own enamel dials.
+    excerpt: This out-of-house production means a considerably shorter lead time than you’ll be used to with our enamel dials.
+    source: anordain-introducing-fabrik
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-made-in-germany
+    statement: The same post says the Fabrik name refers to the dials being made in Germany.
+    excerpt: the name Fabrik is a nod to the impeccable quality of these made-in-Germany dials
+    source: anordain-introducing-fabrik
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-lacquer-sprayed
+    statement: The same post says the Fabrik Model 1 dial is made by spraying layers of semi-opaque lacquer, then curing and printing the dial; it describes this alongside the out-of-house dial production.
+    excerpt: multiple layers of semi-opaque lacquer are sprayed with great precision onto the dial surface before the dial is cured and printed
+    source: anordain-introducing-fabrik
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-handset-thermal
+    statement: The same post says that once the dials arrive in Scotland, anOrdain's watchmakers thermally treat the handset and then assemble and regulate each Fabrik watch.
+    excerpt: "When the dials arrive in Scotland, the rest of the watch is then assembled like any other anOrdain model: our watchmakers thermally treat the handset before the assembly and regulation of each piece."
+    source: anordain-introducing-fabrik
+    dimensions:
+      - DH
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-ljp-g101-brand
+    statement: The same post names the La Joux-Perret G101 as the movement of the Fabrik series.
+    excerpt: The movement used for the Fabrik series is the LJP-G101, a new high-beat offering from La Joux-Perret
+    source: anordain-introducing-fabrik
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-contour-grooves
+    statement: The same post says the concentric grooves on the Fabrik outer dial were drawn from the contour lines of antique Ordnance Survey maps.
+    excerpt: "The contour lines on those old OS maps also inspired another key detail of the Fabrik watches: the concentric grooves, which bring a sense of depth and texture to the outer dial."
+    source: anordain-introducing-fabrik
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: am1f-v3-hands-estima
+    statement: A 2018 Quill & Pad long-term test of the first-generation Model 1 reports its hands were designed by anOrdain and made by Estima in Switzerland; it predates the Fabrik and does not cover it.
+    excerpt: The distinctive hands were designed by anOrdain and manufactured by specialist producer Estima in Switzerland
+    source: quillandpad-anordain-model-1-long-term
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret G101)
     performer: la-joux-perret
     relationship: external_specialist
-    note: Movement per retailer specification; a GMT variant reportedly uses an ETA 2893-2 instead. A brand product page was not reachable (rate-limited) to confirm.
+    note: anOrdain's Fabrik launch post names the LJP-G101 for the Fabrik series; the Fabrik GMT variant uses an ETA 2893 instead.
     claims:
       - am1f-ljp-g101
       - am1f-swiss-movements
+      - am1f-v3-ljp-g101-brand
   - dimension: MM
     component: Movement components
     performer: la-joux-perret
@@ -96,27 +166,39 @@ provenance:
     claims:
       - am1f-ljp-g101
       - am1f-modified-regulated
+      - am1f-v3-ljp-g101-brand
   - dimension: EX
     component: Case (38 mm steel)
     relationship: unknown
-    note: Case maker not named.
+    note: Case maker not named. Searched the brand's Fabrik launch post and watchmaking page, and reviews by Quill & Pad, SJX and Deployant; none names who makes the case.
     claims:
       - am1f-case
   - dimension: DH
     component: Lacquer dial
     performer: cador
     relationship: external_specialist
-    note: Attribution to Cador comes from retailer copy, not a brand page reached in this pass; needs primary confirmation.
+    note: anOrdain's own Fabrik launch post names Cador and calls the dial production out-of-house and made in Germany, confirming the retailer attribution.
     claims:
       - am1f-dial-cador
       - am1f-lacquer-process
       - am1f-gmt-lacquer
+      - am1f-v3-cador-partnership
+      - am1f-v3-out-of-house
+      - am1f-v3-made-in-germany
+      - am1f-v3-lacquer-sprayed
   - dimension: DH
     component: Hands
     relationship: unknown
-    note: Designed and prototyped in-house per a review; manufacturer not named.
+    note: Designed and prototyped in-house per a review; manufacturer not named for the Fabrik. A 2018 review of the first-generation Model 1 names Estima as the hand maker, which may not hold for this model.
     claims:
       - am1f-hands-designed
+      - am1f-v3-hands-estima
+  - dimension: DH
+    component: Hands, thermal treatment (Glasgow)
+    performer: anordain
+    relationship: internal
+    claims:
+      - am1f-v3-handset-thermal
   - dimension: WE
     component: Assembly and regulation (Glasgow)
     performer: anordain
@@ -124,12 +206,15 @@ provenance:
     claims:
       - am1f-modified-regulated
       - am1f-hand-assembled
+      - am1f-v3-handset-thermal
   - dimension: PD
     component: Design
     performer: anordain
     relationship: internal
     claims:
       - am1f-hands-designed
+      - am1f-v3-contour-grooves
+      - am1f-v3-cador-partnership
 profiles:
   - version: 1
     methodology: v0.2
@@ -162,7 +247,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; confidence B \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -231,5 +316,110 @@ profiles:
           - claim: am1f-hands-designed
             stance: supports
             note: Bespoke hands designed in-house.
+    classification:
+      - watchmaking_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds anOrdain's own Fabrik collection launch post (anordain-introducing-fabrik) and a 2018 Quill & Pad long-term test of the first-generation Model 1 (quillandpad-anordain-model-1-long-term). Changes from version 2: DH U → 1; CF U → 1; confidence C → B. One of seven dimensions remains U (EX)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: The maker says it uses Swiss supplier calibres, and its Fabrik launch post names the La Joux-Perret G101 for this series. Movements are "modified to our needs", but the changes are not described, so this is treated as adjustment rather than architecture.
+        evidence:
+          - claim: am1f-swiss-movements
+            stance: supports
+            note: Supplier calibres.
+          - claim: am1f-v3-ljp-g101-brand
+            stance: supports
+            note: Brand names the G101 for the Fabrik series.
+          - claim: am1f-ljp-g101
+            stance: supports
+            note: Retailer also names the G101.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in from La Joux-Perret, per the maker's own Fabrik launch post and watchmaking page. The unspecified modification in Glasgow does not amount to making movement parts.
+        evidence:
+          - claim: am1f-swiss-movements
+            stance: supports
+            note: External movements.
+          - claim: am1f-v3-ljp-g101-brand
+            stance: supports
+            note: G101 named by the brand.
+          - claim: am1f-modified-regulated
+            stance: context
+            note: Unspecified modification.
+      EX:
+        value: null
+        rationale: A 38 mm steel case is listed, but no source reached names its maker. The brand's Fabrik launch post and watchmaking page, and reviews by Quill & Pad, SJX and Deployant, describe the case only by size and finish.
+        evidence: []
+      DH:
+        value: 1
+        rationale: "anOrdain's own launch post says the Fabrik dials are Cador's, made in Germany and produced out-of-house, so the dial is external. The one documented internal operation is the thermal treatment of the handset by the Glasgow watchmakers (am1f-v3-handset-thermal), a minor internal operation. Not 2, because the dial is wholly external and no source names who makes the Fabrik hand blanks; borderline with 2."
+        evidence:
+          - claim: am1f-v3-handset-thermal
+            stance: supports
+            note: Handset thermally treated in Glasgow.
+          - claim: am1f-v3-cador-partnership
+            stance: supports
+            note: Dials from Cador, per the brand.
+          - claim: am1f-v3-out-of-house
+            stance: supports
+            note: Brand calls the dial production out-of-house.
+          - claim: am1f-v3-made-in-germany
+            stance: supports
+            note: Dials made in Germany.
+          - claim: am1f-v3-lacquer-sprayed
+            stance: context
+            note: Lacquer process described as part of the external dial.
+          - claim: am1f-dial-cador
+            stance: supports
+            note: Retailer names Cador too.
+          - claim: am1f-hands-designed
+            stance: context
+            note: Hands designed in-house; maker not named.
+          - claim: am1f-v3-hands-estima
+            stance: context
+            note: Estima made the first-generation Model 1 hands in 2018; not shown to hold for the Fabrik.
+      CF:
+        value: 1
+        rationale: The only internal decorative work documented for this model is the thermal colouring of the handset by anOrdain's watchmakers, a limited manual operation. The lacquer dial finish is done out-of-house by Cador and does not count as internal craft. Borderline with 0.
+        evidence:
+          - claim: am1f-v3-handset-thermal
+            stance: supports
+            note: Handset thermally treated in-house.
+          - claim: am1f-v3-out-of-house
+            stance: context
+            note: Dial lacquering is external.
+      WE:
+        value: 3
+        rationale: Six in-house watchmakers modify, regulate and assemble the movements in Glasgow, and the Fabrik launch post says each Fabrik watch is assembled and regulated there like any other anOrdain model. That is movement preparation plus full assembly and regulation; no complication or deep adjustment work is described, so not 4.
+        evidence:
+          - claim: am1f-modified-regulated
+            stance: supports
+            note: Modification and regulation.
+          - claim: am1f-hand-assembled
+            stance: supports
+            note: In-house assembly.
+          - claim: am1f-v3-handset-thermal
+            stance: supports
+            note: Assembly and regulation of each Fabrik piece.
+      PD:
+        value: 3
+        rationale: anOrdain designed and prototyped its own Model 1 hands, and its launch post describes directing a continuing partnership with Cador on lacquer colours and a grooved dial design drawn from Ordnance Survey contour lines. That is bespoke components and supplier-directed development around a conventional movement. Borderline with 2.
+        evidence:
+          - claim: am1f-hands-designed
+            stance: supports
+            note: Bespoke hands designed in-house.
+          - claim: am1f-v3-cador-partnership
+            stance: supports
+            note: Dial developed with Cador.
+          - claim: am1f-v3-contour-grooves
+            stance: supports
+            note: Brand's own dial design detail.
     classification:
       - watchmaking_atelier
