@@ -1,7 +1,8 @@
-import { ClerkProvider } from '@clerk/react';
+import { ClerkProvider, useAuth } from '@clerk/react';
 import { publishableKeyFromHost } from '@clerk/react/internal';
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { clerkHostFor, clerkProxyFor } from '../../accounts/clerk-host.ts';
+import { setSessionHint } from '../../accounts/session-hint.ts';
 import '../../styles/accounts.css';
 
 // Colours come from the site tokens so the card follows light and dark mode.
@@ -58,6 +59,13 @@ export const authCardAppearance = {
   },
 };
 
+/** Keeps the signed-in hint (src/accounts/session-hint.ts) in step with Clerk, wherever a Clerk island loads. */
+function SessionHint() {
+  const { isLoaded, isSignedIn } = useAuth();
+  useEffect(() => { if (isLoaded) setSessionHint(!!isSignedIn); }, [isLoaded, isSignedIn]);
+  return null;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const clerkPubKey = publishableKeyFromHost(
     clerkHostFor(window.location.hostname),
@@ -78,6 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp: { start: { title: 'Join the Index', subtitle: 'Create an account to contribute context and expertise' } },
       }}
     >
+      <SessionHint />
       {children}
     </ClerkProvider>
   );

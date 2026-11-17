@@ -59,6 +59,8 @@
 .account-nav a.account-button, .account-nav a.account-button:hover { color: var(--c-ink-inverse); }
 .account-nav button { min-height: 36px; padding: 0 11px; border: 1px solid var(--c-edge); border-radius: var(--r-control); color: var(--c-ink); background: transparent; font: inherit; font-size: 13px; cursor: pointer; }
 .account-nav button:hover { border-color: var(--c-action); color: var(--c-action); }
+/* Shown only where a page asks for icons (forum.css, the forum's top bar on phones). */
+.account-nav-icon { display: none; }
 .account-avatar { display: grid; place-items: center; width: 78px; height: 78px; border: 1px solid var(--c-edge); border-radius: 50%; background: var(--c-surface-sunk); color: var(--c-ink); font: 650 25px/1 var(--f-serif); overflow: hidden; }
 .account-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .account-profile-head { display: flex; align-items: center; gap: 20px; }

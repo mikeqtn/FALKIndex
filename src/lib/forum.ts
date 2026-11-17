@@ -1,4 +1,5 @@
 import { fmtDate } from './data.ts';
+import { SESSION_HINT } from '../accounts/session-hint.ts';
 
 // Links between the forum and the main site. With FORUM_HOST set (production), forum pages live
 // at that host's root and main-site pages must be absolute; without it (the Replit preview) the
@@ -20,9 +21,13 @@ export const signInHref = (pathname: string) => `/sign-in?redirect_url=${encodeU
 /** Dates as the rest of the site shows them, e.g. 29 Oct 2026. */
 export const forumDate = (iso: string) => fmtDate(iso.slice(0, 10));
 
-/** Clerk sets __client_uat (possibly with a suffix) to a timestamp after sign-in and 0 after sign-out. */
+/**
+ * Whether to draw the page signed in. Clerk sets __client_uat (possibly with a suffix) to a timestamp after sign-in and
+ * 0 after sign-out, but on the forum's subdomain it may not be readable, so the hint our own islands keep on the shared
+ * domain counts too (src/accounts/session-hint.ts).
+ */
 export const hasSession = (cookie: string | null) => (cookie ?? '').split(/;\s*/)
-  .some(c => /^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0);
+  .some(c => (/^__client_uat(_[\w-]+)?=/.test(c) && Number(c.split('=')[1]) > 0) || c === `${SESSION_HINT}=1`);
 
 /** The links a forum island needs, worked out on the server where FORUM_HOST is known. */
 export const forumLinks = () => ({ terms: siteHref('/terms/'), forum: forumPath('/'), thread: forumPath('/t/'), category: forumPath('/'), allThreads: forumPath('/threads/'), profile: siteHref('/people/'), record: siteHref('/records/'), account: siteHref('/account/') });

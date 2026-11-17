@@ -49,7 +49,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
     <a class="sr-only f-skip" href="#main">Skip to content</a>
     <div class="f-frame">
       <details class="f-side" id="f-menu" open>
-        <summary class="f-menu-button">Menu</summary>
+        <summary class="f-menu-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="f-menu-label">Menu</span></summary>
         <nav class="f-side-nav" aria-label="Forum">
           <ul>
             <li><a href={forumPath('/')} data-astro-prefetch aria-current={nav === 'home' ? 'page' : undefined}>Forum home</a></li>
@@ -91,7 +91,12 @@ const q = Astro.url.searchParams.get('q') ?? '';
           </button>
           {signedIn
             ? <AccountNavigation client:only="react" site={siteHref('')} forum={{ replies:forumPath('/notifications/'), moderation:forumPath('/moderation/') }}>
-                <span slot="fallback" class="account-nav"><a href={forumPath('/notifications/')}>Replies</a><a href={`${siteHref('')}/account`}>Account</a><button type="button" disabled>Sign out</button></span>
+                <span slot="fallback" class="account-nav">
+                  {/* The same items AccountNavigation.tsx draws, so the bar does not shift when it loads. */}
+                  <a href={forumPath('/notifications/')}><svg class="account-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Zm4 10.5a2.2 2.2 0 0 0 4 0" /></svg><span class="account-nav-label">Replies</span></a>
+                  <a href={`${siteHref('')}/account`}><svg class="account-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7.5 8.5a7.5 7.5 0 0 1 15 0" /></svg><span class="account-nav-label">Account</span></a>
+                  <button type="button" disabled><svg class="account-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l-4 4 4 4M6 12h10" /></svg><span class="account-nav-label">Sign out</span></button>
+                </span>
               </AccountNavigation>
             : <span class="account-nav"><a href="/sign-in">Sign in</a><a class="account-button" href="/sign-up">Create account</a></span>}
           <a class="f-switch" href={siteHref('/') || '/'}>FALK Index</a>
