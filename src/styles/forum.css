@@ -3,8 +3,46 @@
    members write, as the main site keeps it for evidence prose. accounts.css reads the same tokens for the forms. */
 @import './shared.css';
 
-/* Cross-fade between forum pages instead of blanking. Browsers without support reload as usual. */
-@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+/* While the next forum page loads, the canvas shows placeholder shapes in the theme's surface tones (ForumLayout.astro):
+   posts for a thread, rows for a list. The shimmer is accounts.css's, and stops under reduced motion. */
+.f-skeleton { display: none; }
+.f-canvas[data-skeleton] > :not(.f-skeleton) { display: none; }
+.f-canvas[data-skeleton] > .f-skeleton { display: grid; gap: var(--s-4); }
+.f-canvas[data-skeleton="thread"] .f-skel-list, .f-canvas[data-skeleton="list"] .f-skel-thread { display: none; }
+.f-skel-list, .f-skel-thread { display: grid; gap: var(--s-4); }
+.f-skel-card { display: grid; gap: 12px; padding: var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); }
+.f-skel-head { display: flex; align-items: center; gap: 12px; }
+.f-skel { display: block; width: 100%; height: 16px; border-radius: 4px; background: linear-gradient(90deg, var(--c-edge) 25%, color-mix(in srgb, var(--c-edge) 50%, var(--c-surface-2)) 50%, var(--c-edge) 75%); background-size: 200% 100%; animation: account-shimmer 1.4s linear infinite; }
+.f-skel-title { height: 32px; width: 55%; }
+.f-skel-avatar { flex: none; width: 34px; height: 34px; border-radius: 50%; }
+.f-skel-name { width: 180px; height: 14px; }
+.f-skel-short { width: 62%; }
+.f-skel-meta { width: 30%; height: 12px; }
+.f-skel-block { height: 72px; }
+.f-skel-label { width: 96px; height: 14px; }
+.f-skel-field { height: 44px; }
+.f-skel-area { height: 240px; }
+.f-skel-button { width: 132px; height: 44px; }
+
+/* Leaving the placeholders. Between pages, only the canvas changes: its shapes fade out quickly and the next page
+   settles in, while the header and menu stay still. ForumLayout skips this unless the shapes were showing. Inside a
+   page, content that replaces shapes (.f-enter) settles in the same way. Exits are shorter and quieter than entrances. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .f-canvas { view-transition-name: f-canvas; }
+  ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(f-canvas) { animation: none; }
+  /* One overlapping cross-fade, not out-then-in, so there is no blank beat between the shapes and the page. */
+  ::view-transition-old(f-canvas) { animation: f-out 220ms ease-out both; }
+  ::view-transition-new(f-canvas) { animation: f-in 320ms cubic-bezier(.2, .8, .2, 1) both; }
+  .f-enter { animation: f-in 320ms cubic-bezier(.2, .8, .2, 1) both; }
+  /* The shapes themselves fade in rather than replacing the page in one frame. */
+  .f-canvas[data-skeleton] > .f-skeleton { animation: f-fade 200ms ease-out both; }
+}
+@keyframes f-out { to { opacity: 0; } }
+@keyframes f-fade { from { opacity: 0; } }
+/* Opacity and a small rise only: both stay on the compositor, so a long page's snapshot doesn't stutter. */
+@keyframes f-in { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .f-skel { animation: none; background: var(--c-edge); } }
 
 :root { --side: 232px; --top: 60px; --pad: 32px; --rail: 320px; }
 
@@ -49,10 +87,15 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-side { grid-column: 1; grid-row: 2; }
 .f-menu-button { display: none; }
 .f-side-home { display: none; } /* the top bar has this link; on a phone it moves to the menu */
-.f-side-nav { position: sticky; top: var(--top); padding: 12px 12px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; }
-.f-side-nav h2 { margin: 24px 8px 8px; color: var(--c-ink-2); font: 500 13px/18px var(--f-sans); }
-.f-side-nav a { display: flex; align-items: center; min-height: 36px; padding: 7px 8px; border-radius: var(--r-control); color: var(--c-ink-2); font-size: 14px; line-height: 18px; }
-.f-side-nav a:hover { background: var(--c-surface-sunk); color: var(--c-ink); text-decoration: none; }
+/* The menu lies flat on the page: three groups (the whole forum, its categories, the main site) separated by space
+   alone, each under a small quiet heading. The current page is lifted a step and set in full ink; hovering lifts a
+   row half as far. No plates, rules or accent bars. Starting a thread lives at the top of each page, where it knows
+   the category. */
+.f-side-nav { position: sticky; top: var(--top); display: grid; align-content: start; gap: var(--s-5); padding: 16px 8px 32px; max-height: calc(100vh - var(--top)); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--c-edge) transparent; }
+.f-side-nav h2 { margin: 0 0 4px; padding: 0 10px; color: color-mix(in srgb, var(--c-ink-2) 85%, var(--c-page)); font: 600 12px/16px var(--f-sans); letter-spacing: 0.01em; }
+.f-side-nav ul { display: grid; gap: 1px; }
+.f-side-nav a { display: flex; align-items: center; min-height: 32px; padding: 6px 10px; border-radius: 6px; color: var(--c-ink-2); font-size: 14px; line-height: 18px; transition: background-color var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+.f-side-nav a:hover { background: var(--c-surface); color: var(--c-ink); text-decoration: none; }
 .f-side-nav a[aria-current="page"] { background: var(--c-surface-2); color: var(--c-ink); font-weight: 560; }
 
 .f-canvas { grid-column: 2; grid-row: 2; min-width: 0; padding: 20px var(--pad) 64px; }

@@ -1,8 +1,7 @@
-import { useAuth } from '@clerk/react';
 import { useCallback, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react';
 import type { threadDetail } from '../../../server/forum.ts';
 import type { Account } from '../../accounts/contracts.ts';
-import { AuthProvider } from '../accounts/AuthProvider';
+import { AccountCheck } from '../accounts/AccountCheck';
 import { api, handleAccountError } from '../accounts/api';
 import type { ForumLinks } from '../../lib/forum.ts';
 import { forumDay, personInitial } from '../../lib/forum-people';
@@ -14,8 +13,10 @@ import { openMessages } from '../../lib/messages-dock.ts';
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
 type Post = Detail['posts'][number];
 type Reply = Post & { replies: Reply[] };
-interface Props { detail: Detail, links: ForumLinks, signedIn: boolean, signInHref: string }
-interface Tools { account: Account | null, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
+// Only what the thread needs, since the page's HTML carries it.
+type Reader = Pick<Account, 'role' | 'onboarded'>;
+interface Props { detail: Detail, links: ForumLinks, signedIn: boolean, account?: Reader | null, signInHref: string }
+interface Tools { account: Reader | null, checking?: boolean, late?: boolean, act: (run: () => Promise<unknown>, done?: string) => Promise<boolean>, ask: (request: ReasonRequest, done?: string) => void, busy: boolean }
 interface Shared { links: ForumLinks, thread: Detail['thread'], tools?: Tools, signInHref: string, send: (body: string, parent?: string, images?: string[]) => Promise<boolean> | undefined }
 
 /** Conversations start closed from this depth when they have replies, so a large thread stays readable. */
@@ -86,10 +87,17 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   const [editing, setEditing] = useState<string | null>(null);
   const [replying, setReplying] = useState<string | null>(null);
   const attach = useImagePicker();
+  const revise = useImagePicker();
   const moderator = isModerator(tools);
+  // Images a moderator hid stay on the post whatever the edit, so they are left out of the picker.
+  const edit = () => {
+    revise.reset(post.images.filter(i => !i.hidden).map(i => i.id), post.images.filter(i => i.hidden).length);
+    setEditing(post.body);
+  };
   const save = (e: FormEvent) => {
     e.preventDefault();
-    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'PATCH', body:JSON.stringify({ body:editing }) }), 'Your post was updated.').then(ok => { if (ok) setEditing(null); });
+    tools?.act(() => api(`/api/forum/posts/${post.id}`, { method:'PATCH', body:JSON.stringify({ body:editing, images:revise.ids }) }), 'Your post was updated.')
+      .then(ok => { if (ok) { setEditing(null); revise.clear(); } });
   };
   const answer = (e: FormEvent) => {
     e.preventDefault();
@@ -101,6 +109,12 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
     action:'Send report',
     run:reason => api(`/api/forum/posts/${post.id}/reports`, { method:'POST', body:JSON.stringify({ reason }) }),
   }, 'Thanks. Moderators will review your report.');
+  const del = () => tools?.ask({
+    title:'Delete this post?',
+    help:'Readers will see that you deleted it, and replies to it stay up. This cannot be undone.',
+    action:'Delete post', busyAction:'Deleting…', confirmOnly:true,
+    run:() => api(`/api/forum/posts/${post.id}`, { method:'DELETE', body:'{}' }),
+  }, 'Your post was deleted.');
   const toggle = () => tools?.ask({
     title:post.hidden ? 'Show this post again' : 'Hide this post',
     help:post.hidden ? 'Readers will see this post again. Your reason goes to the audit log.' : 'Readers will see that a moderator hid it, and replies to it stay up. Your reason goes to the audit log.',
@@ -116,22 +130,25 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
   const canReply = tools?.account?.onboarded && (!thread.locked || moderator) && (!post.hidden || moderator);
   const votable = !opening && !post.hidden;
   return <>
-    {post.body === null ? <p className="forum-hidden-note">A moderator hid this post.</p>
+    {post.body === null ? <p className="forum-hidden-note">{post.deleted ? 'Its author deleted this post.' : 'A moderator hid this post.'}</p>
       : editing !== null ? <form className="account-stack" onSubmit={save}>
         <textarea aria-label="Edit your post" value={editing} onChange={e => setEditing(e.target.value)} rows={6} maxLength={20000} required />
-        <div className="account-actions"><button className="account-button" disabled={tools?.busy}>Save</button><button className="account-button secondary" type="button" onClick={() => setEditing(null)}>Cancel</button></div>
+        {revise.picker}
+        <p className="small muted">Images you remove are deleted when you save.</p>
+        <div className="account-actions"><button className="account-button" disabled={tools?.busy || revise.uploading}>Save</button><button className="account-button secondary" type="button" onClick={() => { setEditing(null); revise.clear(); }}>Cancel</button></div>
       </form>
       : <div className="forum-body"><PostBody text={post.body} /></div>}
-    {post.images.length > 0 && <PostImages post={post} tools={tools} />}
+    {post.images.length > 0 && (editing === null || post.images.some(i => i.hidden)) && <PostImages post={editing === null ? post : { ...post, images:post.images.filter(i => i.hidden) }} tools={tools} />}
     {post.hidden && post.hiddenReason && <p className="small muted">Hidden: {post.hiddenReason}</p>}
     {editing === null && replying === null && (tools?.account || votable) && <div className="forum-post-actions small">
       {votable && <Votes post={post} shared={shared} />}
       {tools?.account && <>
         {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
-        {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
-        {!post.own && tools.account.onboarded && post.author.username && <button type="button" onClick={() => openMessages(post.author.username!)}>Message</button>}
+        {post.own && !post.hidden && !thread.locked && <button type="button" onClick={edit}>Edit</button>}
+        {post.own && !post.hidden && <button type="button" onClick={del}>Delete</button>}
+        {!post.own && !post.deleted && tools.account.onboarded && post.author.username && <button type="button" onClick={() => openMessages(post.author.username!)}>Message</button>}
         {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
-        {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
+        {moderator && !post.deleted && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
         {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}
       </>}
     </div>}
@@ -255,10 +272,11 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
       {Array.from({ length:pages }, (_, i) => i + 1).map(n => <a key={n} href={`?page=${n}`} aria-current={n === detail.page ? 'page' : undefined}>{n}</a>)}
     </nav>}
     <section className="forum-reply" aria-label="Reply">
-      {!account ? <p className="forum-reply-prompt"><a href={signInHref}>Sign in</a> with your FALK Index account to reply.</p>
+      {!account && tools?.checking ? <div className="account-loading" aria-hidden="true"><i className="f-skel f-skel-short" /><i className="f-skel f-skel-block" /></div>
+        : !account ? <p className="forum-reply-prompt"><a href={signInHref}>Sign in</a> with your FALK Index account to reply.</p>
         : !account.onboarded ? <p className="forum-reply-prompt"><a href={links.account}>Choose a username</a> to reply.</p>
         : thread.locked && !moderator ? <p className="forum-reply-prompt">This thread is locked.</p>
-        : <form className="account-stack" onSubmit={submit}>
+        : <form className={`account-stack${tools?.late ? ' f-enter' : ''}`} onSubmit={submit}>
           <label htmlFor="forum-reply">Reply to the thread</label>
           <textarea id="forum-reply" value={reply} onChange={e => setReply(e.target.value)} rows={6} maxLength={20000} required />
           {attach.picker}
@@ -269,20 +287,23 @@ function ThreadBody({ detail, links, tools, signInHref }: { detail: Detail, link
   </>;
 }
 
-// Signed in: load the account and this reader's view of the thread (their own posts, and for
-// moderators the hidden ones), then act through the API and reload after each change.
-function Interactive({ detail: initial, links, signInHref }: Props) {
-  const { isLoaded, isSignedIn } = useAuth();
+// Signed in: this reader's view of the thread (their own posts, and for moderators the hidden ones), acting through the
+// API and reloading after each change. The server usually renders it with the account already; otherwise it is checked
+// here, with a placeholder where the reply form goes, so a member never sees "Sign in" first.
+function Interactive({ detail: initial, links, signInHref, account: known }: Props) {
   const [detail, setDetail] = useState(initial);
-  const [account, setAccount] = useState<Account | null>(null);
+  const [account, setAccount] = useState<Reader | null>(known ?? null);
+  const [checking, setChecking] = useState(!known);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: 'error' | 'notice', text: string } | null>(null);
   const [asking, setAsking] = useState<ReasonRequest | null>(null);
   const reload = useCallback(() => api<Detail>(`/api/forum/threads/${initial.thread.id}?page=${initial.page}`).then(setDetail), [initial.thread.id, initial.page]);
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
-    api<{ account: Account }>('/api/account').then(r => setAccount(r.account)).then(reload).catch(() => setAccount(null));
-  }, [isLoaded, isSignedIn, reload]);
+  const found = useCallback((found: Account | null) => {
+    setAccount(found); setChecking(false);
+    if (found) reload().catch(() => {});
+  }, [reload]);
   // Reports failure as false (with the error shown), so a failed save keeps what the member wrote.
   const act = async (run: () => Promise<unknown>, done?: string) => {
     setBusy(true); setMessage(null);
@@ -295,8 +316,11 @@ function Interactive({ detail: initial, links, signInHref }: Props) {
     setMessage(null);
     setAsking({ ...request, run:async reason => { await request.run(reason); await reload(); if (done) setMessage({ kind:'notice', text:done }); } });
   };
-  const tools: Tools = { account, busy, act, ask };
+  // The reply form settles in only where it replaces placeholders, not when the server sent it ready.
+  const [late] = useState(!known);
+  const tools: Tools = { account, checking, late, busy, act, ask };
   return <>
+    {mounted && checking && <AccountCheck onAccount={found} />}
     {message && <div className={`forum-flash ${message.kind === 'error' ? 'account-error' : 'account-notice'}`} role={message.kind === 'error' ? 'alert' : 'status'}>{message.text}</div>}
     {asking && <ReasonDialog request={asking} onClose={() => setAsking(null)} />}
     <ThreadBody detail={detail} links={links} tools={tools} signInHref={signInHref} />
@@ -304,10 +328,8 @@ function Interactive({ detail: initial, links, signInHref }: Props) {
 }
 
 export default function ThreadView(props: Props) {
-  // The server renders the public thread; Clerk only starts in the browser, for readers with a session.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return mounted && props.signedIn
-    ? <AuthProvider><Interactive {...props} /></AuthProvider>
+  // Readers with a session get the signed-in view from the server's first render; others the public thread.
+  return props.signedIn
+    ? <Interactive {...props} />
     : <ThreadBody detail={props.detail} links={props.links} signInHref={props.signInHref} />;
 }

@@ -9,6 +9,7 @@ import { keepBaseline, toReportOnly } from '../server/csp.ts';
 import { createApp,attachProductionSite } from '../server/index.ts';
 import { DIRECT_BRANDS, RETAIL_BRANDS, publisherTie } from '../src/lib/publisher.ts';
 import { hostPolicy } from '../server/middlewares/siteHost.ts';
+import { pool } from '../server/db.ts';
 
 const dist = 'dist';
 assert.ok(existsSync('dist/server/entry.mjs'),'Run npm run build before npm test');
@@ -303,6 +304,20 @@ test('the forum renders for anonymous readers, and record pages link to their di
   assert.match(read(join(dist, `records/${record}/index.html`)), new RegExp(`href="/forum/records/${record}/"`));
 });
 
+// CI only, because forum threads and posts can't be deleted afterwards (as in phone.check.ts).
+test('a reader with a session never sees "Sign in" first on a thread; a reader without one does', { skip:!process.env.CI }, async () => {
+  await pool.query("INSERT INTO falk_forum_category(id,name,description,position) VALUES('site-check','Site check','Test category',98) ON CONFLICT DO NOTHING");
+  const author = (await pool.query("INSERT INTO falk_account(realm,clerk_id,username,email_verified) VALUES('site-check',gen_random_uuid()::text,'site_check_'||floor(random()*1e9)::text,true) RETURNING id")).rows[0].id;
+  const thread = (await pool.query("INSERT INTO falk_forum_thread(category_id,author_id,title) VALUES('site-check',$1,'Signed-in first paint') RETURNING id", [author])).rows[0].id;
+  await pool.query("INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,'Hello.')", [thread, author]);
+  const html = async (cookie: string) => (await fetch(`${base}/forum/t/${thread}/`, { headers:cookie ? { cookie } : {} })).text();
+  // A session the server can't confirm (here, no Clerk token) gets the placeholder while the browser checks.
+  const session = await html('__client_uat=1791917601');
+  assert.doesNotMatch(session, /with your FALK Index account to reply/);
+  assert.match(session, /class="account-loading"/);
+  assert.match(await html(''), /with your FALK Index account to reply/);
+});
+
 test('forum tabs load ahead of the click, but Start a thread does not', async () => {
   const html = await (await fetch(`${base}/forum/threads/`)).text();
   const links = [...html.matchAll(/<a\b[^>]*>/g)].map(m => m[0]);
@@ -318,7 +333,10 @@ test('signed out, "Start a thread" goes to sign-in and comes back to the form', 
   assert.equal(out.status, 302);
   assert.equal(out.headers.get('location'), `/sign-in?redirect_url=${encodeURIComponent('/forum/new/?category=general')}`);
   assert.equal((await open('/forum/new/', '__client_uat=0')).status, 302, 'signed out sets this cookie to 0');
-  assert.equal((await open('/forum/new/', '__client_uat=1791917601')).status, 200, 'signed in, the link goes to the form');
+  const signedIn = await open('/forum/new/', '__client_uat=1791917601');
+  assert.equal(signedIn.status, 200, 'signed in, the link goes to the form');
+  // A session the server can't confirm (no Clerk token here) gets the form's shape in its first HTML, not a blank.
+  assert.match(await signedIn.text(), /class="f-skel f-skel-area"/);
 });
 
 test('data embedded in pages cannot close its own script tag', async () => {

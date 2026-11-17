@@ -1,0 +1,2084 @@
+{
+  ".github/ISSUE_TEMPLATE/site-feedback.yml": {
+    "mtime": 1793121364.1399064,
+    "seen": 1794170905.7779672,
+    "ast_hash": "9268627aa7422acc43486d3cf53454d8",
+    "semantic_hash": "9268627aa7422acc43486d3cf53454d8"
+  },
+  ".github/ISSUE_TEMPLATE/watch.yml": {
+    "mtime": 1793121364.1408167,
+    "seen": 1794170905.777976,
+    "ast_hash": "41a528ede0478fb4292876c318e0239d",
+    "semantic_hash": "41a528ede0478fb4292876c318e0239d"
+  },
+  ".github/workflows/validate.yml": {
+    "mtime": 1793297752.1884706,
+    "seen": 1794170905.7779799,
+    "ast_hash": "cb35398e97e0aa96e57a3e795781b104",
+    "semantic_hash": "cb35398e97e0aa96e57a3e795781b104"
+  },
+  "astro.config.mjs": {
+    "mtime": 1794026071.7709298,
+    "seen": 1794170905.777983,
+    "ast_hash": "3f30429eb381af5d11d3a0d8ffad5aa4",
+    "semantic_hash": "3f30429eb381af5d11d3a0d8ffad5aa4"
+  },
+  "data/methodology/v0.2.yaml": {
+    "mtime": 1791916284.818852,
+    "seen": 1794170905.777987,
+    "ast_hash": "cb52724a5df16b4652197ac2f47dcd25",
+    "semantic_hash": "cb52724a5df16b4652197ac2f47dcd25"
+  },
+  "data/organizations/a-lange-sohne.yaml": {
+    "mtime": 1792696165.5541456,
+    "seen": 1794170905.7779908,
+    "ast_hash": "f1fe7f09e74999fbd76707fe17547f7d",
+    "semantic_hash": "f1fe7f09e74999fbd76707fe17547f7d"
+  },
+  "data/organizations/ab-product.yaml": {
+    "mtime": 1792696165.554499,
+    "seen": 1794170905.777996,
+    "ast_hash": "ae5b2bb48d3828c68854a901d79c95cb",
+    "semantic_hash": "ae5b2bb48d3828c68854a901d79c95cb"
+  },
+  "data/organizations/akrivia.yaml": {
+    "mtime": 1792696144.066327,
+    "seen": 1794170905.7780008,
+    "ast_hash": "60a7921c53d4d5351a98897d8df7056c",
+    "semantic_hash": "60a7921c53d4d5351a98897d8df7056c"
+  },
+  "data/organizations/anordain.yaml": {
+    "mtime": 1792696144.0667014,
+    "seen": 1794170905.778006,
+    "ast_hash": "781d7c46e3b5d6b35df870e879a3acf3",
+    "semantic_hash": "781d7c46e3b5d6b35df870e879a3acf3"
+  },
+  "data/organizations/armin-strom.yaml": {
+    "mtime": 1792696165.55489,
+    "seen": 1794170905.7780092,
+    "ast_hash": "e78d69c1ee6b6944b57c26da77100eea",
+    "semantic_hash": "e78d69c1ee6b6944b57c26da77100eea"
+  },
+  "data/organizations/artur-akmaev.yaml": {
+    "mtime": 1792696144.0674655,
+    "seen": 1794170905.7780108,
+    "ast_hash": "d28a3f7071b6d892efa44215bb67b44e",
+    "semantic_hash": "d28a3f7071b6d892efa44215bb67b44e"
+  },
+  "data/organizations/atelier-wen.yaml": {
+    "mtime": 1792696165.5551486,
+    "seen": 1794170905.778015,
+    "ast_hash": "1592dd2a081c0b5b0c54213ba323c118",
+    "semantic_hash": "1592dd2a081c0b5b0c54213ba323c118"
+  },
+  "data/organizations/atokalpa.yaml": {
+    "mtime": 1792696165.555402,
+    "seen": 1794170905.778018,
+    "ast_hash": "d1856c4f1563a76d7aa47e2879be7136",
+    "semantic_hash": "d1856c4f1563a76d7aa47e2879be7136"
+  },
+  "data/organizations/audemars-piguet.yaml": {
+    "mtime": 1792696165.5556343,
+    "seen": 1794170905.778021,
+    "ast_hash": "97dbb5d18a0ed525e35267268e37bf48",
+    "semantic_hash": "97dbb5d18a0ed525e35267268e37bf48"
+  },
+  "data/organizations/awake.yaml": {
+    "mtime": 1792696165.5558794,
+    "seen": 1794170905.778024,
+    "ast_hash": "de4c93b8b0abe9258049754ca958f751",
+    "semantic_hash": "de4c93b8b0abe9258049754ca958f751"
+  },
+  "data/organizations/baltic.yaml": {
+    "mtime": 1792696165.5562315,
+    "seen": 1794170905.778027,
+    "ast_hash": "f8a5cd44107a8da37972014246452528",
+    "semantic_hash": "f8a5cd44107a8da37972014246452528"
+  },
+  "data/organizations/boninchi.yaml": {
+    "mtime": 1792696165.5566075,
+    "seen": 1794170905.778029,
+    "ast_hash": "6915881a88f1f37384531636d8198b1c",
+    "semantic_hash": "6915881a88f1f37384531636d8198b1c"
+  },
+  "data/organizations/breitling.yaml": {
+    "mtime": 1792696165.5568776,
+    "seen": 1794170905.7780328,
+    "ast_hash": "07ab7463156417514faccf0f31ab79e2",
+    "semantic_hash": "07ab7463156417514faccf0f31ab79e2"
+  },
+  "data/organizations/bripoli.yaml": {
+    "mtime": 1792696165.5571039,
+    "seen": 1794170905.778035,
+    "ast_hash": "edf834c777425cdfdf390920249df0c6",
+    "semantic_hash": "edf834c777425cdfdf390920249df0c6"
+  },
+  "data/organizations/c-l-rochat.yaml": {
+    "mtime": 1792696165.5573182,
+    "seen": 1794170905.778038,
+    "ast_hash": "0f19fc56f2d185a6cfc6581db96aadd8",
+    "semantic_hash": "0f19fc56f2d185a6cfc6581db96aadd8"
+  },
+  "data/organizations/cador.yaml": {
+    "mtime": 1792696165.5576518,
+    "seen": 1794170905.7780411,
+    "ast_hash": "df9667088a856e460d4e59cb26499156",
+    "semantic_hash": "df9667088a856e460d4e59cb26499156"
+  },
+  "data/organizations/cadramont.yaml": {
+    "mtime": 1792696165.5579774,
+    "seen": 1794170905.778044,
+    "ast_hash": "abd9086908c42a68b765717ad68df528",
+    "semantic_hash": "abd9086908c42a68b765717ad68df528"
+  },
+  "data/organizations/carl-haas.yaml": {
+    "mtime": 1792696165.5583472,
+    "seen": 1794170905.778048,
+    "ast_hash": "ccacc9cffed2aaab035bc7ae1bd96d1d",
+    "semantic_hash": "ccacc9cffed2aaab035bc7ae1bd96d1d"
+  },
+  "data/organizations/cartier.yaml": {
+    "mtime": 1792696144.0723825,
+    "seen": 1794170905.7780511,
+    "ast_hash": "b0bde2276e3ce2dfa281285c32c26a7c",
+    "semantic_hash": "b0bde2276e3ce2dfa281285c32c26a7c"
+  },
+  "data/organizations/cheng-yucai.yaml": {
+    "mtime": 1792696165.5585802,
+    "seen": 1794170905.778053,
+    "ast_hash": "69e5876ef658b888141fdc4586100c63",
+    "semantic_hash": "69e5876ef658b888141fdc4586100c63"
+  },
+  "data/organizations/christopher-ward.yaml": {
+    "mtime": 1792696165.5588589,
+    "seen": 1794170905.778056,
+    "ast_hash": "5463eb2076d3ca0092db95b8e0f9153a",
+    "semantic_hash": "5463eb2076d3ca0092db95b8e0f9153a"
+  },
+  "data/organizations/chronode.yaml": {
+    "mtime": 1792696165.5591347,
+    "seen": 1794170905.778059,
+    "ast_hash": "b3d5a70e8f2a82086c034acbf5a58023",
+    "semantic_hash": "b3d5a70e8f2a82086c034acbf5a58023"
+  },
+  "data/organizations/comblemine.yaml": {
+    "mtime": 1792696165.5594366,
+    "seen": 1794170905.778062,
+    "ast_hash": "b595a79d71a72339d54276e8ea132ef3",
+    "semantic_hash": "b595a79d71a72339d54276e8ea132ef3"
+  },
+  "data/organizations/czapek.yaml": {
+    "mtime": 1792696165.5596776,
+    "seen": 1794170905.7780638,
+    "ast_hash": "49d8effc9e42f16161e4c758bf0e6e3a",
+    "semantic_hash": "49d8effc9e42f16161e4c758bf0e6e3a"
+  },
+  "data/organizations/de-bethune.yaml": {
+    "mtime": 1792696165.5599067,
+    "seen": 1794170905.7780669,
+    "ast_hash": "622bdd687fc7bf16dae2187efd85bd44",
+    "semantic_hash": "622bdd687fc7bf16dae2187efd85bd44"
+  },
+  "data/organizations/detech.yaml": {
+    "mtime": 1792696165.5601711,
+    "seen": 1794170905.77807,
+    "ast_hash": "a475f7b0a1ddb35e464e3ff1d0fd850c",
+    "semantic_hash": "a475f7b0a1ddb35e464e3ff1d0fd850c"
+  },
+  "data/organizations/dubois-depraz.yaml": {
+    "mtime": 1792696165.5603836,
+    "seen": 1794170905.778072,
+    "ast_hash": "a25adcd385bc8c195c185cb1525c5e6f",
+    "semantic_hash": "a25adcd385bc8c195c185cb1525c5e6f"
+  },
+  "data/organizations/eric-giroud.yaml": {
+    "mtime": 1792696165.5605881,
+    "seen": 1794170905.778075,
+    "ast_hash": "10ea7a5936750c0b0f322d6a84fcbb5e",
+    "semantic_hash": "10ea7a5936750c0b0f322d6a84fcbb5e"
+  },
+  "data/organizations/estima.yaml": {
+    "mtime": 1792696165.560803,
+    "seen": 1794170905.7780778,
+    "ast_hash": "5458da4ca1899ec3f6a356d41e611e36",
+    "semantic_hash": "5458da4ca1899ec3f6a356d41e611e36"
+  },
+  "data/organizations/eta.yaml": {
+    "mtime": 1792696165.5610936,
+    "seen": 1794170905.77808,
+    "ast_hash": "1a9349fab80ea799c2352b1c0c9d2e2a",
+    "semantic_hash": "1a9349fab80ea799c2352b1c0c9d2e2a"
+  },
+  "data/organizations/farer.yaml": {
+    "mtime": 1792696165.5613434,
+    "seen": 1794170905.778083,
+    "ast_hash": "b745f2f018dfa4ddc5e906f883e6ed01",
+    "semantic_hash": "b745f2f018dfa4ddc5e906f883e6ed01"
+  },
+  "data/organizations/fleming.yaml": {
+    "mtime": 1792696165.561628,
+    "seen": 1794170905.7780852,
+    "ast_hash": "7f74a73c5f00265e00f676a738596182",
+    "semantic_hash": "7f74a73c5f00265e00f676a738596182"
+  },
+  "data/organizations/fp-journe.yaml": {
+    "mtime": 1792696165.561876,
+    "seen": 1794170905.7780879,
+    "ast_hash": "d0ec8bd279e6cf4615d5ab97fff85d42",
+    "semantic_hash": "d0ec8bd279e6cf4615d5ab97fff85d42"
+  },
+  "data/organizations/generale-ressorts.yaml": {
+    "mtime": 1792696165.5622857,
+    "seen": 1794170905.778091,
+    "ast_hash": "7c208f42f92b7c30062618a90f7f26d6",
+    "semantic_hash": "7c208f42f92b7c30062618a90f7f26d6"
+  },
+  "data/organizations/grand-seiko.yaml": {
+    "mtime": 1792696144.0769913,
+    "seen": 1794170905.778093,
+    "ast_hash": "2f2511b054cbc7814c233365553c76d1",
+    "semantic_hash": "2f2511b054cbc7814c233365553c76d1"
+  },
+  "data/organizations/h-moser.yaml": {
+    "mtime": 1792696165.562693,
+    "seen": 1794170905.7780962,
+    "ast_hash": "533253d11fe9bf05177324451b686199",
+    "semantic_hash": "533253d11fe9bf05177324451b686199"
+  },
+  "data/organizations/habring2.yaml": {
+    "mtime": 1792696144.0780294,
+    "seen": 1794170905.778099,
+    "ast_hash": "dfec4270be675c26b3601e0f040e41c3",
+    "semantic_hash": "dfec4270be675c26b3601e0f040e41c3"
+  },
+  "data/organizations/hans-wilsdorf-foundation.yaml": {
+    "mtime": 1792696165.5630443,
+    "seen": 1794170905.778101,
+    "ast_hash": "cf8091e098e6ce861cfe49862bd66dbd",
+    "semantic_hash": "cf8091e098e6ce861cfe49862bd66dbd"
+  },
+  "data/organizations/horologium.yaml": {
+    "mtime": 1792696165.5632794,
+    "seen": 1794170905.7781062,
+    "ast_hash": "37edb3a78dbbbd501897a0e62bfa0526",
+    "semantic_hash": "37edb3a78dbbbd501897a0e62bfa0526"
+  },
+  "data/organizations/iwc.yaml": {
+    "mtime": 1792696144.0788784,
+    "seen": 1794170905.7781088,
+    "ast_hash": "7e96bb3488b40cd137d171268f8c371a",
+    "semantic_hash": "7e96bb3488b40cd137d171268f8c371a"
+  },
+  "data/organizations/jaeger-lecoultre.yaml": {
+    "mtime": 1792696144.0791402,
+    "seen": 1794170905.778112,
+    "ast_hash": "ada264567d86f2763bd710b0a071fb03",
+    "semantic_hash": "ada264567d86f2763bd710b0a071fb03"
+  },
+  "data/organizations/jn-shapiro.yaml": {
+    "mtime": 1792696144.0793626,
+    "seen": 1794170905.778114,
+    "ast_hash": "2e7ed8b61d6fa6f2afeba01f2cb2c5f6",
+    "semantic_hash": "2e7ed8b61d6fa6f2afeba01f2cb2c5f6"
+  },
+  "data/organizations/joseph-baume.yaml": {
+    "mtime": 1792696165.5636258,
+    "seen": 1794170905.778118,
+    "ast_hash": "45f2954297e02bdf0e90365781b081e7",
+    "semantic_hash": "45f2954297e02bdf0e90365781b081e7"
+  },
+  "data/organizations/kenissi.yaml": {
+    "mtime": 1792696165.5641048,
+    "seen": 1794170905.77812,
+    "ast_hash": "42ee07191a6a59453edcf00998e19781",
+    "semantic_hash": "42ee07191a6a59453edcf00998e19781"
+  },
+  "data/organizations/kudoke.yaml": {
+    "mtime": 1792696144.0800896,
+    "seen": 1794170905.778123,
+    "ast_hash": "f8d1078598d8fc371410c46dbc683ca1",
+    "semantic_hash": "f8d1078598d8fc371410c46dbc683ca1"
+  },
+  "data/organizations/kurono-tokyo.yaml": {
+    "mtime": 1792696165.5645916,
+    "seen": 1794170905.778126,
+    "ast_hash": "6fca8bf41fbe840374c60b88a7cfa18f",
+    "semantic_hash": "6fca8bf41fbe840374c60b88a7cfa18f"
+  },
+  "data/organizations/la-fabrique-du-temps.yaml": {
+    "mtime": 1792696165.5649476,
+    "seen": 1794170905.778128,
+    "ast_hash": "6e93a2c5b39bbc706ab82bff1812a8fe",
+    "semantic_hash": "6e93a2c5b39bbc706ab82bff1812a8fe"
+  },
+  "data/organizations/la-joux-perret.yaml": {
+    "mtime": 1792696165.5653658,
+    "seen": 1794170905.778131,
+    "ast_hash": "1089dba2b8d0059f221227c500762611",
+    "semantic_hash": "1089dba2b8d0059f221227c500762611"
+  },
+  "data/organizations/laine.yaml": {
+    "mtime": 1792696165.565685,
+    "seen": 1794170905.778134,
+    "ast_hash": "c88926a258e3cba7284df82003c79ba9",
+    "semantic_hash": "c88926a258e3cba7284df82003c79ba9"
+  },
+  "data/organizations/laurent-ferrier.yaml": {
+    "mtime": 1792696165.5659685,
+    "seen": 1794170905.7781372,
+    "ast_hash": "6d2013d2549eb50731ae86f5cb8eea8f",
+    "semantic_hash": "6d2013d2549eb50731ae86f5cb8eea8f"
+  },
+  "data/organizations/les-boitiers-de-geneve.yaml": {
+    "mtime": 1792696165.5662112,
+    "seen": 1794170905.7781389,
+    "ast_hash": "847b1c499a031bdddfbb7202fbd82f58",
+    "semantic_hash": "847b1c499a031bdddfbb7202fbd82f58"
+  },
+  "data/organizations/les-cadraniers-de-geneve.yaml": {
+    "mtime": 1792696165.5664344,
+    "seen": 1794170905.778142,
+    "ast_hash": "92cc542a88b5f3b62dea67b37606ae9c",
+    "semantic_hash": "92cc542a88b5f3b62dea67b37606ae9c"
+  },
+  "data/organizations/lesablier.yaml": {
+    "mtime": 1792696165.5668259,
+    "seen": 1794170905.778145,
+    "ast_hash": "bc770e3fcab3f79a87dc9a783ce76327",
+    "semantic_hash": "bc770e3fcab3f79a87dc9a783ce76327"
+  },
+  "data/organizations/liaoning-peacock.yaml": {
+    "mtime": 1792696165.567158,
+    "seen": 1794170905.7781482,
+    "ast_hash": "58beacc2f88cbcb4e5da978860232be7",
+    "semantic_hash": "58beacc2f88cbcb4e5da978860232be7"
+  },
+  "data/organizations/longines.yaml": {
+    "mtime": 1792696144.0824916,
+    "seen": 1794170905.7781508,
+    "ast_hash": "4a50e42144b169da6f6c9c7b2e864ff9",
+    "semantic_hash": "4a50e42144b169da6f6c9c7b2e864ff9"
+  },
+  "data/organizations/mbandf.yaml": {
+    "mtime": 1792696165.5674207,
+    "seen": 1794170905.778153,
+    "ast_hash": "f7f47ec0283ff8983f063b7b6dc02fd5",
+    "semantic_hash": "f7f47ec0283ff8983f063b7b6dc02fd5"
+  },
+  "data/organizations/melb-holding.yaml": {
+    "mtime": 1792696165.5676382,
+    "seen": 1794170905.778156,
+    "ast_hash": "b3fbdfc5ea7313d6cbb4077b80c630b9",
+    "semantic_hash": "b3fbdfc5ea7313d6cbb4077b80c630b9"
+  },
+  "data/organizations/metalem.yaml": {
+    "mtime": 1792696165.5679135,
+    "seen": 1794170905.7781591,
+    "ast_hash": "f51a3bdb0aeb87d5331a0f78b9ecb06f",
+    "semantic_hash": "f51a3bdb0aeb87d5331a0f78b9ecb06f"
+  },
+  "data/organizations/mhvj.yaml": {
+    "mtime": 1792696165.5682554,
+    "seen": 1794170905.7781608,
+    "ast_hash": "b968a6f881b16ade9bda80e2135ca2c3",
+    "semantic_hash": "b968a6f881b16ade9bda80e2135ca2c3"
+  },
+  "data/organizations/ming.yaml": {
+    "mtime": 1792696165.5685213,
+    "seen": 1794170905.778164,
+    "ast_hash": "d21de6088c4b17ff1c927013ddb68263",
+    "semantic_hash": "d21de6088c4b17ff1c927013ddb68263"
+  },
+  "data/organizations/miyota.yaml": {
+    "mtime": 1792696165.56877,
+    "seen": 1794170905.778166,
+    "ast_hash": "f93d1399f89b7a48e879ef56795fa9e6",
+    "semantic_hash": "f93d1399f89b7a48e879ef56795fa9e6"
+  },
+  "data/organizations/montremo.yaml": {
+    "mtime": 1792696165.568981,
+    "seen": 1794170905.7781692,
+    "ast_hash": "e3d972746fd2d01575318983f4c83ae3",
+    "semantic_hash": "e3d972746fd2d01575318983f4c83ae3"
+  },
+  "data/organizations/moritz-grossmann.yaml": {
+    "mtime": 1792696165.5692406,
+    "seen": 1794170905.778183,
+    "ast_hash": "c0ce786549dbbec8d48779292a8f2f40",
+    "semantic_hash": "c0ce786549dbbec8d48779292a8f2f40"
+  },
+  "data/organizations/nivarox.yaml": {
+    "mtime": 1792696165.5694404,
+    "seen": 1794170905.778185,
+    "ast_hash": "01bd3e99a0a63b7e46b2d6e41879118c",
+    "semantic_hash": "01bd3e99a0a63b7e46b2d6e41879118c"
+  },
+  "data/organizations/nomos.yaml": {
+    "mtime": 1792696165.5696716,
+    "seen": 1794170905.778188,
+    "ast_hash": "ab3e1305d9f2e96cc55b0b5d277d88cb",
+    "semantic_hash": "ab3e1305d9f2e96cc55b0b5d277d88cb"
+  },
+  "data/organizations/novocristal.yaml": {
+    "mtime": 1792696165.5698948,
+    "seen": 1794170905.778191,
+    "ast_hash": "5b7b36484c8169739081c3d209ad37fd",
+    "semantic_hash": "5b7b36484c8169739081c3d209ad37fd"
+  },
+  "data/organizations/omega.yaml": {
+    "mtime": 1792696144.0857828,
+    "seen": 1794170905.778193,
+    "ast_hash": "cff8ab37e35cbb6ae66031105800852a",
+    "semantic_hash": "cff8ab37e35cbb6ae66031105800852a"
+  },
+  "data/organizations/ophion.yaml": {
+    "mtime": 1792696165.5701478,
+    "seen": 1794170905.7781959,
+    "ast_hash": "34a54559cd6983b1870734a8de4d325a",
+    "semantic_hash": "34a54559cd6983b1870734a8de4d325a"
+  },
+  "data/organizations/oris.yaml": {
+    "mtime": 1792696144.0862265,
+    "seen": 1794170905.778199,
+    "ast_hash": "e6a71ba4346a528fc69b4210c22f8ad3",
+    "semantic_hash": "e6a71ba4346a528fc69b4210c22f8ad3"
+  },
+  "data/organizations/orolux.yaml": {
+    "mtime": 1792696165.5703442,
+    "seen": 1794170905.778202,
+    "ast_hash": "36930b36ae8e14da53fbaf80c268de0e",
+    "semantic_hash": "36930b36ae8e14da53fbaf80c268de0e"
+  },
+  "data/organizations/pequignet.yaml": {
+    "mtime": 1792696165.5705495,
+    "seen": 1794170905.778204,
+    "ast_hash": "675be3882f58f57737d00f6ea325e247",
+    "semantic_hash": "675be3882f58f57737d00f6ea325e247"
+  },
+  "data/organizations/philippe-dufour.yaml": {
+    "mtime": 1792696144.086907,
+    "seen": 1794170905.778207,
+    "ast_hash": "4ef7ce7835e2498fb54f88374abcca6f",
+    "semantic_hash": "4ef7ce7835e2498fb54f88374abcca6f"
+  },
+  "data/organizations/precision-engineering.yaml": {
+    "mtime": 1792696165.570811,
+    "seen": 1794170905.778209,
+    "ast_hash": "20c9ecbede0848c603c7d3b95342ec11",
+    "semantic_hash": "20c9ecbede0848c603c7d3b95342ec11"
+  },
+  "data/organizations/renzetti.yaml": {
+    "mtime": 1792696165.5711231,
+    "seen": 1794170905.778212,
+    "ast_hash": "e1006cd2a3c51d6d3e6e7da5b76a3b42",
+    "semantic_hash": "e1006cd2a3c51d6d3e6e7da5b76a3b42"
+  },
+  "data/organizations/rexhep-rexhepi.yaml": {
+    "mtime": 1792696144.0877073,
+    "seen": 1794170905.778215,
+    "ast_hash": "aadded59b911f9c8eb27a2369c8cccc5",
+    "semantic_hash": "aadded59b911f9c8eb27a2369c8cccc5"
+  },
+  "data/organizations/richemont.yaml": {
+    "mtime": 1792696165.5714726,
+    "seen": 1794170905.778217,
+    "ast_hash": "fbd6f560319ad493f237eabc1897e5ec",
+    "semantic_hash": "fbd6f560319ad493f237eabc1897e5ec"
+  },
+  "data/organizations/roger-w-smith.yaml": {
+    "mtime": 1792696144.0884838,
+    "seen": 1794170905.77822,
+    "ast_hash": "64b8ff85056311140d410ddf13ef81a4",
+    "semantic_hash": "64b8ff85056311140d410ddf13ef81a4"
+  },
+  "data/organizations/rolex.yaml": {
+    "mtime": 1792696144.0888019,
+    "seen": 1794170905.778223,
+    "ast_hash": "215a3e3aedbb05c846224b0365d91773",
+    "semantic_hash": "215a3e3aedbb05c846224b0365d91773"
+  },
+  "data/organizations/roventa-henex.yaml": {
+    "mtime": 1792696165.5717714,
+    "seen": 1794170905.778226,
+    "ast_hash": "292ebd6de92a03bb905139e96faeb134",
+    "semantic_hash": "292ebd6de92a03bb905139e96faeb134"
+  },
+  "data/organizations/sartory-billard.yaml": {
+    "mtime": 1792696165.5720446,
+    "seen": 1794170905.778229,
+    "ast_hash": "0b9ae4bf0e28b64cb36705c9bbfc349d",
+    "semantic_hash": "0b9ae4bf0e28b64cb36705c9bbfc349d"
+  },
+  "data/organizations/schwab-feller.yaml": {
+    "mtime": 1792696165.5724392,
+    "seen": 1794170905.7782311,
+    "ast_hash": "dbc12be38fe8f1a39a92dfdd08344ab2",
+    "semantic_hash": "dbc12be38fe8f1a39a92dfdd08344ab2"
+  },
+  "data/organizations/seagull.yaml": {
+    "mtime": 1792696165.5727081,
+    "seen": 1794170905.778236,
+    "ast_hash": "b96724030cf61990ed08e485115bfa29",
+    "semantic_hash": "b96724030cf61990ed08e485115bfa29"
+  },
+  "data/organizations/seiko-epson.yaml": {
+    "mtime": 1792696165.5729694,
+    "seen": 1794170905.778239,
+    "ast_hash": "9442478e1ed27a687ea8b184c98586b1",
+    "semantic_hash": "9442478e1ed27a687ea8b184c98586b1"
+  },
+  "data/organizations/seiko-group.yaml": {
+    "mtime": 1792696165.5732558,
+    "seen": 1794170905.778241,
+    "ast_hash": "6962bf49af04c7792bed406aa00fea99",
+    "semantic_hash": "6962bf49af04c7792bed406aa00fea99"
+  },
+  "data/organizations/sellita.yaml": {
+    "mtime": 1792696165.5735075,
+    "seen": 1794170905.778244,
+    "ast_hash": "0158efa1ff67d414505c448dba397994",
+    "semantic_hash": "0158efa1ff67d414505c448dba397994"
+  },
+  "data/organizations/serica.yaml": {
+    "mtime": 1792696165.573776,
+    "seen": 1794170905.778246,
+    "ast_hash": "52d2acd0a59d1f8cc06072c657197537",
+    "semantic_hash": "52d2acd0a59d1f8cc06072c657197537"
+  },
+  "data/organizations/soprod.yaml": {
+    "mtime": 1792696165.574059,
+    "seen": 1794170905.778249,
+    "ast_hash": "c50550ec9b8b3b1c2180764cc11d2099",
+    "semantic_hash": "c50550ec9b8b3b1c2180764cc11d2099"
+  },
+  "data/organizations/stephen-mcdonnell.yaml": {
+    "mtime": 1792696165.5743148,
+    "seen": 1794170905.7782521,
+    "ast_hash": "28297548d186043461570536a9643cc5",
+    "semantic_hash": "28297548d186043461570536a9643cc5"
+  },
+  "data/organizations/studio-underd0g.yaml": {
+    "mtime": 1792696165.5745451,
+    "seen": 1794170905.778254,
+    "ast_hash": "4b73d8ff9788ab3754412b382e988d7f",
+    "semantic_hash": "4b73d8ff9788ab3754412b382e988d7f"
+  },
+  "data/organizations/swatch-group.yaml": {
+    "mtime": 1792696165.5750077,
+    "seen": 1794170905.778257,
+    "ast_hash": "0e53121d7e029d38337e9e0c3189ea2f",
+    "semantic_hash": "0e53121d7e029d38337e9e0c3189ea2f"
+  },
+  "data/organizations/synergies-horlogeres.yaml": {
+    "mtime": 1792696165.5753114,
+    "seen": 1794170905.77826,
+    "ast_hash": "46f771a3c8ddaad435dcefb7eadf1dbb",
+    "semantic_hash": "46f771a3c8ddaad435dcefb7eadf1dbb"
+  },
+  "data/organizations/technotime.yaml": {
+    "mtime": 1792696165.575565,
+    "seen": 1794170905.778262,
+    "ast_hash": "f96af46f5c491a1710f96afd46939982",
+    "semantic_hash": "f96af46f5c491a1710f96afd46939982"
+  },
+  "data/organizations/tudor.yaml": {
+    "mtime": 1792696144.0925543,
+    "seen": 1794170905.778265,
+    "ast_hash": "08d63db0eae258e53e712c788ee24c91",
+    "semantic_hash": "08d63db0eae258e53e712c788ee24c91"
+  },
+  "data/organizations/unimatic.yaml": {
+    "mtime": 1792696165.5762258,
+    "seen": 1794170905.7782679,
+    "ast_hash": "4deb7595c30575133638977371c6ef0e",
+    "semantic_hash": "4deb7595c30575133638977371c6ef0e"
+  },
+  "data/organizations/uwd.yaml": {
+    "mtime": 1792696165.576634,
+    "seen": 1794170905.77827,
+    "ast_hash": "a5a541b2664ea6888ba21132ec585136",
+    "semantic_hash": "a5a541b2664ea6888ba21132ec585136"
+  },
+  "data/organizations/vacheron-constantin.yaml": {
+    "mtime": 1792696165.576939,
+    "seen": 1794170905.778273,
+    "ast_hash": "55f8363f9452f8c53dae91750c9ba542",
+    "semantic_hash": "55f8363f9452f8c53dae91750c9ba542"
+  },
+  "data/organizations/valfleurier.yaml": {
+    "mtime": 1792696165.5771725,
+    "seen": 1794170905.7782762,
+    "ast_hash": "e3138f2f2570f8fcde6be393e6919049",
+    "semantic_hash": "e3138f2f2570f8fcde6be393e6919049"
+  },
+  "data/organizations/viquodeco.yaml": {
+    "mtime": 1792696165.5774376,
+    "seen": 1794170905.7782779,
+    "ast_hash": "2b2fc545e713c858ca310dcca214c9fd",
+    "semantic_hash": "2b2fc545e713c858ca310dcca214c9fd"
+  },
+  "data/organizations/voutilainen-cattin.yaml": {
+    "mtime": 1792696165.5776496,
+    "seen": 1794170905.778281,
+    "ast_hash": "51ba49aea504ca4c02d634507086348b",
+    "semantic_hash": "51ba49aea504ca4c02d634507086348b"
+  },
+  "data/organizations/waeber-hms.yaml": {
+    "mtime": 1792696165.5778606,
+    "seen": 1794170905.778284,
+    "ast_hash": "533a933d1dbd9dd927e39a1618ac9fbe",
+    "semantic_hash": "533a933d1dbd9dd927e39a1618ac9fbe"
+  },
+  "data/organizations/zrc.yaml": {
+    "mtime": 1792696165.5781207,
+    "seen": 1794170905.778286,
+    "ast_hash": "5d456430d87b9dbbbd8909fd378b7aa7",
+    "semantic_hash": "5d456430d87b9dbbbd8909fd378b7aa7"
+  },
+  "data/sources.yaml": {
+    "mtime": 1793307631.536053,
+    "seen": 1794170905.7782888,
+    "ast_hash": "24764175c92e1551a55d46ca8276ac52",
+    "semantic_hash": "24764175c92e1551a55d46ca8276ac52"
+  },
+  "data/watches/a-lange-sohne/lange-1.yaml": {
+    "mtime": 1792696165.5801816,
+    "seen": 1794170905.778291,
+    "ast_hash": "8009c2484448cd61e5c832988b96f006",
+    "semantic_hash": "8009c2484448cd61e5c832988b96f006"
+  },
+  "data/watches/akrivia/ak-06.yaml": {
+    "mtime": 1792696165.580621,
+    "seen": 1794170905.778294,
+    "ast_hash": "71a40e009a51ced86f5d73a96815c7a2",
+    "semantic_hash": "71a40e009a51ced86f5d73a96815c7a2"
+  },
+  "data/watches/anordain/model-1-fabrik.yaml": {
+    "mtime": 1792696165.5810194,
+    "seen": 1794170905.778296,
+    "ast_hash": "ee0fcd74745751959714881de196099c",
+    "semantic_hash": "ee0fcd74745751959714881de196099c"
+  },
+  "data/watches/anordain/model-1-fume.yaml": {
+    "mtime": 1792696165.581424,
+    "seen": 1794170905.7782981,
+    "ast_hash": "285273b4deab92785810f7c0db6ac337",
+    "semantic_hash": "285273b4deab92785810f7c0db6ac337"
+  },
+  "data/watches/anordain/model-2-porcelain.yaml": {
+    "mtime": 1792696165.5817523,
+    "seen": 1794170905.778301,
+    "ast_hash": "6bf660e2010c9a2049a57fa43f51e2cc",
+    "semantic_hash": "6bf660e2010c9a2049a57fa43f51e2cc"
+  },
+  "data/watches/artur-akmaev/eternal-koi.yaml": {
+    "mtime": 1792696165.5821068,
+    "seen": 1794170905.778304,
+    "ast_hash": "e68c7fa981ffca7a2342d2c76d90f482",
+    "semantic_hash": "e68c7fa981ffca7a2342d2c76d90f482"
+  },
+  "data/watches/atelier-wen/perception-mu.yaml": {
+    "mtime": 1793307631.5377896,
+    "seen": 1794170905.778306,
+    "ast_hash": "47352eba0a6e1987e946af877a941f84",
+    "semantic_hash": "47352eba0a6e1987e946af877a941f84"
+  },
+  "data/watches/atelier-wen/perception-v3.yaml": {
+    "mtime": 1792696165.5830808,
+    "seen": 1794170905.778309,
+    "ast_hash": "7bfaf8667eda7035603c9ef1233dfae3",
+    "semantic_hash": "7bfaf8667eda7035603c9ef1233dfae3"
+  },
+  "data/watches/audemars-piguet/royal-oak-16202.yaml": {
+    "mtime": 1792696165.5834484,
+    "seen": 1794170905.778311,
+    "ast_hash": "149d64ee34961c8952365078a0bb4d09",
+    "semantic_hash": "149d64ee34961c8952365078a0bb4d09"
+  },
+  "data/watches/awake/son-mai-guilloche-main.yaml": {
+    "mtime": 1792696165.5838523,
+    "seen": 1794170905.7783139,
+    "ast_hash": "70650c69268719e095546062c3274e27",
+    "semantic_hash": "70650c69268719e095546062c3274e27"
+  },
+  "data/watches/baltic/aquascaphe.yaml": {
+    "mtime": 1792696165.5841918,
+    "seen": 1794170905.778316,
+    "ast_hash": "505671a8bacacf5b19bf68b74e70fcbc",
+    "semantic_hash": "505671a8bacacf5b19bf68b74e70fcbc"
+  },
+  "data/watches/breitling/chronomat-b01.yaml": {
+    "mtime": 1792696165.5848122,
+    "seen": 1794170905.7783191,
+    "ast_hash": "882c70d241cd94f279d492bac18f00c1",
+    "semantic_hash": "882c70d241cd94f279d492bac18f00c1"
+  },
+  "data/watches/cartier/santos-1847-mc.yaml": {
+    "mtime": 1792696165.5851872,
+    "seen": 1794170905.7783208,
+    "ast_hash": "23f7165175972382b71eef44581086d5",
+    "semantic_hash": "23f7165175972382b71eef44581086d5"
+  },
+  "data/watches/christopher-ward/c1-bel-canto.yaml": {
+    "mtime": 1792696165.5855463,
+    "seen": 1794170905.778324,
+    "ast_hash": "7f5546003c2625719d29d6eb614dec93",
+    "semantic_hash": "7f5546003c2625719d29d6eb614dec93"
+  },
+  "data/watches/christopher-ward/the-twelve.yaml": {
+    "mtime": 1792696165.5859091,
+    "seen": 1794170905.778327,
+    "ast_hash": "4e9e91ce1b64b105b9ac2d86a7237b39",
+    "semantic_hash": "4e9e91ce1b64b105b9ac2d86a7237b39"
+  },
+  "data/watches/czapek/antarctique-sxh5.yaml": {
+    "mtime": 1792696165.5863385,
+    "seen": 1794170905.7783291,
+    "ast_hash": "404806f7ac344c55ed99b6d0179984d6",
+    "semantic_hash": "404806f7ac344c55ed99b6d0179984d6"
+  },
+  "data/watches/de-bethune/db25.yaml": {
+    "mtime": 1792696165.5868506,
+    "seen": 1794170905.778332,
+    "ast_hash": "3304f1ab772f60f0ed8fb84f714ae176",
+    "semantic_hash": "3304f1ab772f60f0ed8fb84f714ae176"
+  },
+  "data/watches/farer/three-hand-automatic.yaml": {
+    "mtime": 1792696165.5872335,
+    "seen": 1794170905.778334,
+    "ast_hash": "7c67be98555cfa3ace6e5208ac627f17",
+    "semantic_hash": "7c67be98555cfa3ace6e5208ac627f17"
+  },
+  "data/watches/fleming/series-1.yaml": {
+    "mtime": 1792696165.5875978,
+    "seen": 1794170905.778337,
+    "ast_hash": "c96d1e4c727c1ab4729b76d530f673f2",
+    "semantic_hash": "c96d1e4c727c1ab4729b76d530f673f2"
+  },
+  "data/watches/fp-journe/chronometre-souverain.yaml": {
+    "mtime": 1792696165.5879393,
+    "seen": 1794170905.77834,
+    "ast_hash": "122026ea655aac3e9fe06c03b425cce0",
+    "semantic_hash": "122026ea655aac3e9fe06c03b425cce0"
+  },
+  "data/watches/grand-seiko/9f-quartz.yaml": {
+    "mtime": 1792696165.5883317,
+    "seen": 1794170905.7783418,
+    "ast_hash": "bbae20a0d591f0bcb204e44ebdd30e90",
+    "semantic_hash": "bbae20a0d591f0bcb204e44ebdd30e90"
+  },
+  "data/watches/grand-seiko/spring-drive-9r.yaml": {
+    "mtime": 1792696165.5886283,
+    "seen": 1794170905.7783449,
+    "ast_hash": "0dc65f55f254c51d6283c6961b78f294",
+    "semantic_hash": "0dc65f55f254c51d6283c6961b78f294"
+  },
+  "data/watches/h-moser/endeavour-centre-seconds.yaml": {
+    "mtime": 1792814017.541995,
+    "seen": 1794170905.778348,
+    "ast_hash": "4058f03519522b0139b0d00fa584ac19",
+    "semantic_hash": "4058f03519522b0139b0d00fa584ac19"
+  },
+  "data/watches/habring2/erwin.yaml": {
+    "mtime": 1792696165.5896754,
+    "seen": 1794170905.778351,
+    "ast_hash": "7dd00956cc6ea33f66d50c0a8b552980",
+    "semantic_hash": "7dd00956cc6ea33f66d50c0a8b552980"
+  },
+  "data/watches/habring2/five-minute-repeater.yaml": {
+    "mtime": 1792814017.5429704,
+    "seen": 1794170905.778353,
+    "ast_hash": "2254fc7b82a52481b11bfbe75defe033",
+    "semantic_hash": "2254fc7b82a52481b11bfbe75defe033"
+  },
+  "data/watches/iwc/ingenieur-automatic-40.yaml": {
+    "mtime": 1793307631.5391445,
+    "seen": 1794170905.778356,
+    "ast_hash": "fb154c69002aa489f066c6ae56a0a935",
+    "semantic_hash": "fb154c69002aa489f066c6ae56a0a935"
+  },
+  "data/watches/jaeger-lecoultre/reverso-tribute.yaml": {
+    "mtime": 1792696165.591359,
+    "seen": 1794170905.778359,
+    "ast_hash": "5e5f06278bb231660cc822c7da28cf59",
+    "semantic_hash": "5e5f06278bb231660cc822c7da28cf59"
+  },
+  "data/watches/jn-shapiro/infinity-radiant.yaml": {
+    "mtime": 1792696165.5917058,
+    "seen": 1794170905.778361,
+    "ast_hash": "6430713f4fc567d98ba191e72026fe26",
+    "semantic_hash": "6430713f4fc567d98ba191e72026fe26"
+  },
+  "data/watches/jn-shapiro/infinity.yaml": {
+    "mtime": 1792696165.5920246,
+    "seen": 1794170905.778364,
+    "ast_hash": "62ecb60adae49514dafd908ae8fc90b8",
+    "semantic_hash": "62ecb60adae49514dafd908ae8fc90b8"
+  },
+  "data/watches/jn-shapiro/resurgence.yaml": {
+    "mtime": 1792696165.5924127,
+    "seen": 1794170905.778367,
+    "ast_hash": "57deb148cae120418aef6459f3f8fa83",
+    "semantic_hash": "57deb148cae120418aef6459f3f8fa83"
+  },
+  "data/watches/kudoke/kudoke-2.yaml": {
+    "mtime": 1792696165.5928423,
+    "seen": 1794170905.7783701,
+    "ast_hash": "045db37ebf8f56877c537f68ac858ef8",
+    "semantic_hash": "045db37ebf8f56877c537f68ac858ef8"
+  },
+  "data/watches/kurono-tokyo/chronograph-miyota.yaml": {
+    "mtime": 1792696165.5933511,
+    "seen": 1794170905.778372,
+    "ast_hash": "c7d8c5941234a4bb5b74504620b75973",
+    "semantic_hash": "c7d8c5941234a4bb5b74504620b75973"
+  },
+  "data/watches/laine/p37.yaml": {
+    "mtime": 1792696165.5938478,
+    "seen": 1794170905.778375,
+    "ast_hash": "31a6a5b11113d46752a10cc8454c54f0",
+    "semantic_hash": "31a6a5b11113d46752a10cc8454c54f0"
+  },
+  "data/watches/laurent-ferrier/classic-micro-rotor.yaml": {
+    "mtime": 1792696165.5943792,
+    "seen": 1794170905.778378,
+    "ast_hash": "4108aeea977de0cb217daa08489ca11f",
+    "semantic_hash": "4108aeea977de0cb217daa08489ca11f"
+  },
+  "data/watches/lesablier/chronosport.yaml": {
+    "mtime": 1792696165.5948913,
+    "seen": 1794170905.77838,
+    "ast_hash": "8863a8b67b5a7767fb632646d034613b",
+    "semantic_hash": "8863a8b67b5a7767fb632646d034613b"
+  },
+  "data/watches/lesablier/travelgraph.yaml": {
+    "mtime": 1792696165.5954154,
+    "seen": 1794170905.778383,
+    "ast_hash": "1505e46836dbd61eff0cfbd0bc92b73f",
+    "semantic_hash": "1505e46836dbd61eff0cfbd0bc92b73f"
+  },
+  "data/watches/longines/spirit-zulu-time.yaml": {
+    "mtime": 1792696165.5958266,
+    "seen": 1794170905.7783859,
+    "ast_hash": "ba5814287487bd6921340809dfa32e14",
+    "semantic_hash": "ba5814287487bd6921340809dfa32e14"
+  },
+  "data/watches/mbandf/lm-sequential-evo.yaml": {
+    "mtime": 1792696165.5961382,
+    "seen": 1794170905.778388,
+    "ast_hash": "774b8b98bc394d3e47e4ea0d48631da6",
+    "semantic_hash": "774b8b98bc394d3e47e4ea0d48631da6"
+  },
+  "data/watches/ming/37-02-minimalist.yaml": {
+    "mtime": 1792696165.5964928,
+    "seen": 1794170905.7783911,
+    "ast_hash": "b18fe24bd3a1a5401c9419eba8bfbb23",
+    "semantic_hash": "b18fe24bd3a1a5401c9419eba8bfbb23"
+  },
+  "data/watches/moritz-grossmann/benu.yaml": {
+    "mtime": 1792696165.5968874,
+    "seen": 1794170905.778393,
+    "ast_hash": "eaf9ef2902a92e310e388aa02ccaca93",
+    "semantic_hash": "eaf9ef2902a92e310e388aa02ccaca93"
+  },
+  "data/watches/nomos/tangente-neomatik.yaml": {
+    "mtime": 1792696165.59724,
+    "seen": 1794170905.778396,
+    "ast_hash": "75ea196a47e60023f7aa79f6d842c493",
+    "semantic_hash": "75ea196a47e60023f7aa79f6d842c493"
+  },
+  "data/watches/omega/speedmaster-moonwatch-3861.yaml": {
+    "mtime": 1793307631.5404708,
+    "seen": 1794170905.778398,
+    "ast_hash": "7a3f4e7f9ad8e938dd818f57831cac8e",
+    "semantic_hash": "7a3f4e7f9ad8e938dd818f57831cac8e"
+  },
+  "data/watches/ophion/oph-786-velos.yaml": {
+    "mtime": 1792696165.597911,
+    "seen": 1794170905.7784011,
+    "ast_hash": "0c830d1f01df97c87a5e1956b7bc74c7",
+    "semantic_hash": "0c830d1f01df97c87a5e1956b7bc74c7"
+  },
+  "data/watches/oris/aquis-calibre-400.yaml": {
+    "mtime": 1792696165.5983267,
+    "seen": 1794170905.778404,
+    "ast_hash": "e565b0ea15dad4c18c157cd45d254d44",
+    "semantic_hash": "e565b0ea15dad4c18c157cd45d254d44"
+  },
+  "data/watches/philippe-dufour/simplicity.yaml": {
+    "mtime": 1792696165.5987937,
+    "seen": 1794170905.778406,
+    "ast_hash": "8afbee60ab3e626e61a0afb653720d4a",
+    "semantic_hash": "8afbee60ab3e626e61a0afb653720d4a"
+  },
+  "data/watches/rexhep-rexhepi/chronometre-contemporain.yaml": {
+    "mtime": 1792696165.5991306,
+    "seen": 1794170905.778409,
+    "ast_hash": "4d3d6aac64ab68529838748a6097629d",
+    "semantic_hash": "4d3d6aac64ab68529838748a6097629d"
+  },
+  "data/watches/roger-w-smith/series-2.yaml": {
+    "mtime": 1792696165.5995185,
+    "seen": 1794170905.778411,
+    "ast_hash": "e652d909991e3cbbc09ea5f44cafb904",
+    "semantic_hash": "e652d909991e3cbbc09ea5f44cafb904"
+  },
+  "data/watches/rolex/submariner-124060.yaml": {
+    "mtime": 1792696165.599864,
+    "seen": 1794170905.778414,
+    "ast_hash": "59e1d36679483cb5f486deddbea7dee1",
+    "semantic_hash": "59e1d36679483cb5f486deddbea7dee1"
+  },
+  "data/watches/sartory-billard/sb05.yaml": {
+    "mtime": 1792696165.600322,
+    "seen": 1794170905.7784162,
+    "ast_hash": "11108eb08a578eb34035ad2072f886b8",
+    "semantic_hash": "11108eb08a578eb34035ad2072f886b8"
+  },
+  "data/watches/serica/5303-cosc.yaml": {
+    "mtime": 1792696165.60071,
+    "seen": 1794170905.778419,
+    "ast_hash": "9667862dfc5e60846cb553a35849ba18",
+    "semantic_hash": "9667862dfc5e60846cb553a35849ba18"
+  },
+  "data/watches/studio-underd0g/01series-gen3.yaml": {
+    "mtime": 1792696165.601051,
+    "seen": 1794170905.778422,
+    "ast_hash": "b4bca1524edf63ae08b257d98587584a",
+    "semantic_hash": "b4bca1524edf63ae08b257d98587584a"
+  },
+  "data/watches/studio-underd0g/03series.yaml": {
+    "mtime": 1792696165.601356,
+    "seen": 1794170905.778424,
+    "ast_hash": "65f4698c92a297b80e4cbd964bc8f57e",
+    "semantic_hash": "65f4698c92a297b80e4cbd964bc8f57e"
+  },
+  "data/watches/tudor/black-bay-58.yaml": {
+    "mtime": 1792696165.6017456,
+    "seen": 1794170905.778427,
+    "ast_hash": "f1b2fd22dbdb74efb0c5fa7d27f94ee2",
+    "semantic_hash": "f1b2fd22dbdb74efb0c5fa7d27f94ee2"
+  },
+  "data/watches/tudor/black-bay-chrono.yaml": {
+    "mtime": 1792696165.6020868,
+    "seen": 1794170905.778429,
+    "ast_hash": "7ff9382c56c128a4c0bb921047952073",
+    "semantic_hash": "7ff9382c56c128a4c0bb921047952073"
+  },
+  "data/watches/unimatic/modello-uno-sellita.yaml": {
+    "mtime": 1792696165.6024606,
+    "seen": 1794170905.778432,
+    "ast_hash": "e205ca4a12b42b7b04e1c2d7547ff81b",
+    "semantic_hash": "e205ca4a12b42b7b04e1c2d7547ff81b"
+  },
+  "data/watches/vacheron-constantin/overseas.yaml": {
+    "mtime": 1792696165.6028056,
+    "seen": 1794170905.778435,
+    "ast_hash": "934e79053498f515ae233bcca83826aa",
+    "semantic_hash": "934e79053498f515ae233bcca83826aa"
+  },
+  "data/watches/zrc/mn64-metal.yaml": {
+    "mtime": 1792696165.6032698,
+    "seen": 1794170905.7784379,
+    "ast_hash": "631323b5ed66958111b217b5b9acd547",
+    "semantic_hash": "631323b5ed66958111b217b5b9acd547"
+  },
+  "db/001-foundation.sql": {
+    "mtime": 1792520073.0560746,
+    "seen": 1794170905.77844,
+    "ast_hash": "8a9fbd2f3e9193c0b94b3b2774f8c5c6",
+    "semantic_hash": "8a9fbd2f3e9193c0b94b3b2774f8c5c6"
+  },
+  "db/002-guest-corrections.sql": {
+    "mtime": 1792520073.0564213,
+    "seen": 1794170905.778443,
+    "ast_hash": "99b6c8855ad2c5da2ada6f1217de4eaa",
+    "semantic_hash": "99b6c8855ad2c5da2ada6f1217de4eaa"
+  },
+  "db/003-immutable-claims.sql": {
+    "mtime": 1793307631.5409594,
+    "seen": 1794170905.7784462,
+    "ast_hash": "0f7bd1e5954303256f53b60c340568b1",
+    "semantic_hash": "0f7bd1e5954303256f53b60c340568b1"
+  },
+  "db/004-account-deletion.sql": {
+    "mtime": 1794026071.771637,
+    "seen": 1794170905.7784479,
+    "ast_hash": "2bce459c520690224c9445e729e8988f",
+    "semantic_hash": "2bce459c520690224c9445e729e8988f"
+  },
+  "db/005-forum.sql": {
+    "mtime": 1794026071.7723262,
+    "seen": 1794170905.778451,
+    "ast_hash": "8762ecdbda8963ed720670f03d25cc13",
+    "semantic_hash": "8762ecdbda8963ed720670f03d25cc13"
+  },
+  "db/006-forum-replies.sql": {
+    "mtime": 1794026071.773046,
+    "seen": 1794170905.778454,
+    "ast_hash": "88b8febd02da905bd404dbc86b9139df",
+    "semantic_hash": "88b8febd02da905bd404dbc86b9139df"
+  },
+  "db/007-query-indexes.sql": {
+    "mtime": 1794026071.7738173,
+    "seen": 1794170905.778456,
+    "ast_hash": "80990cf9df8d01c99f290f569bd81047",
+    "semantic_hash": "80990cf9df8d01c99f290f569bd81047"
+  },
+  "db/008-forum-votes.sql": {
+    "mtime": 1794026071.7744584,
+    "seen": 1794170905.778462,
+    "ast_hash": "42d2088c27c5bb9804deec8123a744f0",
+    "semantic_hash": "42d2088c27c5bb9804deec8123a744f0"
+  },
+  "db/009-forum-images.sql": {
+    "mtime": 1794026071.7750854,
+    "seen": 1794170905.778464,
+    "ast_hash": "de2b13e3c9cabfff09834dc477ddc937",
+    "semantic_hash": "de2b13e3c9cabfff09834dc477ddc937"
+  },
+  "db/010-forum-author-indexes.sql": {
+    "mtime": 1794026071.775841,
+    "seen": 1794170905.7784672,
+    "ast_hash": "b2bb613f6bce8de7f38a2060dfea91b5",
+    "semantic_hash": "b2bb613f6bce8de7f38a2060dfea91b5"
+  },
+  "db/011-member-new-watches.sql": {
+    "mtime": 1794026071.7765849,
+    "seen": 1794170905.7784698,
+    "ast_hash": "2082cda87f04f547d3af7784042b705b",
+    "semantic_hash": "2082cda87f04f547d3af7784042b705b"
+  },
+  "db/012-review-event-clock.sql": {
+    "mtime": 1794026071.7773395,
+    "seen": 1794170905.778472,
+    "ast_hash": "5819f9b9d390a2703908c4098cd1f796",
+    "semantic_hash": "5819f9b9d390a2703908c4098cd1f796"
+  },
+  "package.json": {
+    "mtime": 1794026071.783898,
+    "seen": 1794170905.778475,
+    "ast_hash": "d228d8cb398c6b06a51d85b10c3863cb",
+    "semantic_hash": "d228d8cb398c6b06a51d85b10c3863cb"
+  },
+  "scripts/accounts.test.ts": {
+    "mtime": 1794026071.785762,
+    "seen": 1794170905.7784781,
+    "ast_hash": "e6c1c3a2d9d1dcbd45e461c9b175b1a4",
+    "semantic_hash": "e6c1c3a2d9d1dcbd45e461c9b175b1a4"
+  },
+  "scripts/bootstrap-admin.ts": {
+    "mtime": 1792520073.0626838,
+    "seen": 1794170905.778481,
+    "ast_hash": "5fff965b7be811851b410f0d9914648d",
+    "semantic_hash": "5fff965b7be811851b410f0d9914648d"
+  },
+  "scripts/catalogue-cache.test.ts": {
+    "mtime": 1794026071.7863245,
+    "seen": 1794170905.778483,
+    "ast_hash": "e7ebb26611ce611519c741f884833ee0",
+    "semantic_hash": "e7ebb26611ce611519c741f884833ee0"
+  },
+  "scripts/clerk-host.test.ts": {
+    "mtime": 1794026071.7870908,
+    "seen": 1794170905.778486,
+    "ast_hash": "842d78399e55858af40bd94ebc313c17",
+    "semantic_hash": "842d78399e55858af40bd94ebc313c17"
+  },
+  "scripts/db.test.ts": {
+    "mtime": 1793307631.5441124,
+    "seen": 1794170905.7784882,
+    "ast_hash": "22319a385a2d9a125f03c2ba396eab01",
+    "semantic_hash": "22319a385a2d9a125f03c2ba396eab01"
+  },
+  "scripts/export-catalogue.ts": {
+    "mtime": 1792627744.959946,
+    "seen": 1794170905.7784908,
+    "ast_hash": "a3c369d14d133081e927c40d5c1cb580",
+    "semantic_hash": "a3c369d14d133081e927c40d5c1cb580"
+  },
+  "scripts/export.test.ts": {
+    "mtime": 1792627744.9603128,
+    "seen": 1794170905.778493,
+    "ast_hash": "2e467a85133d5aadc531962e489eb795",
+    "semantic_hash": "2e467a85133d5aadc531962e489eb795"
+  },
+  "scripts/forum-host.test.ts": {
+    "mtime": 1794026071.787701,
+    "seen": 1794170905.778496,
+    "ast_hash": "93aa742bd146e0211f5e60a5be758c46",
+    "semantic_hash": "93aa742bd146e0211f5e60a5be758c46"
+  },
+  "scripts/forum-images.test.ts": {
+    "mtime": 1794026362.4465797,
+    "seen": 1794170905.7784991,
+    "ast_hash": "43785d7c2d90ed2569a12964749345b5",
+    "semantic_hash": "43785d7c2d90ed2569a12964749345b5"
+  },
+  "scripts/forum-seed.ts": {
+    "mtime": 1794026071.7894073,
+    "seen": 1794170905.778501,
+    "ast_hash": "453c4ce52c6dbd30a6d8a7f48f37de76",
+    "semantic_hash": "453c4ce52c6dbd30a6d8a7f48f37de76"
+  },
+  "scripts/forum.test.ts": {
+    "mtime": 1794026362.449504,
+    "seen": 1794170905.778504,
+    "ast_hash": "5292b551169d53b1296a79f00e87f7e0",
+    "semantic_hash": "5292b551169d53b1296a79f00e87f7e0"
+  },
+  "scripts/hosts.test.ts": {
+    "mtime": 1794026071.791184,
+    "seen": 1794170905.778507,
+    "ast_hash": "785f8e09b81b7d45898659bfbdc87dad",
+    "semantic_hash": "785f8e09b81b7d45898659bfbdc87dad"
+  },
+  "scripts/images.ts": {
+    "mtime": 1792695243.8223665,
+    "seen": 1794170905.7785091,
+    "ast_hash": "7b233a70012860214760f57c7898606c",
+    "semantic_hash": "7b233a70012860214760f57c7898606c"
+  },
+  "scripts/import-catalogue.ts": {
+    "mtime": 1792520073.062941,
+    "seen": 1794170905.7785118,
+    "ast_hash": "31dd3d9881479a4106a7c29b2b63c9c5",
+    "semantic_hash": "31dd3d9881479a4106a7c29b2b63c9c5"
+  },
+  "scripts/new-watch.test.ts": {
+    "mtime": 1794026071.7917702,
+    "seen": 1794170905.7785149,
+    "ast_hash": "c6e166ddf07de3e617ae20d069891dca",
+    "semantic_hash": "c6e166ddf07de3e617ae20d069891dca"
+  },
+  "scripts/notify.test.ts": {
+    "mtime": 1794026071.7923007,
+    "seen": 1794170905.778517,
+    "ast_hash": "f14def536cacf014612c844d84abece3",
+    "semantic_hash": "f14def536cacf014612c844d84abece3"
+  },
+  "scripts/og.test.ts": {
+    "mtime": 1794026071.7929273,
+    "seen": 1794170905.778524,
+    "ast_hash": "f7eb78d787afa30d75d3f27f8caacb3a",
+    "semantic_hash": "f7eb78d787afa30d75d3f27f8caacb3a"
+  },
+  "scripts/page-limit.test.ts": {
+    "mtime": 1794026071.7935905,
+    "seen": 1794170905.778527,
+    "ast_hash": "11b5e29180ff70ed94ca0c3064852585",
+    "semantic_hash": "11b5e29180ff70ed94ca0c3064852585"
+  },
+  "scripts/phone.check.ts": {
+    "mtime": 1794026071.7947974,
+    "seen": 1794170905.7785301,
+    "ast_hash": "5933f1589427648d6a30198d79731e12",
+    "semantic_hash": "5933f1589427648d6a30198d79731e12"
+  },
+  "scripts/post-text.test.ts": {
+    "mtime": 1794026071.7955215,
+    "seen": 1794170905.778532,
+    "ast_hash": "bc044d30ed57525589624e05ad585b65",
+    "semantic_hash": "bc044d30ed57525589624e05ad585b65"
+  },
+  "scripts/proxy.test.ts": {
+    "mtime": 1792627744.9607563,
+    "seen": 1794170905.778535,
+    "ast_hash": "42b477d12f17325d613452c72bc1873c",
+    "semantic_hash": "42b477d12f17325d613452c72bc1873c"
+  },
+  "scripts/publish-record.ts": {
+    "mtime": 1793307631.5471902,
+    "seen": 1794170905.778538,
+    "ast_hash": "0cce6072e79760c9b67694e4dcdc98a4",
+    "semantic_hash": "0cce6072e79760c9b67694e4dcdc98a4"
+  },
+  "scripts/publish.test.ts": {
+    "mtime": 1793307631.5478876,
+    "seen": 1794170905.7785401,
+    "ast_hash": "b80320c667a345beff260786ee56524d",
+    "semantic_hash": "b80320c667a345beff260786ee56524d"
+  },
+  "scripts/review.test.ts": {
+    "mtime": 1794026071.7965314,
+    "seen": 1794170905.778543,
+    "ast_hash": "642ba1a00c6cea3f3a6d0b0097b70797",
+    "semantic_hash": "642ba1a00c6cea3f3a6d0b0097b70797"
+  },
+  "scripts/setup-db.ts": {
+    "mtime": 1794026071.7976718,
+    "seen": 1794170905.778545,
+    "ast_hash": "34b728c59e78f3bf55ce00c1f686ea32",
+    "semantic_hash": "34b728c59e78f3bf55ce00c1f686ea32"
+  },
+  "scripts/site.test.ts": {
+    "mtime": 1794082286.2952962,
+    "seen": 1794170905.778548,
+    "ast_hash": "57f6800727ba0500ca46f2facd6335ab",
+    "semantic_hash": "57f6800727ba0500ca46f2facd6335ab"
+  },
+  "scripts/support.test.ts": {
+    "mtime": 1794026071.8007417,
+    "seen": 1794170905.77855,
+    "ast_hash": "a8cf7d1cb443264b96f8090f0071e33f",
+    "semantic_hash": "a8cf7d1cb443264b96f8090f0071e33f"
+  },
+  "scripts/theme.test.ts": {
+    "mtime": 1794026071.8017302,
+    "seen": 1794170905.778553,
+    "ast_hash": "5aa4122267cf546ddd7f7558cd2666c4",
+    "semantic_hash": "5aa4122267cf546ddd7f7558cd2666c4"
+  },
+  "scripts/validate.test.ts": {
+    "mtime": 1792690353.7043629,
+    "seen": 1794170905.778555,
+    "ast_hash": "c3e9e5c5f860c428bbc138041d079377",
+    "semantic_hash": "c3e9e5c5f860c428bbc138041d079377"
+  },
+  "scripts/validate.ts": {
+    "mtime": 1794026071.8028326,
+    "seen": 1794170905.778558,
+    "ast_hash": "59ae724dff3435871972c18a06da0665",
+    "semantic_hash": "59ae724dff3435871972c18a06da0665"
+  },
+  "server/accounts.ts": {
+    "mtime": 1794026071.8048334,
+    "seen": 1794170905.778561,
+    "ast_hash": "e4438a02071a5aa83e8de600320800fc",
+    "semantic_hash": "e4438a02071a5aa83e8de600320800fc"
+  },
+  "server/admin.ts": {
+    "mtime": 1792627744.9665134,
+    "seen": 1794170905.7785642,
+    "ast_hash": "6f8cefe7c77f815630699a8fbf0b7d42",
+    "semantic_hash": "6f8cefe7c77f815630699a8fbf0b7d42"
+  },
+  "server/api.ts": {
+    "mtime": 1794026071.8062394,
+    "seen": 1794170905.778566,
+    "ast_hash": "8a0572393043eb2d83647e6afc293ede",
+    "semantic_hash": "8a0572393043eb2d83647e6afc293ede"
+  },
+  "server/catalogue.ts": {
+    "mtime": 1794026071.8074846,
+    "seen": 1794170905.778569,
+    "ast_hash": "30a2082f7832471df5776886e12fad45",
+    "semantic_hash": "30a2082f7832471df5776886e12fad45"
+  },
+  "server/corrections.ts": {
+    "mtime": 1792520073.065409,
+    "seen": 1794170905.778571,
+    "ast_hash": "c8dae111bfcd371f3f7851692e67edba",
+    "semantic_hash": "c8dae111bfcd371f3f7851692e67edba"
+  },
+  "server/csp.ts": {
+    "mtime": 1794026071.8086824,
+    "seen": 1794170905.778574,
+    "ast_hash": "ba4e483bdec41e2f74ddb089426b6ff3",
+    "semantic_hash": "ba4e483bdec41e2f74ddb089426b6ff3"
+  },
+  "server/db.ts": {
+    "mtime": 1793307631.552417,
+    "seen": 1794170905.778576,
+    "ast_hash": "be262ed91e25f14c30803debcfb4bc41",
+    "semantic_hash": "be262ed91e25f14c30803debcfb4bc41"
+  },
+  "server/forum.ts": {
+    "mtime": 1794026362.4519095,
+    "seen": 1794170905.778579,
+    "ast_hash": "c95f8425c0ccc23ced269a6cbf6c6bcf",
+    "semantic_hash": "c95f8425c0ccc23ced269a6cbf6c6bcf"
+  },
+  "server/forumImages.ts": {
+    "mtime": 1794026071.8119435,
+    "seen": 1794170905.778582,
+    "ast_hash": "1ac3091b9a1d507d524adfa87e7be4e7",
+    "semantic_hash": "1ac3091b9a1d507d524adfa87e7be4e7"
+  },
+  "server/index.ts": {
+    "mtime": 1794080454.1764967,
+    "seen": 1794170905.7785852,
+    "ast_hash": "76b61ed3f335f71a67dcdd02a8e9b675",
+    "semantic_hash": "76b61ed3f335f71a67dcdd02a8e9b675"
+  },
+  "server/middlewares/clerkProxyMiddleware.ts": {
+    "mtime": 1794026071.8135521,
+    "seen": 1794170905.7785869,
+    "ast_hash": "ae9736c933d9429a42644f6994daa82b",
+    "semantic_hash": "ae9736c933d9429a42644f6994daa82b"
+  },
+  "server/middlewares/fixedProxy.ts": {
+    "mtime": 1792627744.9699316,
+    "seen": 1794170905.77859,
+    "ast_hash": "bab838a8996610422f94aa77517d36f7",
+    "semantic_hash": "bab838a8996610422f94aa77517d36f7"
+  },
+  "server/middlewares/forumHost.ts": {
+    "mtime": 1794026071.8140259,
+    "seen": 1794170905.778592,
+    "ast_hash": "513a7fbe2f887e95258c2cca50b1a7ba",
+    "semantic_hash": "513a7fbe2f887e95258c2cca50b1a7ba"
+  },
+  "server/middlewares/siteHost.ts": {
+    "mtime": 1794026071.8145876,
+    "seen": 1794170905.778595,
+    "ast_hash": "57b0828de3bf2b30616dcdef82a07ae1",
+    "semantic_hash": "57b0828de3bf2b30616dcdef82a07ae1"
+  },
+  "server/newWatch.ts": {
+    "mtime": 1794026071.8151379,
+    "seen": 1794170905.778597,
+    "ast_hash": "8bef3d6e2aa5c1a081273d258484c906",
+    "semantic_hash": "8bef3d6e2aa5c1a081273d258484c906"
+  },
+  "server/notify.ts": {
+    "mtime": 1794026071.8156557,
+    "seen": 1794170905.7786,
+    "ast_hash": "094a273afa9586be598bc0e49f978d55",
+    "semantic_hash": "094a273afa9586be598bc0e49f978d55"
+  },
+  "server/pageLimit.ts": {
+    "mtime": 1794026071.8161812,
+    "seen": 1794170905.778603,
+    "ast_hash": "4f905f96ae0ba041c9c81fc9bb497535",
+    "semantic_hash": "4f905f96ae0ba041c9c81fc9bb497535"
+  },
+  "server/review.ts": {
+    "mtime": 1794026071.8174052,
+    "seen": 1794170905.778605,
+    "ast_hash": "ece4411219dac8278cb5dc1e8b4e0ede",
+    "semantic_hash": "ece4411219dac8278cb5dc1e8b4e0ede"
+  },
+  "server/support.ts": {
+    "mtime": 1794026071.8182905,
+    "seen": 1794170905.778612,
+    "ast_hash": "de8e3fb6363db23c47b91889fe89681f",
+    "semantic_hash": "de8e3fb6363db23c47b91889fe89681f"
+  },
+  "src/accounts/clerk-host.ts": {
+    "mtime": 1794026071.8188217,
+    "seen": 1794170905.778615,
+    "ast_hash": "9fb64edc8e0969abc2477cd925747dbb",
+    "semantic_hash": "9fb64edc8e0969abc2477cd925747dbb"
+  },
+  "src/accounts/contracts.ts": {
+    "mtime": 1794026071.8195944,
+    "seen": 1794170905.778618,
+    "ast_hash": "7754fe44dc95f23d8e84942ec93fcfc7",
+    "semantic_hash": "7754fe44dc95f23d8e84942ec93fcfc7"
+  },
+  "src/components/CompactStrip.astro": {
+    "mtime": 1792520073.067625,
+    "seen": 1794170905.77862,
+    "ast_hash": "8ca2c178ae555eec5099cd85a2780a5e",
+    "semantic_hash": "8ca2c178ae555eec5099cd85a2780a5e"
+  },
+  "src/components/ConfidenceMark.astro": {
+    "mtime": 1791916284.8841,
+    "seen": 1794170905.7786229,
+    "ast_hash": "9ae2d32439061e29e6ec2b905c8a6218",
+    "semantic_hash": "9ae2d32439061e29e6ec2b905c8a6218"
+  },
+  "src/components/EvidenceList.astro": {
+    "mtime": 1792645927.2252223,
+    "seen": 1794170905.778625,
+    "ast_hash": "8bf48851856f604d4226afdb623d0bfd",
+    "semantic_hash": "8bf48851856f604d4226afdb623d0bfd"
+  },
+  "src/components/PatternStrip.astro": {
+    "mtime": 1793307631.554505,
+    "seen": 1794170905.778628,
+    "ast_hash": "3812ae13f75e2f7132c47839df224e75",
+    "semantic_hash": "3812ae13f75e2f7132c47839df224e75"
+  },
+  "src/components/Picture.astro": {
+    "mtime": 1792695243.82602,
+    "seen": 1794170905.7786298,
+    "ast_hash": "e7100c3c7096602d6f225ca4ab6fcafa",
+    "semantic_hash": "e7100c3c7096602d6f225ca4ab6fcafa"
+  },
+  "src/components/ProfileStrip.astro": {
+    "mtime": 1792627744.9801233,
+    "seen": 1794170905.7786329,
+    "ast_hash": "1863f5d814a0781e05a80e8e571d0433",
+    "semantic_hash": "1863f5d814a0781e05a80e8e571d0433"
+  },
+  "src/components/ProvisionalBanner.astro": {
+    "mtime": 1791916284.8850331,
+    "seen": 1794170905.778636,
+    "ast_hash": "f070e9e9755c68dccda4a3445e3b7a00",
+    "semantic_hash": "f070e9e9755c68dccda4a3445e3b7a00"
+  },
+  "src/components/RecordTable.astro": {
+    "mtime": 1792632696.3934395,
+    "seen": 1794170905.778639,
+    "ast_hash": "a43ed4e8a5257b7b61d1256caab39cac",
+    "semantic_hash": "a43ed4e8a5257b7b61d1256caab39cac"
+  },
+  "src/components/accounts/AccountApp.tsx": {
+    "mtime": 1794026071.8205116,
+    "seen": 1794170905.778641,
+    "ast_hash": "3e5fc3c810a418b81685d906bc58aed7",
+    "semantic_hash": "3e5fc3c810a418b81685d906bc58aed7"
+  },
+  "src/components/accounts/AccountCheck.tsx": {
+    "mtime": 1794082286.2961454,
+    "seen": 1794170905.778644,
+    "ast_hash": "e6d23b58d0ad8569fdab1a206a4fea34",
+    "semantic_hash": "e6d23b58d0ad8569fdab1a206a4fea34"
+  },
+  "src/components/accounts/AccountNavigation.tsx": {
+    "mtime": 1794026071.8217785,
+    "seen": 1794170905.778647,
+    "ast_hash": "1b375c3a415f6587f9ca9cb1ad8b12ab",
+    "semantic_hash": "1b375c3a415f6587f9ca9cb1ad8b12ab"
+  },
+  "src/components/accounts/AdminUsersApp.tsx": {
+    "mtime": 1792627744.9838161,
+    "seen": 1794170905.778649,
+    "ast_hash": "1724357f3e834f6a1003556536f70377",
+    "semantic_hash": "1724357f3e834f6a1003556536f70377"
+  },
+  "src/components/accounts/AuthPages.tsx": {
+    "mtime": 1794026071.8226721,
+    "seen": 1794170905.778652,
+    "ast_hash": "0b2f0d9d7bb2c04fb6fd053ba40d984e",
+    "semantic_hash": "0b2f0d9d7bb2c04fb6fd053ba40d984e"
+  },
+  "src/components/accounts/AuthProvider.tsx": {
+    "mtime": 1794026071.823309,
+    "seen": 1794170905.778655,
+    "ast_hash": "f87b183f81aaf4fabc47d24cb04cad53",
+    "semantic_hash": "f87b183f81aaf4fabc47d24cb04cad53"
+  },
+  "src/components/accounts/EditorReviewApp.tsx": {
+    "mtime": 1794026071.8244228,
+    "seen": 1794170905.7786582,
+    "ast_hash": "ec3a4ff0d895ca65be01073adf0bd095",
+    "semantic_hash": "ec3a4ff0d895ca65be01073adf0bd095"
+  },
+  "src/components/accounts/MyContributionsApp.tsx": {
+    "mtime": 1794026071.8250098,
+    "seen": 1794170905.77866,
+    "ast_hash": "28eb75aa8bc44dda7e23fddb12aa9649",
+    "semantic_hash": "28eb75aa8bc44dda7e23fddb12aa9649"
+  },
+  "src/components/accounts/NewWatchApp.tsx": {
+    "mtime": 1794026071.8256226,
+    "seen": 1794170905.778663,
+    "ast_hash": "57a510003a0b02887a20c9fee9ddd934",
+    "semantic_hash": "57a510003a0b02887a20c9fee9ddd934"
+  },
+  "src/components/accounts/PublicProfileApp.tsx": {
+    "mtime": 1794026071.8264005,
+    "seen": 1794170905.778666,
+    "ast_hash": "cac1c491536a55c2a72dad4a46760493",
+    "semantic_hash": "cac1c491536a55c2a72dad4a46760493"
+  },
+  "src/components/accounts/api.ts": {
+    "mtime": 1792520073.0712998,
+    "seen": 1794170905.778668,
+    "ast_hash": "de05fadb8b239514e1c85e7ae02096d3",
+    "semantic_hash": "de05fadb8b239514e1c85e7ae02096d3"
+  },
+  "src/components/forum/ImagePicker.tsx": {
+    "mtime": 1794026362.4533186,
+    "seen": 1794170905.778671,
+    "ast_hash": "df0d05de2a0ee5d8238043a2c5176b0c",
+    "semantic_hash": "df0d05de2a0ee5d8238043a2c5176b0c"
+  },
+  "src/components/forum/ModerationApp.tsx": {
+    "mtime": 1794026071.8276477,
+    "seen": 1794170905.778674,
+    "ast_hash": "f1eb3641080c903946ae553f402795f4",
+    "semantic_hash": "f1eb3641080c903946ae553f402795f4"
+  },
+  "src/components/forum/NewThreadForm.tsx": {
+    "mtime": 1794082286.2973094,
+    "seen": 1794170905.778676,
+    "ast_hash": "9763d6a1fbcd0319bf5129e6b9d6d6a2",
+    "semantic_hash": "9763d6a1fbcd0319bf5129e6b9d6d6a2"
+  },
+  "src/components/forum/NotificationsApp.tsx": {
+    "mtime": 1794026071.8285809,
+    "seen": 1794170905.7786791,
+    "ast_hash": "05423e02c33fb1d0cc5cfcc6ba7ec226",
+    "semantic_hash": "05423e02c33fb1d0cc5cfcc6ba7ec226"
+  },
+  "src/components/forum/PostBody.tsx": {
+    "mtime": 1794026071.8294666,
+    "seen": 1794170905.778682,
+    "ast_hash": "b08f7190c4ca4ac32bc6881f6a4e0f51",
+    "semantic_hash": "b08f7190c4ca4ac32bc6881f6a4e0f51"
+  },
+  "src/components/forum/ReasonDialog.tsx": {
+    "mtime": 1794079494.411974,
+    "seen": 1794170905.778684,
+    "ast_hash": "589f1e0f10f17a91923c2a88bdd0137b",
+    "semantic_hash": "589f1e0f10f17a91923c2a88bdd0137b"
+  },
+  "src/components/forum/ThreadBrowser.astro": {
+    "mtime": 1794026071.8307283,
+    "seen": 1794170905.778687,
+    "ast_hash": "0c4e3362fd8d9cc4656b3d06b3bde2b0",
+    "semantic_hash": "0c4e3362fd8d9cc4656b3d06b3bde2b0"
+  },
+  "src/components/forum/ThreadList.astro": {
+    "mtime": 1794026071.8315754,
+    "seen": 1794170905.77869,
+    "ast_hash": "a16a8d80fbe39fcb859d98fedfbec36c",
+    "semantic_hash": "a16a8d80fbe39fcb859d98fedfbec36c"
+  },
+  "src/components/forum/ThreadView.tsx": {
+    "mtime": 1794082286.2992115,
+    "seen": 1794170905.778692,
+    "ast_hash": "87de1f57eb11c19c68e1eba30f4878c3",
+    "semantic_hash": "87de1f57eb11c19c68e1eba30f4878c3"
+  },
+  "src/env.d.ts": {
+    "mtime": 1794080454.1789799,
+    "seen": 1794170905.7786949,
+    "ast_hash": "f3ac40a284ad05cc84d1bc6b3bcad07a",
+    "semantic_hash": "f3ac40a284ad05cc84d1bc6b3bcad07a"
+  },
+  "src/layouts/Base.astro": {
+    "mtime": 1794026071.8340135,
+    "seen": 1794170905.778701,
+    "ast_hash": "ce62716f19a18083be1010630f97bd07",
+    "semantic_hash": "ce62716f19a18083be1010630f97bd07"
+  },
+  "src/layouts/ForumLayout.astro": {
+    "mtime": 1794084465.4022663,
+    "seen": 1794170905.778704,
+    "ast_hash": "4bafdeb5f03f579e8f6acc68d54bd501",
+    "semantic_hash": "4bafdeb5f03f579e8f6acc68d54bd501"
+  },
+  "src/lib/archetypes.ts": {
+    "mtime": 1793307631.5568933,
+    "seen": 1794170905.778709,
+    "ast_hash": "e94d5a97479eda26b20773f95d87c563",
+    "semantic_hash": "e94d5a97479eda26b20773f95d87c563"
+  },
+  "src/lib/catalogue-cache.ts": {
+    "mtime": 1794026071.835989,
+    "seen": 1794170905.778711,
+    "ast_hash": "86d16458dc419abbfe5a1fb88b4c3686",
+    "semantic_hash": "86d16458dc419abbfe5a1fb88b4c3686"
+  },
+  "src/lib/data.ts": {
+    "mtime": 1794026071.8368647,
+    "seen": 1794170905.7787142,
+    "ast_hash": "328a86ec51aa21332fcf609bb856fe46",
+    "semantic_hash": "328a86ec51aa21332fcf609bb856fe46"
+  },
+  "src/lib/forum-people.ts": {
+    "mtime": 1794026071.83755,
+    "seen": 1794170905.778717,
+    "ast_hash": "0514d9f884b0de34b3578d48dea08c0e",
+    "semantic_hash": "0514d9f884b0de34b3578d48dea08c0e"
+  },
+  "src/lib/forum.ts": {
+    "mtime": 1794026071.838253,
+    "seen": 1794170905.778719,
+    "ast_hash": "31b955d011dfb00fe3a5581ce11cfcaf",
+    "semantic_hash": "31b955d011dfb00fe3a5581ce11cfcaf"
+  },
+  "src/lib/inline-scripts.mjs": {
+    "mtime": 1794026071.8390281,
+    "seen": 1794170905.778722,
+    "ast_hash": "52ed624e61bcdad8890bcbe5b695c8ae",
+    "semantic_hash": "52ed624e61bcdad8890bcbe5b695c8ae"
+  },
+  "src/lib/og.ts": {
+    "mtime": 1794026071.8398697,
+    "seen": 1794170905.7787242,
+    "ast_hash": "67afd399d5639f8d21505478bbdc3b9d",
+    "semantic_hash": "67afd399d5639f8d21505478bbdc3b9d"
+  },
+  "src/lib/page-csp.ts": {
+    "mtime": 1794026071.8404102,
+    "seen": 1794170905.7787268,
+    "ast_hash": "2625fbe1b8dcd7cb3baf8079a5b93c78",
+    "semantic_hash": "2625fbe1b8dcd7cb3baf8079a5b93c78"
+  },
+  "src/lib/post-text.ts": {
+    "mtime": 1794026071.8409991,
+    "seen": 1794170905.778729,
+    "ast_hash": "44660f4e1130aa8f73f01f3d020da397",
+    "semantic_hash": "44660f4e1130aa8f73f01f3d020da397"
+  },
+  "src/lib/publisher.ts": {
+    "mtime": 1794026071.8414958,
+    "seen": 1794170905.778732,
+    "ast_hash": "b29192dd41eefba46a145a84d70f7461",
+    "semantic_hash": "b29192dd41eefba46a145a84d70f7461"
+  },
+  "src/lib/watch-photos.ts": {
+    "mtime": 1792695243.8297644,
+    "seen": 1794170905.778734,
+    "ast_hash": "6237d58a2289945afc4c8fbe4a3322da",
+    "semantic_hash": "6237d58a2289945afc4c8fbe4a3322da"
+  },
+  "src/pages/404.astro": {
+    "mtime": 1792689219.2453554,
+    "seen": 1794170905.7787368,
+    "ast_hash": "70a11172cde02d59f2dfaf397b4f79f7",
+    "semantic_hash": "70a11172cde02d59f2dfaf397b4f79f7"
+  },
+  "src/pages/about.astro": {
+    "mtime": 1794026071.842349,
+    "seen": 1794170905.778739,
+    "ast_hash": "e95dd865ad4e94ace065ddb22540c0df",
+    "semantic_hash": "e95dd865ad4e94ace065ddb22540c0df"
+  },
+  "src/pages/account.astro": {
+    "mtime": 1792520073.0731988,
+    "seen": 1794170905.778742,
+    "ast_hash": "4c50f3e3380784e8731d94df1bfa2adb",
+    "semantic_hash": "4c50f3e3380784e8731d94df1bfa2adb"
+  },
+  "src/pages/account/contributions.astro": {
+    "mtime": 1794026071.8431711,
+    "seen": 1794170905.778744,
+    "ast_hash": "c46608bff1e10270a2a951bd395eb4a4",
+    "semantic_hash": "c46608bff1e10270a2a951bd395eb4a4"
+  },
+  "src/pages/admin/users.astro": {
+    "mtime": 1792520073.073561,
+    "seen": 1794170905.7787468,
+    "ast_hash": "1b88f5686927e2ba8c33fd98804e5f33",
+    "semantic_hash": "1b88f5686927e2ba8c33fd98804e5f33"
+  },
+  "src/pages/archetypes.astro": {
+    "mtime": 1793307631.5573733,
+    "seen": 1794170905.778749,
+    "ast_hash": "089f747cab08aec446268f5aec1e6cc2",
+    "semantic_hash": "089f747cab08aec446268f5aec1e6cc2"
+  },
+  "src/pages/corrections.astro": {
+    "mtime": 1794026071.8446229,
+    "seen": 1794170905.778752,
+    "ast_hash": "730e817dbcabf4120d4b82d8052f8a1d",
+    "semantic_hash": "730e817dbcabf4120d4b82d8052f8a1d"
+  },
+  "src/pages/data/falk.csv.ts": {
+    "mtime": 1792520073.0743783,
+    "seen": 1794170905.778754,
+    "ast_hash": "fbffbc33b61311d3c39b63756814679a",
+    "semantic_hash": "fbffbc33b61311d3c39b63756814679a"
+  },
+  "src/pages/data/falk.json.ts": {
+    "mtime": 1792520073.074632,
+    "seen": 1794170905.778757,
+    "ast_hash": "6aa7285c8c867256edeb7d3450921997",
+    "semantic_hash": "6aa7285c8c867256edeb7d3450921997"
+  },
+  "src/pages/data/index.astro": {
+    "mtime": 1792695243.8328204,
+    "seen": 1794170905.77876,
+    "ast_hash": "a12c1e0f8bfe5ddf25f7b458cde4839a",
+    "semantic_hash": "a12c1e0f8bfe5ddf25f7b458cde4839a"
+  },
+  "src/pages/data/schema.json.ts": {
+    "mtime": 1791916284.890157,
+    "seen": 1794170905.778763,
+    "ast_hash": "91a3571b4297ef7c72a784e6911396d1",
+    "semantic_hash": "91a3571b4297ef7c72a784e6911396d1"
+  },
+  "src/pages/editor/review.astro": {
+    "mtime": 1794026071.8455205,
+    "seen": 1794170905.778765,
+    "ast_hash": "2c9158b94eed36e27647101d3effc60b",
+    "semantic_hash": "2c9158b94eed36e27647101d3effc60b"
+  },
+  "src/pages/forum/[...rest].astro": {
+    "mtime": 1794026071.846357,
+    "seen": 1794170905.7787678,
+    "ast_hash": "c4ec83f95325c461f622401e3f685420",
+    "semantic_hash": "c4ec83f95325c461f622401e3f685420"
+  },
+  "src/pages/forum/[category].astro": {
+    "mtime": 1794026071.8470082,
+    "seen": 1794170905.778771,
+    "ast_hash": "0d80635629d7511c70a9832eaf69571b",
+    "semantic_hash": "0d80635629d7511c70a9832eaf69571b"
+  },
+  "src/pages/forum/index.astro": {
+    "mtime": 1794026071.8477437,
+    "seen": 1794170905.778773,
+    "ast_hash": "d840882ecff5768d1d844724c13f4f7b",
+    "semantic_hash": "d840882ecff5768d1d844724c13f4f7b"
+  },
+  "src/pages/forum/moderation.astro": {
+    "mtime": 1794026071.8484547,
+    "seen": 1794170905.7787762,
+    "ast_hash": "376c31eb4ae61387b3f3a290d8720e19",
+    "semantic_hash": "376c31eb4ae61387b3f3a290d8720e19"
+  },
+  "src/pages/forum/new.astro": {
+    "mtime": 1794082286.3017197,
+    "seen": 1794170905.7787788,
+    "ast_hash": "93dfca9b2d12ae675894b4cebc5c4ff7",
+    "semantic_hash": "93dfca9b2d12ae675894b4cebc5c4ff7"
+  },
+  "src/pages/forum/not-found.astro": {
+    "mtime": 1794026071.8499432,
+    "seen": 1794170905.778781,
+    "ast_hash": "de7d92de543285ebb67c3f2830de6a3c",
+    "semantic_hash": "de7d92de543285ebb67c3f2830de6a3c"
+  },
+  "src/pages/forum/notifications.astro": {
+    "mtime": 1794026071.8509188,
+    "seen": 1794170905.778784,
+    "ast_hash": "fbdc2ecb75882e975a56dea07f7756dc",
+    "semantic_hash": "fbdc2ecb75882e975a56dea07f7756dc"
+  },
+  "src/pages/forum/records/[brand]/[model].astro": {
+    "mtime": 1794026071.852198,
+    "seen": 1794170905.778786,
+    "ast_hash": "d5d01d71d507903c61f97cb5f67ad494",
+    "semantic_hash": "d5d01d71d507903c61f97cb5f67ad494"
+  },
+  "src/pages/forum/search.astro": {
+    "mtime": 1794026071.8531694,
+    "seen": 1794170905.778789,
+    "ast_hash": "7ca9313c76221c552161ce1b3322375c",
+    "semantic_hash": "7ca9313c76221c552161ce1b3322375c"
+  },
+  "src/pages/forum/sign-in/[...path].astro": {
+    "mtime": 1794026071.8540297,
+    "seen": 1794170905.778792,
+    "ast_hash": "9a4c80a8290790977b1e90b0ec67ee8f",
+    "semantic_hash": "9a4c80a8290790977b1e90b0ec67ee8f"
+  },
+  "src/pages/forum/sign-up/[...path].astro": {
+    "mtime": 1794026071.855255,
+    "seen": 1794170905.778794,
+    "ast_hash": "9c8237af232e0dacfe65a0f7816f3245",
+    "semantic_hash": "9c8237af232e0dacfe65a0f7816f3245"
+  },
+  "src/pages/forum/t/[id].astro": {
+    "mtime": 1794080454.1796756,
+    "seen": 1794170905.778796,
+    "ast_hash": "d2d57f60b0f46420967bc7a6c65631eb",
+    "semantic_hash": "d2d57f60b0f46420967bc7a6c65631eb"
+  },
+  "src/pages/forum/threads.astro": {
+    "mtime": 1794026071.8574607,
+    "seen": 1794170905.778799,
+    "ast_hash": "ff4aa2798ae72a6889fe0037d54099e8",
+    "semantic_hash": "ff4aa2798ae72a6889fe0037d54099e8"
+  },
+  "src/pages/help.astro": {
+    "mtime": 1794026071.8584125,
+    "seen": 1794170905.778802,
+    "ast_hash": "e4a540ab86f21422f66ec4a63d9bf8aa",
+    "semantic_hash": "e4a540ab86f21422f66ec4a63d9bf8aa"
+  },
+  "src/pages/index.astro": {
+    "mtime": 1794026071.861314,
+    "seen": 1794170905.778804,
+    "ast_hash": "99586922185ff997be4189280b0c8aec",
+    "semantic_hash": "99586922185ff997be4189280b0c8aec"
+  },
+  "src/pages/methodology.astro": {
+    "mtime": 1792695243.8362381,
+    "seen": 1794170905.778806,
+    "ast_hash": "5c12317c4be817404799f5e61d5d106b",
+    "semantic_hash": "5c12317c4be817404799f5e61d5d106b"
+  },
+  "src/pages/og/records/[brand]/[model].png.ts": {
+    "mtime": 1792627744.9927218,
+    "seen": 1794170905.778809,
+    "ast_hash": "20a8a7e5975f06925780e222306db1f0",
+    "semantic_hash": "20a8a7e5975f06925780e222306db1f0"
+  },
+  "src/pages/og/site.png.ts": {
+    "mtime": 1792695243.8375,
+    "seen": 1794170905.778812,
+    "ast_hash": "afac0c9c9558f71f154ef16b7dc47f83",
+    "semantic_hash": "afac0c9c9558f71f154ef16b7dc47f83"
+  },
+  "src/pages/organizations/[id].astro": {
+    "mtime": 1792695243.838952,
+    "seen": 1794170905.7788138,
+    "ast_hash": "39641e5d575acfbb345c0d15fe4ee4d6",
+    "semantic_hash": "39641e5d575acfbb345c0d15fe4ee4d6"
+  },
+  "src/pages/people/[username].astro": {
+    "mtime": 1792520073.076232,
+    "seen": 1794170905.778817,
+    "ast_hash": "0b0bcad6c375c55995080bdf5d4361fa",
+    "semantic_hash": "0b0bcad6c375c55995080bdf5d4361fa"
+  },
+  "src/pages/privacy.astro": {
+    "mtime": 1794026362.4572098,
+    "seen": 1794170905.778819,
+    "ast_hash": "9d15fe7fdf6b172f2e81eabbdba9046d",
+    "semantic_hash": "9d15fe7fdf6b172f2e81eabbdba9046d"
+  },
+  "src/pages/records/[brand]/[model].astro": {
+    "mtime": 1794026071.8640938,
+    "seen": 1794170905.778822,
+    "ast_hash": "af788721679f8c9723d40dcad0a68d87",
+    "semantic_hash": "af788721679f8c9723d40dcad0a68d87"
+  },
+  "src/pages/records/[brand]/[model].json.ts": {
+    "mtime": 1792520073.0771525,
+    "seen": 1794170905.7788239,
+    "ast_hash": "4cb51617f60360feeb41b9449d8b0608",
+    "semantic_hash": "4cb51617f60360feeb41b9449d8b0608"
+  },
+  "src/pages/records/index.astro": {
+    "mtime": 1794026071.864985,
+    "seen": 1794170905.778827,
+    "ast_hash": "71fb92d8fa2a43f100d0197b56a7485e",
+    "semantic_hash": "71fb92d8fa2a43f100d0197b56a7485e"
+  },
+  "src/pages/records/new.astro": {
+    "mtime": 1794026071.8656845,
+    "seen": 1794170905.778829,
+    "ast_hash": "eef9d9c0200c9a18adbf43cdbbabef4a",
+    "semantic_hash": "eef9d9c0200c9a18adbf43cdbbabef4a"
+  },
+  "src/pages/robots.txt.ts": {
+    "mtime": 1792627744.9939358,
+    "seen": 1794170905.778832,
+    "ast_hash": "a9d2937276bba3ac45e2d5328720037d",
+    "semantic_hash": "a9d2937276bba3ac45e2d5328720037d"
+  },
+  "src/pages/sign-in/[...path].astro": {
+    "mtime": 1793732179.419864,
+    "seen": 1794170905.778835,
+    "ast_hash": "f411641385f2658d75971689655ca286",
+    "semantic_hash": "f411641385f2658d75971689655ca286"
+  },
+  "src/pages/sign-up/[...path].astro": {
+    "mtime": 1793732179.420294,
+    "seen": 1794170905.778837,
+    "ast_hash": "4e71ff5c53181b6f9103c264af452111",
+    "semantic_hash": "4e71ff5c53181b6f9103c264af452111"
+  },
+  "src/pages/sitemap.xml.ts": {
+    "mtime": 1794026071.8679056,
+    "seen": 1794170905.77884,
+    "ast_hash": "eddc4ef0e27f917a3811b2075e79fe1d",
+    "semantic_hash": "eddc4ef0e27f917a3811b2075e79fe1d"
+  },
+  "src/pages/sources.astro": {
+    "mtime": 1794026071.8686862,
+    "seen": 1794170905.778843,
+    "ast_hash": "d50d352e5cefb213e5b1397f627e7c05",
+    "semantic_hash": "d50d352e5cefb213e5b1397f627e7c05"
+  },
+  "src/pages/terms.astro": {
+    "mtime": 1794026071.869327,
+    "seen": 1794170905.7788448,
+    "ast_hash": "1ebfa22116d337d1b3b10dfd35756a63",
+    "semantic_hash": "1ebfa22116d337d1b3b10dfd35756a63"
+  },
+  "src/schema.ts": {
+    "mtime": 1791916284.8932953,
+    "seen": 1794170905.778848,
+    "ast_hash": "878a3cc44cd78957d10b61da8b34a11e",
+    "semantic_hash": "878a3cc44cd78957d10b61da8b34a11e"
+  },
+  "tsconfig.json": {
+    "mtime": 1792520073.0811117,
+    "seen": 1794170905.778851,
+    "ast_hash": "201f1ec3d9f058d4cb7d7ae493d86297",
+    "semantic_hash": "201f1ec3d9f058d4cb7d7ae493d86297"
+  },
+  ".github/pull_request_template.md": {
+    "mtime": 1793121364.1414533,
+    "seen": 1794170905.7788532,
+    "ast_hash": "86d5bf9b37b45ad1cfdfde463823c461",
+    "semantic_hash": "86d5bf9b37b45ad1cfdfde463823c461"
+  },
+  "README.md": {
+    "mtime": 1794026071.7702446,
+    "seen": 1794170905.778856,
+    "ast_hash": "3f8204bd252c2dab00159e1e0a3ebb0f",
+    "semantic_hash": "3f8204bd252c2dab00159e1e0a3ebb0f"
+  },
+  "docs/ACCOUNTS-EDITORIAL-IMPLEMENTATION.md": {
+    "mtime": 1792627744.9488852,
+    "seen": 1794170905.778858,
+    "ast_hash": "0bb2025dabb6e1b37818a205d3a8ebc9",
+    "semantic_hash": "0bb2025dabb6e1b37818a205d3a8ebc9"
+  },
+  "docs/DECISIONS.md": {
+    "mtime": 1794026071.778282,
+    "seen": 1794170905.778861,
+    "ast_hash": "859e29a567123820221e9d2c047c2fdb",
+    "semantic_hash": "859e29a567123820221e9d2c047c2fdb"
+  },
+  "docs/DESIGN.md": {
+    "mtime": 1793307631.543521,
+    "seen": 1794170905.7788641,
+    "ast_hash": "e6bd1edfbe4cb85225c7baa5f9661b14",
+    "semantic_hash": "e6bd1edfbe4cb85225c7baa5f9661b14"
+  },
+  "docs/EDITORIAL.md": {
+    "mtime": 1794026071.7797573,
+    "seen": 1794170905.778867,
+    "ast_hash": "708b741acf51e9aed604b668f1cf91bb",
+    "semantic_hash": "708b741acf51e9aed604b668f1cf91bb"
+  },
+  "docs/PLAN.md": {
+    "mtime": 1793121364.143341,
+    "seen": 1794170905.778869,
+    "ast_hash": "6aa12c237aed973e0f6b28302f5bcaf4",
+    "semantic_hash": "6aa12c237aed973e0f6b28302f5bcaf4"
+  },
+  "public/images/movements/CREDITS.txt": {
+    "mtime": 1792645972.2437208,
+    "seen": 1794170905.778872,
+    "ast_hash": "2d6bfbede4a5c7cf403a7f75b2f5a72c",
+    "semantic_hash": "2d6bfbede4a5c7cf403a7f75b2f5a72c"
+  },
+  "replit.md": {
+    "mtime": 1794026071.7847283,
+    "seen": 1794170905.7788749,
+    "ast_hash": "5c1936763cbcc9e62ea15f25e72b819f",
+    "semantic_hash": "5c1936763cbcc9e62ea15f25e72b819f"
+  },
+  "server/og/fonts/OFL.txt": {
+    "mtime": 1792627744.9775598,
+    "seen": 1794170905.778878,
+    "ast_hash": "f77a6739188f623654c0a7ad6c11f82b",
+    "semantic_hash": "f77a6739188f623654c0a7ad6c11f82b"
+  },
+  "docs/FALK_Index_v0.2_Redesigned.pdf": {
+    "mtime": 1791402322.254205,
+    "seen": 1794170905.77888,
+    "ast_hash": "8260e9ca3580fa027d394f3253253fec",
+    "semantic_hash": "8260e9ca3580fa027d394f3253253fec"
+  },
+  "public/favicon.svg": {
+    "mtime": 1792627744.9558568,
+    "seen": 1794170905.778883,
+    "ast_hash": "220ea8db0e5935b5c3c8791d24a37281",
+    "semantic_hash": "220ea8db0e5935b5c3c8791d24a37281"
+  },
+  "public/images/guilloche-1200.jpg": {
+    "mtime": 1792645972.2383778,
+    "seen": 1794170905.7788851,
+    "ast_hash": "d8a01311a3b2a780dc8f91ec5d4277b8",
+    "semantic_hash": "d8a01311a3b2a780dc8f91ec5d4277b8"
+  },
+  "public/images/guilloche-1600.jpg": {
+    "mtime": 1792645972.242749,
+    "seen": 1794170905.778888,
+    "ast_hash": "591b05d4a70533de568ffce4cfac0b48",
+    "semantic_hash": "591b05d4a70533de568ffce4cfac0b48"
+  },
+  "public/images/movements/escapement-jewels-1600.jpg": {
+    "mtime": 1792645972.246512,
+    "seen": 1794170905.77889,
+    "ast_hash": "7295e0bf6df4bd088bf9d0031fdf7e28",
+    "semantic_hash": "7295e0bf6df4bd088bf9d0031fdf7e28"
+  },
+  "public/images/movements/escapement-jewels-800.jpg": {
+    "mtime": 1792645972.2478564,
+    "seen": 1794170905.778893,
+    "ast_hash": "ef32a6934c8e19fbd75d98c647ffd439",
+    "semantic_hash": "ef32a6934c8e19fbd75d98c647ffd439"
+  },
+  "public/images/movements/nomos-duw-6101-angled-1600.jpg": {
+    "mtime": 1792645972.2495759,
+    "seen": 1794170905.7788959,
+    "ast_hash": "82cda19e9080827ecc10385ad6a72fce",
+    "semantic_hash": "82cda19e9080827ecc10385ad6a72fce"
+  },
+  "public/images/movements/nomos-duw-6101-angled-800.jpg": {
+    "mtime": 1792645972.2517552,
+    "seen": 1794170905.778898,
+    "ast_hash": "aeb9c716456a93f757098b3a4cfac76c",
+    "semantic_hash": "aeb9c716456a93f757098b3a4cfac76c"
+  },
+  "public/images/movements/nomos-duw-6101-caseback-1600.jpg": {
+    "mtime": 1792645972.2557287,
+    "seen": 1794170905.778901,
+    "ast_hash": "55464ab05f3e079f68d95f3e8829d010",
+    "semantic_hash": "55464ab05f3e079f68d95f3e8829d010"
+  },
+  "public/images/movements/nomos-duw-6101-caseback-800.jpg": {
+    "mtime": 1792645972.2579274,
+    "seen": 1794170905.778903,
+    "ast_hash": "5dc90019292818d252707af03f82a31d",
+    "semantic_hash": "5dc90019292818d252707af03f82a31d"
+  },
+  "public/images/movements/omega-1861-1600.jpg": {
+    "mtime": 1792645972.2611895,
+    "seen": 1794170905.778906,
+    "ast_hash": "1708b83b1894e7d921ec1568d5d1716a",
+    "semantic_hash": "1708b83b1894e7d921ec1568d5d1716a"
+  },
+  "public/images/movements/omega-1861-800.jpg": {
+    "mtime": 1792645972.2623568,
+    "seen": 1794170905.778909,
+    "ast_hash": "99e0fcbe8909d6d6575cc7d1ade2ea08",
+    "semantic_hash": "99e0fcbe8909d6d6575cc7d1ade2ea08"
+  },
+  "public/images/movements/omega-321-1600.jpg": {
+    "mtime": 1792645972.2649686,
+    "seen": 1794170905.778912,
+    "ast_hash": "5fe7b6239a42f206ee88b6b5cad38d31",
+    "semantic_hash": "5fe7b6239a42f206ee88b6b5cad38d31"
+  },
+  "public/images/movements/omega-321-800.jpg": {
+    "mtime": 1792645972.2659304,
+    "seen": 1794170905.778914,
+    "ast_hash": "bbd04d7cb190c1487a9b2342d574e115",
+    "semantic_hash": "bbd04d7cb190c1487a9b2342d574e115"
+  },
+  "public/images/watches/nomos/tangente-neomatik/back-1200.jpg": {
+    "mtime": 1792653331.4041991,
+    "seen": 1794170905.778917,
+    "ast_hash": "0aeb45472af9b1953f9c5eb3f4396712",
+    "semantic_hash": "0aeb45472af9b1953f9c5eb3f4396712"
+  },
+  "public/images/watches/nomos/tangente-neomatik/back-600.jpg": {
+    "mtime": 1792653331.4078493,
+    "seen": 1794170905.778919,
+    "ast_hash": "f5627e5d79678f832797d37809819904",
+    "semantic_hash": "f5627e5d79678f832797d37809819904"
+  },
+  "public/images/watches/nomos/tangente-neomatik/front-1200.jpg": {
+    "mtime": 1792653331.4132996,
+    "seen": 1794170905.778922,
+    "ast_hash": "b0e5c74e43fc05d86785c6735a01bde6",
+    "semantic_hash": "b0e5c74e43fc05d86785c6735a01bde6"
+  },
+  "public/images/watches/nomos/tangente-neomatik/front-600.jpg": {
+    "mtime": 1792653331.414543,
+    "seen": 1794170905.778931,
+    "ast_hash": "c465963881eb4be4ef1e90cdb76b356c",
+    "semantic_hash": "c465963881eb4be4ef1e90cdb76b356c"
+  },
+  "public/images/watches/roger-w-smith/series-2/front-1200.jpg": {
+    "mtime": 1792653331.416268,
+    "seen": 1794170905.778934,
+    "ast_hash": "862fdabded706f51e405ad941e2acc73",
+    "semantic_hash": "862fdabded706f51e405ad941e2acc73"
+  },
+  "public/images/watches/roger-w-smith/series-2/front-600.jpg": {
+    "mtime": 1792653331.4174972,
+    "seen": 1794170905.7789361,
+    "ast_hash": "862fdabded706f51e405ad941e2acc73",
+    "semantic_hash": "862fdabded706f51e405ad941e2acc73"
+  },
+  "public/images/watches/tudor/black-bay-chrono/front-1200.jpg": {
+    "mtime": 1792653331.4248056,
+    "seen": 1794170905.778941,
+    "ast_hash": "f90d4d98b904d73e432917adbe8c917b",
+    "semantic_hash": "f90d4d98b904d73e432917adbe8c917b"
+  },
+  "public/images/watches/tudor/black-bay-chrono/front-600.jpg": {
+    "mtime": 1792653331.4268653,
+    "seen": 1794170905.778945,
+    "ast_hash": "ec8210d0880e34914ee091c1ed794b03",
+    "semantic_hash": "ec8210d0880e34914ee091c1ed794b03"
+  }
+}

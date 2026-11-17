@@ -3,7 +3,7 @@ import compression from 'compression';
 import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { clerkMiddleware } from '@clerk/express';
+import { clerkMiddleware, getAuth } from '@clerk/express';
 import { publishableKeyFromHost } from '@clerk/shared/keys';
 import { createFixedProxyMiddleware } from './middlewares/fixedProxy.ts';
 import { ZodError } from 'zod';
@@ -11,7 +11,8 @@ import { CLERK_PROXY_PATH,clerkProxyMiddleware,getClerkProxyHost } from './middl
 import { forumHost } from './middlewares/forumHost.ts';
 import { hostPolicy, siteHost, type HostPolicy } from './middlewares/siteHost.ts';
 import { pagePolicy, reportReceiver } from './csp.ts';
-import { HttpError } from './accounts.ts';
+import { authenticatedAccount, HttpError } from './accounts.ts';
+import type { Account } from '../src/accounts/contracts.ts';
 import { api } from './api.ts';
 import { loadCatalogue } from './catalogue.ts';
 import { waitForDatabase } from './db.ts';
@@ -106,7 +107,13 @@ export async function attachProductionSite(app: express.Express, limits?: PageLi
   // Static files were answered above; everything left is a rendered page or a generated share image.
   app.use(pageLimit(limits));
   app.use(pagePolicy());
-  app.use(handler);
+  // A page that shows a signed-in reader's own controls asks for the account while rendering, so it is right on first
+  // paint. Only pages that ask pay for the lookup, which is usually one database read (Clerk's recent answer is reused).
+  app.use((req,res,next) => {
+    let account: Promise<Account | null> | undefined;
+    const locals: App.Locals = { account:() => account ??= getAuth(req).userId ? authenticatedAccount(req).then(r => r.account,() => null) : Promise.resolve(null) };
+    handler(req,res,next,locals);
+  });
 }
 export async function start() {
   const app = createApp();

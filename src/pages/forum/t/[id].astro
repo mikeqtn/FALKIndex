@@ -7,8 +7,11 @@ import { getCatalogue } from '../../../lib/data.ts';
 import { forumDate, forumLinks, forumPath, hasSession, siteHref, signInHref } from '../../../lib/forum.ts';
 const id = Astro.params.id ?? '';
 const page = pageQuery.safeParse({ page:Astro.url.searchParams.get('page') ?? undefined });
-// The server renders the public view; a signed-in reader's own and moderator view loads in the browser.
-const detail = /^[0-9a-f-]{36}$/.test(id) && page.success ? await threadDetail(id, page.data.page, null) : null;
+// A signed-in reader gets their own and moderator view on first paint. Without the account (the dev server, or a
+// lookup that failed), the public view renders and the browser loads theirs.
+const account = hasSession(Astro.request.headers.get('cookie')) ? await Astro.locals.account?.() ?? null : null;
+if (account) Astro.response.headers.set('Cache-Control', 'private, no-store');
+const detail = /^[0-9a-f-]{36}$/.test(id) && page.success ? await threadDetail(id, page.data.page, account && { id:account.id, role:account.role }) : null;
 if (!detail) return Astro.rewrite('/forum/not-found/');
 const { thread } = detail;
 const first = detail.posts.find(p => p.body)?.body ?? '';
@@ -18,7 +21,7 @@ const record = thread.record ? records.find(r => r.id === thread.record) : undef
 <ForumLayout nav={thread.category} title={thread.title} description={first.slice(0, 160)}>
   <div class="f-with-rail">
     <div style="min-width: 0">
-      <ThreadView client:load detail={detail} links={forumLinks()} signedIn={hasSession(Astro.request.headers.get('cookie'))} signInHref={signInHref(Astro.url.pathname)} />
+      <ThreadView client:load detail={detail} links={forumLinks()} signedIn={hasSession(Astro.request.headers.get('cookie'))} account={account && { role:account.role, onboarded:account.onboarded }} signInHref={signInHref(Astro.url.pathname)} />
     </div>
     <aside class="f-rail" aria-label="About this thread">
       {record && <section aria-labelledby="f-about-record">
