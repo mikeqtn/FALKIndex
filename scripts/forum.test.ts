@@ -126,8 +126,9 @@ test('threads list, read, link to records and are found by search', () => member
 }));
 
 test('the search box suggests threads by title or post, matching words as they are typed', () => members(async (db, m) => {
-  const { thread:titled } = await createThread(m.alice, { ...thread, title:'Tourbillon questions' }, db);
-  const { thread:id } = await createThread(m.alice, thread, db);
+  // A moderator, since new members may start one thread an hour.
+  const { thread:titled } = await createThread(m.editor, { ...thread, title:'Tourbillon questions' }, db);
+  const { thread:id } = await createThread(m.editor, thread, db);
   await reply(m.bob, id, { body:'A tourbillon rarely pays for itself.' }, db);
   assert.deepEqual(await suggestThreads('tourb', db), [{ id:titled, title:'Tourbillon questions' }, { id, title:thread.title }], 'title matches first, only ids and titles');
   assert.deepEqual(await suggestThreads('who mak', db), [{ id, title:thread.title }], 'every word must match');
