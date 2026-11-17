@@ -216,15 +216,15 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           </li>)}
           {uploading && <li><span className="f-skel f-dm-skel-thumb" /><span className="sr-only" role="status">Uploading</span></li>}
         </ul>}
+        <label className="sr-only" htmlFor="f-dm-draft">Message {chat.with.displayName}</label>
+        <textarea id="f-dm-draft" ref={field} value={draft} rows={1} maxLength={2000} placeholder={`Message ${chat.with.displayName}`}
+          onChange={e => setDraft(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
         <label className={`f-dm-icon f-dm-attach${attached.length >= MAX_IMAGES || uploading ? ' disabled' : ''}`} title={`Add images (up to ${MAX_IMAGES})`}>
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M21 16l-5-5-9 8" /></svg>
           <span className="sr-only">Add images</span>
           <input className="sr-only" type="file" accept={IMAGE_TYPES.join(',')} multiple disabled={attached.length >= MAX_IMAGES || uploading} onChange={attach} />
         </label>
-        <label className="sr-only" htmlFor="f-dm-draft">Message {chat.with.displayName}</label>
-        <textarea id="f-dm-draft" ref={field} value={draft} rows={1} maxLength={2000} placeholder={`Message ${chat.with.displayName}`}
-          onChange={e => setDraft(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
         <button className="account-button" disabled={busy || uploading || (!draft.trim() && !attached.length)}>Send</button>
       </form>}
   </>;

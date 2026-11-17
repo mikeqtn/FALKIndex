@@ -419,9 +419,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-edit textarea { width: 100%; padding: 8px 12px; background: var(--c-page); border: 1px solid var(--c-ink-2); border-radius: 14px; font: 400 15px/21px var(--f-serif); resize: none; }
 .f-dm-edit .f-dm-actions { justify-content: flex-end; }
 .f-dm-refusal { flex: none; padding: var(--s-3) var(--s-4); border-top: var(--edge); color: var(--c-ink-2); font-size: 14px; }
-/* The composer: add images, the message box and Send on one row, all one control high and lined up along the bottom
+/* The composer: the message box, add images and Send on one row, all one control high and lined up along the bottom
    as the box grows; images waiting to be sent sit on their own row above. --dm-control is that height. */
-.f-dm-compose { --dm-control: 40px; display: grid; flex: none; grid-template-columns: var(--dm-control) minmax(0, 1fr) auto; align-items: end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
+.f-dm-compose { --dm-control: 40px; display: grid; flex: none; grid-template-columns: minmax(0, 1fr) var(--dm-control) auto; align-items: end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
 .f-dm-attach { position: relative; width: var(--dm-control); height: var(--dm-control); cursor: pointer; }
 .f-dm-attach:focus-within { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .f-dm-attach.disabled { opacity: .45; cursor: default; }
