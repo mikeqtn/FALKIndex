@@ -162,12 +162,17 @@ test('images in a message are seen only by its two members, and go for good when
 
 test('new accounts cannot send links and start only a few conversations an hour', () => members(async (db, m) => {
   await assert.rejects(sendMessage(m.alice.id, m.bob.name, { body:'See https://example.com' }, db), /cannot send links/);
-  const others = [m.bob, m.carol, m.editor];
-  for (const other of others.slice(0, NEW_MEMBER_CONVERSATIONS_PER_HOUR)) await sendMessage(m.alice.id, other.name, { body:'Hello' }, db);
-  await sendMessage(m.alice.id, m.bob.name, { body:'A second message in a conversation I have' }, db);
-  const fourth = (await db.query("INSERT INTO falk_account(realm,clerk_id,username,email_verified) VALUES($1,$2,$3,true) RETURNING username", [realm(), `test-${randomUUID()}`, `t_${randomUUID().slice(0, 8)}`])).rows[0].username;
-  await assert.rejects(sendMessage(m.alice.id, fourth, { body:'Hello' }, db), /three conversations an hour/);
-  await sendMessage(m.editor.id, fourth, { body:'Moderators are exempt, https://example.com' }, db);
+  const account = async () => (await db.query("INSERT INTO falk_account(realm,clerk_id,username,email_verified) VALUES($1,$2,$3,true) RETURNING username", [realm(), `test-${randomUUID()}`, `t_${randomUUID().slice(0, 8)}`])).rows[0].username as string;
+  assert.equal(NEW_MEMBER_CONVERSATIONS_PER_HOUR, 20);
+  const started: string[] = [];
+  for (let i = 0; i < NEW_MEMBER_CONVERSATIONS_PER_HOUR; i++) {
+    started.push(await account());
+    await sendMessage(m.alice.id, started[i], { body:'Hello' }, db);
+  }
+  await sendMessage(m.alice.id, started[0], { body:'A second message in a conversation I have' }, db);
+  const extra = await account();
+  await assert.rejects(sendMessage(m.alice.id, extra, { body:'Hello' }, db), /start 20 conversations an hour/);
+  await sendMessage(m.editor.id, extra, { body:'Moderators are exempt, https://example.com' }, db);
 }, { established:false }));
 
 test('the Message box suggests members by username or name, people already messaged first', () => members(async (db, m) => {
