@@ -141,15 +141,17 @@ export async function sendMessage(actorId: string, name: string, input: z.infer<
       AND (SELECT sender_id FROM falk_forum_message WHERE conversation_id=c.id ORDER BY created_at,id LIMIT 1)=$1`, [me.id])).rows[0].count;
     if (!conversation && started >= NEW_MEMBER_CONVERSATIONS_PER_HOUR) throw new HttpError(429,'New accounts can start three conversations an hour. Please try again later.');
   }
+  // Only my own uploads that are on nothing yet, checked (and locked) before anything is written.
+  const free = 'i.uploader_id=$2 AND i.post_id IS NULL AND i.message_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL';
+  if (input.images?.length) {
+    const usable = await db.query(`SELECT i.id FROM falk_forum_image i WHERE i.id=ANY($1::uuid[]) AND ${free} FOR UPDATE`, [input.images,me.id]);
+    if (usable.rowCount !== input.images.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
+  }
   conversation ??= (await db.query(`INSERT INTO falk_forum_conversation(member_a,member_b) VALUES($1,$2)
     ON CONFLICT(member_a,member_b) DO UPDATE SET member_a=EXCLUDED.member_a RETURNING id`, [a,b])).rows[0].id as string;
   const message = (await db.query('INSERT INTO falk_forum_message(conversation_id,sender_id,body) VALUES($1,$2,$3) RETURNING id', [conversation,me.id,input.body])).rows[0].id as string;
-  if (input.images?.length) {
-    // Only my own uploads that are on nothing yet.
-    const attached = await db.query(`UPDATE falk_forum_image i SET message_id=$1,position=o.position FROM unnest($2::uuid[]) WITH ORDINALITY AS o(id,position)
-      WHERE i.id=o.id AND i.uploader_id=$3 AND i.post_id IS NULL AND i.message_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL`, [message,input.images,me.id]);
-    if (attached.rowCount !== input.images.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
-  }
+  if (input.images?.length) await db.query(`UPDATE falk_forum_image i SET message_id=$3,position=o.position
+    FROM unnest($1::uuid[]) WITH ORDINALITY AS o(id,position) WHERE i.id=o.id AND ${free}`, [input.images,me.id,message]);
   return { message:await messageById(db,message,me.id) };
 }
 
