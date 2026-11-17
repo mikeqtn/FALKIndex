@@ -1,5 +1,7 @@
 id: schwab-feller
 name: Schwab-Feller
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CH
 notes: Barrel maker; credited for the LM Sequential EVO.

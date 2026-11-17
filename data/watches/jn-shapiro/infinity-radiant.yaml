@@ -3,84 +3,6 @@ brand: jn-shapiro
 model: Infinity Radiant
 caliber: La Joux-Perret 5000-4
 notes: Split from the handbook's "Infinity Series" record on 2026-10-14. Evidence so far is the maker's Infinity Series page only.
-claims:
-  - id: jns-rad-ljp
-    statement: The Infinity Radiant uses the La Joux-Perret 5000-4.
-    excerpt: At the heart of the Infinity Radiant is the La Joux-Perret 5000-4,
-    source: jns-infinity-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-13
-    editor: falk-index
-  - id: jns-rad-partner-movements
-    statement: The maker states that Infinity movements come from partners.
-    excerpt: we pair our work with movements from partners whose standards match our own
-    source: jns-infinity-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-13
-    editor: falk-index
-  - id: jns-rad-weave
-    statement: The Basket and Infinity Weave patterns are engine-turned into the zirconium dial.
-    excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
-    source: jns-infinity-page
-    dimensions:
-      - DH
-      - CF
-      - PD
-    date_checked: 2026-10-13
-    editor: falk-index
-  - id: jns-rad-our-weave
-    statement: The maker engine-turns its signature Infinity Weave directly into the dial metal.
-    excerpt: engine-turning our signature Infinity Weave directly onto the surface of the metal itself
-    source: jns-infinity-page
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-13
-    editor: falk-index
-  - id: jns-rad-hands
-    statement: The hands are sculpted in three dimensions.
-    excerpt: sculpted three dimensional hands
-    source: jns-infinity-page
-    dimensions:
-      - DH
-    date_checked: 2026-10-13
-    editor: falk-index
-  - id: jns-rad-case-in-house
-    statement: A Revolution article on the Radiant reports that its tantalum case is made in-house.
-    excerpt: The tantalum case is made in-house and measures 38mm x 9.6mm including crystal
-    source: revolution-jn-shapiro-radiant
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: jns-rad-tantalum-cases-2021
-    statement: Joshua Shapiro says that in December 2021 the brand produced tantalum watch cases for the Infinity Series, the first made outside Switzerland.
-    excerpt: we produced the first tantalum wrist watch cases made outside of Switzerland for the Infinity Series
-    source: jns-about-page
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: jns-rad-bracelet-ming
-    statement: On the maker's Radiant page, the optional bracelet details are followed by a note that it was engineered in collaboration with MING for the Alternative Horological Alliance.
-    excerpt: Engineered in collaboration with Horologer MING for the Alternative Horological Alliance
-    source: jns-infinity-page
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: jns-rad-service
-    statement: The maker states that it is equipped to maintain its own watches throughout their lifetime.
-    excerpt: J.N. Shapiro is equipped to maintain our own timepieces throughout their lifetime
-    source: jns-service-page
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret 5000-4)
@@ -134,15 +56,103 @@ provenance:
     note: The maker's service page covers its own timepieces in general.
     claims:
       - jns-rad-service
+claims:
+  - id: jns-rad-ljp
+    statement: The Infinity Radiant uses the La Joux-Perret 5000-4.
+    excerpt: At the heart of the Infinity Radiant is the La Joux-Perret 5000-4,
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-rad-partner-movements
+    statement: The maker states that Infinity movements come from partners.
+    excerpt: we pair our work with movements from partners whose standards match our own
+    source: jns-infinity-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-rad-weave
+    statement: The Basket and Infinity Weave patterns are engine-turned into the zirconium dial.
+    excerpt: Each Basket and Infinity Weave pattern is painstakingly engine-turned into the zirconium dial
+    source: jns-infinity-page
+    dimensions:
+      - DH
+      - CF
+      - PD
+    date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-rad-our-weave
+    statement: The maker engine-turns its signature Infinity Weave directly into the dial metal.
+    excerpt: engine-turning our signature Infinity Weave directly onto the surface of the metal itself
+    source: jns-infinity-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-rad-hands
+    statement: The hands are sculpted in three dimensions.
+    excerpt: sculpted three dimensional hands
+    source: jns-infinity-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-rad-case-in-house
+    statement: A Revolution article on the Radiant reports that its tantalum case is made in-house.
+    excerpt: The tantalum case is made in-house and measures 38mm x 9.6mm including crystal
+    source: revolution-jn-shapiro-radiant
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-rad-tantalum-cases-2021
+    statement: Joshua Shapiro says that in December 2021 the brand produced tantalum watch cases for the Infinity Series, the first made outside Switzerland.
+    excerpt: we produced the first tantalum wrist watch cases made outside of Switzerland for the Infinity Series
+    source: jns-about-page
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-rad-bracelet-ming
+    statement: On the maker's Radiant page, the optional bracelet details are followed by a note that it was engineered in collaboration with MING for the Alternative Horological Alliance.
+    excerpt: Engineered in collaboration with Horologer MING for the Alternative Horological Alliance
+    source: jns-infinity-page
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-rad-service
+    statement: The maker states that it is equipped to maintain its own watches throughout their lifetime.
+    excerpt: J.N. Shapiro is equipped to maintain our own timepieces throughout their lifetime
+    source: jns-service-page
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: mikeqtn
-    created_on: 2026-10-14
     change_note: New record, split from the handbook's Infinity Series. First profile, from the maker's page only; no specialist source covers the Radiant yet. Scored lower than the 2019 Infinity on DH and CF because the depth of in-house dial work is not documented for this model. Reviewed and approved by mikeqtn on 2026-10-14.
+    created_on: 2026-10-14
     scores:
       MA:
         value: 0
@@ -206,9 +216,10 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    created_on: 2026-11-17
     change_note: "Adds Revolution's launch article on the Radiant (2026), the maker's About page and its Service page, and the bracelet note on the maker's Infinity Series page. Changes from version 1: EX U → 2. Confidence stays C: EX rests on a secondary source, since the maker's own tantalum-case statement does not name the Radiant. One of seven dimensions remains U (WE)."
+    created_on: 2026-11-17
     scores:
       MA:
         value: 0
@@ -229,7 +240,7 @@ profiles:
             note: Names the movement maker.
       EX:
         value: 2
-        rationale: "Revolution reports that the Radiant's tantalum case is made in-house (jns-rad-case-in-house), and the maker says it has produced tantalum cases for the Infinity Series since 2021 (jns-rad-tantalum-cases-2021), which is consistent but does not name the Radiant. That makes the case one important component family made internally. It is not 3 because no source says who makes the crown, crystal or the optional bracelet, which the maker says was engineered with MING for the Alternative Horological Alliance (jns-rad-bracelet-ming). Borderline between 2 and 3, as the case is the main exterior part on the standard strap version."
+        rationale: Revolution reports that the Radiant's tantalum case is made in-house (jns-rad-case-in-house), and the maker says it has produced tantalum cases for the Infinity Series since 2021 (jns-rad-tantalum-cases-2021), which is consistent but does not name the Radiant. That makes the case one important component family made internally. It is not 3 because no source says who makes the crown, crystal or the optional bracelet, which the maker says was engineered with MING for the Alternative Horological Alliance (jns-rad-bracelet-ming). Borderline between 2 and 3, as the case is the main exterior part on the standard strap version.
         evidence:
           - claim: jns-rad-case-in-house
             stance: supports

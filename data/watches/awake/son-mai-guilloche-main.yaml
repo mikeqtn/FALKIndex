@@ -55,6 +55,7 @@ claims:
       - MM
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-gm-renzetti
     statement: The hand guilloché dials are made by the Renzetti family workshop in Italy.
     excerpt: we collaborate with the Renzetti family, one of the last European workshops dedicated to Guilloché Main
@@ -65,6 +66,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-gm-italy
     statement: The guilloché is cut in Italy on a hand-guided rose engine.
     excerpt: Crafted in Italy on a traditional rose engine, operated and guided entirely by the artisan's hand
@@ -74,6 +76,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-gm-hanoi
     statement: The dial is sent to Hanoi for Sơn Mài lacquer.
     excerpt: the dial is sent to Hanoi, where it is elevated through the application of Son Mài lacquer
@@ -83,6 +86,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-gm-lacquer-workshop
     statement: The lacquer is applied by a partner workshop in Vietnam.
     excerpt: We continue our collaboration with one of Vietnam's most prestigious workshops
@@ -92,6 +96,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-artisans-network
     statement: The watches depend on external craftspeople in several countries.
     excerpt: Without these passionate and talented craftspeople, not a single AWAKE watch would exist.
@@ -101,6 +106,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: aw-small-team
     statement: AWAKE describes itself as a small team.
     excerpt: AWAKE is a small team.
@@ -110,6 +116,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -124,18 +131,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 0
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - artisan_etablisseur
   - version: 2
@@ -143,6 +157,7 @@ profiles:
     confidence: B
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: EX 0 → U and WE 0 → U (no source on the case maker or assembly). Confidence A → B: the movement, dial and lacquer partners are documented, but the case and assembly are not. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13

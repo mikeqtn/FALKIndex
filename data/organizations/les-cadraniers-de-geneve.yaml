@@ -2,5 +2,7 @@ id: les-cadraniers-de-geneve
 name: Les Cadraniers de Genève
 kind: supplier
 parent: fp-journe
+ownership: unknown
+scale: unknown
 country: CH
 notes: Dial maker owned by Montres Journe; also makes dials for third-party brands.

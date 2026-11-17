@@ -1,5 +1,7 @@
 id: novocristal
 name: Novocristal
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CH
 notes: Sapphire crystal maker; credited for LM Sequential EVO crystals.

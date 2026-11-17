@@ -3,163 +3,6 @@ brand: omega
 model: Speedmaster Moonwatch
 caliber: "3861"
 notes: Handbook v0.2 §8 lists this record as "Omega — Speedmaster Moonwatch 3861".
-claims:
-  - id: osm3861-base
-    statement: A specialist site describes calibre 3861 as essentially the 1861 fitted with a co-axial escapement.
-    excerpt: essentially the 1861 fitted with a co-axial escapement
-    source: omega-wornandwound-3861
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-lemania
-    statement: The same article traces the lineage to Omega calibre 321, which has roots with Lemania.
-    excerpt: to Omega's Caliber 321, which itself has roots with Lemania
-    source: omega-wornandwound-3861
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-escapement
-    statement: A specialist site reports the 3861 uses a co-axial escapement, Si14 silicon hairspring and non-ferrous escapement alloys.
-    excerpt: features a Daniels Co-Axial escapement, Si14 silicon hairspring, as well as non-ferrous alloys for the escapement
-    source: omega-sjx-3861-launch
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-metas
-    statement: The same article says the watch passed timing and functional testing overseen by METAS.
-    excerpt: passed comprehensive timing and functional testing overseen by METAS.
-    source: omega-sjx-3861-launch
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-case
-    statement: The same article describes a 42 mm case with a double-step case back; it does not name the case maker.
-    excerpt: The case remains the traditional 42 mm, but with a double-step case back like the vintage original.
-    source: omega-sjx-3861-launch
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-dial
-    statement: The same article describes an applied Omega emblem and a step along the chapter ring; the dial maker is not named.
-    excerpt: an applied Omega emblem as well as small step along the chapter ring
-    source: omega-sjx-3861-launch
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-bracelet
-    statement: A specialist site says the steel bracelet follows that of the gold Apollo 11 anniversary model; the maker is not named.
-    excerpt: The bracelet is a steel version of the gold Apollo 11 anniversary watch
-    source: omega-wornandwound-3861
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-crystal
-    statement: The same article lists a Hesalite-crystal reference alongside a sapphire version.
-    excerpt: the traditional Hesalite crystal Moonwatch
-    source: omega-wornandwound-3861
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: omega-eta-factory
-    statement: A 2016 specialist article reports that the Master Co-Axial movement factory is operated by ETA exclusively for Omega.
-    excerpt: Operated by ETA exclusively for Omega, the Master Co-Axial factory is the cutting edge of movement production.
-    source: omega-sjx-movement-2016
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: omega-bienne-casing
-    statement: The same article says movements are sent to Omega headquarters in Bienne and assembled into complete watches.
-    excerpt: The movements are sent to Omega's headquarters in Bienne and assembled into complete watches.
-    source: omega-sjx-movement-2016
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: omega-metas-staff
-    statement: The same article says Master Chronometer tests are run by Omega employees under METAS supervision.
-    excerpt: All the tests are conducted by Omega employees, but watchful eyes are behind the next wall, literally.
-    source: omega-sjx-movement-2016
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: osm3861-omega-watchmakers
-    statement: Omega says its watchmakers spent years creating calibre 3861.
-    excerpt: It took our skilled watchmakers years to create this delicate dance of levers, jewels, and wheels. OMEGA’s extraordinary Co-Axial Calibre 3861.
-    source: omega-moonwatch-310-30
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: osm3861-antimagnetic
-    statement: Omega says it conceived its movements with antimagnetic materials such as the silicon balance spring.
-    excerpt: we've conceived movements with antimagnetic materials, such as the silicon balance spring, capable of withstanding the highest fields.
-    source: omega-moonwatch-310-30
-    dimensions:
-      - PD
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: osm3861-finish-spec
-    statement: Omega specifies a rhodium-plated finish with straight Geneva waves on the bridges, without saying who applies it.
-    excerpt: Rhodium-plated finish, bridges with straight Geneva waves.
-    source: omega-moonwatch-310-30
-    dimensions:
-      - CF
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: osm3861-anodisation
-    statement: Omega credits its own anodisation process for harder aluminium bezel rings, without saying where it is carried out.
-    excerpt: OMEGA’s special anodisation process has achieved aluminium bezel rings that are nearly double as hard as regular versions
-    source: omega-moonwatch-310-30
-    dimensions:
-      - EX
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: osm3861-water-test
-    statement: Omega says every watch is immersed and pressure-tested to its rated water resistance.
-    excerpt: not just some but all watches are fully immersed in water and pressure is applied up to the point of the guaranteed water resistance.
-    source: omega-moonwatch-310-30
-    dimensions:
-      - WE
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: omega-biel-assembly
-    statement: Omega says its Biel production building handles watch assembly and bracelets, and combines its assembly and testing under one roof.
-    excerpt: All steps, including T2 (watch assembly), T3 (bracelets), and T4 (shipping), as well as stock and logistics, will now be completed inside the new building.
-    source: omega-biel-factory
-    dimensions:
-      - WE
-      - EX
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: omega-biel-metas
-    statement: Omega says the Biel building houses its quality control, including METAS testing for Master Chronometer certification.
-    excerpt: the new building has also been created to house OMEGA’s quality and technical control processes, including the METAS testing for Master Chronometer certification.
-    source: omega-biel-factory
-    dimensions:
-      - WE
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: omega-villeret-calibres
-    statement: Swatch Group says Omega produces its Master Chronometer calibres at its factory in Villeret.
-    excerpt: In 2015, Omega inaugurated its state-of-the art factory and tech space in Villeret, Switzerland where it produces the exclusive timepieces and revolutionary Master Chronometer calibers
-    source: swatch-group-production-sites
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-29
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 3861 architecture (1861 lineage with co-axial escapement)
@@ -249,6 +92,182 @@ provenance:
       - osm3861-escapement
       - osm3861-omega-watchmakers
       - osm3861-antimagnetic
+claims:
+  - id: osm3861-base
+    statement: A specialist site describes calibre 3861 as essentially the 1861 fitted with a co-axial escapement.
+    excerpt: essentially the 1861 fitted with a co-axial escapement
+    source: omega-wornandwound-3861
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-lemania
+    statement: The same article traces the lineage to Omega calibre 321, which has roots with Lemania.
+    excerpt: to Omega's Caliber 321, which itself has roots with Lemania
+    source: omega-wornandwound-3861
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-escapement
+    statement: A specialist site reports the 3861 uses a co-axial escapement, Si14 silicon hairspring and non-ferrous escapement alloys.
+    excerpt: features a Daniels Co-Axial escapement, Si14 silicon hairspring, as well as non-ferrous alloys for the escapement
+    source: omega-sjx-3861-launch
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-metas
+    statement: The same article says the watch passed timing and functional testing overseen by METAS.
+    excerpt: passed comprehensive timing and functional testing overseen by METAS.
+    source: omega-sjx-3861-launch
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-case
+    statement: The same article describes a 42 mm case with a double-step case back; it does not name the case maker.
+    excerpt: The case remains the traditional 42 mm, but with a double-step case back like the vintage original.
+    source: omega-sjx-3861-launch
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-dial
+    statement: The same article describes an applied Omega emblem and a step along the chapter ring; the dial maker is not named.
+    excerpt: an applied Omega emblem as well as small step along the chapter ring
+    source: omega-sjx-3861-launch
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-bracelet
+    statement: A specialist site says the steel bracelet follows that of the gold Apollo 11 anniversary model; the maker is not named.
+    excerpt: The bracelet is a steel version of the gold Apollo 11 anniversary watch
+    source: omega-wornandwound-3861
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-crystal
+    statement: The same article lists a Hesalite-crystal reference alongside a sapphire version.
+    excerpt: the traditional Hesalite crystal Moonwatch
+    source: omega-wornandwound-3861
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: omega-eta-factory
+    statement: A 2016 specialist article reports that the Master Co-Axial movement factory is operated by ETA exclusively for Omega.
+    excerpt: Operated by ETA exclusively for Omega, the Master Co-Axial factory is the cutting edge of movement production.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: omega-bienne-casing
+    statement: The same article says movements are sent to Omega headquarters in Bienne and assembled into complete watches.
+    excerpt: The movements are sent to Omega's headquarters in Bienne and assembled into complete watches.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: omega-metas-staff
+    statement: The same article says Master Chronometer tests are run by Omega employees under METAS supervision.
+    excerpt: All the tests are conducted by Omega employees, but watchful eyes are behind the next wall, literally.
+    source: omega-sjx-movement-2016
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: osm3861-omega-watchmakers
+    statement: Omega says its watchmakers spent years creating calibre 3861.
+    excerpt: It took our skilled watchmakers years to create this delicate dance of levers, jewels, and wheels. OMEGA’s extraordinary Co-Axial Calibre 3861.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: osm3861-antimagnetic
+    statement: Omega says it conceived its movements with antimagnetic materials such as the silicon balance spring.
+    excerpt: we've conceived movements with antimagnetic materials, such as the silicon balance spring, capable of withstanding the highest fields.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - PD
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: osm3861-finish-spec
+    statement: Omega specifies a rhodium-plated finish with straight Geneva waves on the bridges, without saying who applies it.
+    excerpt: Rhodium-plated finish, bridges with straight Geneva waves.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - CF
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: osm3861-anodisation
+    statement: Omega credits its own anodisation process for harder aluminium bezel rings, without saying where it is carried out.
+    excerpt: OMEGA’s special anodisation process has achieved aluminium bezel rings that are nearly double as hard as regular versions
+    source: omega-moonwatch-310-30
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: osm3861-water-test
+    statement: Omega says every watch is immersed and pressure-tested to its rated water resistance.
+    excerpt: not just some but all watches are fully immersed in water and pressure is applied up to the point of the guaranteed water resistance.
+    source: omega-moonwatch-310-30
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: omega-biel-assembly
+    statement: Omega says its Biel production building handles watch assembly and bracelets, and combines its assembly and testing under one roof.
+    excerpt: All steps, including T2 (watch assembly), T3 (bracelets), and T4 (shipping), as well as stock and logistics, will now be completed inside the new building.
+    source: omega-biel-factory
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: omega-biel-metas
+    statement: Omega says the Biel building houses its quality control, including METAS testing for Master Chronometer certification.
+    excerpt: the new building has also been created to house OMEGA’s quality and technical control processes, including the METAS testing for Master Chronometer certification.
+    source: omega-biel-factory
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: omega-villeret-calibres
+    statement: Swatch Group says Omega produces its Master Chronometer calibres at its factory in Villeret.
+    excerpt: In 2015, Omega inaugurated its state-of-the art factory and tech space in Villeret, Switzerland where it produces the exclusive timepieces and revolutionary Master Chronometer calibers
+    source: swatch-group-production-sites
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -263,18 +282,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 4
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 2
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -282,8 +308,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 4 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 2; PD 5 \u2192 U; confidence B \u2192 D; classification Integrated Manufacture \u2192 Industrial Manufacture. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 → 4; MM 4 → U; EX 3 → U; DH 3 → U; CF 2 → U; WE 5 → 2; PD 5 → U; confidence B → D; classification Integrated Manufacture → Industrial Manufacture. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -357,6 +384,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Omega's own Moonwatch product page and factory story, and Swatch Group's production-sites page. Changes from version 2: MM U → 2; PD U → 4; confidence D → C. Three of seven dimensions remain U (EX, DH, CF)."
     created_on: 2026-10-29

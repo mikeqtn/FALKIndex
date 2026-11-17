@@ -1,5 +1,7 @@
 id: cador
 name: Cador
 kind: supplier
+ownership: unknown
+scale: unknown
 country: DE
 notes: German dial maker; reported lacquer-dial supplier for anOrdain Fabrik.

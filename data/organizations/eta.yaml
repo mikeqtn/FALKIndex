@@ -2,4 +2,6 @@ id: eta
 name: ETA
 kind: supplier
 parent: swatch-group
+ownership: unknown
+scale: unknown
 country: CH

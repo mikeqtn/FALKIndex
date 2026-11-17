@@ -3,101 +3,6 @@ brand: oris
 model: Aquis
 caliber: Calibre 400
 notes: Handbook v0.2 §8 lists this record as "Oris — Aquis Calibre 400".
-claims:
-  - id: oris-c400-conceived
-    statement: Oris states that the Calibre 400 is a new movement conceived by Oris itself.
-    excerpt: Calibre 400 is an entirely new movement, independently conceived by Oris
-    source: oris-calibre-400-page
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-twin-barrels
-    statement: The Calibre 400 uses twin barrels for a five-day power reserve.
-    excerpt: It uses twin barrels with extended mainsprings, each storing two-and-a-half days of power.
-    source: oris-calibre-400-page
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-antimagnetic
-    statement: Oris says the Calibre 400 uses more than 30 non-ferrous components for magnetic resistance.
-    excerpt: engineered with over 30 non-ferrous, anti-magnetic components
-    source: oris-calibre-400-page
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-accuracy
-    statement: Oris states an accuracy of -3/+5 seconds a day for the Calibre 400.
-    excerpt: It’s highly accurate, to -3/+5 seconds a day, surpassing a chronometer.
-    source: oris-calibre-400-page
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-dev-crew
-    statement: Oris's COO says the Calibre 400 was developed in-house by the Oris team.
-    excerpt: '"It''s truly developed in house with our crew,"'
-    source: watchonista-oris-calibre-400
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-fischli
-    statement: Watchonista reports that COO Beat Fischli led the Calibre 400 project.
-    excerpt: Fischli was the person chiefly responsible for this revolutionary new movement.
-    source: watchonista-oris-calibre-400
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-adjusted
-    statement: Oris's COO says the Calibre 400 is adjusted in five positions to within 8 seconds.
-    excerpt: The accuracy is within 8 seconds, adjusted in five positions
-    source: watchonista-oris-calibre-400
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-made-in-house-press
-    statement: Worn & Wound describes the Calibre 400 as made in-house, without saying who manufactures the parts.
-    excerpt: Oris dropped some big news in the form of a brand new movement, made in-house, featuring some impressive specs.
-    source: wornandwound-oris-aquis-calibre-400
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oris-c400-coquet-workshops
-    statement: In a My Watch Site interview, Oris France's commercial and marketing director says the Calibre 400 is designed and manufactured in Oris's two workshops, in Hölstein and Gland.
-    excerpt: the Calibre 400 is entirely thought out, conceptualised, designed, conceptualized and entirely manufactured in our two workshops located in Hölstein
-    source: mywatchsite-oris-calibre-400-coquet
-    dimensions:
-      - WE
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: oris-c400-coquet-associates
-    statement: In the same interview, the Oris France director says the Calibre 400's components are fabricated by a network of Swiss associates; no associate is named.
-    excerpt: For the fabrication of its components however, we use a network of Swiss associates.
-    source: mywatchsite-oris-calibre-400-coquet
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: oris-c400-coquet-role
-    statement: My Watch Site identifies its interviewee as Vincent Coquet, commercial and marketing director of Oris France.
-    excerpt: We asked some questions to Vincent Coquet, commercial and marketing director of Oris France.
-    source: mywatchsite-oris-calibre-400-coquet
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 400 design
@@ -143,6 +48,112 @@ provenance:
     claims:
       - oris-c400-dev-crew
       - oris-c400-fischli
+claims:
+  - id: oris-c400-conceived
+    statement: Oris states that the Calibre 400 is a new movement conceived by Oris itself.
+    excerpt: Calibre 400 is an entirely new movement, independently conceived by Oris
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-twin-barrels
+    statement: The Calibre 400 uses twin barrels for a five-day power reserve.
+    excerpt: It uses twin barrels with extended mainsprings, each storing two-and-a-half days of power.
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-antimagnetic
+    statement: Oris says the Calibre 400 uses more than 30 non-ferrous components for magnetic resistance.
+    excerpt: engineered with over 30 non-ferrous, anti-magnetic components
+    source: oris-calibre-400-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-accuracy
+    statement: Oris states an accuracy of -3/+5 seconds a day for the Calibre 400.
+    excerpt: It’s highly accurate, to -3/+5 seconds a day, surpassing a chronometer.
+    source: oris-calibre-400-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-dev-crew
+    statement: Oris's COO says the Calibre 400 was developed in-house by the Oris team.
+    excerpt: "\"It's truly developed in house with our crew,\""
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-fischli
+    statement: Watchonista reports that COO Beat Fischli led the Calibre 400 project.
+    excerpt: Fischli was the person chiefly responsible for this revolutionary new movement.
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-adjusted
+    statement: Oris's COO says the Calibre 400 is adjusted in five positions to within 8 seconds.
+    excerpt: The accuracy is within 8 seconds, adjusted in five positions
+    source: watchonista-oris-calibre-400
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-made-in-house-press
+    statement: Worn & Wound describes the Calibre 400 as made in-house, without saying who manufactures the parts.
+    excerpt: Oris dropped some big news in the form of a brand new movement, made in-house, featuring some impressive specs.
+    source: wornandwound-oris-aquis-calibre-400
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oris-c400-coquet-workshops
+    statement: In a My Watch Site interview, Oris France's commercial and marketing director says the Calibre 400 is designed and manufactured in Oris's two workshops, in Hölstein and Gland.
+    excerpt: the Calibre 400 is entirely thought out, conceptualised, designed, conceptualized and entirely manufactured in our two workshops located in Hölstein
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - WE
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: oris-c400-coquet-associates
+    statement: In the same interview, the Oris France director says the Calibre 400's components are fabricated by a network of Swiss associates; no associate is named.
+    excerpt: For the fabrication of its components however, we use a network of Swiss associates.
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: oris-c400-coquet-role
+    statement: My Watch Site identifies its interviewee as Vincent Coquet, commercial and marketing director of Oris France.
+    excerpt: We asked some questions to Vincent Coquet, commercial and marketing director of Oris France.
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -157,18 +168,25 @@ profiles:
     scores:
       MA:
         value: 4
+        evidence: []
       MM:
         value: 1
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 1
+        evidence: []
       WE:
         value: 4
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - industrial_manufacture
   - version: 2
@@ -176,8 +194,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 5; MM 1 \u2192 U; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 → 5; MM 1 → U; EX 0 → U; DH 0 → U; CF 1 → U; WE 4 → U; confidence B → D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -245,6 +264,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds a 2020 My Watch Site interview with Vincent Coquet, commercial and marketing director of Oris France (mywatchsite-oris-calibre-400-coquet). Changes from version 2: MM U → 0; WE U → 2; confidence D → C; classification industrial_manufacture → design_led_etablisseur, since the components are made by suppliers. Three of seven dimensions remain U (EX, DH, CF). No source found links Kenissi to the Calibre 400."
     created_on: 2026-11-17

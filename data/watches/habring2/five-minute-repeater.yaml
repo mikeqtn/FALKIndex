@@ -2,170 +2,6 @@ id: habring2/five-minute-repeater
 brand: habring2
 model: Five Minute Repeater
 notes: Handbook v0.2 §8 lists this record as "Habring² — Five Minute Repeater".
-claims:
-  - id: h2rep-a11-d90
-    statement: A review reports the current repeater uses Habring²'s A11 base with a Dubois-Depraz D90 five-minute repeater module.
-    excerpt: The base movement is the in-house A11, with the D90 5 minute repeater module by Dubuis-Depraz.
-    source: deployant-habring2-repeater
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-earlier-eta
-    statement: The same review says an earlier Habring² five-minute repeater used an ETA base with a Dubois-Depraz module.
-    excerpt: the base movement used was the ubiquitious ETA with a Dubuis Depraz module.
-    source: deployant-habring2-repeater
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-buys-module
-    statement: The review reports Habring² buys the module and finishes and assembles the movement in-house.
-    excerpt: Habring2 buys the module from DD, and completely finish and assemble the movement in-house.
-    source: deployant-habring2-repeater
-    dimensions:
-      - MM
-      - CF
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-final-assembly
-    statement: The review reports Richard Habring does final assembly, and understands he does the final tuning of the sound.
-    excerpt: Further final assembly is done by Richard himself, and we understanding the final tuning of the sound too.
-    source: deployant-habring2-repeater
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-hands
-    statement: The review describes hand-blued steel hands, without naming their maker.
-    excerpt: A set of very elegant, swallow hands, made in hand blued steel graces the dial side.
-    source: deployant-habring2-repeater
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-module-spec
-    statement: Habring² lists the Dubois-Depraz D90 module in the A11B/D90 movement.
-    excerpt: Dubois-Depraz 5-minutes-repeater module D90 (measuring 36 mm in diameter and 3.75 mm in height)
-    source: habring2-repeater-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-carl-haas
-    statement: Habring² lists a Carl Haas hairspring for the repeater's escapement.
-    excerpt: Anti-magnetic escapement with a Carl Haas hairspring in chronometer quality
-    source: habring2-repeater-page
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-finishing
-    statement: Habring² says the movement is finished by hand with polished edges, engravings and perlage.
-    excerpt: Elaborately refined by hand with polished edges, decorative engravings, perlage, etc.
-    source: habring2-repeater-page
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-case
-    statement: Habring² lists a titanium case (grade 2 middle, grade 5 back and bezel), without naming its maker.
-    excerpt: Titan Grade 2 (middle part) and Grade 5 (caseback and bezel polished)
-    source: habring2-repeater-page
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-25-suppliers
-    statement: A lecture recap reports that about 25 suppliers work with Habring².
-    excerpt: There are about 25 suppliers that work with the brand
-    source: hsny-habring2-a11
-    dimensions:
-      - MM
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-hairspring-scaling
-    statement: A manufacture visit reports that Habring² scales hairsprings and pairs them with individually adjusted balance wheels.
-    excerpt: the scaling of hairsprings, as well as the pairing of those springs with individually adjusted balance wheels.
-    source: ablogtowatch-habring2-felix-visit
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: h2rep-a11-specialists
-    statement: Habring² says all components of the A11 movement family are produced with the help of specialists in the DACH region, most of them small family-owned businesses.
-    excerpt: All components of the A11-family are produced with the help of skilled specialists in the DACH-region, most of them small family owned businesses.
-    source: habring2-faqs
-    dimensions:
-      - MM
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-a11-drawings
-    statement: Habring² says all A11 components are produced under its direction and to production drawings issued by Habring Uhrentechnik OG.
-    excerpt: All components of the A11 are produced under direction and following production drawings issued by Habring Uhrentechnik OG.
-    source: habring2-faqs
-    dimensions:
-      - MM
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-ultra-rotating
-    statement: A lecture recap reports that a supplier called Ultra makes all of Habring²'s rotating parts such as the pinions.
-    excerpt: Ultra now makes all of Habring²’s rotating parts such as the pinions.
-    source: hsny-habring2-a11
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-anchors
-    statement: A 2014 manufacture visit reports seeing Habring² manufacture anchors (pallet forks) for its escapements.
-    excerpt: specifically, the manufacturing of unique anchors, the scaling of hairsprings
-    source: ablogtowatch-habring2-felix-visit
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-plates-modified
-    statement: The same 2014 visit reports that Habring² receives raw base materials for movement plates, balance wheels and balance springs and modifies them in its workshops.
-    excerpt: the Habring2 manufacture receives base materials for movement plates, balance wheels and balance springs in a relatively raw form, meaning that they are all painstakingly modified in the workshops.
-    source: ablogtowatch-habring2-felix-visit
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-wheels-2014
-    statement: The same 2014 visit reports trainee watchmakers crafting wheels for the then-new A11 movement.
-    excerpt: we were greeted by two young watchmakers-to-be, in the process of crafting wheels for the new movement.
-    source: ablogtowatch-habring2-felix-visit
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-benzinger-hands
-    statement: An aBlogtoWatch article on the Habring² Benzinger edition of the five-minute repeater reports that Maria Habring flame-blues the hands, while Jochen Benzinger does the engraving, guilloche and skeletonising.
-    excerpt: The hands are flame-blued by Maria Habring, while the engravings, guilloche, and skeleton aspects are handled by Jochen according to the customer’s wishes.
-    source: ablogtowatch-habring2-benzinger-repeater
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: h2rep-benzinger-a11
-    statement: The same article reports the Benzinger edition of the repeater comes in three designs in a 42 mm grade 5 titanium case.
-    excerpt: Offered in three different designs, the Repeater comes in a 42mm Grade 5 Titanium case that features a matte finish.
-    source: ablogtowatch-habring2-benzinger-repeater
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: A11B base movement
@@ -255,6 +91,189 @@ provenance:
     note: No source describes the design process directly; inferred from the in-house A11 base.
     claims:
       - h2rep-a11-d90
+claims:
+  - id: h2rep-a11-d90
+    statement: A review reports the current repeater uses Habring²'s A11 base with a Dubois-Depraz D90 five-minute repeater module.
+    excerpt: The base movement is the in-house A11, with the D90 5 minute repeater module by Dubuis-Depraz.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-earlier-eta
+    statement: The same review says an earlier Habring² five-minute repeater used an ETA base with a Dubois-Depraz module.
+    excerpt: the base movement used was the ubiquitious ETA with a Dubuis Depraz module.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-buys-module
+    statement: The review reports Habring² buys the module and finishes and assembles the movement in-house.
+    excerpt: Habring2 buys the module from DD, and completely finish and assemble the movement in-house.
+    source: deployant-habring2-repeater
+    dimensions:
+      - MM
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-final-assembly
+    statement: The review reports Richard Habring does final assembly, and understands he does the final tuning of the sound.
+    excerpt: Further final assembly is done by Richard himself, and we understanding the final tuning of the sound too.
+    source: deployant-habring2-repeater
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-hands
+    statement: The review describes hand-blued steel hands, without naming their maker.
+    excerpt: A set of very elegant, swallow hands, made in hand blued steel graces the dial side.
+    source: deployant-habring2-repeater
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-module-spec
+    statement: Habring² lists the Dubois-Depraz D90 module in the A11B/D90 movement.
+    excerpt: Dubois-Depraz 5-minutes-repeater module D90 (measuring 36 mm in diameter and 3.75 mm in height)
+    source: habring2-repeater-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-carl-haas
+    statement: Habring² lists a Carl Haas hairspring for the repeater's escapement.
+    excerpt: Anti-magnetic escapement with a Carl Haas hairspring in chronometer quality
+    source: habring2-repeater-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-finishing
+    statement: Habring² says the movement is finished by hand with polished edges, engravings and perlage.
+    excerpt: Elaborately refined by hand with polished edges, decorative engravings, perlage, etc.
+    source: habring2-repeater-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-case
+    statement: Habring² lists a titanium case (grade 2 middle, grade 5 back and bezel), without naming its maker.
+    excerpt: Titan Grade 2 (middle part) and Grade 5 (caseback and bezel polished)
+    source: habring2-repeater-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-25-suppliers
+    statement: A lecture recap reports that about 25 suppliers work with Habring².
+    excerpt: There are about 25 suppliers that work with the brand
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-hairspring-scaling
+    statement: A manufacture visit reports that Habring² scales hairsprings and pairs them with individually adjusted balance wheels.
+    excerpt: the scaling of hairsprings, as well as the pairing of those springs with individually adjusted balance wheels.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: h2rep-a11-specialists
+    statement: Habring² says all components of the A11 movement family are produced with the help of specialists in the DACH region, most of them small family-owned businesses.
+    excerpt: All components of the A11-family are produced with the help of skilled specialists in the DACH-region, most of them small family owned businesses.
+    source: habring2-faqs
+    dimensions:
+      - MM
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-a11-drawings
+    statement: Habring² says all A11 components are produced under its direction and to production drawings issued by Habring Uhrentechnik OG.
+    excerpt: All components of the A11 are produced under direction and following production drawings issued by Habring Uhrentechnik OG.
+    source: habring2-faqs
+    dimensions:
+      - MM
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-ultra-rotating
+    statement: A lecture recap reports that a supplier called Ultra makes all of Habring²'s rotating parts such as the pinions.
+    excerpt: Ultra now makes all of Habring²’s rotating parts such as the pinions.
+    source: hsny-habring2-a11
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-anchors
+    statement: A 2014 manufacture visit reports seeing Habring² manufacture anchors (pallet forks) for its escapements.
+    excerpt: specifically, the manufacturing of unique anchors, the scaling of hairsprings
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-plates-modified
+    statement: The same 2014 visit reports that Habring² receives raw base materials for movement plates, balance wheels and balance springs and modifies them in its workshops.
+    excerpt: the Habring2 manufacture receives base materials for movement plates, balance wheels and balance springs in a relatively raw form, meaning that they are all painstakingly modified in the workshops.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-wheels-2014
+    statement: The same 2014 visit reports trainee watchmakers crafting wheels for the then-new A11 movement.
+    excerpt: we were greeted by two young watchmakers-to-be, in the process of crafting wheels for the new movement.
+    source: ablogtowatch-habring2-felix-visit
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-benzinger-hands
+    statement: An aBlogtoWatch article on the Habring² Benzinger edition of the five-minute repeater reports that Maria Habring flame-blues the hands, while Jochen Benzinger does the engraving, guilloche and skeletonising.
+    excerpt: The hands are flame-blued by Maria Habring, while the engravings, guilloche, and skeleton aspects are handled by Jochen according to the customer’s wishes.
+    source: ablogtowatch-habring2-benzinger-repeater
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: h2rep-benzinger-a11
+    statement: The same article reports the Benzinger edition of the repeater comes in three designs in a 42 mm grade 5 titanium case.
+    excerpt: Offered in three different designs, the Repeater comes in a 42mm Grade 5 Titanium case that features a matte finish.
+    source: ablogtowatch-habring2-benzinger-repeater
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -269,18 +288,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 2
+        evidence: []
       EX:
         value: 1
+        evidence: []
       DH:
         value: 1
+        evidence: []
       CF:
         value: 3
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - independent_manufacture
   - version: 2
@@ -288,8 +314,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 2 \u2192 U; EX 1 \u2192 U; DH 1 \u2192 U; WE 5 \u2192 4; PD 5 \u2192 U; confidence B \u2192 D; classification Independent Manufacture \u2192 Watchmaking Atelier. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 → 4; MM 2 → U; EX 1 → U; DH 1 → U; WE 5 → 4; PD 5 → U; confidence B → D; classification Independent Manufacture → Watchmaking Atelier. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -366,6 +393,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
     change_note: PD U → 4, scored by content from the existing movement claims (EDITORIAL §5), which the previous version had left unscored because none was tagged PD. 3 of 7 dimensions remain unknown, so confidence is C.
     created_on: 2026-10-22
@@ -435,7 +463,7 @@ profiles:
             note: Hairspring scaling.
       PD:
         value: 4
-        rationale: 'Scored by content (EDITORIAL §5): the repeater is built on Habring²''s own A11B base, with a bought-in Dubois-Depraz module integrated, finished and tuned in-house. A proprietary base is extensive original technical development. Borderline with 3, because the defining complication is a supplier''s module.'
+        rationale: "Scored by content (EDITORIAL §5): the repeater is built on Habring²'s own A11B base, with a bought-in Dubois-Depraz module integrated, finished and tuned in-house. A proprietary base is extensive original technical development. Borderline with 3, because the defining complication is a supplier's module."
         evidence:
           - claim: h2rep-a11-d90
             stance: supports
@@ -453,9 +481,10 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    created_on: 2026-11-17
     change_note: "Adds Habring²'s FAQs (habring2-faqs), an aBlogtoWatch article on the Benzinger edition of the repeater (ablogtowatch-habring2-benzinger-repeater), and further passages from the HSNY lecture recap and the 2014 aBlogtoWatch manufacture visit. Changes from version 3: MM U → 1; DH U → 1; confidence stays C. One of seven dimensions remains U (EX)."
+    created_on: 2026-11-17
     scores:
       MA:
         value: 4
@@ -549,7 +578,7 @@ profiles:
             note: Hairspring scaling.
       PD:
         value: 4
-        rationale: 'Scored by content (EDITORIAL §5): the repeater is built on Habring²''s own A11B base, whose components are produced to Habring² production drawings (h2rep-a11-drawings), with a bought-in Dubois-Depraz module integrated, finished and tuned in-house (h2rep-a11-d90, h2rep-buys-module). Borderline with 3, because the defining complication is a supplier''s module.'
+        rationale: "Scored by content (EDITORIAL §5): the repeater is built on Habring²'s own A11B base, whose components are produced to Habring² production drawings (h2rep-a11-drawings), with a bought-in Dubois-Depraz module integrated, finished and tuned in-house (h2rep-a11-d90, h2rep-buys-module). Borderline with 3, because the defining complication is a supplier's module."
         evidence:
           - claim: h2rep-a11-d90
             stance: supports

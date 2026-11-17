@@ -2,130 +2,6 @@ id: h-moser/endeavour-centre-seconds
 brand: h-moser
 model: Endeavour Centre Seconds
 notes: Handbook v0.2 §8 lists this record as "H. Moser & Cie. — Endeavour Centre Seconds".
-claims:
-  - id: hmecs-hmc200-inhouse
-    statement: A specialist site describes the HMC 200 as Moser's in-house automatic movement.
-    excerpt: at least the use for the first time of the in-house automatic movement in a classical watch
-    source: monochrome-h-moser-ecs-2017
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-pe-regulating
-    statement: A specialist site reports the HMC 200 regulating organ is made by Precision Engineering AG, Moser's sister company.
-    excerpt: regulating organ manufactured by Precision Engineering AG, H. Moser & Cie.’s sister company
-    source: monochrome-h-moser-ecs-2017
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-straumann
-    statement: The same source lists a Straumann hairspring with flat overcoil and an interchangeable regulating organ.
-    excerpt: Straumann Hairspring with flat overcoil and interchangeable regulating organ (to facilitate service operations).
-    source: monochrome-h-moser-ecs-2017
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-finishing
-    statement: The same source describes Moser double stripes, polished angles and perlage on the movement.
-    excerpt: The finishing is pleasant, as usual, with Moser double stripes, polished angles and perlage on the main-plate.
-    source: monochrome-h-moser-ecs-2017
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-sjx-hairspring
-    statement: A specialist site reports the HMC 200 uses a Straumann hairspring made by Precision Engineering.
-    excerpt: The calibre utilises a proprietary Straumann hairspring manufactured by the brand's sister company, Precision Engineering
-    source: sjx-h-moser-seconde-seconde
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-double-hairspring
-    statement: Moser's product page says the HMC 200 in this model has a double hairspring.
-    excerpt: the blue balance bridge signifies the double hairspring, consisting of two identical balance springs
-    source: h-moser-ecs-vantablack-page
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-pe-components
-    statement: An interview article reports Precision Engineering makes hairsprings and other movement parts such as escape wheels.
-    excerpt: The component specialist produces hairsprings, as well as other key movement components like escape wheels,
-    source: sjx-h-moser-meylan-2019
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-meylan-control
-    statement: The same article reports the Meylan family controls both Moser and Precision Engineering.
-    excerpt: The Meylan family interests also control its sister company Precision Engineering,
-    source: sjx-h-moser-meylan-2019
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-cases-dials-external
-    statement: In 2019 Moser's CEO said hairsprings and escapements are made in the group but cases and dials are not.
-    excerpt: We do our own hairsprings and escapements, but cases and dials are another investment that we cannot afford today.
-    source: sjx-h-moser-meylan-2019
-    dimensions:
-      - MM
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-anglage-external
-    statement: In 2024 Moser's CEO said anglage is done externally while staff are trained to do it internally.
-    excerpt: is now done externally, but we are training people to do it internally.
-    source: sjx-h-moser-meylan-2024
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-dials-2024
-    statement: In 2024 Moser's CEO said the company is looking into making dials.
-    excerpt: We're looking into dials also.
-    source: sjx-h-moser-meylan-2024
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-pe-site
-    statement: A 2026 article reports Precision Engineering shares Moser's site and makes hairsprings from wire.
-    excerpt: Sharing its space is sister company Precision Engineering AG, which transforms delicate spools of wire into perfectly calibrated hairsprings.
-    source: options-h-moser-manufacture
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: hmecs-robb-assembly-finishing
-    statement: A 2025 Robb Report Singapore article says Moser's design, manufacturing, assembly and finishing are all done within its manufacture.
-    excerpt: With design, manufacturing, as well as assembly and finishing all done within its integrated manufacture, H. Moser & Cie. is more than living up to its independent mantle.
-    source: robbreport-sg-h-moser-manufacture
-    dimensions:
-      - WE
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: hmecs-rev-modular-escapement
-    statement: A 2026 Revolution manufacture visit reports that Moser's modular escapement lets the whole regulating organ be assembled and adjusted separately before it is fitted to the movement.
-    excerpt: allows the entire regulating organ to be assembled and adjusted independently before being installed into the movement, reducing time spent in service
-    source: revolution-h-moser-manufacture-2026
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: hmecs-rev-subassembly
-    statement: The same Revolution article describes a sub-assembly room at the manufacture where the modular escapement is assembled.
-    excerpt: a range of sub-assembly work takes place, from fitting impulse jewels to safety rollers to assembling the modular escapement or the tourbillon with its cylindrical hairspring.
-    source: revolution-h-moser-manufacture-2026
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: HMC 200 automatic caliber
@@ -201,6 +77,145 @@ provenance:
     relationship: internal
     claims:
       - hmecs-hmc200-inhouse
+claims:
+  - id: hmecs-hmc200-inhouse
+    statement: A specialist site describes the HMC 200 as Moser's in-house automatic movement.
+    excerpt: at least the use for the first time of the in-house automatic movement in a classical watch
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-pe-regulating
+    statement: A specialist site reports the HMC 200 regulating organ is made by Precision Engineering AG, Moser's sister company.
+    excerpt: regulating organ manufactured by Precision Engineering AG, H. Moser & Cie.’s sister company
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-straumann
+    statement: The same source lists a Straumann hairspring with flat overcoil and an interchangeable regulating organ.
+    excerpt: Straumann Hairspring with flat overcoil and interchangeable regulating organ (to facilitate service operations).
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-finishing
+    statement: The same source describes Moser double stripes, polished angles and perlage on the movement.
+    excerpt: The finishing is pleasant, as usual, with Moser double stripes, polished angles and perlage on the main-plate.
+    source: monochrome-h-moser-ecs-2017
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-sjx-hairspring
+    statement: A specialist site reports the HMC 200 uses a Straumann hairspring made by Precision Engineering.
+    excerpt: The calibre utilises a proprietary Straumann hairspring manufactured by the brand's sister company, Precision Engineering
+    source: sjx-h-moser-seconde-seconde
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-double-hairspring
+    statement: Moser's product page says the HMC 200 in this model has a double hairspring.
+    excerpt: the blue balance bridge signifies the double hairspring, consisting of two identical balance springs
+    source: h-moser-ecs-vantablack-page
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-pe-components
+    statement: An interview article reports Precision Engineering makes hairsprings and other movement parts such as escape wheels.
+    excerpt: The component specialist produces hairsprings, as well as other key movement components like escape wheels,
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-meylan-control
+    statement: The same article reports the Meylan family controls both Moser and Precision Engineering.
+    excerpt: The Meylan family interests also control its sister company Precision Engineering,
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-cases-dials-external
+    statement: In 2019 Moser's CEO said hairsprings and escapements are made in the group but cases and dials are not.
+    excerpt: We do our own hairsprings and escapements, but cases and dials are another investment that we cannot afford today.
+    source: sjx-h-moser-meylan-2019
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-anglage-external
+    statement: In 2024 Moser's CEO said anglage is done externally while staff are trained to do it internally.
+    excerpt: is now done externally, but we are training people to do it internally.
+    source: sjx-h-moser-meylan-2024
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-dials-2024
+    statement: In 2024 Moser's CEO said the company is looking into making dials.
+    excerpt: We're looking into dials also.
+    source: sjx-h-moser-meylan-2024
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-pe-site
+    statement: A 2026 article reports Precision Engineering shares Moser's site and makes hairsprings from wire.
+    excerpt: Sharing its space is sister company Precision Engineering AG, which transforms delicate spools of wire into perfectly calibrated hairsprings.
+    source: options-h-moser-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: hmecs-robb-assembly-finishing
+    statement: A 2025 Robb Report Singapore article says Moser's design, manufacturing, assembly and finishing are all done within its manufacture.
+    excerpt: With design, manufacturing, as well as assembly and finishing all done within its integrated manufacture, H. Moser & Cie. is more than living up to its independent mantle.
+    source: robbreport-sg-h-moser-manufacture
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: hmecs-rev-modular-escapement
+    statement: A 2026 Revolution manufacture visit reports that Moser's modular escapement lets the whole regulating organ be assembled and adjusted separately before it is fitted to the movement.
+    excerpt: allows the entire regulating organ to be assembled and adjusted independently before being installed into the movement, reducing time spent in service
+    source: revolution-h-moser-manufacture-2026
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: hmecs-rev-subassembly
+    statement: The same Revolution article describes a sub-assembly room at the manufacture where the modular escapement is assembled.
+    excerpt: a range of sub-assembly work takes place, from fitting impulse jewels to safety rollers to assembling the modular escapement or the tourbillon with its cylindrical hairspring.
+    source: revolution-h-moser-manufacture-2026
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -215,18 +230,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 5
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 4
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -234,8 +256,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 5 \u2192 4; EX 3 \u2192 0; DH 3 \u2192 U; CF 4 \u2192 U; WE 5 \u2192 U; PD 5 \u2192 U; confidence A \u2192 D; classification Integrated Manufacture \u2192 Independent Manufacture. 4 of 7 dimensions have no evidence, so confidence is D. Precision Engineering is credited as in-group and disclosed. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 → 4; MM 5 → 4; EX 3 → 0; DH 3 → U; CF 4 → U; WE 5 → U; PD 5 → U; confidence A → D; classification Integrated Manufacture → Independent Manufacture. 4 of 7 dimensions have no evidence, so confidence is D. Precision Engineering is credited as in-group and disclosed. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -315,6 +338,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
     change_note: PD U → 4, scored by content from the existing calibre claims (EDITORIAL §5), which the previous version had left unscored because none was tagged PD. 3 of 7 dimensions remain unknown, so confidence is C.
     created_on: 2026-10-22
@@ -387,7 +411,7 @@ profiles:
         evidence: []
       PD:
         value: 4
-        rationale: 'Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser''s own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary.'
+        rationale: "Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser's own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary."
         evidence:
           - claim: hmecs-hmc200-inhouse
             stance: supports
@@ -405,8 +429,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    change_note: "Adds a 2025 Robb Report Singapore manufacture feature and a 2026 Revolution manufacture visit. Changes from version 3: CF U \u2192 1; WE U \u2192 3; confidence stays C. One of seven dimensions remains U (DH)."
+    change_note: "Adds a 2025 Robb Report Singapore manufacture feature and a 2026 Revolution manufacture visit. Changes from version 3: CF U → 1; WE U → 3; confidence stays C. One of seven dimensions remains U (DH)."
     created_on: 2026-11-17
     scores:
       MA:
@@ -483,7 +508,7 @@ profiles:
             note: Escapement sub-assembly on site.
       PD:
         value: 4
-        rationale: 'Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser''s own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary.'
+        rationale: "Scored by content (EDITORIAL §5): specialist reporting describes the HMC 200 as Moser's own calibre, with an interchangeable regulating organ and a double hairspring made in the group. That is extensive original technical development. Not 5, because no source shows invention that defines this watch, and the claims are secondary."
         evidence:
           - claim: hmecs-hmc200-inhouse
             stance: supports

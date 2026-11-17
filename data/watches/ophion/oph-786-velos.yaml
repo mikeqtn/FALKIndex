@@ -2,123 +2,6 @@ id: ophion/oph-786-velos
 brand: ophion
 model: OPH 786 Vélos
 notes: Handbook v0.2 §8 lists this record as "Ophion — OPH 786 Vélos".
-claims:
-  - id: oph786-soprod
-    statement: A specialist site says the Vélos uses a movement made by Soprod for Ophion.
-    excerpt: proprietary movement made by Soprod
-    source: ophion-monochrome-velos
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-technotime
-    statement: A specialist site says Ophion has used the TT 718, a hand-wound calibre developed by Technotime.
-    excerpt: Since its founding, Ophion has relied on the TT 718, a hand-wind calibre developed by Technotime.
-    source: ophion-sjx-velos-upclose
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-custom
-    statement: The same article says Soprod produces a customised TT 718 for Ophion.
-    excerpt: Soprod produces a customised version of the TT 718 for Ophion.
-    source: ophion-sjx-velos-upclose
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-plate
-    statement: The same article says Ophion's version removes most of the two-thirds plate.
-    excerpt: Ophion's version of the movement removes most of the two-thirds plate to reveal more of the mechanics.
-    source: ophion-sjx-velos-upclose
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-machine-finish
-    statement: The same article says the movement finishing is done by machine.
-    excerpt: And it has been extensively customised for Ophion, with its finishing done by machine, just as with the dial.
-    source: ophion-sjx-velos-upclose
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-mhvj
-    statement: A specialist site says the movement is made in collaboration with MHVJ.
-    excerpt: made in collaboration with Manufacture Horlogère du Vallée de Joux, or MHVJ.
-    source: ophion-wornandwound-intro
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-hammered
-    statement: The same article says the bridge finish is hammered by hand and polished chamfers are machine-assisted.
-    excerpt: the beautiful finish on the bridges is hammered by hand.
-    source: ophion-wornandwound-intro
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-hands-estima
-    statement: The same article names Estima AG in Switzerland as the hand maker.
-    excerpt: the hands by Estima AG in Switzerland,
-    source: ophion-wornandwound-intro
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-case
-    statement: A specialist review names Voutilainen-Cattin S.A. as the case maker.
-    excerpt: the case is made by Voutilainen-Cattin S.A.,
-    source: ophion-wornandwound-review
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-dial-cador
-    statement: A specialist site says the dials are produced by Cador in Eimeldingen.
-    excerpt: The dials for the Vélos are produced by Cador, a dial maker based in Eimeldingen.
-    source: ophion-sjx-velos-upclose
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-dial-cnc
-    statement: A specialist site says the guilloché pattern is cut by a CNC machine.
-    excerpt: a CNC machine removes some material from a blank to obtain the guilloché pattern.
-    source: ophion-monochrome-velos
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: oph786-abtw-assembly-germany
-    statement: A 2018 aBlogtoWatch review of the earlier OPH 786 says Ophion's cases, dials and assembly came from Germany.
-    excerpt: Ophion uses movements and hands from Switzerland, while cases, dials, and assembly are from Germany.
-    source: ophion-ablogtowatch-786-review
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: oph786-mono-assembled-germany
-    statement: A 2018 Monochrome review of the earlier OPH 786 says Ophion watches are assembled in Germany.
-    excerpt: Certainly, watches are not produced there (they are assembled in Germany) but this is where Miguel Morales Ribas, the founder, comes from.
-    source: ophion-monochrome-786-review
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: oph786-le-atelier
-    statement: A review published by a UK retailer of Ophion says the Vélos base calibre was disassembled in the Ophion atelier and rebuilt with custom bridges.
-    excerpt: Disassembled in the Ophion atelier, the base calibre has been transformed, replacing the original main plate with custom made bridges.
-    source: ophion-limitededition-velos-blue
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Base calibre (TT 718)
@@ -189,6 +72,137 @@ provenance:
     note: Ophion specifies the customised movement and directs the named suppliers.
     claims:
       - oph786-plate
+claims:
+  - id: oph786-soprod
+    statement: A specialist site says the Vélos uses a movement made by Soprod for Ophion.
+    excerpt: proprietary movement made by Soprod
+    source: ophion-monochrome-velos
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-technotime
+    statement: A specialist site says Ophion has used the TT 718, a hand-wound calibre developed by Technotime.
+    excerpt: Since its founding, Ophion has relied on the TT 718, a hand-wind calibre developed by Technotime.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-custom
+    statement: The same article says Soprod produces a customised TT 718 for Ophion.
+    excerpt: Soprod produces a customised version of the TT 718 for Ophion.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-plate
+    statement: The same article says Ophion's version removes most of the two-thirds plate.
+    excerpt: Ophion's version of the movement removes most of the two-thirds plate to reveal more of the mechanics.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-machine-finish
+    statement: The same article says the movement finishing is done by machine.
+    excerpt: And it has been extensively customised for Ophion, with its finishing done by machine, just as with the dial.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-mhvj
+    statement: A specialist site says the movement is made in collaboration with MHVJ.
+    excerpt: made in collaboration with Manufacture Horlogère du Vallée de Joux, or MHVJ.
+    source: ophion-wornandwound-intro
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-hammered
+    statement: The same article says the bridge finish is hammered by hand and polished chamfers are machine-assisted.
+    excerpt: the beautiful finish on the bridges is hammered by hand.
+    source: ophion-wornandwound-intro
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-hands-estima
+    statement: The same article names Estima AG in Switzerland as the hand maker.
+    excerpt: the hands by Estima AG in Switzerland,
+    source: ophion-wornandwound-intro
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-case
+    statement: A specialist review names Voutilainen-Cattin S.A. as the case maker.
+    excerpt: the case is made by Voutilainen-Cattin S.A.,
+    source: ophion-wornandwound-review
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-dial-cador
+    statement: A specialist site says the dials are produced by Cador in Eimeldingen.
+    excerpt: The dials for the Vélos are produced by Cador, a dial maker based in Eimeldingen.
+    source: ophion-sjx-velos-upclose
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-dial-cnc
+    statement: A specialist site says the guilloché pattern is cut by a CNC machine.
+    excerpt: a CNC machine removes some material from a blank to obtain the guilloché pattern.
+    source: ophion-monochrome-velos
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: oph786-abtw-assembly-germany
+    statement: A 2018 aBlogtoWatch review of the earlier OPH 786 says Ophion's cases, dials and assembly came from Germany.
+    excerpt: Ophion uses movements and hands from Switzerland, while cases, dials, and assembly are from Germany.
+    source: ophion-ablogtowatch-786-review
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: oph786-mono-assembled-germany
+    statement: A 2018 Monochrome review of the earlier OPH 786 says Ophion watches are assembled in Germany.
+    excerpt: Certainly, watches are not produced there (they are assembled in Germany) but this is where Miguel Morales Ribas, the founder, comes from.
+    source: ophion-monochrome-786-review
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: oph786-le-atelier
+    statement: A review published by a UK retailer of Ophion says the Vélos base calibre was disassembled in the Ophion atelier and rebuilt with custom bridges.
+    excerpt: Disassembled in the Ophion atelier, the base calibre has been transformed, replacing the original main plate with custom made bridges.
+    source: ophion-limitededition-velos-blue
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -203,18 +217,25 @@ profiles:
     scores:
       MA:
         value: 2
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 0
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - design_led_etablisseur
   - version: 2
@@ -222,8 +243,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 C. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: CF 0 → U; WE 0 → U; confidence A → C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

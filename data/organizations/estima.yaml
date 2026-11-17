@@ -1,5 +1,7 @@
 id: estima
 name: Estima AG
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CH
 notes: Swiss hand maker.

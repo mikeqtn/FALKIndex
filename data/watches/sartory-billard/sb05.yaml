@@ -2,173 +2,6 @@ id: sartory-billard/sb05
 brand: sartory-billard
 model: SB05
 notes: Handbook v0.2 §8 lists this record as "Sartory Billard — SB05".
-claims:
-  - id: sbsb05-ljp
-    statement: An auction-house article says the SB05 uses the La Joux-Perret hand-wound caliber 7380.
-    excerpt: The movement inside is another La Joux-Perret movement, the manual-wind caliber 7380 with a 90-hour power reserve.
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-assembly
-    statement: The same article says Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
-    excerpt: Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-collab
-    statement: The same article says Billard worked with Comblémine and Cattin on the execution of the SB05.
-    excerpt: worked closely with Comblémine and Cattin, the casemaker owned by Voutilainen, on the execution of the SB05
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - PD
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-case
-    statement: The same article says Cattin designed a 20-part case for the SB05.
-    excerpt: Cattin designed a new, more complex case for the SB05, which incorporates 20 parts compared to the seven on the SB04
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-dials-billard
-    statement: The same article says Billard creates most dial treatments and materials himself in his workshop (described in the SB04 section).
-    excerpt: utilizing a large variety of dial treatments and materials that he would create almost entirely by himself at his workshop.
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-guilloche
-    statement: The same article says guilloché dial options are handled by Comblémine.
-    excerpt: Sartory Billard also offers guilloché patterns as an alternative that are handled by Comblémine
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-hands
-    statement: The same article says hands and chapter ring can be hand-polished and lumed on request.
-    excerpt: If requested by the customer, the hands and chapter ring are then polished by hand and filled with lume.
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-made-to-order
-    statement: The same article says every SB05 is made to order after a design process with the client.
-    excerpt: Every SB05 is 100-percent made to order after a design process between Billard and the client
-    source: sartory-billard-phillips-indie-insider
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-movement-finish
-    statement: A collector article says the La Joux-Perret 7380 is finished and given a dark grey NAC treatment.
-    excerpt: The movement is a La Joux-Perret Caliber 7380, finished cleanly and given a dark grey metallic NAC treatment.
-    source: sartory-billard-quillandpad-sb05
-    dimensions:
-      - MA
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-case-spec
-    statement: The same article says the case was made by Voutilainen-Cattin to Billard's specifications.
-    excerpt: the case made by Voutilainen-Cattin to Billard's specifications
-    source: sartory-billard-quillandpad-sb05
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: sbsb05-sb-make-dials
-    statement: Sartory Billard's SB05 design guide lists polished, brushed, sunburst, frosted, grained, guilloché or stone dials and says, in Billard's voice, that he will make them.
-    excerpt: Polished, brushed, sunburst, frosted, grained, guilloché or stone dials. You name it, I will make it.
-    source: sartory-billard-sb05-design-guide
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-sb-ljp
-    statement: Sartory Billard's SB05 design guide says the hand-wound movement is manufactured in Switzerland by La Joux-Perret.
-    excerpt: Hand wound movement with 90 hours of power reserve Manufactured in Switzerland by La Joux Perret.
-    source: sartory-billard-sb05-design-guide
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-sb-development
-    statement: Sartory Billard's SB05 design guide says technical development and case making are provided by Comblémine and Voutilainen & Cattin.
-    excerpt: Technical development and case making provided by Comblemine and Voutilainen & Cattin SA.
-    source: sartory-billard-sb05-design-guide
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-sb-hands-spec
-    statement: Sartory Billard's SB05 design guide says the hand spears have a fixed design in any colour or finish, heated or painted, without saying who makes or finishes them.
-    excerpt: Fixed design. Any color / finish you wish (heated or paint). Hour and minutes to share same design.
-    source: sartory-billard-sb05-design-guide
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-sb-pad-printed
-    statement: Sartory Billard's SB05 design guide says the numbers and indexes are pad printed, without saying who prints them.
-    excerpt: Numbers and indexes are pad printed. They have to be both the same color.
-    source: sartory-billard-sb05-design-guide
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-gphg-learning-hands
-    statement: In the brand's GPHG 2022 SB05 entry, Billard says he has learned dial making and has been learning to make watch hands, indices and chapter rings with the help of craftsmen.
-    excerpt: I have been able to learn dial making, and with the help of some kind and patient craftsmen, I have been learning the art and craft of making watch hands, indices, and chapter rings.
-    source: sartory-billard-gphg-2022-sb05
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-gphg-sb04-made-by-me
-    statement: In the same entry, Billard says that on the SB04 the hands, chapter rings and some titanium dials were made by him.
-    excerpt: the hands, chapter rings and some of the dials (titanium) are not only of my own design but are made by me
-    source: sartory-billard-gphg-2022-sb05
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-gphg-comblemine
-    statement: In the same entry, Billard says Comblémine conducted the SB05's technical development and creates his guilloché dials, and that Voutilainen & Cattin makes the case.
-    excerpt: the technical development of the SB05 has been conducted by Comblemine (who creates the Guilloché dials for me) and the case will be made by Voutailinen & Cattin SA
-    source: sartory-billard-gphg-2022-sb05
-    dimensions:
-      - PD
-      - EX
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: sbsb05-gphg-movement-finish
-    statement: In the same entry, Billard says the SB05 uses a La Joux-Perret manual-wound movement with a special set of finishes made for the SB05, without saying who applies them.
-    excerpt: We will be using a manual wound movement from La Joux Perret with a special set of finishes made for the SB05.
-    source: sartory-billard-gphg-2022-sb05
-    dimensions:
-      - MA
-      - MM
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret 7380)
@@ -262,6 +95,192 @@ provenance:
     claims:
       - sbsb05-sb-development
       - sbsb05-gphg-comblemine
+claims:
+  - id: sbsb05-ljp
+    statement: An auction-house article says the SB05 uses the La Joux-Perret hand-wound caliber 7380.
+    excerpt: The movement inside is another La Joux-Perret movement, the manual-wind caliber 7380 with a 90-hour power reserve.
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-assembly
+    statement: The same article says Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
+    excerpt: Comblémine assembles each watch after receiving finished movements from La Joux-Perret.
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-collab
+    statement: The same article says Billard worked with Comblémine and Cattin on the execution of the SB05.
+    excerpt: worked closely with Comblémine and Cattin, the casemaker owned by Voutilainen, on the execution of the SB05
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - PD
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-case
+    statement: The same article says Cattin designed a 20-part case for the SB05.
+    excerpt: Cattin designed a new, more complex case for the SB05, which incorporates 20 parts compared to the seven on the SB04
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-dials-billard
+    statement: The same article says Billard creates most dial treatments and materials himself in his workshop (described in the SB04 section).
+    excerpt: utilizing a large variety of dial treatments and materials that he would create almost entirely by himself at his workshop.
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-guilloche
+    statement: The same article says guilloché dial options are handled by Comblémine.
+    excerpt: Sartory Billard also offers guilloché patterns as an alternative that are handled by Comblémine
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-hands
+    statement: The same article says hands and chapter ring can be hand-polished and lumed on request.
+    excerpt: If requested by the customer, the hands and chapter ring are then polished by hand and filled with lume.
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-made-to-order
+    statement: The same article says every SB05 is made to order after a design process with the client.
+    excerpt: Every SB05 is 100-percent made to order after a design process between Billard and the client
+    source: sartory-billard-phillips-indie-insider
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-movement-finish
+    statement: A collector article says the La Joux-Perret 7380 is finished and given a dark grey NAC treatment.
+    excerpt: The movement is a La Joux-Perret Caliber 7380, finished cleanly and given a dark grey metallic NAC treatment.
+    source: sartory-billard-quillandpad-sb05
+    dimensions:
+      - MA
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-case-spec
+    statement: The same article says the case was made by Voutilainen-Cattin to Billard's specifications.
+    excerpt: the case made by Voutilainen-Cattin to Billard's specifications
+    source: sartory-billard-quillandpad-sb05
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: sbsb05-sb-make-dials
+    statement: Sartory Billard's SB05 design guide lists polished, brushed, sunburst, frosted, grained, guilloché or stone dials and says, in Billard's voice, that he will make them.
+    excerpt: Polished, brushed, sunburst, frosted, grained, guilloché or stone dials. You name it, I will make it.
+    source: sartory-billard-sb05-design-guide
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-sb-ljp
+    statement: Sartory Billard's SB05 design guide says the hand-wound movement is manufactured in Switzerland by La Joux-Perret.
+    excerpt: Hand wound movement with 90 hours of power reserve Manufactured in Switzerland by La Joux Perret.
+    source: sartory-billard-sb05-design-guide
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-sb-development
+    statement: Sartory Billard's SB05 design guide says technical development and case making are provided by Comblémine and Voutilainen & Cattin.
+    excerpt: Technical development and case making provided by Comblemine and Voutilainen & Cattin SA.
+    source: sartory-billard-sb05-design-guide
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-sb-hands-spec
+    statement: Sartory Billard's SB05 design guide says the hand spears have a fixed design in any colour or finish, heated or painted, without saying who makes or finishes them.
+    excerpt: Fixed design. Any color / finish you wish (heated or paint). Hour and minutes to share same design.
+    source: sartory-billard-sb05-design-guide
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-sb-pad-printed
+    statement: Sartory Billard's SB05 design guide says the numbers and indexes are pad printed, without saying who prints them.
+    excerpt: Numbers and indexes are pad printed. They have to be both the same color.
+    source: sartory-billard-sb05-design-guide
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-gphg-learning-hands
+    statement: In the brand's GPHG 2022 SB05 entry, Billard says he has learned dial making and has been learning to make watch hands, indices and chapter rings with the help of craftsmen.
+    excerpt: I have been able to learn dial making, and with the help of some kind and patient craftsmen, I have been learning the art and craft of making watch hands, indices, and chapter rings.
+    source: sartory-billard-gphg-2022-sb05
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-gphg-sb04-made-by-me
+    statement: In the same entry, Billard says that on the SB04 the hands, chapter rings and some titanium dials were made by him.
+    excerpt: the hands, chapter rings and some of the dials (titanium) are not only of my own design but are made by me
+    source: sartory-billard-gphg-2022-sb05
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-gphg-comblemine
+    statement: In the same entry, Billard says Comblémine conducted the SB05's technical development and creates his guilloché dials, and that Voutilainen & Cattin makes the case.
+    excerpt: the technical development of the SB05 has been conducted by Comblemine (who creates the Guilloché dials for me) and the case will be made by Voutailinen & Cattin SA
+    source: sartory-billard-gphg-2022-sb05
+    dimensions:
+      - PD
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: sbsb05-gphg-movement-finish
+    statement: In the same entry, Billard says the SB05 uses a La Joux-Perret manual-wound movement with a special set of finishes made for the SB05, without saying who applies them.
+    excerpt: We will be using a manual wound movement from La Joux Perret with a special set of finishes made for the SB05.
+    source: sartory-billard-gphg-2022-sb05
+    dimensions:
+      - MA
+      - MM
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -276,18 +295,25 @@ profiles:
     scores:
       MA:
         value: 1
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 2
+        evidence: []
       CF:
         value: 3
+        evidence: []
       WE:
         value: 3
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - artisan_atelier
       - artisan_etablisseur
@@ -296,8 +322,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 \u2192 U; CF 3 \u2192 U; WE 3 \u2192 0; PD 4 \u2192 3; confidence B \u2192 C; classification Artisan Atelier and Artisan \u00c9tablisseur \u2192 Artisan \u00c9tablisseur. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: DH 2 → U; CF 3 → U; WE 3 → 0; PD 4 → 3; confidence B → C; classification Artisan Atelier and Artisan Établisseur → Artisan Établisseur. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -380,6 +407,7 @@ profiles:
     confidence: B
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds the brand's own SB05 design guide and Billard's GPHG 2022 entry for the SB05. Changes from version 2: DH U → 2; CF U → 1; confidence C → B. No dimensions remain U."
     created_on: 2026-11-17

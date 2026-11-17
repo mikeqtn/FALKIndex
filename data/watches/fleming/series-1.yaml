@@ -53,6 +53,7 @@ claims:
       - MA
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-modified
     statement: The C101 was modified with a new balance bridge, click spring assembly and power reserve indication.
     excerpt: modified it to their needs with a new, black-polished balance bridge and click spring assembly
@@ -62,6 +63,7 @@ claims:
       - MM
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-mojon
     statement: Jean-François Mojon of Chronode helped develop the movement.
     excerpt: Chronode's Jean-François Mojon helped develop the highly decorated movement
@@ -71,6 +73,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-chronode
     statement: Chronode created the movement for Fleming.
     excerpt: For this, Fleming turned to Chronode, who created a gem.
@@ -80,6 +83,7 @@ claims:
       - MM
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-dials
     statement: All dials are made by Comblémine, owned by Kari Voutilainen.
     excerpt: All dials are made by the experts at Comblémine, a highly specialized company in Saint-Sulpice, Switzerland owned by Kari Voutilainen.
@@ -89,6 +93,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-case-design
     statement: The founder held the case to his original design through two years of development.
     excerpt: As Fleming did not want to deviate from his original design, it took two years before the case in tantalum was finally up to par.
@@ -98,6 +103,7 @@ claims:
       - EX
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-not-watchmaker
     statement: The brand was not founded by a watchmaker.
     excerpt: Fleming is not the brainchild of a watchmaker
@@ -107,6 +113,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: fl-s1-efteor-europastar
     statement: A Europa Star article says the Series 1 case was crafted by Efteor, a boutique casemaker.
     excerpt: The svelte 9-millimeter case, featuring a layered architecture crafted by Efteor (a boutique casemaker supplying the likes of
@@ -115,6 +122,7 @@ claims:
       - EX
     date_checked: 2026-11-17
     editor: falk-index
+    status: active
   - id: fl-s1-efteor-fratello
     statement: A Fratello article says Efteor SA crafted the Series 1 tantalum cases.
     excerpt: Finally, Efteor SA has crafted the tantalum cases. Essentially, this watch is from an all-star lineup of high-end Swiss suppliers.
@@ -123,6 +131,7 @@ claims:
       - EX
     date_checked: 2026-11-17
     editor: falk-index
+    status: active
   - id: fl-s1-partners-assembly
     statement: Fleming says it works with partners such as Chronode and Fabrika for manufacturing, finishing and assembly, while keeping design in-house.
     excerpt: While we work with incredible partners like Chronode, Fabrika, and others for manufacturing, finishing, and assembly, we do not buy off-the-shelf components or surrender design control to anyone else.
@@ -133,6 +142,7 @@ claims:
       - PD
     date_checked: 2026-11-17
     editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -147,18 +157,25 @@ profiles:
     scores:
       MA:
         value: 4
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 1
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - design_led_etablisseur
   - version: 2
@@ -166,6 +183,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: MA 4 → 3 (sources describe a modified Chronode C101, not a new caliber); EX 0 → U and WE 1 → U (no source on the case maker or assembly); PD 5 → 4 (the engineering is Chronode's). Confidence B → C: all evidence is secondary, and the brand site could not be read. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
@@ -238,9 +256,10 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    created_on: 2026-11-17
     change_note: "Adds Fleming's own 'Complete Integration' editorial (fleming.watch, 2026), a Europa Star article (2024) and a Fratello hands-on (2024). Changes from version 2: EX U → 0; WE U → 0 (borderline with 1); confidence stays C. None of the seven dimensions remain U."
+    created_on: 2026-11-17
     scores:
       MA:
         value: 3

@@ -3,119 +3,6 @@ brand: unimatic
 model: Modello Uno
 route_label: Sellita
 notes: Handbook v0.2 §8 lists this record as "Unimatic — Modello Uno Sellita".
-claims:
-  - id: um1s-sw200
-    statement: A hands-on review reports a Sellita SW200-1 automatic movement in the Modello Uno U1S.
-    excerpt: Inside the brushed steel case is a Swiss Made Sellita caliber SW200-1 automatic movement that operates at 4Hz
-    source: unimatic-ablogtowatch-u1s-m
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-switch
-    statement: A specialist site reports that the S-series moved from Seiko NH35 to Sellita movements.
-    excerpt: the upgrade in movements from the Seiko NH35 movements to Sellita movements will probably please many enthusiasts.
-    source: unimatic-fratello-s-series
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-all-sw200
-    statement: The specialist site says all four S-series launch models use the Sellita SW200-1.
-    excerpt: All four models are powered by automatic Sellita SW200-1 movements for this series
-    source: unimatic-fratello-s-series
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-case-new
-    statement: The hands-on review says the S Series has a new, thinner case design.
-    excerpt: The S Series also has a new case design that is slightly thinner than previous Unimatic cases.
-    source: unimatic-ablogtowatch-u1s-m
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-case-height
-    statement: The specialist site gives an 11.6 mm case height, down from 13.6 mm.
-    excerpt: The height has been reduced to 11.6mm compared to the 13.6mm of previous models.
-    source: unimatic-fratello-s-series
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-designers
-    statement: The specialist site describes the founders as industrial designers by trade.
-    excerpt: industrial designers by trade
-    source: unimatic-fratello-s-series
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-italy-based
-    statement: The hands-on review describes Unimatic as Italy-based.
-    excerpt: Italy-based Unimatic has just released a new "S Series" of watches
-    source: unimatic-ablogtowatch-u1s-m
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-italy-production
-    statement: A radio-programme summary says co-founder Giovanni Moro discusses manufacturing in Italy; no details are given.
-    excerpt: Giovanni Moro talks about keeping production close to home by manufacturing in Italy
-    source: unimatic-monocle-eureka-397
-    dimensions:
-      - WE
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: um1s-assembly-inhouse
-    statement: Unimatic's About page says that in 2021 the brand brought assembly and testing in-house, near Milan.
-    excerpt: We brought assembly and testing in-house, near Milan, to ensure each watch meets our high standards.
-    source: unimatic-about
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: um1s-suppliers-italy
-    statement: Unimatic's About page says production is made in Italy in collaboration with suppliers, without naming them or the parts they make.
-    excerpt: Production is Made in Italy in collaboration with the leading suppliers available to ensure the best quality in our market segment.
-    source: unimatic-about
-    dimensions:
-      - EX
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: um1s-gp-assembled
-    statement: A Gear Patrol article reports that all Unimatic watches are assembled, tested and packaged near Milan.
-    excerpt: All Unimatic watches are assembled, tested and packaged a mere 30-minute drive from Milan.
-    source: unimatic-gearpatrol-2023
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: um1s-gp-dial-makers
-    statement: The same Gear Patrol article reports that Unimatic's dial and strap manufacturers are located near Milan, which describes the dials as coming from separate manufacturers; none is named.
-    excerpt: The dial and strap manufacturers are also close by.
-    source: unimatic-gearpatrol-2023
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: um1s-supplier-countries
-    statement: In a Smalltalk interview, co-founder Giovanni Moro says Unimatic's suppliers are mainly in Italy, Switzerland, Japan and Hong Kong.
-    excerpt: Our suppliers are distributed mainly in Italy, Switzerland, Japan and Hong Kong.
-    source: unimatic-smalltalk-moro
-    dimensions:
-      - EX
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW200-1)
@@ -176,6 +63,132 @@ provenance:
       - um1s-designers
       - um1s-case-new
       - um1s-italy-based
+claims:
+  - id: um1s-sw200
+    statement: A hands-on review reports a Sellita SW200-1 automatic movement in the Modello Uno U1S.
+    excerpt: Inside the brushed steel case is a Swiss Made Sellita caliber SW200-1 automatic movement that operates at 4Hz
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-switch
+    statement: A specialist site reports that the S-series moved from Seiko NH35 to Sellita movements.
+    excerpt: the upgrade in movements from the Seiko NH35 movements to Sellita movements will probably please many enthusiasts.
+    source: unimatic-fratello-s-series
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-all-sw200
+    statement: The specialist site says all four S-series launch models use the Sellita SW200-1.
+    excerpt: All four models are powered by automatic Sellita SW200-1 movements for this series
+    source: unimatic-fratello-s-series
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-case-new
+    statement: The hands-on review says the S Series has a new, thinner case design.
+    excerpt: The S Series also has a new case design that is slightly thinner than previous Unimatic cases.
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-case-height
+    statement: The specialist site gives an 11.6 mm case height, down from 13.6 mm.
+    excerpt: The height has been reduced to 11.6mm compared to the 13.6mm of previous models.
+    source: unimatic-fratello-s-series
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-designers
+    statement: The specialist site describes the founders as industrial designers by trade.
+    excerpt: industrial designers by trade
+    source: unimatic-fratello-s-series
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-italy-based
+    statement: The hands-on review describes Unimatic as Italy-based.
+    excerpt: Italy-based Unimatic has just released a new "S Series" of watches
+    source: unimatic-ablogtowatch-u1s-m
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-italy-production
+    statement: A radio-programme summary says co-founder Giovanni Moro discusses manufacturing in Italy; no details are given.
+    excerpt: Giovanni Moro talks about keeping production close to home by manufacturing in Italy
+    source: unimatic-monocle-eureka-397
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: um1s-assembly-inhouse
+    statement: Unimatic's About page says that in 2021 the brand brought assembly and testing in-house, near Milan.
+    excerpt: We brought assembly and testing in-house, near Milan, to ensure each watch meets our high standards.
+    source: unimatic-about
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: um1s-suppliers-italy
+    statement: Unimatic's About page says production is made in Italy in collaboration with suppliers, without naming them or the parts they make.
+    excerpt: Production is Made in Italy in collaboration with the leading suppliers available to ensure the best quality in our market segment.
+    source: unimatic-about
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: um1s-gp-assembled
+    statement: A Gear Patrol article reports that all Unimatic watches are assembled, tested and packaged near Milan.
+    excerpt: All Unimatic watches are assembled, tested and packaged a mere 30-minute drive from Milan.
+    source: unimatic-gearpatrol-2023
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: um1s-gp-dial-makers
+    statement: The same Gear Patrol article reports that Unimatic's dial and strap manufacturers are located near Milan, which describes the dials as coming from separate manufacturers; none is named.
+    excerpt: The dial and strap manufacturers are also close by.
+    source: unimatic-gearpatrol-2023
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: um1s-supplier-countries
+    statement: In a Smalltalk interview, co-founder Giovanni Moro says Unimatic's suppliers are mainly in Italy, Switzerland, Japan and Hong Kong.
+    excerpt: Our suppliers are distributed mainly in Italy, Switzerland, Japan and Hong Kong.
+    source: unimatic-smalltalk-moro
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -190,18 +203,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 1
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - contract_microbrand
   - version: 2
@@ -209,8 +229,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 3 \u2192 2; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 → U; DH 0 → U; CF 0 → U; WE 1 → U; PD 3 → 2; confidence A → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -275,6 +296,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Unimatic's own About page, a 2023 Gear Patrol article and a 2022 Smalltalk interview with co-founder Giovanni Moro. Changes from version 2: DH U → 0; WE U → 2; confidence D → C. Two of seven dimensions remain U (EX, CF)."
     created_on: 2026-11-17

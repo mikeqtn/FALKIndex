@@ -3,138 +3,6 @@ brand: kurono-tokyo
 model: Chronograph
 route_label: Miyota-based lines
 notes: Handbook v0.2 §8 lists this record as "Kurono Tokyo — Chronograph / Miyota-based lines".
-claims:
-  - id: kurchr-ne86-ch1
-    statement: The brand says the Chronograph 1 used the Seiko NE86, a 7.65 mm thick automatic chronograph movement.
-    excerpt: which leveraged the Seiko NE86 that was by itself a thick movement at 7.65mm
-    source: kurono-chronograph-1-mk2-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-ne86-all
-    statement: The brand describes the NE86 as the caliber used by Kurono chronographs.
-    excerpt: The NE86 caliber used by Kurono chronographs is renowned for its reliability and excellent accuracy.
-    source: kurono-chronograph-1-mk2-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-ne86-sii
-    statement: The brand states that the Chronograph 3 uses the NE86, described as SII's flagship chronograph movement, with column wheel and vertical clutch.
-    excerpt: Positioned by SII as its newest flagship chronograph movement - it is a premium caliber.
-    source: kurono-chronograph-3-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-mk2-case
-    statement: Hajime Asaoka designed the Mk.2 three-part chronograph case to reduce the visual thickness of the NE86.
-    excerpt: The Mk.2 is now a three-part case that has a much thinner visual profile, but is also built more robustly and allows for better repairability.
-    source: kurono-chronograph-3-page
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-dial-construction
-    statement: The brand says the cylinder-shaped dial is made with the main dial and subdials manufactured separately and fitted together, with diamond-cut subdial rings.
-    excerpt: To create a three-dimensional effect, the main dial and the subdials are manufactured separately and then fitted together, with the subdials' steel surround ring being diamond-cut.
-    source: kurono-chronograph-3-page
-    dimensions:
-      - DH
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-hands-bent
-    statement: The brand says the tips of the minute and chronograph seconds hands are bent by hand.
-    excerpt: The tips of the minute and chronograph seconds hands are bent by hand to match the curves of the dial and glass.
-    source: kurono-chronograph-3-page
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-inspection
-    statement: The brand says all items are inspected by watchmakers before leaving the factory.
-    excerpt: All items are thoroughly inspected by watchmakers before they leave the factory for shipping.
-    source: kurono-chronograph-3-page
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-made-japan
-    statement: The specification lists the Chronograph 3 as made in Japan.
-    excerpt: 'Glass: sapphire box crystal Made in Japan'
-    source: kurono-chronograph-3-page
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-asaoka-design
-    statement: The brand says Hajime Asaoka personally makes the initial sketches and prototypes, refining dial, typography, colour, case proportions and finishing.
-    excerpt: He personally creates its initial sketches and prototypes, refining the dial architecture, typography, color, case proportions and finishing until every element reflects his intended vision.
-    source: kurono-begins-with-asaoka
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: kurchr-ww-contract-suppliers
-    statement: A 2019 Worn & Wound article on the first (Miyota-based) Kurono reports that Asaoka produces Kurono watches through his existing contract suppliers.
-    excerpt: Asaoka was able to create and sell Kurono pieces at scale by leveraging the relationships he has built with his existing contract suppliers
-    source: wornandwound-kurono-intro-2019
-    dimensions:
-      - EX
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: kurchr-ww-pwt
-    statement: The same Worn & Wound article reports that Kurono production is managed by Precision Watch Tokyo Co., Ltd, the company that runs Asaoka's custom-made business.
-    excerpt: Production is managed by Precision Watch Tokyo Co., Ltd, the same parent company that runs Asaoka's custom made business
-    source: wornandwound-kurono-intro-2019
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: kurchr-dep-classic-case
-    statement: A 2019 Deployant review of the Kurono Classic reports that it is manufactured by Asaoka's partners at Precision Watch Tokyo and that its case comes from Grand Seiko's case suppliers.
-    excerpt: manufactured by his partners at Precision Watch Tokyo Co., Ltd, the watch bears a Citizen Miyota automatic movement in a case made by the same suppliers to Grand Seiko
-    source: deployant-kurono-classic-review
-    dimensions:
-      - EX
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: kurchr-dial-maker-first
-    statement: In a brand interview about the first Kurono, Asaoka says its cylindrical dial had to be made by Japan's leading dial maker, who is not named.
-    excerpt: The dial had to made by the most powerful and #1 dial maker in Japan
-    source: kurono-words-from-the-designer
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: kurchr-mk2-paint
-    statement: On the Chronograph 1 Mk.2 page, Asaoka says he formulates the dial colour himself on a metal plate and hands it to the person in charge of painting.
-    excerpt: I actually check it by applying the paint I have formulated myself to the metal plate and hand it over to the person in charge of painting
-    source: kurono-chronograph-1-mk2-page
-    dimensions:
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: kurchr-fr-artisans
-    statement: A Fratello article on the Chronograph 3 Hisui attributes its multi-layered dial painting to "Asaoka-san's artisans", without saying where they work.
-    excerpt: a new multi-layered dial-painting technique by Asaoka-san's artisans, making its debut in this Chronograph 3 Hisui
-    source: fratello-kurono-chronograph-3
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design (Seiko NE86)
@@ -192,6 +60,153 @@ provenance:
     claims:
       - kurchr-asaoka-design
       - kurchr-mk2-case
+claims:
+  - id: kurchr-ne86-ch1
+    statement: The brand says the Chronograph 1 used the Seiko NE86, a 7.65 mm thick automatic chronograph movement.
+    excerpt: which leveraged the Seiko NE86 that was by itself a thick movement at 7.65mm
+    source: kurono-chronograph-1-mk2-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-ne86-all
+    statement: The brand describes the NE86 as the caliber used by Kurono chronographs.
+    excerpt: The NE86 caliber used by Kurono chronographs is renowned for its reliability and excellent accuracy.
+    source: kurono-chronograph-1-mk2-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-ne86-sii
+    statement: The brand states that the Chronograph 3 uses the NE86, described as SII's flagship chronograph movement, with column wheel and vertical clutch.
+    excerpt: Positioned by SII as its newest flagship chronograph movement - it is a premium caliber.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-mk2-case
+    statement: Hajime Asaoka designed the Mk.2 three-part chronograph case to reduce the visual thickness of the NE86.
+    excerpt: The Mk.2 is now a three-part case that has a much thinner visual profile, but is also built more robustly and allows for better repairability.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-dial-construction
+    statement: The brand says the cylinder-shaped dial is made with the main dial and subdials manufactured separately and fitted together, with diamond-cut subdial rings.
+    excerpt: To create a three-dimensional effect, the main dial and the subdials are manufactured separately and then fitted together, with the subdials' steel surround ring being diamond-cut.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-hands-bent
+    statement: The brand says the tips of the minute and chronograph seconds hands are bent by hand.
+    excerpt: The tips of the minute and chronograph seconds hands are bent by hand to match the curves of the dial and glass.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-inspection
+    statement: The brand says all items are inspected by watchmakers before leaving the factory.
+    excerpt: All items are thoroughly inspected by watchmakers before they leave the factory for shipping.
+    source: kurono-chronograph-3-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-made-japan
+    statement: The specification lists the Chronograph 3 as made in Japan.
+    excerpt: "Glass: sapphire box crystal Made in Japan"
+    source: kurono-chronograph-3-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-asaoka-design
+    statement: The brand says Hajime Asaoka personally makes the initial sketches and prototypes, refining dial, typography, colour, case proportions and finishing.
+    excerpt: He personally creates its initial sketches and prototypes, refining the dial architecture, typography, color, case proportions and finishing until every element reflects his intended vision.
+    source: kurono-begins-with-asaoka
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: kurchr-ww-contract-suppliers
+    statement: A 2019 Worn & Wound article on the first (Miyota-based) Kurono reports that Asaoka produces Kurono watches through his existing contract suppliers.
+    excerpt: Asaoka was able to create and sell Kurono pieces at scale by leveraging the relationships he has built with his existing contract suppliers
+    source: wornandwound-kurono-intro-2019
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: kurchr-ww-pwt
+    statement: The same Worn & Wound article reports that Kurono production is managed by Precision Watch Tokyo Co., Ltd, the company that runs Asaoka's custom-made business.
+    excerpt: Production is managed by Precision Watch Tokyo Co., Ltd, the same parent company that runs Asaoka's custom made business
+    source: wornandwound-kurono-intro-2019
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: kurchr-dep-classic-case
+    statement: A 2019 Deployant review of the Kurono Classic reports that it is manufactured by Asaoka's partners at Precision Watch Tokyo and that its case comes from Grand Seiko's case suppliers.
+    excerpt: manufactured by his partners at Precision Watch Tokyo Co., Ltd, the watch bears a Citizen Miyota automatic movement in a case made by the same suppliers to Grand Seiko
+    source: deployant-kurono-classic-review
+    dimensions:
+      - EX
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: kurchr-dial-maker-first
+    statement: In a brand interview about the first Kurono, Asaoka says its cylindrical dial had to be made by Japan's leading dial maker, who is not named.
+    excerpt: The dial had to made by the most powerful and
+    source: kurono-words-from-the-designer
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: kurchr-mk2-paint
+    statement: On the Chronograph 1 Mk.2 page, Asaoka says he formulates the dial colour himself on a metal plate and hands it to the person in charge of painting.
+    excerpt: I actually check it by applying the paint I have formulated myself to the metal plate and hand it over to the person in charge of painting
+    source: kurono-chronograph-1-mk2-page
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: kurchr-fr-artisans
+    statement: A Fratello article on the Chronograph 3 Hisui attributes its multi-layered dial painting to "Asaoka-san's artisans", without saying where they work.
+    excerpt: a new multi-layered dial-painting technique by Asaoka-san's artisans, making its debut in this Chronograph 3 Hisui
+    source: fratello-kurono-chronograph-3
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -206,18 +221,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 1
+        evidence: []
       WE:
         value: 1
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - design_led_etablisseur
   - version: 2
@@ -225,8 +247,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence C \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: EX 0 → U; DH 0 → U; CF 1 → U; WE 1 → U; PD 4 → 3; confidence C → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -303,6 +326,7 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Worn & Wound's 2019 Kurono introduction, Deployant's 2019 Kurono Classic review, Kurono's Words From the Designer interview, Fratello's Chronograph 3 Hisui article and a dial-painting quote from the Chronograph 1 Mk.2 page. All new evidence is context: it covers the Miyota-based Kurono or Kurono in general, or does not say who performs the work. No score changes from version 2; confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE)."
     created_on: 2026-11-17

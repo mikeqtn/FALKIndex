@@ -3,128 +3,6 @@ brand: studio-underd0g
 model: 01SERIES
 generation: Gen3
 notes: Handbook v0.2 §8 lists this record as "Studio Underd0g — 01SERIES Gen3".
-claims:
-  - id: ud01g3-seagull-deal
-    statement: A specialist site reports an exclusive movement agreement between Studio Underd0g and Seagull for the Gen 3.
-    excerpt: thanks to an exclusive agreement signed with Seagull, which comes with a host of other improvements
-    source: underd0g-tt-01series-gen3
-    dimensions:
-      - MA
-      - MM
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-st1901b
-    statement: A second report says Seagull makes an exclusive, modified version of its calibre, the ST-1901B, for the brand.
-    excerpt: to create an exclusive and enhanced version of their caliber called the ST-1901B.
-    source: underd0g-wornandwound-01series-gen3
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-swan-neck
-    statement: The report says the ST-1901B is a hand-wound column-wheel chronograph with an upgraded swan-neck regulator.
-    excerpt: The new ST-1901B manually wound column-wheel chronograph movement will feature an upgraded Swan neck regulating system,
-    source: underd0g-wornandwound-01series-gen3
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-black-plate
-    statement: The specialist site says the Gen 3 baseplate is black.
-    excerpt: the baseplate is now in black to give the bridges better contrast
-    source: underd0g-tt-01series-gen3
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-regulation
-    statement: The specialist site says the movements are regulated by UK-based Horologium to -10/+15 s/day.
-    excerpt: regulated by UK-based Horologium to -10/+15 seconds per day
-    source: underd0g-tt-01series-gen3
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-assembled-gb
-    statement: The report says the Gen 3 dial carries the text "Assembled in Great Britain".
-    excerpt: proudly added the phrase “Assembled in Great Britain” to the dial.
-    source: underd0g-wornandwound-01series-gen3
-    dimensions:
-      - WE
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-case
-    statement: The report lists a 316L stainless steel case, water-resistant to 50 m, without naming its maker.
-    excerpt: Made from 316L stainless steel, they are water-resistant to 50 meters.
-    source: underd0g-wornandwound-01series-gen3
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-case-height
-    statement: The report says the founder reduced the case height from 13.6 mm to 12.9 mm for Gen 3.
-    excerpt: he reduced the case height from 13.6mm to 12.9mm.
-    source: underd0g-wornandwound-01series-gen3
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-horologium-scope
-    statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
-    excerpt: assembling watches including dials, hands and third-party movements.
-    source: underd0g-oracleoftime-horologium
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-horologium-volume
-    statement: A trade report says Horologium assembles 1,000 to 1,200 Studio Underd0g watches each month.
-    excerpt: Horologium currently assembles between 1,000 and 1,200 Studio Underd0g watches each month.
-    source: underd0g-europastar-horologium
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-horologium-stake
-    statement: The trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
-    excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
-    source: underd0g-europastar-horologium
-    dimensions:
-      - WE
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud01g3-tb-cases-asia
-    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model or generation.
-    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
-    source: underd0g-teddybaldassarre-brand-review
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ud01g3-tb-sourced-globally
-    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
-    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
-    source: underd0g-teddybaldassarre-brand-review
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ud01g3-components-to-uk
-    statement: In a June 2022 production update for 01SERIES orders, Studio Underd0g says cases, hands and dials were with its UK watchmaker for assembly, without naming who made them.
-    excerpt: the vast majority of components are with our watchmaker here in the UK – so that’s cases, hands, dials, straps etc
-    source: underd0g-production-update-2022
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Seagull ST-1901B, Venus 175 lineage)
@@ -196,6 +74,142 @@ provenance:
     claims:
       - ud01g3-case-height
       - ud01g3-seagull-deal
+claims:
+  - id: ud01g3-seagull-deal
+    statement: A specialist site reports an exclusive movement agreement between Studio Underd0g and Seagull for the Gen 3.
+    excerpt: thanks to an exclusive agreement signed with Seagull, which comes with a host of other improvements
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-st1901b
+    statement: A second report says Seagull makes an exclusive, modified version of its calibre, the ST-1901B, for the brand.
+    excerpt: to create an exclusive and enhanced version of their caliber called the ST-1901B.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-swan-neck
+    statement: The report says the ST-1901B is a hand-wound column-wheel chronograph with an upgraded swan-neck regulator.
+    excerpt: The new ST-1901B manually wound column-wheel chronograph movement will feature an upgraded Swan neck regulating system,
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-black-plate
+    statement: The specialist site says the Gen 3 baseplate is black.
+    excerpt: the baseplate is now in black to give the bridges better contrast
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-regulation
+    statement: The specialist site says the movements are regulated by UK-based Horologium to -10/+15 s/day.
+    excerpt: regulated by UK-based Horologium to -10/+15 seconds per day
+    source: underd0g-tt-01series-gen3
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-assembled-gb
+    statement: The report says the Gen 3 dial carries the text "Assembled in Great Britain".
+    excerpt: proudly added the phrase “Assembled in Great Britain” to the dial.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - WE
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-case
+    statement: The report lists a 316L stainless steel case, water-resistant to 50 m, without naming its maker.
+    excerpt: Made from 316L stainless steel, they are water-resistant to 50 meters.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-case-height
+    statement: The report says the founder reduced the case height from 13.6 mm to 12.9 mm for Gen 3.
+    excerpt: he reduced the case height from 13.6mm to 12.9mm.
+    source: underd0g-wornandwound-01series-gen3
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-horologium-scope
+    statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
+    excerpt: assembling watches including dials, hands and third-party movements.
+    source: underd0g-oracleoftime-horologium
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-horologium-volume
+    statement: A trade report says Horologium assembles 1,000 to 1,200 Studio Underd0g watches each month.
+    excerpt: Horologium currently assembles between 1,000 and 1,200 Studio Underd0g watches each month.
+    source: underd0g-europastar-horologium
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-horologium-stake
+    statement: The trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
+    excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
+    source: underd0g-europastar-horologium
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud01g3-tb-cases-asia
+    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model or generation.
+    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ud01g3-tb-sourced-globally
+    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
+    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ud01g3-components-to-uk
+    statement: In a June 2022 production update for 01SERIES orders, Studio Underd0g says cases, hands and dials were with its UK watchmaker for assembly, without naming who made them.
+    excerpt: the vast majority of components are with our watchmaker here in the UK – so that’s cases, hands, dials, straps etc
+    source: underd0g-production-update-2022
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -210,18 +224,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 3
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - contract_microbrand
   - version: 2
@@ -229,8 +250,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 → 1; EX 0 → U; DH 0 → U; CF 0 → U; WE 3 → 2; confidence A → C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -273,23 +295,23 @@ profiles:
             note: Supplied finish.
       WE:
         value: 2
-        rationale: "Horologium in the UK assembles the watches, including dials, hands and movements, and regulates them to -10/+15 s/day. It was a partner until December 2025 and is now in-group. Assembly and basic regulation."
+        rationale: Horologium in the UK assembles the watches, including dials, hands and movements, and regulates them to -10/+15 s/day. It was a partner until December 2025 and is now in-group. Assembly and basic regulation.
         evidence:
           - claim: ud01g3-regulation
             stance: supports
-            note: "Regulation by Horologium."
+            note: Regulation by Horologium.
           - claim: ud01g3-horologium-scope
             stance: supports
-            note: "Assembly scope."
+            note: Assembly scope.
           - claim: ud01g3-horologium-stake
             stance: supports
-            note: "Ownership timeline."
+            note: Ownership timeline.
           - claim: ud01g3-assembled-gb
             stance: supports
-            note: "Assembled in Great Britain."
+            note: Assembled in Great Britain.
           - claim: ud01g3-horologium-volume
             stance: context
-            note: "Horologium assembles 1,000 to 1,200 watches a month."
+            note: Horologium assembles 1,000 to 1,200 watches a month.
       PD:
         value: 3
         rationale: The brand negotiated an exclusive modified movement and re-specified the case, reducing its height for Gen 3. Bespoke components directed at suppliers.

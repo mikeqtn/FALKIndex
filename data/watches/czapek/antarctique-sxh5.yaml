@@ -62,6 +62,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-partners
     statement: SXH5 parts are made by partners including AB Product, Générale Ressorts and Atokalpa.
     excerpt: "with parts manufactured by several partners: AB product, Générale de resort or Atokalpa"
@@ -71,6 +72,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-first-in-house
     statement: The SXH5 is described as the brand's first in-house movement.
     excerpt: the brand's first in-house movement
@@ -79,6 +81,7 @@ claims:
       - MA
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-assembly
     statement: A Czapek watchmaker assembled the first Antarctique prototype.
     excerpt: Czapek's watchmaker, Julian, assembling the first Antarctique prototype, equipped with the calibre SXH5.
@@ -87,6 +90,7 @@ claims:
       - WE
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-finishing
     statement: The movement has hand-chamfered inward angles and drawn flanks.
     excerpt: It is modern but elaborate with hand chamfering of the inward angles and drawing of the flanks.
@@ -95,6 +99,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-dial
     statement: The dial is made by Metalem in Le Locle.
     excerpt: The dial of the Czapek Antarctique is made by Metalem (a Le Locle-based dial maker and long-standing Czapek partner).
@@ -103,6 +108,7 @@ claims:
       - DH
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: cz-ant-chronode-past
     statement: Before the SXH5, Czapek made its movements with Chronode.
     excerpt: Until now, Czapek has been manufacturing its movements with Chronode
@@ -111,6 +117,7 @@ claims:
       - MM
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -125,18 +132,25 @@ profiles:
     scores:
       MA:
         value: 4
+        evidence: []
       MM:
         value: 1
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 3
+        evidence: []
       WE:
         value: 4
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - design_led_etablisseur
       - independent_manufacture
@@ -145,6 +159,7 @@ profiles:
     confidence: B
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: MM 1 → 0 (all parts made by named partners), EX 0 → U and CF 3 → U (no source on the case maker or on who finishes the movement). Confidence A → B: one 2020 secondary article; the maker page no longer covers the SXH5. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13

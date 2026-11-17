@@ -2,230 +2,6 @@ id: ming/37-02-minimalist
 brand: ming
 model: 37.02 Minimalist
 notes: Handbook v0.2 §8 lists this record as "MING — 37.02 Minimalist".
-claims:
-  - id: ming3702-sw300
-    statement: A specialist site reports the movement is a customised Sellita SW300-1.
-    excerpt: Inside, we find a custom version of the Sellita SW300-1 automatic
-    source: monochrome-ming-37-02
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-anthracite
-    statement: The same source reports the bridges and plates have an anthracite coating.
-    excerpt: All the bridges and plates have been finished with an anthracite coating
-    source: monochrome-ming-37-02
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-rotor
-    statement: The same source describes a bespoke openworked rotor.
-    excerpt: The bespoke openworked rotor has a subtle brushed finish on the weighted outer edge
-    source: monochrome-ming-37-02
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-sapphire-dial
-    statement: The same source describes a sapphire dial with liquid-filled luminous indices.
-    excerpt: The sapphire crystal dial has a special inset of liquid-filled Polar White luminous indices.
-    source: monochrome-ming-37-02
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-sw300m1
-    statement: A review describes the SW300.M1 as having skeletonised anthracite bridges and a customised rotor.
-    excerpt: The SW300.M1 automatic movement features anthracite skeletonised bridges and a customized rotor.
-    source: oracleoftime-ming-37-02
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-internal-design
-    statement: The review says the 37.02 is the first MING watch designed, engineered and managed internally by Horologer Ming SA.
-    excerpt: it’s the first to be designed, engineered, and managed internally by Horologer Ming SA, Ming’s new Swiss entity.
-    source: oracleoftime-ming-37-02
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-case
-    statement: The review lists a 38 mm stainless steel case, without naming its maker.
-    excerpt: "Case: 38mm diameter x 11mm thickness, stainless steel"
-    source: oracleoftime-ming-37-02
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-lume
-    statement: A trade publication reports MING developed a proprietary luminous material after moving work internally.
-    excerpt: Since moving efforts internally, it has finally managed to develop a proprietary luminous material
-    source: europastar-ming-37-02
-    dimensions:
-      - DH
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-laser-dial
-    statement: The same publication reports the dial markings are laser-cut channels in the sapphire dial.
-    excerpt: All dial markings are in fact laser cut channels in the sapphire dial
-    source: europastar-ming-37-02
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-assembly
-    statement: The same publication reports component sourcing is unchanged and the watches are assembled in Switzerland.
-    excerpt: Nevertheless, component sourcing remains unchanged, and these watches are still assembled in Switzerland.
-    source: europastar-ming-37-02
-    dimensions:
-      - WE
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-swiss-made
-    statement: The same publication reports watches produced by Horologer Ming SA in La Chaux-de-Fonds are not eligible for 'Swiss Made'.
-    excerpt: watches produced by Horologer Ming SA in La Chaux-de-Fonds, Switzerland are not eligible for a 'Swiss Made' mark.
-    source: europastar-ming-37-02
-    dimensions:
-      - WE
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ming3702-brand-production-managed
-    statement: MING says the 37.02 Minimalist is the first watch designed, engineered and production managed internally at its Swiss facility in La Chaux-de-Fonds.
-    excerpt: The 37.02 Minimalist is the first watch to be designed, engineered and production managed internally at our new Swiss facility in La Chaux de Fonds.
-    source: ming-37-02-product
-    dimensions:
-      - PD
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming3702-brand-lume-in-house
-    statement: MING says it developed the white-emission luminous material in-house after attempts with external suppliers failed.
-    excerpt: For years, MT has wanted to develop white emission luminous material and despite many attempts with external suppliers, this remained an elusive goal.
-    source: ming-37-02-product
-    dimensions:
-      - PD
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming3702-brand-dial-channels
-    statement: MING says the dial markings are laser-cut channels in the sapphire dial, liquid-filled with its proprietary Polar White; it does not say who cuts or fills them.
-    excerpt: All dial markings are in fact laser cut channels in the sapphire dial that are then liquid filled with our proprietary MING Polar White.
-    source: ming-37-02-product
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming3702-brand-hands
-    statement: MING says the handset carries blue-emission Super-LumiNova X1; it does not name the hand maker.
-    excerpt: We retained the blue emission Super-LumiNova X1 on the distinctive handset for visual contrast and increased legibility.
-    source: ming-37-02-product
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming3702-brand-case
-    statement: MING describes the 38 x 11 mm stainless steel 37-series case as its own continually refined design; it does not name the case maker.
-    excerpt: Playing off the gloss of the dial is our continually refined and improved 37-series case in stainless steel, sized at 38x11mm.
-    source: ming-37-02-product
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming3702-brand-sourcing-unchanged
-    statement: MING's 37.02 page says component sourcing is unchanged by the move to Horologer Ming SA and the watches are still assembled in Switzerland.
-    excerpt: Nevertheless, component sourcing remains unchanged, and our watches are still assembled in Switzerland.
-    source: ming-37-02-product
-    dimensions:
-      - EX
-      - MM
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-lcdf-going-forward
-    statement: MING said in August 2024 that for all releases going forward, design, engineering and construction are done internally by Ming Thein, and sourcing and assembly are managed directly.
-    excerpt: For all the releases going forward, design, engineering and construction are now done internally by Ming Thein (MT) and, sourcing and assembly are also managed directly.
-    source: ming-journal-lcdf-facility
-    dimensions:
-      - PD
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-about-production
-    statement: MING says production and assembly are in Switzerland, while design, engineering and final quality control take place in Malaysia.
-    excerpt: Production and assembly are in Switzerland, while design, engineering and final quality control takes place in Malaysia.
-    source: ming-about-us
-    dimensions:
-      - WE
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-squeezed-cases
-    statement: MING said in 2022 that it sources its cases from case manufacturers and that case lead times had become a bottleneck.
-    excerpt: "I’d like to offer as an example the sourcing of cases: cases have developed into a real bottleneck thanks to a surge in demand across the watch industry"
-    source: ming-journal-squeezed-industry
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-faq-regulated
-    statement: MING says all its watches are regulated in five positions, without saying who performs the regulation.
-    excerpt: All our watches are regulated in five positions and it is the average accuracy across these five positions that must fall within the target accuracy range.
-    source: ming-faq
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-2024-first-watchmaker
-    statement: MING says that in 2024 it opened its La Chaux-de-Fonds office and welcomed its first full-time watchmaker.
-    excerpt: opening our office in La Chaux de Fonds, welcoming our first full time watchmaker, and realising we’ve commercialised over 70+ references
-    source: ming-journal-reflecting-2024
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-europastar-assembled
-    statement: A March 2024 Europa Star interview reports MING watches are assembled, adjusted and tested in Switzerland, with final quality control in Malaysia; it does not say who assembles them.
-    excerpt: to develop its watch models, which are assembled, adjusted and tested in Switzerland, with final quality control carried out “personally in Malaysia”
-    source: europastar-ming-qa-2024
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-monochrome-swiss-assembly
-    statement: In a 2025 Monochrome interview, Ming Thein says MING opened a Swiss office where it handles assembly and ground operations.
-    excerpt: This led to us opening a Swiss office, where we handle assembly and all ground operational tasks.
-    source: monochrome-ming-thein-interview-2025
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-monochrome-sourcing
-    statement: In the same interview, Ming Thein says the Swiss office sources parts such as screws and crystals and deals with suppliers of metallization.
-    excerpt: There is an ecosystem for watchmaking, somebody needs to go and find some screws or crystal, chase that supplier of metallization
-    source: monochrome-ming-thein-interview-2025
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ming-monochrome-partners-tolerances
-    statement: In the same interview, Ming Thein says he now does the construction except machining tolerances, which are left to the partners who machine the parts.
-    excerpt: Now, I am doing everything apart from adding machining tolerances because all of those are machine-specific, so without knowing what machine our partners will be using
-    source: monochrome-ming-thein-interview-2025
-    dimensions:
-      - PD
-      - EX
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Base caliber (Sellita SW300-1)
@@ -319,6 +95,256 @@ provenance:
       - ming3702-brand-lume-in-house
       - ming-lcdf-going-forward
       - ming-monochrome-partners-tolerances
+claims:
+  - id: ming3702-sw300
+    statement: A specialist site reports the movement is a customised Sellita SW300-1.
+    excerpt: Inside, we find a custom version of the Sellita SW300-1 automatic
+    source: monochrome-ming-37-02
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-anthracite
+    statement: The same source reports the bridges and plates have an anthracite coating.
+    excerpt: All the bridges and plates have been finished with an anthracite coating
+    source: monochrome-ming-37-02
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-rotor
+    statement: The same source describes a bespoke openworked rotor.
+    excerpt: The bespoke openworked rotor has a subtle brushed finish on the weighted outer edge
+    source: monochrome-ming-37-02
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-sapphire-dial
+    statement: The same source describes a sapphire dial with liquid-filled luminous indices.
+    excerpt: The sapphire crystal dial has a special inset of liquid-filled Polar White luminous indices.
+    source: monochrome-ming-37-02
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-sw300m1
+    statement: A review describes the SW300.M1 as having skeletonised anthracite bridges and a customised rotor.
+    excerpt: The SW300.M1 automatic movement features anthracite skeletonised bridges and a customized rotor.
+    source: oracleoftime-ming-37-02
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-internal-design
+    statement: The review says the 37.02 is the first MING watch designed, engineered and managed internally by Horologer Ming SA.
+    excerpt: it’s the first to be designed, engineered, and managed internally by Horologer Ming SA, Ming’s new Swiss entity.
+    source: oracleoftime-ming-37-02
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-case
+    statement: The review lists a 38 mm stainless steel case, without naming its maker.
+    excerpt: "Case: 38mm diameter x 11mm thickness, stainless steel"
+    source: oracleoftime-ming-37-02
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-lume
+    statement: A trade publication reports MING developed a proprietary luminous material after moving work internally.
+    excerpt: Since moving efforts internally, it has finally managed to develop a proprietary luminous material
+    source: europastar-ming-37-02
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-laser-dial
+    statement: The same publication reports the dial markings are laser-cut channels in the sapphire dial.
+    excerpt: All dial markings are in fact laser cut channels in the sapphire dial
+    source: europastar-ming-37-02
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-assembly
+    statement: The same publication reports component sourcing is unchanged and the watches are assembled in Switzerland.
+    excerpt: Nevertheless, component sourcing remains unchanged, and these watches are still assembled in Switzerland.
+    source: europastar-ming-37-02
+    dimensions:
+      - WE
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-swiss-made
+    statement: The same publication reports watches produced by Horologer Ming SA in La Chaux-de-Fonds are not eligible for 'Swiss Made'.
+    excerpt: watches produced by Horologer Ming SA in La Chaux-de-Fonds, Switzerland are not eligible for a 'Swiss Made' mark.
+    source: europastar-ming-37-02
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-production-managed
+    statement: MING says the 37.02 Minimalist is the first watch designed, engineered and production managed internally at its Swiss facility in La Chaux-de-Fonds.
+    excerpt: The 37.02 Minimalist is the first watch to be designed, engineered and production managed internally at our new Swiss facility in La Chaux de Fonds.
+    source: ming-37-02-product
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-lume-in-house
+    statement: MING says it developed the white-emission luminous material in-house after attempts with external suppliers failed.
+    excerpt: For years, MT has wanted to develop white emission luminous material and despite many attempts with external suppliers, this remained an elusive goal.
+    source: ming-37-02-product
+    dimensions:
+      - PD
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-dial-channels
+    statement: MING says the dial markings are laser-cut channels in the sapphire dial, liquid-filled with its proprietary Polar White; it does not say who cuts or fills them.
+    excerpt: All dial markings are in fact laser cut channels in the sapphire dial that are then liquid filled with our proprietary MING Polar White.
+    source: ming-37-02-product
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-hands
+    statement: MING says the handset carries blue-emission Super-LumiNova X1; it does not name the hand maker.
+    excerpt: We retained the blue emission Super-LumiNova X1 on the distinctive handset for visual contrast and increased legibility.
+    source: ming-37-02-product
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-case
+    statement: MING describes the 38 x 11 mm stainless steel 37-series case as its own continually refined design; it does not name the case maker.
+    excerpt: Playing off the gloss of the dial is our continually refined and improved 37-series case in stainless steel, sized at 38x11mm.
+    source: ming-37-02-product
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming3702-brand-sourcing-unchanged
+    statement: MING's 37.02 page says component sourcing is unchanged by the move to Horologer Ming SA and the watches are still assembled in Switzerland.
+    excerpt: Nevertheless, component sourcing remains unchanged, and our watches are still assembled in Switzerland.
+    source: ming-37-02-product
+    dimensions:
+      - EX
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-lcdf-going-forward
+    statement: MING said in August 2024 that for all releases going forward, design, engineering and construction are done internally by Ming Thein, and sourcing and assembly are managed directly.
+    excerpt: For all the releases going forward, design, engineering and construction are now done internally by Ming Thein (MT) and, sourcing and assembly are also managed directly.
+    source: ming-journal-lcdf-facility
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-about-production
+    statement: MING says production and assembly are in Switzerland, while design, engineering and final quality control take place in Malaysia.
+    excerpt: Production and assembly are in Switzerland, while design, engineering and final quality control takes place in Malaysia.
+    source: ming-about-us
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-squeezed-cases
+    statement: MING said in 2022 that it sources its cases from case manufacturers and that case lead times had become a bottleneck.
+    excerpt: "I’d like to offer as an example the sourcing of cases: cases have developed into a real bottleneck thanks to a surge in demand across the watch industry"
+    source: ming-journal-squeezed-industry
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-faq-regulated
+    statement: MING says all its watches are regulated in five positions, without saying who performs the regulation.
+    excerpt: All our watches are regulated in five positions and it is the average accuracy across these five positions that must fall within the target accuracy range.
+    source: ming-faq
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-2024-first-watchmaker
+    statement: MING says that in 2024 it opened its La Chaux-de-Fonds office and welcomed its first full-time watchmaker.
+    excerpt: opening our office in La Chaux de Fonds, welcoming our first full time watchmaker, and realising we’ve commercialised over 70+ references
+    source: ming-journal-reflecting-2024
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-europastar-assembled
+    statement: A March 2024 Europa Star interview reports MING watches are assembled, adjusted and tested in Switzerland, with final quality control in Malaysia; it does not say who assembles them.
+    excerpt: to develop its watch models, which are assembled, adjusted and tested in Switzerland, with final quality control carried out “personally in Malaysia”
+    source: europastar-ming-qa-2024
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-monochrome-swiss-assembly
+    statement: In a 2025 Monochrome interview, Ming Thein says MING opened a Swiss office where it handles assembly and ground operations.
+    excerpt: This led to us opening a Swiss office, where we handle assembly and all ground operational tasks.
+    source: monochrome-ming-thein-interview-2025
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-monochrome-sourcing
+    statement: In the same interview, Ming Thein says the Swiss office sources parts such as screws and crystals and deals with suppliers of metallization.
+    excerpt: There is an ecosystem for watchmaking, somebody needs to go and find some screws or crystal, chase that supplier of metallization
+    source: monochrome-ming-thein-interview-2025
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ming-monochrome-partners-tolerances
+    statement: In the same interview, Ming Thein says he now does the construction except machining tolerances, which are left to the partners who machine the parts.
+    excerpt: Now, I am doing everything apart from adding machining tolerances because all of those are machine-specific, so without knowing what machine our partners will be using
+    source: monochrome-ming-thein-interview-2025
+    dimensions:
+      - PD
+      - EX
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -333,18 +359,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 1
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - design_led_etablisseur
   - version: 2
@@ -352,8 +385,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 \u2192 1; EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 0 → 1; EX 0 → U; DH 0 → U; CF 0 → U; WE 1 → U; PD 4 → 3; confidence A → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -433,6 +467,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds MING's own 37.02 product page, its About and FAQ pages, three MING Journal posts (2022 supply chain, 2024 La Chaux-de-Fonds facility, 2024 year review), a March 2024 Europa Star interview and a 2025 Monochrome interview with Ming Thein. Changes from version 2: EX U → 0; WE U → 2; confidence D → C. Two of seven dimensions remain U (DH, CF)."
     created_on: 2026-11-17

@@ -1,6 +1,7 @@
 id: soprod
 name: Soprod
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CH
-notes: Swiss movement maker owned by Festina (SJX, 2021); took over Technotime's
-  assets.
+notes: Swiss movement maker owned by Festina (SJX, 2021); took over Technotime's assets.

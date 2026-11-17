@@ -2,153 +2,6 @@ id: atelier-wen/perception-mu
 brand: atelier-wen
 model: Perception Mù
 notes: Handbook v0.2 §8 lists this record as "Atelier Wen — Perception Mù (SL1588A)".
-claims:
-  - id: awmu-sl1588a
-    statement: A hands-on review reports the Mù uses caliber SL1588A made by the Liaoning Peacock Watch Company.
-    excerpt: Made by the Liaoning Peacock Watch Company, the caliber SL1588A will simply be unfamiliar to many
-    source: wornandwound-atelier-wen-mu
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-dial-cheng
-    statement: The review quotes the brand crediting the dial to guilloché craftsman Cheng Yucai.
-    excerpt: turned by China’s sole guilloche master craftsman, Cheng Yucai.
-    source: wornandwound-atelier-wen-mu
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-rose-engine
-    statement: The brand, as quoted in the review, says the dials are hand-turned on rose engines in Cheng's workshop.
-    excerpt: hand turned on rose engines in the workshop of China’s sole guilloche master craftsman.
-    source: wornandwound-atelier-wen-mu
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-not-stamped
-    statement: The reviewer concludes the Mù dial is not stamped, while noting Cheng says he built his machines largely himself.
-    excerpt: It’s clear, in other words, that the Mù’s dial is not stamped.
-    source: wornandwound-atelier-wen-mu
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-titanium
-    statement: The review describes a titanium case and bracelet, without naming the case maker.
-    excerpt: one of the great attributes of this particular Perception is its lightweight titanium case and bracelet
-    source: wornandwound-atelier-wen-mu
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-peacock-customised
-    statement: A review of the original Perception (same platform) reports a customised Dandong Peacock self-winding movement.
-    excerpt: The Perception is powered by a customised self-winding Dandong Peacock movement.
-    source: deployant-atelier-wen-perception
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-thinness
-    statement: The same review says the brand chose the movement for its 3.3 mm thickness.
-    excerpt: Atelier Wen had notably selected the movement for its thinness, which is at 3.3mm.
-    source: deployant-atelier-wen-perception
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-dial-hours
-    statement: The same review reports each Perception dial takes about 8 hours of work by Master Cheng.
-    excerpt: each dial requires approximately 8 man-hours of work.
-    source: deployant-atelier-wen-perception
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: awmu-journal-guilloche
-    statement: The brand says the Mù dial is hand-turned on rose engines in Master Cheng's atelier.
-    excerpt: Featuring our signature écailles de poisson guilloché dial that is hand-turned on rose engines in Master Cheng’s atelier
-    source: atelier-wen-mu-journal
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-journal-pvd
-    statement: The brand says the Mù dial's colour comes from physical vapour deposition, without naming who applies it.
-    excerpt: this is achieved through the use of physical vapour deposition (PVD)
-    source: atelier-wen-mu-journal
-    dimensions:
-      - DH
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-journal-titanium
-    statement: The brand says the Mù's caseback, crown and clasp shell are titanium, without naming the case maker.
-    excerpt: The caseback, crown and clasp shell will also be executed in full-titanium
-    source: atelier-wen-mu-journal
-    dimensions:
-      - EX
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-hands-supplier
-    statement: The brand says it cancelled a Perception hands order with a new supplier and went back to the supplier it used before.
-    excerpt: We thus decided to cancel the order we had with this new supplier and instead reverted back to the previous one.
-    source: atelier-wen-production-update-2
-    dimensions:
-      - DH
-      - PD
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-sl1588-exclusive
-    statement: The brand says the SL-1588 in Perception is a Dandong movement made exclusively for it, with modifications to thickness, accuracy, power reserve and finish.
-    excerpt: The SL-1588 is made exclusively for Atelier Wen and includes modifications such as a slightly slimmer profile
-    source: atelier-wen-production-update-2
-    dimensions:
-      - MA
-      - MM
-      - PD
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-dandong-engraving
-    statement: The brand says Dandong engraves the Perception movement bridges, and that it paid Dandong to add more engraving.
-    excerpt: in exchange of a relatively small premium, Dandong agreed to add extra content.
-    source: atelier-wen-production-update-2
-    dimensions:
-      - CF
-      - PD
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-v2-refinished
-    statement: The brand says Perception movements from the V2 batch on were refinished with côtes de Genève and more anglage, without saying who does the work.
-    excerpt: The movements have therefore been completely refinished, now-decorated with a circular côtes de Genève with more pronounced anglage than before.
-    source: atelier-wen-perception-v2-journal
-    dimensions:
-      - CF
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-v2-bracelet
-    statement: The brand says Perception V2 bracelets gained hand-finished chamfers on the inner link edges, without saying who does the work.
-    excerpt: introducing hand-finished chamfers on all the inner edges of each individual link
-    source: atelier-wen-perception-v2-journal
-    dimensions:
-      - EX
-      - CF
-    date_checked: 2026-10-29
-    editor: falk-index
-  - id: awmu-hrili-testing
-    statement: The brand says Perception V2 movements are tested with the Horological Research Institute of Light Industry (HRILI).
-    excerpt: We have implemented new and rigorous testing measures with the Horological Research Institute of Light Industry (HRILI).
-    source: atelier-wen-perception-v2-journal
-    dimensions:
-      - WE
-    date_checked: 2026-10-29
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (SL1588A, Peacock)
@@ -225,6 +78,170 @@ provenance:
       - awmu-sl1588-exclusive
       - awmu-dandong-engraving
       - awmu-hands-supplier
+claims:
+  - id: awmu-sl1588a
+    statement: A hands-on review reports the Mù uses caliber SL1588A made by the Liaoning Peacock Watch Company.
+    excerpt: Made by the Liaoning Peacock Watch Company, the caliber SL1588A will simply be unfamiliar to many
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-dial-cheng
+    statement: The review quotes the brand crediting the dial to guilloché craftsman Cheng Yucai.
+    excerpt: turned by China’s sole guilloche master craftsman, Cheng Yucai.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-rose-engine
+    statement: The brand, as quoted in the review, says the dials are hand-turned on rose engines in Cheng's workshop.
+    excerpt: hand turned on rose engines in the workshop of China’s sole guilloche master craftsman.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-not-stamped
+    statement: The reviewer concludes the Mù dial is not stamped, while noting Cheng says he built his machines largely himself.
+    excerpt: It’s clear, in other words, that the Mù’s dial is not stamped.
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-titanium
+    statement: The review describes a titanium case and bracelet, without naming the case maker.
+    excerpt: one of the great attributes of this particular Perception is its lightweight titanium case and bracelet
+    source: wornandwound-atelier-wen-mu
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-peacock-customised
+    statement: A review of the original Perception (same platform) reports a customised Dandong Peacock self-winding movement.
+    excerpt: The Perception is powered by a customised self-winding Dandong Peacock movement.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-thinness
+    statement: The same review says the brand chose the movement for its 3.3 mm thickness.
+    excerpt: Atelier Wen had notably selected the movement for its thinness, which is at 3.3mm.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-dial-hours
+    statement: The same review reports each Perception dial takes about 8 hours of work by Master Cheng.
+    excerpt: each dial requires approximately 8 man-hours of work.
+    source: deployant-atelier-wen-perception
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: awmu-journal-guilloche
+    statement: The brand says the Mù dial is hand-turned on rose engines in Master Cheng's atelier.
+    excerpt: Featuring our signature écailles de poisson guilloché dial that is hand-turned on rose engines in Master Cheng’s atelier
+    source: atelier-wen-mu-journal
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-journal-pvd
+    statement: The brand says the Mù dial's colour comes from physical vapour deposition, without naming who applies it.
+    excerpt: this is achieved through the use of physical vapour deposition (PVD)
+    source: atelier-wen-mu-journal
+    dimensions:
+      - DH
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-journal-titanium
+    statement: The brand says the Mù's caseback, crown and clasp shell are titanium, without naming the case maker.
+    excerpt: The caseback, crown and clasp shell will also be executed in full-titanium
+    source: atelier-wen-mu-journal
+    dimensions:
+      - EX
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-hands-supplier
+    statement: The brand says it cancelled a Perception hands order with a new supplier and went back to the supplier it used before.
+    excerpt: We thus decided to cancel the order we had with this new supplier and instead reverted back to the previous one.
+    source: atelier-wen-production-update-2
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-sl1588-exclusive
+    statement: The brand says the SL-1588 in Perception is a Dandong movement made exclusively for it, with modifications to thickness, accuracy, power reserve and finish.
+    excerpt: The SL-1588 is made exclusively for Atelier Wen and includes modifications such as a slightly slimmer profile
+    source: atelier-wen-production-update-2
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-dandong-engraving
+    statement: The brand says Dandong engraves the Perception movement bridges, and that it paid Dandong to add more engraving.
+    excerpt: in exchange of a relatively small premium, Dandong agreed to add extra content.
+    source: atelier-wen-production-update-2
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-v2-refinished
+    statement: The brand says Perception movements from the V2 batch on were refinished with côtes de Genève and more anglage, without saying who does the work.
+    excerpt: The movements have therefore been completely refinished, now-decorated with a circular côtes de Genève with more pronounced anglage than before.
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - CF
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-v2-bracelet
+    statement: The brand says Perception V2 bracelets gained hand-finished chamfers on the inner link edges, without saying who does the work.
+    excerpt: introducing hand-finished chamfers on all the inner edges of each individual link
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
+  - id: awmu-hrili-testing
+    statement: The brand says Perception V2 movements are tested with the Horological Research Institute of Light Industry (HRILI).
+    excerpt: We have implemented new and rigorous testing measures with the Horological Research Institute of Light Industry (HRILI).
+    source: atelier-wen-perception-v2-journal
+    dimensions:
+      - WE
+    date_checked: 2026-10-29
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -239,18 +256,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 2
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - artisan_etablisseur
   - version: 2
@@ -258,8 +282,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 → U; DH 0 → U; CF 0 → U; WE 2 → U; PD 4 → 3; confidence A → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -327,6 +352,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds the brand's own pages: the Mù launch journal, Perception production update #2 and the Perception V2 notes. Changes from version 2: DH U → 0; confidence D → C. Three of seven dimensions remain U (EX, CF, WE), and the scored ones rest mostly on primary sources."
     created_on: 2026-10-29

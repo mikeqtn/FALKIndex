@@ -2,106 +2,6 @@ id: farer/three-hand-automatic
 brand: farer
 model: Three-hand automatic
 notes: Handbook v0.2 §8 lists this record as "Farer — Three-hand automatic".
-claims:
-  - id: far3h-london-design
-    statement: A 2016 specialist article says Farer watches are designed and developed in London.
-    excerpt: Watches by Farer are designed and developed in London
-    source: monochrome-farer-automatics-2016
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-roventa-henex
-    statement: The same article says the watches are produced in Switzerland by Roventa-Henex, a manufacturer that works for multiple brands.
-    excerpt: are produced in Switzerland, by Roventa-Henex, a Swiss manufacturer that works behind the scenes for multiple brands.
-    source: monochrome-farer-automatics-2016
-    dimensions:
-      - WE
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-eta-2016
-    statement: The same article says the first Farer automatics use an ETA 2824-2 movement.
-    excerpt: Inside the cases of the Farer Automatic Watches is a known and reliable movement, an ETA 2824-2,
-    source: monochrome-farer-automatics-2016
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-bronze-crown
-    statement: The same article notes a contrasting bronze crown on the 2016 automatics.
-    excerpt: A nice detail is the contrasting crown, made out of bronze
-    source: monochrome-farer-automatics-2016
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-sw200-2021
-    statement: A 2021 review says Farer's three-hand automatic trio uses the Sellita SW200-1.
-    excerpt: The stainless cases house the now very familiar workhorse Sellita cal. SW200-1.
-    source: wornandwound-farer-three-hand-2021
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-case-2021
-    statement: The same review describes polished 316L stainless steel cases, water resistant to 50 m, with a box sapphire crystal; no case maker is named.
-    excerpt: The cases are 316L stainless, polished and water resistant to 50m.
-    source: wornandwound-farer-three-hand-2021
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: far3h-partners-produce
-    statement: Farer says it uses Swiss manufacturing partners to prototype and produce its watches.
-    excerpt: We then use the best Swiss manufacturing partners to prototype and produce our watches.
-    source: farer-our-story
-    dimensions:
-      - EX
-      - DH
-      - CF
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: far3h-esq-white-label
-    statement: A 2019 Esquire UK article says the watches are made by Roventa-Henex (spelled "Rowenta Henex" in the article), a white-label firm that assembles and produces watches for many brands.
-    excerpt: the watches are made by Rowenta Henex, a white-label firm that assembles and produces watches for dozens of major brands
-    source: esquireuk-farer-more-than-micro-brand-2019
-    dimensions:
-      - EX
-      - DH
-      - CF
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: far3h-esq-dial-maker
-    statement: In the same article, founder Paul Sweetenham is quoted saying Farer can use only one of the two serious dial makers because of the detail in its dials.
-    excerpt: There are only two serious dial makers in the watch world, and I can only use one of them because of the detail
-    source: esquireuk-farer-more-than-micro-brand-2019
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: far3h-esq-eta-grades
-    statement: The same article says Farer's movements are ETA calibres in the higher finishing and timekeeping grades on offer from the supplier.
-    excerpt: The movements are ETA, but Sweetenham is committed to the higher grades of finishing and timekeeping on offer
-    source: esquireuk-farer-more-than-micro-brand-2019
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: far3h-oot-transparency
-    statement: A 2024 Oracle of Time article says Farer will name who makes its movements, cases, dials, straps, hands and lume.
-    excerpt: They will happily tell you not just who makes their movements, but their cases, dials, straps, hands and lume.
-    source: oracleoftime-farer-independent-watchmaking-2024
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (ETA 2824-2)
@@ -167,6 +67,117 @@ provenance:
     relationship: internal
     claims:
       - far3h-london-design
+claims:
+  - id: far3h-london-design
+    statement: A 2016 specialist article says Farer watches are designed and developed in London.
+    excerpt: Watches by Farer are designed and developed in London
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-roventa-henex
+    statement: The same article says the watches are produced in Switzerland by Roventa-Henex, a manufacturer that works for multiple brands.
+    excerpt: are produced in Switzerland, by Roventa-Henex, a Swiss manufacturer that works behind the scenes for multiple brands.
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - WE
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-eta-2016
+    statement: The same article says the first Farer automatics use an ETA 2824-2 movement.
+    excerpt: Inside the cases of the Farer Automatic Watches is a known and reliable movement, an ETA 2824-2,
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-bronze-crown
+    statement: The same article notes a contrasting bronze crown on the 2016 automatics.
+    excerpt: A nice detail is the contrasting crown, made out of bronze
+    source: monochrome-farer-automatics-2016
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-sw200-2021
+    statement: A 2021 review says Farer's three-hand automatic trio uses the Sellita SW200-1.
+    excerpt: The stainless cases house the now very familiar workhorse Sellita cal. SW200-1.
+    source: wornandwound-farer-three-hand-2021
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-case-2021
+    statement: The same review describes polished 316L stainless steel cases, water resistant to 50 m, with a box sapphire crystal; no case maker is named.
+    excerpt: The cases are 316L stainless, polished and water resistant to 50m.
+    source: wornandwound-farer-three-hand-2021
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: far3h-partners-produce
+    statement: Farer says it uses Swiss manufacturing partners to prototype and produce its watches.
+    excerpt: We then use the best Swiss manufacturing partners to prototype and produce our watches.
+    source: farer-our-story
+    dimensions:
+      - EX
+      - DH
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: far3h-esq-white-label
+    statement: A 2019 Esquire UK article says the watches are made by Roventa-Henex (spelled "Rowenta Henex" in the article), a white-label firm that assembles and produces watches for many brands.
+    excerpt: the watches are made by Rowenta Henex, a white-label firm that assembles and produces watches for dozens of major brands
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - EX
+      - DH
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: far3h-esq-dial-maker
+    statement: In the same article, founder Paul Sweetenham is quoted saying Farer can use only one of the two serious dial makers because of the detail in its dials.
+    excerpt: There are only two serious dial makers in the watch world, and I can only use one of them because of the detail
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: far3h-esq-eta-grades
+    statement: The same article says Farer's movements are ETA calibres in the higher finishing and timekeeping grades on offer from the supplier.
+    excerpt: The movements are ETA, but Sweetenham is committed to the higher grades of finishing and timekeeping on offer
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: far3h-oot-transparency
+    statement: A 2024 Oracle of Time article says Farer will name who makes its movements, cases, dials, straps, hands and lume.
+    excerpt: They will happily tell you not just who makes their movements, but their cases, dials, straps, hands and lume.
+    source: oracleoftime-farer-independent-watchmaking-2024
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -181,18 +192,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 1
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - contract_microbrand
   - version: 2
@@ -200,8 +218,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 → U; DH 0 → U; CF 0 → U; WE 1 → 0; PD 3 → 2; confidence A → C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -269,6 +288,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Farer's own Our Story page, a 2019 Esquire UK feature and a 2024 Oracle of Time article. Changes from version 2: EX U → 0; DH U → 0; CF U → 0; confidence stays C. 0 of seven dimensions remain U."
     created_on: 2026-11-17
@@ -295,7 +315,7 @@ profiles:
             note: External movement.
       EX:
         value: 0
-        rationale: "Farer says Swiss manufacturing partners produce its watches (far3h-partners-produce), Esquire UK says Roventa-Henex makes them (far3h-esq-white-label), and Oracle of Time says Farer names the makers of its cases (far3h-oot-transparency). No source places any exterior work at Farer. The score is borderline in that no source names the case or crown maker; the reading applied is that the brand's own universal statement puts physical production outside Farer."
+        rationale: Farer says Swiss manufacturing partners produce its watches (far3h-partners-produce), Esquire UK says Roventa-Henex makes them (far3h-esq-white-label), and Oracle of Time says Farer names the makers of its cases (far3h-oot-transparency). No source places any exterior work at Farer. The score is borderline in that no source names the case or crown maker; the reading applied is that the brand's own universal statement puts physical production outside Farer.
         evidence:
           - claim: far3h-partners-produce
             stance: supports
@@ -317,7 +337,7 @@ profiles:
             note: Specification only.
       DH:
         value: 0
-        rationale: "Founder Paul Sweetenham is quoted saying Farer uses one of the two serious dial makers (far3h-esq-dial-maker), and Oracle of Time says Farer names who makes its dials and hands (far3h-oot-transparency). Farer's own page says partners produce its watches (far3h-partners-produce). Dial design is Farer's, but design is credited under PD, not here. Hands rest only on the general statements, which makes the hands half of this score borderline."
+        rationale: Founder Paul Sweetenham is quoted saying Farer uses one of the two serious dial makers (far3h-esq-dial-maker), and Oracle of Time says Farer names who makes its dials and hands (far3h-oot-transparency). Farer's own page says partners produce its watches (far3h-partners-produce). Dial design is Farer's, but design is credited under PD, not here. Hands rest only on the general statements, which makes the hands half of this score borderline.
         evidence:
           - claim: far3h-esq-dial-maker
             stance: supports
@@ -336,7 +356,7 @@ profiles:
             note: Producer, not dial maker.
       CF:
         value: 0
-        rationale: "No source documents craft work done by Farer. Movement finishing comes as a supplier grade of the ETA calibres (far3h-esq-eta-grades), and Farer says Swiss partners produce its watches (far3h-partners-produce). External work does not count toward CF. Borderline only in that the Sellita-era movements' finishing is not described; nothing suggests it moved in-house."
+        rationale: No source documents craft work done by Farer. Movement finishing comes as a supplier grade of the ETA calibres (far3h-esq-eta-grades), and Farer says Swiss partners produce its watches (far3h-partners-produce). External work does not count toward CF. Borderline only in that the Sellita-era movements' finishing is not described; nothing suggests it moved in-house.
         evidence:
           - claim: far3h-partners-produce
             stance: supports
@@ -349,7 +369,7 @@ profiles:
             note: Producer of the finished watch.
       WE:
         value: 0
-        rationale: "Complete watches are produced by Roventa-Henex according to 2016 and 2019 articles (far3h-roventa-henex, far3h-esq-white-label), and Farer's own page says Swiss partners produce its watches (far3h-partners-produce). No source describes assembly or regulation by Farer."
+        rationale: Complete watches are produced by Roventa-Henex according to 2016 and 2019 articles (far3h-roventa-henex, far3h-esq-white-label), and Farer's own page says Swiss partners produce its watches (far3h-partners-produce). No source describes assembly or regulation by Farer.
         evidence:
           - claim: far3h-roventa-henex
             stance: supports

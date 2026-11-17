@@ -2,6 +2,7 @@ id: valfleurier
 name: ValFleurier
 kind: supplier
 parent: richemont
+ownership: unknown
+scale: unknown
 country: CH
-notes: Richemont-owned movement factory in Fleurier; source of the IWC cal.
-  32000 family.
+notes: Richemont-owned movement factory in Fleurier; source of the IWC cal. 32000 family.

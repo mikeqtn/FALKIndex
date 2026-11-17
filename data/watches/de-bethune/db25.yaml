@@ -3,142 +3,6 @@ brand: de-bethune
 model: DB25
 route_label: manufacture caliber
 notes: Handbook v0.2 §8 lists this record as "De Bethune — DB25 / manufacture caliber".
-claims:
-  - id: db25-almost-all-inhouse
-    statement: A 2017 workshop visit report says De Bethune makes almost all components of its watches in-house, including balances and balance springs.
-    excerpt: De Bethune makes almost all the components of its watches inhouse, including balance and balance springs!
-    source: watchprosite-debethune-workshops
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-cnc-screws-dials
-    statement: The same report says CNC machines in the workshop cut and mill components, including screws and dials.
-    excerpt: the CNC machines cut and mill the components, including screws and dials.
-    source: watchprosite-debethune-workshops
-    dimensions:
-      - MM
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-hairspring-integration
-    statement: A 2026 Europa Star report says De Bethune is integrating all hairspring production in-house, from wire drawing to colleting, and does final adjustment with its own balance wheel.
-    excerpt: integrating the entire hairspring production in-house
-    source: europastar-debethune-chronometrie
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-escapement-redesign
-    statement: The same report says De Bethune redesigned the Swiss lever escapement and uses a silicon escape wheel.
-    excerpt: De Bethune redesigned the Swiss lever escapement
-    source: europastar-debethune-chronometrie
-    dimensions:
-      - MA
-      - MM
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-qp-dbcaliber
-    statement: A hands-on review of the DB25 Perpetual Calendar identifies the in-house caliber DB2324 automatic movement.
-    excerpt: There, you'll see the truly interesting-looking in-house De Bethune caliber DB2324 automatic movement.
-    source: ablogtowatch-db25-qp
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-qp-balance
-    statement: The same review says the balance wheel is titanium with platinum weights and the escapement uses silicon parts.
-    excerpt: the balance wheel is produced from titanium with platinum weights.
-    source: ablogtowatch-db25-qp
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-qp-guilloche
-    statement: The same review says the dial's main section is engraved on a hand-operated guilloché machine, without saying where.
-    excerpt: The main section is first engraved using a hand-operated guilloché machine and then hued green.
-    source: ablogtowatch-db25-qp
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-mono-entirely-inhouse
-    statement: A 2025 review of the DB25 Monopusher Chronograph (caliber DB3000) says De Bethune moved entirely to in-house movements.
-    excerpt: De Bethune rapidly went entirely in-house with a large stable of movements.
-    source: sjx-db25-monopusher
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-mono-hairspring
-    statement: The same review describes a proprietary flat hairspring and a titanium balance with white gold weights.
-    excerpt: proprietary flat hairspring that breathes like an overcoil
-    source: sjx-db25-monopusher
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-mono-finishing
-    statement: The same review says the movement decoration is finished by hand but likely machine-applied first.
-    excerpt: The decoration is clearly finished off by hand, but likely applied by machine to begin with.
-    source: sjx-db25-monopusher
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-mono-case
-    statement: The same review lists a titanium case and does not name its maker.
-    excerpt: "Material: Titanium"
-    source: sjx-db25-monopusher
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: db25-psky-bluing-setting
-    statement: Launch text for the DB25 Perpetual Sky, reproduced by Timekeepers Club, says the titanium dial is polished and blued with a thermal oxidation process exclusive to the Manufacture, after which De Bethune's artisans set the white gold star pins.
-    excerpt: After delicate polishing and bluing operations using a thermal oxidation process exclusive to the Manufacture, our artisans set each white gold pin into micro-perforations of varying sizes
-    source: timekeepers-db25-perpetual-sky
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: db25-psky-dial
-    statement: The same text describes the DB25 Perpetual Sky dial as flat, polished, blued titanium personalised to a chosen place and date.
-    excerpt: Defined according to a specific geographical location and date, this pattern enables subtle personalisation of the flat polished blued titanium dial
-    source: timekeepers-db25-perpetual-sky
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: db25-mpss-oxidation
-    statement: De Bethune's page for the DB25 Moon Phase Starry Sky says its own exclusive oxidation process gives the titanium dial its blue colour.
-    excerpt: De Bethune’s exclusive natural oxidation process transforms titanium into this radiant hue, a testament to the Manufacture’s unparalleled expertise
-    source: debethune-db25-moon-phase-starry-sky
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: db25-qp-cases-dials-roof
-    statement: A 2024 Quill & Pad review by a writer who says he works within a business group that owns De Bethune states that De Bethune produces cases, dials and movements, plus engraving and small parts, under its own roof.
-    excerpt: While most brands producing cases, dials, and movements in-house are large industrial operations, DB localizes these crafts – and a few others like engraving and small parts manufacture – under its own roof
-    source: quillandpad-db28xs-starry-seas
-    dimensions:
-      - EX
-      - DH
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: db25-qp-hairspring-alloy
-    statement: The same review says De Bethune does not make its own hairspring alloy but applies its patented hairspring geometry in-house.
-    excerpt: While DB does not create its own hairspring alloys, the company’s patented hairspring geometry is applied in-house
-    source: quillandpad-db28xs-starry-seas
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Manufacture calibers (e.g. DB2324 perpetual calendar, DB3000 monopusher)
@@ -223,6 +87,158 @@ provenance:
     claims:
       - db25-escapement-redesign
       - db25-mono-entirely-inhouse
+claims:
+  - id: db25-almost-all-inhouse
+    statement: A 2017 workshop visit report says De Bethune makes almost all components of its watches in-house, including balances and balance springs.
+    excerpt: De Bethune makes almost all the components of its watches inhouse, including balance and balance springs!
+    source: watchprosite-debethune-workshops
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-cnc-screws-dials
+    statement: The same report says CNC machines in the workshop cut and mill components, including screws and dials.
+    excerpt: the CNC machines cut and mill the components, including screws and dials.
+    source: watchprosite-debethune-workshops
+    dimensions:
+      - MM
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-hairspring-integration
+    statement: A 2026 Europa Star report says De Bethune is integrating all hairspring production in-house, from wire drawing to colleting, and does final adjustment with its own balance wheel.
+    excerpt: integrating the entire hairspring production in-house
+    source: europastar-debethune-chronometrie
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-escapement-redesign
+    statement: The same report says De Bethune redesigned the Swiss lever escapement and uses a silicon escape wheel.
+    excerpt: De Bethune redesigned the Swiss lever escapement
+    source: europastar-debethune-chronometrie
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-qp-dbcaliber
+    statement: A hands-on review of the DB25 Perpetual Calendar identifies the in-house caliber DB2324 automatic movement.
+    excerpt: There, you'll see the truly interesting-looking in-house De Bethune caliber DB2324 automatic movement.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-qp-balance
+    statement: The same review says the balance wheel is titanium with platinum weights and the escapement uses silicon parts.
+    excerpt: the balance wheel is produced from titanium with platinum weights.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-qp-guilloche
+    statement: The same review says the dial's main section is engraved on a hand-operated guilloché machine, without saying where.
+    excerpt: The main section is first engraved using a hand-operated guilloché machine and then hued green.
+    source: ablogtowatch-db25-qp
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-mono-entirely-inhouse
+    statement: A 2025 review of the DB25 Monopusher Chronograph (caliber DB3000) says De Bethune moved entirely to in-house movements.
+    excerpt: De Bethune rapidly went entirely in-house with a large stable of movements.
+    source: sjx-db25-monopusher
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-mono-hairspring
+    statement: The same review describes a proprietary flat hairspring and a titanium balance with white gold weights.
+    excerpt: proprietary flat hairspring that breathes like an overcoil
+    source: sjx-db25-monopusher
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-mono-finishing
+    statement: The same review says the movement decoration is finished by hand but likely machine-applied first.
+    excerpt: The decoration is clearly finished off by hand, but likely applied by machine to begin with.
+    source: sjx-db25-monopusher
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-mono-case
+    statement: The same review lists a titanium case and does not name its maker.
+    excerpt: "Material: Titanium"
+    source: sjx-db25-monopusher
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: db25-psky-bluing-setting
+    statement: Launch text for the DB25 Perpetual Sky, reproduced by Timekeepers Club, says the titanium dial is polished and blued with a thermal oxidation process exclusive to the Manufacture, after which De Bethune's artisans set the white gold star pins.
+    excerpt: After delicate polishing and bluing operations using a thermal oxidation process exclusive to the Manufacture, our artisans set each white gold pin into micro-perforations of varying sizes
+    source: timekeepers-db25-perpetual-sky
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: db25-psky-dial
+    statement: The same text describes the DB25 Perpetual Sky dial as flat, polished, blued titanium personalised to a chosen place and date.
+    excerpt: Defined according to a specific geographical location and date, this pattern enables subtle personalisation of the flat polished blued titanium dial
+    source: timekeepers-db25-perpetual-sky
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: db25-mpss-oxidation
+    statement: De Bethune's page for the DB25 Moon Phase Starry Sky says its own exclusive oxidation process gives the titanium dial its blue colour.
+    excerpt: De Bethune’s exclusive natural oxidation process transforms titanium into this radiant hue, a testament to the Manufacture’s unparalleled expertise
+    source: debethune-db25-moon-phase-starry-sky
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: db25-qp-cases-dials-roof
+    statement: A 2024 Quill & Pad review by a writer who says he works within a business group that owns De Bethune states that De Bethune produces cases, dials and movements, plus engraving and small parts, under its own roof.
+    excerpt: While most brands producing cases, dials, and movements in-house are large industrial operations, DB localizes these crafts – and a few others like engraving and small parts manufacture – under its own roof
+    source: quillandpad-db28xs-starry-seas
+    dimensions:
+      - EX
+      - DH
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: db25-qp-hairspring-alloy
+    statement: The same review says De Bethune does not make its own hairspring alloy but applies its patented hairspring geometry in-house.
+    excerpt: While DB does not create its own hairspring alloys, the company’s patented hairspring geometry is applied in-house
+    source: quillandpad-db28xs-starry-seas
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -237,18 +253,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 4
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -256,8 +279,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 \u2192 U; DH 3 \u2192 U; CF 5 \u2192 2; WE 5 \u2192 3; PD 5 \u2192 4; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 3 → U; DH 3 → U; CF 5 → 2; WE 5 → 3; PD 5 → 4; confidence A → C; classification Integrated Manufacture → Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -275,20 +299,20 @@ profiles:
             note: Redesigned escapement.
       MM:
         value: 4
-        rationale: "De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5."
+        rationale: De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5.
         evidence:
           - claim: db25-hairspring-integration
             stance: supports
-            note: "Hairspring integration."
+            note: Hairspring integration.
           - claim: db25-mono-hairspring
             stance: supports
-            note: "Proprietary hairspring."
+            note: Proprietary hairspring.
           - claim: db25-qp-balance
             stance: supports
-            note: "Own balance."
+            note: Own balance.
           - claim: db25-escapement-redesign
             stance: context
-            note: "Silicon parts, origin unknown."
+            note: Silicon parts, origin unknown.
       EX:
         value: null
         rationale: A titanium case is listed, but no source names its maker.
@@ -298,7 +322,7 @@ profiles:
             note: Maker not named.
       DH:
         value: null
-        rationale: "A 2017 workshop report says CNC machines in the workshop mill components including dials, but no archived copy of that report exists, so it cannot carry a published score. Who makes the hands is not stated. U until an archivable source confirms dial work."
+        rationale: A 2017 workshop report says CNC machines in the workshop mill components including dials, but no archived copy of that report exists, so it cannot carry a published score. Who makes the hands is not stated. U until an archivable source confirms dial work.
         evidence: []
       CF:
         value: 2
@@ -331,6 +355,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds DB25 Perpetual Sky launch text (timekeepers-db25-perpetual-sky), De Bethune's DB25 Moon Phase Starry Sky page (debethune-db25-moon-phase-starry-sky) and a 2024 Quill & Pad review (quillandpad-db28xs-starry-seas). Changes from version 2: EX U → 2; DH U → 2; confidence stays C. None of the seven dimensions remain U."
     created_on: 2026-11-17
@@ -350,7 +375,7 @@ profiles:
             note: Redesigned escapement.
       MM:
         value: 4
-        rationale: "De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). A 2024 review adds that the hairspring alloy is bought in while the geometry is applied in-house. The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5."
+        rationale: De Bethune makes almost all components in-house, including balances (2017), and is integrating hairspring production (2026). A 2024 review adds that the hairspring alloy is bought in while the geometry is applied in-house. The integration is still in progress and the silicon escape wheel is unattributed, so this is 4 rather than 5.
         evidence:
           - claim: db25-hairspring-integration
             stance: supports
@@ -369,7 +394,7 @@ profiles:
             note: Silicon parts, origin unknown.
       EX:
         value: 2
-        rationale: "The only evidence on who makes the case is db25-qp-cases-dials-roof, a brand-wide statement that De Bethune produces cases under its own roof. It is phrased as a general description of the brand, so it is read as covering the DB25's titanium case (db25-mono-case), but it comes from one secondary source whose author works within De Bethune's owning group, so the score is borderline. The case is one important family; no source covers the crown, buckle or other exterior parts, so this is not 3."
+        rationale: The only evidence on who makes the case is db25-qp-cases-dials-roof, a brand-wide statement that De Bethune produces cases under its own roof. It is phrased as a general description of the brand, so it is read as covering the DB25's titanium case (db25-mono-case), but it comes from one secondary source whose author works within De Bethune's owning group, so the score is borderline. The case is one important family; no source covers the crown, buckle or other exterior parts, so this is not 3.
         evidence:
           - claim: db25-qp-cases-dials-roof
             stance: supports
@@ -379,7 +404,7 @@ profiles:
             note: DB25 case is titanium; maker not named here.
       DH:
         value: 2
-        rationale: "For the DB25 Perpetual Sky, launch text says the titanium dial is blued with a thermal oxidation process exclusive to the Manufacture and that De Bethune's artisans set the star pins (db25-psky-bluing-setting, db25-psky-dial); the brand's DB25 Moon Phase Starry Sky page says the same about the oxidation (db25-mpss-oxidation). That establishes a meaningful dial stage done internally for the starry-sky versions. A brand-wide review statement that dials are made in-house (db25-qp-cases-dials-roof) points higher, but it is secondary and affiliated, the guilloché dials of other versions are unattributed and no source names the hand maker, so this is 2, borderline 3."
+        rationale: For the DB25 Perpetual Sky, launch text says the titanium dial is blued with a thermal oxidation process exclusive to the Manufacture and that De Bethune's artisans set the star pins (db25-psky-bluing-setting, db25-psky-dial); the brand's DB25 Moon Phase Starry Sky page says the same about the oxidation (db25-mpss-oxidation). That establishes a meaningful dial stage done internally for the starry-sky versions. A brand-wide review statement that dials are made in-house (db25-qp-cases-dials-roof) points higher, but it is secondary and affiliated, the guilloché dials of other versions are unattributed and no source names the hand maker, so this is 2, borderline 3.
         evidence:
           - claim: db25-psky-bluing-setting
             stance: supports

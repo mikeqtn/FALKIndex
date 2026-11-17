@@ -1,6 +1,7 @@
 id: artur-akmaev/eternal-koi
 brand: artur-akmaev
 model: Eternal Koi
+caliber: La Joux-Perret F200
 notes: Handbook v0.2 §8 lists this record as "Artur Akmaev — Koi / Tide". Narrowed on 2026-10-14 to the Eternal Koi (La Joux-Perret F200), the only route with evidence. No source for a "Tide" by Akmaev was found; it can be added as its own record if one appears. Akmaev is also credited with movement engraving on the J.N. Shapiro Infinity.
 provenance:
   - dimension: MA
@@ -56,6 +57,7 @@ claims:
       - MM
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-koi-movement-engraving
     statement: Akmaev hand-relief engraves the bridges, barrel and balance bridge.
     excerpt: Artur further extends his talents to fully hand-relief engraving the bridges, spring barrel and balance bridge.
@@ -64,6 +66,7 @@ claims:
       - CF
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-koi-dial
     statement: The dial is a hand-engraved spring-steel surface with silver and gold inlays.
     excerpt: Pure silver and gold inlays form the flowing waves on a hand-engraved spring steel surface.
@@ -73,6 +76,7 @@ claims:
       - DH
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-koi-sculpted
     statement: The koi are sculpted from silver with gold and copper highlights.
     excerpt: The koi themselves are sculpted from silver, with individual scales highlighted in pure yellow gold and copper.
@@ -82,6 +86,7 @@ claims:
       - DH
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-koi-hands
     statement: The hands are heat-blued or purpled steel, finished by hand.
     excerpt: Completing the composition is a set of traditionally heat-blued or purpled steel hands, finished by hand.
@@ -90,6 +95,7 @@ claims:
       - DH
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-process-strip
     statement: Akmaev strips the movement and engraves each component individually.
     excerpt: The movement is then stripped down to its bare bones where each component is then engraved and skeletonized individually.
@@ -99,6 +105,7 @@ claims:
       - WE
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-process-reassembly
     statement: The movement is reassembled and tested after engraving.
     excerpt: The movement is then meticulously reassembled and tested to ensure everything runs smoothly.
@@ -107,6 +114,7 @@ claims:
       - WE
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
   - id: ak-process-sketch
     statement: Akmaev plans and sketches the whole design, from dial to movement parts.
     excerpt: He begins by planning out and sketching everything from the dial and main plate to the crown wheel and drum barrel.
@@ -115,6 +123,7 @@ claims:
       - PD
     date_checked: 2026-10-13
     editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -129,18 +138,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 3
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - artisan_atelier
   - version: 2
@@ -148,6 +164,7 @@ profiles:
     confidence: B
     independent_watchmaker: true
     status: superseded
+    is_seed: false
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: EX 0 → U and DH 0 → U (no source on the case maker or the dial base; the dial art is credited under CF to avoid double counting). Independent watchmaker descriptor proposed. Confidence A → B: evidence is a retailer listing and a 2015 article; the maker site shows no text. Reviewed and approved by mikeqtn on 2026-10-14."
     created_on: 2026-10-13
@@ -214,6 +231,7 @@ profiles:
     confidence: B
     independent_watchmaker: true
     status: published
+    is_seed: false
     editor: mikeqtn
     change_note: Record narrowed from "Koi / Tide" to the Eternal Koi, the only model with evidence. Scores and evidence unchanged. Reviewed and approved by mikeqtn on 2026-10-14.
     created_on: 2026-10-14
@@ -275,4 +293,3 @@ profiles:
             note: Original design work.
     classification:
       - artisan_atelier
-caliber: La Joux-Perret F200

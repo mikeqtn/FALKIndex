@@ -3,170 +3,6 @@ brand: cartier
 model: Santos
 caliber: 1847 MC
 notes: Handbook v0.2 §8 lists this record as "Cartier — Santos / 1847 MC".
-claims:
-  - id: cs1847-in-santos
-    statement: Cartier says the automatic 1847 MC movement is used in its classic models such as the Santos de Cartier.
-    excerpt: This automatic movement, designed for everyday use, is featured in the Maison’s classic watches such as the Santos de Cartier.
-    source: cartier-movements-page
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-specs
-    statement: Cartier's product page for a steel Santos de Cartier lists caliber 1847 MC, a steel case, sapphire crystal, a seven-sided crown with synthetic spinel, steel sword hands and a SmartLink steel bracelet; makers are not named.
-    excerpt: 7-sided crown set with a faceted synthetic spinel
-    source: cartier-santos-wssa0018
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-new-calibre
-    statement: A 2015 specialist report describes the 1847 MC as a newly developed calibre intended as Cartier's most affordable in-house movement.
-    excerpt: a newly developed calibre that is intended to be the most affordable in-house movement offered by Cartier.
-    source: sjx-cle-de-cartier-1847mc
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-decoration
-    statement: The same report says the movement decoration is basic, with stamped rather than polished Geneva stripes.
-    excerpt: The decoration is basic, with stamped Geneva stripes instead of the traditional polished finish.
-    source: sjx-cle-de-cartier-1847mc
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-construction
-    statement: The same report notes a Magic Lever bidirectional winding system and a balance bridge secured on both sides.
-    excerpt: the balance wheel is mounted on a bridge (secured on both sides) for stability.
-    source: sjx-cle-de-cartier-1847mc
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-lcdf-manufacture
-    statement: A 2025 magazine article says Cartier opened a manufacture in La Chaux-de-Fonds in 2001 and began developing and producing its own mechanical movements there.
-    excerpt: began developing and producing its own mechanical movements
-    source: swisswatches-cartier-automatic
-    dimensions:
-      - MA
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-components
-    statement: The same article gives the 1847 MC as 165 components and 25.6 mm in diameter, and says it is used in the Santos and Ballon Bleu.
-    excerpt: The 165 components result in a diameter of 25.6 millimetres
-    source: swisswatches-cartier-automatic
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-richemont
-    statement: The same article notes Cartier has been owned by Richemont since 1997.
-    excerpt: the modern Richemont-owned brand (since 1997)
-    source: swisswatches-cartier-automatic
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: cs1847-created-developed
-    statement: "Cartier's movements page (2021–2023 version) says the 1847 MC was entirely created and developed by Cartier watchmakers and engineers."
-    excerpt: "This mechanical self-winding movement was entirely created and developed by Cartier watchmakers and engineers."
-    source: cartier-movements-page-us
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-adjusted
-    statement: "The same Cartier page says each 1847 MC movement is individually adjusted by a watchmaker, using its adjustment system."
-    excerpt: "Thanks to its adjustment system, each movement is individually and meticulously adjusted by a watchmaker to ensure high precision"
-    source: cartier-movements-page-us
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-antimagnetic
-    statement: "The same Cartier page says the 1847 MC escapement was designed with non-magnetic components to resist magnetic fields."
-    excerpt: "To effectively resist the strong magnetic fields a watch can be exposed to in everyday life and maintain its precision, the escape mechanism has been designed with non-magnetic components."
-    source: cartier-movements-page-us
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-assembled-caption
-    statement: "A 2015 Cartier press image caption, reproduced by The Jewellery Editor, says calibre 1847 was developed and assembled by Cartier's watch manufactory in Switzerland."
-    excerpt: "The round dial of the new Clé collection, with its classic Roman numerals and guilloché centre, houses a cutting-edge automatic movement developed and assembled by Cartier"
-    source: jewelleryeditor-cle-1847-caption
-    dimensions:
-      - WE
-      - MA
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-santos-case-bracelet
-    statement: "A 2022 webChronos feature on the Santos de Cartier, labelled Cartier PR, says Cartier once outsourced exterior components but now produces the case and then the bracelet in its La Chaux-de-Fonds factory."
-    excerpt: "Cartier previously outsourced the manufacture of exterior components, but now produces first the case and then the bracelet in its La Chaux-de-Fonds factory."
-    source: webchronos-santos-2022
-    dimensions:
-      - EX
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-shaped-case-crafts
-    statement: "Cartier's operations page says producing a shaped case takes more than 50 operations across stamping, machining, polishing and assembly; it does not name models."
-    excerpt: "Producing a shaped case requires more than 50 operations spread across four main crafts: stamping, machining, polishing and assembly"
-    source: cartier-operations-page-us
-    dimensions:
-      - EX
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-hand-polishing
-    statement: "The same Cartier page says polishers' hands produce the alternating polished and brushed finishes of a Cartier watch."
-    excerpt: "Then, the polishers' hands are responsible for achieving the complex finishes of a Cartier watch"
-    source: cartier-operations-page-us
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-watch-checks
-    statement: "The same Cartier page says assembled watches undergo individual checks of chronometry and water resistance."
-    excerpt: "Once assembled, the watches are subject to rigorous individual checks where the chronometry and water resistance are evaluated"
-    source: cartier-operations-page-us
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-blued-hands
-    statement: "The same Cartier page says Cartier has mastered the production of blued-steel hands; it does not name models."
-    excerpt: "Cartier has mastered the savoir-faire involved in producing hands."
-    source: cartier-operations-page-us
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-villars-assembly
-    statement: "Cartier's manufacture page says steel and gold watches are produced and assembled in Villars-sur-Glâne, in the canton of Fribourg."
-    excerpt: "Steel and gold watches are produced and assembled in Villars-sur-Glâne, located in the canton of Fribourg."
-    source: cartier-manufacture-page-us
-    dimensions:
-      - WE
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: cs1847-valfleurier-1904
-    statement: "A 2010 Europa Star article says the component parts of Cartier's earlier calibre 1904 MC are made in Buttes by Val Fleurier, a Richemont group company; it predates and does not mention the 1847 MC."
-    excerpt: "its component parts are made in Buttes, by Val Fleurier, a company belonging to the Richemont group"
-    source: europastar-swiss-watch-planet-2
-    dimensions:
-      - MM
-      - MA
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber 1847 MC design
@@ -253,6 +89,189 @@ provenance:
       - cs1847-richemont
       - cs1847-created-developed
       - cs1847-antimagnetic
+claims:
+  - id: cs1847-in-santos
+    statement: Cartier says the automatic 1847 MC movement is used in its classic models such as the Santos de Cartier.
+    excerpt: This automatic movement, designed for everyday use, is featured in the Maison’s classic watches such as the Santos de Cartier.
+    source: cartier-movements-page
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-specs
+    statement: Cartier's product page for a steel Santos de Cartier lists caliber 1847 MC, a steel case, sapphire crystal, a seven-sided crown with synthetic spinel, steel sword hands and a SmartLink steel bracelet; makers are not named.
+    excerpt: 7-sided crown set with a faceted synthetic spinel
+    source: cartier-santos-wssa0018
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-new-calibre
+    statement: A 2015 specialist report describes the 1847 MC as a newly developed calibre intended as Cartier's most affordable in-house movement.
+    excerpt: a newly developed calibre that is intended to be the most affordable in-house movement offered by Cartier.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-decoration
+    statement: The same report says the movement decoration is basic, with stamped rather than polished Geneva stripes.
+    excerpt: The decoration is basic, with stamped Geneva stripes instead of the traditional polished finish.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-construction
+    statement: The same report notes a Magic Lever bidirectional winding system and a balance bridge secured on both sides.
+    excerpt: the balance wheel is mounted on a bridge (secured on both sides) for stability.
+    source: sjx-cle-de-cartier-1847mc
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-lcdf-manufacture
+    statement: A 2025 magazine article says Cartier opened a manufacture in La Chaux-de-Fonds in 2001 and began developing and producing its own mechanical movements there.
+    excerpt: began developing and producing its own mechanical movements
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - MA
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-components
+    statement: The same article gives the 1847 MC as 165 components and 25.6 mm in diameter, and says it is used in the Santos and Ballon Bleu.
+    excerpt: The 165 components result in a diameter of 25.6 millimetres
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-richemont
+    statement: The same article notes Cartier has been owned by Richemont since 1997.
+    excerpt: the modern Richemont-owned brand (since 1997)
+    source: swisswatches-cartier-automatic
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: cs1847-created-developed
+    statement: Cartier's movements page (2021–2023 version) says the 1847 MC was entirely created and developed by Cartier watchmakers and engineers.
+    excerpt: This mechanical self-winding movement was entirely created and developed by Cartier watchmakers and engineers.
+    source: cartier-movements-page-us
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-adjusted
+    statement: The same Cartier page says each 1847 MC movement is individually adjusted by a watchmaker, using its adjustment system.
+    excerpt: Thanks to its adjustment system, each movement is individually and meticulously adjusted by a watchmaker to ensure high precision
+    source: cartier-movements-page-us
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-antimagnetic
+    statement: The same Cartier page says the 1847 MC escapement was designed with non-magnetic components to resist magnetic fields.
+    excerpt: To effectively resist the strong magnetic fields a watch can be exposed to in everyday life and maintain its precision, the escape mechanism has been designed with non-magnetic components.
+    source: cartier-movements-page-us
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-assembled-caption
+    statement: A 2015 Cartier press image caption, reproduced by The Jewellery Editor, says calibre 1847 was developed and assembled by Cartier's watch manufactory in Switzerland.
+    excerpt: The round dial of the new Clé collection, with its classic Roman numerals and guilloché centre, houses a cutting-edge automatic movement developed and assembled by Cartier
+    source: jewelleryeditor-cle-1847-caption
+    dimensions:
+      - WE
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-santos-case-bracelet
+    statement: A 2022 webChronos feature on the Santos de Cartier, labelled Cartier PR, says Cartier once outsourced exterior components but now produces the case and then the bracelet in its La Chaux-de-Fonds factory.
+    excerpt: Cartier previously outsourced the manufacture of exterior components, but now produces first the case and then the bracelet in its La Chaux-de-Fonds factory.
+    source: webchronos-santos-2022
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-shaped-case-crafts
+    statement: Cartier's operations page says producing a shaped case takes more than 50 operations across stamping, machining, polishing and assembly; it does not name models.
+    excerpt: "Producing a shaped case requires more than 50 operations spread across four main crafts: stamping, machining, polishing and assembly"
+    source: cartier-operations-page-us
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-hand-polishing
+    statement: The same Cartier page says polishers' hands produce the alternating polished and brushed finishes of a Cartier watch.
+    excerpt: Then, the polishers' hands are responsible for achieving the complex finishes of a Cartier watch
+    source: cartier-operations-page-us
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-watch-checks
+    statement: The same Cartier page says assembled watches undergo individual checks of chronometry and water resistance.
+    excerpt: Once assembled, the watches are subject to rigorous individual checks where the chronometry and water resistance are evaluated
+    source: cartier-operations-page-us
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-blued-hands
+    statement: The same Cartier page says Cartier has mastered the production of blued-steel hands; it does not name models.
+    excerpt: Cartier has mastered the savoir-faire involved in producing hands.
+    source: cartier-operations-page-us
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-villars-assembly
+    statement: Cartier's manufacture page says steel and gold watches are produced and assembled in Villars-sur-Glâne, in the canton of Fribourg.
+    excerpt: Steel and gold watches are produced and assembled in Villars-sur-Glâne, located in the canton of Fribourg.
+    source: cartier-manufacture-page-us
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cs1847-valfleurier-1904
+    statement: A 2010 Europa Star article says the component parts of Cartier's earlier calibre 1904 MC are made in Buttes by Val Fleurier, a Richemont group company; it predates and does not mention the 1847 MC.
+    excerpt: its component parts are made in Buttes, by Val Fleurier, a company belonging to the Richemont group
+    source: europastar-swiss-watch-planet-2
+    dimensions:
+      - MM
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -267,18 +286,25 @@ profiles:
     scores:
       MA:
         value: 4
+        evidence: []
       MM:
         value: 3
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 2
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 4
+        evidence: []
     classification:
       - industrial_manufacture
   - version: 2
@@ -286,8 +312,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 \u2192 U; EX 3 \u2192 U; DH 3 \u2192 U; CF 2 \u2192 U; WE 5 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 → U; EX 3 → U; DH 3 → U; CF 2 → U; WE 5 → U; confidence B → D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -358,6 +385,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Cartier's own movements, manufacture and operations pages, a 2022 webChronos Santos feature (labelled Cartier PR), a 2015 Cartier press caption reproduced by The Jewellery Editor, and a 2010 Europa Star report on Cartier's movement production. Changes from version 2: EX U → 3; CF U → 1; WE U → 3; confidence D → C. Two of seven dimensions remain U (MM, DH)."
     created_on: 2026-11-17

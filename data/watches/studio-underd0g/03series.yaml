@@ -2,107 +2,6 @@ id: studio-underd0g/03series
 brand: studio-underd0g
 model: 03SERIES
 notes: Handbook v0.2 §8 lists this record as "Studio Underd0g — 03SERIES".
-claims:
-  - id: ud03-sw510
-    statement: A specialist site reports that the 03SERIES uses a hand-wound Sellita SW510 movement.
-    excerpt: From the Seagull found in the 01SERIES the brand now moves to a hand-wound Swiss Sellita SW510 in the 03SERIES.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-7750-base
-    statement: The specialist site says the monopusher chronograph shares its base architecture with the Valjoux 7750.
-    excerpt: This cam-operated monopusher chronograph shares its base architecture with the Valjoux 7750.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-ruthenium
-    statement: The specialist site says the large top bridge has a ruthenium coating.
-    excerpt: The large bridge on top has been specifically decorated with ruthenium coating for an anthracite colour.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-custom-decoration
-    statement: A second review describes a custom Côtes de Genève and ruthenium finish on the bridge, and +/- 5 s/day accuracy.
-    excerpt: Plus, it's been decorated with a custom Côte de Genève, ruthénium anthracite finished bridge
-    source: underd0g-oracleoftime-03series-salm0n
-    dimensions:
-      - CF
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-assembled-gb
-    statement: The specialist site says the watch is assembled in Great Britain.
-    excerpt: This new watch, assembled in Great Britain, is worn on an Epsom Calfskin strap.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-regulation
-    statement: The specialist site says the process includes demagnetisation, rate review in three positions and regulation where needed.
-    excerpt: The process includes demagnetisation, accuracy/rate review (3 positions) and regulation wherever necessary.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-case
-    statement: The specialist site lists a 38.5 mm steel case, 13.6 mm thick, without naming its maker.
-    excerpt: a compact steel case, measuring 38.5mm in diameter, 13.6mm in thickness and 44.5mm lug-to-lug.
-    source: underd0g-monochrome-03series-salm0n
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-dial
-    statement: The review describes a two-layer dial with a sunray base and dégradé top dial, without naming its maker.
-    excerpt: 2-layer with a metallic radial sunray base dial, course dégradé top dial.
-    source: underd0g-oracleoftime-03series-salm0n
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-horologium-scope
-    statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
-    excerpt: assembling watches including dials, hands and third-party movements.
-    source: underd0g-oracleoftime-horologium
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-horologium-stake
-    statement: A trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
-    excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
-    source: underd0g-europastar-horologium
-    dimensions:
-      - WE
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ud03-tb-cases-asia
-    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model.
-    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
-    source: underd0g-teddybaldassarre-brand-review
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ud03-tb-sourced-globally
-    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
-    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
-    source: underd0g-teddybaldassarre-brand-review
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW510 M, Valjoux 7750-type base)
@@ -166,6 +65,119 @@ provenance:
     claims:
       - ud03-sw510
       - ud03-dial
+claims:
+  - id: ud03-sw510
+    statement: A specialist site reports that the 03SERIES uses a hand-wound Sellita SW510 movement.
+    excerpt: From the Seagull found in the 01SERIES the brand now moves to a hand-wound Swiss Sellita SW510 in the 03SERIES.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-7750-base
+    statement: The specialist site says the monopusher chronograph shares its base architecture with the Valjoux 7750.
+    excerpt: This cam-operated monopusher chronograph shares its base architecture with the Valjoux 7750.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-ruthenium
+    statement: The specialist site says the large top bridge has a ruthenium coating.
+    excerpt: The large bridge on top has been specifically decorated with ruthenium coating for an anthracite colour.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-custom-decoration
+    statement: A second review describes a custom Côtes de Genève and ruthenium finish on the bridge, and +/- 5 s/day accuracy.
+    excerpt: Plus, it's been decorated with a custom Côte de Genève, ruthénium anthracite finished bridge
+    source: underd0g-oracleoftime-03series-salm0n
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-assembled-gb
+    statement: The specialist site says the watch is assembled in Great Britain.
+    excerpt: This new watch, assembled in Great Britain, is worn on an Epsom Calfskin strap.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-regulation
+    statement: The specialist site says the process includes demagnetisation, rate review in three positions and regulation where needed.
+    excerpt: The process includes demagnetisation, accuracy/rate review (3 positions) and regulation wherever necessary.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-case
+    statement: The specialist site lists a 38.5 mm steel case, 13.6 mm thick, without naming its maker.
+    excerpt: a compact steel case, measuring 38.5mm in diameter, 13.6mm in thickness and 44.5mm lug-to-lug.
+    source: underd0g-monochrome-03series-salm0n
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-dial
+    statement: The review describes a two-layer dial with a sunray base and dégradé top dial, without naming its maker.
+    excerpt: 2-layer with a metallic radial sunray base dial, course dégradé top dial.
+    source: underd0g-oracleoftime-03series-salm0n
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-horologium-scope
+    statement: A specialist site reports that Horologium assembles watches including dials, hands and third-party movements.
+    excerpt: assembling watches including dials, hands and third-party movements.
+    source: underd0g-oracleoftime-horologium
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-horologium-stake
+    statement: A trade report says Studio Underd0g took a minority stake in Horologium in July 2024 and owned 100 percent from 3 December 2025.
+    excerpt: As of December 3rd 2025, this stake has now increased to 100 percent.
+    source: underd0g-europastar-horologium
+    dimensions:
+      - WE
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ud03-tb-cases-asia
+    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model.
+    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ud03-tb-sourced-globally
+    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
+    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -180,18 +192,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 3
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - contract_microbrand
   - version: 2
@@ -199,8 +218,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 3 \u2192 2; PD 3 \u2192 2; confidence B \u2192 C. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 → U; DH 0 → U; CF 0 → U; WE 3 → 2; PD 3 → 2; confidence B → C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:

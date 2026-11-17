@@ -2,90 +2,6 @@ id: lesablier/chronosport
 brand: lesablier
 model: Chronosport
 notes: Handbook v0.2 §8 lists this record as "Lesablier — Chronosport".
-claims:
-  - id: lschrono-vk64
-    statement: The brand lists the Seiko VK64A Mecaquartz as the Chronosport's movement.
-    excerpt: 'Movement: Seiko VK64A Mecaquartz'
-    source: lesablier-chronosport-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-vk64-review
-    statement: A review identifies the movement as the Seiko VK64A, a quartz chronograph with a mechanical chronograph module.
-    excerpt: The quartz movement in the watch is the Seiko VK64A Mechaquartz movement.
-    source: watchclicker-lesablier-chronosport
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-vk64-service
-    statement: A review states that servicing the VK64 involves replacing the whole movement.
-    excerpt: With a 3-year battery life and service that involves swapping the entire movement, the Seiko VK64 is reliable and keeps owners’ costs low.
-    source: timebum-lesablier-chronosport
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-case-prototypes
-    statement: The brand says the case finishing took over a year and several case prototypes to develop.
-    excerpt: It took us over a year and mutliple case prototypes to get this right
-    source: lesablier-chronosport-page
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-dial-layers
-    statement: The brand describes a three-layer dial with applied faceted indices and a serial number on each dial.
-    excerpt: 'Each dial has 3 layers: The base, recessed subdials, and elevated rehault tachymeter ring.'
-    source: lesablier-chronosport-page
-    dimensions:
-      - DH
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-founder-design
-    statement: The founder states that he designs the watches himself, based on his own design preferences.
-    excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
-    source: lesablier-our-story
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-production
-    statement: The brand says 50 Chronosport watches were produced in each colour.
-    excerpt: 50 were produced in each color.
-    source: lesablier-our-story
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lschrono-tooled-components
-    statement: Lesablier says that, because of the case design, finishes, integrated bracelet and handset, it had to design, mould and tool every component of the Chronosport. It does not say who manufactured the parts.
-    excerpt: Due to the complexity of the Chronosport's case design, the variety of brushed, polished, and sandblasted finishes, the distinctive integrated bracelet and the unique handset, we had to design, mould and tool every last component.
-    source: lesablier-chronosport-landing
-    dimensions:
-      - EX
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lschrono-only-third-party
-    statement: Lesablier says no part of the Chronosport is off the shelf and that the Seiko VK64A movement is its only third-party component. The page does not name any case, bracelet, dial or hand maker or describe Lesablier production facilities.
-    excerpt: This means that nothing you see on the Chronosport is an off-the-shelf part. The only third-party component in the Chronosport is the Seiko VK64A Mecaquartz movement.
-    source: lesablier-chronosport-landing
-    dimensions:
-      - MA
-      - MM
-      - EX
-      - DH
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design (Seiko VK64A)
@@ -134,6 +50,99 @@ provenance:
       - lschrono-case-prototypes
       - lschrono-dial-layers
       - lschrono-tooled-components
+claims:
+  - id: lschrono-vk64
+    statement: The brand lists the Seiko VK64A Mecaquartz as the Chronosport's movement.
+    excerpt: "Movement: Seiko VK64A Mecaquartz"
+    source: lesablier-chronosport-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-vk64-review
+    statement: A review identifies the movement as the Seiko VK64A, a quartz chronograph with a mechanical chronograph module.
+    excerpt: The quartz movement in the watch is the Seiko VK64A Mechaquartz movement.
+    source: watchclicker-lesablier-chronosport
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-vk64-service
+    statement: A review states that servicing the VK64 involves replacing the whole movement.
+    excerpt: With a 3-year battery life and service that involves swapping the entire movement, the Seiko VK64 is reliable and keeps owners’ costs low.
+    source: timebum-lesablier-chronosport
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-case-prototypes
+    statement: The brand says the case finishing took over a year and several case prototypes to develop.
+    excerpt: It took us over a year and mutliple case prototypes to get this right
+    source: lesablier-chronosport-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-dial-layers
+    statement: The brand describes a three-layer dial with applied faceted indices and a serial number on each dial.
+    excerpt: "Each dial has 3 layers: The base, recessed subdials, and elevated rehault tachymeter ring."
+    source: lesablier-chronosport-page
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-founder-design
+    statement: The founder states that he designs the watches himself, based on his own design preferences.
+    excerpt: after collecting for many years I decided to take the leap and design my own perfect watch
+    source: lesablier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-production
+    statement: The brand says 50 Chronosport watches were produced in each colour.
+    excerpt: 50 were produced in each color.
+    source: lesablier-our-story
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lschrono-tooled-components
+    statement: Lesablier says that, because of the case design, finishes, integrated bracelet and handset, it had to design, mould and tool every component of the Chronosport. It does not say who manufactured the parts.
+    excerpt: Due to the complexity of the Chronosport's case design, the variety of brushed, polished, and sandblasted finishes, the distinctive integrated bracelet and the unique handset, we had to design, mould and tool every last component.
+    source: lesablier-chronosport-landing
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lschrono-only-third-party
+    statement: Lesablier says no part of the Chronosport is off the shelf and that the Seiko VK64A movement is its only third-party component. The page does not name any case, bracelet, dial or hand maker or describe Lesablier production facilities.
+    excerpt: This means that nothing you see on the Chronosport is an off-the-shelf part. The only third-party component in the Chronosport is the Seiko VK64A Mecaquartz movement.
+    source: lesablier-chronosport-landing
+    dimensions:
+      - MA
+      - MM
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -148,18 +157,25 @@ profiles:
     scores:
       MA:
         value: 0
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 0
+        evidence: []
       DH:
         value: 0
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 0
+        evidence: []
       PD:
         value: 2
+        evidence: []
     classification:
       - contract_microbrand
   - version: 2
@@ -167,8 +183,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 → U; DH 0 → U; CF 0 → U; WE 0 → U; confidence A → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -233,6 +250,7 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Lesablier's Chronosport landing page (lesablierwatches.com/chronosport), which says the brand designed, moulded and tooled every component and that the Seiko VK64A is the only third-party part. Changes from version 2: PD 2 → 3; confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE). No source found names the case, bracelet, dial or hand maker or says where the Chronosport is assembled."
     created_on: 2026-11-17

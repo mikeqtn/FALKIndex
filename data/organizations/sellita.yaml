@@ -1,4 +1,6 @@
 id: sellita
 name: Sellita
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CH

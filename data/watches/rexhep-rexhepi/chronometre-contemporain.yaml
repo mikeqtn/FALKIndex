@@ -2,174 +2,6 @@ id: rexhep-rexhepi/chronometre-contemporain
 brand: rexhep-rexhepi
 model: Chronomètre Contemporain
 notes: Handbook v0.2 §8 lists this record as "Rexhep Rexhepi — Chronomètre Contemporain".
-claims:
-  - id: rrcc-crafted-finished-akrivia
-    statement: The maker states that every component of the RRCC-01 movement is crafted and hand-finished at Atelier Akrivia.
-    excerpt: Every component of the RRCC-01 is meticulously crafted and finished by hand at ATELIER AKRIVIA.
-    source: rexhepi-cc-page
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-    status: disputed
-  - id: rrcc-finishing-techniques
-    statement: The maker lists anglage, black polish and Côtes de Genève among the hand-finishing techniques on the RRCC-01.
-    excerpt: Techniques such as anglage , black polish and Côtes de Genève are applied with precision
-    source: rexhepi-cc-page
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-design
-    statement: Rexhep Rexhepi designed the Chronomètre Contemporain I.
-    excerpt: Rexhep Rexhepi created the REXHEP REXHEPI Chronomètre Contemporain I (RRCC I) to capture classical watchmaking in a contemporary design.
-    source: rexhepi-cc-page
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-enamel-dial
-    statement: The RRCC I dial is grand feu enamel; the maker's page does not say who enamels it.
-    excerpt: The dial of the RRCC I showcases traditional Genevan enamelling
-    source: rexhepi-cc-page
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-ateliers-in-house
-    statement: The maker states that every component of its watches is conceived, made and hand-finished in-house.
-    excerpt: every component is conceived, crafted, and hand-finished in-house
-    source: rexhepi-ateliers
-    dimensions:
-      - MA
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-    status: disputed
-  - id: rrcc-2018-suppliers
-    statement: "A 2018 report on the Chronom\u00e8tre Contemporain prototype says most movement components are produced by suppliers and finished at the Akrivia workshop in Geneva."
-    excerpt: "Most of the components are produced by suppliers, and then finished at the Akrivia workshop in Geneva's Old Town"
-    source: sjx-akrivia-chronometre-contemporain-prototype
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-one-watchmaker
-    statement: The maker states that each watchmaker completes an entire watch from start to finish.
-    excerpt: each watchmaker is entrusted with completing an entire timepiece, working on it from start to finish
-    source: rexhepi-ateliers
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-case-workshop-2019
-    statement: Atelier Akrivia opened its case-making workshop in 2019, after the Chronomètre Contemporain was introduced in 2018.
-    excerpt: ATELIER AKRIVIA marked a milestone in 2019 with the inauguration of its micro-mechanics workshop with a specialty in case making.
-    source: rexhepi-ateliers
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-enamel-workshop-2024
-    statement: The maker opened a grand feu enamel dial workshop in spring 2024.
-    excerpt: In spring 2024, Rexhep Rexhepi opened a workshop dedicated to the art of grand feu enamel.
-    source: rexhepi-ateliers
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc2-first-in-house-case
-    statement: The maker says the Chronomètre Contemporain II case is now produced in-house, which implies the first model's case was not.
-    excerpt: The case of the RRCC II was developed under the direction of renowned case maker Jean-Pierre Hagmann and is now produced in-house.
-    source: rexhepi-cc2-page
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-sjx-enameller
-    statement: SJX reports that the dial is made by a Geneva enameller, not named, who trained under Dominique Baron.
-    excerpt: The dial is made by a Geneva enameller who was once a student of the late Dominique Baron of Van Cleef & Arpels
-    source: sjx-rexhepi-cc-2018
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-besancon
-    statement: SJX reports that the first watches underwent chronometer trials at the Besançon observatory before delivery.
-    excerpt: after they have completed chronometer trials at the Besançon observatory
-    source: sjx-rexhepi-cc-2018
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rrcc-emaillart-dial
-    statement: A March 2018 SJX report on the prototype says the enamel dials are made by the Geneva enameller Emaill’Art.
-    excerpt: They are made by Geneva enameller Emaill’Art, a workshop that has done dials for Vacheron Constantin and Laurent Ferrier.
-    source: sjx-akrivia-chronometre-contemporain-prototype
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-hands-akrivia
-    statement: The same SJX report says the Chronomètre Contemporain hands are made by hand in the Akrivia workshop.
-    excerpt: Consequently, the hands are produced by hand in the Akrivia workshop.
-    source: sjx-akrivia-chronometre-contemporain-prototype
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-deployant-plates-external
-    statement: A December 2018 Deployant interview, published with the commercial release of the Chronomètre Contemporain, reports that bridges and plates are designed and finished in-house but that Akrivia did not yet own the facilities to make them.
-    excerpt: Though the bridges and plates are designed and finished in-house, Akrivia does not own the facilities to manufacture them yet.
-    source: deployant-akrivia-rexhepi
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-deployant-final-release
-    statement: The Deployant interview says the watch it photographed is the final commercial release of the Chronomètre Contemporain.
-    excerpt: This is the final commercial release version, with small detail changes to the dial, and massive finishing refinements to the movement
-    source: deployant-akrivia-rexhepi
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-mhc-early-supplier
-    statement: A 2024 SJX workshop visit reports that Akrivia relied on suppliers such as MHC in its early days.
-    excerpt: Reliant on suppliers like MHC in its early days, the brand has made significant strides in recent years to bring the most critical operations in-house
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-cases-previously-outsourced
-    statement: The 2024 SJX visit reports that cases, some movement plates and bridges, and straps were previously outsourced and are now made in Akrivia's workshops.
-    excerpt: Components that were previously outsourced, such as cases, some movement plates and bridges, and straps, are now made in the brand’s workshops.
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - EX
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-case-workshop-rrccii
-    statement: The 2024 SJX visit reports that the case workshop, opened in 2019, makes cases for the RRCC II and future Akrivia watches; it does not mention the first Chronomètre Contemporain.
-    excerpt: With the assistance of lathes and other analog rotary tools, the craftsmen in this workshop produce cases for the RRCCII, as well as all future Akrivia watches
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rrcc-adjusted-single-watchmaker
-    statement: The 2024 SJX visit reports that at the Akrivia atelier each watch is finished, assembled, adjusted, cased and tested by a single watchmaker.
-    excerpt: This is where each watch is finished, assembled, adjusted, cased, and tested by a single watchmaker from start to finish.
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre RRCC-01 design
@@ -182,7 +14,7 @@ provenance:
     component: Movement components
     relationship: external_specialist
     valid_from: 2018
-    note: "The maker says every component is made in-house; 2018 reports say most components, including bridges and plates, came from suppliers, and a 2024 report names MHC as an early supplier. No source ties a named supplier to this calibre."
+    note: The maker says every component is made in-house; 2018 reports say most components, including bridges and plates, came from suppliers, and a 2024 report names MHC as an early supplier. No source ties a named supplier to this calibre.
     claims:
       - rrcc-crafted-finished-akrivia
       - rrcc-ateliers-in-house
@@ -241,6 +73,192 @@ provenance:
     relationship: internal
     claims:
       - rrcc-design
+claims:
+  - id: rrcc-crafted-finished-akrivia
+    statement: The maker states that every component of the RRCC-01 movement is crafted and hand-finished at Atelier Akrivia.
+    excerpt: Every component of the RRCC-01 is meticulously crafted and finished by hand at ATELIER AKRIVIA.
+    source: rexhepi-cc-page
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: disputed
+  - id: rrcc-finishing-techniques
+    statement: The maker lists anglage, black polish and Côtes de Genève among the hand-finishing techniques on the RRCC-01.
+    excerpt: Techniques such as anglage , black polish and Côtes de Genève are applied with precision
+    source: rexhepi-cc-page
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-design
+    statement: Rexhep Rexhepi designed the Chronomètre Contemporain I.
+    excerpt: Rexhep Rexhepi created the REXHEP REXHEPI Chronomètre Contemporain I (RRCC I) to capture classical watchmaking in a contemporary design.
+    source: rexhepi-cc-page
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-enamel-dial
+    statement: The RRCC I dial is grand feu enamel; the maker's page does not say who enamels it.
+    excerpt: The dial of the RRCC I showcases traditional Genevan enamelling
+    source: rexhepi-cc-page
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-ateliers-in-house
+    statement: The maker states that every component of its watches is conceived, made and hand-finished in-house.
+    excerpt: every component is conceived, crafted, and hand-finished in-house
+    source: rexhepi-ateliers
+    dimensions:
+      - MA
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: disputed
+  - id: rrcc-2018-suppliers
+    statement: A 2018 report on the Chronomètre Contemporain prototype says most movement components are produced by suppliers and finished at the Akrivia workshop in Geneva.
+    excerpt: Most of the components are produced by suppliers, and then finished at the Akrivia workshop in Geneva's Old Town
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-one-watchmaker
+    statement: The maker states that each watchmaker completes an entire watch from start to finish.
+    excerpt: each watchmaker is entrusted with completing an entire timepiece, working on it from start to finish
+    source: rexhepi-ateliers
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-case-workshop-2019
+    statement: Atelier Akrivia opened its case-making workshop in 2019, after the Chronomètre Contemporain was introduced in 2018.
+    excerpt: ATELIER AKRIVIA marked a milestone in 2019 with the inauguration of its micro-mechanics workshop with a specialty in case making.
+    source: rexhepi-ateliers
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-enamel-workshop-2024
+    statement: The maker opened a grand feu enamel dial workshop in spring 2024.
+    excerpt: In spring 2024, Rexhep Rexhepi opened a workshop dedicated to the art of grand feu enamel.
+    source: rexhepi-ateliers
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc2-first-in-house-case
+    statement: The maker says the Chronomètre Contemporain II case is now produced in-house, which implies the first model's case was not.
+    excerpt: The case of the RRCC II was developed under the direction of renowned case maker Jean-Pierre Hagmann and is now produced in-house.
+    source: rexhepi-cc2-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-sjx-enameller
+    statement: SJX reports that the dial is made by a Geneva enameller, not named, who trained under Dominique Baron.
+    excerpt: The dial is made by a Geneva enameller who was once a student of the late Dominique Baron of Van Cleef & Arpels
+    source: sjx-rexhepi-cc-2018
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-besancon
+    statement: SJX reports that the first watches underwent chronometer trials at the Besançon observatory before delivery.
+    excerpt: after they have completed chronometer trials at the Besançon observatory
+    source: sjx-rexhepi-cc-2018
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rrcc-emaillart-dial
+    statement: A March 2018 SJX report on the prototype says the enamel dials are made by the Geneva enameller Emaill’Art.
+    excerpt: They are made by Geneva enameller Emaill’Art, a workshop that has done dials for Vacheron Constantin and Laurent Ferrier.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-hands-akrivia
+    statement: The same SJX report says the Chronomètre Contemporain hands are made by hand in the Akrivia workshop.
+    excerpt: Consequently, the hands are produced by hand in the Akrivia workshop.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-deployant-plates-external
+    statement: A December 2018 Deployant interview, published with the commercial release of the Chronomètre Contemporain, reports that bridges and plates are designed and finished in-house but that Akrivia did not yet own the facilities to make them.
+    excerpt: Though the bridges and plates are designed and finished in-house, Akrivia does not own the facilities to manufacture them yet.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-deployant-final-release
+    statement: The Deployant interview says the watch it photographed is the final commercial release of the Chronomètre Contemporain.
+    excerpt: This is the final commercial release version, with small detail changes to the dial, and massive finishing refinements to the movement
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-mhc-early-supplier
+    statement: A 2024 SJX workshop visit reports that Akrivia relied on suppliers such as MHC in its early days.
+    excerpt: Reliant on suppliers like MHC in its early days, the brand has made significant strides in recent years to bring the most critical operations in-house
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-cases-previously-outsourced
+    statement: The 2024 SJX visit reports that cases, some movement plates and bridges, and straps were previously outsourced and are now made in Akrivia's workshops.
+    excerpt: Components that were previously outsourced, such as cases, some movement plates and bridges, and straps, are now made in the brand’s workshops.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - EX
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-case-workshop-rrccii
+    statement: The 2024 SJX visit reports that the case workshop, opened in 2019, makes cases for the RRCC II and future Akrivia watches; it does not mention the first Chronomètre Contemporain.
+    excerpt: With the assistance of lathes and other analog rotary tools, the craftsmen in this workshop produce cases for the RRCCII, as well as all future Akrivia watches
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rrcc-adjusted-single-watchmaker
+    statement: The 2024 SJX visit reports that at the Akrivia atelier each watch is finished, assembled, adjusted, cased and tested by a single watchmaker.
+    excerpt: This is where each watch is finished, assembled, adjusted, cased, and tested by a single watchmaker from start to finish.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -255,18 +273,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 3
+        evidence: []
       EX:
         value: 2
+        evidence: []
       DH:
         value: 2
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - independent_manufacture
   - version: 2
@@ -274,8 +299,9 @@ profiles:
     confidence: C
     independent_watchmaker: true
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 \u2192 4; MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; WE 5 \u2192 3; confidence B \u2192 C. The maker's in-house claims are marked disputed by a 2018 report that most components came from suppliers. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 5 → 4; MM 3 → U; EX 2 → U; DH 2 → U; WE 5 → 3; confidence B → C. The maker's in-house claims are marked disputed by a 2018 report that most components came from suppliers. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -287,7 +313,7 @@ profiles:
             note: Conceived in-house.
       MM:
         value: null
-        rationale: "The maker says every RRCC-01 component is crafted in-house, but a 2018 report on the prototype says most components came from suppliers. With the claims in conflict, U until an independent source settles it."
+        rationale: The maker says every RRCC-01 component is crafted in-house, but a 2018 report on the prototype says most components came from suppliers. With the claims in conflict, U until an independent source settles it.
         evidence:
           - claim: rrcc-crafted-finished-akrivia
             stance: context
@@ -358,6 +384,7 @@ profiles:
     confidence: C
     independent_watchmaker: true
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds a December 2018 Deployant interview on the commercial release, a 2024 SJX visit to the Akrivia workshops, and further passages from the March 2018 SJX prototype report (Emaill’Art dial, hands made at Akrivia). Changes from version 2: MM U → 0; EX U → 0; DH U → 2; confidence stays C. None of the seven dimensions remain U."
     created_on: 2026-11-17

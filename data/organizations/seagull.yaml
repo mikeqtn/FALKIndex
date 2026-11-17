@@ -1,7 +1,8 @@
 id: seagull
 name: Tianjin Seagull
 kind: supplier
+ownership: unknown
+scale: unknown
 country: CN
 website: https://www.seagullwatch.com
-notes: Chinese movement manufacturer; makes the exclusive ST-1901B for Studio
-  Underd0g.
+notes: Chinese movement manufacturer; makes the exclusive ST-1901B for Studio Underd0g.

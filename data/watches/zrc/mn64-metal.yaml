@@ -2,127 +2,6 @@ id: zrc/mn64-metal
 brand: zrc
 model: MN64 Metal
 notes: Handbook v0.2 §8 lists this record as "ZRC — MN64 Metal".
-claims:
-  - id: zmn64-sw300
-    statement: The maker lists a Sellita SW300-1 in "Elaborated" grade.
-    excerpt: SELLITA “Elaborated” SW300-1
-    source: zrc-mn64-metal-page
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-case
-    statement: The maker lists a monobloc case in non-magnetic 316L steel with screwed case back and crown, without naming its maker.
-    excerpt: Nonmagnetic 316L Steel
-    source: zrc-mn64-metal-page
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-cps
-    statement: The maker describes a Crown Protection System with the crown at 6 o'clock.
-    excerpt: The Crown Protection System™ provides a secure watertight seal.
-    source: zrc-mn64-metal-page
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-bracelet
-    statement: The maker lists a steel bracelet with an expandable "Diver" link.
-    excerpt: Stainless Steel metal band equipped with a “Diver” expandable link for both a city & dive use
-    source: zrc-mn64-metal-page
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-clasp
-    statement: The maker lists a ZRC-specific clasp on metal-band models.
-    excerpt: Exclusif ZRC® clasp
-    source: zrc-mn64-metal-page
-    dimensions:
-      - EX
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-swiss
-    statement: The maker states its watches are designed and produced in Switzerland, without naming workshops.
-    excerpt: DESIGNED AND PRODUCED IN SWITZERLAND
-    source: zrc-mn64-metal-page
-    dimensions:
-      - PD
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-assembled
-    statement: The maker says its watches are assembled with attention to detail, without saying by whom or where.
-    excerpt: They are assembled with the utmost attention to every detail.
-    source: zrc-mn64-metal-page
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-family
-    statement: The maker's history page says Georges and Charles Brunet, great-grandsons of the founder, head the family business.
-    excerpt: Georges & Charles Brunet, at the head of the family business (great-grandsons of Joseph Rochet)
-    source: zrc-family-history
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-historic-cases
-    statement: The history page says the company historically made waterproof dive-watch cases for customers; this is historical context, not the current MN64.
-    excerpt: commission it to make waterproof cases for dive watches
-    source: zrc-family-history
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-revival
-    statement: A specialist site says ZRC was revived in the mid-2010s under Georges Brunet and focuses on dive watches.
-    excerpt: Revived in the mid-2010s under Georges Brunet, ZRC has since focused almost exclusively on diving watches,
-    source: zrc-monochrome-mn64-titanium
-    dimensions:
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: zmn64-rotor
-    statement: ZRC's movement page says it uses the SW300-1 Elaborated developed for the MN64 watches, and that in collaboration with Sellita it developed a specifically balanced oscillating mass. It does not say who makes the mass.
-    excerpt: has developed a specifically balanced oscillating mass around a rotor centered on 3 axes to further improve automatic winding.
-    source: zrc-expertise-movement
-    dimensions:
-      - MA
-      - PD
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: zmn64-relaunch-subcontractor
-    statement: A Paperjam profile of CEO Georges Brunet reports that production of the 2015 relaunch Grands Fonds (a 300-piece special model) was entrusted to a subcontractor that has worked with the group for three decades and makes watches for brands such as TAG Heuer and Bell & Ross. It does not name the subcontractor or say whether this still applies to the current MN64 Metal.
-    excerpt: La production est confiée à un sous-traitant qui travaille avec le groupe depuis trois décennies et qui produit des montres pour de grands horlogers comme Tag Heuer ou Bell & Ross.
-    source: zrc-paperjam-brunet-2024
-    dimensions:
-      - WE
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: zmn64-group-components
-    statement: The same Paperjam article reports that after 1985 the ZRC group returned to supplying components to the watch industry, mainly bracelets and cases. It does not tie this to the MN64 Metal's case or bracelet.
-    excerpt: ZRC se recentre alors sur ses fondamentaux, la fourniture de composants à l’industrie horlogère, principalement des bracelets et des boîtiers.
-    source: zrc-paperjam-brunet-2024
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: zmn64-case-knowhow
-    statement: Paperjam reports that the group's accumulated case know-how enabled the 2015 relaunch of the watch business, without saying who makes the current cases.
-    excerpt: C’est le savoir-faire accumulé sur les boîtiers qui permettra la relance de l’activité horlogère en 2015.
-    source: zrc-paperjam-brunet-2024
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW300-1)
@@ -187,6 +66,141 @@ provenance:
       - zmn64-cps
       - zmn64-family
       - zmn64-revival
+claims:
+  - id: zmn64-sw300
+    statement: The maker lists a Sellita SW300-1 in "Elaborated" grade.
+    excerpt: SELLITA “Elaborated” SW300-1
+    source: zrc-mn64-metal-page
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-case
+    statement: The maker lists a monobloc case in non-magnetic 316L steel with screwed case back and crown, without naming its maker.
+    excerpt: Nonmagnetic 316L Steel
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-cps
+    statement: The maker describes a Crown Protection System with the crown at 6 o'clock.
+    excerpt: The Crown Protection System™ provides a secure watertight seal.
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-bracelet
+    statement: The maker lists a steel bracelet with an expandable "Diver" link.
+    excerpt: Stainless Steel metal band equipped with a “Diver” expandable link for both a city & dive use
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-clasp
+    statement: The maker lists a ZRC-specific clasp on metal-band models.
+    excerpt: Exclusif ZRC® clasp
+    source: zrc-mn64-metal-page
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-swiss
+    statement: The maker states its watches are designed and produced in Switzerland, without naming workshops.
+    excerpt: DESIGNED AND PRODUCED IN SWITZERLAND
+    source: zrc-mn64-metal-page
+    dimensions:
+      - PD
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-assembled
+    statement: The maker says its watches are assembled with attention to detail, without saying by whom or where.
+    excerpt: They are assembled with the utmost attention to every detail.
+    source: zrc-mn64-metal-page
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-family
+    statement: The maker's history page says Georges and Charles Brunet, great-grandsons of the founder, head the family business.
+    excerpt: Georges & Charles Brunet, at the head of the family business (great-grandsons of Joseph Rochet)
+    source: zrc-family-history
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-historic-cases
+    statement: The history page says the company historically made waterproof dive-watch cases for customers; this is historical context, not the current MN64.
+    excerpt: commission it to make waterproof cases for dive watches
+    source: zrc-family-history
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-revival
+    statement: A specialist site says ZRC was revived in the mid-2010s under Georges Brunet and focuses on dive watches.
+    excerpt: Revived in the mid-2010s under Georges Brunet, ZRC has since focused almost exclusively on diving watches,
+    source: zrc-monochrome-mn64-titanium
+    dimensions:
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: zmn64-rotor
+    statement: ZRC's movement page says it uses the SW300-1 Elaborated developed for the MN64 watches, and that in collaboration with Sellita it developed a specifically balanced oscillating mass. It does not say who makes the mass.
+    excerpt: has developed a specifically balanced oscillating mass around a rotor centered on 3 axes to further improve automatic winding.
+    source: zrc-expertise-movement
+    dimensions:
+      - MA
+      - PD
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: zmn64-relaunch-subcontractor
+    statement: A Paperjam profile of CEO Georges Brunet reports that production of the 2015 relaunch Grands Fonds (a 300-piece special model) was entrusted to a subcontractor that has worked with the group for three decades and makes watches for brands such as TAG Heuer and Bell & Ross. It does not name the subcontractor or say whether this still applies to the current MN64 Metal.
+    excerpt: La production est confiée à un sous-traitant qui travaille avec le groupe depuis trois décennies et qui produit des montres pour de grands horlogers comme Tag Heuer ou Bell & Ross.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: zmn64-group-components
+    statement: The same Paperjam article reports that after 1985 the ZRC group returned to supplying components to the watch industry, mainly bracelets and cases. It does not tie this to the MN64 Metal's case or bracelet.
+    excerpt: ZRC se recentre alors sur ses fondamentaux, la fourniture de composants à l’industrie horlogère, principalement des bracelets et des boîtiers.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: zmn64-case-knowhow
+    statement: Paperjam reports that the group's accumulated case know-how enabled the 2015 relaunch of the watch business, without saying who makes the current cases.
+    excerpt: C’est le savoir-faire accumulé sur les boîtiers qui permettra la relance de l’activité horlogère en 2015.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -201,18 +215,25 @@ profiles:
     scores:
       MA:
         value: 1
+        evidence: []
       MM:
         value: 1
+        evidence: []
       EX:
         value: 1
+        evidence: []
       DH:
         value: 1
+        evidence: []
       CF:
         value: 0
+        evidence: []
       WE:
         value: 2
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - design_led_etablisseur
   - version: 2
@@ -220,8 +241,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: MA 1 \u2192 0; MM 1 \u2192 0; EX 1 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; confidence B \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: MA 1 → 0; MM 1 → 0; EX 1 → U; DH 1 → U; CF 0 → U; WE 2 → U; confidence B → D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -286,9 +308,10 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
-    created_on: 2026-11-17
     change_note: "Adds ZRC's own movement expertise page (zrc-expertise-movement) and a 2024 Paperjam profile of CEO Georges Brunet (zrc-paperjam-brunet-2024). Changes from version 2: MA 0 → 1. Confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE): no source names the makers of the current MN64 case, bracelet, dial or hands, documents any finishing, or says who assembles the current watch; Paperjam says the 2015 relaunch model was made by an unnamed subcontractor, which is recorded as context."
+    created_on: 2026-11-17
     scores:
       MA:
         value: 1

@@ -2,191 +2,6 @@ id: a-lange-sohne/lange-1
 brand: a-lange-sohne
 model: Lange 1
 notes: Handbook v0.2 §8 lists this record as "A. Lange & Söhne — Lange 1".
-claims:
-  - id: l1-free-sprung-balance
-    statement: A specialist site reports that the L121.1 (2015) has an in-house free-sprung balance with adjustable rim weights.
-    excerpt: To start with it has an in-house, free-sprung balance wheel, a feature that promises more stable timekeeping
-    source: sjx-lange-1-2015
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-three-quarter-plate
-    statement: The same article describes the L121.1 layout as a simplified three-quarter plate.
-    excerpt: The new L121.1 is simplified visually, with a three quarter plate that has no plates set into it.
-    source: sjx-lange-1-2015
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-balance-spring-inhouse
-    statement: A specialist site describes the Lange 1 calibre L121.1 as having a balance spring made in-house, under a hand-engraved balance bridge.
-    excerpt: a freely oscillating balance-spring crafted in-house
-    source: worldtempus-lange-1-four-models
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-engraved-bridge
-    statement: The same article states the balance sits beneath a hand-engraved balance bridge.
-    excerpt: beneath a hand-engraved balance bridge
-    source: worldtempus-lange-1-four-models
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-double-assembly
-    statement: The article describes systematic double assembly of movements as a Lange manufacture practice.
-    excerpt: This systematic double movement assembly procedure is a specific characteristic of the Manufacture A. Lange & Söhne.
-    source: worldtempus-lange-1-four-models
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-hairspring-since-2003
-    statement: A specialist site reports that Lange has made hairsprings at its Glashütte manufacture since 2003.
-    excerpt: Since 2003, starting with the Double Split, Lange has been making hairsprings in its manufacture in Glashütte.
-    source: sjx-lange-hairsprings
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-nivarox-alloy
-    statement: The same article reports that the raw hairspring alloy is Nivarox, bought from a supplier, then drawn, rolled, coiled and tempered by Lange.
-    excerpt: The hairspring begins with the raw Nivarox alloy which Lange buys from a supplier (below).
-    source: sjx-lange-hairsprings
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-dial-case-external
-    statement: A 2014 manufacture visit report (in Polish) states that the dial and case are the two elements Lange does not make itself.
-    excerpt: (dwoma elementami, których Lange nie wykonuje we własnym zakresie)
-    source: ch24-lange-road-trip
-    dimensions:
-      - DH
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-parts-machinery
-    statement: The same report describes a machine park producing individual movement parts at the manufacture.
-    excerpt: przez park maszyn wytwarzających poszczególne części
-    source: ch24-lange-road-trip
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-engraved-cock-all
-    statement: The report states every balance in a Lange watch receives a hand-engraved bridge.
-    excerpt: każdy balans tykający w zegarku z logo marki otrzymuje ręcznie grawerowany mostek.
-    source: ch24-lange-road-trip
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-assembly-two-stages
-    statement: The report states movement assembly at Lange has two stages, the second into the finished watch with dial and case.
-    excerpt: W Lange montaż ten ma dwa etapy.
-    source: ch24-lange-road-trip
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: l1-proprietary-movement-page
-    statement: Lange's LANGE 1 page states that every model of the LANGE 1 family has a proprietary movement manufactured in-house.
-    excerpt: every model of the LANGE 1 watch family is equipped with a proprietary movement that was manufactured in-house.
-    source: lange-lange-1-page
-    dimensions:
-      - MA
-      - MM
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-parts-few-exceptions
-    statement: The same page states that, with few exceptions, all movement parts are crafted in the manufacture; the exceptions are not named.
-    excerpt: With only few exceptions, all movement parts are crafted in the manufacture
-    source: lange-lange-1-page
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-outsize-date-designed
-    statement: The page states that two separate display elements were designed to fit the largest possible date display into the smallest space.
-    excerpt: To achieve this goal, two separate display elements were designed.
-    source: lange-lange-1-page
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-outsize-date-66-parts
-    statement: The page states that the outsize-date calendar mechanism needs 66 individual parts.
-    excerpt: A complex calendar mechanism with 66 individual parts is needed to achieve this result.
-    source: lange-lange-1-page
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-dial-layout-principles
-    statement: The page states that the LANGE 1 dial layout is based on the golden ratio and axial arrangement.
-    excerpt: the displays are positioned in a geometrically balanced configuration that is based on classical aesthetic design principles, such as the golden ratio and axial arrangement.
-    source: lange-lange-1-page
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-calibre-engineers
-    statement: Lange's manufacture-movements page defines its manufacture movements as developed by its calibre engineers and crafted in its manufacture.
-    excerpt: we generally define a proprietary manufacture movement as a movement that was developed by our calibre engineers, crafted in our manufacture
-    source: lange-manufacture-movements
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-assembled-twice-primary
-    statement: The same page states that every Lange calibre is assembled twice and finished by Lange's watchmakers in Glashütte.
-    excerpt: Every single one, be it puristic or endowed with complications, is assembled twice with the utmost precision and elaborately finished by our watchmakers in Glashütte.
-    source: lange-manufacture-movements
-    dimensions:
-      - CF
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-hallmarks-all-calibres
-    statement: The same page states that every Lange manufacture calibre has decorated and polished surfaces and a hand-engraved balance cock.
-    excerpt: Hallmarks shared by every one of our manufacture calibres include gold chatons, blued screws, decorated and polished surfaces as well as hand-engraved balance cocks.
-    source: lange-manufacture-movements
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-tt-dial-rules
-    statement: A Time+Tide feature quotes Lange's Director of Manufacture, Tino Bobe, saying there are strict rules for Lange 1 dials.
-    excerpt: There are very strict rules for Lange 1 dials.
-    source: timeandtide-designing-lange-part-2
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-tt-ping-pong
-    statement: The same feature quotes Bobe saying that development of every piece moves back and forth between movement design and exterior design.
-    excerpt: The development of every piece always involves ping-pong between the technical design of the movement and the aesthetic design of the outside.
-    source: timeandtide-designing-lange-part-2
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: l1-sjx-dials-suppliers
-    statement: A 2025 SJX article reports that most of Lange's artisanal dials were produced by suppliers, and that Lange has since built an in-house team of engravers and enamellists.
-    excerpt: Most of these dials were produced by suppliers, but the brand has quietly built an immensely talented team of engravers and enamellists since launching the Handwerkskunst editions in 2011
-    source: sjx-lange-dial-making
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre L121.1 architecture
@@ -272,6 +87,213 @@ provenance:
       - l1-dial-layout-principles
       - l1-tt-dial-rules
       - l1-tt-ping-pong
+claims:
+  - id: l1-free-sprung-balance
+    statement: A specialist site reports that the L121.1 (2015) has an in-house free-sprung balance with adjustable rim weights.
+    excerpt: To start with it has an in-house, free-sprung balance wheel, a feature that promises more stable timekeeping
+    source: sjx-lange-1-2015
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-three-quarter-plate
+    statement: The same article describes the L121.1 layout as a simplified three-quarter plate.
+    excerpt: The new L121.1 is simplified visually, with a three quarter plate that has no plates set into it.
+    source: sjx-lange-1-2015
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-balance-spring-inhouse
+    statement: A specialist site describes the Lange 1 calibre L121.1 as having a balance spring made in-house, under a hand-engraved balance bridge.
+    excerpt: a freely oscillating balance-spring crafted in-house
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-engraved-bridge
+    statement: The same article states the balance sits beneath a hand-engraved balance bridge.
+    excerpt: beneath a hand-engraved balance bridge
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-double-assembly
+    statement: The article describes systematic double assembly of movements as a Lange manufacture practice.
+    excerpt: This systematic double movement assembly procedure is a specific characteristic of the Manufacture A. Lange & Söhne.
+    source: worldtempus-lange-1-four-models
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-hairspring-since-2003
+    statement: A specialist site reports that Lange has made hairsprings at its Glashütte manufacture since 2003.
+    excerpt: Since 2003, starting with the Double Split, Lange has been making hairsprings in its manufacture in Glashütte.
+    source: sjx-lange-hairsprings
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-nivarox-alloy
+    statement: The same article reports that the raw hairspring alloy is Nivarox, bought from a supplier, then drawn, rolled, coiled and tempered by Lange.
+    excerpt: The hairspring begins with the raw Nivarox alloy which Lange buys from a supplier (below).
+    source: sjx-lange-hairsprings
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-dial-case-external
+    statement: A 2014 manufacture visit report (in Polish) states that the dial and case are the two elements Lange does not make itself.
+    excerpt: (dwoma elementami, których Lange nie wykonuje we własnym zakresie)
+    source: ch24-lange-road-trip
+    dimensions:
+      - DH
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-parts-machinery
+    statement: The same report describes a machine park producing individual movement parts at the manufacture.
+    excerpt: przez park maszyn wytwarzających poszczególne części
+    source: ch24-lange-road-trip
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-engraved-cock-all
+    statement: The report states every balance in a Lange watch receives a hand-engraved bridge.
+    excerpt: każdy balans tykający w zegarku z logo marki otrzymuje ręcznie grawerowany mostek.
+    source: ch24-lange-road-trip
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-assembly-two-stages
+    statement: The report states movement assembly at Lange has two stages, the second into the finished watch with dial and case.
+    excerpt: W Lange montaż ten ma dwa etapy.
+    source: ch24-lange-road-trip
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: l1-proprietary-movement-page
+    statement: Lange's LANGE 1 page states that every model of the LANGE 1 family has a proprietary movement manufactured in-house.
+    excerpt: every model of the LANGE 1 watch family is equipped with a proprietary movement that was manufactured in-house.
+    source: lange-lange-1-page
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-parts-few-exceptions
+    statement: The same page states that, with few exceptions, all movement parts are crafted in the manufacture; the exceptions are not named.
+    excerpt: With only few exceptions, all movement parts are crafted in the manufacture
+    source: lange-lange-1-page
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-outsize-date-designed
+    statement: The page states that two separate display elements were designed to fit the largest possible date display into the smallest space.
+    excerpt: To achieve this goal, two separate display elements were designed.
+    source: lange-lange-1-page
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-outsize-date-66-parts
+    statement: The page states that the outsize-date calendar mechanism needs 66 individual parts.
+    excerpt: A complex calendar mechanism with 66 individual parts is needed to achieve this result.
+    source: lange-lange-1-page
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-dial-layout-principles
+    statement: The page states that the LANGE 1 dial layout is based on the golden ratio and axial arrangement.
+    excerpt: the displays are positioned in a geometrically balanced configuration that is based on classical aesthetic design principles, such as the golden ratio and axial arrangement.
+    source: lange-lange-1-page
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-calibre-engineers
+    statement: Lange's manufacture-movements page defines its manufacture movements as developed by its calibre engineers and crafted in its manufacture.
+    excerpt: we generally define a proprietary manufacture movement as a movement that was developed by our calibre engineers, crafted in our manufacture
+    source: lange-manufacture-movements
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-assembled-twice-primary
+    statement: The same page states that every Lange calibre is assembled twice and finished by Lange's watchmakers in Glashütte.
+    excerpt: Every single one, be it puristic or endowed with complications, is assembled twice with the utmost precision and elaborately finished by our watchmakers in Glashütte.
+    source: lange-manufacture-movements
+    dimensions:
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-hallmarks-all-calibres
+    statement: The same page states that every Lange manufacture calibre has decorated and polished surfaces and a hand-engraved balance cock.
+    excerpt: Hallmarks shared by every one of our manufacture calibres include gold chatons, blued screws, decorated and polished surfaces as well as hand-engraved balance cocks.
+    source: lange-manufacture-movements
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-tt-dial-rules
+    statement: A Time+Tide feature quotes Lange's Director of Manufacture, Tino Bobe, saying there are strict rules for Lange 1 dials.
+    excerpt: There are very strict rules for Lange 1 dials.
+    source: timeandtide-designing-lange-part-2
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-tt-ping-pong
+    statement: The same feature quotes Bobe saying that development of every piece moves back and forth between movement design and exterior design.
+    excerpt: The development of every piece always involves ping-pong between the technical design of the movement and the aesthetic design of the outside.
+    source: timeandtide-designing-lange-part-2
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: l1-sjx-dials-suppliers
+    statement: A 2025 SJX article reports that most of Lange's artisanal dials were produced by suppliers, and that Lange has since built an in-house team of engravers and enamellists.
+    excerpt: Most of these dials were produced by suppliers, but the brand has quietly built an immensely talented team of engravers and enamellists since launching the Handwerkskunst editions in 2011
+    source: sjx-lange-dial-making
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -286,18 +308,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 4
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -305,8 +334,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 \u2192 4; MM 4 \u2192 3; EX 3 \u2192 0; DH 3 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; PD 5 \u2192 U; confidence A \u2192 C; classification Integrated Manufacture \u2192 Independent Manufacture. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MA 5 → 4; MM 4 → 3; EX 3 → 0; DH 3 → U; CF 5 → 4; WE 5 → 3; PD 5 → U; confidence A → C; classification Integrated Manufacture → Independent Manufacture. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -380,6 +410,7 @@ profiles:
     confidence: B
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Lange's own LANGE 1 page and manufacture-movements page as primary sources, a 2018 Time+Tide design feature and a 2025 SJX article on Lange dial making. Changes from version 2: MA 4 → 5; MM 3 → 4; PD U → 5; confidence C → B. One of seven dimensions remains U (DH)."
     created_on: 2026-11-17

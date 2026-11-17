@@ -2,171 +2,6 @@ id: fp-journe/chronometre-souverain
 brand: fp-journe
 model: Chronomètre Souverain
 notes: Handbook v0.2 §8 lists this record as "F.P. Journe — Chronomètre Souverain".
-claims:
-  - id: fpjcs-calibre-1304
-    statement: F.P. Journe's technical sheet lists the exclusive calibre 1304, manually wound, with the movement in 18K rose gold.
-    excerpt: Exclusive F.P.Journe calibre 1304
-    source: fpjourne-cs-havana-press
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-gold-plates
-    statement: F.P. Journe's product page says the base plate and bridges are in 18K rose gold.
-    excerpt: its base plate and bridges are in 18K rose Gold.
-    source: fpjourne-chronometre-souverain
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-balance-spring
-    statement: The technical sheet lists a free-sprung balance with four inertia weights and a flat Anachron hairspring, Nivatronic laser-welded to the collet; the hairspring maker is not named.
-    excerpt: Flat Anachron microflamed spring
-    source: fpjourne-cs-havana-press
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-decoration
-    statement: The technical sheet lists the movement decoration as partly circular-grained baseplate, polished screw heads with chamfered slots and pegs with polished rounded ends.
-    excerpt: Polished screw heads, chamfered slots
-    source: fpjourne-cs-havana-press
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-cadraniers-havana
-    statement: F.P. Journe says the Havana dial was developed by its own dial makers, Les Cadraniers de Genève.
-    excerpt: It was developed by Journe’s own dial makers, Les Cadraniers de Genève, in a process lasting several months.
-    source: fpjourne-cs-havana-press
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-95-percent
-    statement: A 2023 manufacture visit report says F.P. Journe makes about 95% of its watch components in-house.
-    excerpt: F.P. Journe makes approximately 95% of the components of its watches in-house
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - MM
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-bought-in
-    statement: The same report says the bought-in exceptions are essentially straps, jewels, springs and certain escapement components.
-    excerpt: essentially everything except straps, jewels, springs, and certain escapement components.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-movement-parts
-    statement: The same report describes the Geneva workshop turning gold, aluminium and steel rods into plates, bridges, wheels, pinions and other components.
-    excerpt: turning rods of gold, aluminium, and steel into movement plates, bridges, wheels, pinions, and other components
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-bdg-cases
-    statement: The same report says Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe.
-    excerpt: BDG makes cases and bracelets exclusively for F.P. Journe.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-cdg-dials
-    statement: The same report says Les Cadraniers de Genève makes dials for F.P. Journe and for third-party clients.
-    excerpt: CDG makes dials for F.P. Journe as well as third-party clients like Vacheron Constantin
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-one-watchmaker
-    statement: The same report says each watch is assembled and adjusted by a single watchmaker.
-    excerpt: each watch is assembled and adjusted by a single watchmaker from start to finish.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: fpjcs-sjx-designed-finished
-    statement: An SJX manufacture visit report says all F.P. Journe movements are designed and manufactured, and all watches finished, assembled and tested, at the downtown Geneva manufacture.
-    excerpt: where all F.P. Journe movements are designed and manufactured, and where all watches are finished, assembled, and tested.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - CF
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-hand-finishing
-    statement: The same report says that after automated finishing, all components go to an in-house finishing department of seven artisans that handles all manual finishing steps.
-    excerpt: This team of seven artisans handles all manual finishing steps before the components are checked for quality and sent to the logistician.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-machine-perlage
-    statement: The same report describes a CNC machine applying perlage to baseplates and says perlage is done by hand only for watches like the Astronomic Souveraine and FFC.
-    excerpt: For watches like the Astronomic Souveraine and FFC, the perlage is done by hand.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-case-hand-finishing
-    statement: The same report says cases machined at Les Boîtiers de Genève go through several stages of hand finishing.
-    excerpt: Once the cases have been machined, several stages of hand finishing begin.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-lead-designer
-    statement: The same report says François-Paul Journe remains the brand's lead designer and works at the manufacture next to the watchmakers' benches.
-    excerpt: He remains the brand’s lead designer, some might say the sole designer, and works on-site at the manufacture in an office situated next to the watchmakers’ benches.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-prototypes
-    statement: The same report says Journe builds the prototypes of all new movements and troubleshoots problems with new calibres.
-    excerpt: he builds the prototypes of all new movements and also troubleshoots teething problems with new calibres.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-sjx-cs-appliques
-    statement: The same report describes Les Cadraniers de Genève finishing a batch of applied numerals for the Chronomètre Souverain dial, CNC-milled and then lapped on a lathe.
-    excerpt: I observed the finishing of a batch of 0s for the “10” marker on the Chronomètre Souverain.
-    source: sjx-fp-journe-manufacture
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-invenit-industrialise
-    statement: F.P. Journe's "Invenit et Fecit" page says Journe breaks down all the movements he invents so that each component can be manufactured to his specific requirements.
-    excerpt: He has to adapt his tailor-made know-how to the process of industrialisation et decorticate all the movements he invent so that each of his components can be manufactured under his specific requirements.
-    source: fpjourne-invenit-et-fecit
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: fpjcs-invenit-original
-    statement: The same page says the "Invenit et Fecit" signature certifies that each watch carrying his name results from an original conception.
-    excerpt: It thereby certifies that each of the watches carrying his name results from an entirely original conception with rigorous craftsmanship.
-    source: fpjourne-invenit-et-fecit
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 1304 design
@@ -245,6 +80,191 @@ provenance:
       - fpjcs-sjx-designed-finished
       - fpjcs-sjx-lead-designer
       - fpjcs-sjx-prototypes
+claims:
+  - id: fpjcs-calibre-1304
+    statement: F.P. Journe's technical sheet lists the exclusive calibre 1304, manually wound, with the movement in 18K rose gold.
+    excerpt: Exclusive F.P.Journe calibre 1304
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-gold-plates
+    statement: F.P. Journe's product page says the base plate and bridges are in 18K rose gold.
+    excerpt: its base plate and bridges are in 18K rose Gold.
+    source: fpjourne-chronometre-souverain
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-balance-spring
+    statement: The technical sheet lists a free-sprung balance with four inertia weights and a flat Anachron hairspring, Nivatronic laser-welded to the collet; the hairspring maker is not named.
+    excerpt: Flat Anachron microflamed spring
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-decoration
+    statement: The technical sheet lists the movement decoration as partly circular-grained baseplate, polished screw heads with chamfered slots and pegs with polished rounded ends.
+    excerpt: Polished screw heads, chamfered slots
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-cadraniers-havana
+    statement: F.P. Journe says the Havana dial was developed by its own dial makers, Les Cadraniers de Genève.
+    excerpt: It was developed by Journe’s own dial makers, Les Cadraniers de Genève, in a process lasting several months.
+    source: fpjourne-cs-havana-press
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-95-percent
+    statement: A 2023 manufacture visit report says F.P. Journe makes about 95% of its watch components in-house.
+    excerpt: F.P. Journe makes approximately 95% of the components of its watches in-house
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-bought-in
+    statement: The same report says the bought-in exceptions are essentially straps, jewels, springs and certain escapement components.
+    excerpt: essentially everything except straps, jewels, springs, and certain escapement components.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-movement-parts
+    statement: The same report describes the Geneva workshop turning gold, aluminium and steel rods into plates, bridges, wheels, pinions and other components.
+    excerpt: turning rods of gold, aluminium, and steel into movement plates, bridges, wheels, pinions, and other components
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-bdg-cases
+    statement: The same report says Les Boîtiers de Genève makes cases and bracelets exclusively for F.P. Journe.
+    excerpt: BDG makes cases and bracelets exclusively for F.P. Journe.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-cdg-dials
+    statement: The same report says Les Cadraniers de Genève makes dials for F.P. Journe and for third-party clients.
+    excerpt: CDG makes dials for F.P. Journe as well as third-party clients like Vacheron Constantin
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-one-watchmaker
+    statement: The same report says each watch is assembled and adjusted by a single watchmaker.
+    excerpt: each watch is assembled and adjusted by a single watchmaker from start to finish.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-designed-finished
+    statement: An SJX manufacture visit report says all F.P. Journe movements are designed and manufactured, and all watches finished, assembled and tested, at the downtown Geneva manufacture.
+    excerpt: where all F.P. Journe movements are designed and manufactured, and where all watches are finished, assembled, and tested.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-hand-finishing
+    statement: The same report says that after automated finishing, all components go to an in-house finishing department of seven artisans that handles all manual finishing steps.
+    excerpt: This team of seven artisans handles all manual finishing steps before the components are checked for quality and sent to the logistician.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-machine-perlage
+    statement: The same report describes a CNC machine applying perlage to baseplates and says perlage is done by hand only for watches like the Astronomic Souveraine and FFC.
+    excerpt: For watches like the Astronomic Souveraine and FFC, the perlage is done by hand.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-case-hand-finishing
+    statement: The same report says cases machined at Les Boîtiers de Genève go through several stages of hand finishing.
+    excerpt: Once the cases have been machined, several stages of hand finishing begin.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-lead-designer
+    statement: The same report says François-Paul Journe remains the brand's lead designer and works at the manufacture next to the watchmakers' benches.
+    excerpt: He remains the brand’s lead designer, some might say the sole designer, and works on-site at the manufacture in an office situated next to the watchmakers’ benches.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-prototypes
+    statement: The same report says Journe builds the prototypes of all new movements and troubleshoots problems with new calibres.
+    excerpt: he builds the prototypes of all new movements and also troubleshoots teething problems with new calibres.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-sjx-cs-appliques
+    statement: The same report describes Les Cadraniers de Genève finishing a batch of applied numerals for the Chronomètre Souverain dial, CNC-milled and then lapped on a lathe.
+    excerpt: I observed the finishing of a batch of 0s for the “10” marker on the Chronomètre Souverain.
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-invenit-industrialise
+    statement: F.P. Journe's "Invenit et Fecit" page says Journe breaks down all the movements he invents so that each component can be manufactured to his specific requirements.
+    excerpt: He has to adapt his tailor-made know-how to the process of industrialisation et decorticate all the movements he invent so that each of his components can be manufactured under his specific requirements.
+    source: fpjourne-invenit-et-fecit
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: fpjcs-invenit-original
+    statement: The same page says the "Invenit et Fecit" signature certifies that each watch carrying his name results from an original conception.
+    excerpt: It thereby certifies that each of the watches carrying his name results from an entirely original conception with rigorous craftsmanship.
+    source: fpjourne-invenit-et-fecit
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -259,18 +279,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 4
+        evidence: []
       EX:
         value: 3
+        evidence: []
       DH:
         value: 3
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -278,8 +305,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 3 \u2192 4; CF 5 \u2192 U; PD 5 \u2192 U; confidence B \u2192 C. Les Cadraniers de Gen\u00e8ve is credited as in-group and disclosed. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 3 → 4; CF 5 → U; PD 5 → U; confidence B → C. Les Cadraniers de Genève is credited as in-group and disclosed. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -320,14 +348,14 @@ profiles:
             note: Components in-house.
       DH:
         value: 3
-        rationale: "The dial is made by Les Cadraniers de Gen\u00e8ve, F.P. Journe's group-owned dial maker, recorded as in-group; it also works for other clients, so this credit is disclosed, not treated as F.P. Journe's own. The hand maker is not named, so this is substantial dial manufacture rather than 4."
+        rationale: The dial is made by Les Cadraniers de Genève, F.P. Journe's group-owned dial maker, recorded as in-group; it also works for other clients, so this credit is disclosed, not treated as F.P. Journe's own. The hand maker is not named, so this is substantial dial manufacture rather than 4.
         evidence:
           - claim: fpjcs-cadraniers-havana
             stance: supports
-            note: "In-group dial maker."
+            note: In-group dial maker.
           - claim: fpjcs-cdg-dials
             stance: supports
-            note: "Les Cadraniers de Gen\u00e8ve makes the dials."
+            note: Les Cadraniers de Genève makes the dials.
       CF:
         value: null
         rationale: The technical sheet specifies the decoration, but no collected claim says where or by whom it is applied. U until a source places it.
@@ -353,6 +381,7 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds F.P. Journe's Invenit et Fecit page (fpjourne-invenit-et-fecit) and further claims from the SJX manufacture visit report (sjx-fp-journe-manufacture) on finishing, design and prototyping. Changes from version 2: CF U → 3; PD U → 4; confidence stays C. None of seven dimensions remain U. EX, CF and WE rest only on a secondary source, so confidence does not rise to B."
     created_on: 2026-11-17
@@ -395,7 +424,7 @@ profiles:
             note: Components in-house.
       DH:
         value: 3
-        rationale: "The dial is made by Les Cadraniers de Genève, F.P. Journe's group-owned dial maker; the credit is in-group and disclosed (fpjcs-cadraniers-havana, fpjcs-cdg-dials). The SJX report saw CDG finishing applied numerals for this model's dial (fpjcs-sjx-cs-appliques). The hand maker is not named, so this stays at 3 rather than 4."
+        rationale: The dial is made by Les Cadraniers de Genève, F.P. Journe's group-owned dial maker; the credit is in-group and disclosed (fpjcs-cadraniers-havana, fpjcs-cdg-dials). The SJX report saw CDG finishing applied numerals for this model's dial (fpjcs-sjx-cs-appliques). The hand maker is not named, so this stays at 3 rather than 4.
         evidence:
           - claim: fpjcs-cadraniers-havana
             stance: supports

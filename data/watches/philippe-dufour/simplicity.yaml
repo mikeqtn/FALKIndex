@@ -2,101 +2,6 @@ id: philippe-dufour/simplicity
 brand: philippe-dufour
 model: Simplicity
 notes: Handbook v0.2 §8 lists this record as "Philippe Dufour — Simplicity".
-claims:
-  - id: dufour-simp-from-scratch
-    statement: Dufour says he chose to make the Simplicity himself rather than order a branded movement and outsource casing, dial and hands.
-    excerpt: the second way, the most difficult one, was to make this watch myself from scratch, a solution I obviously chose
-    source: dufour-creations
-    dimensions:
-      - PD
-      - MA
-      - WE
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-    status: disputed
-  - id: dufour-simp-built-movement
-    statement: Dufour designed a movement of about 12 lines for the Simplicity, inspired by 1950s to 1970s watches he had restored.
-    excerpt: I built a movement of about 12 lines (which will be in 34 or 37 mm) inspired by watches that had been made in the 1950s to 1970s that I had restored
-    source: dufour-creations
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-dial-spec
-    statement: The maker lists a silver guilloché dial with white gold indices and Dauphine hands.
-    excerpt: 'En argent, guilloché, index et aiguilles Dauphine en or blanc'
-    source: dufour-creations
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-designed-by-dufour
-    statement: Deployant states that Dufour designed the Simplicity movement himself, using AutoCAD to prepare drawings for CNC operators.
-    excerpt: Dufour taught himself AutoCAD to aid in the design process and to be able to prepare drawings for CNC operators to prepare parts.
-    source: deployant-dufour-simplicity
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-external-cnc
-    statement: Deployant reports that an external CNC firm made movement components such as plates and wheels.
-    excerpt: Dufour depended on an external CNC house to make components like movement plates and wheels.
-    source: deployant-dufour-simplicity
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-hand-finished
-    statement: Deployant states that Dufour finishes the movement entirely by hand.
-    excerpt: the movement is entirely finished by Dufour and by hand
-    source: deployant-dufour-simplicity
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-metalem-dial
-    statement: Deployant reports that Metalem made the dial, which carries Metalem's name.
-    excerpt: Metalem, as it turns out, was the dial manufacturer (the dial was not in-house).
-    source: deployant-dufour-simplicity
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-third-party
-    statement: Quill & Pad reports that Dufour uses electro-spark erosion to cut raw components and third-party suppliers for specialised components.
-    excerpt: Dufour is open about using third-party suppliers for specialized components
-    source: quillandpad-dufour-simplicity
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-gentian-bevels
-    statement: Quill & Pad describes broad rounded bevels finished with gentian wood.
-    excerpt: These bevels are broad, round, and finished on the final pass with gentian wood harvested locally in Dufour’s native Vallée de Joux.
-    source: quillandpad-dufour-simplicity
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-welded-lugs
-    statement: Quill & Pad reports that the lugs are made separately and welded to the case, with the joint finished by hand; the case maker is not named.
-    excerpt: Lugs are created separate from the case, the two are welded together, and the residual “clag” from the welded joint is removed by hand
-    source: quillandpad-dufour-simplicity
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: dufour-simp-qp-metalem
-    statement: Quill & Pad's specification lists the dial, hands, numerals and indices as by Metalem.
-    excerpt: silver guilloche with rose hands, numerals, and indices by Metalem
-    source: quillandpad-dufour-simplicity
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design
@@ -152,6 +57,111 @@ provenance:
     claims:
       - dufour-simp-from-scratch
       - dufour-simp-built-movement
+claims:
+  - id: dufour-simp-from-scratch
+    statement: Dufour says he chose to make the Simplicity himself rather than order a branded movement and outsource casing, dial and hands.
+    excerpt: the second way, the most difficult one, was to make this watch myself from scratch, a solution I obviously chose
+    source: dufour-creations
+    dimensions:
+      - PD
+      - MA
+      - WE
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: disputed
+  - id: dufour-simp-built-movement
+    statement: Dufour designed a movement of about 12 lines for the Simplicity, inspired by 1950s to 1970s watches he had restored.
+    excerpt: I built a movement of about 12 lines (which will be in 34 or 37 mm) inspired by watches that had been made in the 1950s to 1970s that I had restored
+    source: dufour-creations
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-dial-spec
+    statement: The maker lists a silver guilloché dial with white gold indices and Dauphine hands.
+    excerpt: En argent, guilloché, index et aiguilles Dauphine en or blanc
+    source: dufour-creations
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-designed-by-dufour
+    statement: Deployant states that Dufour designed the Simplicity movement himself, using AutoCAD to prepare drawings for CNC operators.
+    excerpt: Dufour taught himself AutoCAD to aid in the design process and to be able to prepare drawings for CNC operators to prepare parts.
+    source: deployant-dufour-simplicity
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-external-cnc
+    statement: Deployant reports that an external CNC firm made movement components such as plates and wheels.
+    excerpt: Dufour depended on an external CNC house to make components like movement plates and wheels.
+    source: deployant-dufour-simplicity
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-hand-finished
+    statement: Deployant states that Dufour finishes the movement entirely by hand.
+    excerpt: the movement is entirely finished by Dufour and by hand
+    source: deployant-dufour-simplicity
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-metalem-dial
+    statement: Deployant reports that Metalem made the dial, which carries Metalem's name.
+    excerpt: Metalem, as it turns out, was the dial manufacturer (the dial was not in-house).
+    source: deployant-dufour-simplicity
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-third-party
+    statement: Quill & Pad reports that Dufour uses electro-spark erosion to cut raw components and third-party suppliers for specialised components.
+    excerpt: Dufour is open about using third-party suppliers for specialized components
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-gentian-bevels
+    statement: Quill & Pad describes broad rounded bevels finished with gentian wood.
+    excerpt: These bevels are broad, round, and finished on the final pass with gentian wood harvested locally in Dufour’s native Vallée de Joux.
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-welded-lugs
+    statement: Quill & Pad reports that the lugs are made separately and welded to the case, with the joint finished by hand; the case maker is not named.
+    excerpt: Lugs are created separate from the case, the two are welded together, and the residual “clag” from the welded joint is removed by hand
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: dufour-simp-qp-metalem
+    statement: Quill & Pad's specification lists the dial, hands, numerals and indices as by Metalem.
+    excerpt: silver guilloche with rose hands, numerals, and indices by Metalem
+    source: quillandpad-dufour-simplicity
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -166,18 +176,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 4
+        evidence: []
       EX:
         value: 2
+        evidence: []
       DH:
         value: 2
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - independent_manufacture
   - version: 2
@@ -185,8 +202,9 @@ profiles:
     confidence: B
     independent_watchmaker: true
     status: published
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 \u2192 1; EX 2 \u2192 U; DH 2 \u2192 0; WE 5 \u2192 3; confidence A \u2192 B; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Dufour's statement that he made the dial and hands himself is marked disputed by the Metalem credits. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 → 1; EX 2 → U; DH 2 → 0; WE 5 → 3; confidence A → B; classification Independent Manufacture → Design-led Établisseur and Artisan Atelier. Dufour's statement that he made the dial and hands himself is marked disputed by the Metalem credits. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -221,20 +239,20 @@ profiles:
             note: Maker not named.
       DH:
         value: 0
-        rationale: "The dial, hands, numerals and indices are by Metalem, whose name is on the dial. Dufour's statement that he did not outsource casing, dial and hands conflicts with this; the Metalem credits are more specific."
+        rationale: The dial, hands, numerals and indices are by Metalem, whose name is on the dial. Dufour's statement that he did not outsource casing, dial and hands conflicts with this; the Metalem credits are more specific.
         evidence:
           - claim: dufour-simp-metalem-dial
             stance: supports
-            note: "Metalem dial."
+            note: Metalem dial.
           - claim: dufour-simp-qp-metalem
             stance: supports
-            note: "Metalem dial and hands."
+            note: Metalem dial and hands.
           - claim: dufour-simp-dial-spec
             stance: context
-            note: "Specification."
+            note: Specification.
           - claim: dufour-simp-from-scratch
             stance: contradicts
-            note: "Dufour says he did not outsource dial and hands; disputed by the Metalem credits."
+            note: Dufour says he did not outsource dial and hands; disputed by the Metalem credits.
       CF:
         value: 5
         rationale: Dufour finishes the movement entirely by hand, with broad rounded bevels finished with gentian wood. Master-level craft defines the watch.
@@ -247,11 +265,11 @@ profiles:
             note: Gentian-wood bevels.
       WE:
         value: 3
-        rationale: "Dufour made the watch himself rather than outsource the build. No claim mentions regulation or adjustment, which caps this at 3."
+        rationale: Dufour made the watch himself rather than outsource the build. No claim mentions regulation or adjustment, which caps this at 3.
         evidence:
           - claim: dufour-simp-from-scratch
             stance: supports
-            note: "Disputed only on dial and hands; the build itself is not contested."
+            note: Disputed only on dial and hands; the build itself is not contested.
       PD:
         value: 5
         rationale: A movement and watch designed from scratch by the maker.

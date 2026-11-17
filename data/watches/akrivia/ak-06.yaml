@@ -2,136 +2,6 @@ id: akrivia/ak-06
 brand: akrivia
 model: AK-06
 notes: Handbook v0.2 §8 lists this record as "Akrivia — AK-06".
-claims:
-  - id: ak06-inhouse-caliber
-    statement: A specialist site lists the hand-wound Caliber AK-06 as developed, decorated, assembled and finished in-house.
-    excerpt: 'Movement: 30mm diameter – handwound Caliber AK-06 – developed, decorated, assembled and finished in-house'
-    source: monochrome-akrivia-ak06
-    dimensions:
-      - MA
-      - CF
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-new-caliber
-    statement: The same article describes the AK-06 caliber as newly developed in-house, showing hours, minutes, small seconds and power reserve.
-    excerpt: The newly developed, in-house caliber of the AkriviA AK-06 displays hours and minutes, small seconds and a power reserve.
-    source: monochrome-akrivia-ak06
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-hand-anglage
-    statement: The article reports hand-applied anglage with a rounded (bombé) cross-section on various parts.
-    excerpt: hand applied anglage to various parts, with a bombé cross section; something that can only be achieved by hand!
-    source: monochrome-akrivia-ak06
-    dimensions:
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-case
-    statement: The article lists a 41 mm by 9.9 mm case in steel, titanium, 5N rose gold or platinum, without naming the case maker.
-    excerpt: 'Case: 41mm diameter – 9.9mm thickness – stainless steel, titanium 5N rose gold or platinum'
-    source: monochrome-akrivia-ak06
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-outsourced-components
-    statement: A 2018 interview profile reports that Rexhepi still regularly outsources components.
-    excerpt: Having said that, he still regularly outsource components.
-    source: deployant-akrivia-rexhepi
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-bridges-plates-external
-    statement: The same profile reports that bridges and plates are designed and finished in-house, but that Akrivia did not yet own the facilities to manufacture them.
-    excerpt: Akrivia does not own the facilities to manufacture them yet.
-    source: deployant-akrivia-rexhepi
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-cnc-plan
-    statement: The profile reports a plan (in 2018) to buy a CNC machine to bring bridge and plate manufacture in-house.
-    excerpt: He is planning to buy a CNC machine to bring the manufacture of bridges and plates in-house.
-    source: deployant-akrivia-rexhepi
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-caliber-basis
-    statement: A specialist site reports that the later Chronomètre Contemporain movement was designed in-house and based on the calibre that debuted in the AK-06.
-    excerpt: It was designed and constructed in-house, and based on the calibre that made its debut inside the AK-06 launched last year.
-    source: sjx-akrivia-chronometre-contemporain-prototype
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-family-suppliers
-    statement: Writing about the AK-06-derived movement, the same site reports that most components are produced by suppliers and finished at the Akrivia workshop in Geneva.
-    excerpt: Most of the components are produced by suppliers, and then finished at the Akrivia workshop in Geneva's Old Town
-    source: sjx-akrivia-chronometre-contemporain-prototype
-    dimensions:
-      - MM
-      - CF
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: ak06-sjx-own-constructor
-    statement: A 2020 SJX review of the AK-06 reports that the calibre is proprietary and was developed by Akrivia's own constructor.
-    excerpt: the calibre AK-06 is proprietary, having been developed by the brand’s own constructor.
-    source: sjx-akrivia-ak06-review
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ak06-sjx-no-dial
-    statement: The same review reports that the AK-06 has no dial and shows the movement on the front instead.
-    excerpt: The AK-06 has no dial, and instead shows off the striking, complex movement.
-    source: sjx-akrivia-ak06-review
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: ak06-sjx-hammered-plate
-    statement: The review reports that the visible base plate is gold-plated brass finished by hand with a hammered dimple pattern, without saying who does the hammering.
-    excerpt: The front of the watch reveals the base plate, which is gold-plated brass and then finished with a dimpled pattern executed by hand, using a miniature hammer and a lot of patience.
-    source: sjx-akrivia-ak06-review
-    dimensions:
-      - DH
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: akrivia-each-watch-workflow
-    statement: A 2024 SJX workshop visit reports that at the Akrivia atelier each watch is finished, assembled, adjusted, cased and tested by a single watchmaker.
-    excerpt: This is where each watch is finished, assembled, adjusted, cased, and tested by a single watchmaker from start to finish.
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - WE
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: akrivia-components-now-internal
-    statement: The same 2024 visit reports that cases, some movement plates and bridges, and straps, previously outsourced, are now made in Akrivia's workshops; it does not say which models this covers.
-    excerpt: Components that were previously outsourced, such as cases, some movement plates and bridges, and straps, are now made in the brand’s workshops.
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - EX
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: akrivia-screws-external
-    statement: The 2024 visit reports that some components, such as screws, are still sourced externally.
-    excerpt: there are still some components, such as screws, that still make sense to source externally for now
-    source: sjx-inside-akrivia-2024
-    dimensions:
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Caliber AK-06 design
@@ -197,6 +67,151 @@ provenance:
     claims:
       - ak06-new-caliber
       - ak06-sjx-own-constructor
+claims:
+  - id: ak06-inhouse-caliber
+    statement: A specialist site lists the hand-wound Caliber AK-06 as developed, decorated, assembled and finished in-house.
+    excerpt: "Movement: 30mm diameter – handwound Caliber AK-06 – developed, decorated, assembled and finished in-house"
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - MA
+      - CF
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-new-caliber
+    statement: The same article describes the AK-06 caliber as newly developed in-house, showing hours, minutes, small seconds and power reserve.
+    excerpt: The newly developed, in-house caliber of the AkriviA AK-06 displays hours and minutes, small seconds and a power reserve.
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-hand-anglage
+    statement: The article reports hand-applied anglage with a rounded (bombé) cross-section on various parts.
+    excerpt: hand applied anglage to various parts, with a bombé cross section; something that can only be achieved by hand!
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-case
+    statement: The article lists a 41 mm by 9.9 mm case in steel, titanium, 5N rose gold or platinum, without naming the case maker.
+    excerpt: "Case: 41mm diameter – 9.9mm thickness – stainless steel, titanium 5N rose gold or platinum"
+    source: monochrome-akrivia-ak06
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-outsourced-components
+    statement: A 2018 interview profile reports that Rexhepi still regularly outsources components.
+    excerpt: Having said that, he still regularly outsource components.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-bridges-plates-external
+    statement: The same profile reports that bridges and plates are designed and finished in-house, but that Akrivia did not yet own the facilities to manufacture them.
+    excerpt: Akrivia does not own the facilities to manufacture them yet.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-cnc-plan
+    statement: The profile reports a plan (in 2018) to buy a CNC machine to bring bridge and plate manufacture in-house.
+    excerpt: He is planning to buy a CNC machine to bring the manufacture of bridges and plates in-house.
+    source: deployant-akrivia-rexhepi
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-caliber-basis
+    statement: A specialist site reports that the later Chronomètre Contemporain movement was designed in-house and based on the calibre that debuted in the AK-06.
+    excerpt: It was designed and constructed in-house, and based on the calibre that made its debut inside the AK-06 launched last year.
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-family-suppliers
+    statement: Writing about the AK-06-derived movement, the same site reports that most components are produced by suppliers and finished at the Akrivia workshop in Geneva.
+    excerpt: Most of the components are produced by suppliers, and then finished at the Akrivia workshop in Geneva's Old Town
+    source: sjx-akrivia-chronometre-contemporain-prototype
+    dimensions:
+      - MM
+      - CF
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: ak06-sjx-own-constructor
+    statement: A 2020 SJX review of the AK-06 reports that the calibre is proprietary and was developed by Akrivia's own constructor.
+    excerpt: the calibre AK-06 is proprietary, having been developed by the brand’s own constructor.
+    source: sjx-akrivia-ak06-review
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ak06-sjx-no-dial
+    statement: The same review reports that the AK-06 has no dial and shows the movement on the front instead.
+    excerpt: The AK-06 has no dial, and instead shows off the striking, complex movement.
+    source: sjx-akrivia-ak06-review
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ak06-sjx-hammered-plate
+    statement: The review reports that the visible base plate is gold-plated brass finished by hand with a hammered dimple pattern, without saying who does the hammering.
+    excerpt: The front of the watch reveals the base plate, which is gold-plated brass and then finished with a dimpled pattern executed by hand, using a miniature hammer and a lot of patience.
+    source: sjx-akrivia-ak06-review
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: akrivia-each-watch-workflow
+    statement: A 2024 SJX workshop visit reports that at the Akrivia atelier each watch is finished, assembled, adjusted, cased and tested by a single watchmaker.
+    excerpt: This is where each watch is finished, assembled, adjusted, cased, and tested by a single watchmaker from start to finish.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - WE
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: akrivia-components-now-internal
+    statement: The same 2024 visit reports that cases, some movement plates and bridges, and straps, previously outsourced, are now made in Akrivia's workshops; it does not say which models this covers.
+    excerpt: Components that were previously outsourced, such as cases, some movement plates and bridges, and straps, are now made in the brand’s workshops.
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - EX
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: akrivia-screws-external
+    statement: The 2024 visit reports that some components, such as screws, are still sourced externally.
+    excerpt: there are still some components, such as screws, that still make sense to source externally for now
+    source: sjx-inside-akrivia-2024
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -211,18 +226,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 3
+        evidence: []
       EX:
         value: 2
+        evidence: []
       DH:
         value: 2
+        evidence: []
       CF:
         value: 5
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - independent_manufacture
   - version: 2
@@ -230,8 +252,9 @@ profiles:
     confidence: C
     independent_watchmaker: true
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 U; EX 2 \u2192 U; DH 2 \u2192 U; CF 5 \u2192 4; WE 5 \u2192 3; confidence A \u2192 C; classification Independent Manufacture \u2192 Design-led \u00c9tablisseur and Artisan Atelier. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 → U; EX 2 → U; DH 2 → U; CF 5 → 4; WE 5 → 3; confidence A → C; classification Independent Manufacture → Design-led Établisseur and Artisan Atelier. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -309,6 +332,7 @@ profiles:
     confidence: C
     independent_watchmaker: true
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds SJX's 2020 AK-06 review (sjx-akrivia-ak06-review) and SJX's 2024 Akrivia workshop visit (sjx-inside-akrivia-2024). Changes from version 2: WE 3 → 4; confidence stays C. Three of seven dimensions remain U (MM, EX, DH)."
     created_on: 2026-11-17

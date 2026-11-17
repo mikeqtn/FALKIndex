@@ -2,144 +2,6 @@ id: longines/spirit-zulu-time
 brand: longines
 model: Spirit Zulu Time
 notes: Handbook v0.2 §8 lists this record as "Longines — Spirit Zulu Time".
-claims:
-  - id: lgzt-l8444-eta
-    statement: A specialist site reports cal. L844.4 is exclusive to Longines and based on the ETA A31.411, derived from the ETA 2892-A2.
-    excerpt: The L844.4 is exclusive to Longines, based on an ETA A31.411, which is in turn a derivation of the ETA 2892-A2
-    source: timeandtide-longines-zulu-time
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-silicon-cosc
-    statement: The same source lists a silicon balance spring, COSC certification and 72-hour power reserve.
-    excerpt: with a silicon balance spring, COSC certification, and a 72-hour power reserve
-    source: timeandtide-longines-zulu-time
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-a31l01
-    statement: A review reports cal. L844.4 is derived from the ETA A31.L01.
-    excerpt: It is derived from the ETA caliber A31.L01 and beats at 25,200 Vph with 72 hours power reserve.
-    source: deployant-longines-zulu-time
-    dimensions:
-      - MA
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-silicon
-    statement: The review reports a silicon balance spring and COSC certification.
-    excerpt: The movement is fitted with a silicon balance spring for additional anti-magnetism and is COSC certified.
-    source: deployant-longines-zulu-time
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-case
-    statement: The review describes a 42 mm stainless steel case, without naming its maker.
-    excerpt: Sized at 42.00 mm with a thickness of 13.90 mm, the stainless steel cased watch comes in both strap and bracelet variants.
-    source: deployant-longines-zulu-time
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-dial
-    statement: The review describes applied numerals on the dial, without naming its maker.
-    excerpt: The dial uses applied numeral indicators with a periphery seconds track.
-    source: deployant-longines-zulu-time
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-eta-only
-    statement: Longines' CEO said that after 1988 the company stopped making movements and worked solely with ETA movements.
-    excerpt: took the decision to stop manufacturing movements in-house and work solely with ETA movements.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-no-dials-hands
-    statement: Longines' CEO said that until 1988 Longines made cases and movements but no dials or hands.
-    excerpt: producing in-house cases and movements, including chronographs, but no dials or hands.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - EX
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: lgzt-mono-modified
-    statement: A Monochrome review describes cal. L844.4 as an exclusive and extensively modified version of the ETA A31, without saying who did the modification.
-    excerpt: Inside the watch is the automatic calibre L844.4, an exclusive and extensively modified version of the calibre ETA A31.
-    source: monochrome-longines-zulu-time
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-mono-base
-    statement: The same review's specification lists cal. L844.4 as based on the ETA A31.L411 and calls it proprietary.
-    excerpt: Calibre L844.4 (base ETA A31.L411) - proprietary - automatic - 21 jewels
-    source: monochrome-longines-zulu-time
-    dimensions:
-      - MA
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-codeveloped
-    statement: Longines' CEO said that, through its relationship with ETA, Longines developed two movements for the high-volume market, one men's and one ladies'.
-    excerpt: And thanks to our excellent relationship with ETA, we developed two movements specifically for the highvolume market, one men’s and one ladies’.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-a31
-    statement: Longines' CEO said the men's movement started from the ETA 2892A2, which became the A31 at Longines.
-    excerpt: For the men’s watch movement, we started with the ETA 2892A2, which at Longines became the A31.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - MA
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-eta-workshops
-    statement: Longines' CEO said the work on these movements is done in dedicated ETA workshops on Longines' premises, employing 250 people.
-    excerpt: "All that is done in dedicated ETA workshops on our own premises: 250 people work there."
-    source: europastar-longines-von-kanel
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-case-suppliers
-    statement: Longines' CEO spoke of the evolution of case manufacturers and said he tours Longines' suppliers every month, without naming them or a model.
-    excerpt: And then it’s impressive to see how the case manufacturers have evolved. I do a tour of our suppliers every month.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-hands-dials
-    statement: In the same passage on suppliers, Longines' CEO said hand production is largely automated but dial production much less so, without saying where either is made.
-    excerpt: Hand production is also largely automated now, but much less so the dials.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: lgzt-es-service
-    statement: Longines' CEO said customer service on the basic calibres is done in Longines' workshops at St-Imier or in Swatch Group branches worldwide.
-    excerpt: All the customer service on the basic calibres is done either in our workshops at St-Imier or directly in the 37 branches of the Swatch Group all over the world.
-    source: europastar-longines-von-kanel
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Cal. L844.4 (ETA A31-family GMT base)
@@ -208,6 +70,160 @@ provenance:
       - lgzt-mono-modified
       - lgzt-es-codeveloped
       - lgzt-es-a31
+claims:
+  - id: lgzt-l8444-eta
+    statement: A specialist site reports cal. L844.4 is exclusive to Longines and based on the ETA A31.411, derived from the ETA 2892-A2.
+    excerpt: The L844.4 is exclusive to Longines, based on an ETA A31.411, which is in turn a derivation of the ETA 2892-A2
+    source: timeandtide-longines-zulu-time
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-silicon-cosc
+    statement: The same source lists a silicon balance spring, COSC certification and 72-hour power reserve.
+    excerpt: with a silicon balance spring, COSC certification, and a 72-hour power reserve
+    source: timeandtide-longines-zulu-time
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-a31l01
+    statement: A review reports cal. L844.4 is derived from the ETA A31.L01.
+    excerpt: It is derived from the ETA caliber A31.L01 and beats at 25,200 Vph with 72 hours power reserve.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - MA
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-silicon
+    statement: The review reports a silicon balance spring and COSC certification.
+    excerpt: The movement is fitted with a silicon balance spring for additional anti-magnetism and is COSC certified.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-case
+    statement: The review describes a 42 mm stainless steel case, without naming its maker.
+    excerpt: Sized at 42.00 mm with a thickness of 13.90 mm, the stainless steel cased watch comes in both strap and bracelet variants.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-dial
+    statement: The review describes applied numerals on the dial, without naming its maker.
+    excerpt: The dial uses applied numeral indicators with a periphery seconds track.
+    source: deployant-longines-zulu-time
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-eta-only
+    statement: Longines' CEO said that after 1988 the company stopped making movements and worked solely with ETA movements.
+    excerpt: took the decision to stop manufacturing movements in-house and work solely with ETA movements.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-no-dials-hands
+    statement: Longines' CEO said that until 1988 Longines made cases and movements but no dials or hands.
+    excerpt: producing in-house cases and movements, including chronographs, but no dials or hands.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lgzt-mono-modified
+    statement: A Monochrome review describes cal. L844.4 as an exclusive and extensively modified version of the ETA A31, without saying who did the modification.
+    excerpt: Inside the watch is the automatic calibre L844.4, an exclusive and extensively modified version of the calibre ETA A31.
+    source: monochrome-longines-zulu-time
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-mono-base
+    statement: The same review's specification lists cal. L844.4 as based on the ETA A31.L411 and calls it proprietary.
+    excerpt: Calibre L844.4 (base ETA A31.L411) - proprietary - automatic - 21 jewels
+    source: monochrome-longines-zulu-time
+    dimensions:
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-codeveloped
+    statement: Longines' CEO said that, through its relationship with ETA, Longines developed two movements for the high-volume market, one men's and one ladies'.
+    excerpt: And thanks to our excellent relationship with ETA, we developed two movements specifically for the highvolume market, one men’s and one ladies’.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-a31
+    statement: Longines' CEO said the men's movement started from the ETA 2892A2, which became the A31 at Longines.
+    excerpt: For the men’s watch movement, we started with the ETA 2892A2, which at Longines became the A31.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-eta-workshops
+    statement: Longines' CEO said the work on these movements is done in dedicated ETA workshops on Longines' premises, employing 250 people.
+    excerpt: "All that is done in dedicated ETA workshops on our own premises: 250 people work there."
+    source: europastar-longines-von-kanel
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-case-suppliers
+    statement: Longines' CEO spoke of the evolution of case manufacturers and said he tours Longines' suppliers every month, without naming them or a model.
+    excerpt: And then it’s impressive to see how the case manufacturers have evolved. I do a tour of our suppliers every month.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-hands-dials
+    statement: In the same passage on suppliers, Longines' CEO said hand production is largely automated but dial production much less so, without saying where either is made.
+    excerpt: Hand production is also largely automated now, but much less so the dials.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lgzt-es-service
+    statement: Longines' CEO said customer service on the basic calibres is done in Longines' workshops at St-Imier or in Swatch Group branches worldwide.
+    excerpt: All the customer service on the basic calibres is done either in our workshops at St-Imier or directly in the 37 branches of the Swatch Group all over the world.
+    source: europastar-longines-von-kanel
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -222,18 +238,25 @@ profiles:
     scores:
       MA:
         value: 1
+        evidence: []
       MM:
         value: 0
+        evidence: []
       EX:
         value: 1
+        evidence: []
       DH:
         value: 1
+        evidence: []
       CF:
         value: 1
+        evidence: []
       WE:
         value: 4
+        evidence: []
       PD:
         value: 3
+        evidence: []
     classification:
       - industrial_manufacture
   - version: 2
@@ -241,8 +264,9 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 \u2192 U; DH 1 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; PD 3 \u2192 U; confidence B \u2192 D; classification Industrial Manufacture \u2192 Design-led \u00c9tablisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 1 → U; DH 1 → U; CF 1 → U; WE 4 → U; PD 3 → U; confidence B → D; classification Industrial Manufacture → Design-led Établisseur. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -313,6 +337,7 @@ profiles:
     confidence: D
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds a Monochrome hands-on review and further passages from the 2018 Europa Star interview with Longines' CEO. Changes from version 2: PD U → 3. Confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE)."
     created_on: 2026-11-17

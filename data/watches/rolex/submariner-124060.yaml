@@ -3,174 +3,6 @@ brand: rolex
 model: Submariner
 reference: "124060"
 notes: Handbook v0.2 §8 lists this record as "Rolex — Submariner 124060".
-claims:
-  - id: rsub-3230
-    statement: A specialist review describes calibre 3230 as a new in-house Rolex calibre.
-    excerpt: Driving the time only Submariner is Rolex’s all-new in-house caliber 3230
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-chronergy
-    statement: The same review says calibre 3230 uses the Chronergy escapement patented by Rolex.
-    excerpt: Rolex engineered caliber 3230 and 3235 to utilize the Chronergy escapement, patented by Rolex
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - MA
-      - MM
-      - PD
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-parachrom
-    statement: The same review says the blue Parachrom hairspring is manufactured by Rolex.
-    excerpt: fitted with an optimized blue Parachrom hairspring, manufactured by Rolex in an exclusive paramagnetic alloy
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - MM
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-steel
-    statement: The same review says the case steel is 904L.
-    excerpt: The stainless steel alloy used is still 904L
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-bracelet
-    statement: The same review says the Oyster bracelet was redesigned for the new case.
-    excerpt: Naturally, the Oyster bracelet has also been redesigned to match the new case proportions.
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-lume
-    statement: The same review says Chromalight lume is used on the hands and markers.
-    excerpt: Chromalight lume is used for the hands and markers, with a blue glow, same as before.
-    source: rolex-professionalwatches-124060
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rolex-plo-cases
-    statement: A 2014 site report says the Plan-les-Ouates site manufactures Rolex cases and bracelets.
-    excerpt: The center specializes in manufacturing the cases and bracelets for Rolex watches.
-    source: rolex-hautetime-silent-giant
-    dimensions:
-      - EX
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rolex-chene-bourg
-    statement: The same report says the Chêne-Bourg site produces dials and does gem-setting.
-    excerpt: Built in 2000, this facility specializes in the production of dials and inlaying with precious stones.
-    source: rolex-hautetime-silent-giant
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rolex-bienne
-    statement: The same report says the Bienne site handles manufacture and assembly of Rolex movements.
-    excerpt: houses all activities related to the manufacture and assembly of Rolex's movements
-    source: rolex-hautetime-silent-giant
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rolex-geneva-assembly
-    statement: The same report says final assembly of each watch takes place at the Geneva headquarters.
-    excerpt: The final assembly of each Rolex watch is carried out at the brand's Geneva headquarters.
-    source: rolex-hautetime-silent-giant
-    dimensions:
-      - WE
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rolex-hands-bought
-    statement: The same report says Rolex buys its hands from a specialist producer.
-    excerpt: The brand also purchases the hands for its timepieces from a specialized producer.
-    source: rolex-hautetime-silent-giant
-    dimensions:
-      - DH
-    date_checked: 2026-10-21
-    editor: falk-index
-  - id: rsub-geo-bienne-dev
-    statement: Rolex says the Bienne site is entirely dedicated to developing and manufacturing Rolex movements.
-    excerpt: is entirely dedicated to developing and manufacturing Rolex movements.
-    source: rolex-geography-of-excellence
-    dimensions:
-      - MA
-      - MM
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-bienne-hand
-    statement: Rolex says movement components at Bienne are manufactured, then assembled by hand and checked.
-    excerpt: "Here, the components of the movement – from 200 to nearly 400 for the most complex calibres – are meticulously manufactured, then assembled by hand and rigorously checked."
-    source: rolex-geography-of-excellence
-    dimensions:
-      - MM
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-plo-finishing
-    statement: Rolex says the Plan-les-Ouates site carries out all development and production of cases and bracelets, including manual finishing of completed parts.
-    excerpt: brings together all the development and production activities for watch cases and bracelets, from casting gold alloys, to forming and machining raw materials and manually finishing completed parts.
-    source: rolex-geography-of-excellence
-    dimensions:
-      - EX
-      - CF
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-dials
-    statement: Rolex says the Chêne-Bourg site carries out all development and production of dials, along with gemmology and gem-setting.
-    excerpt: brings together all the activities linked to the development and production of the dial as well as those related to gemmology and gem-setting.
-    source: rolex-geography-of-excellence
-    dimensions:
-      - DH
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-cerachrom
-    statement: Rolex says Cerachrom bezels and bezel inserts are produced at the Chêne-Bourg site.
-    excerpt: This site is also where Cerachrom bezels and Cerachrom bezel inserts in high-tech ceramic are produced.
-    source: rolex-geography-of-excellence
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-acacias-dev
-    statement: Rolex says its Acacias headquarters houses the design, research and development of new Rolex watches.
-    excerpt: Extended in 2022, the Acacias site also houses the design, research and development activities that are crucial to the genesis of new Rolex watches.
-    source: rolex-geography-of-excellence
-    dimensions:
-      - PD
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-geo-acacias-tests
-    statement: Rolex says finished watches are tested at Acacias before receiving Superlative Chronometer certification.
-    excerpt: Finished watches also undergo a series of tests at this site before receiving the Superlative Chronometer certification
-    source: rolex-geography-of-excellence
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-page-cerachrom
-    statement: The Rolex product page for the 124060 says its Cerachrom bezel insert is manufactured by Rolex.
-    excerpt: Manufactured by Rolex from a hard, corrosion-resistant ceramic, the Cerachrom bezel insert is virtually scratchproof.
-    source: rolex-submariner-m124060-0001
-    dimensions:
-      - EX
-    date_checked: 2026-11-17
-    editor: falk-index
-  - id: rsub-page-certification
-    statement: The Rolex product page lists the 124060 as a Superlative Chronometer with Rolex certification after casing.
-    excerpt: Superlative Chronometer (official chronometer certification + Rolex certification after casing)
-    source: rolex-submariner-m124060-0001
-    dimensions:
-      - WE
-    date_checked: 2026-11-17
-    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 3230 architecture
@@ -271,6 +103,194 @@ provenance:
     claims:
       - rsub-chronergy
       - rsub-geo-acacias-dev
+claims:
+  - id: rsub-3230
+    statement: A specialist review describes calibre 3230 as a new in-house Rolex calibre.
+    excerpt: Driving the time only Submariner is Rolex’s all-new in-house caliber 3230
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-chronergy
+    statement: The same review says calibre 3230 uses the Chronergy escapement patented by Rolex.
+    excerpt: Rolex engineered caliber 3230 and 3235 to utilize the Chronergy escapement, patented by Rolex
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MA
+      - MM
+      - PD
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-parachrom
+    statement: The same review says the blue Parachrom hairspring is manufactured by Rolex.
+    excerpt: fitted with an optimized blue Parachrom hairspring, manufactured by Rolex in an exclusive paramagnetic alloy
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - MM
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-steel
+    statement: The same review says the case steel is 904L.
+    excerpt: The stainless steel alloy used is still 904L
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-bracelet
+    statement: The same review says the Oyster bracelet was redesigned for the new case.
+    excerpt: Naturally, the Oyster bracelet has also been redesigned to match the new case proportions.
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-lume
+    statement: The same review says Chromalight lume is used on the hands and markers.
+    excerpt: Chromalight lume is used for the hands and markers, with a blue glow, same as before.
+    source: rolex-professionalwatches-124060
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rolex-plo-cases
+    statement: A 2014 site report says the Plan-les-Ouates site manufactures Rolex cases and bracelets.
+    excerpt: The center specializes in manufacturing the cases and bracelets for Rolex watches.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - EX
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rolex-chene-bourg
+    statement: The same report says the Chêne-Bourg site produces dials and does gem-setting.
+    excerpt: Built in 2000, this facility specializes in the production of dials and inlaying with precious stones.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rolex-bienne
+    statement: The same report says the Bienne site handles manufacture and assembly of Rolex movements.
+    excerpt: houses all activities related to the manufacture and assembly of Rolex's movements
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rolex-geneva-assembly
+    statement: The same report says final assembly of each watch takes place at the Geneva headquarters.
+    excerpt: The final assembly of each Rolex watch is carried out at the brand's Geneva headquarters.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - WE
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rolex-hands-bought
+    statement: The same report says Rolex buys its hands from a specialist producer.
+    excerpt: The brand also purchases the hands for its timepieces from a specialized producer.
+    source: rolex-hautetime-silent-giant
+    dimensions:
+      - DH
+    date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: rsub-geo-bienne-dev
+    statement: Rolex says the Bienne site is entirely dedicated to developing and manufacturing Rolex movements.
+    excerpt: is entirely dedicated to developing and manufacturing Rolex movements.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-bienne-hand
+    statement: Rolex says movement components at Bienne are manufactured, then assembled by hand and checked.
+    excerpt: Here, the components of the movement – from 200 to nearly 400 for the most complex calibres – are meticulously manufactured, then assembled by hand and rigorously checked.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-plo-finishing
+    statement: Rolex says the Plan-les-Ouates site carries out all development and production of cases and bracelets, including manual finishing of completed parts.
+    excerpt: brings together all the development and production activities for watch cases and bracelets, from casting gold alloys, to forming and machining raw materials and manually finishing completed parts.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-dials
+    statement: Rolex says the Chêne-Bourg site carries out all development and production of dials, along with gemmology and gem-setting.
+    excerpt: brings together all the activities linked to the development and production of the dial as well as those related to gemmology and gem-setting.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-cerachrom
+    statement: Rolex says Cerachrom bezels and bezel inserts are produced at the Chêne-Bourg site.
+    excerpt: This site is also where Cerachrom bezels and Cerachrom bezel inserts in high-tech ceramic are produced.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-acacias-dev
+    statement: Rolex says its Acacias headquarters houses the design, research and development of new Rolex watches.
+    excerpt: Extended in 2022, the Acacias site also houses the design, research and development activities that are crucial to the genesis of new Rolex watches.
+    source: rolex-geography-of-excellence
+    dimensions:
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-geo-acacias-tests
+    statement: Rolex says finished watches are tested at Acacias before receiving Superlative Chronometer certification.
+    excerpt: Finished watches also undergo a series of tests at this site before receiving the Superlative Chronometer certification
+    source: rolex-geography-of-excellence
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-page-cerachrom
+    statement: The Rolex product page for the 124060 says its Cerachrom bezel insert is manufactured by Rolex.
+    excerpt: Manufactured by Rolex from a hard, corrosion-resistant ceramic, the Cerachrom bezel insert is virtually scratchproof.
+    source: rolex-submariner-m124060-0001
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: rsub-page-certification
+    statement: The Rolex product page lists the 124060 as a Superlative Chronometer with Rolex certification after casing.
+    excerpt: Superlative Chronometer (official chronometer certification + Rolex certification after casing)
+    source: rolex-submariner-m124060-0001
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -285,18 +305,25 @@ profiles:
     scores:
       MA:
         value: 5
+        evidence: []
       MM:
         value: 5
+        evidence: []
       EX:
         value: 5
+        evidence: []
       DH:
         value: 5
+        evidence: []
       CF:
         value: 2
+        evidence: []
       WE:
         value: 5
+        evidence: []
       PD:
         value: 5
+        evidence: []
     classification:
       - integrated_manufacture
   - version: 2
@@ -304,8 +331,9 @@ profiles:
     confidence: C
     independent_watchmaker: false
     status: superseded
+    is_seed: false
     editor: falk-index
-    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 5 \u2192 4; DH 5 \u2192 3; CF 2 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Each score's rationale names its evidence."
+    change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 5 → 4; DH 5 → 3; CF 2 → U; WE 5 → 3; confidence A → C. Each score's rationale names its evidence."
     created_on: 2026-10-21
     scores:
       MA:
@@ -388,6 +416,7 @@ profiles:
     confidence: B
     independent_watchmaker: false
     status: published
+    is_seed: false
     editor: falk-index
     change_note: "Adds Rolex's own Geography of excellence page and the Rolex product page for m124060-0001. Changes from version 2: CF U → 2; confidence C → B. MA, MM, EX, DH, WE and PD keep their values and now also rest on Rolex's own pages. No dimensions remain U."
     created_on: 2026-11-17

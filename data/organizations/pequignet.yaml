@@ -1,6 +1,8 @@
 id: pequignet
 name: Pequignet
 kind: supplier
+ownership: unknown
+scale: unknown
 country: FR
 website: https://www.pequignet.com
 notes: Movement manufacture in Morteau; supplies the customised EPM03 to Atelier Wen.
