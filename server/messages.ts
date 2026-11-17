@@ -49,7 +49,7 @@ async function blocks(db: PoolClient, me: string, other: string) {
 /** Why I cannot message other right now, or null if I can. */
 function refusal(other: Other, me: string, blocked: { byMe: boolean, byThem: boolean }) {
   if (other.id === me) return 'You cannot message yourself.';
-  if (blocked.byMe) return `You have blocked @${other.username}. Unblock them to send a message.`;
+  if (blocked.byMe) return `You have blocked @${other.username}. To message them, unblock them from the ⋯ menu beside them in your conversations.`;
   // A member who blocked you looks like any member who is not taking messages, so a block is not announced.
   if (blocked.byThem || other.status !== 'active' || other.deleted) return 'This member is not taking messages.';
   return null;

@@ -107,7 +107,7 @@ function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   </>;
 }
 
-/** Asks before blocking someone or deleting the conversation, over the top of it. Cancel has focus, so neither is ever one keypress. */
+/** Asks before blocking someone or deleting a conversation, under its row in the list. Cancel has focus, so neither is ever one keypress. */
 function ConfirmBanner({ title, text, action, doing, busy, onConfirm, onCancel }: {
   title: string, text: string, action: string, doing: string, busy: boolean, onConfirm: () => void, onCancel: () => void,
 }) {
@@ -227,18 +227,8 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     }
     catch (failure) { setError(handleAccountError(failure)); }
   };
-  // Blocking asks first, in a banner over the conversation; unblocking needs no asking.
-  const [askingBlock, setAskingBlock] = useState(false);
-  const [blocking, setBlocking] = useState(false);
-  const setBlock = async (blocked: boolean) => {
-    setBlocking(true); setError('');
-    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked }) }); setAskingBlock(false); await load(); onRead(); }
-    catch (failure) { setError(handleAccountError(failure)); }
-    finally { setBlocking(false); }
-  };
-
+  // Blocking and unblocking are in the conversation list's menu (RowMenu), not here.
   const person = chat?.with;
-  const name = person ? (person.username ? `@${person.username}` : person.displayName) : '';
   return <>
     <div className="f-dm-subhead">
       <button className="f-dm-icon" type="button" onClick={onBack} aria-label="All conversations">
@@ -250,13 +240,8 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           <strong>{person.displayName}</strong>
           {person.username && <a className="forum-handle" href={`${links.profile}${person.username}/`}>@{person.username}</a>}
         </span>
-        <button className="f-dm-text-button" type="button" aria-expanded={chat.blocked ? undefined : askingBlock} disabled={blocking}
-          onClick={() => chat.blocked ? setBlock(false) : setAskingBlock(now => !now)}>{chat.blocked ? 'Unblock' : 'Block'}</button>
       </> : !error && <span className="f-dm-skel-row" aria-hidden="true"><span className="f-skel f-skel-avatar f-dm-face" /><span className="f-skel" style={{ width:120 }} /></span>}
     </div>
-    {askingBlock && person && !chat.blocked && <ConfirmBanner title={`Block ${name}?`}
-      text="Neither of you will be able to send messages until you unblock them. They are not told, and what you have already said stays here."
-      action="Block" doing="Blocking…" busy={blocking} onConfirm={() => setBlock(true)} onCancel={() => setAskingBlock(false)} />}
     <div className="f-dm-scroll" ref={scroller} aria-busy={!chat}>
       {!chat && !error && <><span className="sr-only" role="status">Loading messages</span><ChatSkeleton /></>}
       {chat && !shown.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
