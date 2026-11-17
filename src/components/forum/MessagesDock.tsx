@@ -107,7 +107,7 @@ function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   </>;
 }
 
-/** Asks before blocking someone or deleting the conversation, over the top of it. Cancel has focus, so neither is ever one keypress. */
+/** Asks before blocking someone or deleting a conversation, under its row in the list. Cancel has focus, so neither is ever one keypress. */
 function ConfirmBanner({ title, text, action, doing, busy, onConfirm, onCancel }: {
   title: string, text: string, action: string, doing: string, busy: boolean, onConfirm: () => void, onCancel: () => void,
 }) {
@@ -227,18 +227,8 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     }
     catch (failure) { setError(handleAccountError(failure)); }
   };
-  // Blocking asks first, in a banner over the conversation; unblocking needs no asking.
-  const [askingBlock, setAskingBlock] = useState(false);
-  const [blocking, setBlocking] = useState(false);
-  const setBlock = async (blocked: boolean) => {
-    setBlocking(true); setError('');
-    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked }) }); setAskingBlock(false); await load(); onRead(); }
-    catch (failure) { setError(handleAccountError(failure)); }
-    finally { setBlocking(false); }
-  };
-
+  // Blocking and unblocking are in the conversation list's menu (RowMenu), not here.
   const person = chat?.with;
-  const name = person ? (person.username ? `@${person.username}` : person.displayName) : '';
   return <>
     <div className="f-dm-subhead">
       <button className="f-dm-icon" type="button" onClick={onBack} aria-label="All conversations">
@@ -250,13 +240,8 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           <strong>{person.displayName}</strong>
           {person.username && <a className="forum-handle" href={`${links.profile}${person.username}/`}>@{person.username}</a>}
         </span>
-        <button className="f-dm-text-button" type="button" aria-expanded={chat.blocked ? undefined : askingBlock} disabled={blocking}
-          onClick={() => chat.blocked ? setBlock(false) : setAskingBlock(now => !now)}>{chat.blocked ? 'Unblock' : 'Block'}</button>
       </> : !error && <span className="f-dm-skel-row" aria-hidden="true"><span className="f-skel f-skel-avatar f-dm-face" /><span className="f-skel" style={{ width:120 }} /></span>}
     </div>
-    {askingBlock && person && !chat.blocked && <ConfirmBanner title={`Block ${name}?`}
-      text="Neither of you will be able to send messages until you unblock them. They are not told, and what you have already said stays here."
-      action="Block" doing="Blocking…" busy={blocking} onConfirm={() => setBlock(true)} onCancel={() => setAskingBlock(false)} />}
     <div className="f-dm-scroll" ref={scroller} aria-busy={!chat}>
       {!chat && !error && <><span className="sr-only" role="status">Loading messages</span><ChatSkeleton /></>}
       {chat && !shown.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
@@ -373,16 +358,69 @@ const preview = (last: Inbox['conversations'][number]['last']) => {
   return `${last.mine ? 'You: ' : ''}${what}`;
 };
 
+/**
+ * The "⋯" menu on a conversation in the list: Block (or Unblock) and Delete. Arrow keys move between the items, Escape
+ * or a click elsewhere closes it and gives focus back to its button. It opens upwards when there is no room below.
+ */
+function RowMenu({ name, blocked, busy, onPick }: { name: string, blocked: boolean, busy: boolean, onPick: (choice: 'block' | 'unblock' | 'delete') => void }) {
+  const [open, setOpen] = useState(false);
+  const [up, setUp] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    menu.current?.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus();
+    const away = (e: PointerEvent) => { if (!menu.current?.contains(e.target as Node) && !button.current?.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener('pointerdown', away);
+    return () => document.removeEventListener('pointerdown', away);
+  }, [open]);
+  const toggle = () => {
+    if (!open) {
+      const scroller = button.current?.closest('.f-dm-scroll')?.getBoundingClientRect(), mine = button.current?.getBoundingClientRect();
+      setUp(!!scroller && !!mine && scroller.bottom - mine.bottom < 100);
+    }
+    setOpen(now => !now);
+  };
+  const close = () => { setOpen(false); button.current?.focus(); };
+  const keys = (e: KeyboardEvent<HTMLDivElement>) => {
+    const items = [...(menu.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') ?? [])];
+    const at = items.indexOf(document.activeElement as HTMLButtonElement);
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); items[(at + 1) % items.length]?.focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); items[(at - 1 + items.length) % items.length]?.focus(); }
+    else if (e.key === 'Tab') setOpen(false);
+  };
+  const pick = (choice: 'block' | 'unblock' | 'delete') => { setOpen(false); onPick(choice); };
+  return <span className="f-dm-menu-wrap">
+    <button ref={button} type="button" className="f-dm-icon f-dm-more" aria-label={`More for ${name}`} aria-haspopup="menu" aria-expanded={open} disabled={busy} onClick={toggle}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.4" /><circle cx="12" cy="12" r="1.4" /><circle cx="19" cy="12" r="1.4" /></svg>
+    </button>
+    {open && <div ref={menu} className={`f-dm-menu${up ? ' up' : ''}`} role="menu" aria-label={`Conversation with ${name}`} onKeyDown={keys}>
+      <button type="button" role="menuitem" onClick={() => pick(blocked ? 'unblock' : 'block')}>{blocked ? 'Unblock' : 'Block'}</button>
+      <button type="button" role="menuitem" className="danger" onClick={() => pick('delete')}>Delete conversation</button>
+    </div>}
+  </span>;
+}
+
 function Conversations({ inbox, error, onOpen, onChange }: { inbox: Inbox | null, error: string, onOpen: (username: string) => void, onChange: () => Promise<unknown> }) {
-  // Deleting is for me only: the other member keeps the conversation. It asks first, in the row being deleted.
-  const [asking, setAsking] = useState<string | null>(null);
+  // Block and Delete ask first, in the row they are for; Unblock needs no asking. Deleting is for me only: the other
+  // member keeps the conversation.
+  const [asking, setAsking] = useState<{ username: string, what: 'block' | 'delete' } | null>(null);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState('');
-  const remove = async (username: string) => {
+  const run = async (request: () => Promise<unknown>) => {
     setBusy(true); setFailed('');
-    try { await api(`/api/forum/messages/with/${username}`, { method:'DELETE', body:'{}' }); await onChange(); setAsking(null); }
+    try { await request(); await onChange(); setAsking(null); }
     catch (failure) { setFailed(handleAccountError(failure)); }
     finally { setBusy(false); }
+  };
+  const path = (username: string) => `/api/forum/messages/with/${username}`;
+  const remove = (username: string) => run(() => api(path(username), { method:'DELETE', body:'{}' }));
+  const block = (username: string, blocked: boolean) => run(() => api(`${path(username)}/block`, { method:'POST', body:JSON.stringify({ blocked }) }));
+  const pick = (username: string) => (choice: 'block' | 'unblock' | 'delete') => {
+    setFailed('');
+    if (choice === 'unblock') { setAsking(null); block(username, false); }
+    else setAsking({ username, what:choice });
   };
   return <>
     <PersonSearch inbox={inbox} onOpen={onOpen} />
@@ -403,14 +441,15 @@ function Conversations({ inbox, error, onOpen, onChange }: { inbox: Inbox | null
               </span>
               {c.unread && <span className="f-dm-dot"><span className="sr-only">Unread</span></span>}
             </button>
-            {username && <button type="button" className="f-dm-icon f-dm-delete" aria-label={`Delete conversation with ${name}`}
-              aria-expanded={asking === username} disabled={busy} onClick={() => { setFailed(''); setAsking(now => now === username ? null : username); }}>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 11v5M14 11v5" /></svg>
-            </button>}
+            {username && <RowMenu name={name} blocked={c.blocked} busy={busy} onPick={pick(username)} />}
           </span>
-          {asking === username && username && <ConfirmBanner title={`Delete your conversation with ${name}?`}
-            text="It is deleted for you only. They keep their copy and are not told. If either of you writes again, it comes back with only the new messages."
-            action="Delete" doing="Deleting…" busy={busy} onConfirm={() => remove(username)} onCancel={() => setAsking(null)} />}
+          {username && asking?.username === username && (asking.what === 'delete'
+            ? <ConfirmBanner title={`Delete your conversation with ${name}?`}
+                text="It is deleted for you only. They keep their copy and are not told. If either of you writes again, it comes back with only the new messages."
+                action="Delete" doing="Deleting…" busy={busy} onConfirm={() => remove(username)} onCancel={() => setAsking(null)} />
+            : <ConfirmBanner title={`Block ${name}?`}
+                text="Neither of you will be able to send messages until you unblock them. They are not told, and what you have already said stays here."
+                action="Block" doing="Blocking…" busy={busy} onConfirm={() => block(username, true)} onCancel={() => setAsking(null)} />)}
         </li>;
       })}</ul>}
     </div>
