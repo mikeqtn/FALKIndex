@@ -227,21 +227,14 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     }
     catch (failure) { setError(handleAccountError(failure)); }
   };
-  // Blocking and deleting ask first, in a banner over the conversation; unblocking needs no asking.
-  const [asking, setAsking] = useState<'block' | 'delete' | null>(null);
+  // Blocking asks first, in a banner over the conversation; unblocking needs no asking.
+  const [askingBlock, setAskingBlock] = useState(false);
   const [blocking, setBlocking] = useState(false);
   const setBlock = async (blocked: boolean) => {
     setBlocking(true); setError('');
-    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked }) }); setAsking(null); await load(); onRead(); }
+    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked }) }); setAskingBlock(false); await load(); onRead(); }
     catch (failure) { setError(handleAccountError(failure)); }
     finally { setBlocking(false); }
-  };
-  // Deleting is for me only: the other member keeps the conversation. Back to the list, where it is gone.
-  const [clearing, setClearing] = useState(false);
-  const clear = async () => {
-    setClearing(true); setError('');
-    try { await api(path, { method:'DELETE', body:'{}' }); setAsking(null); onBack(); }
-    catch (failure) { setError(handleAccountError(failure)); setClearing(false); }
   };
 
   const person = chat?.with;
@@ -257,19 +250,13 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           <strong>{person.displayName}</strong>
           {person.username && <a className="forum-handle" href={`${links.profile}${person.username}/`}>@{person.username}</a>}
         </span>
-        {(chat.messages.length > 0 || earlier.length > 0) &&
-          <button className="f-dm-text-button" type="button" aria-expanded={asking === 'delete'} disabled={clearing}
-            onClick={() => setAsking(now => now === 'delete' ? null : 'delete')}>Delete</button>}
-        <button className="f-dm-text-button" type="button" aria-expanded={chat.blocked ? undefined : asking === 'block'} disabled={blocking}
-          onClick={() => chat.blocked ? setBlock(false) : setAsking(now => now === 'block' ? null : 'block')}>{chat.blocked ? 'Unblock' : 'Block'}</button>
+        <button className="f-dm-text-button" type="button" aria-expanded={chat.blocked ? undefined : askingBlock} disabled={blocking}
+          onClick={() => chat.blocked ? setBlock(false) : setAskingBlock(now => !now)}>{chat.blocked ? 'Unblock' : 'Block'}</button>
       </> : !error && <span className="f-dm-skel-row" aria-hidden="true"><span className="f-skel f-skel-avatar f-dm-face" /><span className="f-skel" style={{ width:120 }} /></span>}
     </div>
-    {asking === 'block' && person && !chat.blocked && <ConfirmBanner title={`Block ${name}?`}
+    {askingBlock && person && !chat.blocked && <ConfirmBanner title={`Block ${name}?`}
       text="Neither of you will be able to send messages until you unblock them. They are not told, and what you have already said stays here."
-      action="Block" doing="Blocking…" busy={blocking} onConfirm={() => setBlock(true)} onCancel={() => setAsking(null)} />}
-    {asking === 'delete' && person && <ConfirmBanner title={`Delete your conversation with ${name}?`}
-      text="It is deleted for you only. They keep their copy and are not told. If either of you writes again, the conversation comes back with only the new messages."
-      action="Delete" doing="Deleting…" busy={clearing} onConfirm={clear} onCancel={() => setAsking(null)} />}
+      action="Block" doing="Blocking…" busy={blocking} onConfirm={() => setBlock(true)} onCancel={() => setAskingBlock(false)} />}
     <div className="f-dm-scroll" ref={scroller} aria-busy={!chat}>
       {!chat && !error && <><span className="sr-only" role="status">Loading messages</span><ChatSkeleton /></>}
       {chat && !shown.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
@@ -386,23 +373,46 @@ const preview = (last: Inbox['conversations'][number]['last']) => {
   return `${last.mine ? 'You: ' : ''}${what}`;
 };
 
-function Conversations({ inbox, error, onOpen }: { inbox: Inbox | null, error: string, onOpen: (username: string) => void }) {
+function Conversations({ inbox, error, onOpen, onChange }: { inbox: Inbox | null, error: string, onOpen: (username: string) => void, onChange: () => Promise<unknown> }) {
+  // Deleting is for me only: the other member keeps the conversation. It asks first, in the row being deleted.
+  const [asking, setAsking] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState('');
+  const remove = async (username: string) => {
+    setBusy(true); setFailed('');
+    try { await api(`/api/forum/messages/with/${username}`, { method:'DELETE', body:'{}' }); await onChange(); setAsking(null); }
+    catch (failure) { setFailed(handleAccountError(failure)); }
+    finally { setBusy(false); }
+  };
   return <>
     <PersonSearch inbox={inbox} onOpen={onOpen} />
     <div className="f-dm-scroll" aria-busy={!inbox}>
-      {error && <div className="account-error f-dm-error" role="alert">{error}</div>}
+      {(failed || error) && <div className="account-error f-dm-error" role="alert">{failed || error}</div>}
       {!inbox && !error && <><span className="sr-only" role="status">Loading conversations</span><ListSkeleton /></>}
       {inbox && !inbox.conversations.length && <p className="f-dm-empty">No conversations yet. Choose <strong>Message</strong> beside a member's post, or search for them above.</p>}
-      {inbox && inbox.conversations.length > 0 && <ul className="f-dm-list">{inbox.conversations.map(c => <li key={c.id}>
-        <button type="button" className={c.unread ? 'unread' : undefined} disabled={!c.with.username} onClick={() => c.with.username && onOpen(c.with.username)}>
-          <Face person={c.with} />
-          <span className="f-dm-line">
-            <span className="f-dm-line-top"><strong>{c.with.displayName}</strong><span className="f-dm-time">{time(c.last.createdAt)}</span></span>
-            <span className="f-dm-preview">{c.blocked ? 'Blocked' : preview(c.last)}</span>
+      {inbox && inbox.conversations.length > 0 && <ul className="f-dm-list">{inbox.conversations.map(c => {
+        const username = c.with.username;
+        const name = username ? `@${username}` : c.with.displayName;
+        return <li key={c.id}>
+          <span className="f-dm-row">
+            <button type="button" className={`f-dm-open${c.unread ? ' unread' : ''}`} disabled={!username} onClick={() => username && onOpen(username)}>
+              <Face person={c.with} />
+              <span className="f-dm-line">
+                <span className="f-dm-line-top"><strong>{c.with.displayName}</strong><span className="f-dm-time">{time(c.last.createdAt)}</span></span>
+                <span className="f-dm-preview">{c.blocked ? 'Blocked' : preview(c.last)}</span>
+              </span>
+              {c.unread && <span className="f-dm-dot"><span className="sr-only">Unread</span></span>}
+            </button>
+            {username && <button type="button" className="f-dm-icon f-dm-delete" aria-label={`Delete conversation with ${name}`}
+              aria-expanded={asking === username} disabled={busy} onClick={() => { setFailed(''); setAsking(now => now === username ? null : username); }}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 11v5M14 11v5" /></svg>
+            </button>}
           </span>
-          {c.unread && <span className="f-dm-dot"><span className="sr-only">Unread</span></span>}
-        </button>
-      </li>)}</ul>}
+          {asking === username && username && <ConfirmBanner title={`Delete your conversation with ${name}?`}
+            text="It is deleted for you only. They keep their copy and are not told. If either of you writes again, it comes back with only the new messages."
+            action="Delete" doing="Deleting…" busy={busy} onConfirm={() => remove(username)} onCancel={() => setAsking(null)} />}
+        </li>;
+      })}</ul>}
     </div>
   </>;
 }
@@ -489,7 +499,7 @@ function Dock({ links }: { links: ForumLinks }) {
     </button>
     {place.username
       ? <Chat key={place.username} username={place.username} links={links} onRead={loadInbox} onBack={() => { setPlace(p => ({ ...p, username:null })); loadInbox(); }} />
-      : <Conversations inbox={inbox} error={error} onOpen={username => setPlace(p => ({ ...p, username }))} />}
+      : <Conversations inbox={inbox} error={error} onChange={loadInbox} onOpen={username => setPlace(p => ({ ...p, username }))} />}
   </section>;
 }
 
