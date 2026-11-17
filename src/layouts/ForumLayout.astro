@@ -81,7 +81,9 @@ const q = Astro.url.searchParams.get('q') ?? '';
         </a>
         <form class="f-search" action={forumPath('/search/')} method="get" role="search">
           <label class="sr-only" for="f-q">Search the forum</label>
-          <input id="f-q" type="search" name="q" value={q} placeholder="Search threads and posts" minlength="2" maxlength="200" />
+          <input id="f-q" type="search" name="q" value={q} placeholder="Search threads and posts" minlength="2" maxlength="200"
+            autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="f-suggest" aria-expanded="false" />
+          <ul id="f-suggest" class="f-suggest" role="listbox" aria-label="Matching threads" data-threads={forumPath('/t/')} hidden></ul>
         </form>
         <div class="f-top-end">
           <button class="f-theme" type="button" aria-label="Dark mode" aria-pressed="false">
@@ -141,6 +143,49 @@ const q = Astro.url.searchParams.get('q') ?? '';
       });
       systemDark.addEventListener('change', sync);
       sync();
+    </script>
+    <script>
+      // The search box lists threads with every word typed so far, in their title or a post; Enter with none chosen searches.
+      const input = document.getElementById('f-q') as HTMLInputElement, list = document.getElementById('f-suggest')!;
+      let timer = 0, request: AbortController | undefined, active = -1;
+      const options = () => [...list.children] as HTMLElement[];
+      const show = (open: boolean) => { list.hidden = !open; input.setAttribute('aria-expanded', String(open)); if (!open) choose(-1); };
+      const choose = (i: number) => {
+        options().forEach((o, n) => o.setAttribute('aria-selected', String(n === i)));
+        active = i;
+        if (i < 0) input.removeAttribute('aria-activedescendant'); else input.setAttribute('aria-activedescendant', options()[i].id);
+      };
+      input.addEventListener('input', () => {
+        clearTimeout(timer); request?.abort();
+        const q = input.value.trim();
+        if (q.length < 2) return show(false);
+        timer = window.setTimeout(async () => {
+          request = new AbortController();
+          try {
+            const res = await fetch(`/api/forum/suggest?q=${encodeURIComponent(q)}`, { signal:request.signal });
+            const { threads } = await res.json() as { threads: { id: string, title: string }[] };
+            list.replaceChildren(...threads.map((t, n) => {
+              const li = document.createElement('li'), a = document.createElement('a');
+              li.id = `f-suggest-${n}`; li.setAttribute('role', 'option');
+              a.href = list.dataset.threads + t.id; a.tabIndex = -1; a.textContent = t.title;
+              li.append(a); return li;
+            }));
+            show(threads.length > 0);
+          } catch { /* aborted by newer typing, or offline: Enter still searches */ }
+        }, 150);
+      });
+      input.addEventListener('keydown', e => {
+        const n = options().length;
+        if (list.hidden || !n) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); choose((active + 1) % n); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); choose(active <= 0 ? n - 1 : active - 1); }
+        else if (e.key === 'Escape') { e.preventDefault(); show(false); }
+        else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); options()[active].querySelector('a')!.click(); }
+      });
+      // Pressing a suggestion would blur the box first and close the list; keep focus so the click lands.
+      list.addEventListener('mousedown', e => e.preventDefault());
+      input.addEventListener('blur', () => show(false));
+      input.addEventListener('focus', () => { if (list.children.length && input.value.trim().length >= 2) show(true); });
     </script>
     <script>
       // While the next page on this site loads, swap the canvas for placeholder shapes (forum.css: .f-skeleton).
