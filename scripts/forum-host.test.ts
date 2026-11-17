@@ -36,6 +36,18 @@ test('the forum host serves /forum pages at its root and shares the API and file
   } finally { close(); }
 });
 
+test('the forum host never redirects /forum//host to another site', async () => {
+  const { get, close } = await serve('forum.falkindex.com');
+  try {
+    for (const path of ['/forum//evil.com', '/forum///evil.com/x?y=1']) {
+      const moved = await get(path, 'forum.falkindex.com');
+      assert.equal(moved.status, 301);
+      assert.ok(moved.location?.startsWith('/') && !moved.location.startsWith('//'), `${path} -> ${moved.location}`);
+    }
+    assert.equal((await get('/forum//evil.com', 'falkindex.com')).location, 'https://forum.falkindex.com/evil.com');
+  } finally { close(); }
+});
+
 test('the main site redirects /forum to the forum host and leaves everything else alone', async () => {
   const { get, close } = await serve('forum.falkindex.com');
   try {
