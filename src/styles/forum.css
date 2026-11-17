@@ -409,7 +409,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-images.n1 img { height: auto; max-height: 260px; }
 .f-dm-images a { cursor: zoom-in; }
 
-/* An image from a message, large and centred over a dimmed page (MessagesDock.tsx, Lightbox). */
+/* An image from a message or post, large and centred over a dimmed page (Lightbox.tsx). */
+.forum-images a { cursor: zoom-in; }
 .f-lightbox { max-width: none; max-height: none; width: fit-content; height: fit-content; margin: auto; padding: 0; overflow: visible; background: transparent; border: 0; color: #fff; }
 .f-lightbox::backdrop { background: rgba(8, 10, 14, .84); }
 .f-lightbox:focus { outline: none; }
