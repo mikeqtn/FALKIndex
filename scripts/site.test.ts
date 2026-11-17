@@ -199,8 +199,14 @@ test('signed in, the server draws the account links so the menu does not wait fo
   const headers = { cookie:'__client_uat=1791917601' };
   const site = await (await fetch(`${base}/methodology/`,{headers})).text();
   assert.match(site,/<a href="\/account">Account<\/a><button type="button" disabled[^>]*>Sign out<\/button>/);
+  // On the forum each item also has an icon, shown in place of its label on phones (forum.css).
+  const forumMenu = /<a href="\/forum\/notifications\/"><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Replies<\/span><\/a><a href="\/account"><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Account<\/span><\/a><button type="button" disabled[^>]*><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Sign out<\/span><\/button>/;
   const forum = await (await fetch(`${base}/forum/threads/`,{headers})).text();
-  assert.match(forum,/<a href="\/forum\/notifications\/">Replies<\/a><a href="\/account">Account<\/a><button type="button" disabled[^>]*>Sign out<\/button>/);
+  assert.match(forum,forumMenu);
+  // Clerk's own cookie is not always readable on the forum's subdomain; the hint our islands keep counts too.
+  const hinted = await (await fetch(`${base}/forum/threads/`,{ headers:{ cookie:'falk_signed_in=1' } })).text();
+  assert.match(hinted,forumMenu);
+  assert.doesNotMatch(await (await fetch(`${base}/forum/threads/`,{ headers:{ cookie:'falk_signed_in=0' } })).text(),forumMenu);
 });
 
 test('no exported JSON has an aggregate field', { skip }, () => {
