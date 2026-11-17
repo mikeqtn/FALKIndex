@@ -86,6 +86,8 @@ export function createApp(hosts: HostPolicy = hostPolicy()) {
     if (error instanceof HttpError) { res.status(error.status).json({error:error.message}); return; }
     if (error instanceof ZodError) { res.status(400).json({error:error.issues.map(i => `${i.path.join('.')}: ${i.message}`).join('; ')}); return; }
     if (error.code === '23505') { res.status(409).json({error:'That username or record already exists.'}); return; }
+    // A database rule refused what was sent: the request's fault, not an outage, so do not ask for a retry.
+    if (error.code === '23514') { console.error('Request refused by a check constraint',error.constraint ?? 'unknown'); res.status(400).json({error:'That could not be saved as sent. Please change it and try again.'}); return; }
     if (error.type === 'entity.too.large') { res.status(413).json({error:'The submitted content is too large.'}); return; }
     if (error.type === 'entity.parse.failed') { res.status(400).json({error:'Invalid JSON.'}); return; }
     // Never serialize provider exceptions, SQL, tokens, or request payloads.
