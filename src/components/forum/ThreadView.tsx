@@ -8,6 +8,7 @@ import { forumDay, personInitial } from '../../lib/forum-people';
 import { PostBody } from './PostBody';
 import { ReasonDialog, type ReasonRequest } from './ReasonDialog';
 import { imageUrl, useImagePicker } from './ImagePicker';
+import { Lightbox, openInLightbox } from './Lightbox';
 import { openMessages } from '../../lib/messages-dock.ts';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
@@ -67,9 +68,14 @@ function PostImages({ post, tools }: { post: Post, tools?: Tools }) {
   const act = (id: string, path: 'hide' | 'show' | 'purge', title: string, help: string, action: string) => tools?.ask({
     title, help, action, run:reason => api(`/api/forum/images/${id}/${path}`, { method:'POST', body:JSON.stringify({ reason }) }),
   });
+  // The images this reader can see, to step through in the Lightbox; full size is already loaded, so no preview.
+  const [viewing, setViewing] = useState<number | null>(null);
+  const visible = post.images.filter(image => !image.hidden || moderator);
+  const alt = `Attached by ${post.author.displayName}`;
   return <div className="forum-images">{post.images.map(image => <figure key={image.id}>
     {image.hidden && !moderator ? <p className="forum-hidden-note">A moderator hid this image.</p>
-      : <a href={imageUrl(image.id)} target="_blank" rel="noopener"><img src={imageUrl(image.id)} width={image.width} height={image.height} alt={`Attached by ${post.author.displayName}`} loading="lazy" /></a>}
+      : <a href={imageUrl(image.id)} target="_blank" rel="noopener" aria-haspopup="dialog"
+          onClick={openInLightbox(() => setViewing(visible.findIndex(v => v.id === image.id)))}><img src={imageUrl(image.id)} width={image.width} height={image.height} alt={`Attached by ${post.author.displayName}`} loading="lazy" /></a>}
     {image.hidden && image.hiddenReason && <figcaption className="small muted">Hidden: {image.hiddenReason}</figcaption>}
     {moderator && <div className="forum-post-actions small">
       {image.hidden
@@ -77,7 +83,9 @@ function PostImages({ post, tools }: { post: Post, tools?: Tools }) {
         : <button type="button" onClick={() => act(image.id, 'hide', 'Hide this image', 'Readers will see that a moderator hid it. Your reason goes to the audit log.', 'Hide image')}>Hide image</button>}
       {tools?.account?.role === 'admin' && <button type="button" onClick={() => act(image.id, 'purge', 'Delete this image permanently', 'This deletes the file for good and cannot be undone. Use it for material that must not be kept. Your reason goes to the audit log.', 'Delete permanently')}>Delete permanently</button>}
     </div>}
-  </figure>)}</div>;
+  </figure>)}
+    {viewing !== null && viewing >= 0 && <Lightbox images={visible} start={viewing} alt={alt} onClose={() => setViewing(null)} />}
+  </div>;
 }
 
 // A post's text and what a member can do with it. opening is the thread's first post, which is
