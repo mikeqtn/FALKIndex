@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { zstdDecompressSync } from 'node:zlib';
 import YAML from 'yaml';
 
 // Checks that each claim's excerpt appears word for word on its source's archived page.
@@ -33,9 +34,16 @@ export const normalize = (s: string) => s
 // Raw snapshot (id_) so the Wayback toolbar does not split the text.
 const raw = (u: string) => u.replace(/(web\.archive\.org\/web\/\d+)(?:[a-z_]+)?\//, '$1id_/');
 const pages = new Map<string, Promise<string>>();
+// Some snapshots keep the site's zstd encoding, which fetch does not decode. The archive also rate-limits (429).
+const get = async (u: string, tries = 4): Promise<string> => {
+  const r = await fetch(raw(u), { headers: { 'user-agent': 'Mozilla/5.0 (excerpt-check)' } });
+  if (r.status === 429 && tries > 1) { await new Promise(ok => setTimeout(ok, 30_000)); return get(u, tries - 1); }
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  const body = Buffer.from(await r.arrayBuffer());
+  return (body.readUInt32LE(0) === 0xfd2fb528 ? zstdDecompressSync(body) : body).toString('utf8');
+};
 const page = (u: string) => {
-  if (!pages.has(u)) pages.set(u, fetch(raw(u), { headers: { 'user-agent': 'Mozilla/5.0 (excerpt-check)' } })
-    .then(r => r.ok ? r.text() : Promise.reject(new Error(`HTTP ${r.status}`))).then(normalize));
+  if (!pages.has(u)) pages.set(u, get(u).then(normalize));
   return pages.get(u)!;
 };
 
