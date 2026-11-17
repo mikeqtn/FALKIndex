@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto';
 import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
-import { conversationWith, inbox, markConversationRead, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked } from '../server/messages.ts';
+import { conversationWith, inbox, markConversationRead, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
 
 after(() => pool.end());
 
@@ -102,3 +102,20 @@ test('new accounts cannot send links and start only a few conversations an hour'
   await assert.rejects(sendMessage(m.alice.id, fourth, { body:'Hello' }, db), /three conversations an hour/);
   await sendMessage(m.editor.id, fourth, { body:'Moderators are exempt, https://example.com' }, db);
 }, { established:false }));
+
+test('the Message box suggests members by username or name, people already messaged first', () => members(async (db, m) => {
+  // Members made for the test share a username prefix, so give two of them names to find.
+  await db.query("INSERT INTO falk_member_profile(account_id,display_name) VALUES($1,'Bob Marsh'),($2,'Carol Marsden')", [m.bob.id, m.carol.id]);
+  const names = async (q: string, who = m.alice.id) => (await suggestPeople(who, q, db)).map(p => p.username);
+  assert.deepEqual(await names('mars'), [m.bob.name, m.carol.name].sort(), 'a word of the name, in username order');
+  await sendMessage(m.alice.id, m.carol.name, { body:'Hello Carol' }, db);
+  assert.deepEqual(await names('mars'), [m.carol.name, m.bob.name], 'someone already messaged comes first');
+  assert.equal((await suggestPeople(m.alice.id, 'mars', db))[0].talked, true);
+  assert.deepEqual(await names('Marsden'), [m.carol.name], 'any case');
+  assert.deepEqual(await names(`@${m.bob.name}`), [m.bob.name], 'by username, with or without @');
+  assert.deepEqual(await names(m.alice.name), [], 'never yourself');
+  assert.deepEqual(await names(m.suspended.name), [], 'only members who can be messaged');
+  assert.deepEqual(await names('%'), [], 'LIKE patterns match as typed');
+  await setBlocked(m.bob.id, m.alice.name, true, db);
+  assert.deepEqual(await names('mars'), [m.carol.name], 'not someone who blocked you');
+}));

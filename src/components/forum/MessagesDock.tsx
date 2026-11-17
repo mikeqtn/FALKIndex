@@ -1,6 +1,6 @@
 import { useAuth } from '@clerk/react';
-import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
-import type { conversationWith, inbox } from '../../../server/messages.ts';
+import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import type { conversationWith, inbox, suggestPeople } from '../../../server/messages.ts';
 import type { Account } from '../../accounts/contracts.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
 import { api, handleAccountError } from '../accounts/api';
@@ -118,24 +118,87 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
   </>;
 }
 
-function Conversations({ inbox, error, onOpen }: { inbox: Inbox | null, error: string, onOpen: (username: string) => void }) {
+type Suggestion = Awaited<ReturnType<typeof suggestPeople>>[number];
+const SUGGEST_DELAY = 150;
+const fold = (text: string) => text.trim().replace(/^@/, '').toLowerCase();
+
+/**
+ * The "Message" box. As you type it lists matching members, people you have already messaged first, so a name you
+ * have talked to opens that conversation rather than a new one. Arrow keys choose, Enter opens, Escape closes.
+ */
+function PersonSearch({ inbox, onOpen }: { inbox: Inbox | null, onOpen: (username: string) => void }) {
   const [name, setName] = useState('');
-  const start = (e: FormEvent) => {
+  const [found, setFound] = useState<Suggestion[]>([]);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
+  const [note, setNote] = useState('');
+  const text = fold(name);
+  // Conversations already on screen match at once; the server's list replaces them when it answers.
+  const known: Suggestion[] = (inbox?.conversations ?? [])
+    .filter(c => c.with.username && (c.with.username.startsWith(text) || c.with.displayName.toLowerCase().split(/\s+/).some(w => w.startsWith(text))))
+    .map(c => ({ ...c.with, username:c.with.username!, talked:true }));
+  const options = text ? (found.length ? found : known).slice(0, 6) : [];
+
+  useEffect(() => {
+    setFound([]); setActive(-1);
+    if (!text) return;
+    const request = new AbortController();
+    const timer = setTimeout(() => {
+      fetch(`/api/forum/messages/people?q=${encodeURIComponent(text)}`, { credentials:'include', signal:request.signal })
+        .then(r => r.ok ? r.json() : { people:[] }).then(({ people }) => setFound(people)).catch(() => {});
+    }, SUGGEST_DELAY);
+    return () => { clearTimeout(timer); request.abort(); };
+  }, [text]);
+
+  const go = (username: string) => { onOpen(username); setName(''); setOpen(false); setNote(''); };
+  // Enter with nothing chosen: a conversation I already have with that name or username, then an exact match, then
+  // the only match, and only then the text as a username.
+  const submit = (e: FormEvent) => {
     e.preventDefault();
-    const username = name.trim().replace(/^@/, '').toLowerCase();
-    if (username) { onOpen(username); setName(''); }
+    if (!text) return;
+    if (active >= 0 && options[active]) return go(options[active].username);
+    const named = (p: { username: string | null, displayName: string }) => p.username === text || p.displayName.toLowerCase() === text;
+    const existing = inbox?.conversations.find(c => c.with.username && named(c.with));
+    if (existing) return go(existing.with.username!);
+    const exact = options.find(named) ?? (options.length === 1 ? options[0] : undefined);
+    if (exact) return go(exact.username);
+    if (/^[a-z][a-z0-9_]{2,29}$/.test(text)) return go(text);
+    setNote(options.length ? 'Choose a member from the list.' : 'No member matches that name.');
   };
+  const keys = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape' && open && options.length) { e.preventDefault(); e.stopPropagation(); setOpen(false); return; }
+    if (!options.length) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); setActive(i => (i + 1) % options.length); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setOpen(true); setActive(i => i <= 0 ? options.length - 1 : i - 1); }
+  };
+  const showing = open && options.length > 0;
+  return <form className="f-dm-start" onSubmit={submit}>
+    <label className="sr-only" htmlFor="f-dm-to">Message a member by name or username</label>
+    <input id="f-dm-to" value={name} placeholder="Message a member" autoComplete="off" spellCheck={false} maxLength={60}
+      role="combobox" aria-autocomplete="list" aria-controls="f-dm-people" aria-expanded={showing}
+      aria-activedescendant={showing && active >= 0 ? `f-dm-person-${active}` : undefined}
+      onChange={e => { setName(e.target.value); setOpen(true); setNote(''); }} onKeyDown={keys}
+      onFocus={() => setOpen(true)} onBlur={() => setOpen(false)} />
+    <button className="account-button secondary" disabled={!text}>Go</button>
+    {/* Pressing an option would blur the box and close the list first; keep focus so the click lands. */}
+    <ul id="f-dm-people" className="f-dm-people" role="listbox" aria-label="Members" hidden={!showing} onMouseDown={e => e.preventDefault()}>
+      {options.map((p, i) => <li key={p.username} id={`f-dm-person-${i}`} role="option" aria-selected={i === active} onClick={() => go(p.username)}>
+        <Face person={p} />
+        <span className="f-dm-who"><strong>{p.displayName}</strong><span className="forum-handle">@{p.username}</span></span>
+        {p.talked && <span className="f-dm-time">Open chat</span>}
+      </li>)}
+    </ul>
+    {note && <p className="f-dm-note" role="status">{note}</p>}
+  </form>;
+}
+
+function Conversations({ inbox, error, onOpen }: { inbox: Inbox | null, error: string, onOpen: (username: string) => void }) {
   return <>
-    <form className="f-dm-start" onSubmit={start}>
-      <label className="sr-only" htmlFor="f-dm-to">Message a member by username</label>
-      <input id="f-dm-to" value={name} onChange={e => setName(e.target.value)} placeholder="Message @username" autoComplete="off" spellCheck={false}
-        pattern="@?[A-Za-z][A-Za-z0-9_]{2,29}" title="A username: 3 to 30 letters, numbers or underscores" />
-      <button className="account-button secondary" disabled={!name.trim()}>Start</button>
-    </form>
+    <PersonSearch inbox={inbox} onOpen={onOpen} />
     <div className="f-dm-scroll">
       {error && <div className="account-error f-dm-error" role="alert">{error}</div>}
       {!inbox && !error && <p className="f-dm-empty" role="status">Loading…</p>}
-      {inbox && !inbox.conversations.length && <p className="f-dm-empty">No conversations yet. Choose <strong>Message</strong> beside a member's post, or enter their username above.</p>}
+      {inbox && !inbox.conversations.length && <p className="f-dm-empty">No conversations yet. Choose <strong>Message</strong> beside a member's post, or search for them above.</p>}
       {inbox && inbox.conversations.length > 0 && <ul className="f-dm-list">{inbox.conversations.map(c => <li key={c.id}>
         <button type="button" className={c.unread ? 'unread' : undefined} disabled={!c.with.username} onClick={() => c.with.username && onOpen(c.with.username)}>
           <Face person={c.with} />
