@@ -21,7 +21,8 @@
     "validate": "node --disable-warning=ExperimentalWarning scripts/validate.ts",
     "test": "node --disable-warning=ExperimentalWarning --test \"scripts/*.test.ts\"",
     "test:phone": "node --disable-warning=ExperimentalWarning --test scripts/phone.check.ts",
-    "images": "node --disable-warning=ExperimentalWarning scripts/images.ts"
+    "images": "node --disable-warning=ExperimentalWarning scripts/images.ts",
+    "check:excerpts": "node --disable-warning=ExperimentalWarning scripts/check-excerpts.ts"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.9",
