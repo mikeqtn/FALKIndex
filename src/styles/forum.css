@@ -420,6 +420,13 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-edit { display: grid; gap: 4px; width: 100%; }
 .f-dm-edit textarea { width: 100%; padding: 8px 12px; background: var(--c-page); border: 1px solid var(--c-ink-2); border-radius: 14px; font: 400 15px/21px var(--f-serif); resize: none; }
 .f-dm-edit .f-dm-actions { justify-content: flex-end; }
+/* A question about the conversation, such as whether to block someone, laid over its top edge. */
+.f-dm-banner { display: grid; flex: none; gap: var(--s-2); padding: var(--s-3) var(--s-4); background: var(--c-surface); border-bottom: var(--edge); border-left: 3px solid var(--c-action); font-size: 14px; line-height: 20px; }
+.f-dm-banner-title { font-weight: 650; }
+.f-dm-banner-actions { display: flex; gap: var(--s-2); }
+.f-dm-banner .account-button { min-height: 36px; padding: 0 14px; font-size: 14px; }
+@media (prefers-reduced-motion: no-preference) { .f-dm-banner { animation: f-dm-banner-in var(--d-open) var(--ease); } }
+@keyframes f-dm-banner-in { from { opacity: 0; transform: translateY(-8px); } }
 .f-dm-refusal { flex: none; padding: var(--s-3) var(--s-4); border-top: var(--edge); color: var(--c-ink-2); font-size: 14px; }
 /* The composer: the message box, add images and Send on one row, all one control high and lined up along the bottom
    as the box grows; images waiting to be sent sit on their own row above. --dm-control is that height. */
@@ -448,5 +455,6 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
   .f-dm-people li { min-height: 52px; }
   .f-dm-text-button, .f-dm-icon { min-width: 44px; min-height: 44px; }
   .f-dm-actions button { min-height: 36px; }
+  .f-dm-banner .account-button { min-height: 44px; }
   .f-dm-attached button { width: 28px; height: 28px; }
 }
