@@ -125,7 +125,27 @@ test('threads list, read, link to records and are found by search', () => member
   assert.deepEqual(detail.posts.map(p => p.body), ['Asking about case suppliers.', 'Mostly specialist case makers.']);
 }));
 
-test('a reply notifies the thread author, and a locked thread takes only moderators', () => members(async (db, m) => {
+test('search shows the matching comment, on the page it is on, and ranks titles first', () => members(async (db, m) => {
+  const { thread:titled } = await createThread(m.alice, { ...thread, title:'Tourbillon questions' }, db);
+  const { thread:id } = await createThread(m.alice, thread, db);
+  // Fill page 1 with top-level posts, then nest the match under a post on page 2.
+  for (let i = 1; i < POSTS_PAGE; i++) await db.query('INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,$3)', [id, m.bob, `Filler ${i}`]);
+  const parent = (await db.query("INSERT INTO falk_forum_post(thread_id,author_id,body) VALUES($1,$2,'Page two') RETURNING id", [id, m.bob])).rows[0].id;
+  const hit = (await db.query("INSERT INTO falk_forum_post(thread_id,author_id,body,parent_id,depth) VALUES($1,$2,'A <b>tourbillon</b> rarely pays for itself.',$3,1) RETURNING id", [id, m.bob, parent])).rows[0].id;
+  const results = await searchForum('tourbillon', db);
+  assert.deepEqual(results.map(t => t.id), [titled, id], 'title match first');
+  assert.equal(results[0].match, null, 'a title-only match has no snippet');
+  const { match } = results[1];
+  assert.equal(match?.postId, hit);
+  assert.equal(match?.page, 2);
+  assert.ok(match?.author.username);
+  assert.deepEqual(match?.snippet.filter(s => s.mark).map(s => s.text), ['tourbillon']);
+  assert.equal(match?.snippet.map(s => s.text).join(''), 'A tourbillon rarely pays for itself.', 'plain text, without tag-like markup');
+  await db.query("UPDATE falk_forum_post SET hidden_at=now(),hidden_by=$2,hidden_reason='Spam' WHERE id=$1", [hit, m.editor]);
+  assert.deepEqual((await searchForum('tourbillon', db)).map(t => t.id), [titled], 'a hidden post is never shown');
+}));
+
+test('a reply notifies the thread author, and a locked thread takes only moderators',() => members(async (db, m) => {
   const { thread:id } = await createThread(m.alice, thread, db);
   await reply(m.bob, id, { body:'First reply.' }, db);
   await reply(m.editor, id, { body:'Second reply.' }, db);

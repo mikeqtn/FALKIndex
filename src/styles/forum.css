@@ -149,6 +149,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-thread-title { font: 600 17px/23px var(--f-sans); font-stretch: 92%; letter-spacing: -0.008em; overflow-wrap: anywhere; }
 .f-thread-title:hover { text-decoration: none; }
 .f-thread-meta { margin-top: 3px; color: var(--c-ink-2); font-size: 14px; line-height: 20px; }
+.f-thread-hit { margin-top: var(--s-2); color: var(--c-ink-2); font-size: 14px; line-height: 20px; overflow-wrap: anywhere; }
+.f-thread-hit a { color: inherit; text-decoration: none; }
+.f-thread-hit a:hover { text-decoration: underline; }
+.f-thread-hit mark { background: none; color: var(--c-ink); font-weight: 600; }
 .f-thread-record { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-3); color: var(--c-ink-2); font-size: 14px; line-height: 20px; }
 .f-pill { display: inline-flex; flex: none; align-items: center; height: 22px; margin-left: 8px; padding: 0 8px; vertical-align: 2px; background: var(--c-surface-sunk); color: var(--c-ink); border-radius: 4px; font: 500 12px/22px var(--f-sans); white-space: nowrap; }
 .f-pill.quiet { color: var(--c-ink-2); }

@@ -1,9 +1,9 @@
 ---
-import type { recordThreads } from '../../../server/forum.ts';
+import type { recordThreads, searchForum } from '../../../server/forum.ts';
 import CompactStrip from '../CompactStrip.astro';
 import { getCatalogue } from '../../lib/data.ts';
 import { forumDate, forumPath, siteHref } from '../../lib/forum.ts';
-type Thread = Awaited<ReturnType<typeof recordThreads>>[number] & { categoryName?: string, recentReplies?: number };
+type Thread = Awaited<ReturnType<typeof recordThreads>>[number] & { categoryName?: string, recentReplies?: number, match?: Awaited<ReturnType<typeof searchForum>>[number]['match'] };
 interface Props { threads: Thread[]; empty: string; heading?: string; hideRecord?: boolean; showCategory?: boolean }
 const { threads, empty, heading = 'Threads', hideRecord = false, showCategory = false } = Astro.props;
 const { records } = await getCatalogue(Astro.locals);
@@ -23,6 +23,10 @@ const { records } = await getCatalogue(Astro.locals);
           {showCategory && t.categoryName && <> in <a href={forumPath(`/${t.category}/`)}>{t.categoryName}</a></>}
           {t.recentReplies && <> · {t.recentReplies} recent {t.recentReplies === 1 ? 'reply' : 'replies'}</>}
         </p>
+        {t.match && <p class="f-thread-hit">
+          <a href={forumPath(`/t/${t.id}${t.match.page > 1 ? `?page=${t.match.page}` : ''}#p-${t.match.postId}`)}>{t.match.snippet.map(s => s.mark ? <mark>{s.text}</mark> : s.text)}</a>
+          <span> · {t.match.author.displayName}</span>
+        </p>}
         {record && <p class="f-thread-record">
           <CompactStrip scores={record.profile.scores} />
           <a href={forumPath(`/records/${record.id}/`)}>{record.brandName} {record.model}</a>

@@ -175,13 +175,42 @@ export async function recordThreads(watchId: string, db: Queryable = pool) {
   return rows.rows.map(threadFrom);
 }
 
-/** Threads whose title or any visible post matches, newest activity first. */
+// ts_headline marks matches with these; they are removed from the text first, so every one is a real mark.
+const MARK = '', UNMARK = '';
+/** Splits ts_headline output into plain text pieces, for the page to escape. ts_headline drops tag-like text such as <b>, leaving spaces. */
+const snippetParts = (headline: string) => headline.replace(/\s+/g,' ').trim().split(MARK).flatMap((part, i) => {
+  if (!i) return [{ text:part, mark:false }];
+  const [marked, rest = ''] = part.split(UNMARK);
+  return [{ text:marked, mark:true }, { text:rest, mark:false }];
+}).filter(p => p.text);
+
+/** Threads whose title or any visible post matches: title matches first, then by relevance. Each carries its best-matching
+ * visible post, if any, with a snippet and the thread page it is on (pages count top-level posts, as threadDetail does). */
+// ponytail: ranks every matching thread before the limit, fine at forum scale; precompute a best-post table if it slows.
+// The snippet and page are worked out only for the threads shown, since ts_headline re-reads the whole post.
 export async function searchForum(q: string, db: Queryable = pool) {
-  const rows = await db.query(`SELECT ${threadColumns} ${threadJoins}, websearch_to_tsquery('english',$1) AS q
-    WHERE t.hidden_at IS NULL AND (t.search @@ q OR EXISTS(SELECT 1 FROM falk_forum_post p
-      WHERE p.thread_id=t.id AND p.hidden_at IS NULL AND p.search @@ q))
-    ORDER BY t.last_post_at DESC,t.id LIMIT ${THREADS_PAGE}`, [q]);
-  return rows.rows.map(threadFrom);
+  const rows = await db.query(`WITH q AS (SELECT websearch_to_tsquery('english',$1) AS q), top AS (
+      SELECT ${threadColumns},t.search @@ q AS title_hit,greatest(ts_rank(t.search,q),coalesce(h.rank,0)) AS score,
+        h.id AS hit_id,h.body AS hit_body,h.username AS hit_username,h.display_name AS hit_display_name,h.image_url AS hit_image_url
+      ${threadJoins} CROSS JOIN q
+      LEFT JOIN LATERAL (SELECT p.id,p.body,ts_rank(p.search,q) AS rank,ha.username,hm.display_name,hm.image_url
+        FROM falk_forum_post p JOIN falk_account ha ON ha.id=p.author_id LEFT JOIN falk_member_profile hm ON hm.account_id=ha.id
+        WHERE p.thread_id=t.id AND p.hidden_at IS NULL AND p.search @@ q ORDER BY rank DESC,p.created_at,p.id LIMIT 1) h ON true
+      WHERE t.hidden_at IS NULL AND (t.search @@ q OR h.id IS NOT NULL)
+      ORDER BY title_hit DESC,score DESC,t.last_post_at DESC,t.id LIMIT ${THREADS_PAGE})
+    SELECT top.*,CASE WHEN hit_id IS NOT NULL THEN ts_headline('english',translate(hit_body,$2,''),q,$3) END AS headline,
+      (SELECT count(*)::int FROM falk_forum_post r JOIN falk_forum_post root ON root.id=hp.root
+        WHERE r.thread_id=top.id AND r.parent_id IS NULL AND (r.created_at,r.id)<(root.created_at,root.id)) / ${POSTS_PAGE} + 1 AS hit_page
+    FROM top CROSS JOIN q
+    LEFT JOIN LATERAL (WITH RECURSIVE up AS (SELECT p.id,p.parent_id FROM falk_forum_post p WHERE p.id=top.hit_id
+        UNION ALL SELECT p.id,p.parent_id FROM falk_forum_post p JOIN up ON p.id=up.parent_id)
+      SELECT id AS root FROM up WHERE parent_id IS NULL) hp ON true
+    ORDER BY title_hit DESC,score DESC,last_post_at DESC,id`,
+    [q, MARK+UNMARK, `StartSel=${MARK},StopSel=${UNMARK},MaxWords=30,MinWords=12,ShortWord=2`]);
+  return rows.rows.map(r => ({ ...threadFrom(r), match:r.hit_id ? {
+    postId:r.hit_id as string, page:r.hit_page as number, snippet:snippetParts(r.headline as string),
+    author:authorFrom({ username:r.hit_username, display_name:r.hit_display_name, image_url:r.hit_image_url }),
+  } : null }));
 }
 
 // Spam pays through links and volume, so a new member gets neither until they have a little history. A post a
