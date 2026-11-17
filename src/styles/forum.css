@@ -323,7 +323,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 /* Messages: a bar fixed to the bottom-right corner that opens into a chat panel in the same place
    (MessagesDock.tsx). Raised on the page's own surfaces, with ruby kept for unread counts and what you send. */
-.f-dm-bar, .f-dm-panel { position: fixed; z-index: 9; right: var(--pad); bottom: 0; width: 320px; background: var(--c-surface-2); color: var(--c-ink); border: var(--edge); border-bottom: 0; border-radius: var(--r-plate) var(--r-plate) 0 0; box-shadow: 0 -2px 16px color-mix(in srgb, var(--c-ink) 12%, transparent); }
+.f-dm-bar, .f-dm-panel { position: fixed; z-index: 9; right: var(--pad); bottom: 0; width: 320px; background: var(--c-surface-2); color: var(--c-ink); border: var(--edge); border-bottom: 0; border-radius: var(--r-plate) var(--r-plate) 0 0; }
 .f-dm-bar, .f-dm-head { display: flex; align-items: center; gap: var(--s-3); width: 100%; min-height: 48px; padding: 0 var(--s-4); background: none; border: 0; font: 600 15px/1 var(--f-sans); text-align: left; cursor: pointer; }
 .f-dm-bar { width: 320px; background: var(--c-surface-2); border: var(--edge); border-bottom: 0; }
 .f-dm-bar:hover, .f-dm-head:hover { color: var(--c-action); }
@@ -346,7 +346,12 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .f-dm-empty { padding: var(--s-5) var(--s-4); color: var(--c-ink-2); font-size: 14px; text-align: center; }
 .f-dm-error { margin: var(--s-2) var(--s-3); font-size: 14px; }
-.f-dm-start { display: flex; flex: none; gap: var(--s-2); padding: var(--s-3); border-bottom: var(--edge); }
+.f-dm-start { position: relative; display: flex; flex: none; flex-wrap: wrap; gap: var(--s-2); padding: var(--s-3); border-bottom: var(--edge); }
+/* Members matching the Message box, laid over the conversation list just below it. */
+.f-dm-people { position: absolute; z-index: 1; top: calc(100% - 4px); left: var(--s-3); right: var(--s-3); margin: 0; padding: 4px 0; list-style: none; background: var(--c-surface-2); border: var(--edge); border-radius: var(--r-control); }
+.f-dm-people li { display: flex; align-items: center; gap: var(--s-3); min-height: 48px; padding: 6px 12px; cursor: pointer; }
+.f-dm-people li:hover, .f-dm-people [aria-selected="true"] { background: var(--c-surface); }
+.f-dm-note { flex-basis: 100%; color: var(--c-ink-2); font-size: 13px; }
 .f-dm-start input { flex: 1; min-width: 0; min-height: 40px; padding: 0 12px; background: var(--c-page); border: 1px solid transparent; border-radius: var(--r-control); font-size: 15px; }
 .f-dm-start input:hover { border-color: var(--c-ink-2); }
 .f-dm-start .account-button { min-height: 40px; padding: 0 14px; font-size: 14px; }
@@ -382,8 +387,9 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
 @media (max-width: 899px) {
   .f-dm-bar { right: var(--pad); width: auto; min-width: 180px; }
   /* On a phone the open panel takes the screen below the top bar, like the menu. */
-  .f-dm-panel { inset: var(--top) 0 0; width: auto; height: auto; border: 0; border-radius: 0; box-shadow: none; }
+  .f-dm-panel { inset: var(--top) 0 0; width: auto; height: auto; border: 0; border-radius: 0; }
   .f-dm-start input, .f-dm-compose textarea { font-size: 16px; }
   .f-dm-list button { min-height: 68px; }
+  .f-dm-people li { min-height: 52px; }
   .f-dm-text-button, .f-dm-icon { min-width: 44px; min-height: 44px; }
 }

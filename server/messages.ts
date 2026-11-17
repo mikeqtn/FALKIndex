@@ -17,6 +17,8 @@ export const NEW_MEMBER_CONVERSATIONS_PER_HOUR = 3;
 export const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/, 'Enter a username.');
 export const messageInput = z.object({ body:z.string().trim().min(1,'Write something first.').max(2000) }).strict();
 export const blockInput = z.object({ blocked:z.boolean() }).strict();
+export const peopleQuery = z.object({ q:z.string().trim().min(1).max(60) });
+export const PEOPLE_SUGGESTIONS = 6;
 
 type Other = { id: string, status: string, deleted: boolean, username: string, display_name: string, image_url: string };
 
@@ -58,6 +60,28 @@ export async function inbox(actorId: string, db: PoolClient) {
     id:r.id as string, with:authorFrom(r), blocked:r.blocked as boolean, unread:r.unread as boolean,
     last:{ body:(r.body as string).slice(0,140), mine:r.mine as boolean, createdAt:r.created_at.toISOString() as string },
   })) };
+}
+
+/**
+ * Members to message as someone types: a username starting with the text, or a display name with a word starting with
+ * it. People I already have a conversation with come first, most recent first, so typing a name I have messaged finds
+ * that conversation. Only members who could be messaged are offered, and never me.
+ */
+export async function suggestPeople(actorId: string, q: string, db: PoolClient) {
+  const me = await actor(db,actorId);
+  const text = q.replace(/^@/, '').trim().toLowerCase();
+  if (!text) return [];
+  // LIKE treats % _ and \ as patterns (and usernames have underscores); escape them so they match as typed.
+  const like = text.replace(/[\\%_]/g, c => `\\${c}`);
+  const rows = await db.query(`SELECT ${authorColumns('a','m')},c.last_message_at IS NOT NULL AS talked
+    FROM falk_account a LEFT JOIN falk_member_profile m ON m.account_id=a.id
+    LEFT JOIN falk_forum_conversation c ON (c.member_a=$1 AND c.member_b=a.id) OR (c.member_b=$1 AND c.member_a=a.id)
+    WHERE a.realm=$2 AND a.id<>$1 AND a.username IS NOT NULL AND a.status='active' AND a.deleted_at IS NULL
+      AND (a.username LIKE $3||'%' OR lower(m.display_name) LIKE $3||'%' OR lower(m.display_name) LIKE '% '||$3||'%')
+      AND NOT EXISTS(SELECT 1 FROM falk_forum_block b WHERE b.blocker_id=a.id AND b.blocked_id=$1)
+    ORDER BY c.last_message_at DESC NULLS LAST,a.username=$4 DESC,a.username
+    LIMIT ${PEOPLE_SUGGESTIONS}`, [me.id,realm(),like,text]);
+  return rows.rows.map(r => ({ ...authorFrom(r), username:r.username as string, talked:r.talked as boolean }));
 }
 
 /** My conversation with a member, its latest messages oldest first, and whether I can write to them. */
@@ -122,6 +146,10 @@ const messages = Router();
 messages.get('/', async (req,res) => {
   const id = await member(req);
   res.json(await write(db => inbox(id,db)));
+});
+messages.get('/people', async (req,res) => {
+  const id = await member(req), { q } = peopleQuery.parse(req.query);
+  res.json({ people:await write(db => suggestPeople(id,q,db)) });
 });
 messages.get('/with/:username', async (req,res) => {
   const id = await member(req), name = username.parse(req.params.username);
