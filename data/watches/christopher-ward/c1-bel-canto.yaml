@@ -98,6 +98,65 @@ claims:
       - DH
     date_checked: 2026-10-21
     editor: falk-index
+  - id: cwbc-all-watches-biel
+    statement: A 2024 Time Files article, written after a visit to Christopher Ward in Biel, says all of the brand's watches have been produced in Switzerland under a single roof since the merger with Synergies Horlogères.
+    excerpt: All Ward watches have since been produced here in Switzerland, under a single roof.
+    source: timefiles-cw-swiss-side
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-hand-finishing-artisans
+    statement: Christopher Ward's Bel Canto product page says the polishing of the hammer, spring and bridges is done by hand under a microscope by Swiss artisans, without naming them or saying where.
+    excerpt: Crafted by hand (under microscope) by some of Switzerland’s finest artisans, finishing of this standard is usually the preserve of only the most exclusive and expensive brands
+    source: cw-c1-bel-canto-product
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-titanium-case-sound
+    statement: The same product page says the Bel Canto case is the first Christopher Ward case in Grade 5 titanium, chosen and internally designed to amplify the chime; it does not name the case maker.
+    excerpt: The first CW case made from Grade 5 titanium, the metal – which is denser than steel – has been chosen for its ability to amplify sound
+    source: cw-c1-bel-canto-product
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-bridges-hammer-hand
+    statement: A 2024 Time Files article quotes product head Jörg Bader Jr saying the Bel Canto's three bridges and hammer are finished by hand; it does not say by whom.
+    excerpt: The three bridges and the hammer are finished by hand
+    source: timefiles-cw-swiss-side
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-paoluzzo-polishers
+    statement: A 2025 Europa Star article says that, after the Bel Canto strained its supply chain, Christopher Ward took a stake in the CNC machining workshop Paoluzzo and recruited polishers in Biel; it does not say which parts or models this covers.
+    excerpt: Christopher Ward invested in vertical integration by acquiring a stake in Paoluzzo, a CNC machining workshop, as well as recruiting polishers and strengthening quality control in Biel
+    source: europastar-cw-transformation
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-classic-guilloche-partner
+    statement: A 2026 Manufacturing Today interview says Christopher Ward worked with a Swiss partner to develop the femto-laser guilloché finish on the Bel Canto Classic; the partner is not named.
+    excerpt: the company worked with a Swiss partner to develop a laser-cut finish that replicates the result at a fraction of the cost and labor
+    source: manufacturingtoday-cw
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: cwbc-gong-test-bench
+    statement: A 2025 BFH (Bern University of Applied Sciences) article says a student built a test bench for Christopher Ward that records the Bel Canto's gongs to harmonise them before casing.
+    excerpt: Pour harmoniser les timbres avant le montage du boitier, un étudiant a développé un banc d’essai qui les enregistre à l’aide d’un microphone
+    source: bfh-cw-industry-fellow
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base movement (Sellita SW200-1)
@@ -143,30 +202,48 @@ provenance:
   - dimension: EX
     component: Titanium case
     relationship: unknown
-    note: Case maker not named; WatchTime says the brand uses several external component suppliers.
+    note: Case maker not named. Christopher Ward says the Grade 5 titanium case was designed to amplify the chime; WatchTime (2016) says the brand uses several external component suppliers, and Europa Star (2025) says it took a stake in the CNC workshop Paoluzzo, without tying it to this case.
     claims:
       - cwbc-case
       - cwbc-external-suppliers
+      - cwbc-titanium-case-sound
+      - cwbc-paoluzzo-polishers
   - dimension: DH
     component: Openworked dial-side elements
     performer: chronode
     relationship: external_specialist
     claims:
       - cwbc-chronode-dialside
+  - dimension: DH
+    component: Laser guilloché platine (Bel Canto Classic)
+    relationship: unknown
+    note: Developed with an unnamed Swiss partner; who runs the laser work is not stated.
+    claims:
+      - cwbc-classic-guilloche-partner
   - dimension: CF
     component: Graining and anglage of dial-side parts
     performer: chronode
     relationship: external_specialist
     claims:
       - cwbc-chronode-dialside
+  - dimension: CF
+    component: Hand polishing of hammer, gong spring and bridges
+    relationship: unknown
+    note: Christopher Ward says the polishing is done by hand by Swiss artisans, and Jörg Bader Jr says the bridges and hammer are hand-finished; neither says whether this happens in Biel or at a supplier. Europa Star (2025) reports the brand recruited polishers in Biel, without naming parts.
+    claims:
+      - cwbc-hand-finishing-artisans
+      - cwbc-bridges-hammer-hand
+      - cwbc-paoluzzo-polishers
   - dimension: WE
     component: Assembly and quality control
     performer: synergies-horlogeres
     relationship: in_group
-    note: WatchTime (2016) describes Synergies Horlogères in Biel assembling Christopher Ward's more complicated mechanical models; no source names the Bel Canto's assembler specifically.
+    note: Time Files (2024) says all Christopher Ward watches are produced under a single roof in Biel, at the former Synergies Horlogères merged into the brand. WatchTime (2016) describes Synergies assembling the more complicated models. A BFH test bench is used to harmonise the gongs before casing.
     claims:
       - cwbc-synergies
       - cwbc-swiss-assembly
+      - cwbc-all-watches-biel
+      - cwbc-gong-test-bench
   - dimension: PD
     component: Design and technical development
     performer: christopher-ward
@@ -174,6 +251,7 @@ provenance:
     claims:
       - cwbc-fs01-stelzer
       - cwbc-designer
+      - cwbc-titanium-case-sound
 profiles:
   - version: 1
     methodology: v0.2
@@ -207,7 +285,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 1 \u2192 0; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 3 \u2192 2; PD 5 \u2192 4; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -285,6 +363,88 @@ profiles:
           - claim: cwbc-designer
             stance: supports
             note: In-house dial design.
+    classification:
+      - design_led_etablisseur
+      - watchmaking_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Christopher Ward's C1 Bel Canto product page, a 2024 Time Files visit, a 2025 Europa Star interview, a 2026 Manufacturing Today interview and a 2025 BFH article. No score changes from version 2: the new sources describe hand finishing, the titanium case and the Bel Canto Classic guilloché, but none says who makes the case, dial or hands or where the finishing is done. Confidence stays C. Three of seven dimensions remain U (EX, DH, CF)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 3
+        rationale: Technical director Frank Stelzer designed the FS01 chiming module, extending the JJ01 jump-hour module with 50 new components on a Sellita SW200-1 base. That is heavy re-engineering on a supplier base, not a proprietary calibre.
+        evidence:
+          - claim: cwbc-fs01-stelzer
+            stance: supports
+            note: In-house module design.
+          - claim: cwbc-50-components
+            stance: supports
+            note: 50 new components.
+          - claim: cwbc-sw200-base
+            stance: supports
+            note: Sellita base.
+      MM:
+        value: 0
+        rationale: The main plate is made by Armin Strom, bridges, hammer and gong by Chronode, special wheels by Viquodeco, and the base by Sellita. No movement part is documented as internal.
+        evidence:
+          - claim: cwbc-suppliers-list
+            stance: supports
+            note: Named suppliers.
+          - claim: cwbc-armin-strom-platine
+            stance: supports
+            note: External main plate.
+          - claim: cwbc-chronode-dialside
+            stance: supports
+            note: External bridges.
+          - claim: cwbc-sw200-base
+            stance: supports
+            note: External base.
+      EX:
+        value: null
+        rationale: Christopher Ward says the Grade 5 titanium case was chosen and designed to amplify the chime (cwbc-titanium-case-sound), which is design work, not manufacture. Europa Star reports a stake in the CNC workshop Paoluzzo (cwbc-paoluzzo-polishers), but no source says it makes this case, so EX stays U.
+        evidence: []
+      DH:
+        value: null
+        rationale: The openworked dial-side elements are Chronode's (cwbc-chronode-dialside), and the Bel Canto Classic's laser guilloché was developed with an unnamed Swiss partner (cwbc-classic-guilloche-partner). No source covers the hands, so this stays U rather than 0.
+        evidence: []
+      CF:
+        value: null
+        rationale: Christopher Ward and Jörg Bader Jr say the hammer, spring and bridges are hand-finished by Swiss artisans (cwbc-hand-finishing-artisans, cwbc-bridges-hammer-hand), and Chronode does the dial-side graining and anglage. Europa Star says the brand recruited polishers in Biel (cwbc-paoluzzo-polishers), but no source says the Bel Canto finishing is done there. External work does not count, and internal work is not shown, so CF stays U.
+        evidence: []
+      WE:
+        value: 2
+        rationale: Time Files reports that all Christopher Ward watches are produced under one roof in Biel (cwbc-all-watches-biel), at the former Synergies Horlogères, which WatchTime describes assembling the more complicated models. A BFH test bench harmonises the gongs before casing (cwbc-gong-test-bench), but no claim describes movement regulation or adjustment by the brand, so not 3. Borderline with 3.
+        evidence:
+          - claim: cwbc-all-watches-biel
+            stance: supports
+            note: Universal statement that every watch is produced in Biel.
+          - claim: cwbc-swiss-assembly
+            stance: supports
+            note: Assembly of complicated models.
+          - claim: cwbc-synergies
+            stance: supports
+            note: In-group workshop.
+          - claim: cwbc-gong-test-bench
+            stance: context
+            note: Gong tuning before casing; regulation not described.
+      PD:
+        value: 4
+        rationale: The brand engineered a chiming module on a Sellita base, directed four named specialist suppliers, designed the dial and designed the titanium case for sound. Extensive original development; not 5, as the base architecture is a supplier's.
+        evidence:
+          - claim: cwbc-fs01-stelzer
+            stance: supports
+            note: In-house module.
+          - claim: cwbc-designer
+            stance: supports
+            note: In-house dial design.
+          - claim: cwbc-titanium-case-sound
+            stance: supports
+            note: Case designed for acoustics.
     classification:
       - design_led_etablisseur
       - watchmaking_atelier

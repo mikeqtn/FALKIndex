@@ -123,6 +123,156 @@ claims:
       - WE
     date_checked: 2026-10-21
     editor: falk-index
+  - id: tbb58-tudor-assembled-tested
+    statement: Tudor states that every Tudor watch is assembled and fully tested at its watch manufacture in Le Locle.
+    excerpt: "Every TUDOR watch is assembled and fully tested to TUDOR’s superior standards and at the brand’s watch Manufacture located in Le Locle, Switzerland."
+    source: tudor-watch-manufacture-page
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-tudor-owned-affiliates
+    statement: Tudor states that with Kenissi and a network of Tudor-owned affiliates it has integrated the development and production of its mechanical calibres.
+    excerpt: With Kenissi and a network of TUDOR-owned affiliates, the brand has been able to integrate the development and production of high-performance mechanical calibers.
+    source: tudor-watch-manufacture-page
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-only-assembly
+    statement: A 2023 factory-visit report says only assembly and quality control are performed at the Tudor manufacture, which relies on components from a network of suppliers.
+    excerpt: Only assembly and quality control at performed at the manufacture, which relies on components from a network of suppliers mostly located in the Vallee de Joux.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - EX
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-owns-supply-chain
+    statement: The same report quotes a Tudor executive saying Tudor owns the majority of its supply chain, including at least one supplier for each category of components; it does not name which suppliers.
+    excerpt: A Tudor executive revealed that Tudor owns majority of its supply chain, including at least one supplier for each category of components
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-rolex-cases-history
+    statement: The same report says Tudor historically relied on Rolex cases and outsourced movements; it does not say when that ended.
+    excerpt: Historically the brand relied on Rolex cases and outsourced movements, and operated from several floors inside the Rolex campus in Geneva.
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-industrial-production
+    statement: The same report describes the Tudor manufacture as industrial production, with movements assembled by hand.
+    excerpt: "Make no mistake, the manufacture is all about industrial production – although movements are assembled by hand"
+    source: tudor-sjx-le-locle-2023
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-habillage-partners
+    statement: A 2026 specialist report says Tudor has strategic partners for all external components (the habillage), separate from the movement ecosystem.
+    excerpt: Alongside the ecosystem linked to the movements we just discussed, Tudor has also identified strategic partners for all external components
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-partners-other-brands
+    statement: The same report says the habillage suppliers it visited work with other brands and have built strong partnerships with Tudor.
+    excerpt: These visits allowed us to discover suppliers who work with different brands in the watch industry but have built particularly strong partnerships with Tudor.
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-no-shared-lines
+    statement: The same report says Tudor and Rolex do not share production lines for key components.
+    excerpt: There is no broad industrial synergy in the sense of shared production lines for key components.
+    source: tudor-monochrome-kenissi-ecosystem
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-case-blanks-joseph-baume
+    statement: A 2026 supplier-tour report says Joseph Baume produces Tudor's case blanks.
+    excerpt: "Joseph Baume, the company tasked with producing Tudor’s case blanks"
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-cases-orolux-finishing
+    statement: The same report says the case blanks go to Orolux, which mills and finishes the cases before they are shipped to Tudor's manufacture in Le Locle.
+    excerpt: These case blanks then go across the road to Orolux.
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-case-edges-by-hand
+    statement: The same report says the final case finishing step at Orolux, mostly removing sharp edges, is done by hand.
+    excerpt: The final touch (mostly removing any sharp edges) is done by hand.
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-bracelets-detech
+    statement: The same report says Detech manufactures Tudor's bracelets and clasp components.
+    excerpt: "Our final stop for the first day of our tour was Detech, which manufactures Tudor’s bracelets and clasp components."
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-dials-montremo-supplier
+    statement: The same report calls Montremo, in La Chaux-de-Fonds, Tudor's dial supplier.
+    excerpt: "The second day of our tour began in La Chaux-de-Fonds at Montremo, Tudor’s dial supplier."
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-dials-hands-attached
+    statement: The same report says dials and hands are attached and the certified movements cased by hand on the Tudor side of the Le Locle building.
+    excerpt: Here, dials and hands are attached, and the now-certified movements are cased by hand.
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - DH
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-emp-decoration
+    statement: The same report says EMP, a Tudor subsidiary making movement blanks, also sandblasts, diamond-bevels and laser-engraves those parts.
+    excerpt: EMP also handles the sandblasting, diamond beveling, and laser engraving of these parts before sending them to a partner company for galvanization.
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-silicon-elsewhere
+    statement: The same report says Tudor's hairsprings are now all silicon and are therefore produced outside Kenitec.
+    excerpt: This provides exceptional antimagnetism, but it also means that they are produced elsewhere.
+    source: tudor-fratello-suppliers-2026
+    dimensions:
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: tbb58-buys-cases
+    statement: A 2022 article says Tudor today buys watch cases and other components from Swiss suppliers, which has not always been so.
+    excerpt: Today (though it hasn't always), Tudor buys watch cases and other components from Swiss suppliers.
+    source: tudor-gearpatrol-rolex-vs-tudor-2022
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre MT5402 architecture and development
@@ -140,6 +290,7 @@ provenance:
       - tbb58-kenissi-all
       - tbb58-kenissi-assembly
       - tbb58-kenissi-founded
+      - tbb58-tudor-owned-affiliates
   - dimension: MM
     component: Movement blanks, oscillators and stamped parts
     performer: kenissi
@@ -150,43 +301,77 @@ provenance:
   - dimension: MM
     component: Silicon balance spring
     relationship: unknown
-    note: Monochrome (2026) says silicon parts come from an external Swiss specialist; SJX (2023) says Tudor uses two specialists and owns one. Which supplies the MT5402 is not stated.
+    note: Monochrome (2026) says silicon parts come from an external Swiss specialist; SJX (2023) says Tudor uses two specialists and owns one; Fratello (2026) says silicon hairsprings are produced outside Kenitec. Which supplies the MT5402 is not stated.
     claims:
       - tbb58-silicon-cosc
       - tbb58-silicon-supplier
       - tbb58-silicon-two-specialists
+      - tbb58-silicon-elsewhere
+  - dimension: EX
+    component: Case blank (39 mm steel)
+    performer: joseph-baume
+    relationship: external_specialist
+    note: Fratello (2026) says Joseph Baume produces Tudor's case blanks, stated for Tudor generally rather than this model. Monochrome describes the habillage suppliers as external partners who also work for other brands.
+    claims:
+      - tbb58-case-blanks-joseph-baume
+      - tbb58-habillage-partners
+      - tbb58-partners-other-brands
   - dimension: EX
     component: Case (39 mm steel)
     performer: orolux
     relationship: external_specialist
-    note: Orolux and Joseph Baume are named as Tudor case and case-blank suppliers, but not tied to the Black Bay 58 specifically.
+    note: Orolux mills and finishes Tudor cases from the Joseph Baume blanks and ships them to Le Locle (Fratello 2026); stated for Tudor generally, not this model. SJX (2023) says Tudor historically used Rolex cases (in-group) without dating the change; Gear Patrol (2022) says Tudor now buys cases from Swiss suppliers. Which route supplied the earliest Black Bay 58 cases (from 2018) is not stated.
     claims:
       - tbb58-case-39
       - tbb58-cases-orolux
+      - tbb58-cases-orolux-finishing
+      - tbb58-buys-cases
+      - tbb58-rolex-cases-history
   - dimension: EX
     component: Bracelet and clasp components
     performer: detech
     relationship: external_specialist
-    note: Detech makes bracelet and clasp components; bracelet assembler not stated.
+    note: Monochrome says Detech makes bracelet and clasp components; Fratello (2026) says Detech manufactures Tudor's bracelets and clasp components. Bracelets are fitted at Tudor in Le Locle.
     claims:
       - tbb58-bracelet-detech
+      - tbb58-bracelets-detech
   - dimension: DH
     component: Dial
     performer: montremo
     relationship: external_specialist
-    note: Montremo is named as a Tudor dial supplier, not tied to this model specifically.
+    note: Montremo is named as Tudor's dial supplier (Fratello 2026, Monochrome 2026), stated for Tudor generally rather than this model.
     claims:
       - tbb58-dials-montremo
+      - tbb58-dials-montremo-supplier
   - dimension: DH
     component: Hands
     relationship: unknown
-    note: No source names the hand maker.
-    claims: []
+    note: No source names the hand maker. SJX (2023) says only assembly and quality control take place at the Tudor manufacture, and Fratello (2026) says hands are attached there, so the hands are made elsewhere; whether by an external supplier or a Tudor-owned one is not stated.
+    claims:
+      - tbb58-only-assembly
+      - tbb58-dials-hands-attached
   - dimension: CF
-    component: Movement and case finishing
-    relationship: unknown
-    note: No source describes who finishes MT5402 components or cases.
-    claims: []
+    component: Case finishing
+    performer: orolux
+    relationship: external_specialist
+    note: Fratello (2026) says Orolux finishes Tudor cases by machine, with the final edge work done by hand; stated for Tudor generally.
+    claims:
+      - tbb58-case-edges-by-hand
+  - dimension: CF
+    component: Movement part decoration (blanks)
+    performer: kenissi
+    relationship: in_group
+    note: Fratello (2026) says EMP, in the Kenissi holding, sandblasts, diamond-bevels and laser-engraves movement blanks; stated for Kenissi movements generally, not the MT5402 by name. An industrial process, not described as handwork.
+    claims:
+      - tbb58-emp-decoration
+  - dimension: CF
+    component: Craft at the Tudor manufacture
+    performer: tudor
+    relationship: internal
+    note: SJX (2023) says only assembly and quality control are performed at the Tudor manufacture and calls it industrial production; no internal artisanal operation is described.
+    claims:
+      - tbb58-only-assembly
+      - tbb58-industrial-production
   - dimension: WE
     component: Watch assembly, testing and COSC certification
     performer: tudor
@@ -195,6 +380,8 @@ provenance:
     claims:
       - tbb58-watch-assembly
       - tbb58-silicon-cosc
+      - tbb58-tudor-assembled-tested
+      - tbb58-dials-hands-attached
   - dimension: PD
     component: Product design and movement development
     performer: tudor
@@ -234,7 +421,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: MM 3 \u2192 4; EX 2 \u2192 U; DH 2 \u2192 U; CF 1 \u2192 U; WE 5 \u2192 3; confidence A \u2192 C. Claim tbb58-kenissi-all is superseded by tbb58-kenissi-all-others, which quotes the full sentence. Kenissi is credited as in-group and disclosed. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -299,6 +486,153 @@ profiles:
           - claim: tbb58-watch-assembly
             stance: supports
             note: "Watch assembly and testing in Le Locle."
+          - claim: tbb58-kenissi-assembly
+            stance: supports
+            note: "In-group movement assembly."
+          - claim: tbb58-silicon-cosc
+            stance: context
+            note: "COSC testing is external."
+      PD:
+        value: 4
+        rationale: "Tudor set up Kenissi to develop its own movements: extensive original technical development, partly through an in-group company."
+        evidence:
+          - claim: tbb58-kenissi-founded
+            stance: supports
+            note: "Tudor founded Kenissi to develop its movements."
+    classification:
+      - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Tudor's own manufacture page, a 2026 Fratello supplier-tour report, a 2022 Gear Patrol article, and further passages from the SJX (2023) and Monochrome (2026) visits. Changes from version 2: EX U → 0; DH U → 0; CF U → 0; confidence stays C. None of the seven dimensions remain U. EX, DH and CF rest on secondary sources describing Tudor's supply chain in general, not this model by name."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 4
+        rationale: The MT5402 is a Tudor calibre developed by Kenissi, which was founded in 2016 for that purpose. A proprietary calibre developed for the brand by an external, if majority-owned, maker.
+        evidence:
+          - claim: tbb58-mt5402
+            stance: supports
+            note: Tudor manufacture calibre.
+          - claim: tbb58-kenissi-founded
+            stance: supports
+            note: Developed by Kenissi.
+      MM:
+        value: 4
+        rationale: "Kenissi makes and assembles all of Tudor's in-house movements, and companies in its holding make movement blanks, oscillators and stamped parts; Tudor says it integrated calibre production through Kenissi and Tudor-owned affiliates. Kenissi is majority-owned by Tudor and recorded as in-group; it also supplies other brands, so this credit is disclosed, not treated as Tudor's own. Silicon hairsprings come from outside Kenitec, from an external specialist or one Tudor owns. Borderline with 3."
+        evidence:
+          - claim: tbb58-kenissi-all-others
+            stance: supports
+            note: "In-group maker of all Tudor movements; also supplies other brands."
+          - claim: tbb58-kenissi-holding
+            stance: supports
+            note: "Blanks, oscillators and stamped parts within the holding."
+          - claim: tbb58-kenissi-assembly
+            stance: supports
+            note: "Movements manufactured and assembled at Le Locle."
+          - claim: tbb58-tudor-owned-affiliates
+            stance: supports
+            note: "Tudor's own statement on in-group calibre production."
+          - claim: tbb58-silicon-supplier
+            stance: context
+            note: "Silicon parts source."
+          - claim: tbb58-silicon-two-specialists
+            stance: context
+            note: "Silicon parts source."
+          - claim: tbb58-silicon-elsewhere
+            stance: context
+            note: "Silicon hairsprings made outside Kenitec."
+      EX:
+        value: 0
+        rationale: "Fratello (2026) says Joseph Baume makes Tudor's case blanks, Orolux mills and finishes the cases, and Detech makes the bracelets and clasp components; Monochrome calls these habillage suppliers external partners who also work for other brands, and SJX says only assembly and quality control happen at the Tudor manufacture. These are statements about Tudor's supply chain as a whole, which we read as covering this model, and none credits Tudor or Rolex with making the exterior today. Borderline: SJX also quotes Tudor as owning at least one supplier in each component category without naming them, and says Tudor historically used Rolex (in-group) cases without dating the change, so early Black Bay 58 production may have had in-group cases."
+        evidence:
+          - claim: tbb58-case-blanks-joseph-baume
+            stance: supports
+            note: "External case-blank maker."
+          - claim: tbb58-cases-orolux-finishing
+            stance: supports
+            note: "External case maker."
+          - claim: tbb58-bracelets-detech
+            stance: supports
+            note: "External bracelet and clasp maker."
+          - claim: tbb58-habillage-partners
+            stance: supports
+            note: "Exterior parts come from partners."
+          - claim: tbb58-partners-other-brands
+            stance: supports
+            note: "Partners also supply other brands."
+          - claim: tbb58-only-assembly
+            stance: supports
+            note: "No component manufacture at the Tudor manufacture."
+          - claim: tbb58-buys-cases
+            stance: supports
+            note: "Cases bought from Swiss suppliers."
+          - claim: tbb58-no-shared-lines
+            stance: context
+            note: "No shared production lines with Rolex."
+          - claim: tbb58-rolex-cases-history
+            stance: context
+            note: "Earlier in-group Rolex cases, undated."
+          - claim: tbb58-owns-supply-chain
+            stance: context
+            note: "Unnamed owned suppliers; none tied to the exterior."
+          - claim: tbb58-case-39
+            stance: context
+            note: Specification.
+      DH:
+        value: 0
+        rationale: "Fratello (2026) calls Montremo Tudor's dial supplier, and Monochrome lists it among the external habillage partners. No source names the hand maker, but SJX says only assembly and quality control happen at the Tudor manufacture, where Fratello says dials and hands are attached; attaching them is assembly, scored under WE. Borderline: the hand maker is unnamed and SJX quotes Tudor as owning at least one supplier per component category, so an in-group hand maker cannot be ruled out."
+        evidence:
+          - claim: tbb58-dials-montremo-supplier
+            stance: supports
+            note: "External dial supplier."
+          - claim: tbb58-dials-montremo
+            stance: supports
+            note: "External dial maker."
+          - claim: tbb58-habillage-partners
+            stance: supports
+            note: "Exterior parts come from partners."
+          - claim: tbb58-only-assembly
+            stance: supports
+            note: "Hands not made at the Tudor manufacture."
+          - claim: tbb58-dials-hands-attached
+            stance: context
+            note: "Attaching dials and hands is assembly."
+          - claim: tbb58-owns-supply-chain
+            stance: context
+            note: "Unnamed owned suppliers."
+      CF:
+        value: 0
+        rationale: "SJX describes the Tudor manufacture as industrial production where only assembly and quality control take place. The hand finishing that sources describe, edge work on cases, is done at Orolux, an external supplier, and does not count; EMP's sandblasting, diamond-bevelling and laser engraving of movement blanks is in-group industrial processing, not described as handwork. Hand assembly of movements is scored under WE. Not 1, as no internal manual decorative operation is documented."
+        evidence:
+          - claim: tbb58-only-assembly
+            stance: supports
+            note: "Only assembly and quality control internally."
+          - claim: tbb58-industrial-production
+            stance: supports
+            note: "Industrial production."
+          - claim: tbb58-case-edges-by-hand
+            stance: context
+            note: "External hand finishing."
+          - claim: tbb58-emp-decoration
+            stance: context
+            note: "In-group industrial decoration."
+      WE:
+        value: 3
+        rationale: "Tudor says every Tudor watch is assembled and fully tested at its Le Locle manufacture, where dials, hands and movements are cased by hand; Kenissi, in-group, assembles the movements. No claim describes regulation or adjustment by Tudor, so this is not above 3."
+        evidence:
+          - claim: tbb58-tudor-assembled-tested
+            stance: supports
+            note: "Tudor's own statement on assembly and testing."
+          - claim: tbb58-watch-assembly
+            stance: supports
+            note: "Watch assembly and testing in Le Locle."
+          - claim: tbb58-dials-hands-attached
+            stance: supports
+            note: "Dial, hands and casing at Tudor."
           - claim: tbb58-kenissi-assembly
             stance: supports
             note: "In-group movement assembly."

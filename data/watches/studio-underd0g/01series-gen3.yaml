@@ -99,6 +99,32 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: ud01g3-tb-cases-asia
+    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model or generation.
+    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ud01g3-tb-sourced-globally
+    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
+    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ud01g3-components-to-uk
+    statement: In a June 2022 production update for 01SERIES orders, Studio Underd0g says cases, hands and dials were with its UK watchmaker for assembly, without naming who made them.
+    excerpt: the vast majority of components are with our watchmaker here in the UK – so that’s cases, hands, dials, straps etc
+    source: underd0g-production-update-2022
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Seagull ST-1901B, Venus 175 lineage)
@@ -120,16 +146,21 @@ provenance:
   - dimension: EX
     component: Case (316L steel, 38.5 mm)
     relationship: unknown
-    note: Case maker not named; the brand specifies dimensions.
+    note: Case maker not named; the brand specifies dimensions. A 2026 review says early cases were machined in Asia and components may still be sourced globally, and a 2022 brand update lists cases among parts delivered to the UK assembler; none of these names the Gen 3 case maker.
     claims:
       - ud01g3-case
       - ud01g3-case-height
+      - ud01g3-tb-cases-asia
+      - ud01g3-tb-sourced-globally
+      - ud01g3-components-to-uk
   - dimension: DH
     component: Dial and hands
     relationship: unknown
-    note: Dial and hand makers not named.
+    note: Dial and hand makers not named. A 2022 brand update lists dials and hands among parts delivered to the UK assembler, and a 2026 review says components may still be sourced globally; neither names the Gen 3 dial or hand maker.
     claims:
       - ud01g3-assembled-gb
+      - ud01g3-tb-sourced-globally
+      - ud01g3-components-to-uk
   - dimension: CF
     component: Movement finishing
     performer: seagull

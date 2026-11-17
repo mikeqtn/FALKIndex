@@ -55,6 +55,53 @@ claims:
       - EX
     date_checked: 2026-10-21
     editor: falk-index
+  - id: far3h-partners-produce
+    statement: Farer says it uses Swiss manufacturing partners to prototype and produce its watches.
+    excerpt: We then use the best Swiss manufacturing partners to prototype and produce our watches.
+    source: farer-our-story
+    dimensions:
+      - EX
+      - DH
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: far3h-esq-white-label
+    statement: A 2019 Esquire UK article says the watches are made by Roventa-Henex (spelled "Rowenta Henex" in the article), a white-label firm that assembles and produces watches for many brands.
+    excerpt: the watches are made by Rowenta Henex, a white-label firm that assembles and produces watches for dozens of major brands
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - EX
+      - DH
+      - CF
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: far3h-esq-dial-maker
+    statement: In the same article, founder Paul Sweetenham is quoted saying Farer can use only one of the two serious dial makers because of the detail in its dials.
+    excerpt: There are only two serious dial makers in the watch world, and I can only use one of them because of the detail
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: far3h-esq-eta-grades
+    statement: The same article says Farer's movements are ETA calibres in the higher finishing and timekeeping grades on offer from the supplier.
+    excerpt: The movements are ETA, but Sweetenham is committed to the higher grades of finishing and timekeeping on offer
+    source: esquireuk-farer-more-than-micro-brand-2019
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: far3h-oot-transparency
+    statement: A 2024 Oracle of Time article says Farer will name who makes its movements, cases, dials, straps, hands and lume.
+    excerpt: They will happily tell you not just who makes their movements, but their cases, dials, straps, hands and lume.
+    source: oracleoftime-farer-independent-watchmaking-2024
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (ETA 2824-2)
@@ -81,29 +128,39 @@ provenance:
       - far3h-sw200-2021
   - dimension: EX
     component: Case, crown and crystal
-    relationship: unknown
-    note: Watches are produced by Roventa-Henex, but no source names the case or crown maker.
+    relationship: external_specialist
+    note: Farer says Swiss manufacturing partners produce its watches, and a 2024 article says Farer names its case makers; no source reached names the case or crown maker.
     claims:
       - far3h-case-2021
       - far3h-bronze-crown
       - far3h-roventa-henex
+      - far3h-partners-produce
+      - far3h-esq-white-label
+      - far3h-oot-transparency
   - dimension: DH
     component: Dial and hands
-    relationship: unknown
-    note: Makers not named.
+    relationship: external_specialist
+    note: Dials come from an outside dial maker (2019 founder quote); hands are covered only by Farer's general statement that partners produce its watches. Makers not named.
     claims:
       - far3h-roventa-henex
+      - far3h-partners-produce
+      - far3h-esq-dial-maker
+      - far3h-oot-transparency
   - dimension: CF
     component: Movement finishing
-    relationship: unknown
-    claims: []
+    relationship: external_specialist
+    note: Finishing grade comes with the supplied ETA calibres (2019 source); finishing of the Sellita-era movements is not described.
+    claims:
+      - far3h-esq-eta-grades
   - dimension: WE
     component: Production and assembly
     performer: roventa-henex
     relationship: contract
-    note: Source dates from 2016; not confirmed for later models.
+    note: Named in 2016 and 2019 sources; Farer's own page says Swiss partners produce its watches without naming them.
     claims:
       - far3h-roventa-henex
+      - far3h-esq-white-label
+      - far3h-partners-produce
   - dimension: PD
     component: Design and development
     performer: farer
@@ -142,7 +199,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 1 \u2192 0; PD 3 \u2192 2; confidence A \u2192 C. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -198,6 +255,111 @@ profiles:
           - claim: far3h-roventa-henex
             stance: supports
             note: Contract production.
+      PD:
+        value: 2
+        rationale: Farer designs and develops its watches in London around conventional supplier calibres.
+        evidence:
+          - claim: far3h-london-design
+            stance: supports
+            note: Designed in London.
+    classification:
+      - contract_microbrand
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Farer's own Our Story page, a 2019 Esquire UK feature and a 2024 Oracle of Time article. Changes from version 2: EX U → 0; DH U → 0; CF U → 0; confidence stays C. 0 of seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: "Stock supplier calibres: ETA 2824-2 in the first automatics, Sellita SW200-1 from the 2021 trio."
+        evidence:
+          - claim: far3h-eta-2016
+            stance: supports
+            note: ETA 2824-2.
+          - claim: far3h-sw200-2021
+            stance: supports
+            note: Sellita SW200-1.
+      MM:
+        value: 0
+        rationale: Complete movements are bought in.
+        evidence:
+          - claim: far3h-eta-2016
+            stance: supports
+            note: External movement.
+          - claim: far3h-sw200-2021
+            stance: supports
+            note: External movement.
+      EX:
+        value: 0
+        rationale: "Farer says Swiss manufacturing partners produce its watches (far3h-partners-produce), Esquire UK says Roventa-Henex makes them (far3h-esq-white-label), and Oracle of Time says Farer names the makers of its cases (far3h-oot-transparency). No source places any exterior work at Farer. The score is borderline in that no source names the case or crown maker; the reading applied is that the brand's own universal statement puts physical production outside Farer."
+        evidence:
+          - claim: far3h-partners-produce
+            stance: supports
+            note: Brand says partners produce its watches.
+          - claim: far3h-esq-white-label
+            stance: supports
+            note: Watches made by a white-label producer.
+          - claim: far3h-oot-transparency
+            stance: supports
+            note: Cases are made by named outside makers.
+          - claim: far3h-roventa-henex
+            stance: context
+            note: Producer named in 2016, not the case maker.
+          - claim: far3h-case-2021
+            stance: context
+            note: Specification only.
+          - claim: far3h-bronze-crown
+            stance: context
+            note: Specification only.
+      DH:
+        value: 0
+        rationale: "Founder Paul Sweetenham is quoted saying Farer uses one of the two serious dial makers (far3h-esq-dial-maker), and Oracle of Time says Farer names who makes its dials and hands (far3h-oot-transparency). Farer's own page says partners produce its watches (far3h-partners-produce). Dial design is Farer's, but design is credited under PD, not here. Hands rest only on the general statements, which makes the hands half of this score borderline."
+        evidence:
+          - claim: far3h-esq-dial-maker
+            stance: supports
+            note: Dials come from an outside dial maker.
+          - claim: far3h-oot-transparency
+            stance: supports
+            note: Dials and hands are made by named outside makers.
+          - claim: far3h-partners-produce
+            stance: supports
+            note: Brand says partners produce its watches.
+          - claim: far3h-esq-white-label
+            stance: context
+            note: Producer of the finished watch.
+          - claim: far3h-roventa-henex
+            stance: context
+            note: Producer, not dial maker.
+      CF:
+        value: 0
+        rationale: "No source documents craft work done by Farer. Movement finishing comes as a supplier grade of the ETA calibres (far3h-esq-eta-grades), and Farer says Swiss partners produce its watches (far3h-partners-produce). External work does not count toward CF. Borderline only in that the Sellita-era movements' finishing is not described; nothing suggests it moved in-house."
+        evidence:
+          - claim: far3h-partners-produce
+            stance: supports
+            note: Production, including any finishing, is by partners.
+          - claim: far3h-esq-eta-grades
+            stance: supports
+            note: Finishing grade bought from the movement supplier.
+          - claim: far3h-esq-white-label
+            stance: context
+            note: Producer of the finished watch.
+      WE:
+        value: 0
+        rationale: "Complete watches are produced by Roventa-Henex according to 2016 and 2019 articles (far3h-roventa-henex, far3h-esq-white-label), and Farer's own page says Swiss partners produce its watches (far3h-partners-produce). No source describes assembly or regulation by Farer."
+        evidence:
+          - claim: far3h-roventa-henex
+            stance: supports
+            note: Contract production.
+          - claim: far3h-esq-white-label
+            stance: supports
+            note: White-label producer assembles the watches.
+          - claim: far3h-partners-produce
+            stance: supports
+            note: Brand says partners produce its watches.
       PD:
         value: 2
         rationale: Farer designs and develops its watches in London around conventional supplier calibres.

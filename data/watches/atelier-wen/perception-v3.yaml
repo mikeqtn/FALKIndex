@@ -112,6 +112,50 @@ claims:
       - PD
     date_checked: 2026-10-22
     editor: falk-index
+  - id: awv3-journal-guilloche
+    statement: The brand says each V3 dial is turned on a hand-built rose-engine lathe by Master Cheng Yucai and a small group of his apprentices.
+    excerpt: each dial is individually turned on a hand-built rose-engine lathe by Master Cheng Yucai - China’s foremost guilloché master craftsman - and a small group of his hand-selected apprentices.
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - DH
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: awv3-journal-lacquer
+    statement: The brand says the aventurine lacquer on the EPM03 is applied and polished under its quality controls, without saying who does it.
+    excerpt: The ambitious aventurine lacquer finish on our new Pequignet Calibre EPM03 movement is painstakingly applied and polished
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: awv3-journal-pequignet
+    statement: The brand says the V3 uses a heavily customised Pequignet Calibre EPM03.
+    excerpt: For starters, we have introduced a heavily customised Pequignet Calibre EPM03.
+    source: atelier-wen-perception-v3-journal
+    dimensions:
+      - MA
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: awv3-hands-supplier
+    statement: In a 2022 Perception production update, the brand says it cancelled a hands order with a new supplier and went back to the supplier it used before.
+    excerpt: We thus decided to cancel the order we had with this new supplier and instead reverted back to the previous one.
+    source: atelier-wen-production-update-2
+    dimensions:
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: awv3-pequignet-assembles
+    statement: A specialist article on the V3 reports that Pequignet designs, develops and assembles its own calibres.
+    excerpt: "Pequignet remains something increasingly rare: a vertically integrated manufacture capable of designing, developing and assembling its own calibres entirely in-house."
+    source: thehourmarkers-atelier-wen-v3
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Base movement (Pequignet EPM03)
@@ -129,6 +173,8 @@ provenance:
     claims:
       - awv3-pequignet
       - awv3-pequignet-morteau
+      - awv3-journal-pequignet
+      - awv3-pequignet-assembles
   - dimension: EX
     component: Case and bracelet (904L steel)
     relationship: external_specialist
@@ -146,23 +192,33 @@ provenance:
       - awv3-dial-cheng
       - awv3-dial-process
       - awv3-dial-workshop
+      - awv3-journal-guilloche
   - dimension: DH
     component: Hands
-    relationship: unknown
-    note: No source found.
-    claims: []
+    relationship: external_specialist
+    note: The supplier is not named. The source is a 2022 Perception production update that names the Perception line; no V3-specific source on the hands was found.
+    claims:
+      - awv3-hands-supplier
   - dimension: CF
     component: Movement decoration (lacquered bridges)
     relationship: unknown
-    note: Designed with Pequignet; no source says who executes the decoration.
+    note: Designed with Pequignet. The brand says the lacquer is applied, polished and checked to its standards, but no source says who executes it.
     claims:
       - awv3-movement-design
       - awv3-bridges
+      - awv3-journal-lacquer
   - dimension: WE
     component: Assembly and regulation
     relationship: unknown
-    note: No source found on where the V3 is assembled.
+    note: No source found on where the V3 is cased, assembled or regulated. The brand's journal, its FAQ and specialist reviews (aBlogtoWatch, Monochrome, Time+Tide, Europa Star, Oracle of Time, The Hour Markers, Wrist Enthusiast) were checked.
     claims: []
+  - dimension: WE
+    component: Movement assembly
+    performer: pequignet
+    relationship: external_specialist
+    note: Pequignet assembles its own movements, per a specialist article; this covers the movement, not casing of the watch.
+    claims:
+      - awv3-pequignet-assembles
   - dimension: PD
     component: Design and movement customisation brief
     performer: atelier-wen
@@ -274,7 +330,7 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "Adds the brand's own V3 journal as a primary source. EX U → 0: the brand credits an outside case and bracelet maker. MA and PD rationales now cite the brand's statement on the customised EPM03. 3 of 7 dimensions remain unknown, so confidence is C."
     created_on: 2026-10-22
@@ -352,5 +408,113 @@ profiles:
           - claim: awv3-movement-design
             stance: supports
             note: Decoration designed with Pequignet.
+    classification:
+      - artisan_etablisseur
+  - version: 4
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds the brand's V3 journal statements on the dial, the movement lacquer and the Pequignet calibre, the brand's 2022 Perception production update on hands sourcing, and The Hour Markers on Pequignet assembling its own calibres. Changes from version 3: DH U → 0; confidence C → B. Two of seven dimensions remain U (CF, WE), and every scored dimension now rests on at least one primary source."
+    scores:
+      MA:
+        value: 1
+        rationale: The brand says the EPM03 is a bespoke Pequignet movement that it highly customised for the V3, and specialist sites agree. The changes it describes are decorative (lacquered, wind-inspired bridges) rather than mechanical, so this is custom specification. Borderline with 2 if the customisation turns out to be mechanical.
+        evidence:
+          - claim: awv3-epm03-bespoke
+            stance: supports
+            note: Brand statement on the customised EPM03.
+          - claim: awv3-journal-pequignet
+            stance: supports
+            note: Brand names the customised Pequignet calibre.
+          - claim: awv3-pequignet
+            stance: supports
+            note: Customised EPM03.
+          - claim: awv3-customised-calibre
+            stance: supports
+            note: Highly customised calibre.
+      MM:
+        value: 0
+        rationale: The brand's own journal names the calibre as Pequignet's EPM03, and specialist sites describe Pequignet as an independent Morteau maker that designs, develops and assembles its own movements. No source places any movement part with Atelier Wen.
+        evidence:
+          - claim: awv3-journal-pequignet
+            stance: supports
+            note: Pequignet calibre, per the brand.
+          - claim: awv3-pequignet
+            stance: supports
+            note: External movement.
+          - claim: awv3-pequignet-morteau
+            stance: supports
+            note: Independent maker.
+          - claim: awv3-pequignet-assembles
+            stance: supports
+            note: Pequignet makes and assembles its movements.
+      EX:
+        value: 0
+        rationale: The brand credits its finishes to a collaboration with "our case and bracelet maker", an outside company, and no source places any exterior part in-house. Not 1, because no minor exterior part is documented as internal.
+        evidence:
+          - claim: awv3-case-maker
+            stance: supports
+            note: Outside case and bracelet maker, per the brand.
+          - claim: awv3-case
+            stance: context
+            note: Specification only.
+          - claim: awv3-bracelet
+            stance: context
+            note: Specification only.
+      DH:
+        value: 0
+        rationale: The brand's V3 journal says each dial is turned by Master Cheng Yucai and his apprentices, an external workshop, and its 2022 Perception production update says Perception hands come from an outside supplier. Borderline on the hands, because that source predates the V3; the applied indices and printed chapter ring are not attributed. Scored 0 because both documented dial and hand processes are external and none is documented as internal.
+        evidence:
+          - claim: awv3-journal-guilloche
+            stance: supports
+            note: External dial work, from the brand, for this watch.
+          - claim: awv3-hands-supplier
+            stance: supports
+            note: External hands supplier for Perception.
+          - claim: awv3-dial-cheng
+            stance: supports
+            note: External craftsman.
+          - claim: awv3-dial-workshop
+            stance: supports
+            note: Made by Cheng's workshop.
+      CF:
+        value: null
+        rationale: The dial guilloché is done in Cheng Yucai's external workshop. The brand says the movement's aventurine lacquer is applied, polished and checked to its standards, but neither it nor any review says who does that work. Borderline between U and 0; U is kept because the lacquer performer is undocumented rather than shown to be external.
+        evidence:
+          - claim: awv3-journal-guilloche
+            stance: context
+            note: External craft.
+          - claim: awv3-journal-lacquer
+            stance: context
+            note: Performer not named.
+          - claim: awv3-bridges
+            stance: context
+            note: Executor not named.
+      WE:
+        value: null
+        rationale: No source says where the V3 is cased, assembled or regulated. Pequignet assembles the movement itself, which is external movement work and does not establish who assembles the watch.
+        evidence:
+          - claim: awv3-pequignet-assembles
+            stance: context
+            note: Movement assembly only.
+      PD:
+        value: 3
+        rationale: The brand searched for a calibre it could make its own, set the brief for the customised EPM03 and designed its bridge decoration with Pequignet, directs a bespoke guilloché dial, and switched hand suppliers on quality grounds. That is substantial supplier-directed development; 4 would need evidence of the brand engineering the movement changes itself.
+        evidence:
+          - claim: awv3-calibre-search
+            stance: supports
+            note: Calibre chosen for creative latitude.
+          - claim: awv3-epm03-bespoke
+            stance: supports
+            note: Brand-directed customisation.
+          - claim: awv3-movement-design
+            stance: supports
+            note: Decoration designed with Pequignet.
+          - claim: awv3-hands-supplier
+            stance: supports
+            note: Directs hands sourcing.
     classification:
       - artisan_etablisseur

@@ -49,6 +49,38 @@ claims:
       - DH
     date_checked: 2026-10-13
     editor: falk-index
+  - id: jns-rad-case-in-house
+    statement: A Revolution article on the Radiant reports that its tantalum case is made in-house.
+    excerpt: The tantalum case is made in-house and measures 38mm x 9.6mm including crystal
+    source: revolution-jn-shapiro-radiant
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: jns-rad-tantalum-cases-2021
+    statement: Joshua Shapiro says that in December 2021 the brand produced tantalum watch cases for the Infinity Series, the first made outside Switzerland.
+    excerpt: we produced the first tantalum wrist watch cases made outside of Switzerland for the Infinity Series
+    source: jns-about-page
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: jns-rad-bracelet-ming
+    statement: On the maker's Radiant page, the optional bracelet details are followed by a note that it was engineered in collaboration with MING for the Alternative Horological Alliance.
+    excerpt: Engineered in collaboration with Horologer MING for the Alternative Horological Alliance
+    source: jns-infinity-page
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: jns-rad-service
+    statement: The maker states that it is equipped to maintain its own watches throughout their lifetime.
+    excerpt: J.N. Shapiro is equipped to maintain our own timepieces throughout their lifetime
+    source: jns-service-page
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (La Joux-Perret 5000-4)
@@ -65,9 +97,18 @@ provenance:
       - jns-rad-partner-movements
   - dimension: EX
     component: Case (tantalum, 38 mm)
+    performer: jn-shapiro
+    relationship: internal
+    note: Revolution (2026) reports the Radiant's case is made in-house; the maker's own page says it has produced tantalum cases for the Infinity Series since 2021 but does not name the Radiant. Crown and crystal makers are not stated.
+    claims:
+      - jns-rad-case-in-house
+      - jns-rad-tantalum-cases-2021
+  - dimension: EX
+    component: Optional tantalum bracelet
     relationship: unknown
-    note: No source names the case maker.
-    claims: []
+    note: The maker's page says it was engineered in collaboration with MING for the Alternative Horological Alliance; who manufactures it is not stated.
+    claims:
+      - jns-rad-bracelet-ming
   - dimension: DH
     component: Dial engine-turning (Infinity Weave)
     performer: jn-shapiro
@@ -81,12 +122,24 @@ provenance:
     note: Who makes or finishes the hands is not stated.
     claims:
       - jns-rad-hands
+  - dimension: WE
+    component: Casing, assembly and regulation
+    relationship: unknown
+    note: No source describes who cases, assembles or regulates the Radiant.
+    claims: []
+  - dimension: WE
+    component: After-sales service
+    performer: jn-shapiro
+    relationship: internal
+    note: The maker's service page covers its own timepieces in general.
+    claims:
+      - jns-rad-service
 profiles:
   - version: 1
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: mikeqtn
     created_on: 2026-10-14
     change_note: New record, split from the handbook's Infinity Series. First profile, from the maker's page only; no specialist source covers the Radiant yet. Scored lower than the 2019 Infinity on DH and CF because the depth of in-house dial work is not documented for this model. Reviewed and approved by mikeqtn on 2026-10-14.
@@ -142,6 +195,81 @@ profiles:
       PD:
         value: 3
         rationale: Original dial design, including the brand's signature engine-turned pattern, around a conventional supplier movement.
+        evidence:
+          - claim: jns-rad-weave
+            stance: supports
+            note: Bespoke dial patterns.
+    classification:
+      - artisan_atelier
+  - version: 2
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds Revolution's launch article on the Radiant (2026), the maker's About page and its Service page, and the bracelet note on the maker's Infinity Series page. Changes from version 1: EX U → 2. Confidence stays C: EX rests on a secondary source, since the maker's own tantalum-case statement does not name the Radiant. One of seven dimensions remains U (WE)."
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret 5000-4 caliber (jns-rad-ljp). No source describes modification beyond the movement's livery, so the score is not higher.
+        evidence:
+          - claim: jns-rad-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; the maker says it pairs its work with partner movements (jns-rad-partner-movements) and names La Joux-Perret as the caliber maker (jns-rad-ljp).
+        evidence:
+          - claim: jns-rad-partner-movements
+            stance: supports
+            note: Primary statement that movements come from partners.
+          - claim: jns-rad-ljp
+            stance: supports
+            note: Names the movement maker.
+      EX:
+        value: 2
+        rationale: "Revolution reports that the Radiant's tantalum case is made in-house (jns-rad-case-in-house), and the maker says it has produced tantalum cases for the Infinity Series since 2021 (jns-rad-tantalum-cases-2021), which is consistent but does not name the Radiant. That makes the case one important component family made internally. It is not 3 because no source says who makes the crown, crystal or the optional bracelet, which the maker says was engineered with MING for the Alternative Horological Alliance (jns-rad-bracelet-ming). Borderline between 2 and 3, as the case is the main exterior part on the standard strap version."
+        evidence:
+          - claim: jns-rad-case-in-house
+            stance: supports
+            note: Secondary source naming the Radiant's case as made in-house.
+          - claim: jns-rad-tantalum-cases-2021
+            stance: context
+            note: Primary statement of in-house tantalum case production for the series; does not name the Radiant.
+          - claim: jns-rad-bracelet-ming
+            stance: context
+            note: The optional bracelet was engineered with an outside partner; its maker is not stated.
+      DH:
+        value: 3
+        rationale: The maker engine-turns its patterns directly into the dial (jns-rad-our-weave, jns-rad-weave). Who makes the dial blank and the hands is not stated, so the score stops at substantial dial work rather than integrated dial and hand manufacture.
+        evidence:
+          - claim: jns-rad-our-weave
+            stance: supports
+            note: In-house dial engine-turning.
+          - claim: jns-rad-weave
+            stance: supports
+            note: Dial decoration described by the maker.
+          - claim: jns-rad-hands
+            stance: context
+            note: Hands described; maker not named.
+      CF:
+        value: 4
+        rationale: Engine-turning of the brand's own patterns is a major internal craft (jns-rad-our-weave, jns-rad-weave). Level 5 would need evidence of who performs it and to what depth on this model, as SJX documented for the 2019 Infinity.
+        evidence:
+          - claim: jns-rad-our-weave
+            stance: supports
+            note: Internal engine-turning.
+          - claim: jns-rad-weave
+            stance: supports
+            note: Defining dial craft.
+      WE:
+        value: null
+        rationale: No source describes who cases, assembles, adjusts or regulates the Radiant. The maker's general statement that it services its own watches (jns-rad-service) concerns after-sales work and does not establish production watchmaking, so WE stays U.
+        evidence: []
+      PD:
+        value: 3
+        rationale: Original dial design, including the brand's signature engine-turned pattern, around a conventional supplier movement (jns-rad-weave).
         evidence:
           - claim: jns-rad-weave
             stance: supports

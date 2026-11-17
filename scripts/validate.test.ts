@@ -3,11 +3,17 @@ import assert from 'node:assert/strict';
 import { check, load } from './validate.ts';
 
 const data = load('data');
-// A record whose first profile is still its published seed profile, so the published-profile rules apply to it.
-const seedIndex = data.watches.findIndex((w: any) => w.value.profiles[0].status === 'published');
-// Run check() on a copy of data/ with that watch's first profile mutated.
+// A copy of data/ in which the first record has only its published profile, as version 1,
+// so the published-profile rules apply to profiles[0] however many versions the real records gain.
+const seedIndex = 0;
+const base = structuredClone(data);
+{
+  const w = base.watches[seedIndex].value;
+  w.profiles = [{ ...w.profiles.find((p: any) => p.status === 'published'), version: 1 }];
+}
+// Run check() on a copy of that data with the record's profile mutated.
 const broken = (mutate: (profile: any, watch: any) => void) => {
-  const d = structuredClone(data);
+  const d = structuredClone(base);
   mutate(d.watches[seedIndex].value.profiles[0], d.watches[seedIndex].value);
   return check(d).errors.join('\n');
 };
@@ -49,7 +55,7 @@ test('unknown claim references are rejected', () =>
   assert.match(broken(p => { p.scores.MA.evidence = [{ claim: 'nope', stance: 'supports', note: 'x' }]; }), /unknown claim "nope"/));
 
 test('a record with no published profile is flagged', () => {
-  const d = structuredClone(data);
+  const d = structuredClone(base);
   d.watches[seedIndex].value.profiles[0].status = 'draft';
   assert.match(check(d).warnings.join('\n'), /no published profile/);
 });

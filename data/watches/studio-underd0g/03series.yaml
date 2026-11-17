@@ -86,6 +86,23 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: ud03-tb-cases-asia
+    statement: A Teddy Baldassarre brand review says that in Studio Underd0g's early days its cases were machined in Asia; it does not name a model.
+    excerpt: The cases were machined in Asia, the movements were sourced from China, and the straps were made elsewhere.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: ud03-tb-sourced-globally
+    statement: The same review says Studio Underd0g components may still be sourced globally, with assembly, quality control and regulation done in the UK.
+    excerpt: Today, the components of a Studio Underd0g watch may still be sourced globally to keep the retail price accessible.
+    source: underd0g-teddybaldassarre-brand-review
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW510 M, Valjoux 7750-type base)
@@ -110,15 +127,18 @@ provenance:
   - dimension: EX
     component: Case (38.5 mm steel)
     relationship: unknown
-    note: Case maker not named.
+    note: Case maker not named. A 2026 review says early Studio Underd0g cases were machined in Asia and components may still be sourced globally; it does not name the 03SERIES case maker.
     claims:
       - ud03-case
+      - ud03-tb-cases-asia
+      - ud03-tb-sourced-globally
   - dimension: DH
     component: Dial and hands
     relationship: unknown
-    note: Dial and hand makers not named.
+    note: Dial and hand makers not named. A 2026 review says Studio Underd0g components may still be sourced globally; it does not name the 03SERIES dial or hand maker.
     claims:
       - ud03-dial
+      - ud03-tb-sourced-globally
   - dimension: WE
     component: Watch assembly and regulation (Horologium, partner period)
     performer: horologium
