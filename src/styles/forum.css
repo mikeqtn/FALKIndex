@@ -332,8 +332,27 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-glyph, .f-dm-chevron, .f-dm-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .f-dm-count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--c-action); color: var(--c-ink-inverse); font-size: 12px; }
 .f-dm-panel { display: flex; flex-direction: column; width: 380px; height: min(560px, calc(100vh - var(--top) - 16px)); overflow: hidden; }
-@media (prefers-reduced-motion: no-preference) { .f-dm-panel { animation: f-dm-rise var(--d-open) var(--ease); } }
-@keyframes f-dm-rise { from { transform: translateY(24px); opacity: 0; } }
+/* The panel grows out of the corner the bar sits in and folds back into it (CLOSE_MS in MessagesDock.tsx); the bar
+   then settles back in. Without motion, both simply appear. */
+.f-dm-panel { transform-origin: bottom right; }
+@media (prefers-reduced-motion: no-preference) {
+  .f-dm-panel { animation: f-dm-open 240ms var(--ease); }
+  .f-dm-panel.closing { animation: f-dm-close 200ms cubic-bezier(.4, 0, 1, 1) forwards; pointer-events: none; }
+  .f-dm-bar.returning { animation: f-dm-bar-in 180ms var(--ease); }
+}
+@keyframes f-dm-open { from { opacity: 0; transform: translateY(16px) scale(.94); } }
+@keyframes f-dm-close { to { opacity: 0; transform: translateY(16px) scale(.94); } }
+@keyframes f-dm-bar-in { from { opacity: 0; transform: translateY(12px); } }
+/* Placeholders while the dock checks the account and loads: the bar, conversation rows, and messages (.f-skel above). */
+.f-dm-bar-skeleton { cursor: default; }
+.f-dm-skel-glyph { flex: none; width: 18px; height: 18px; border-radius: 4px; }
+.f-dm-skel-title { width: 96px; height: 14px; }
+.f-dm-skel-row { display: flex; align-items: center; gap: var(--s-3); width: 100%; min-height: 64px; padding: var(--s-2) var(--s-4); }
+.f-dm-subhead .f-dm-skel-row { min-height: 0; padding: 0 0 0 var(--s-1); }
+.f-dm-skeleton .f-dm-line { gap: 8px; }
+.f-dm-skel-thin { height: 12px; }
+.f-dm-skel-bubble { max-width: 100%; height: 34px; border-radius: 14px; }
+.f-dm-skel-thumb { width: 56px; height: 56px; border-radius: var(--r-control); }
 .f-dm-subhead { display: flex; flex: none; align-items: center; gap: var(--s-2); min-height: 56px; padding: var(--s-2) var(--s-3); border-bottom: var(--edge); }
 .f-dm-icon { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; background: none; border: 0; border-radius: var(--r-control); color: var(--c-ink-2); cursor: pointer; }
 .f-dm-icon:hover { background: var(--c-surface); color: var(--c-ink); }
@@ -377,8 +396,38 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .theirs .f-dm-bubble { background: var(--c-surface); border-bottom-left-radius: 4px; }
 .mine .f-dm-bubble { background: var(--c-action); color: var(--c-ink-inverse); border-bottom-right-radius: 4px; }
 .mine .f-dm-bubble a:hover { color: inherit; }
+.f-dm-bubble.deleted { background: none; border: 1px dashed var(--c-edge); color: var(--c-ink-2); font: italic 400 14px/20px var(--f-sans); }
+/* Images in a message: one large, or two to a row. */
+.f-dm-bubble:has(.f-dm-images) { width: 240px; max-width: 100%; }
+.f-dm-images { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: -4px -8px 6px; }
+.f-dm-images:last-child { margin-bottom: -4px; }
+.f-dm-images.n1 { grid-template-columns: 1fr; }
+.f-dm-images a { display: block; }
+.f-dm-images img { display: block; width: 100%; height: 110px; object-fit: cover; border-radius: 10px; }
+.f-dm-images.n1 img { height: auto; max-height: 260px; }
+/* Edit and delete for your own messages: shown on hover or focus where there is a pointer, always on touch. */
+.f-dm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); color: var(--c-ink-2); font-size: 12px; line-height: 16px; }
+.f-dm-actions button { min-height: 28px; padding: 0; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+.f-dm-actions button:hover { color: var(--c-action); text-decoration: underline; text-underline-offset: 2px; }
+.f-dm-actions .danger { color: var(--c-action); font-weight: 600; }
+@media (hover: hover) {
+  .f-dm-actions.own { opacity: 0; transition: opacity var(--d-quick) var(--ease); }
+  .f-dm-messages li:hover .f-dm-actions.own, .f-dm-messages li:focus-within .f-dm-actions.own { opacity: 1; }
+}
+.f-dm-messages li:has(.f-dm-edit) { width: 82%; }
+.f-dm-edit { display: grid; gap: 4px; width: 100%; }
+.f-dm-edit textarea { width: 100%; padding: 8px 12px; background: var(--c-page); border: 1px solid var(--c-ink-2); border-radius: 14px; font: 400 15px/21px var(--f-serif); resize: none; }
+.f-dm-edit .f-dm-actions { justify-content: flex-end; }
 .f-dm-refusal { flex: none; padding: var(--s-3) var(--s-4); border-top: var(--edge); color: var(--c-ink-2); font-size: 14px; }
-.f-dm-compose { display: flex; flex: none; align-items: flex-end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
+.f-dm-compose { display: flex; flex: none; flex-wrap: wrap; align-items: flex-end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
+.f-dm-attach { position: relative; align-self: center; cursor: pointer; }
+.f-dm-attach:focus-within { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.f-dm-attach.disabled { opacity: .45; cursor: default; }
+.f-dm-attach svg circle { fill: currentColor; stroke: none; }
+.f-dm-attached { display: flex; flex-basis: 100%; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.f-dm-attached li { position: relative; }
+.f-dm-attached img { display: block; width: 56px; height: 56px; object-fit: cover; border-radius: var(--r-control); }
+.f-dm-attached button { position: absolute; top: -6px; right: -6px; display: grid; place-items: center; width: 22px; height: 22px; padding: 0; background: var(--c-ink); border: 2px solid var(--c-surface-2); border-radius: 50%; color: var(--c-ink-inverse); font: 600 14px/1 var(--f-sans); cursor: pointer; }
 .f-dm-compose textarea { flex: 1; min-width: 0; max-height: 120px; padding: 9px 12px; background: var(--c-page); border: 1px solid transparent; border-radius: var(--r-control); font: 400 15px/21px var(--f-sans); resize: none; }
 .f-dm-compose textarea:hover { border-color: var(--c-ink-2); }
 .f-dm-compose .account-button { min-height: 40px; padding: 0 14px; font-size: 14px; }
@@ -392,4 +441,6 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
   .f-dm-list button { min-height: 68px; }
   .f-dm-people li { min-height: 52px; }
   .f-dm-text-button, .f-dm-icon { min-width: 44px; min-height: 44px; }
+  .f-dm-actions button { min-height: 36px; }
+  .f-dm-attached button { width: 28px; height: 28px; }
 }

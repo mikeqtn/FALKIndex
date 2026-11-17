@@ -7,6 +7,16 @@ const TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 /** The address of a rebuilt image, the same on the forum's host and the main site's. */
 export const imageUrl = (id: string) => `/api/forum/images/${id}`;
+export const IMAGE_TYPES = TYPES;
+
+/** Checks and uploads one image, returning it rebuilt. A plain Error carries a message for the member. */
+export async function uploadImage(file: File) {
+  if (!TYPES.includes(file.type)) throw new Error(`${file.name} is not a JPEG, PNG or WebP image.`);
+  if (file.size > MAX_BYTES) throw new Error(`${file.name} is larger than 8 MB.`);
+  return (await api<{ image: { id: string, width: number, height: number } }>('/api/forum/images', { method:'POST', body:file, headers:{ 'Content-Type':file.type } })).image;
+}
+/** What went wrong with an upload, in words for the member. */
+export const uploadError = (failure: unknown) => failure instanceof Error && failure.constructor === Error ? failure.message : handleAccountError(failure);
 
 // Images attached while writing or editing a post. Each uploads as soon as it is picked and comes back
 // rebuilt, so the preview shows what readers will see. One taken off the list is cleared up on a later
@@ -26,13 +36,11 @@ export function useImagePicker() {
     try {
       for (const file of files) {
         if (count >= room) throw new Error(`A post can have up to ${MAX_IMAGES} images.`);
-        if (!TYPES.includes(file.type)) throw new Error(`${file.name} is not a JPEG, PNG or WebP image.`);
-        if (file.size > MAX_BYTES) throw new Error(`${file.name} is larger than 8 MB.`);
-        const { image } = await api<{ image: { id: string } }>('/api/forum/images', { method:'POST', body:file, headers:{ 'Content-Type':file.type } });
+        const image = await uploadImage(file);
         setIds(current => [...current, image.id]);
         count++;
       }
-    } catch (failure) { setError(failure instanceof Error && failure.constructor === Error ? failure.message : handleAccountError(failure)); }
+    } catch (failure) { setError(uploadError(failure)); }
     finally { setUploading(false); }
   };
   const picker = <div className="forum-picker">
