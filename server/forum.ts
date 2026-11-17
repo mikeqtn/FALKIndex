@@ -17,7 +17,7 @@ import { loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } fr
 type Queryable = Pick<Pool | PoolClient, 'query'>;
 type Viewer = { id: string, role: Role } | null;
 const MODERATORS = ['editor','admin'] as const;
-const isModerator = (viewer: Viewer) => viewer?.role === 'editor' || viewer?.role === 'admin';
+export const isModerator = (viewer: Viewer) => viewer?.role === 'editor' || viewer?.role === 'admin';
 export const THREADS_PAGE = 25;
 export const POSTS_PAGE = 50;
 /** Replying below this depth stays at this depth, so a conversation can always go on but cannot run off a phone screen. */
@@ -47,7 +47,7 @@ export const listQuery = pageQuery.extend({ sort:z.enum(['active','newest','day'
 export const searchQuery = z.object({ q:z.string().trim().min(2).max(200) });
 
 /** The acting member, read again inside the transaction so a suspension or demotion applies at once. */
-async function actor(db: PoolClient, id: string, roles?: readonly Role[]) {
+export async function actor(db: PoolClient, id: string, roles?: readonly Role[]) {
   const row = (await db.query(`SELECT id,username,role,status,email_verified AS "emailVerified" FROM falk_account
     WHERE id=$1 AND realm=$2 FOR SHARE`, [id,realm()])).rows[0];
   if (!row) throw new HttpError(403,'You do not have permission to perform this action.');
@@ -56,9 +56,9 @@ async function actor(db: PoolClient, id: string, roles?: readonly Role[]) {
   return row as { id: string, username: string, role: Role };
 }
 
-const authorColumns = (a: string, m: string) => `${a}.username,${m}.display_name,${m}.image_url`;
+export const authorColumns = (a: string, m: string) => `${a}.username,${m}.display_name,${m}.image_url`;
 // Deleting an account clears its username and name but keeps its posts (see deleteAccount), so both can be missing.
-const authorFrom = (row: any) => ({ username:(row.username ?? null) as string | null, displayName:(row.display_name || row.username || 'Deleted member') as string, imageUrl:isClerkImage(row.image_url ?? '') ? row.image_url as string : '' });
+export const authorFrom = (row: any) => ({ username:(row.username ?? null) as string | null, displayName:(row.display_name || row.username || 'Deleted member') as string, imageUrl:isClerkImage(row.image_url ?? '') ? row.image_url as string : '' });
 const threadColumns = `t.id,t.category_id,t.title,t.watch_id,t.pinned,t.locked,t.created_at,t.last_post_at,${authorColumns('a','m')},
   greatest((SELECT count(*)::int FROM falk_forum_post p WHERE p.thread_id=t.id AND p.hidden_at IS NULL)-1,0) AS replies`;
 const threadJoins = 'FROM falk_forum_thread t JOIN falk_account a ON a.id=t.author_id LEFT JOIN falk_member_profile m ON m.account_id=a.id';
@@ -188,11 +188,17 @@ export async function searchForum(q: string, db: Queryable = pool) {
 // moderator hid does not count towards it. ponytail: limits are read from the posts themselves, so two requests at the
 // same instant can both pass; the hourly limits in api.ts still apply. Moderators are exempt from all of this.
 export const NEW_MEMBER = { days:3, posts:3, threadsPerHour:1, postsPerHour:5 };
+// Whether falk_account a has the history NEW_MEMBER asks for; $2 and $3 are NEW_MEMBER.days and NEW_MEMBER.posts.
+const ESTABLISHED = 'a.created_at <= now() - make_interval(days => $2) AND (SELECT count(*) FROM falk_forum_post p WHERE p.author_id=a.id AND p.hidden_at IS NULL) >= $3';
+/** Whether a member is past the new-account limits. Moderators always are. */
+export async function isEstablished(db: Queryable, me: { id: string, role: Role }) {
+  if (isModerator(me)) return true;
+  return !!(await db.query(`SELECT ${ESTABLISHED} AS established FROM falk_account a WHERE a.id=$1`, [me.id,NEW_MEMBER.days,NEW_MEMBER.posts])).rows[0]?.established;
+}
 const DUPLICATE_MIN_LENGTH = 20; // Shorter replies, such as "Thanks!", are often repeated in good faith.
 async function screenPost(db: PoolClient, me: { id: string, role: Role }, body: string, post: { title?: string, editing?: string }) {
   if (isModerator(me)) return;
-  const { established, threads, posts } = (await db.query(`SELECT
-    a.created_at <= now() - make_interval(days => $2) AND (SELECT count(*) FROM falk_forum_post p WHERE p.author_id=a.id AND p.hidden_at IS NULL) >= $3 AS established,
+  const { established, threads, posts } = (await db.query(`SELECT ${ESTABLISHED} AS established,
     (SELECT count(*)::int FROM falk_forum_thread t WHERE t.author_id=a.id AND t.created_at > now() - interval '1 hour') AS threads,
     (SELECT count(*)::int FROM falk_forum_post p WHERE p.author_id=a.id AND p.created_at > now() - interval '1 hour') AS posts
     FROM falk_account a WHERE a.id=$1`, [me.id,NEW_MEMBER.days,NEW_MEMBER.posts])).rows[0];
