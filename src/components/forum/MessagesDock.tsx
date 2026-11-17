@@ -104,6 +104,22 @@ function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   </>;
 }
 
+/** Asks before blocking someone, over the top of the conversation. Cancel has focus, so blocking is never one keypress. */
+function BlockBanner({ person, busy, onBlock, onCancel }: { person: Person, busy: boolean, onBlock: () => void, onCancel: () => void }) {
+  const cancel = useRef<HTMLButtonElement>(null);
+  useEffect(() => { cancel.current?.focus(); }, []);
+  const name = person.username ? `@${person.username}` : person.displayName;
+  return <div className="f-dm-banner" role="alertdialog" aria-labelledby="f-dm-banner-title" aria-describedby="f-dm-banner-text"
+    onKeyDown={e => { if (e.key === 'Escape') { e.stopPropagation(); onCancel(); } }}>
+    <p id="f-dm-banner-title" className="f-dm-banner-title">Block {name}?</p>
+    <p id="f-dm-banner-text">Neither of you will be able to send messages until you unblock them. They are not told, and what you have already said stays here.</p>
+    <span className="f-dm-banner-actions">
+      <button className="account-button" type="button" disabled={busy} onClick={onBlock}>{busy ? 'Blocking…' : 'Block'}</button>
+      <button ref={cancel} className="account-button secondary" type="button" disabled={busy} onClick={onCancel}>Cancel</button>
+    </span>
+  </div>;
+}
+
 function Chat({ username, links, onBack, onRead }: { username: string, links: ForumLinks, onBack: () => void, onRead: () => void }) {
   const [chat, setChat] = useState<Conversation | null>(null);
   const [draft, setDraft] = useState('');
@@ -207,12 +223,14 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     }
     catch (failure) { setError(handleAccountError(failure)); }
   };
-  const block = async () => {
-    if (!chat) return;
-    const blocking = !chat.blocked;
-    if (blocking && !confirm(`Block @${username}? Neither of you will be able to send messages until you unblock them. They are not told.`)) return;
-    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked:blocking }) }); await load(); onRead(); }
+  // Blocking asks first, in a banner over the conversation; unblocking needs no asking.
+  const [askingBlock, setAskingBlock] = useState(false);
+  const [blocking, setBlocking] = useState(false);
+  const setBlock = async (blocked: boolean) => {
+    setBlocking(true); setError('');
+    try { await api(`${path}/block`, { method:'POST', body:JSON.stringify({ blocked }) }); setAskingBlock(false); await load(); onRead(); }
     catch (failure) { setError(handleAccountError(failure)); }
+    finally { setBlocking(false); }
   };
 
   const person = chat?.with;
@@ -227,9 +245,11 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           <strong>{person.displayName}</strong>
           {person.username && <a className="forum-handle" href={`${links.profile}${person.username}/`}>@{person.username}</a>}
         </span>
-        <button className="f-dm-text-button" type="button" onClick={block}>{chat.blocked ? 'Unblock' : 'Block'}</button>
+        <button className="f-dm-text-button" type="button" aria-expanded={chat.blocked ? undefined : askingBlock} disabled={blocking}
+          onClick={() => chat.blocked ? setBlock(false) : setAskingBlock(asking => !asking)}>{chat.blocked ? 'Unblock' : 'Block'}</button>
       </> : !error && <span className="f-dm-skel-row" aria-hidden="true"><span className="f-skel f-skel-avatar f-dm-face" /><span className="f-skel" style={{ width:120 }} /></span>}
     </div>
+    {askingBlock && person && !chat.blocked && <BlockBanner person={person} busy={blocking} onBlock={() => setBlock(true)} onCancel={() => setAskingBlock(false)} />}
     <div className="f-dm-scroll" ref={scroller} aria-busy={!chat}>
       {!chat && !error && <><span className="sr-only" role="status">Loading messages</span><ChatSkeleton /></>}
       {chat && !shown.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
