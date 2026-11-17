@@ -11,7 +11,8 @@ import { removeImage } from './forumImages.ts';
 // it. Members are addressed by username, so a conversation needs no id until its first message. Sending needs the
 // same verified, active account with a username as posting; a block, either way round, stops new messages. A sender
 // can edit or delete their own messages and attach up to FORUM_MAX_IMAGES of their uploads to one.
-export const MESSAGES_PAGE = 100;
+/** Messages per page of a conversation: the newest page opens it, and older pages load as the member scrolls back. */
+export const MESSAGES_PAGE = 50;
 export const CONVERSATIONS_PAGE = 50;
 /** New accounts can start this many conversations an hour, and cannot send links, until they are established (NEW_MEMBER). */
 export const NEW_MEMBER_CONVERSATIONS_PER_HOUR = 3;
@@ -24,6 +25,7 @@ export const messageInput = z.object({ body:text.default(''), images:images.opti
 export const editInput = z.object({ body:text }).strict();
 export const blockInput = z.object({ blocked:z.boolean() }).strict();
 export const peopleQuery = z.object({ q:z.string().trim().min(1).max(60) });
+export const pageQuery = z.object({ before:z.uuid().optional() });
 export const PEOPLE_SUGGESTIONS = 6;
 
 type Other = { id: string, status: string, deleted: boolean, username: string, display_name: string, image_url: string };
@@ -114,18 +116,24 @@ export async function suggestPeople(actorId: string, q: string, db: PoolClient) 
   return rows.rows.map(r => ({ ...authorFrom(r), username:r.username as string, talked:r.talked as boolean }));
 }
 
-/** My conversation with a member, its latest messages oldest first, and whether I can write to them. */
-export async function conversationWith(actorId: string, name: string, db: PoolClient) {
+/**
+ * My conversation with a member: a page of its messages, oldest first, and whether I can write to them. The page is
+ * the newest MESSAGES_PAGE, or with before (a message id) the ones just older than that message. more says whether
+ * there are older ones still.
+ */
+export async function conversationWith(actorId: string, name: string, db: PoolClient, before?: string) {
   const me = await actor(db,actorId);
   const other = await memberNamed(db,name);
   const blocked = await blocks(db,me.id,other.id);
   const [a,b] = pair(me.id,other.id);
-  const messages = await db.query(`SELECT * FROM (SELECT ${messageColumns} FROM falk_forum_message g
-    JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE c.member_a=$1 AND c.member_b=$2
-    ORDER BY g.created_at DESC,g.id DESC LIMIT ${MESSAGES_PAGE}) recent ORDER BY created_at,id`, [a,b]);
+  // One more than a page, to learn whether there is more. A cursor from another conversation matches nothing.
+  const older = before ? 'AND (g.created_at,g.id) < (SELECT created_at,id FROM falk_forum_message WHERE id=$3 AND conversation_id=c.id)' : '';
+  const rows = (await db.query(`SELECT ${messageColumns} FROM falk_forum_message g
+    JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE c.member_a=$1 AND c.member_b=$2 ${older}
+    ORDER BY g.created_at DESC,g.id DESC LIMIT ${MESSAGES_PAGE + 1}`, before ? [a,b,before] : [a,b])).rows;
   return {
-    with:authorFrom(other), blocked:blocked.byMe, refusal:refusal(other,me.id,blocked),
-    messages:messages.rows.map(m => messageFrom(m,me.id)),
+    with:authorFrom(other), blocked:blocked.byMe, refusal:refusal(other,me.id,blocked), more:rows.length > MESSAGES_PAGE,
+    messages:rows.slice(0, MESSAGES_PAGE).reverse().map(m => messageFrom(m,me.id)),
   };
 }
 
@@ -225,8 +233,8 @@ messages.get('/people', async (req,res) => {
   res.json({ people:await write(db => suggestPeople(id,q,db)) });
 });
 messages.get('/with/:username', async (req,res) => {
-  const id = await member(req), name = username.parse(req.params.username);
-  res.json(await write(db => conversationWith(id,name,db)));
+  const id = await member(req), name = username.parse(req.params.username), { before } = pageQuery.parse(req.query);
+  res.json(await write(db => conversationWith(id,name,db,before)));
 });
 messages.post('/with/:username', async (req,res) => {
   const id = await member(req), name = username.parse(req.params.username), input = messageInput.parse(req.body);

@@ -62,37 +62,85 @@ export async function rebuildImage(input: Buffer) {
     // rotate() applies the camera's orientation before the metadata that records it is dropped.
     const { data, info } = await image.rotate().resize({ width:MAX_EDGE, height:MAX_EDGE, fit:'inside', withoutEnlargement:true })
       .toColourspace('srgb').webp({ quality:82 }).timeout({ seconds:20 }).toBuffer({ resolveWithObject:true });
-    return { data, width:info.width, height:info.height };
+    return { data, width:info.width, height:info.height, thumb:await makeThumbnail(data) };
   } catch { throw new HttpError(400, UNREADABLE); }
 }
+
+/** The long edge of the small copy kept for previews such as message bubbles, which show images at about 110-260px. */
+export const THUMB_EDGE = 480;
+export type ImageSize = 'full' | 'thumb';
+/** A small copy of an image we already rebuilt, so it needs no limits beyond the time one. */
+export const makeThumbnail = (data: Buffer) => sharp(data).resize({ width:THUMB_EDGE, height:THUMB_EDGE, fit:'inside', withoutEnlargement:true })
+  .webp({ quality:76 }).timeout({ seconds:10 }).toBuffer();
 
 // Replit Object Storage in the app, because Autoscale disks do not last. FORUM_IMAGE_DIR swaps in a
 // folder for tests and local work, where Replit's storage service is not reachable.
 const unavailable = () => new HttpError(503, 'Image storage is not available right now. Please try again later.');
 const folder = () => process.env.FORUM_IMAGE_DIR;
-const objectName = (id: string) => `forum/${id}.webp`;
+const fileName = (id: string, size: ImageSize) => size === 'thumb' ? `${id}-thumb.webp` : `${id}.webp`;
+const objectName = (id: string, size: ImageSize) => `forum/${fileName(id, size)}`;
 // Loaded on first use so that every page render does not pay for the storage client.
 let bucket: Promise<import('@replit/object-storage').Client> | undefined;
 const client = () => bucket ??= import('@replit/object-storage').then(m => new m.Client());
 
-export async function storeImage(id: string, data: Buffer) {
+// The images served most recently, kept in memory up to CACHE_BYTES, so a conversation or thread opened again is not
+// fetched from storage again. An id's bytes never change, and every request is checked for access before this is read,
+// so a purged image is never served from here; removeImage also drops it.
+const CACHE_BYTES = 48 * 1024 * 1024;
+const cache = new Map<string, Buffer>();
+let cached = 0;
+const remember = (key: string, data: Buffer) => {
+  if (data.length > CACHE_BYTES / 8) return data;
+  cache.delete(key); cache.set(key, data); cached += data.length;
+  for (const [old, bytes] of cache) { if (cached <= CACHE_BYTES) break; cache.delete(old); cached -= bytes.length; }
+  return data;
+};
+const recall = (key: string) => {
+  const data = cache.get(key);
+  if (data) { cache.delete(key); cache.set(key, data); }
+  return data;
+};
+const forget = (key: string) => { const data = cache.get(key); if (data) { cache.delete(key); cached -= data.length; } };
+
+async function write(id: string, size: ImageSize, data: Buffer) {
   const dir = folder();
-  if (dir) { await mkdir(dir, { recursive:true }); await writeFile(join(dir, `${id}.webp`), data); return; }
-  const result = await (await client()).uploadFromBytes(objectName(id), data).catch(() => null);
+  if (dir) { await mkdir(dir, { recursive:true }); await writeFile(join(dir, fileName(id, size)), data); return; }
+  const result = await (await client()).uploadFromBytes(objectName(id, size), data).catch(() => null);
   if (!result?.ok) throw unavailable();
 }
-
-export async function loadImage(id: string) {
+/** The stored bytes, or null if there are none (or storage did not answer). */
+async function read(id: string, size: ImageSize) {
   const dir = folder();
-  if (dir) return readFile(join(dir, `${id}.webp`));
-  const result = await (await client()).downloadAsBytes(objectName(id)).catch(() => null);
-  if (!result?.ok) throw unavailable();
-  return result.value[0];
+  if (dir) return readFile(join(dir, fileName(id, size))).catch(() => null);
+  const result = await (await client()).downloadAsBytes(objectName(id, size)).catch(() => null);
+  return result?.ok ? result.value[0] : null;
+}
+
+/** Stores an image, and its small copy when there is one. */
+export async function storeImage(id: string, data: Buffer, thumb?: Buffer) {
+  await write(id, 'full', data);
+  if (thumb) await write(id, 'thumb', thumb);
+}
+
+/** An image's bytes. Images stored before small copies existed get theirs made from the full image on first request. */
+export async function loadImage(id: string, size: ImageSize = 'full'): Promise<Buffer> {
+  const key = `${id}:${size}`;
+  const hit = recall(key);
+  if (hit) return hit;
+  const stored = await read(id, size);
+  if (stored) return remember(key, stored);
+  if (size === 'full') throw unavailable();
+  const thumb = await makeThumbnail(await loadImage(id, 'full')).catch(error => { throw error instanceof HttpError ? error : unavailable(); });
+  // Kept for next time; failing to keep it only means making it again.
+  write(id, 'thumb', thumb).catch(() => {});
+  return remember(key, thumb);
 }
 
 export async function removeImage(id: string) {
+  forget(`${id}:full`); forget(`${id}:thumb`);
   const dir = folder();
-  if (dir) { await rm(join(dir, `${id}.webp`), { force:true }); return; }
-  const result = await (await client()).delete(objectName(id), { ignoreNotFound:true }).catch(() => null);
-  if (!result?.ok) throw unavailable();
+  if (dir) { await Promise.all((['full', 'thumb'] as const).map(size => rm(join(dir, fileName(id, size)), { force:true }))); return; }
+  const store = await client();
+  const results = await Promise.all((['full', 'thumb'] as const).map(size => store.delete(objectName(id, size), { ignoreNotFound:true }).catch(() => null)));
+  if (!results.every(result => result?.ok)) throw unavailable();
 }

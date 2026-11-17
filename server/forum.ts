@@ -297,22 +297,29 @@ export async function addImage(actorId: string, id: string, image: { width: numb
   return id;
 }
 
-/** Whether this reader may see an image. viewer is a function so public images never touch the account system.
- * An image in a direct message is only ever for the two members of its conversation, while the message stands. */
+/**
+ * Whether this reader may see an image, and how the browser may keep it: public images may be shared by any cache;
+ * images in a direct message and a member's own unposted uploads are kept only in that member's browser (their bytes
+ * never change); anything else, such as a moderator reviewing a hidden image, is not kept. viewer is a function so
+ * public images never touch the account system. An image in a direct message is only ever for the two members of its
+ * conversation, while the message stands.
+ */
 export async function imageForServing(id: string, viewer: () => Promise<Viewer>, db: Queryable = pool) {
   const row = (await db.query(`SELECT i.uploader_id,i.post_id,i.message_id,i.hidden_at,i.purged_at,p.hidden_at AS post_hidden,t.hidden_at AS thread_hidden,
       g.deleted_at AS message_deleted,c.member_a,c.member_b
     FROM falk_forum_image i LEFT JOIN falk_forum_post p ON p.id=i.post_id LEFT JOIN falk_forum_thread t ON t.id=p.thread_id
     LEFT JOIN falk_forum_message g ON g.id=i.message_id LEFT JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE i.id=$1`, [id])).rows[0];
-  if (!row || row.purged_at) return { allowed:false, public:false };
+  const refused = { allowed:false, cache:'none' } as const;
+  if (!row || row.purged_at) return refused;
   if (row.message_id) {
-    if (row.hidden_at || row.message_deleted) return { allowed:false, public:false };
+    if (row.hidden_at || row.message_deleted) return refused;
     const reader = await viewer();
-    return { allowed:!!reader && (reader.id === row.member_a || reader.id === row.member_b), public:false };
+    return reader && (reader.id === row.member_a || reader.id === row.member_b) ? { allowed:true, cache:'private' } as const : refused;
   }
-  if (row.post_id && !row.hidden_at && !row.post_hidden && !row.thread_hidden) return { allowed:true, public:true };
+  if (row.post_id && !row.hidden_at && !row.post_hidden && !row.thread_hidden) return { allowed:true, cache:'public' } as const;
   const reader = await viewer();
-  return { allowed:isModerator(reader) || (!row.post_id && reader?.id === row.uploader_id), public:false };
+  if (!row.post_id && reader?.id === row.uploader_id) return { allowed:true, cache:row.hidden_at ? 'none' : 'private' } as const;
+  return isModerator(reader) ? { allowed:true, cache:'none' } as const : refused;
 }
 
 export async function setImageHidden(actorId: string, imageId: string, hidden: boolean, why: string, db: PoolClient) {
@@ -524,6 +531,20 @@ async function viewerOf(req: Request): Promise<Viewer> {
   catch { return null; }
 }
 const member = async (req: Request) => (await authenticatedAccount(req)).account.id;
+/**
+ * Who is asking for an image, from the signed session alone. viewerOf can ask Clerk, which a conversation full of
+ * images would ask dozens of times at once (and be rate-limited); this is one indexed query, outside any transaction.
+ * A member Clerk has banned keeps a session for at most its lifetime, about a minute.
+ */
+async function imageViewer(req: Request): Promise<Viewer> {
+  const clerkId = getAuth(req).userId;
+  if (!clerkId) return null;
+  const row = (await pool.query(`SELECT id,role FROM falk_account WHERE clerk_id=$1 AND realm=$2 AND status='active' AND email_verified AND deleted_at IS NULL`,
+    [clerkId,realm()])).rows[0];
+  return row ? { id:row.id as string, role:row.role as Role } : null;
+}
+const IMAGE_CACHE = { public:'public, max-age=300', private:'private, max-age=86400, immutable', none:'private, no-store' } as const;
+export const imageQuery = z.object({ size:z.enum(['full','thumb']).catch('full') });
 const write = <T>(fn: (db: PoolClient) => Promise<T>) => transaction(fn);
 // Reads that re-check the actor take a row lock, so they use write(); read() is for public reads of several statements
 // that must agree. A single statement needs no transaction.
@@ -589,7 +610,7 @@ forum.post('/images', async (req,res,next) => {
     releaseImageUploadSlot(res);
     const id = randomUUID();
     await write(db => clearUnattachedImages(memberId,db));
-    await storeImage(id,image.data);
+    await storeImage(id,image.data,image.thumb);
     try { await write(db => addImage(memberId,id,{ width:image.width, height:image.height, bytes:image.data.length },db)); }
     catch (error) { await removeImage(id).catch(() => {}); throw error; }
     res.status(201).json({ image:{ id, width:image.width, height:image.height } });
@@ -598,14 +619,15 @@ forum.post('/images', async (req,res,next) => {
   }
 });
 forum.get('/images/:id', async (req,res) => {
-  const id = z.uuid().parse(req.params.id);
-  const access = await read(db => imageForServing(id,() => viewerOf(req),db));
+  const id = z.uuid().parse(req.params.id), { size } = imageQuery.parse(req.query);
+  // One statement, so no transaction: none is held open while the reader is looked up.
+  const access = await imageForServing(id,() => imageViewer(req));
   if (!access.allowed) throw new HttpError(404,'Image not found.');
-  const data = await loadImage(id);
+  const data = await loadImage(id,size);
   // Only ever a WebP we made, and nothing a browser could run even if that were wrong.
   res.set({ 'Content-Type':'image/webp', 'Content-Disposition':'inline', 'X-Content-Type-Options':'nosniff',
     'Content-Security-Policy':"default-src 'none'; sandbox", 'Cross-Origin-Resource-Policy':'same-origin',
-    'Cache-Control':access.public ? 'public, max-age=300' : 'private, no-store' }).send(data);
+    'Cache-Control':IMAGE_CACHE[access.cache] }).send(data);
 });
 forum.post('/images/:id/hide', async (req,res) => {
   const id = await member(req), image = z.uuid().parse(req.params.id), { reason:why } = reasonInput.parse(req.body);

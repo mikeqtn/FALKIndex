@@ -1,5 +1,5 @@
 import { useAuth } from '@clerk/react';
-import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
 import type { conversationWith, inbox, suggestPeople } from '../../../server/messages.ts';
 import type { Account } from '../../accounts/contracts.ts';
 import { AuthProvider } from '../accounts/AuthProvider';
@@ -91,7 +91,7 @@ function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   return <>
     <div className="f-dm-bubble">
       {message.images.length > 0 && <span className={`f-dm-images n${Math.min(message.images.length, 4)}`}>{message.images.map(image =>
-        <a key={image.id} href={imageUrl(image.id)} target="_blank" rel="noopener"><img src={imageUrl(image.id)} width={image.width} height={image.height} alt="Sent image" loading="lazy" /></a>)}</span>}
+        <a key={image.id} href={imageUrl(image.id)} target="_blank" rel="noopener"><img src={imageUrl(image.id, 'thumb')} width={image.width} height={image.height} alt="Sent image" loading="lazy" /></a>)}</span>}
       {message.body && <PostBody text={message.body} />}
     </div>
     {message.mine && (confirming
@@ -112,10 +112,19 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
   const [editing, setEditing] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  // Older pages, loaded on request and kept while the newest page is polled; earlierMore is whether more lie beyond.
+  const [earlier, setEarlier] = useState<Message[]>([]);
+  const [earlierMore, setEarlierMore] = useState<boolean | null>(null);
+  const [loadingEarlier, setLoadingEarlier] = useState(false);
   const list = useRef<HTMLOListElement>(null);
+  const scroller = useRef<HTMLDivElement>(null);
+  const keepFromBottom = useRef<number | null>(null);
   const field = useRef<HTMLTextAreaElement>(null);
   const path = `/api/forum/messages/with/${username}`;
   const newest = chat?.messages.at(-1)?.id;
+  const latestIds = new Set(chat?.messages.map(m => m.id));
+  const shown = [...earlier.filter(m => !latestIds.has(m.id)), ...(chat?.messages ?? [])];
+  const more = earlierMore ?? chat?.more ?? false;
 
   const load = useCallback(() => api<Conversation>(path).then(setChat).catch(e => setError(handleAccountError(e))), [path]);
   useEffect(() => { setChat(null); setError(''); load(); }, [load]);
@@ -126,6 +135,24 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     api(`${path}/read`, { method:'POST', body:'{}' }).then(onRead).catch(() => {});
   }, [newest]);
   useEffect(() => { list.current?.lastElementChild?.scrollIntoView({ block:'end' }); }, [newest]);
+  // Older messages go in above what the member is reading, so keep their place measured from the bottom.
+  useLayoutEffect(() => {
+    const box = scroller.current;
+    if (box && keepFromBottom.current !== null) { box.scrollTop = box.scrollHeight - keepFromBottom.current; keepFromBottom.current = null; }
+  }, [earlier]);
+  const loadEarlier = async () => {
+    const oldest = shown[0]?.id;
+    if (!oldest || loadingEarlier) return;
+    setLoadingEarlier(true); setError('');
+    try {
+      const page = await api<Conversation>(`${path}?before=${oldest}`);
+      const box = scroller.current;
+      if (box) keepFromBottom.current = box.scrollHeight - box.scrollTop;
+      setEarlier(current => [...page.messages, ...current]);
+      setEarlierMore(page.more);
+    } catch (failure) { setError(handleAccountError(failure)); }
+    finally { setLoadingEarlier(false); }
+  };
   useEffect(() => { field.current?.focus(); }, [username]);
   // The message box starts one line high and grows with what is written, up to its max-height in forum.css.
   useEffect(() => {
@@ -135,7 +162,10 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
     box.style.height = `${box.scrollHeight + box.offsetHeight - box.clientHeight}px`;
   }, [draft, chat?.refusal]);
 
-  const replace = (message: Message) => setChat(c => c && { ...c, messages:c.messages.map(m => m.id === message.id ? message : m) });
+  const replace = (message: Message) => {
+    setChat(c => c && { ...c, messages:c.messages.map(m => m.id === message.id ? message : m) });
+    setEarlier(current => current.map(m => m.id === message.id ? message : m));
+  };
   const send = async (e?: FormEvent) => {
     e?.preventDefault();
     if ((!draft.trim() && !attached.length) || busy || uploading) return;
@@ -169,7 +199,12 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
   };
   const remove = async (id: string) => {
     setError('');
-    try { await api(`/api/forum/messages/${id}`, { method:'DELETE', body:'{}' }); await load(); onRead(); }
+    try {
+      await api(`/api/forum/messages/${id}`, { method:'DELETE', body:'{}' });
+      // The newest page reloads below; an older one is not polled, so mark it here.
+      setEarlier(current => current.map(m => m.id === id ? { ...m, deleted:true, body:null, images:[] } : m));
+      await load(); onRead();
+    }
     catch (failure) { setError(handleAccountError(failure)); }
   };
   const block = async () => {
@@ -195,11 +230,12 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
         <button className="f-dm-text-button" type="button" onClick={block}>{chat.blocked ? 'Unblock' : 'Block'}</button>
       </> : !error && <span className="f-dm-skel-row" aria-hidden="true"><span className="f-skel f-skel-avatar f-dm-face" /><span className="f-skel" style={{ width:120 }} /></span>}
     </div>
-    <div className="f-dm-scroll" aria-busy={!chat}>
+    <div className="f-dm-scroll" ref={scroller} aria-busy={!chat}>
       {!chat && !error && <><span className="sr-only" role="status">Loading messages</span><ChatSkeleton /></>}
-      {chat && !chat.messages.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
-      {chat && chat.messages.length > 0 && <ol className="f-dm-messages" ref={list} aria-label={`Messages with ${chat.with.displayName}`}>
-        {chat.messages.map(m => <li key={m.id} className={m.mine ? 'mine' : 'theirs'}>
+      {chat && !shown.length && <p className="f-dm-empty">No messages yet. Say hello to {chat.with.displayName}.</p>}
+      {chat && more && <button className="f-dm-earlier" type="button" disabled={loadingEarlier} onClick={loadEarlier}>{loadingEarlier ? 'Loading…' : 'Load earlier messages'}</button>}
+      {chat && shown.length > 0 && <ol className="f-dm-messages" ref={list} aria-label={`Messages with ${chat.with.displayName}`}>
+        {shown.map(m => <li key={m.id} className={m.mine ? 'mine' : 'theirs'}>
           <Bubble message={m} editing={editing === m.id} onEdit={() => setEditing(m.id)} onCancel={() => setEditing(null)}
             onSave={body => save(m.id, body)} onDelete={() => remove(m.id)} />
           <span className="f-dm-time"><span className="sr-only">{m.mine ? 'You, ' : `${chat.with.displayName}, `}</span>{time(m.createdAt)}{m.editedAt && !m.deleted && ' · Edited'}</span>
@@ -211,7 +247,7 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
       : chat && <form className="f-dm-compose" onSubmit={send}>
         {(attached.length > 0 || uploading) && <ul className="f-dm-attached" aria-label="Images to send">
           {attached.map(image => <li key={image.id}>
-            <img src={imageUrl(image.id)} alt="Image to send" />
+            <img src={imageUrl(image.id, 'thumb')} alt="Image to send" />
             <button type="button" aria-label="Remove image" onClick={() => setAttached(current => current.filter(i => i.id !== image.id))}>×</button>
           </li>)}
           {uploading && <li><span className="f-skel f-dm-skel-thumb" /><span className="sr-only" role="status">Uploading</span></li>}
