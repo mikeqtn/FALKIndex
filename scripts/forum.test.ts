@@ -7,7 +7,7 @@ import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { FORUM_THREADS_PER_HOUR, rateLimitKey } from '../server/api.ts';
 import { alertModerators, createThread, deletePost, editPost, listAllThreads, listCategories, listQuery, listReports, listThreads, markRead, MAX_REPLY_DEPTH, moderateThread, NEW_MEMBER, notifications, POSTS_PAGE,
-  recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, threadDetail, vote, voteInput } from '../server/forum.ts';
+  recentThreads, recordsUnderDiscussion, recordThreads, removeMember, REPORT_ALERTS_PER_HOUR, reply, reportPost, resolveReport, searchForum, setPostHidden, suggestThreads, threadDetail, vote, voteInput } from '../server/forum.ts';
 
 after(() => pool.end());
 
@@ -123,6 +123,15 @@ test('threads list, read, link to records and are found by search', () => member
   assert.ok((await searchForum('cases', db)).some(t => t.id === id), 'finds a title');
   const detail = (await threadDetail(id, 1, null, db))!;
   assert.deepEqual(detail.posts.map(p => p.body), ['Asking about case suppliers.', 'Mostly specialist case makers.']);
+}));
+
+test('the search box suggests threads by title or post, matching words as they are typed', () => members(async (db, m) => {
+  const { thread:titled } = await createThread(m.alice, { ...thread, title:'Tourbillon questions' }, db);
+  const { thread:id } = await createThread(m.alice, thread, db);
+  await reply(m.bob, id, { body:'A tourbillon rarely pays for itself.' }, db);
+  assert.deepEqual(await suggestThreads('tourb', db), [{ id:titled, title:'Tourbillon questions' }, { id, title:thread.title }], 'title matches first, only ids and titles');
+  assert.deepEqual(await suggestThreads('who mak', db), [{ id, title:thread.title }], 'every word must match');
+  assert.deepEqual(await suggestThreads('&|!():* <', db), [], 'search syntax is only text');
 }));
 
 test('a reply notifies the thread author, and a locked thread takes only moderators', () => members(async (db, m) => {

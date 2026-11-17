@@ -184,6 +184,18 @@ export async function searchForum(q: string, db: Queryable = pool) {
   return rows.rows.map(threadFrom);
 }
 
+/** Threads for the search box as someone types: every word, the last perhaps half-typed, must be in the title or a
+ * visible post. Only ids and titles go back, title matches first. Words are reduced to letters and digits, so nothing
+ * typed is read as search syntax. */
+export async function suggestThreads(q: string, db: Queryable = pool) {
+  const words = q.match(/[\p{L}\p{N}]+/gu)?.slice(0, 8) ?? [];
+  if (!words.length) return [];
+  const rows = await db.query(`SELECT t.id,t.title FROM falk_forum_thread t,to_tsquery('english',$1) AS q
+    WHERE t.hidden_at IS NULL AND (t.search @@ q OR EXISTS(SELECT 1 FROM falk_forum_post p WHERE p.thread_id=t.id AND p.hidden_at IS NULL AND p.search @@ q))
+    ORDER BY t.search @@ q DESC,t.last_post_at DESC,t.id LIMIT 6`, [words.map(w => `${w}:*`).join(' & ')]);
+  return rows.rows.map(r => ({ id:r.id as string, title:r.title as string }));
+}
+
 // Spam pays through links and volume, so a new member gets neither until they have a little history. A post a
 // moderator hid does not count towards it. ponytail: limits are read from the posts themselves, so two requests at the
 // same instant can both pass; the hourly limits in api.ts still apply. Moderators are exempt from all of this.
@@ -530,6 +542,10 @@ forum.get('/records/:brand/:model', async (req,res) => {
 forum.get('/search', async (req,res) => {
   const { q } = searchQuery.parse(req.query);
   res.json({ threads:await searchForum(q) });
+});
+forum.get('/suggest', async (req,res) => {
+  const { q } = searchQuery.parse(req.query);
+  res.json({ threads:await suggestThreads(q) });
 });
 forum.post('/threads', async (req,res) => {
   const id = await member(req), input = threadInput.parse(req.body);
