@@ -9,6 +9,7 @@ import { forumDay, personInitial } from '../../lib/forum-people';
 import { PostBody } from './PostBody';
 import { ReasonDialog, type ReasonRequest } from './ReasonDialog';
 import { imageUrl, useImagePicker } from './ImagePicker';
+import { openMessages } from '../../lib/messages-dock.ts';
 
 type Detail = NonNullable<Awaited<ReturnType<typeof threadDetail>>>;
 type Post = Detail['posts'][number];
@@ -128,6 +129,7 @@ function PostContent({ post, shared, opening }: { post: Post, shared: Shared, op
       {tools?.account && <>
         {canReply && (opening ? <a href="#forum-reply">Reply</a> : <button type="button" onClick={() => setReplying('')}>Reply</button>)}
         {post.own && !post.hidden && !thread.locked && <button type="button" onClick={() => setEditing(post.body)}>Edit</button>}
+        {!post.own && tools.account.onboarded && post.author.username && <button type="button" onClick={() => openMessages(post.author.username!)}>Message</button>}
         {!post.own && !post.hidden && <button type="button" onClick={report}>{opening ? 'Report thread' : 'Report'}</button>}
         {moderator && <button type="button" onClick={toggle}>{post.hidden ? 'Show' : 'Hide'}</button>}
         {moderator && !post.own && post.author.username && <button type="button" onClick={remove}>Hide all and suspend</button>}

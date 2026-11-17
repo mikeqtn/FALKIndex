@@ -5,8 +5,9 @@ import '../styles/forum.css';
 import '../styles/accounts.css';
 import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2?url';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
+import MessagesDock from '../components/forum/MessagesDock.tsx';
 import { navCategories } from '../../server/forum.ts';
-import { forumCanonical, forumPath, hasSession, siteHref } from '../lib/forum.ts';
+import { forumCanonical, forumLinks, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 // The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
 import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
 import { allowClerkForHost } from '../lib/page-csp.ts';
@@ -95,6 +96,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
         <slot />
       </main>
     </div>
+    {signedIn && <MessagesDock client:only="react" links={forumLinks()} />}
     <script>
       // The menu renders open so its links work without script; below 900px it folds behind "Menu".
       const menu = document.getElementById('f-menu') as HTMLDetailsElement, wide = matchMedia('(min-width: 900px)');

@@ -14,6 +14,7 @@ import { loadCatalogue } from './catalogue.ts';
 import { transaction } from './db.ts';
 import review, { myContributions, replyToRequest } from './review.ts';
 import forum from './forum.ts';
+import messages from './messages.ts';
 import { sendSupportMessage, supportInput } from './support.ts';
 
 export const api = Router();
@@ -111,6 +112,8 @@ export const FORUM_THREADS_PER_HOUR = 5;
 export const FORUM_POSTS_PER_HOUR = 30;
 export const FORUM_REPORTS_PER_HOUR = 20;
 export const FORUM_IMAGES_PER_HOUR = 20;
+// Messages are kept for good too, and are the easiest way to spam one member, so they share a cap per sender.
+export const FORUM_MESSAGES_PER_HOUR = 60;
 const hourly = (scope: string, limit: number, message: string): RequestHandler => async (req,_res,next) => {
   const hour = Math.floor(Date.now()/3600000)*60;
   if (await hit(rateLimitKey(scope,getAuth(req).userId ?? req.ip ?? ''),hour) > limit) throw new HttpError(429,message);
@@ -135,6 +138,7 @@ api.post('/contributions/watches',hourly('new-watch',NEW_WATCHES_PER_HOUR,'You h
 api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have started several threads in the last hour. Please try again later.'));
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
 api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have uploaded a lot of images in the last hour. Please try again later.'));
+api.post('/forum/messages/with/:username',hourly('forum-message',FORUM_MESSAGES_PER_HOUR,'You have sent a lot of messages in the last hour. Please try again later.'));
 api.post('/forum/posts/:id/reports',hourly('forum-report',FORUM_REPORTS_PER_HOUR,'You have sent several reports in the last hour. Please try again later.'));
 // Each help message is a paid email to a real inbox, so cap it per visitor and, against many addresses at once, for the site.
 export const SUPPORT_PER_HOUR = 5;
@@ -149,5 +153,6 @@ api.post('/support',hourly('support',SUPPORT_PER_HOUR,'You have sent several mes
 });
 api.use('/admin',admin);
 api.use('/review',review);
+api.use('/forum/messages',messages);
 api.use('/forum',forum);
 api.use((_req,_res) => { throw new HttpError(404,'API route not found.'); });
