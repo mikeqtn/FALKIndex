@@ -79,8 +79,10 @@ export async function inbox(actorId: string, db: PoolClient) {
   const mine = `(c.member_a=$1 OR c.member_b=$1)`;
   // A message deleted before it was read no longer waits to be read.
   const unreadFor = `l.sender_id<>$1 AND l.deleted_at IS NULL AND l.created_at > coalesce(CASE WHEN c.member_a=$1 THEN c.read_a ELSE c.read_b END,'-infinity')`;
+  // Only messages after I cleared the conversation count, so one I cleared leaves my inbox until someone writes again.
   const latest = `JOIN LATERAL (SELECT body,sender_id,created_at,deleted_at,(SELECT count(*)::int FROM falk_forum_image i WHERE i.message_id=g.id AND i.purged_at IS NULL) AS images
-    FROM falk_forum_message g WHERE conversation_id=c.id ORDER BY created_at DESC,id DESC LIMIT 1) l ON true`;
+    FROM falk_forum_message g WHERE conversation_id=c.id AND created_at > coalesce(CASE WHEN c.member_a=$1 THEN c.cleared_a ELSE c.cleared_b END,'-infinity')
+    ORDER BY created_at DESC,id DESC LIMIT 1) l ON true`;
   const rows = await db.query(`SELECT c.id,${authorColumns('o','m')},l.body,l.sender_id=$1 AS mine,l.created_at,l.deleted_at,l.images,${unreadFor} AS unread,
       EXISTS(SELECT 1 FROM falk_forum_block b WHERE b.blocker_id=$1 AND b.blocked_id=o.id) AS blocked
     FROM falk_forum_conversation c ${latest}
@@ -128,8 +130,11 @@ export async function conversationWith(actorId: string, name: string, db: PoolCl
   const [a,b] = pair(me.id,other.id);
   // One more than a page, to learn whether there is more. A cursor from another conversation matches nothing.
   const older = before ? 'AND (g.created_at,g.id) < (SELECT created_at,id FROM falk_forum_message WHERE id=$3 AND conversation_id=c.id)' : '';
+  // Messages from before I cleared the conversation are gone for me (the other member still has them).
+  const cleared = a === me.id ? 'c.cleared_a' : 'c.cleared_b';
   const rows = (await db.query(`SELECT ${messageColumns} FROM falk_forum_message g
     JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE c.member_a=$1 AND c.member_b=$2 ${older}
+    AND g.created_at > coalesce(${cleared},'-infinity')
     ORDER BY g.created_at DESC,g.id DESC LIMIT ${MESSAGES_PAGE + 1}`, before ? [a,b,before] : [a,b])).rows;
   return {
     with:authorFrom(other), blocked:blocked.byMe, refusal:refusal(other,me.id,blocked), more:rows.length > MESSAGES_PAGE,
@@ -209,6 +214,21 @@ export async function markConversationRead(actorId: string, name: string, db: Po
   return { read:(rows.rowCount ?? 0) > 0 };
 }
 
+/**
+ * Deletes my conversation with a member for me only: every message so far is hidden from me, and it leaves my inbox.
+ * The other member keeps all of it. Nothing is removed from the database (db/016-forum-conversation-clear.sql), so a
+ * report or a moderator can still see it. A new message from either of us starts it again, showing only what is new.
+ */
+export async function clearConversation(actorId: string, name: string, db: PoolClient) {
+  const me = await actor(db,actorId);
+  const other = await memberNamed(db,name);
+  const [a,b] = pair(me.id,other.id);
+  const [cleared,read] = a === me.id ? ['cleared_a','read_a'] : ['cleared_b','read_b'];
+  const rows = await db.query(`UPDATE falk_forum_conversation SET ${cleared}=greatest(clock_timestamp(),last_message_at),
+    ${read}=greatest(clock_timestamp(),last_message_at) WHERE member_a=$1 AND member_b=$2`, [a,b]);
+  return { cleared:(rows.rowCount ?? 0) > 0 };
+}
+
 /** Blocks or unblocks a member. Blocking stops messages both ways; the conversation so far stays readable. */
 export async function setBlocked(actorId: string, name: string, blocked: boolean, db: PoolClient) {
   const me = await actor(db,actorId);
@@ -250,6 +270,10 @@ messages.delete('/:id', async (req,res) => {
   // The delete has committed, so a failed removal only leaves bytes that nothing serves any more.
   await Promise.allSettled(removedImages.map(removeImage));
   res.json(result);
+});
+messages.delete('/with/:username', async (req,res) => {
+  const id = await member(req), name = username.parse(req.params.username);
+  res.json(await write(db => clearConversation(id,name,db)));
 });
 messages.post('/with/:username/read', async (req,res) => {
   const id = await member(req), name = username.parse(req.params.username);
