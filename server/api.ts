@@ -139,6 +139,8 @@ api.post('/forum/threads',hourly('forum-thread',FORUM_THREADS_PER_HOUR,'You have
 api.post('/forum/threads/:id/posts',hourly('forum-post',FORUM_POSTS_PER_HOUR,'You have posted a lot in the last hour. Please try again later.'));
 api.post('/forum/images',hourly('forum-image',FORUM_IMAGES_PER_HOUR,'You have uploaded a lot of images in the last hour. Please try again later.'));
 api.post('/forum/messages/with/:username',hourly('forum-message',FORUM_MESSAGES_PER_HOUR,'You have sent a lot of messages in the last hour. Please try again later.'));
+// Every edit keeps the earlier text, so edits are capped the same way.
+api.patch('/forum/messages/:id',hourly('forum-message-edit',FORUM_MESSAGES_PER_HOUR,'You have edited a lot of messages in the last hour. Please try again later.'));
 api.post('/forum/posts/:id/reports',hourly('forum-report',FORUM_REPORTS_PER_HOUR,'You have sent several reports in the last hour. Please try again later.'));
 // Each help message is a paid email to a real inbox, so cap it per visitor and, against many addresses at once, for the site.
 export const SUPPORT_PER_HOUR = 5;

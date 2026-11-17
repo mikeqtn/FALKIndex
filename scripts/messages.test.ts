@@ -4,7 +4,8 @@ import { randomUUID } from 'node:crypto';
 import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
-import { conversationWith, inbox, markConversationRead, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
+import { imageForServing, reply } from '../server/forum.ts';
+import { conversationWith, deleteMessage, editMessage, inbox, markConversationRead, messageInput, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
 
 after(() => pool.end());
 
@@ -84,13 +85,79 @@ test('a block stops messages both ways, without telling the blocked member', () 
   await sendMessage(m.alice.id, m.bob.name, { body:'After the block' }, db);
 }));
 
-test('messages are never edited or deleted, and a conversation keeps its members', () => members(async (db, m) => {
+test('a message stays in the database: edits keep the earlier text, and a deleted one cannot change again', () => members(async (db, m) => {
   const { message } = await sendMessage(m.alice.id, m.bob.name, { body:'Kept for good' }, db);
-  await refused(db, "UPDATE falk_forum_message SET body='Changed' WHERE id=$1", [message.id], /append-only/);
-  await refused(db, 'DELETE FROM falk_forum_message WHERE id=$1', [message.id], /append-only/);
+  await refused(db, 'DELETE FROM falk_forum_message WHERE id=$1', [message.id], /never deleted/);
+  await refused(db, 'UPDATE falk_forum_message SET sender_id=$2 WHERE id=$1', [message.id, m.bob.id], /moved or reassigned/);
+  await refused(db, 'UPDATE falk_forum_message SET edited_at=now() WHERE id=$1', [message.id], /follows its text/);
+  await db.query("UPDATE falk_forum_message SET body='Changed' WHERE id=$1", [message.id]);
+  const edits = (await db.query('SELECT id,body FROM falk_forum_message_edit WHERE message_id=$1', [message.id])).rows;
+  assert.deepEqual(edits.map(e => e.body), ['Kept for good']);
+  await refused(db, "UPDATE falk_forum_message_edit SET body='tampered' WHERE id=$1", [edits[0].id], /append-only/);
+  await db.query('UPDATE falk_forum_message SET deleted_at=now() WHERE id=$1', [message.id]);
+  await refused(db, "UPDATE falk_forum_message SET body='Again' WHERE id=$1", [message.id], /deleted and cannot be changed/);
+  await refused(db, 'UPDATE falk_forum_message SET deleted_at=NULL WHERE id=$1', [message.id], /deleted and cannot be changed/);
   const conversation = (await db.query('SELECT conversation_id FROM falk_forum_message WHERE id=$1', [message.id])).rows[0].conversation_id;
   await refused(db, 'UPDATE falk_forum_conversation SET member_b=$2 WHERE id=$1', [conversation, m.carol.id], /cannot be rewritten|check constraint/);
   await refused(db, 'DELETE FROM falk_forum_conversation WHERE id=$1', [conversation], /never deleted/);
+}));
+
+test('a sender edits their own messages, and both members see the change', () => members(async (db, m) => {
+  const { message } = await sendMessage(m.alice.id, m.bob.name, { body:'Helo Bob' }, db);
+  const answer = await sendMessage(m.bob.id, m.alice.name, { body:'Hi' }, db);
+  const edited = (await editMessage(m.alice.id, message.id, { body:'Hello Bob' }, db)).message;
+  assert.equal(edited.body, 'Hello Bob');
+  assert.ok(edited.editedAt);
+  const seen = (await conversationWith(m.bob.id, m.alice.name, db)).messages.find(x => x.id === message.id)!;
+  assert.deepEqual([seen.body, !!seen.editedAt, seen.mine], ['Hello Bob', true, false]);
+  await assert.rejects(editMessage(m.alice.id, answer.message.id, { body:'Not mine' }, db), /only change your own/);
+  await assert.rejects(editMessage(m.carol.id, message.id, { body:'Not mine' }, db), /not found/, 'others cannot even find it');
+  await assert.rejects(editMessage(m.alice.id, message.id, { body:'' }, db), /Write something first/);
+  await setBlocked(m.bob.id, m.alice.name, true, db);
+  await assert.rejects(editMessage(m.alice.id, message.id, { body:'Sneaky' }, db), /not taking messages/, 'no edits across a block');
+}));
+
+test('a deleted message shows as deleted to both members and no longer waits to be read', () => members(async (db, m) => {
+  const { message } = await sendMessage(m.alice.id, m.bob.name, { body:'Oops, wrong person' }, db);
+  assert.equal((await inbox(m.bob.id, db)).unread, 1);
+  await assert.rejects(deleteMessage(m.bob.id, message.id, db), /only change your own/);
+  await deleteMessage(m.alice.id, message.id, db);
+  for (const [me, other] of [[m.alice, m.bob], [m.bob, m.alice]]) {
+    const [shown] = (await conversationWith(me.id, other.name, db)).messages;
+    assert.deepEqual([shown.deleted, shown.body, shown.images], [true, null, []]);
+  }
+  const bob = await inbox(m.bob.id, db);
+  assert.equal(bob.unread, 0);
+  assert.equal(bob.conversations[0].last.deleted, true);
+  assert.equal(bob.conversations[0].last.body, '', 'the deleted text is not shown in the preview');
+  await assert.rejects(deleteMessage(m.alice.id, message.id, db), /was deleted/);
+  await assert.rejects(editMessage(m.alice.id, message.id, { body:'Back' }, db), /was deleted/);
+}));
+
+test('images in a message are seen only by its two members, and go for good when it is deleted', () => members(async (db, m) => {
+  const upload = async (who: string) => (await db.query('INSERT INTO falk_forum_image(uploader_id,width,height,bytes) VALUES($1,800,600,1000) RETURNING id', [who])).rows[0].id as string;
+  const image = await upload(m.alice.id), bobs = await upload(m.bob.id);
+  assert.throws(() => messageInput.parse({ body:'  ' }), /Write something first/);
+  assert.deepEqual(messageInput.parse({ images:[image] }), { body:'', images:[image] }, 'an image alone is a message');
+  await assert.rejects(sendMessage(m.alice.id, m.bob.name, { body:'', images:[bobs] }, db), /no longer available/, 'not an upload by someone else');
+  const { message } = await sendMessage(m.alice.id, m.bob.name, { body:'', images:[image] }, db);
+  assert.deepEqual(message.images, [{ id:image, width:800, height:600 }]);
+  assert.deepEqual((await conversationWith(m.bob.id, m.alice.name, db)).messages[0].images.map(i => i.id), [image]);
+  assert.equal((await inbox(m.bob.id, db)).conversations[0].last.images, 1);
+  const as = (who: { id: string } | null, role: 'contributor' | 'editor' = 'contributor') => () => Promise.resolve(who && { id:who.id, role });
+  assert.deepEqual(await imageForServing(image, as(m.bob), db), { allowed:true, public:false });
+  assert.deepEqual(await imageForServing(image, as(m.alice), db), { allowed:true, public:false });
+  assert.equal((await imageForServing(image, as(m.carol), db)).allowed, false);
+  assert.equal((await imageForServing(image, as(m.editor, 'editor'), db)).allowed, false, 'moderators do not read messages');
+  assert.equal((await imageForServing(image, as(null), db)).allowed, false);
+  // An image in a message cannot be moved onto a public post.
+  const thread = (await db.query('SELECT id FROM falk_forum_thread WHERE author_id=$1', [m.alice.id])).rows[0].id;
+  await db.query('SAVEPOINT post');
+  await assert.rejects(reply(m.alice.id, thread, { body:'Look at this', images:[image] }, db), /no longer available/);
+  await db.query('ROLLBACK TO SAVEPOINT post');
+  const { removedImages } = await deleteMessage(m.alice.id, message.id, db);
+  assert.deepEqual(removedImages, [image]);
+  assert.equal((await imageForServing(image, as(m.bob), db)).allowed, false);
 }));
 
 test('new accounts cannot send links and start only a few conversations an hour', () => members(async (db, m) => {

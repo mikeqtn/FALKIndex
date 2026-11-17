@@ -113,7 +113,10 @@ const q = Astro.url.searchParams.get('q') ?? '';
         </div>
       </main>
     </div>
-    {signedIn && <MessagesDock client:only="react" links={forumLinks()} />}
+    {signedIn && <MessagesDock client:only="react" links={forumLinks()}>
+      {/* The same placeholder bar the dock shows while it checks the account (MessagesDock.tsx: BarSkeleton). */}
+      <div slot="fallback" class="f-dm-bar f-dm-bar-skeleton" aria-hidden="true"><span class="f-skel f-dm-skel-glyph"></span><span class="f-skel f-dm-skel-title"></span></div>
+    </MessagesDock>}
     <script>
       // The menu renders open so its links work without script; below 900px it folds behind "Menu".
       const menu = document.getElementById('f-menu') as HTMLDetailsElement, wide = matchMedia('(min-width: 900px)');

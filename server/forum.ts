@@ -268,7 +268,7 @@ export async function reply(actorId: string, threadId: string, input: z.infer<ty
 async function attachImages(db: PoolClient, memberId: string, postId: string, ids: string[] = []) {
   if (!ids.length) return;
   const attached = await db.query(`UPDATE falk_forum_image i SET post_id=$1,position=o.position FROM unnest($2::uuid[]) WITH ORDINALITY AS o(id,position)
-    WHERE i.id=o.id AND i.hidden_at IS NULL AND i.purged_at IS NULL AND (i.post_id=$1 OR (i.post_id IS NULL AND i.uploader_id=$3))`, [postId,ids,memberId]);
+    WHERE i.id=o.id AND i.hidden_at IS NULL AND i.purged_at IS NULL AND (i.post_id=$1 OR (i.post_id IS NULL AND i.message_id IS NULL AND i.uploader_id=$3))`, [postId,ids,memberId]);
   if (attached.rowCount !== ids.length) throw new HttpError(400,'One of those images is no longer available. Remove it and try again.');
 }
 
@@ -298,15 +298,23 @@ export async function addImage(actorId: string, id: string, image: { width: numb
 /** Forgets this member's uploads that never reached a post, and returns them so their bytes can go too. */
 // ponytail: runs on a member's next upload, so strays of someone who never returns stay until a scheduled sweep exists.
 export async function clearUnattachedImages(memberId: string, db: PoolClient) {
-  const rows = await db.query(`DELETE FROM falk_forum_image WHERE uploader_id=$1 AND post_id IS NULL AND created_at<now()-interval '1 day' RETURNING id`, [memberId]);
+  const rows = await db.query(`DELETE FROM falk_forum_image WHERE uploader_id=$1 AND post_id IS NULL AND message_id IS NULL AND created_at<now()-interval '1 day' RETURNING id`, [memberId]);
   return rows.rows.map(r => r.id as string);
 }
 
-/** Whether this reader may see an image. viewer is a function so public images never touch the account system. */
+/** Whether this reader may see an image. viewer is a function so public images never touch the account system.
+ * An image in a direct message is only ever for the two members of its conversation, while the message stands. */
 export async function imageForServing(id: string, viewer: () => Promise<Viewer>, db: Queryable = pool) {
-  const row = (await db.query(`SELECT i.uploader_id,i.post_id,i.hidden_at,i.purged_at,p.hidden_at AS post_hidden,t.hidden_at AS thread_hidden
-    FROM falk_forum_image i LEFT JOIN falk_forum_post p ON p.id=i.post_id LEFT JOIN falk_forum_thread t ON t.id=p.thread_id WHERE i.id=$1`, [id])).rows[0];
+  const row = (await db.query(`SELECT i.uploader_id,i.post_id,i.message_id,i.hidden_at,i.purged_at,p.hidden_at AS post_hidden,t.hidden_at AS thread_hidden,
+      g.deleted_at AS message_deleted,c.member_a,c.member_b
+    FROM falk_forum_image i LEFT JOIN falk_forum_post p ON p.id=i.post_id LEFT JOIN falk_forum_thread t ON t.id=p.thread_id
+    LEFT JOIN falk_forum_message g ON g.id=i.message_id LEFT JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE i.id=$1`, [id])).rows[0];
   if (!row || row.purged_at) return { allowed:false, public:false };
+  if (row.message_id) {
+    if (row.hidden_at || row.message_deleted) return { allowed:false, public:false };
+    const reader = await viewer();
+    return { allowed:!!reader && (reader.id === row.member_a || reader.id === row.member_b), public:false };
+  }
   if (row.post_id && !row.hidden_at && !row.post_hidden && !row.thread_hidden) return { allowed:true, public:true };
   const reader = await viewer();
   return { allowed:isModerator(reader) || (!row.post_id && reader?.id === row.uploader_id), public:false };
