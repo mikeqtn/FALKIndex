@@ -9,3 +9,9 @@ const isSubdomain = (host: string) => hostname(host).endsWith(`.${ROOT}`);
 export const clerkHostFor = (host: string) => isSubdomain(host) ? ROOT : host;
 /** The Clerk proxy this host must use, when it isn't the default for the host. */
 export const clerkProxyFor = (host: string) => isSubdomain(host) ? `https://${ROOT}/api/__clerk` : undefined;
+
+/**
+ * The cookie domain shared by falkindex.com and its subdomains, so a hint set on one is read on the other. Every
+ * other host (previews, local) keeps its cookies to itself.
+ */
+export const sharedCookieDomain = (host: string) => hostname(host) === ROOT || isSubdomain(host) ? ROOT : undefined;

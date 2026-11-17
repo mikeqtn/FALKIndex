@@ -280,15 +280,26 @@ button, input, textarea, select { font: inherit; color: inherit; }
 @media (max-width: 899px) {
   :root { --pad: 16px; --top: 56px; }
   .f-frame { display: block; }
-  .f-top { display: flex; align-items: center; justify-content: space-between; height: var(--top); padding-right: 72px; }
+  .f-top { display: flex; align-items: center; justify-content: space-between; height: var(--top); padding-right: calc(var(--pad) + 44px); }
   .f-wordmark { padding-left: var(--pad); flex: none; }
   .f-search, .f-switch, .f-theme { display: none; }
-  .f-top-end { padding: 0 0 0 var(--s-2); gap: var(--s-2); font-size: 14px; }
-  .f-top-end .account-nav { gap: var(--s-2); }
+  .f-top-end { padding: 0 var(--s-1) 0 var(--s-2); gap: var(--s-1); font-size: 14px; min-width: 0; }
+  /* Compact: the account items become 40px icons, their labels kept for screen readers (AccountNavigation.tsx). */
+  .f-top-end .account-nav { gap: 2px; }
   .f-top-end .account-nav .account-button { display: none; }
+  .f-top-end .account-nav:has(.account-nav-icon) > a, .f-top-end .account-nav:has(.account-nav-icon) > button {
+    position: relative; display: inline-grid; place-items: center; width: 40px; height: 40px; min-height: 0; padding: 0; border: 0; border-radius: var(--r-control); background: transparent; color: var(--c-ink-2); }
+  .f-top-end .account-nav:has(.account-nav-icon) > a:hover, .f-top-end .account-nav:has(.account-nav-icon) > button:hover:not(:disabled) { background: var(--c-surface-2); color: var(--c-ink); text-decoration: none; }
+  .f-top-end .account-nav-icon { display: block; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .f-top-end .account-nav:has(.account-nav-icon) .account-nav-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  /* The unread count sits on the bell as a badge. */
+  .f-top-end .account-nav .forum-count { position: absolute; top: 3px; right: 2px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--c-action); color: var(--c-ink-inverse); font-size: 11px; font-weight: 650; line-height: 17px; text-align: center; }
   .f-side-home { display: list-item; }
   .f-side { position: static; height: 0; }
-  .f-menu-button { display: grid; place-items: center; position: fixed; z-index: 12; top: 8px; right: var(--pad); width: 56px; height: 40px; list-style: none; border-radius: var(--r-control); font-weight: 560; cursor: pointer; }
+  .f-menu-button { display: grid; place-items: center; position: fixed; z-index: 12; top: 8px; right: var(--pad); width: 40px; height: 40px; list-style: none; border-radius: var(--r-control); color: var(--c-ink); cursor: pointer; }
+  .f-menu-button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .f-menu-button .f-menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .f-wordmark { min-width: 0; padding-right: var(--s-2); }
   .f-menu-button::-webkit-details-marker { display: none; }
   .f-side[open] .f-side-nav { position: fixed; z-index: 11; inset: var(--top) 0 0; max-height: none; padding: 8px var(--pad) 32px; background: var(--c-page); }
   .f-side-nav a { min-height: 44px; font-size: 15px; }
@@ -482,6 +493,9 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
   .f-dm-bar { right: var(--pad); width: auto; min-width: 180px; }
   /* On a phone the open panel takes the screen below the top bar, like the menu. */
   .f-dm-panel { inset: var(--top) 0 0; width: auto; height: auto; border: 0; border-radius: 0; }
+  /* While the panel covers the screen, the page behind does not scroll. Scrolling it let the browser's toolbar
+     slide in and out, and the panel's bottom edge lagged behind it, showing a gap. */
+  html:has(.f-dm-panel:not(.closing)), html:has(.f-dm-panel:not(.closing)) body { overflow: hidden; overscroll-behavior: none; }
   .f-dm-start input, .f-dm-compose textarea { font-size: 16px; }
   .f-dm-compose { --dm-control: 44px; }
   .f-dm-compose textarea { padding: 11px 12px; line-height: 20px; }

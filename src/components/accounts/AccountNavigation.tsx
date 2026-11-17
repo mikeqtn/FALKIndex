@@ -3,6 +3,20 @@ import { useEffect, useState } from 'react';
 import type { Role } from '../../accounts/contracts';
 import { api } from './api';
 import { AuthProvider } from './AuthProvider';
+import { setSessionHint } from '../../accounts/session-hint.ts';
+
+// Each item has an icon and a label. The icons show only where a page asks for them (the forum's top bar on phones,
+// forum.css), which then hides the label visually but keeps it as the item's name for screen readers.
+const ICONS = {
+  replies: 'M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Zm4 10.5a2.2 2.2 0 0 0 4 0',
+  reports: 'M5 21V4m0 0h11l-2 4 2 4H5',
+  account: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7.5 8.5a7.5 7.5 0 0 1 15 0',
+  signOut: 'M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l-4 4 4 4M6 12h10',
+};
+const Item = ({ icon, label }: { icon: keyof typeof ICONS, label: string }) => <>
+  <svg className="account-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={ICONS[icon]} /></svg>
+  <span className="account-nav-label">{label}</span>
+</>;
 
 interface Props {
   site?: string; // the main site's origin, when this menu is shown on the forum's host
@@ -51,12 +65,12 @@ function AccountNavigationInner({ site = '', forum }: Props) {
   // The server drew this menu because the session cookie says signed in, so it shows while Clerk loads.
   return (
     <span className="account-nav">
-      {forum && <a href={forum.replies}>Replies{unread > 0 && <span className="forum-count"> {unread}<span className="sr-only"> unread</span></span>}</a>}
-      {forum && (role === 'editor' || role === 'admin') && <a href={forum.moderation}>Reports</a>}
+      {forum && <a href={forum.replies}><Item icon="replies" label="Replies" />{unread > 0 && <span className="forum-count"> {unread}<span className="sr-only"> unread</span></span>}</a>}
+      {forum && (role === 'editor' || role === 'admin') && <a href={forum.moderation}><Item icon="reports" label="Reports" /></a>}
       {!forum && (role === 'editor' || role === 'admin') && <a href={`${site}/editor/review`}>Review</a>}
       {!forum && role === 'admin' && <a href={`${site}/admin/users`}>Administration</a>}
-      <a href={`${site}/account`}>Account</a>
-      <button type="button" disabled={!isLoaded} onClick={() => { forget(); signOut({ redirectUrl: '/' }); }}>Sign out</button>
+      <a href={`${site}/account`}><Item icon="account" label="Account" /></a>
+      <button type="button" disabled={!isLoaded} onClick={() => { forget(); setSessionHint(false); signOut({ redirectUrl: '/' }); }}><Item icon="signOut" label="Sign out" /></button>
     </span>
   );
 }
