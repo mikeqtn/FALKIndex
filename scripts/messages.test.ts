@@ -5,7 +5,7 @@ import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { imageForServing, reply } from '../server/forum.ts';
-import { MESSAGES_PAGE, conversationWith, deleteMessage, editMessage, inbox, markConversationRead, messageInput, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
+import { MESSAGES_PAGE, clearConversation, conversationWith, deleteMessage, editMessage, inbox, markConversationRead, messageInput, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
 
 after(() => pool.end());
 
@@ -218,4 +218,21 @@ test('a conversation opens on its newest messages, and older ones load a page at
   // A cursor from someone else's conversation finds nothing here.
   const { message } = await sendMessage(m.carol.id, m.bob.name, { body:'Elsewhere' }, db);
   assert.deepEqual((await conversationWith(m.alice.id, m.bob.name, db, message.id)).messages, []);
+}));
+
+test('deleting a conversation hides it for me only, and a new message brings back only what is new', () => members(async (db, m) => {
+  await sendMessage(m.alice.id, m.bob.name, { body:'Hello Bob' }, db);
+  await sendMessage(m.bob.id, m.alice.name, { body:'Hello Alice' }, db);
+  assert.deepEqual(await clearConversation(m.alice.id, m.bob.name, db), { cleared:true });
+  assert.deepEqual((await conversationWith(m.alice.id, m.bob.name, db)).messages, [], 'gone for Alice');
+  assert.deepEqual((await inbox(m.alice.id, db)).conversations, [], 'and out of her inbox');
+  assert.deepEqual((await conversationWith(m.bob.id, m.alice.name, db)).messages.map(x => x.body), ['Hello Bob', 'Hello Alice'], 'Bob keeps his copy');
+  assert.equal((await inbox(m.bob.id, db)).conversations.length, 1);
+  assert.equal((await db.query('SELECT count(*)::int AS n FROM falk_forum_message g JOIN falk_forum_conversation c ON c.id=g.conversation_id WHERE c.member_a=ANY($1) AND c.member_b=ANY($1)', [[m.alice.id, m.bob.id]])).rows[0].n, 2, 'nothing is removed');
+  await sendMessage(m.bob.id, m.alice.name, { body:'Are you there?' }, db);
+  const back = await inbox(m.alice.id, db);
+  assert.deepEqual(back.conversations.map(c => [c.with.username, c.last.body, c.unread]), [[m.bob.name, 'Are you there?', true]]);
+  assert.deepEqual((await conversationWith(m.alice.id, m.bob.name, db)).messages.map(x => x.body), ['Are you there?']);
+  assert.deepEqual(await clearConversation(m.alice.id, m.carol.name, db), { cleared:false }, 'no conversation, nothing to clear');
+  await refused(db, 'UPDATE falk_forum_conversation SET cleared_a=NULL, cleared_b=NULL WHERE member_a=ANY($1) AND member_b=ANY($1)', [[m.alice.id, m.bob.id]], /cannot be rewritten/);
 }));

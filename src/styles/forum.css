@@ -385,10 +385,15 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-start input { flex: 1; min-width: 0; min-height: 40px; padding: 0 12px; background: var(--c-page); border: 1px solid transparent; border-radius: var(--r-control); font-size: 15px; }
 .f-dm-start input:hover { border-color: var(--c-ink-2); }
 .f-dm-start .account-button { min-height: 40px; padding: 0 14px; font-size: 14px; }
-.f-dm-list button { display: flex; align-items: center; gap: var(--s-3); width: 100%; min-height: 64px; padding: var(--s-2) var(--s-4); background: none; border: 0; text-align: left; cursor: pointer; }
-.f-dm-list button:hover { background: var(--c-surface); }
-.f-dm-list button:disabled { cursor: default; }
+.f-dm-list .f-dm-open { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--s-3); min-height: 64px; padding: var(--s-2) var(--s-4); background: none; border: 0; text-align: left; cursor: pointer; }
+.f-dm-list .f-dm-open:hover { background: var(--c-surface); }
+.f-dm-list .f-dm-open:disabled { cursor: default; }
 .f-dm-list li + li { border-top: var(--edge); }
+.f-dm-row { display: flex; align-items: center; }
+.f-dm-row:hover { background: var(--c-surface); }
+.f-dm-row .f-dm-open:hover { background: none; }
+.f-dm-delete { margin-right: var(--s-2); opacity: .7; }
+.f-dm-delete:hover, .f-dm-delete:focus-visible, .f-dm-delete[aria-expanded="true"] { opacity: 1; color: var(--c-action); }
 .f-dm-line { display: grid; flex: 1; min-width: 0; gap: 2px; }
 .f-dm-line-top { display: flex; align-items: baseline; gap: var(--s-2); }
 .f-dm-line-top strong { flex: 1; font-weight: 560; }
@@ -499,7 +504,7 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
   .f-dm-start input, .f-dm-compose textarea { font-size: 16px; }
   .f-dm-compose { --dm-control: 44px; }
   .f-dm-compose textarea { padding: 11px 12px; line-height: 20px; }
-  .f-dm-list button { min-height: 68px; }
+  .f-dm-list .f-dm-open { min-height: 68px; }
   .f-dm-people li { min-height: 52px; }
   .f-dm-text-button, .f-dm-icon { min-width: 44px; min-height: 44px; }
   .f-dm-actions button { min-height: 36px; }
