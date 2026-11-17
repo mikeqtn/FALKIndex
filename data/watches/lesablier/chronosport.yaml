@@ -64,6 +64,28 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: lschrono-tooled-components
+    statement: Lesablier says that, because of the case design, finishes, integrated bracelet and handset, it had to design, mould and tool every component of the Chronosport. It does not say who manufactured the parts.
+    excerpt: Due to the complexity of the Chronosport's case design, the variety of brushed, polished, and sandblasted finishes, the distinctive integrated bracelet and the unique handset, we had to design, mould and tool every last component.
+    source: lesablier-chronosport-landing
+    dimensions:
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: lschrono-only-third-party
+    statement: Lesablier says no part of the Chronosport is off the shelf and that the Seiko VK64A movement is its only third-party component. The page does not name any case, bracelet, dial or hand maker or describe Lesablier production facilities.
+    excerpt: This means that nothing you see on the Chronosport is an off-the-shelf part. The only third-party component in the Chronosport is the Seiko VK64A Mecaquartz movement.
+    source: lesablier-chronosport-landing
+    dimensions:
+      - MA
+      - MM
+      - EX
+      - DH
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement design (Seiko VK64A)
@@ -73,6 +95,7 @@ provenance:
     claims:
       - lschrono-vk64
       - lschrono-vk64-review
+      - lschrono-only-third-party
   - dimension: MM
     component: Complete movement
     performer: seiko-group
@@ -80,18 +103,23 @@ provenance:
     claims:
       - lschrono-vk64
       - lschrono-vk64-review
+      - lschrono-only-third-party
   - dimension: EX
     component: Case and integrated bracelet
     relationship: unknown
-    note: The brand describes developing the case over several prototypes; no source names the case or bracelet maker.
+    note: The brand describes developing the case over several prototypes and says it designed, moulded and tooled every component, with the movement as the only third-party part. No source names the case or bracelet maker or describes Lesablier making cases; the later Travelgraph page says that model's parts are sourced from overseas.
     claims:
       - lschrono-case-prototypes
+      - lschrono-tooled-components
+      - lschrono-only-third-party
   - dimension: DH
     component: Dial and hands
     relationship: unknown
-    note: The dial construction is described by the brand; the dial and hand maker is not named.
+    note: The dial construction is described by the brand, and it says the handset was tooled for the watch; the dial and hand maker is not named.
     claims:
       - lschrono-dial-layers
+      - lschrono-tooled-components
+      - lschrono-only-third-party
   - dimension: WE
     component: Assembly and casing
     relationship: unknown
@@ -105,6 +133,7 @@ provenance:
       - lschrono-founder-design
       - lschrono-case-prototypes
       - lschrono-dial-layers
+      - lschrono-tooled-components
 profiles:
   - version: 1
     methodology: v0.2
@@ -137,7 +166,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 0 \u2192 U; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -191,6 +220,96 @@ profiles:
           - claim: lschrono-founder-design
             stance: supports
             note: Founder design.
+          - claim: lschrono-case-prototypes
+            stance: supports
+            note: Case development.
+          - claim: lschrono-dial-layers
+            stance: supports
+            note: Dial design.
+    classification:
+      - contract_microbrand
+  - version: 3
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds Lesablier's Chronosport landing page (lesablierwatches.com/chronosport), which says the brand designed, moulded and tooled every component and that the Seiko VK64A is the only third-party part. Changes from version 2: PD 2 → 3; confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE). No source found names the case, bracelet, dial or hand maker or says where the Chronosport is assembled."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: A stock Seiko VK64A mecaquartz chronograph (lschrono-vk64, lschrono-vk64-review), which Lesablier itself calls the only third-party component (lschrono-only-third-party). No modification is described, so not 1.
+        evidence:
+          - claim: lschrono-vk64
+            stance: supports
+            note: VK64A.
+          - claim: lschrono-vk64-review
+            stance: supports
+            note: VK64A.
+          - claim: lschrono-only-third-party
+            stance: supports
+            note: Brand names the movement as third-party.
+      MM:
+        value: 0
+        rationale: The complete movement is a bought-in Seiko VK64A (lschrono-vk64, lschrono-only-third-party) and is replaced whole at service (lschrono-vk64-service). No movement parts are made by the brand.
+        evidence:
+          - claim: lschrono-vk64
+            stance: supports
+            note: External movement.
+          - claim: lschrono-only-third-party
+            stance: supports
+            note: Movement is third-party.
+          - claim: lschrono-vk64-service
+            stance: context
+            note: Replaced whole.
+      EX:
+        value: null
+        rationale: Lesablier says it designed, moulded and tooled every component and that only the movement is third-party (lschrono-tooled-components, lschrono-only-third-party), and the case took several prototypes (lschrono-case-prototypes). These describe custom design and tooling, not who physically makes the case and bracelet; no source names a maker or describes Lesablier case production, and the brand's later Travelgraph says its parts are sourced from overseas. "Only third-party component" is read as a design claim, not as evidence of who manufactures the parts, so the dimension stays U.
+        evidence:
+          - claim: lschrono-tooled-components
+            stance: context
+            note: Custom tooling; maker not named.
+          - claim: lschrono-only-third-party
+            stance: context
+            note: Marketing statement; no production described.
+          - claim: lschrono-case-prototypes
+            stance: context
+            note: Development, not maker.
+      DH:
+        value: null
+        rationale: The three-layer dial is described (lschrono-dial-layers) and the brand says the handset was tooled for the watch (lschrono-tooled-components), but no source names the dial or hand maker or says any dial or hand stage is done by Lesablier.
+        evidence:
+          - claim: lschrono-dial-layers
+            stance: context
+            note: Construction, not maker.
+          - claim: lschrono-tooled-components
+            stance: context
+            note: Custom handset; maker not named.
+          - claim: lschrono-only-third-party
+            stance: context
+            note: Marketing statement; no production described.
+      CF:
+        value: null
+        rationale: The brand lists the case finishes, but no source says who applies them or documents any craft work done by Lesablier.
+        evidence: []
+      WE:
+        value: null
+        rationale: No source says where or by whom the Chronosport is assembled. The brand says the later Travelgraph is built in the Washington, D.C. area, but does not say this for the Chronosport.
+        evidence: []
+      PD:
+        value: 3
+        rationale: The founder designs the watches (lschrono-founder-design), and Lesablier says it designed, moulded and tooled every component of the case, bracelet and handset, so nothing apart from the movement is off the shelf (lschrono-tooled-components, lschrono-only-third-party), with a case developed over several prototypes and a three-layer dial (lschrono-case-prototypes, lschrono-dial-layers). That is bespoke components around a stock movement; no proprietary technical system, so not 4. Rests on brand statements only; borderline with 2.
+        evidence:
+          - claim: lschrono-founder-design
+            stance: supports
+            note: Founder design.
+          - claim: lschrono-tooled-components
+            stance: supports
+            note: Bespoke tooled components.
+          - claim: lschrono-only-third-party
+            stance: supports
+            note: No off-the-shelf exterior parts.
           - claim: lschrono-case-prototypes
             stance: supports
             note: Case development.

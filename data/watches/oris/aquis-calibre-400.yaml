@@ -70,6 +70,34 @@ claims:
       - MM
     date_checked: 2026-10-21
     editor: falk-index
+  - id: oris-c400-coquet-workshops
+    statement: In a My Watch Site interview, Oris France's commercial and marketing director says the Calibre 400 is designed and manufactured in Oris's two workshops, in Hölstein and Gland.
+    excerpt: the Calibre 400 is entirely thought out, conceptualised, designed, conceptualized and entirely manufactured in our two workshops located in Hölstein
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - WE
+      - MA
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: oris-c400-coquet-associates
+    statement: In the same interview, the Oris France director says the Calibre 400's components are fabricated by a network of Swiss associates; no associate is named.
+    excerpt: For the fabrication of its components however, we use a network of Swiss associates.
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: oris-c400-coquet-role
+    statement: My Watch Site identifies its interviewee as Vincent Coquet, commercial and marketing director of Oris France.
+    excerpt: We asked some questions to Vincent Coquet, commercial and marketing director of Oris France.
+    source: mywatchsite-oris-calibre-400-coquet
+    dimensions:
+      - MM
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Calibre 400 design
@@ -82,10 +110,12 @@ provenance:
       - oris-c400-antimagnetic
   - dimension: MM
     component: Calibre 400 parts manufacture
-    relationship: unknown
-    note: Press calls the movement "made in-house", but no source found says who manufactures the plates, wheels, escapement or hairspring.
+    relationship: contract
+    note: An Oris France director says the components are fabricated by a network of Swiss associates, none named. This conflicts with Worn & Wound's unqualified "made in-house". No source found ties Kenissi (Tudor's movement maker) to the Calibre 400.
     claims:
       - oris-c400-made-in-house-press
+      - oris-c400-coquet-associates
+      - oris-c400-coquet-role
   - dimension: EX
     component: Case and bracelet
     relationship: unknown
@@ -98,9 +128,12 @@ provenance:
     claims: []
   - dimension: WE
     component: Assembly and regulation
-    relationship: unknown
-    note: The COO describes the five-position adjustment standard, but no source found says who assembles and regulates the movement or where.
+    performer: oris
+    relationship: internal
+    note: An Oris France director says the movement is manufactured in Oris's workshops in Hölstein and Gland, from components made by Swiss associates, which places assembly at Oris. The COO describes the five-position adjustment standard, but no source says Oris itself does the regulation or the casing.
     claims:
+      - oris-c400-coquet-workshops
+      - oris-c400-coquet-associates
       - oris-c400-adjusted
       - oris-c400-accuracy
   - dimension: PD
@@ -142,7 +175,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 \u2192 5; MM 1 \u2192 U; EX 0 \u2192 U; DH 0 \u2192 U; CF 1 \u2192 U; WE 4 \u2192 U; confidence B \u2192 D. 5 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -207,3 +240,90 @@ profiles:
             note: Conceived by Oris.
     classification:
       - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: C
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    change_note: "Adds a 2020 My Watch Site interview with Vincent Coquet, commercial and marketing director of Oris France (mywatchsite-oris-calibre-400-coquet). Changes from version 2: MM U → 0; WE U → 2; confidence D → C; classification industrial_manufacture → design_led_etablisseur, since the components are made by suppliers. Three of seven dimensions remain U (EX, DH, CF). No source found links Kenissi to the Calibre 400."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: Oris says Calibre 400 is a new movement it conceived, and its COO says the Oris team developed it in-house; an Oris France director adds that it was designed in Oris's own workshops. That is the evidence pattern credited 5 for Habring², Akrivia and Breitling. No source found names Kenissi or any other outside engineering partner.
+        evidence:
+          - claim: oris-c400-conceived
+            stance: supports
+            note: Conceived by Oris.
+          - claim: oris-c400-dev-crew
+            stance: supports
+            note: Developed by the Oris team.
+          - claim: oris-c400-coquet-workshops
+            stance: supports
+            note: Designed in Oris workshops.
+          - claim: oris-c400-twin-barrels
+            stance: context
+            note: Construction.
+          - claim: oris-c400-antimagnetic
+            stance: context
+            note: Construction.
+      MM:
+        value: 0
+        rationale: An Oris France director says the Calibre 400's components are fabricated by a network of Swiss associates, none named, so no part is documented as made by Oris. Worn & Wound's "made in-house" does not say who makes parts and conflicts with this. Borderline with 1, since the statement does not say every single part is external, and it rests on one secondary interview with a sales-side executive.
+        evidence:
+          - claim: oris-c400-coquet-associates
+            stance: supports
+            note: Components made by external associates.
+          - claim: oris-c400-coquet-role
+            stance: context
+            note: Speaker is an Oris executive.
+          - claim: oris-c400-made-in-house-press
+            stance: context
+            note: Unspecified "made in-house"; conflicts.
+      EX:
+        value: null
+        rationale: No source names the case or bracelet maker.
+        evidence: []
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: 2
+        rationale: An Oris France director says the movement is manufactured in Oris's workshops in Hölstein and Gland from components made by associates, which places movement assembly at Oris. The COO's five-position adjustment is a standard, and no source says Oris performs the regulation and testing itself, so not 3. Borderline with 3; rests on secondary sources.
+        evidence:
+          - claim: oris-c400-coquet-workshops
+            stance: supports
+            note: Manufactured in Oris workshops.
+          - claim: oris-c400-coquet-associates
+            stance: supports
+            note: Parts external, so the workshop work is assembly.
+          - claim: oris-c400-adjusted
+            stance: context
+            note: Standard, not performer.
+          - claim: oris-c400-accuracy
+            stance: context
+            note: Accuracy claim.
+      PD:
+        value: 4
+        rationale: Oris developed the calibre with its own team, led by its COO, and directs a network of Swiss suppliers for the components. That is extensive original technical development; not 5, as the sources describe development but not invention defining the watch.
+        evidence:
+          - claim: oris-c400-dev-crew
+            stance: supports
+            note: In-house development.
+          - claim: oris-c400-fischli
+            stance: supports
+            note: Led by the COO.
+          - claim: oris-c400-conceived
+            stance: supports
+            note: Conceived by Oris.
+          - claim: oris-c400-coquet-associates
+            stance: context
+            note: Supplier network directed by Oris.
+    classification:
+      - design_led_etablisseur

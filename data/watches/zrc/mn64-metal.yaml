@@ -88,13 +88,50 @@ claims:
       - PD
     date_checked: 2026-10-21
     editor: falk-index
+  - id: zmn64-rotor
+    statement: ZRC's movement page says it uses the SW300-1 Elaborated developed for the MN64 watches, and that in collaboration with Sellita it developed a specifically balanced oscillating mass. It does not say who makes the mass.
+    excerpt: has developed a specifically balanced oscillating mass around a rotor centered on 3 axes to further improve automatic winding.
+    source: zrc-expertise-movement
+    dimensions:
+      - MA
+      - PD
+      - MM
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: zmn64-relaunch-subcontractor
+    statement: A Paperjam profile of CEO Georges Brunet reports that production of the 2015 relaunch Grands Fonds (a 300-piece special model) was entrusted to a subcontractor that has worked with the group for three decades and makes watches for brands such as TAG Heuer and Bell & Ross. It does not name the subcontractor or say whether this still applies to the current MN64 Metal.
+    excerpt: La production est confiée à un sous-traitant qui travaille avec le groupe depuis trois décennies et qui produit des montres pour de grands horlogers comme Tag Heuer ou Bell & Ross.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: zmn64-group-components
+    statement: The same Paperjam article reports that after 1985 the ZRC group returned to supplying components to the watch industry, mainly bracelets and cases. It does not tie this to the MN64 Metal's case or bracelet.
+    excerpt: ZRC se recentre alors sur ses fondamentaux, la fourniture de composants à l’industrie horlogère, principalement des bracelets et des boîtiers.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+  - id: zmn64-case-knowhow
+    statement: Paperjam reports that the group's accumulated case know-how enabled the 2015 relaunch of the watch business, without saying who makes the current cases.
+    excerpt: C’est le savoir-faire accumulé sur les boîtiers qui permettra la relance de l’activité horlogère en 2015.
+    source: zrc-paperjam-brunet-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement architecture (Sellita SW300-1)
     performer: sellita
     relationship: external_specialist
+    note: ZRC says it developed a specifically balanced oscillating mass with Sellita for the MN64 watches; the maker of the mass is not named.
     claims:
       - zmn64-sw300
+      - zmn64-rotor
   - dimension: MM
     component: Movement manufacture
     performer: sellita
@@ -104,18 +141,22 @@ provenance:
   - dimension: EX
     component: Monobloc case and Crown Protection System
     relationship: unknown
-    note: Case maker not named. ZRC made cases historically, but no source says it makes the current MN64 case.
+    note: Case maker not named. ZRC made cases historically and a 2024 Paperjam article says the group still mainly supplies cases and bracelets, but no source says the group makes the current MN64 case. The 2015 relaunch model was produced by an unnamed subcontractor.
     claims:
       - zmn64-case
       - zmn64-cps
       - zmn64-historic-cases
+      - zmn64-group-components
+      - zmn64-case-knowhow
+      - zmn64-relaunch-subcontractor
   - dimension: EX
     component: Bracelet and clasp
     relationship: unknown
-    note: Bracelet and clasp makers not named.
+    note: Bracelet and clasp makers not named. A 2024 Paperjam article says the ZRC group mainly supplies bracelets and cases to the industry, without tying that to this bracelet.
     claims:
       - zmn64-bracelet
       - zmn64-clasp
+      - zmn64-group-components
   - dimension: EX
     component: Crystal (sapphire)
     relationship: unknown
@@ -132,10 +173,11 @@ provenance:
   - dimension: WE
     component: Assembly
     relationship: unknown
-    note: The maker says watches are assembled and produced in Switzerland, but not by whom.
+    note: The maker says watches are assembled and produced in Switzerland, but not by whom. A 2024 Paperjam article says production of the 2015 relaunch model was entrusted to an unnamed subcontractor that also makes watches for TAG Heuer and Bell & Ross; no source says who assembles the current MN64 Metal.
     claims:
       - zmn64-assembled
       - zmn64-swiss
+      - zmn64-relaunch-subcontractor
   - dimension: PD
     component: Design and product development
     performer: zrc
@@ -177,7 +219,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary sources. Changes from version 1: MA 1 \u2192 0; MM 1 \u2192 0; EX 1 \u2192 U; DH 1 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; confidence B \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -237,5 +279,92 @@ profiles:
           - claim: zmn64-bracelet
             stance: supports
             note: Dive link.
+    classification:
+      - design_led_etablisseur
+  - version: 3
+    methodology: v0.2
+    confidence: D
+    independent_watchmaker: false
+    status: published
+    editor: falk-index
+    created_on: 2026-11-17
+    change_note: "Adds ZRC's own movement expertise page (zrc-expertise-movement) and a 2024 Paperjam profile of CEO Georges Brunet (zrc-paperjam-brunet-2024). Changes from version 2: MA 0 → 1. Confidence stays D. Four of seven dimensions remain U (EX, DH, CF, WE): no source names the makers of the current MN64 case, bracelet, dial or hands, documents any finishing, or says who assembles the current watch; Paperjam says the 2015 relaunch model was made by an unnamed subcontractor, which is recorded as context."
+    scores:
+      MA:
+        value: 1
+        rationale: The calibre is a Sellita SW300-1 Elaborated (zmn64-sw300), but ZRC says it developed a specifically balanced oscillating mass with Sellita for the MN64 watches (zmn64-rotor). That is a custom specification of a stock calibre, so 1; nothing suggests a meaningful module or modification, so not 2.
+        evidence:
+          - claim: zmn64-sw300
+            stance: supports
+            note: Sellita SW300-1 base.
+          - claim: zmn64-rotor
+            stance: supports
+            note: Custom oscillating mass developed with Sellita, naming the MN64 watches.
+      MM:
+        value: 0
+        rationale: The movement is Sellita's (zmn64-sw300). ZRC's rotor claim (zmn64-rotor) describes development with Sellita, not internal parts manufacture, so the complete movement stays external.
+        evidence:
+          - claim: zmn64-sw300
+            stance: supports
+            note: External movement.
+          - claim: zmn64-rotor
+            stance: context
+            note: Co-development; maker of the mass not named.
+      EX:
+        value: null
+        rationale: The monobloc case, bracelet and clasp are specified, but no maker is named (zmn64-case, zmn64-bracelet, zmn64-clasp). Paperjam says the ZRC group mainly supplies cases and bracelets (zmn64-group-components, zmn64-case-knowhow), and that the 2015 relaunch model was made by an unnamed subcontractor (zmn64-relaunch-subcontractor); neither ties the current MN64 Metal's exterior to a maker, so EX stays U.
+        evidence:
+          - claim: zmn64-case
+            stance: context
+            note: Maker not named.
+          - claim: zmn64-historic-cases
+            stance: context
+            note: Historical.
+          - claim: zmn64-group-components
+            stance: context
+            note: Group capability, not tied to this watch.
+          - claim: zmn64-case-knowhow
+            stance: context
+            note: Group know-how, not tied to this watch.
+          - claim: zmn64-relaunch-subcontractor
+            stance: context
+            note: 2015 relaunch model, not this watch.
+      DH:
+        value: null
+        rationale: No source names the dial or hand maker.
+        evidence: []
+      CF:
+        value: null
+        rationale: No source documents any finishing.
+        evidence: []
+      WE:
+        value: null
+        rationale: ZRC says its watches are assembled and produced in Switzerland without naming the workshop (zmn64-assembled, zmn64-swiss). Paperjam reports that the 2015 relaunch model's production was entrusted to an unnamed subcontractor (zmn64-relaunch-subcontractor), which points toward external production, but it concerns the 300-piece relaunch edition, not the current MN64 Metal. WE stays U until a source covers this watch.
+        evidence:
+          - claim: zmn64-assembled
+            stance: context
+            note: No workshop named.
+          - claim: zmn64-swiss
+            stance: context
+            note: Country only.
+          - claim: zmn64-relaunch-subcontractor
+            stance: context
+            note: Subcontracted production of the 2015 relaunch model.
+      PD:
+        value: 3
+        rationale: ZRC specifies a Crown Protection System with the crown at 6 o'clock, an own clasp and an expandable dive link (zmn64-cps, zmn64-clasp, zmn64-bracelet), and says it developed a specific oscillating mass with Sellita (zmn64-rotor). Bespoke components and supplier-directed development around a stock movement give 3; no proprietary system of the depth needed for 4 is documented.
+        evidence:
+          - claim: zmn64-cps
+            stance: supports
+            note: Crown Protection System.
+          - claim: zmn64-clasp
+            stance: supports
+            note: Own clasp.
+          - claim: zmn64-bracelet
+            stance: supports
+            note: Dive link.
+          - claim: zmn64-rotor
+            stance: supports
+            note: Supplier-directed rotor development.
     classification:
       - design_led_etablisseur

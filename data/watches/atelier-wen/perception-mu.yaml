@@ -79,7 +79,7 @@ claims:
       - DH
       - CF
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-journal-pvd
     statement: The brand says the Mù dial's colour comes from physical vapour deposition, without naming who applies it.
     excerpt: this is achieved through the use of physical vapour deposition (PVD)
@@ -87,7 +87,7 @@ claims:
     dimensions:
       - DH
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-journal-titanium
     statement: The brand says the Mù's caseback, crown and clasp shell are titanium, without naming the case maker.
     excerpt: The caseback, crown and clasp shell will also be executed in full-titanium
@@ -95,7 +95,7 @@ claims:
     dimensions:
       - EX
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-hands-supplier
     statement: The brand says it cancelled a Perception hands order with a new supplier and went back to the supplier it used before.
     excerpt: We thus decided to cancel the order we had with this new supplier and instead reverted back to the previous one.
@@ -104,7 +104,7 @@ claims:
       - DH
       - PD
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-sl1588-exclusive
     statement: The brand says the SL-1588 in Perception is a Dandong movement made exclusively for it, with modifications to thickness, accuracy, power reserve and finish.
     excerpt: The SL-1588 is made exclusively for Atelier Wen and includes modifications such as a slightly slimmer profile
@@ -114,7 +114,7 @@ claims:
       - MM
       - PD
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-dandong-engraving
     statement: The brand says Dandong engraves the Perception movement bridges, and that it paid Dandong to add more engraving.
     excerpt: in exchange of a relatively small premium, Dandong agreed to add extra content.
@@ -123,7 +123,7 @@ claims:
       - CF
       - PD
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-v2-refinished
     statement: The brand says Perception movements from the V2 batch on were refinished with côtes de Genève and more anglage, without saying who does the work.
     excerpt: The movements have therefore been completely refinished, now-decorated with a circular côtes de Genève with more pronounced anglage than before.
@@ -131,7 +131,7 @@ claims:
     dimensions:
       - CF
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-v2-bracelet
     statement: The brand says Perception V2 bracelets gained hand-finished chamfers on the inner link edges, without saying who does the work.
     excerpt: introducing hand-finished chamfers on all the inner edges of each individual link
@@ -140,7 +140,7 @@ claims:
       - EX
       - CF
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
   - id: awmu-hrili-testing
     statement: The brand says Perception V2 movements are tested with the Horological Research Institute of Light Industry (HRILI).
     excerpt: We have implemented new and rigorous testing measures with the Horological Research Institute of Light Industry (HRILI).
@@ -148,7 +148,7 @@ claims:
     dimensions:
       - WE
     date_checked: 2026-10-29
-    editor: ai-draft
+    editor: falk-index
 provenance:
   - dimension: MA
     component: Movement (SL1588A, Peacock)
@@ -257,7 +257,7 @@ profiles:
     methodology: v0.2
     confidence: D
     independent_watchmaker: false
-    status: published
+    status: superseded
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from secondary sources only. Changes from version 1: EX 0 \u2192 U; DH 0 \u2192 U; CF 0 \u2192 U; WE 2 \u2192 U; PD 4 \u2192 3; confidence A \u2192 D. 4 of 7 dimensions have no evidence, so confidence is D. Each score's rationale names its evidence."
     created_on: 2026-10-21
@@ -326,8 +326,8 @@ profiles:
     methodology: v0.2
     confidence: C
     independent_watchmaker: false
-    status: draft
-    editor: ai-draft
+    status: published
+    editor: falk-index
     change_note: "Adds the brand's own pages: the Mù launch journal, Perception production update #2 and the Perception V2 notes. Changes from version 2: DH U → 0; confidence D → C. Three of seven dimensions remain U (EX, CF, WE), and the scored ones rest mostly on primary sources."
     created_on: 2026-10-29
     scores:
