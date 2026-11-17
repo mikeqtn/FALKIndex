@@ -186,3 +186,17 @@ test('the Message box suggests members by username or name, people already messa
   await setBlocked(m.bob.id, m.alice.name, true, db);
   assert.deepEqual(await names('mars'), [m.carol.name], 'not someone who blocked you');
 }));
+
+test('a new message brings its conversation to the top of the list, however old the conversation is', () => members(async (db, m) => {
+  const order = async () => (await inbox(m.alice.id, db)).conversations.map(c => c.with.username);
+  await sendMessage(m.alice.id, m.bob.name, { body:'My first conversation' }, db);
+  await sendMessage(m.alice.id, m.carol.name, { body:'A later one' }, db);
+  assert.deepEqual(await order(), [m.carol.name, m.bob.name]);
+  await sendMessage(m.bob.id, m.alice.name, { body:'Bob writes back' }, db);
+  assert.deepEqual(await order(), [m.bob.name, m.carol.name], 'a reply in the oldest conversation moves it up');
+  // The order comes from the messages, not from the column the bump trigger keeps, so it holds even without the trigger.
+  await db.query('ALTER TABLE falk_forum_message DISABLE TRIGGER falk_forum_message_bump');
+  await sendMessage(m.carol.id, m.alice.name, { body:'Carol writes back' }, db);
+  assert.deepEqual(await order(), [m.carol.name, m.bob.name]);
+  assert.deepEqual((await suggestPeople(m.alice.id, 't_', db)).slice(0, 2).map(p => p.username), [m.carol.name, m.bob.name], 'suggestions follow the same order');
+}));
