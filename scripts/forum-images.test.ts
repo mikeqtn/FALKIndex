@@ -10,7 +10,7 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
 import { addImage, clearUnattachedImages, createThread, editPost, FORUM_MAX_IMAGES, imageForServing, purgeImage, reply, replyInput, setImageHidden, setPostHidden, threadDetail } from '../server/forum.ts';
-import { acquireImageUploadSlot, loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage } from '../server/forumImages.ts';
+import { acquireImageUploadSlot, loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage, THUMB_EDGE } from '../server/forumImages.ts';
 
 let dir = '';
 before(async () => { dir = await mkdtemp(join(tmpdir(), 'falk-images-')); process.env.FORUM_IMAGE_DIR = dir; });
@@ -221,3 +221,38 @@ test('over HTTP: uploads need an account and an allowed type, and unknown images
     assert.equal((await fetch(`${base}/api/forum/images/not-an-id`)).status, 400);
   } finally { server.closeAllConnections(); server.close(); }
 });
+
+test('a small copy is kept with each image, and made on first request for images stored before them', async () => {
+  const { data, thumb } = await rebuildImage(await picture('png', 1600, 1200));
+  const small = await sharp(thumb).metadata();
+  assert.deepEqual([small.format, Math.max(small.width!, small.height!)], ['webp', THUMB_EDGE]);
+  const fresh = randomUUID();
+  await storeImage(fresh, data, thumb);
+  assert.deepEqual(await loadImage(fresh, 'thumb'), thumb);
+  // An image from before small copies: only the full one is stored, so the first request makes and keeps one.
+  const older = randomUUID();
+  await storeImage(older, data);
+  const made = await loadImage(older, 'thumb');
+  assert.equal(Math.max(...[await sharp(made).metadata()].map(m => Math.max(m.width!, m.height!))), THUMB_EDGE);
+  for (let i = 0; i < 50 && !(await readdir(dir)).includes(`${older}-thumb.webp`); i++) await new Promise(r => setTimeout(r, 20));
+  assert.ok((await readdir(dir)).includes(`${older}-thumb.webp`), 'kept for next time');
+  // Removing an image takes both copies, from storage and from memory.
+  for (const id of [fresh, older]) {
+    await removeImage(id);
+    await assert.rejects(loadImage(id));
+    await assert.rejects(loadImage(id, 'thumb'));
+  }
+  assert.ok(!(await readdir(dir)).some(f => f.startsWith(fresh) || f.startsWith(older)));
+});
+
+test('browsers keep public images briefly, private ones only for their reader, and moderator views not at all', () => members(async (db, m) => {
+  const posted = await image(m.alice, db), unposted = await image(m.alice, db);
+  await createThread(m.alice, opening([posted]), db);
+  const as = (id: string, role: 'contributor' | 'editor' = 'contributor') => async () => ({ id, role });
+  assert.deepEqual(await imageForServing(posted, async () => null, db), { allowed:true, cache:'public' });
+  assert.deepEqual(await imageForServing(unposted, as(m.alice), db), { allowed:true, cache:'private' });
+  assert.deepEqual(await imageForServing(unposted, as(m.bob), db), { allowed:false, cache:'none' });
+  await setImageHidden(m.editor, posted, true, 'Not suitable', db);
+  assert.deepEqual(await imageForServing(posted, as(m.editor, 'editor'), db), { allowed:true, cache:'none' });
+  assert.equal((await imageForServing(posted, async () => null, db)).allowed, false);
+}));

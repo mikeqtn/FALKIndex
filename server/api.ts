@@ -42,6 +42,8 @@ async function hit(key: string, bucket: number) {
 // Per-minute budgets are kept in memory, so an API call costs no database write. As with pageLimit.ts, each Autoscale
 // instance counts separately: the limit is per instance. The hourly caps on writes that are never deleted stay exact.
 const minuteHit = minuteCounter();
+const IMAGE_PATH = /^\/forum\/images\/[0-9a-f-]{36}$/i;
+export const IMAGES_PER_MINUTE = 1200;
 api.use(async (req,_res,next) => {
   if (!['GET','HEAD','OPTIONS'].includes(req.method)) {
     requireSameOrigin(req.get('origin'),getClerkProxyHost(req),req.protocol);
@@ -49,8 +51,11 @@ api.use(async (req,_res,next) => {
     if (!upload && !req.is('application/json')) throw new HttpError(415,'Send application/json.');
   }
   const write = !['GET','HEAD','OPTIONS'].includes(req.method);
-  const hits = minuteHit(`${write ? 'write' : 'read'}:${getAuth(req).userId ?? clientKey(req.ip)}`);
-  if (hits > (write ? 30 : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
+  // A page of images is many reads at once, so images have their own, larger budget rather than using up the one
+  // the rest of the API shares; most are then served from the browser's cache (see IMAGE_CACHE in forum.ts).
+  const image = !write && IMAGE_PATH.test(req.path);
+  const hits = minuteHit(`${write ? 'write' : image ? 'image' : 'read'}:${getAuth(req).userId ?? clientKey(req.ip)}`);
+  if (hits > (write ? 30 : image ? IMAGES_PER_MINUTE : 300)) throw new HttpError(429,'Too many requests. Please wait a minute and try again.');
   next();
 });
 api.get('/health', async (_req,res) => {

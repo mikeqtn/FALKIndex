@@ -5,8 +5,9 @@ const MAX_IMAGES = 4;
 const MAX_BYTES = 8 * 1024 * 1024;
 const TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
-/** The address of a rebuilt image, the same on the forum's host and the main site's. */
-export const imageUrl = (id: string) => `/api/forum/images/${id}`;
+/** The address of a rebuilt image, the same on the forum's host and the main site's. thumb is a copy at most 480px
+ * across (THUMB_EDGE in server/forumImages.ts), for places that show images small. */
+export const imageUrl = (id: string, size: 'full' | 'thumb' = 'full') => `/api/forum/images/${id}${size === 'thumb' ? '?size=thumb' : ''}`;
 export const IMAGE_TYPES = TYPES;
 
 /** Checks and uploads one image, returning it rebuilt. A plain Error carries a message for the member. */

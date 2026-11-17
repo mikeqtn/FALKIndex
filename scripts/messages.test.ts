@@ -5,7 +5,7 @@ import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { imageForServing, reply } from '../server/forum.ts';
-import { conversationWith, deleteMessage, editMessage, inbox, markConversationRead, messageInput, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
+import { MESSAGES_PAGE, conversationWith, deleteMessage, editMessage, inbox, markConversationRead, messageInput, NEW_MEMBER_CONVERSATIONS_PER_HOUR, sendMessage, setBlocked, suggestPeople } from '../server/messages.ts';
 
 after(() => pool.end());
 
@@ -145,8 +145,8 @@ test('images in a message are seen only by its two members, and go for good when
   assert.deepEqual((await conversationWith(m.bob.id, m.alice.name, db)).messages[0].images.map(i => i.id), [image]);
   assert.equal((await inbox(m.bob.id, db)).conversations[0].last.images, 1);
   const as = (who: { id: string } | null, role: 'contributor' | 'editor' = 'contributor') => () => Promise.resolve(who && { id:who.id, role });
-  assert.deepEqual(await imageForServing(image, as(m.bob), db), { allowed:true, public:false });
-  assert.deepEqual(await imageForServing(image, as(m.alice), db), { allowed:true, public:false });
+  assert.deepEqual(await imageForServing(image, as(m.bob), db), { allowed:true, cache:'private' }, 'kept only in their own browser');
+  assert.deepEqual(await imageForServing(image, as(m.alice), db), { allowed:true, cache:'private' });
   assert.equal((await imageForServing(image, as(m.carol), db)).allowed, false);
   assert.equal((await imageForServing(image, as(m.editor, 'editor'), db)).allowed, false, 'moderators do not read messages');
   assert.equal((await imageForServing(image, as(null), db)).allowed, false);
@@ -199,4 +199,18 @@ test('a new message brings its conversation to the top of the list, however old 
   await sendMessage(m.carol.id, m.alice.name, { body:'Carol writes back' }, db);
   assert.deepEqual(await order(), [m.carol.name, m.bob.name]);
   assert.deepEqual((await suggestPeople(m.alice.id, 't_', db)).slice(0, 2).map(p => p.username), [m.carol.name, m.bob.name], 'suggestions follow the same order');
+}));
+
+test('a conversation opens on its newest messages, and older ones load a page at a time', () => members(async (db, m) => {
+  for (let i = 1; i <= MESSAGES_PAGE + 5; i++) await sendMessage(i % 2 ? m.alice.id : m.bob.id, i % 2 ? m.bob.name : m.alice.name, { body:`Message ${i}` }, db);
+  const newest = await conversationWith(m.alice.id, m.bob.name, db);
+  assert.equal(newest.messages.length, MESSAGES_PAGE);
+  assert.equal(newest.more, true);
+  assert.deepEqual([newest.messages[0].body, newest.messages.at(-1)!.body], ['Message 6', `Message ${MESSAGES_PAGE + 5}`], 'oldest first within the page');
+  const older = await conversationWith(m.alice.id, m.bob.name, db, newest.messages[0].id);
+  assert.deepEqual(older.messages.map(x => x.body), ['Message 1', 'Message 2', 'Message 3', 'Message 4', 'Message 5']);
+  assert.equal(older.more, false);
+  // A cursor from someone else's conversation finds nothing here.
+  const { message } = await sendMessage(m.carol.id, m.bob.name, { body:'Elsewhere' }, db);
+  assert.deepEqual((await conversationWith(m.alice.id, m.bob.name, db, message.id)).messages, []);
 }));
