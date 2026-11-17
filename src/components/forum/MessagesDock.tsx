@@ -66,12 +66,57 @@ function usePoll(run: (() => void) | null, interval: number) {
   }, [run, interval]);
 }
 
+type Picture = Message['images'][number];
+/**
+ * A message's images, large, in a window centred over the page, so looking at one never leaves it. The small copy,
+ * already loaded, shows until the full image arrives. Escape, the close button or a click outside closes it; with more
+ * than one image the arrow keys and buttons step through them. A modal <dialog> keeps focus inside and gives it back
+ * to the image that opened it.
+ */
+function Lightbox({ images, start, onClose }: { images: Picture[], start: number, onClose: () => void }) {
+  const [index, setIndex] = useState(start);
+  const box = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const dialog = box.current;
+    if (dialog && !dialog.open) dialog.showModal();
+    return () => { if (dialog?.open) dialog.close(); };
+  }, []);
+  const many = images.length > 1, image = images[index];
+  const step = (by: number) => setIndex(i => (i + by + images.length) % images.length);
+  return <dialog ref={box} className="f-lightbox" aria-label={many ? `Image ${index + 1} of ${images.length}` : 'Image'}
+    onCancel={e => { e.preventDefault(); onClose(); }}
+    // A click on the dimmed page around the image lands on the dialog itself.
+    onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+    onKeyDown={e => {
+      // Escape closes only this, not the messages panel behind it.
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); onClose(); }
+      else if (many && e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      else if (many && e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    }}>
+    <img key={image.id} className="f-lightbox-image" src={imageUrl(image.id)} width={image.width} height={image.height} alt={many ? `Sent image ${index + 1} of ${images.length}` : 'Sent image'}
+      style={{ backgroundImage:`url(${imageUrl(image.id, 'thumb')})` }} />
+    <button className="f-lightbox-button f-lightbox-close" type="button" aria-label="Close image" onClick={onClose}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+    {many && <>
+      <button className="f-lightbox-button f-lightbox-prev" type="button" aria-label="Previous image" onClick={() => step(-1)}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+      </button>
+      <button className="f-lightbox-button f-lightbox-next" type="button" aria-label="Next image" onClick={() => step(1)}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+      </button>
+      <span className="f-lightbox-count" aria-hidden="true">{index + 1} / {images.length}</span>
+    </>}
+  </dialog>;
+}
+
 function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   message: Message, editing: boolean, onEdit: () => void, onDelete: () => Promise<void>, onSave: (body: string) => Promise<boolean>, onCancel: () => void,
 }) {
   const [draft, setDraft] = useState(message.body ?? '');
   const [confirming, setConfirming] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [viewing, setViewing] = useState<number | null>(null);
   useEffect(() => { if (editing) setDraft(message.body ?? ''); }, [editing]);
   const save = async (e?: FormEvent) => {
     e?.preventDefault();
@@ -90,10 +135,13 @@ function Bubble({ message, editing, onEdit, onDelete, onSave, onCancel }: {
   </form>;
   return <>
     <div className="f-dm-bubble">
-      {message.images.length > 0 && <span className={`f-dm-images n${Math.min(message.images.length, 4)}`}>{message.images.map(image =>
-        <a key={image.id} href={imageUrl(image.id)} target="_blank" rel="noopener"><img src={imageUrl(image.id, 'thumb')} width={image.width} height={image.height} alt="Sent image" loading="lazy" /></a>)}</span>}
+      {message.images.length > 0 && <span className={`f-dm-images n${Math.min(message.images.length, 4)}`}>{message.images.map((image, i) =>
+        // A plain click opens the image over the page; a ctrl-, cmd- or middle-click still opens it in a new tab.
+        <a key={image.id} href={imageUrl(image.id)} target="_blank" rel="noopener" aria-haspopup="dialog"
+          onClick={e => { if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); setViewing(i); }}><img src={imageUrl(image.id, 'thumb')} width={image.width} height={image.height} alt="Sent image" loading="lazy" /></a>)}</span>}
       {message.body && <PostBody text={message.body} />}
     </div>
+    {viewing !== null && <Lightbox images={message.images} start={viewing} onClose={() => setViewing(null)} />}
     {message.mine && (confirming
       ? <span className="f-dm-actions confirm" role="group" aria-label="Delete this message">
           <span>Delete for both of you?</span>
