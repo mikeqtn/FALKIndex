@@ -15,7 +15,7 @@ import { removeImage } from './forumImages.ts';
 export const MESSAGES_PAGE = 50;
 export const CONVERSATIONS_PAGE = 50;
 /** New accounts can start this many conversations an hour, and cannot send links, until they are established (NEW_MEMBER). */
-export const NEW_MEMBER_CONVERSATIONS_PER_HOUR = 3;
+export const NEW_MEMBER_CONVERSATIONS_PER_HOUR = 20;
 
 export const username = z.string().regex(/^[a-z][a-z0-9_]{2,29}$/, 'Enter a username.');
 const text = z.string().trim().max(2000);
@@ -148,7 +148,7 @@ export async function sendMessage(actorId: string, name: string, input: z.infer<
   if (!(await isEstablished(db,me))) {
     const started = (await db.query(`SELECT count(*)::int AS count FROM falk_forum_conversation c WHERE c.created_at > now() - interval '1 hour'
       AND (SELECT sender_id FROM falk_forum_message WHERE conversation_id=c.id ORDER BY created_at,id LIMIT 1)=$1`, [me.id])).rows[0].count;
-    if (!conversation && started >= NEW_MEMBER_CONVERSATIONS_PER_HOUR) throw new HttpError(429,'New accounts can start three conversations an hour. Please try again later.');
+    if (!conversation && started >= NEW_MEMBER_CONVERSATIONS_PER_HOUR) throw new HttpError(429,`Until your account is ${NEW_MEMBER.days} days old and has ${NEW_MEMBER.posts} visible forum posts, you can start ${NEW_MEMBER_CONVERSATIONS_PER_HOUR} conversations an hour. Please try again later.`);
   }
   // Only my own uploads that are on nothing yet, checked (and locked) before anything is written.
   const free = 'i.uploader_id=$2 AND i.post_id IS NULL AND i.message_id IS NULL AND i.hidden_at IS NULL AND i.purged_at IS NULL';
