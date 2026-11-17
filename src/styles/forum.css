@@ -419,18 +419,20 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .f-dm-edit textarea { width: 100%; padding: 8px 12px; background: var(--c-page); border: 1px solid var(--c-ink-2); border-radius: 14px; font: 400 15px/21px var(--f-serif); resize: none; }
 .f-dm-edit .f-dm-actions { justify-content: flex-end; }
 .f-dm-refusal { flex: none; padding: var(--s-3) var(--s-4); border-top: var(--edge); color: var(--c-ink-2); font-size: 14px; }
-.f-dm-compose { display: flex; flex: none; flex-wrap: wrap; align-items: flex-end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
-.f-dm-attach { position: relative; align-self: center; cursor: pointer; }
+/* The composer: the message box, add images and Send on one row, all one control high and lined up along the bottom
+   as the box grows; images waiting to be sent sit on their own row above. --dm-control is that height. */
+.f-dm-compose { --dm-control: 40px; display: grid; flex: none; grid-template-columns: minmax(0, 1fr) var(--dm-control) auto; align-items: end; gap: var(--s-2); padding: var(--s-3); border-top: var(--edge); }
+.f-dm-attach { position: relative; width: var(--dm-control); height: var(--dm-control); cursor: pointer; }
 .f-dm-attach:focus-within { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .f-dm-attach.disabled { opacity: .45; cursor: default; }
 .f-dm-attach svg circle { fill: currentColor; stroke: none; }
-.f-dm-attached { display: flex; flex-basis: 100%; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.f-dm-attached { display: flex; grid-column: 1 / -1; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
 .f-dm-attached li { position: relative; }
 .f-dm-attached img { display: block; width: 56px; height: 56px; object-fit: cover; border-radius: var(--r-control); }
 .f-dm-attached button { position: absolute; top: -6px; right: -6px; display: grid; place-items: center; width: 22px; height: 22px; padding: 0; background: var(--c-ink); border: 2px solid var(--c-surface-2); border-radius: 50%; color: var(--c-ink-inverse); font: 600 14px/1 var(--f-sans); cursor: pointer; }
-.f-dm-compose textarea { flex: 1; min-width: 0; max-height: 120px; padding: 9px 12px; background: var(--c-page); border: 1px solid transparent; border-radius: var(--r-control); font: 400 15px/21px var(--f-sans); resize: none; }
+.f-dm-compose textarea { display: block; width: 100%; height: var(--dm-control); min-height: var(--dm-control); max-height: 120px; margin: 0; padding: 9px 12px; overflow-y: auto; background: var(--c-page); border: 1px solid transparent; border-radius: var(--r-control); font: 400 15px/20px var(--f-sans); resize: none; }
 .f-dm-compose textarea:hover { border-color: var(--c-ink-2); }
-.f-dm-compose .account-button { min-height: 40px; padding: 0 14px; font-size: 14px; }
+.f-dm-compose .account-button { height: var(--dm-control); min-height: 0; padding: 0 16px; font-size: 14px; }
 /* Leave room at the foot of the page so the bar never covers the last thing on it. */
 body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
 @media (max-width: 899px) {
@@ -438,6 +440,8 @@ body.f-body:has(.f-dm-bar, .f-dm-panel) .f-canvas { padding-bottom: 96px; }
   /* On a phone the open panel takes the screen below the top bar, like the menu. */
   .f-dm-panel { inset: var(--top) 0 0; width: auto; height: auto; border: 0; border-radius: 0; }
   .f-dm-start input, .f-dm-compose textarea { font-size: 16px; }
+  .f-dm-compose { --dm-control: 44px; }
+  .f-dm-compose textarea { padding: 11px 12px; line-height: 20px; }
   .f-dm-list button { min-height: 68px; }
   .f-dm-people li { min-height: 52px; }
   .f-dm-text-button, .f-dm-icon { min-width: 44px; min-height: 44px; }

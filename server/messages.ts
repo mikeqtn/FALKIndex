@@ -70,7 +70,8 @@ async function screenMessage(db: PoolClient, me: Parameters<typeof isEstablished
   if (hasLink(body) && !(await isEstablished(db,me))) throw new HttpError(403,`New accounts cannot send links yet. You can once your account is ${NEW_MEMBER.days} days old and has ${NEW_MEMBER.posts} visible posts.`);
 }
 
-/** My conversations, newest first, with the last message of each. */
+/** My conversations, the one with the newest message first, with that message. Ordered by the message itself rather than
+ * the conversation's last_message_at, so the order never depends on the trigger that keeps that column up to date. */
 export async function inbox(actorId: string, db: PoolClient) {
   const me = await actor(db,actorId);
   const mine = `(c.member_a=$1 OR c.member_b=$1)`;
@@ -82,7 +83,7 @@ export async function inbox(actorId: string, db: PoolClient) {
       EXISTS(SELECT 1 FROM falk_forum_block b WHERE b.blocker_id=$1 AND b.blocked_id=o.id) AS blocked
     FROM falk_forum_conversation c ${latest}
     JOIN falk_account o ON o.id=CASE WHEN c.member_a=$1 THEN c.member_b ELSE c.member_a END LEFT JOIN falk_member_profile m ON m.account_id=o.id
-    WHERE ${mine} ORDER BY c.last_message_at DESC,c.id LIMIT ${CONVERSATIONS_PAGE}`, [me.id]);
+    WHERE ${mine} ORDER BY l.created_at DESC,c.id LIMIT ${CONVERSATIONS_PAGE}`, [me.id]);
   const unread = await db.query(`SELECT count(*)::int AS count FROM falk_forum_conversation c ${latest} WHERE ${mine} AND ${unreadFor}`, [me.id]);
   return { unread:unread.rows[0].count as number, conversations:rows.rows.map(r => ({
     id:r.id as string, with:authorFrom(r), blocked:r.blocked as boolean, unread:r.unread as boolean,
@@ -102,13 +103,13 @@ export async function suggestPeople(actorId: string, q: string, db: PoolClient) 
   if (!text) return [];
   // LIKE treats % _ and \ as patterns (and usernames have underscores); escape them so they match as typed.
   const like = text.replace(/[\\%_]/g, c => `\\${c}`);
-  const rows = await db.query(`SELECT ${authorColumns('a','m')},c.last_message_at IS NOT NULL AS talked
+  const rows = await db.query(`SELECT ${authorColumns('a','m')},c.id IS NOT NULL AS talked
     FROM falk_account a LEFT JOIN falk_member_profile m ON m.account_id=a.id
     LEFT JOIN falk_forum_conversation c ON (c.member_a=$1 AND c.member_b=a.id) OR (c.member_b=$1 AND c.member_a=a.id)
     WHERE a.realm=$2 AND a.id<>$1 AND a.username IS NOT NULL AND a.status='active' AND a.deleted_at IS NULL
       AND (a.username LIKE $3||'%' OR lower(m.display_name) LIKE $3||'%' OR lower(m.display_name) LIKE '% '||$3||'%')
       AND NOT EXISTS(SELECT 1 FROM falk_forum_block b WHERE b.blocker_id=a.id AND b.blocked_id=$1)
-    ORDER BY c.last_message_at DESC NULLS LAST,a.username=$4 DESC,a.username
+    ORDER BY (SELECT max(g.created_at) FROM falk_forum_message g WHERE g.conversation_id=c.id) DESC NULLS LAST,a.username=$4 DESC,a.username
     LIMIT ${PEOPLE_SUGGESTIONS}`, [me.id,realm(),like,text]);
   return rows.rows.map(r => ({ ...authorFrom(r), username:r.username as string, talked:r.talked as boolean }));
 }

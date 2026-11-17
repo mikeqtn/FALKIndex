@@ -18,6 +18,8 @@ type Person = Inbox['conversations'][number]['with'];
 // How often to look for new messages: often while a conversation is on screen, rarely for the unread count.
 const CONVERSATION_POLL = 8_000;
 const INBOX_POLL = 45_000;
+/** While the conversation list is on screen, so a new message moves its conversation to the top soon after it arrives. */
+const LIST_POLL = 10_000;
 /** As in messageInput on the server. */
 const MAX_IMAGES = 4;
 /** How long the panel takes to fold away; forum.css animates .f-dm-panel.closing for the same time. */
@@ -125,6 +127,13 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
   }, [newest]);
   useEffect(() => { list.current?.lastElementChild?.scrollIntoView({ block:'end' }); }, [newest]);
   useEffect(() => { field.current?.focus(); }, [username]);
+  // The message box starts one line high and grows with what is written, up to its max-height in forum.css.
+  useEffect(() => {
+    const box = field.current;
+    if (!box) return;
+    box.style.height = 'auto';
+    box.style.height = `${box.scrollHeight + box.offsetHeight - box.clientHeight}px`;
+  }, [draft, chat?.refusal]);
 
   const replace = (message: Message) => setChat(c => c && { ...c, messages:c.messages.map(m => m.id === message.id ? message : m) });
   const send = async (e?: FormEvent) => {
@@ -208,7 +217,7 @@ function Chat({ username, links, onBack, onRead }: { username: string, links: Fo
           {uploading && <li><span className="f-skel f-dm-skel-thumb" /><span className="sr-only" role="status">Uploading</span></li>}
         </ul>}
         <label className="sr-only" htmlFor="f-dm-draft">Message {chat.with.displayName}</label>
-        <textarea id="f-dm-draft" ref={field} value={draft} rows={2} maxLength={2000} placeholder={`Message ${chat.with.displayName}`}
+        <textarea id="f-dm-draft" ref={field} value={draft} rows={1} maxLength={2000} placeholder={`Message ${chat.with.displayName}`}
           onChange={e => setDraft(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
         <label className={`f-dm-icon f-dm-attach${attached.length >= MAX_IMAGES || uploading ? ' disabled' : ''}`} title={`Add images (up to ${MAX_IMAGES})`}>
@@ -349,7 +358,7 @@ function Dock({ links }: { links: ForumLinks }) {
       })
       .catch(() => setReady(false));
   }, [isLoaded, isSignedIn, loadInbox]);
-  usePoll(ready ? loadInbox : null, INBOX_POLL);
+  usePoll(ready ? loadInbox : null, place.open && !place.username ? LIST_POLL : INBOX_POLL);
   useEffect(() => { try { sessionStorage.setItem(REMEMBERED, JSON.stringify(place)); } catch {} }, [place]);
   useEffect(() => {
     const open = (e: Event) => {
