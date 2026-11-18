@@ -198,7 +198,8 @@ test('only readers with a Clerk session load the account menu; everyone else get
 test('signed in, the server draws the account links so the menu does not wait for Clerk', async () => {
   const headers = { cookie:'__client_uat=1791917601' };
   const site = await (await fetch(`${base}/methodology/`,{headers})).text();
-  assert.match(site,/<a href="\/account">Account<\/a><button type="button" disabled[^>]*>Sign out<\/button>/);
+  // On the main site the links sit in one Account menu (AccountNavigation.tsx); its closed trigger is drawn here.
+  assert.match(site,/<span class="account-nav"><details class="account-menu"><summary>Account<\/summary><\/details><\/span>/);
   // On the forum each item also has an icon, shown in place of its label on phones (forum.css).
   const forumMenu = /<a href="\/forum\/notifications\/"><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Replies<\/span><\/a><a href="\/account"><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Account<\/span><\/a><button type="button" disabled[^>]*><svg class="account-nav-icon"[^]*?<span class="account-nav-label">Sign out<\/span><\/button>/;
   const forum = await (await fetch(`${base}/forum/threads/`,{headers})).text();

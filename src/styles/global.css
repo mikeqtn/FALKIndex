@@ -120,6 +120,33 @@ dl.pairs dd { margin: 0; }
 .site-nav .account-nav a:not(.account-button) { font-size: 15px; color: var(--c-ink-2); }
 .site-nav .account-nav a:not(.account-button):hover { color: var(--c-ink); text-decoration: none; }
 .site-nav .account-button { min-height: 36px; padding: 0 14px; border: 0; font-size: 14px; }
+/* Signed in: one Account menu instead of a row of links (AccountNavigation.tsx). It floats like the search
+   suggestions; inside the phone menu it opens in place. */
+.account-menu { position: relative; }
+.account-menu > summary {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 var(--s-3); border-radius: var(--r-control);
+  font-size: 15px; color: var(--c-ink-2); cursor: pointer; list-style: none; white-space: nowrap;
+  transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease);
+}
+.account-menu > summary::-webkit-details-marker { display: none; }
+.account-menu > summary::after { content: ''; width: 6px; height: 6px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; rotate: 45deg; translate: 0 -2px; }
+.account-menu > summary:hover, .account-menu[open] > summary { background: var(--c-surface-2); color: var(--c-ink); }
+.account-menu[open] > summary::after { rotate: 225deg; translate: 0 2px; }
+.account-menu-list {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; display: grid; min-width: 12rem; padding: 4px;
+  border-radius: var(--r-plate); background: var(--c-surface-2);
+  box-shadow: 0 12px 32px rgb(7 12 21 / .28), 0 2px 6px rgb(7 12 21 / .16); /* taste-skill-ignore: a floating menu */
+}
+.site-nav .account-nav .account-menu-list > :is(a, button) {
+  display: flex; align-items: center; min-height: 36px; padding: 0 var(--s-3); border: 0; border-radius: var(--r-control);
+  background: none; color: var(--c-ink); font: inherit; font-size: 15px; text-align: left; text-decoration: none; cursor: pointer;
+}
+.site-nav .account-nav .account-menu-list > :is(a, button):hover { background: var(--c-surface); color: var(--c-ink); }
+.site-nav .account-nav .account-menu-list > button:disabled { color: var(--c-ink-2); cursor: default; }
+.account-menu-list hr { margin: 4px var(--s-2); border: 0; border-top: 1px solid var(--c-edge); }
+@media (max-width: 1099px) {
+  .account-menu-list { position: static; margin-top: var(--s-2); box-shadow: none; }
+}
 /* Zero specificity so component styles, such as Clerk's sign-in fields, can override it. */
 :where(input[type="search"], input[type="text"], input[type="url"], input[type="email"], select, textarea) {
   font: inherit; color: var(--c-ink); background: var(--c-surface); min-height: 44px;
