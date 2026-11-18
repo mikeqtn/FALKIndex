@@ -97,7 +97,7 @@ const links = [
             </button>
             {signedIn
               ? <AccountNavigation client:only="react">
-                  <span slot="fallback" class="account-nav"><a href="/account">Account</a><button type="button" disabled>Sign out</button></span>
+                  <span slot="fallback" class="account-nav"><details class="account-menu"><summary>Account</summary></details></span>
                 </AccountNavigation>
               : <span class="account-nav"><a href="/sign-in">Sign in</a><a class="account-button" href="/sign-up">Create account</a></span>}
           </div>

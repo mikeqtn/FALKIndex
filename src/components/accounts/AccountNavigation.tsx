@@ -1,5 +1,5 @@
 import { useAuth, useClerk } from '@clerk/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Role } from '../../accounts/contracts';
 import { api } from './api';
 import { AuthProvider } from './AuthProvider';
@@ -33,6 +33,28 @@ const remembered = (): Menu => {
 };
 const forget = () => { try { sessionStorage.removeItem(REMEMBERED); } catch {} };
 
+// On the main site a signed-in member gets one "Account" menu instead of a row of links. A native <details>, so it
+// opens with a click, Enter or Space; clicking elsewhere or pressing Escape closes it.
+function AccountMenu({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const menu = ref.current!;
+    const onClick = (e: MouseEvent) => { if (menu.open && !menu.contains(e.target as Node)) menu.open = false; };
+    const onKey = (e: KeyboardEvent) => {
+      if (menu.open && e.key === 'Escape') { menu.open = false; menu.querySelector('summary')!.focus(); }
+    };
+    document.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey); };
+  }, []);
+  return (
+    <details className="account-menu" ref={ref}>
+      <summary>Account</summary>
+      <div className="account-menu-list">{children}</div>
+    </details>
+  );
+}
+
 function AccountNavigationInner({ site = '', forum }: Props) {
   const { isLoaded, isSignedIn } = useAuth();
   const { signOut } = useClerk();
@@ -62,15 +84,25 @@ function AccountNavigationInner({ site = '', forum }: Props) {
       <a className="account-button" href="/sign-up">Create account</a>
     </span>
   );
+  const signOutNow = () => { forget(); setSessionHint(false); signOut({ redirectUrl: '/' }); };
   // The server drew this menu because the session cookie says signed in, so it shows while Clerk loads.
+  if (!forum) return (
+    <span className="account-nav">
+      <AccountMenu>
+        <a href={`${site}/account`}>Your account</a>
+        {(role === 'editor' || role === 'admin') && <a href={`${site}/editor/review`}>Review</a>}
+        {role === 'admin' && <a href={`${site}/admin/users`}>Administration</a>}
+        <hr />
+        <button type="button" disabled={!isLoaded} onClick={signOutNow}>Sign out</button>
+      </AccountMenu>
+    </span>
+  );
   return (
     <span className="account-nav">
       {forum && <a href={forum.replies}><Item icon="replies" label="Replies" />{unread > 0 && <span className="forum-count"> {unread}<span className="sr-only"> unread</span></span>}</a>}
       {forum && (role === 'editor' || role === 'admin') && <a href={forum.moderation}><Item icon="reports" label="Reports" /></a>}
-      {!forum && (role === 'editor' || role === 'admin') && <a href={`${site}/editor/review`}>Review</a>}
-      {!forum && role === 'admin' && <a href={`${site}/admin/users`}>Administration</a>}
       <a href={`${site}/account`}><Item icon="account" label="Account" /></a>
-      <button type="button" disabled={!isLoaded} onClick={() => { forget(); setSessionHint(false); signOut({ redirectUrl: '/' }); }}><Item icon="signOut" label="Sign out" /></button>
+      <button type="button" disabled={!isLoaded} onClick={signOutNow}><Item icon="signOut" label="Sign out" /></button>
     </span>
   );
 }

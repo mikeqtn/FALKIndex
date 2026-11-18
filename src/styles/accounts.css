@@ -141,3 +141,48 @@ fieldset.account-field[aria-invalid="true"] .account-toggle { border-color: var(
   .account-nav { margin-left: 0; width: 100%; justify-content: flex-end; }
 }
 @media (prefers-reduced-motion: reduce) { .account-skeleton { animation: none; } }
+
+/* ── Your account (AccountApp.tsx): a compact header, then settings rows with the label beside the fields.
+   Scoped to .acct so the other account screens keep the shared .account-* styles. */
+.acct { width: min(100%, 1040px); margin-inline: auto; padding: var(--s-7) 0 var(--s-9); }
+.acct-head { display: flex; align-items: center; gap: var(--s-4); padding-bottom: var(--s-7); }
+.acct-avatar { flex: none; width: 56px; height: 56px; font-size: 22px; }
+.acct-head-text { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.acct-head h1 { font: 600 28px/1.15 var(--f-sans); letter-spacing: -.02em; }
+.acct-facts { display: flex; flex-wrap: wrap; color: var(--c-ink-2); font-size: 14px; }
+.acct-facts > * + *::before { content: '·'; margin: 0 8px; color: var(--c-ink-2); }
+.acct-ok { color: var(--c-gilt-ink); }
+.acct-warn { color: var(--c-action); }
+.acct-links { display: flex; gap: var(--s-5); font-size: 15px; white-space: nowrap; }
+.acct-alert { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: var(--s-5); }
+.acct-row { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s-7); padding: var(--s-7) 0; border-top: 1px solid var(--c-edge); }
+.acct-row-label h2 { font: 600 17px/1.3 var(--f-sans); letter-spacing: -.005em; }
+.acct-row-label p { margin-top: 6px; color: var(--c-ink-2); font-size: 14px; line-height: 1.45; }
+.acct-row-body { display: grid; gap: var(--s-5); min-width: 0; align-content: start; }
+.acct-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+.acct-wide { grid-column: 1 / -1; }
+.acct .account-field textarea { min-height: 88px; }
+.acct-static { display: flex; align-items: center; min-height: 44px; font-size: 15px; }
+.acct .account-field > .acct-check { display: flex; align-items: center; gap: 8px; margin-top: 2px; font-size: 14px; font-weight: 400; color: var(--c-ink-2); cursor: pointer; }
+.acct-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--c-action); }
+.acct-inline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.acct-inline small { font-size: 13px; color: var(--c-ink-2); }
+.acct-save { display: flex; justify-content: flex-end; align-items: center; gap: var(--s-4); padding: 0 0 var(--s-7); }
+.acct-saved { color: var(--c-ink-2); font-size: 14px; }
+.acct-delete > summary { list-style: none; }
+.acct-delete > summary::-webkit-details-marker { display: none; }
+.acct-delete-form { display: grid; gap: var(--s-4); max-width: 420px; margin-top: var(--s-4); }
+.acct .account-button.danger:hover { background: color-mix(in srgb, var(--c-action) 10%, transparent); color: var(--c-action); }
+.acct .account-button.danger:disabled { cursor: not-allowed; }
+.acct .account-skeleton { height: 16px; background: var(--c-surface); animation: none; }
+@media (max-width: 760px) {
+  .acct { padding-top: var(--s-5); }
+  .acct-head { flex-wrap: wrap; }
+  .acct-facts { gap: 2px 12px; }
+  .acct-facts > * + *::before { content: none; } /* a wrapped line must not start with a separator */
+  .acct-links { width: 100%; }
+  .acct-row { grid-template-columns: 1fr; gap: var(--s-4); padding: var(--s-6) 0; }
+  .acct-grid { grid-template-columns: 1fr; }
+  .acct-save { justify-content: stretch; }
+  .acct-save .account-button { flex: 1; }
+}
