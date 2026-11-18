@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { useClerk } from '@clerk/react';
 import { profileInput, qualificationOptions, type Account, type ProfileInput } from '../../accounts/contracts';
 import { api, dateLabel, handleAccountError } from './api';
@@ -36,17 +36,33 @@ function DeleteAccount() {
       window.location.assign('/');
     } catch (e) { setError(handleAccountError(e)); setBusy(false); }
   }
+  // Closed until asked for, so the page does not open on a destructive form.
   return (
-    <form className="account-panel account-stack" aria-labelledby="delete-heading" onSubmit={remove}>
-      <div><h2 id="delete-heading">Delete your account</h2>
-        <p className="account-help">This erases your email, names, profile, photo, organization disclosures and verifications, and closes your sign-in. Corrections and other contributions you made stay in the public record, credited to a deleted member. It cannot be undone.</p></div>
-      {error && <div className="account-error" role="alert">{error}</div>}
-      <div className="account-field"><label htmlFor="delete-confirm">Type DELETE to confirm</label>
-        <input id="delete-confirm" autoComplete="off" value={confirm} onChange={e => setConfirm(e.target.value)} /></div>
-      <div className="account-actions"><button className="account-button" type="submit" disabled={busy || confirm.trim().toLowerCase() !== 'delete'}>{busy ? 'Deleting…' : 'Delete my account'}</button></div>
-    </form>
+    <Section id="delete-heading" title="Delete account"
+      help="Erases your personal details, profile and verifications, and closes your sign-in. Contributions stay, credited to a deleted member. This can't be undone.">
+      <details className="acct-delete">
+        <summary className="account-button danger">Delete account…</summary>
+        <form className="acct-delete-form" aria-labelledby="delete-heading" onSubmit={remove}>
+          {error && <div className="account-error" role="alert">{error}</div>}
+          <div className="account-field"><label htmlFor="delete-confirm">Type DELETE to confirm</label>
+            <input id="delete-confirm" autoComplete="off" value={confirm} onChange={e => setConfirm(e.target.value)} /></div>
+          <div><button className="account-button danger" type="submit" disabled={busy || confirm.trim().toLowerCase() !== 'delete'}>{busy ? 'Deleting…' : 'Delete my account'}</button></div>
+        </form>
+      </details>
+    </Section>
   );
 }
+
+// One settings row: what the section is, beside its fields.
+function Section({ id, title, help, children }: { id: string; title: string; help?: string; children: ReactNode }) {
+  return (
+    <section className="acct-row" aria-labelledby={id}>
+      <div className="acct-row-label"><h2 id={id}>{title}</h2>{help && <p>{help}</p>}</div>
+      <div className="acct-row-body">{children}</div>
+    </section>
+  );
+}
+const ROLE_NAMES: Record<string, string> = { contributor: 'Contributor', editor: 'Editor', admin: 'Administrator' };
 
 function AccountEditor() {
   const clerk = useClerk();
@@ -96,6 +112,7 @@ function AccountEditor() {
 
   function update<K extends keyof ProfileInput>(key: K, value: ProfileInput[K]) {
     setForm(current => ({ ...current, [key]: value }));
+    setNotice('');
     if (key === errorField) setErrorField('');
   }
   /** Marks the field that failed validation and points it at the error message. */
@@ -141,73 +158,97 @@ function AccountEditor() {
     try {
       const result = await api<{ account: Account }>('/api/account', { method: 'PATCH', body: JSON.stringify(parsed.data) });
       setAccount(result.account);
-      setNotice('Your account profile has been saved.');
+      setNotice('Saved.');
     } catch (reason) {
       setError(handleAccountError(reason));
       document.getElementById('profile-error')?.focus();
     } finally { setBusy(false); }
   }
-  if (loading) return <div className="account-panel account-loading" role="status"><span className="sr-only">Loading account</span><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /><div className="account-skeleton" aria-hidden="true" /></div>;
+  // Loading keeps the final layout: the header, then flat bars where the rows will be (no shimmer).
+  if (loading) return (
+    <div className="acct" role="status"><span className="sr-only">Loading account</span>
+      <div className="acct-head" aria-hidden="true"><div className="account-avatar acct-avatar" /><div className="acct-head-text"><div className="account-skeleton" /><div className="account-skeleton" /></div></div>
+      <div className="acct-row" aria-hidden="true"><div className="account-skeleton" /><div className="account-skeleton" /></div>
+    </div>
+  );
   // Suspended and unverified members cannot load their account, but may still delete it.
-  if (error && !account) return <div className="account-stack"><div className="account-panel account-stack"><div className="account-error" role="alert">{error}</div><button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Try again</button></div><DeleteAccount /></div>;
+  if (error && !account) return (
+    <div className="acct">
+      <div className="account-error acct-alert" role="alert">{error} <button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Try again</button></div>
+      <DeleteAccount />
+    </div>
+  );
 
-  const statusText = account?.status === 'suspended' ? 'Account suspended' : account?.emailVerified ? 'Email verified' : 'Email not verified';
+  const verified = account?.status !== 'suspended' && account?.emailVerified;
+  const statusText = account?.status === 'suspended' ? 'Suspended' : verified ? 'Verified' : 'Email not verified';
+  const initial = (form.displayName || form.username || '?').slice(0, 1).toUpperCase();
   return (
-    <div className="account-shell">
-      <header className="account-heading">
-        <div><p className="account-kicker">FALK Index / Reader account</p><h1 className="account-title">{isSetup ? 'Set up your profile' : 'Your account'}</h1><p className="account-intro">Keep authorship and professional context transparent. Your profile is separate from your private account details.</p></div>
+    <div className="acct">
+      <header className="acct-head">
+        <div className="account-avatar acct-avatar">{account?.profile.imageUrl ? <img src={account.profile.imageUrl} alt="" /> : initial}</div>
+        <div className="acct-head-text">
+          <h1>{isSetup ? 'Set up your profile' : 'Your account'}</h1>
+          <p className="acct-facts">
+            <span>{email}</span>
+            <span className={verified ? 'acct-ok' : 'acct-warn'}>{statusText}</span>
+            {account && <span>{ROLE_NAMES[account.role] ?? account.role}</span>}
+            {account?.createdAt && <span>Joined {dateLabel(account.createdAt)}</span>}
+          </p>
+        </div>
+        {account?.username && <nav className="acct-links" aria-label="Your pages">
+          <a href={`/people/${encodeURIComponent(account.username)}`}>Public profile</a>
+          <a href="/account/contributions/">Contributions</a>
+        </nav>}
       </header>
-      <div className="account-stack" style={{ marginTop: 22 }}>
-        {error && <div id="profile-error" className="account-error" role="alert" tabIndex={-1}>{error}</div>}
-        {metaWarning && <div className="account-error" role="alert">Profile option list unavailable: {metaWarning} <button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Retry options</button></div>}
-        {notice && <div className="account-notice" role="status">{notice}</div>}
-        {account?.status === 'suspended' && <div className="account-error" role="alert">This account is suspended. Public catalogue records remain available without signing in.</div>}
-        <section className="account-panel account-stack" aria-labelledby="private-heading">
-          <div className="account-heading"><div><h2 id="private-heading">Account status</h2><p>{email}</p></div><span className={`account-chip ${account?.emailVerified ? 'verified' : ''}`}>{statusText}</span></div>
-          <div className="account-meta"><span>Role: {account?.role}</span><span>Joined {account?.createdAt ? dateLabel(account.createdAt) : '—'}</span></div>
-          {account?.username && <p><a href={`/people/${encodeURIComponent(account.username)}`}>View your public profile</a> · <a href="/account/contributions/">My contributions</a></p>}
-          <p className="account-help">Role and email verification are managed separately from qualifications. Self-reported qualifications never grant contributor, editor or administrator access.</p>
-        </section>
-        <form className="account-panel account-stack" onSubmit={save} noValidate>
-          <div><p className="account-kicker">Public profile</p><h2>{isSetup ? 'Choose a public username' : 'Profile details'}</h2><p className="account-help">Only the fields described here are shown on your public profile. Leave a field blank to keep it undisclosed.</p></div>
-          <div className="account-form-grid">
-            <div className="account-field"><label htmlFor="username">Username</label><input id="username" autoComplete="username" required minLength={3} maxLength={30} pattern="[a-z][a-z0-9_]{2,29}" value={form.username} disabled={!isSetup} onChange={e => update('username', e.target.value.toLowerCase())} {...invalid('username', 'username-help')} /><small id="username-help">{isSetup ? '3–30 lowercase letters, numbers or underscores; start with a letter.' : 'Usernames cannot be changed after profile setup.'}</small></div>
+
+      {error && <div id="profile-error" className="account-error acct-alert" role="alert" tabIndex={-1}>{error}</div>}
+      {metaWarning && <div className="account-error acct-alert" role="alert">Profile options unavailable: {metaWarning} <button className="account-button secondary" type="button" onClick={() => window.location.reload()}>Retry</button></div>}
+      {account?.status === 'suspended' && <div className="account-error acct-alert" role="alert">This account is suspended. Catalogue records stay available without signing in.</div>}
+
+      <form onSubmit={save} noValidate>
+        <Section id="profile-heading" title="Profile" help="Shown on your public profile. Leave a field blank to keep it private.">
+          <div className="acct-grid">
+            {isSetup
+              ? <div className="account-field"><label htmlFor="username">Username</label><input id="username" autoComplete="username" required minLength={3} maxLength={30} pattern="[a-z][a-z0-9_]{2,29}" value={form.username} onChange={e => update('username', e.target.value.toLowerCase())} {...invalid('username', 'username-help')} /><small id="username-help">3–30 lowercase letters, numbers or underscores; start with a letter. It can't be changed later.</small></div>
+              : <div className="account-field"><span className="account-label">Username</span><p className="acct-static">@{form.username}</p><small>Usernames can't be changed.</small></div>}
             <div className="account-field"><label htmlFor="displayName">Display name</label><input id="displayName" {...invalid('displayName')} maxLength={100} value={form.displayName} onChange={e => update('displayName', e.target.value)} /></div>
-            <div className="account-field"><label htmlFor="realName">Real name <span className="muted">(private by default)</span></label><input id="realName" {...invalid('realName')} maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="account-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show my real name on my public profile</span></label></div>
-            <div className="account-field"><label htmlFor="bio">Biography</label><textarea id="bio" {...invalid('bio')} maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="realName">Real name</label><input id="realName" {...invalid('realName')} maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="acct-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show it on my public profile</span></label></div>
             <div className="account-field"><label htmlFor="website">Website</label><input id="website" {...invalid('website')} type="url" placeholder="https://" value={form.website} onChange={e => update('website', e.target.value)} /></div>
-            <div className="account-field"><span className="account-label">Profile photo</span><div className="account-profile-head"><div className="account-avatar">{account?.profile.imageUrl ? <img src={account.profile.imageUrl} alt="" /> : (form.displayName || form.username || '?').slice(0, 1).toUpperCase()}</div><button className="account-button secondary" type="button" onClick={() => clerk.openUserProfile()}>Change photo</button></div><small>Your photo comes from your sign-in account. Reload this page after changing it.</small></div>
+            <div className="account-field acct-wide"><label htmlFor="bio">Biography</label><textarea id="bio" {...invalid('bio')} maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
+            <div className="account-field acct-wide"><span className="account-label">Photo</span><div className="acct-inline"><button className="account-button secondary" type="button" onClick={() => clerk.openUserProfile()}>Change photo</button><small>It comes from your sign-in account. Reload this page after changing it.</small></div></div>
           </div>
-          <hr className="account-divider" />
-          <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
-            <legend className="account-label">Self-reported qualifications</legend>
-            <p className="account-help">These describe your experience; they are not independent verification and do not grant roles.</p>
-            <div className="account-toggles">{meta.qualificationOptions.map(option => <label className="account-toggle" key={option.value}><input type="checkbox" checked={form.qualifications.includes(option.value)} onChange={() => toggleQualification(option.value)} />{option.label}</label>)}</div>
-            <div className="account-form-grid">
-              <div className="account-field"><label htmlFor="qualificationDetails">Qualification context</label><textarea id="qualificationDetails" {...invalid('qualificationDetails')} maxLength={1500} value={form.qualificationDetails} onChange={e => update('qualificationDetails', e.target.value)} /></div>
-              <div className="account-field"><label htmlFor="affiliations">Professional affiliations</label><textarea id="affiliations" {...invalid('professionalAffiliations')} maxLength={1500} value={form.professionalAffiliations} onChange={e => update('professionalAffiliations', e.target.value)} /></div>
-            </div>
-          </fieldset>
-          <fieldset className="account-stack" style={{ border: 0, padding: 0, margin: 0 }}>
-            <legend className="account-label">Organization disclosures</legend>
-            <p className="account-help">Declare ties you want readers to see. Independently verified affiliations appear in a separate section on your profile.</p>
-            {form.brandTies.length
-              ? <ul className="account-toggles" aria-label="Disclosed organizations">{form.brandTies.map(id => <li key={id}><button type="button" className="account-toggle is-on" aria-label={`Remove ${orgName(id)}`} onClick={() => toggleBrand(id)}>{orgName(id)}<span className="account-toggle-x" aria-hidden="true">×</span></button></li>)}</ul>
-              : <p className="account-help">No ties disclosed.</p>}
-            {meta.organizations.length ? <div className="account-field">
-              <label htmlFor="org-search">Add an organization</label>
-              <input id="org-search" type="search" autoComplete="off" placeholder="Brand, supplier or group" value={orgQuery} onChange={e => setOrgQuery(e.target.value)}
-                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); if (orgMatches[0]) addBrand(orgMatches[0].id); } }} />
-              {orgSearch && (orgMatches.length
-                ? <ul className="account-toggles" aria-label="Matching organizations">{orgMatches.map(org => <li key={org.id}><button type="button" className="account-toggle" aria-label={`Add ${org.name}`} onClick={() => addBrand(org.id)}>{org.name}</button></li>)}</ul>
-                : <p className="account-help">No organization matches “{orgQuery.trim()}”.</p>)}
-              <p className="sr-only" role="status">{orgSearch ? `${orgMatches.length} matching organizations` : ''}</p>
-            </div> : <p className="account-empty">No organizations are available to disclose at present.</p>}
-          </fieldset>
-          <div className="account-actions"><button className="account-button" type="submit" disabled={busy}>{busy ? 'Saving profile…' : 'Save profile'}</button><a className="account-button secondary" href="/records/">Return to catalogue</a></div>
-        </form>
-        <DeleteAccount />
-      </div>
+        </Section>
+
+        <Section id="qualifications-heading" title="Qualifications" help="Self-reported. They aren't verified and don't change your role.">
+          <div className="account-toggles" role="group" aria-labelledby="qualifications-heading">{meta.qualificationOptions.map(option => <label className="account-toggle" key={option.value}><input type="checkbox" checked={form.qualifications.includes(option.value)} onChange={() => toggleQualification(option.value)} />{option.label}</label>)}</div>
+          <div className="acct-grid">
+            <div className="account-field"><label htmlFor="qualificationDetails">Context</label><textarea id="qualificationDetails" {...invalid('qualificationDetails')} maxLength={1500} value={form.qualificationDetails} onChange={e => update('qualificationDetails', e.target.value)} /></div>
+            <div className="account-field"><label htmlFor="affiliations">Professional affiliations</label><textarea id="affiliations" {...invalid('professionalAffiliations')} maxLength={1500} value={form.professionalAffiliations} onChange={e => update('professionalAffiliations', e.target.value)} /></div>
+          </div>
+        </Section>
+
+        <Section id="disclosures-heading" title="Disclosures" help="Organizations you're tied to, shown to readers. Verified affiliations are listed separately.">
+          {form.brandTies.length
+            ? <ul className="account-toggles" aria-label="Disclosed organizations">{form.brandTies.map(id => <li key={id}><button type="button" className="account-toggle is-on" aria-label={`Remove ${orgName(id)}`} onClick={() => toggleBrand(id)}>{orgName(id)}<span className="account-toggle-x" aria-hidden="true">×</span></button></li>)}</ul>
+            : <p className="account-help">None disclosed.</p>}
+          {meta.organizations.length ? <div className="account-field">
+            <label htmlFor="org-search">Add an organization</label>
+            <input id="org-search" type="search" autoComplete="off" placeholder="Brand, supplier or group" value={orgQuery} onChange={e => setOrgQuery(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); if (orgMatches[0]) addBrand(orgMatches[0].id); } }} />
+            {orgSearch && (orgMatches.length
+              ? <ul className="account-toggles" aria-label="Matching organizations">{orgMatches.map(org => <li key={org.id}><button type="button" className="account-toggle" aria-label={`Add ${org.name}`} onClick={() => addBrand(org.id)}>{org.name}</button></li>)}</ul>
+              : <p className="account-help">No organization matches “{orgQuery.trim()}”.</p>)}
+            <p className="sr-only" role="status">{orgSearch ? `${orgMatches.length} matching organizations` : ''}</p>
+          </div> : <p className="account-help">No organizations are available to disclose yet.</p>}
+        </Section>
+
+        <div className="acct-save">
+          <span className="acct-saved" role="status">{notice}</span>
+          <button className="account-button" type="submit" disabled={busy}>{busy ? 'Saving…' : isSetup ? 'Create profile' : 'Save changes'}</button>
+        </div>
+      </form>
+
+      <DeleteAccount />
     </div>
   );
 }
