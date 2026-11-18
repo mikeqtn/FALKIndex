@@ -74,7 +74,7 @@ const levels = [0, 1, 2, 3, 4, 5];
       </details>
     </aside>
 
-    <div class="stack">
+    <div class="stack" id="results">
       <div class="toolbar">
         <p id="count" aria-live="polite">{records.length} records</p>
         <label>Sort
@@ -192,11 +192,22 @@ const levels = [0, 1, 2, 3, 4, 5];
     history.replaceState(null, '', p.size ? `?${p}` : location.pathname);
   }
 
+  // A filter low in the panel shortens the list above it; bring the list's top back into view
+  // instead of leaving the reader below it. Only when it is above the fold, so a phone's filter
+  // sheet (which sits above the list) stays put while several filters are picked.
+  const results = document.getElementById('results')!;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  function showResults() {
+    if (results.getBoundingClientRect().top < parseFloat(getComputedStyle(results).scrollMarginTop))
+      results.scrollIntoView({ block: 'start', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  }
+  const update = () => { apply(); showResults(); };
+
   fromUrl();
   apply();
-  form.addEventListener('input', apply);
-  form.addEventListener('submit', e => { e.preventDefault(); apply(); });
-  form.addEventListener('reset', () => setTimeout(apply));
-  sort.addEventListener('change', apply);
+  form.addEventListener('input', update);
+  form.addEventListener('submit', e => { e.preventDefault(); update(); });
+  form.addEventListener('reset', () => setTimeout(update));
+  sort.addEventListener('change', update);
   document.getElementById('clear-empty')!.addEventListener('click', () => form.reset());
 </script>
