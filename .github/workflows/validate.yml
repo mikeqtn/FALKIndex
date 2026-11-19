@@ -24,6 +24,9 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with: { node-version: 24, cache: npm }
+      # Publishing from Replit rewrites package-lock.json to Replit's package mirror, which only resolves inside
+      # Replit. Point those URLs back at the public registry (same tarballs, same integrity hashes) before installing.
+      - run: sed -i 's#http://package-firewall.replit.internal/npm/#https://registry.npmjs.org/#g' package-lock.json
       - run: npm ci
       - run: npm run typecheck
       - run: npm run validate
