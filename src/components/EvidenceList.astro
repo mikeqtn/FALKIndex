@@ -1,67 +1,174 @@
 ---
-// One profile's evidence by dimension: rationale, then supporting, conflicting and context claims.
-import { DIMENSIONS, SOURCE_TYPE, correctionUrl, editorName, getCatalogue, fmtDate, type Profile, type Record } from '../lib/data.ts';
-const { dimension, methodologies, sources } = await getCatalogue(Astro.locals);
+// One profile's evidence, one panel per dimension: score, rationale, who makes it, then supporting, conflicting and
+// context claims. Wide screens list the dimensions on the left and show one panel beside them; narrow screens open
+// each panel in place. Every panel renders open, so without script the whole profile reads top to bottom.
+import { DIMENSIONS, RELATIONSHIP, SOURCE_TYPE, correctionUrl, editorName, getCatalogue, fmtDate, orgUrl, type Profile, type Record } from '../lib/data.ts';
+import { EVIDENCE_SCRIPT } from '../lib/inline-scripts.mjs';
+const { dimension, methodologies, orgs, sources } = await getCatalogue(Astro.locals);
 
 interface Props { profile: Profile; record: Record; idPrefix: string }
 const { profile, record, idPrefix } = Astro.props;
 const levels = Object.fromEntries(methodologies.get(profile.methodology)!.dimensions.map(d => [d.code, d.levels]));
 const claims = new Map(record.claims.map(c => [c.id, c]));
+// Rationales cite claims by id for editors, e.g. "(rsub-3230, rolex-bienne)". Readers see those claims in full below,
+// so a parenthesis made only of this record's claim ids is dropped; any other aside, such as "(SII)", stays.
+const readable = (text: string) => text.replace(/\s*\(([^()]*)\)/g, (whole, inner: string) =>
+  inner.split(/[,;]\s*/).every(id => claims.has(id.trim())) ? '' : whole);
 const host = (url: string) => new URL(url).host.replace(/^www\./, '');
 const GROUPS = [['supports', 'Supporting evidence'], ['contradicts', 'Conflicting evidence'], ['context', 'Context']] as const;
+// Confidence D has no profile (DESIGN.md §4.1), so the list names the dimensions without drawing their bars.
+const bars = profile.confidence !== 'D';
+const draft = idPrefix !== 'evidence';
 ---
 <div class="evidence">
-  {DIMENSIONS.map(d => {
-    const s = profile.scores[d];
-    return (
-      <details id={`${idPrefix}-${d.toLowerCase()}`}>
-        <summary>
-          <span class="code">{d} {s.value ?? 'U'}</span>
-          <span class="sum-text"><b>{dimension[d].label}</b><span class="lvl muted">{s.value === null ? 'Unknown' : levels[d][s.value]}</span></span>
-        </summary>
-        <div class="body stack">
-          {s.rationale && <div class="prose"><p>{s.rationale}</p></div>}
-          {!s.rationale && s.evidence.length === 0 && (
-            <p class="prose">
-              {profile.is_seed ? 'No evidence attached yet. This score comes from the v0.2 reference dataset.' : 'No rationale or evidence recorded for this score.'}{' '}
-              <a href={correctionUrl(record.id)}>Send evidence</a>
-            </p>
-          )}
-          {GROUPS.map(([stance, title]) => {
-            const es = s.evidence.filter(e => e.stance === stance);
-            return es.length > 0 && (
-              <div class="stack">
-                <h3 class="small-h">{title} ({es.length})</h3>
-                {es.map(e => {
-                  const c = claims.get(e.claim)!;
-                  const src = sources.get(c.source)!;
-                  return (
-                    <div class:list={['claim', stance]}>
-                      <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
-                      {c.excerpt && <blockquote class="excerpt">{c.excerpt}</blockquote>}
-                      <p class="small src">
-                        <a href={src.url}>{src.title ?? host(src.url)}</a>
-                        <span class:list={{ muted: src.tier === 'secondary' }}>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>
-                        {src.archived_url && <a href={src.archived_url}>Archived copy</a>}
-                        <span>Checked {fmtDate(c.date_checked)}</span>
-                        <span>Added by {editorName(c.editor)}</span>
-                      </p>
-                      <p class="small muted">{e.note}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      </details>
-    );
-  })}
+  <nav class="ev-nav" aria-label={draft ? 'Draft dimensions' : 'Dimensions'}>
+    <ol>
+      {DIMENSIONS.map(d => {
+        const v = profile.scores[d].value;
+        return (
+          <li>
+            <a href={`#${idPrefix}-${d.toLowerCase()}`} aria-controls={`${idPrefix}-${d.toLowerCase()}`}>
+              <span class="nav-code">{d}</span>
+              {/* The profile strip above is the one chart; the list repeats only the number. */}
+              {bars && <span class="nav-score"><span class="nav-num" aria-hidden="true">{v ?? 'U'}</span></span>}
+              <span class="nav-name">{dimension[d].label}{bars && <span class="sr-only">, {v === null ? 'unknown' : `${v} of 5`}</span>}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+  <div class="ev-panels">
+    {DIMENSIONS.map(d => {
+      const s = profile.scores[d];
+      const makers = record.provenance.filter(e => e.dimension === d);
+      return (
+        <details class="ev-panel" id={`${idPrefix}-${d.toLowerCase()}`} open>
+          <summary>
+            <span class="code">{d} {s.value ?? 'U'}</span>
+            <span class="sum-text"><b>{dimension[d].label}</b><span class="lvl muted">{s.value === null ? 'Unknown' : `${s.value} of 5: ${levels[d][s.value]}`}</span></span>
+          </summary>
+          <div class="body">
+            {s.rationale && <div class="prose"><p>{readable(s.rationale)}</p></div>}
+            {!s.rationale && s.evidence.length === 0 && (
+              <p class="prose">
+                {profile.is_seed ? 'No evidence attached yet. This score comes from the v0.2 reference dataset.' : 'No rationale or evidence recorded for this score.'}{' '}
+                <a href={correctionUrl(record.id)}>Send evidence</a>
+              </p>
+            )}
+            <div class="ev-group">
+              <h3 class="small-h">Who makes it</h3>
+              {makers.length === 0
+                ? <p class="small muted">No components recorded for this dimension.</p>
+                : (
+                  <ul class="makers">
+                    {makers.map(e => (
+                      <li>
+                        <span class="m-comp">{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</span>
+                        <span class="m-by">{e.performer ? <a href={orgUrl(e.performer)}>{orgs.get(e.performer)!.name}</a> : <span class="muted">Not named</span>}</span>
+                        <span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </div>
+            {GROUPS.map(([stance, title]) => {
+              const es = s.evidence.filter(e => e.stance === stance);
+              return es.length > 0 && (
+                <div class="ev-group">
+                  <h3 class="small-h">{title} ({es.length})</h3>
+                  {es.map(e => {
+                    const c = claims.get(e.claim)!;
+                    const src = sources.get(c.source)!;
+                    return (
+                      <div class:list={['claim', stance]}>
+                        <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
+                        {c.excerpt && <blockquote class="excerpt">{c.excerpt}</blockquote>}
+                        <p class="small src">
+                          <a href={src.url}>{src.title ?? host(src.url)}</a>
+                          <span>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>
+                          {src.archived_url && <a href={src.archived_url}>Archived copy</a>}
+                          <span>Checked {fmtDate(c.date_checked)}</span>
+                          {c.editor !== 'falk-index' && <span>Added by {editorName(c.editor)}</span>}
+                        </p>
+                        {e.note && <p class="small muted">{e.note}</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </details>
+      );
+    })}
+  </div>
 </div>
+<script is:inline set:html={EVIDENCE_SCRIPT} />
 
 <style>
   .small-h { font-size: 16px; line-height: 23px; font-stretch: 100%; }
   .claim > * + * { margin-top: var(--s-2); }
   .claim.contradicts { border-left: 3px solid var(--c-gilt); padding-left: var(--s-4); }
-  .src { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
 </style>
+
+<script>
+  // Wide screens: the list on the left picks the one panel shown beside it. Narrow: each panel opens in place.
+  // Either way the URL hash names the dimension in view, so evidence can be linked directly.
+  const wide = matchMedia('(min-width: 1024px)');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  for (const ev of document.querySelectorAll<HTMLElement>('.evidence')) {
+    const panels = [...ev.querySelectorAll<HTMLDetailsElement>('.ev-panel')];
+    const links = [...ev.querySelectorAll<HTMLAnchorElement>('.ev-nav a')];
+    const current = () => panels.find(p => p.classList.contains('is-current')) ?? panels[0];
+    const select = (panel: HTMLDetailsElement) => {
+      panels.forEach(p => p.classList.toggle('is-current', p === panel));
+      links.forEach(a => a.getAttribute('aria-controls') === panel.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+    };
+    // Wide: every panel open (only the current one shows), and its heading is a label, not a toggle.
+    // Narrow: only the current panel stays open, so a resize never leaves a wall of open panels.
+    const fit = () => {
+      for (const p of panels) {
+        p.open = wide.matches || p.classList.contains('is-current');
+        const summary = p.querySelector('summary')!;
+        summary.tabIndex = wide.matches ? -1 : 0;
+        // On wide screens the summary is the panel's heading, not a toggle, so assistive tech should hear a heading.
+        if (wide.matches) { summary.setAttribute('role', 'heading'); summary.setAttribute('aria-level', '3'); }
+        else { summary.removeAttribute('role'); summary.removeAttribute('aria-level'); }
+      }
+      if (wide.matches) select(current());
+    };
+    const show = (panel: HTMLDetailsElement) => {
+      if (wide.matches) select(panel); else panel.open = true;
+      if (location.hash !== `#${panel.id}`) history.replaceState(null, '', `#${panel.id}`);
+      // Bring the panel's top into view only when it is off screen: a click in the list beside it should not jump.
+      const top = panel.getBoundingClientRect().top;
+      if (top < 0 || top > innerHeight * 0.8) panel.scrollIntoView({ block: 'start', behavior: calm.matches ? 'auto' : 'smooth' });
+    };
+    const target = (hash: string) => panels.find(p => `#${p.id}` === hash);
+    // Any link to a panel (this list, or the profile strip above) selects it rather than jumping to it.
+    document.addEventListener('click', e => {
+      const a = (e.target as Element).closest?.<HTMLAnchorElement>('a[href^="#"]');
+      const panel = a && target(a.hash);
+      if (!panel || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      show(panel);
+    });
+    addEventListener('hashchange', () => { const panel = target(location.hash); if (panel) show(panel); });
+    // Only a panel the reader opened by its own heading names the URL. "Open all" and resizes open panels too, and
+    // must not leave the hash pointing at whichever opened last.
+    let clicked: HTMLDetailsElement | null = null;
+    for (const p of panels) {
+      p.querySelector('summary')!.addEventListener('click', e => { if (wide.matches) e.preventDefault(); else clicked = p; });
+      p.addEventListener('toggle', () => {
+        const byReader = clicked === p;
+        if (byReader) clicked = null;
+        if (wide.matches || !p.open || !byReader) return;
+        select(p);
+        if (location.hash !== `#${p.id}`) history.replaceState(null, '', `#${p.id}`);
+      });
+    }
+    wide.addEventListener('change', fit);
+    fit();
+  }
+</script>

@@ -27,7 +27,20 @@ export const MENU_SCRIPT = `(() => {
   fit(); wide.addEventListener('change', fit);
 })();`;
 
-export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT];
+/**
+ * Evidence renders every dimension open so it all reads without script. Before paint, this picks the one to show:
+ * on wide screens the linked (or first) dimension beside the list, on narrow ones only the linked one stays open.
+ * EvidenceList's own script handles clicks after that.
+ */
+export const EVIDENCE_SCRIPT = `(() => {
+  const ev = document.currentScript.previousElementSibling, panels = [...ev.querySelectorAll('.ev-panel')];
+  const hit = panels.find(p => '#' + p.id === location.hash);
+  ev.classList.add('ev-js');
+  if (matchMedia('(min-width: 1024px)').matches) (hit ?? panels[0]).classList.add('is-current');
+  else { panels.forEach(p => { p.open = p === hit; }); hit?.classList.add('is-current'); }
+})();`;
+
+export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT, EVIDENCE_SCRIPT];
 
 // Clerk Protect (bot protection on sign-in and sign-up). It probes its hosts on several ports (443, 8443, 18443, 2082,
 // 992), hence the :* on connect-src. Shared by astro.config.mjs and Base.astro, which replaces connect-src per request.
