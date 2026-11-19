@@ -43,7 +43,34 @@ export const EVIDENCE_SCRIPT = `(() => {
   } else { panels.forEach(p => { p.open = p === hit; }); hit?.classList.add('is-current'); }
 })();`;
 
-export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT, EVIDENCE_SCRIPT];
+/**
+ * Crossing between FALK Index and the forum. In production they are different hosts (falkindex.com and
+ * forum.falkindex.com), so the browser's view transitions, which are same-origin only, cannot animate the change.
+ * Instead the page you leave dissolves to its own background, and the page you arrive on rises in from the same
+ * background (shared.css). Both sites use one page colour and share the theme cookie, so the two halves read as
+ * one fade. In development the forum lives under /forum on the same host, so the path decides which site a URL is.
+ * Skipped under reduced motion; a page restored from the back/forward cache drops the fade at once.
+ */
+export const SITE_JUMP_SCRIPT = `(() => {
+  const root = h => h.split('.').slice(-2).join('.');
+  const forumPath = p => p === '/forum' || p.startsWith('/forum/');
+  const crosses = u => u.host !== location.host ? root(u.hostname) === root(location.hostname) : forumPath(u.pathname) !== forumPath(location.pathname);
+  const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const html = document.documentElement;
+  try { const r = document.referrer && new URL(document.referrer); if (r && crosses(r) && !calm()) { html.dataset.arriving = ''; setTimeout(() => delete html.dataset.arriving, 600); } } catch {}
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.hasAttribute('download') || (a.target && a.target !== '_self')) return;
+    const u = new URL(a.href, location.href);
+    if (!/^https?:$/.test(u.protocol) || !crosses(u) || calm()) return;
+    e.preventDefault();
+    html.dataset.leaving = '';
+    setTimeout(() => location.assign(u.href), 160);
+  });
+  addEventListener('pageshow', () => delete html.dataset.leaving);
+})();`;
+
+export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT, EVIDENCE_SCRIPT, SITE_JUMP_SCRIPT];
 
 // Clerk Protect (bot protection on sign-in and sign-up). It probes its hosts on several ports (443, 8443, 18443, 2082,
 // 992), hence the :* on connect-src. Shared by astro.config.mjs and Base.astro, which replaces connect-src per request.

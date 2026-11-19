@@ -76,3 +76,12 @@
 .cell.lu { border-color: var(--c-ink-2); }
 .cell.lu span { background: var(--c-surface); padding: 0 2px; }
 .cell.lu { background: var(--pattern-unknown); }
+
+/* Crossing between FALK Index and the forum (SITE_JUMP_SCRIPT in inline-scripts.mjs). They are different hosts, so
+   view transitions cannot run: the page being left dissolves to the shared page colour, and the page arriving rises
+   in from it. Both halves are short, and neither runs under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-leaving] body > * { opacity: 0; transition: opacity 160ms cubic-bezier(.4, 0, 1, 1); }
+  html[data-arriving] body > * { animation: site-arrive 280ms cubic-bezier(.2, .8, .2, 1) both; }
+}
+@keyframes site-arrive { from { opacity: 0; transform: translateY(4px); } }
