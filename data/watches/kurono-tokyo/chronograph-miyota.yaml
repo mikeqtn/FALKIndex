@@ -1,8 +1,8 @@
 id: kurono-tokyo/chronograph-miyota
 brand: kurono-tokyo
 model: Chronograph
-route_label: Miyota-based lines
-notes: Handbook v0.2 §8 lists this record as "Kurono Tokyo — Chronograph / Miyota-based lines".
+route_label: Seiko NE86
+notes: Handbook v0.2 §8 lists this record as "Kurono Tokyo — Chronograph / Miyota-based lines". Every claim in it concerns the chronographs on the Seiko NE86, so the route is labelled NE86; the record id keeps its original name.
 provenance:
   - dimension: MA
     component: Movement design (Seiko NE86)
