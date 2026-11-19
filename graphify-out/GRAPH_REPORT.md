@@ -1,17 +1,17 @@
 # Graph Report - falkindex  (2026-11-19)
 
 ## Corpus Check
-- 340 files · ~254,301 words
+- 340 files · ~254,642 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 34 file(s) not represented in the graph (top: .avif 20, .ttf 6, (none) 4)
 
 ## Summary
-- 5952 nodes · 8651 edges · 607 communities (596 shown, 11 thin omitted)
+- 5953 nodes · 8653 edges · 600 communities (589 shown, 11 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 86 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bfdc4c49`
+- Built from commit: `927d0c94`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,7 +31,7 @@
 - OG Image Generation
 - handleAccountError
 - CI Validate Workflow
-- site.test.ts
+- pages/records/[brand]/[model].astro
 - api
 - forum-images.test.ts
 - Methodology v0.2 Data
@@ -44,7 +44,7 @@
 - Editor Review App
 - Organization Pages & URLs
 - Accounts Editorial Design
-- Support & Notifications
+- contracts.ts
 - Watch data: anordain/model-1-fabrik
 - Watch data: atelier-wen/perception-mu
 - Watch data: audemars-piguet/royal-oak-16202
@@ -230,7 +230,7 @@
 - WE
 - claim
 - Watch data: iwc/ingenieur-automatic-40 (4)
-- db.ts
+- @fontsource-variable/source-serif-4
 - Watch data: ophion/oph-786-velos (4)
 - Watch data: philippe-dufour/simplicity (4)
 - Watch data: rexhep-rexhepi/chronometre-contemporain (4)
@@ -469,18 +469,16 @@
 - swatch-group.yaml
 - uwd.yaml
 - package.json
-- ref_node_assert
+- @replit/object-storage
 - Watch data: anordain/model-2-porcelain (6)
-- express
+- @resvg/resvg-js
 - check-excerpts.ts
-- clerk-host.test.ts
+- AccountNavigation.tsx
 - lesablier.yaml
 - zrc.yaml
-- csp.ts
-- hosts.test.ts
+- @types/react-dom@^19.3.0
 - Watch data: anordain/model-1-fabrik (6)
 - Watch data: anordain/model-1-fabrik (7)
-- page-limit.test.ts
 - Watch data: artur-akmaev/eternal-koi (7)
 - support.test.ts
 - Watch data: atelier-wen/perception-mu (7)
@@ -494,7 +492,6 @@
 - Watch data: breitling/chronomat-b01 (8)
 - Movement photograph credits (Wikimedia Commons)
 - Watch data: cartier/santos-1847-mc (8)
-- post-text.ts
 - Watch data: christopher-ward/c1-bel-canto (7)
 - 03series.yaml
 - Watch data: christopher-ward/the-twelve (7)
@@ -611,16 +608,12 @@
 - MM
 - WE
 - MM
-- @astrojs/react
 - httpxy
 - Watch data: tudor/black-bay-58 (8)
 - react-dom@^19.3.1
-- sharp
 - @types/express@^5.0.6
 - favicon.svg
 - DESIGN.md (6)
-- @types/pg@^8.23.1
-- @types/react@^19.3.0
 - typescript@^7.0.2
 
 ## God Nodes (most connected - your core abstractions)
@@ -630,18 +623,18 @@
 4. `api()` - 36 edges
 5. `realm()` - 34 edges
 6. `actor()` - 30 edges
-7. `pool` - 27 edges
-8. `AuthProvider()` - 27 edges
+7. `AuthProvider()` - 27 edges
+8. `pool` - 27 edges
 9. `authenticatedAccount()` - 22 edges
 10. `transaction()` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `FALK Profile (seven dimensions, 0-5 or U)` --semantically_similar_to--> `FALK Profile dimensions (MA MM EX DH CF WE PD)`  [INFERRED] [semantically similar]
   README.md → docs/FALK_Index_v0.2_Redesigned.pdf
-- `PR checklist (one watch per PR, validate, no AI excerpts, editor: ai-draft)` --conceptually_related_to--> `Example evidence record (claim, dimensions, source, excerpt, date checked, editor note)`  [INFERRED]
-  .github/pull_request_template.md → docs/FALK_Index_v0.2_Redesigned.pdf
 - `Nomos DUW 6101 photos (Anil Oztas)` --conceptually_related_to--> `56-record reference dataset`  [INFERRED]
   public/images/movements/CREDITS.txt → docs/FALK_Index_v0.2_Redesigned.pdf
+- `PR checklist (one watch per PR, validate, no AI excerpts, editor: ai-draft)` --conceptually_related_to--> `Example evidence record (claim, dimensions, source, excerpt, date checked, editor note)`  [INFERRED]
+  .github/pull_request_template.md → docs/FALK_Index_v0.2_Redesigned.pdf
 - `Corrections workflow` --implements--> `Open, community-regulated database principles`  [INFERRED]
   README.md → docs/FALK_Index_v0.2_Redesigned.pdf
 - `Editor review queue (/editor/review, falk_submission, falk_review_event)` --implements--> `Open, community-regulated database principles`  [INFERRED]
@@ -663,39 +656,39 @@
 - **Storage migration from git YAML to Replit PostgreSQL** — docs_decisions_q1_git_backed_yaml, docs_decisions_q14_postgres_source_of_truth, docs_plan_replit_postgresql, docs_accounts_editorial_implementation_server_architecture, docs_accounts_editorial_implementation_deployment_rollout [INFERRED 0.85]
 - **Caseback photos of the same Tangente 4361 showing DUW 6101 (No. 17507)** — public_images_movements_nomos_duw_6101_angled_1600, public_images_movements_nomos_duw_6101_caseback_1600, public_images_watches_nomos_tangente_neomatik_back_1200 [INFERRED 0.95]
 
-## Communities (607 total, 11 thin omitted)
+## Communities (600 total, 11 thin omitted)
 
 ### Community 0 - "Forum Server & Threads"
-Cohesion: 0.06
-Nodes (41): thread, FORUM_THREADS_PER_HOUR, body, categoryNames, IMAGE_CACHE, imageQuery, images, listAllThreads() (+33 more)
+Cohesion: 0.05
+Nodes (75): members(), thread, audit(), deleteAccount(), enforceAccount(), HttpError, saveProfile(), createInvitation() (+67 more)
 
 ### Community 1 - "index.ts"
-Cohesion: 0.23
-Nodes (11): RFC-7230, api, waitForDatabase(), attachProductionSite(), createApp(), securityHeaders(), start(), CLERK_PROXY_PATH (+3 more)
+Cohesion: 0.05
+Nodes (56): RFC-7230, @clerk/shared, express, serve(), policy(), serve(), address, app (+48 more)
 
 ### Community 2 - "Accounts & API Server"
-Cohesion: 0.06
-Nodes (53): @clerk/express, address, profile, server, withMember(), members(), members(), guestCorrection() (+45 more)
+Cohesion: 0.07
+Nodes (49): @clerk/express, address, profile, server, withMember(), guestCorrection(), accountFrom(), authenticatedAccount() (+41 more)
 
 ### Community 3 - "Record Schema & Publishing"
-Cohesion: 0.07
-Nodes (37): zod, checked, checksum, applyPublish(), Catalogue, changedIds(), claimCore(), claimEdited() (+29 more)
+Cohesion: 0.05
+Nodes (53): pg, sharp, yaml, zod, dir, CATEGORIES, Starter, { values: { author } } (+45 more)
 
 ### Community 4 - "dependencies"
-Cohesion: 0.11
-Nodes (18): dependencies, @astrojs/node@^11.1.9, @clerk/express@^2.1.80, @clerk/react@^6.17.8, compression@^1.8.2, express@^5.3.0, @fontsource-variable/source-serif-4@^5.3.1, pg@^8.23.1 (+10 more)
+Cohesion: 0.12
+Nodes (17): dependencies, astro@^7.4.12, @astrojs/node@^11.1.9, @astrojs/react@^7.1.0, @clerk/express@^2.1.80, @clerk/react@^6.17.8, @clerk/shared@^4.40.0, express@^5.3.0 (+9 more)
 
 ### Community 5 - "Archetypes & Pattern Strip"
-Cohesion: 0.06
-Nodes (45): Props, avif, Props, ArchetypeCopy, archetypeUrl(), Band, BAND_TEXT, browseUrl() (+37 more)
+Cohesion: 0.07
+Nodes (41): Props, avif, Props, ArchetypeCopy, archetypeUrl(), Band, BAND_TEXT, browseUrl() (+33 more)
 
 ### Community 6 - "data.ts"
-Cohesion: 0.07
-Nodes (29): recordThreadCount(), Props, Props, Props, catalogue(), Catalogue, CONFIDENCE, correctionUrl() (+21 more)
+Cohesion: 0.08
+Nodes (26): label, Props, Props, Props, Props, Props, catalogue(), Catalogue (+18 more)
 
 ### Community 7 - "Review Queue & New Watch"
-Cohesion: 0.09
-Nodes (42): ctx, address, proposeWatch(), server, loadCatalogue(), querySeries(), anyArchetype(), buildNewWatch() (+34 more)
+Cohesion: 0.06
+Nodes (57): Members, members(), ctx, nobody, sent, address, member(), proposeWatch() (+49 more)
 
 ### Community 8 - "FALK Index (README)"
 Cohesion: 0.11
@@ -706,16 +699,16 @@ Cohesion: 0.07
 Nodes (37): listQuery, navCategories(), pageQuery, THREAD_SORTS, ThreadSort, pages, Props, quiet (+29 more)
 
 ### Community 10 - "Forum Post Components"
-Cohesion: 0.12
-Nodes (28): ModerationApp(), Queue(), Report, Props, ReasonDialog(), ReasonRequest, Author(), conversations() (+20 more)
+Cohesion: 0.13
+Nodes (24): Props, PostBody(), ReasonRequest, Author(), conversations(), countReplies(), Detail, Interactive() (+16 more)
 
 ### Community 11 - "Clerk Auth Hosting"
-Cohesion: 0.11
-Nodes (24): @clerk/react, setSessionHint(), AccountMenu(), AccountNavigation(), AccountNavigationInner(), forget(), ICONS, Item() (+16 more)
+Cohesion: 0.14
+Nodes (18): @clerk/react, react, SignInPage(), SignUpPage(), appearance, authCardAppearance, AuthProvider(), ModerationApp() (+10 more)
 
 ### Community 12 - "OG Image Generation"
-Cohesion: 0.08
-Nodes (29): astro@^7.4.12, astro, getCatalogue(), C, DimensionLabels, esc(), FONT_DIR, fontFiles (+21 more)
+Cohesion: 0.13
+Nodes (23): astro, getCatalogue(), C, DimensionLabels, esc(), FONT_DIR, fontFiles, png() (+15 more)
 
 ### Community 13 - "handleAccountError"
 Cohesion: 0.21
@@ -725,17 +718,17 @@ Nodes (17): AdminMember, ROLES, Verification, AdminConsole(), addVerification(),
 Cohesion: 0.08
 Nodes (27): CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY, DATABASE_URL, POSTGRES_PASSWORD, jobs, validate, name, on (+19 more)
 
-### Community 15 - "site.test.ts"
-Cohesion: 0.16
-Nodes (11): address, app, cache, dataset, files, server, DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED (+3 more)
+### Community 15 - "pages/records/[brand]/[model].astro"
+Cohesion: 0.08
+Nodes (22): recordThreadCount(), DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED, publisherTie(), RETAIL_BRANDS, BY_SA_4, WATCH_PHOTOS, WatchPhoto (+14 more)
 
 ### Community 16 - "api"
-Cohesion: 0.11
-Nodes (29): ProfileInput, AccountApp(), AccountEditor(), addBrand(), save(), toggleBrand(), toggleQualification(), update() (+21 more)
+Cohesion: 0.15
+Nodes (21): ProfileInput, qualificationOptions, AccountApp(), AccountEditor(), addBrand(), save(), toggleBrand(), toggleQualification() (+13 more)
 
 ### Community 17 - "forum-images.test.ts"
 Cohesion: 0.08
-Nodes (44): image(), startUpload(), FORUM_IMAGES_PER_HOUR, addImage(), FORUM_MAX_IMAGES, replyInput, acquireImageUploadSlot(), cache (+36 more)
+Nodes (45): image(), members(), startUpload(), FORUM_IMAGES_PER_HOUR, addImage(), FORUM_MAX_IMAGES, replyInput, acquireImageUploadSlot() (+37 more)
 
 ### Community 18 - "Methodology v0.2 Data"
 Cohesion: 0.10
@@ -762,12 +755,12 @@ Cohesion: 0.16
 Nodes (14): Existing system and migration baseline, AI-assisted drafts (editor: ai-draft), archived_url required for published-profile sources, Confidence grading (4+ U means D), FALK Index Editorial Guide, Confidence D shows provenance notes only, Evidence confidence A-D, FALK Index MVP Plan (+6 more)
 
 ### Community 24 - "New Watch Proposal App"
-Cohesion: 0.11
-Nodes (22): NEW_BRAND_KINDS, SOURCE_TYPES, blank, blankClaim, Claim, fieldId(), Form, Gate() (+14 more)
+Cohesion: 0.14
+Nodes (17): NEW_BRAND_KINDS, SOURCE_TYPES, blank, blankClaim, Claim, fieldId(), Form, Gate() (+9 more)
 
 ### Community 25 - "Editor Review App"
-Cohesion: 0.08
-Nodes (32): DIMENSION_CODES, httpUrl, MemberProfile, MyContribution, PublicProfile, qualificationOptions, ReplyInput, REVIEW_ACTIONS (+24 more)
+Cohesion: 0.14
+Nodes (19): REVIEW_STATUSES, ReviewDetail, ReviewSummary, actionLabels, EditorReviewApp(), isOpen(), Labels, newBrandKinds (+11 more)
 
 ### Community 26 - "Organization Pages & URLs"
 Cohesion: 0.15
@@ -777,9 +770,9 @@ Nodes (16): orgUrl(), recordUrl(), siteOrigin(), byDim, KIND, org, own, OWNERSHI
 Cohesion: 0.11
 Nodes (19): Approval transaction, Conflicts of interest and overrides, Deployment, migration and rollout, Editor review queue /editor/review, Decisions to confirm (first admin, overrides, privacy), Pending proposal visibility policy, Phase 1: server foundation, accounts, safe import, Phase 2: contributions and editorial workflow (+11 more)
 
-### Community 28 - "Support & Notifications"
-Cohesion: 0.24
-Nodes (11): alertModerators(), decisionEmail(), notifyAuthor(), site(), emailSupportInbox(), sendEmail(), sendSupportMessage(), supportInput (+3 more)
+### Community 28 - "contracts.ts"
+Cohesion: 0.12
+Nodes (21): DIMENSION_CODES, httpUrl, MemberProfile, MyContribution, PublicProfile, ReplyInput, REVIEW_ACTIONS, ReviewEventAction (+13 more)
 
 ### Community 29 - "Watch data: anordain/model-1-fabrik"
 Cohesion: 0.15
@@ -910,8 +903,8 @@ Cohesion: 0.11
 Nodes (18): scripts, bootstrap:admin, build, check:excerpts, cleanup:forum-images, db:export, db:import, db:publish (+10 more)
 
 ### Community 61 - "messages.ts"
-Cohesion: 0.07
-Nodes (66): Members, members(), audit(), deleteAccount(), enforceAccount(), HttpError, saveProfile(), createInvitation() (+58 more)
+Cohesion: 0.10
+Nodes (41): authorColumns(), authorFrom(), imageForServing(), isEstablished(), isModerator(), notifications(), threadDetail(), blockInput (+33 more)
 
 ### Community 62 - "Watch data: artur-akmaev/eternal-koi"
 Cohesion: 0.17
@@ -954,8 +947,8 @@ Cohesion: 0.23
 Nodes (14): claim, note, stance, evidence, rationale, value, evidence, evidence (+6 more)
 
 ### Community 72 - "MessagesDock.tsx"
-Cohesion: 0.12
-Nodes (35): IMAGE_TYPES, imageUrl(), TYPES, uploadError(), uploadImage(), useImagePicker(), Lightbox(), openInLightbox() (+27 more)
+Cohesion: 0.11
+Nodes (36): IMAGE_TYPES, imageUrl(), TYPES, uploadError(), uploadImage(), useImagePicker(), Lightbox(), openInLightbox() (+28 more)
 
 ### Community 73 - "scores"
 Cohesion: 0.25
@@ -986,8 +979,8 @@ Cohesion: 0.22
 Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 80 - "react"
-Cohesion: 0.39
-Nodes (7): react, Account, AccountCheck(), Check(), FormSkeleton(), NewThreadForm(), Writer
+Cohesion: 0.43
+Nodes (6): Account, AccountCheck(), Check(), FormSkeleton(), NewThreadForm(), Writer
 
 ### Community 81 - "index.astro"
 Cohesion: 0.15
@@ -1521,10 +1514,6 @@ Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence 
 Cohesion: 0.22
 Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 214 - "db.ts"
-Cohesion: 0.12
-Nodes (16): pg, yaml, dir, CATEGORIES, Starter, { values: { author } }, walk(), pool (+8 more)
-
 ### Community 215 - "Watch data: ophion/oph-786-velos (4)"
 Cohesion: 0.23
 Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
@@ -1990,8 +1979,8 @@ Cohesion: 0.25
 Nodes (7): Database design supporting all phases, Important modeling rules (immutable versions, base revision), Private data kept out of public snapshots and exports, Q5: Data CC BY-SA 4.0, code MIT, Open data JSON/CSV export, revision table (append-only edits), MVP website pages
 
 ### Community 331 - "data/index.astro"
-Cohesion: 0.12
-Nodes (11): label, Props, Props, Scores, built, commit, csv, jsonBytes (+3 more)
+Cohesion: 0.22
+Nodes (7): built, commit, csv, jsonBytes, ld, origin, sample
 
 ### Community 332 - "akrivia.yaml"
 Cohesion: 0.29
@@ -2475,27 +2464,19 @@ Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 452 - "package.json"
 Cohesion: 0.13
-Nodes (14): @clerk/shared@^4.40.0, @fontsource-variable/archivo@^5.3.0, @resvg/resvg-js@^2.6.2, engines, node, license, name, overrides (+6 more)
-
-### Community 453 - "ref_node_assert"
-Cohesion: 0.16
-Nodes (7): nobody, sent, address, app, missing, pages, server
+Nodes (14): compression@^1.8.2, @fontsource-variable/archivo@^5.3.0, @types/pg@^8.23.1, engines, node, license, name, overrides (+6 more)
 
 ### Community 454 - "Watch data: anordain/model-2-porcelain (6)"
 Cohesion: 0.40
 Nodes (4): brand, id, model, notes
 
-### Community 455 - "express"
-Cohesion: 0.23
-Nodes (5): express, serve(), FixedProxyOptions, ProxyHooks, forumHost()
-
 ### Community 456 - "check-excerpts.ts"
 Cohesion: 0.21
 Nodes (10): allClaims, args, extra, get(), ids, normalize(), page(), pages (+2 more)
 
-### Community 457 - "clerk-host.test.ts"
-Cohesion: 0.36
-Nodes (8): clerkHostFor(), clerkProxyFor(), hostname(), isSubdomain(), sharedCookieDomain(), SESSION_HINT, write(), allowClerkForHost()
+### Community 457 - "AccountNavigation.tsx"
+Cohesion: 0.19
+Nodes (14): SESSION_HINT, setSessionHint(), write(), AccountMenu(), AccountNavigation(), AccountNavigationInner(), forget(), ICONS (+6 more)
 
 ### Community 458 - "lesablier.yaml"
 Cohesion: 0.33
@@ -2505,14 +2486,6 @@ Nodes (5): id, kind, name, ownership, scale
 Cohesion: 0.33
 Nodes (5): id, kind, name, ownership, scale
 
-### Community 460 - "csp.ts"
-Cohesion: 0.27
-Nodes (10): ENFORCE(), Headers, keepBaseline(), pagePolicy(), path(), REPORT_PATH, reportReceiver(), toReportOnly() (+2 more)
-
-### Community 461 - "hosts.test.ts"
-Cohesion: 0.40
-Nodes (7): policy(), first(), hostname(), HostPolicy, hostPolicy(), resolveHost(), siteHost()
-
 ### Community 462 - "Watch data: anordain/model-1-fabrik (6)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
@@ -2520,10 +2493,6 @@ Nodes (4): evidence, rationale, value, MM
 ### Community 463 - "Watch data: anordain/model-1-fabrik (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
-
-### Community 464 - "page-limit.test.ts"
-Cohesion: 0.33
-Nodes (6): serve(), clientKey(), LimitMode, minuteCounter(), pageLimit(), PageLimitOptions
 
 ### Community 465 - "Watch data: artur-akmaev/eternal-koi (7)"
 Cohesion: 0.50
@@ -2576,10 +2545,6 @@ Nodes (6): Escapement and jewels photo (Hustvedt), Generated guilloche pattern, 
 ### Community 477 - "Watch data: cartier/santos-1847-mc (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
-
-### Community 478 - "post-text.ts"
-Cohesion: 0.53
-Nodes (3): PostBody(), Piece, postParagraphs()
 
 ### Community 479 - "Watch data: christopher-ward/c1-bel-canto (7)"
 Cohesion: 0.50
@@ -3057,22 +3022,22 @@ Nodes (3): FalkIndex Favicon (F monogram), Guilloche Background (1200px), Guillo
 
 ## Knowledge Gaps
 - **36 isolated node(s):** `RFC-7230`, `astro/tsconfigs/strict`, `Supplier / organization pages`, `WE above 3 needs regulation/adjustment evidence`, `Nav and footer` (+31 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 3691 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 3692 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `src/styles/global.css` connect `DESIGN.md (4)` to `Base.astro`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `FALK Index: Design direction (DESIGN.md)` connect `DESIGN.md` to `FALK Index (README)`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `RFC-7230`, `astro/tsconfigs/strict`, `Supplier / organization pages` to the rest of the system?**
   _36 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Forum Server & Threads` be split into smaller, more focused modules?**
-  _Cohesion score 0.06290471785383904 - nodes in this community are weakly interconnected._
-- **Why does `Colour tokens (light and dark mode)` connect `DESIGN.md (4)` to `DESIGN.md`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Should `Accounts & API Server` be split into smaller, more focused modules?**
-  _Cohesion score 0.06253652834599649 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0526006464883926 - nodes in this community are weakly interconnected._
+- **Why does `src/styles/global.css` connect `DESIGN.md (4)` to `Base.astro`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Should `index.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.05468164794007491 - nodes in this community are weakly interconnected._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._

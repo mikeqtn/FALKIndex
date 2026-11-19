@@ -1,32 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
-import Picture from '../components/Picture.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
+import { forumHref } from '../lib/forum.ts';
 import { DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED, RETAIL_BRANDS } from '../lib/publisher.ts';
-const { record, orgs } = await getCatalogue(Astro.locals);
+const { methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 const brandList = (ids: Set<string>) => new Intl.ListFormat('en').format([...ids].map(id => orgs.get(id)!.name).sort((a, b) => a.localeCompare(b)));
+const archived = [...sources.values()].filter(s => s.archived_url).length;
 
 const example = record('fleming/series-1');
+// In the order a first-time reader asks: what it is, who is behind it, how the work is done, how to argue, how to reuse.
+const contents = [
+  ['what', 'What FALK is'], ['publisher', 'Who publishes it'], ['research', 'How the research is done'],
+  ['corrections', 'Corrections and reply'], ['licence', 'Licence and data'],
+];
 ---
-<Base title="About" nav="about" movementPhotos>
+<Base title="About" nav="about">
   <header class="doc-head" data-rise>
     <div>
       <h1>About</h1>
       <p class="lead">FALK records where the work on a watch really happens, and the evidence for it, one model at a time.</p>
+      <nav aria-label="On this page" class="jump">
+        <ul>{contents.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
+      </nav>
     </div>
-    <figure class="hero-photo">
-      <Picture src="/images/movements/omega-1861-1600.jpg" srcset="/images/movements/omega-1861-800.jpg 800w, /images/movements/omega-1861-1600.jpg 1600w" sizes="(min-width: 1024px) 40vw, 100vw" width={1600} height={1067} alt="An Omega calibre 1861 chronograph movement, its bridges and jewels exposed." />
-      <figcaption class="small muted"><a href={recordUrl('omega/speedmaster-moonwatch-3861')}>Omega cal. 1861, base of the 3861</a></figcaption>
-    </figure>
+    <ul class="turned figures">
+      <li><b data-roll={records.length}>{records.length}</b><a href="/records/">records, each model on its own</a></li>
+      <li><b data-roll={sources.size}>{sources.size}</b><a href="/sources/">sources, {archived} with an archived copy</a></li>
+      <li><b>{methodology.dimensions.length}</b><span>criteria, never added together</span></li>
+      <li><b>{methodology.code}</b><a href="/methodology/">methodology in use</a></li>
+    </ul>
   </header>
 
-  <section class="doc-row" data-rise>
+  <section id="what" class="doc-row" data-rise>
     <h2>What FALK is</h2>
     <div class="stack-l">
       <div class="body">
-        <p>FALK is a transparent framework for describing how watches are actually created. Industry labels such as "independent", "manufacture" and "microbrand" often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
-        <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use radically different production routes across its catalog.</p>
+        <p>FALK is a framework for describing how watches are actually made. Industry labels such as “independent”, “manufacture” and “microbrand” often answer different questions while pretending to answer the same one. FALK separates those questions. It records where the intellectual and physical work occurs, how well that is documented, and only then assigns a plain-language production classification.</p>
+        <p>The unit is the exact model, reference, generation or production route, not the brand. One company can use very different production routes across its catalogue.</p>
       </div>
       <div class="plate example">
         <ProfileStrip caption={`${example.brandName} ${example.model}`} columns={[{ scores: example.profile.scores }]} />
@@ -35,50 +46,56 @@ const example = record('fleming/series-1');
     </div>
   </section>
 
-  <section class="doc-row" data-rise>
-    <h2>Editorial independence</h2>
+  <section id="publisher" class="doc-row" data-rise>
+    <h2>Who publishes it</h2>
     <div class="body">
-      <p>FALK's publisher, Falk Watches, LLC, is a watch retailer. It buys and sells new and pre-owned watches, including many brands and models covered here, so it can benefit financially from how they are perceived.</p>
-      <p>It deals directly with {brandList(DIRECT_BRANDS)}. It has also sold or listed watches from {brandList(RETAIL_BRANDS)}. The records of these brands carry a note saying so. This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
-      <p>Brands cannot pay for placement or scores. There is no paid placement, no paid score improvement and no hidden sponsor weighting. Profiles are provisional research judgments and are revised when better evidence becomes available.</p>
+      <p>The FALK Index is published by Falk Watches, LLC, a Virginia limited liability company, 3130 Fairview Park Dr Ste 210, Falls Church, VA 22042.</p>
+      <p>Falk Watches is a watch retailer. It buys and sells new and pre-owned watches, including many brands and models covered here, so it can benefit financially from how they are perceived. The records of these brands carry a note saying so.</p>
+      <dl class="ties">
+        <div><dt>Deals directly with</dt><dd>{brandList(DIRECT_BRANDS)}</dd></div>
+        <div><dt>Has sold or listed</dt><dd>{brandList(RETAIL_BRANDS)}</dd></div>
+      </dl>
+      <p class="small muted">This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
+      <p>Brands cannot pay for placement or scores. There is no paid placement, no paid score improvement and no hidden sponsor weighting.</p>
     </div>
   </section>
 
-  <section class="doc-row" data-rise>
-    <h2>How AI was used</h2>
-    <p class="body">This framework and reference dataset were developed in part with the assistance of AI. AI was used to help structure the methodology, compare edge cases, organize research and draft this handbook. The system is intended to be evidence-led and open to correction: individual claims and profiles should ultimately be traceable to public sources.</p>
-  </section>
-
-  <section class="doc-row" data-rise>
-    <h2>Who publishes this</h2>
-    <p class="body">The FALK Index is published by Falk Watches, LLC, a Virginia limited liability company, 3130 Fairview Park Dr Ste 210, Falls Church, VA 22042. Contact: <a href="mailto:support@falkindex.com">support@falkindex.com</a>.</p>
-  </section>
-
-  <section class="doc-row" data-rise>
-    <h2>Data licence</h2>
-    <p class="body">The data is published under CC BY-SA 4.0 and the code under the MIT licence. <a href="/data/">Download the dataset</a>.</p>
-  </section>
-
-  <section class="doc-row" data-rise>
-    <h2>Contact and corrections</h2>
+  <section id="research" class="doc-row" data-rise>
+    <h2>How the research is done</h2>
     <div class="body">
-      <p>Brands, watchmakers and readers can submit evidence-based corrections. Submissions are stored in FALK's database for editorial review; contact details are optional and private. Accepted changes appear in the record's history with a change note.</p>
+      <p>Each record is researched and drafted by AI, working from public sources. FALK Index publishes each version by hand, once every quoted excerpt in it has been checked automatically, word for word, against its source.</p>
+      <p>Each claim on a record links to that source, and {archived} of the {sources.size} sources have an archived copy, so a quote can be checked even if the page changes. Scores follow the level descriptions of <a href="/methodology/">Methodology {methodology.code}</a>, and every change is kept in the record’s history.</p>
+      <p>AI also helped structure the methodology and compare edge cases. Profiles are research judgments, not verdicts on quality, and are revised when better evidence appears.</p>
+    </div>
+  </section>
+
+  <section id="corrections" class="doc-row" data-rise>
+    <h2>Corrections and right of reply</h2>
+    <div class="body">
+      <p>Anyone can send a correction with evidence, and a brand or watchmaker described here can reply to any record. An editor checks every correction against its sources. Accepted changes appear in the record’s history with a change note. If a score you dispute stands, your contradicting evidence is added to the record as a visible claim beside it, not hidden.</p>
+      <p>Contact details are optional and private. You can also write to <a href="mailto:support@falkindex.com">support@falkindex.com</a>, or argue a record in public on <a href={forumHref('/')}>the FALK Forum</a>.</p>
       <p><a class="btn" href={correctionUrl()}>Send a correction</a></p>
     </div>
   </section>
 
-  <section class="doc-row" data-rise>
-    <h2>Right of reply</h2>
-    <p class="body">A brand or watchmaker described on this site can reply to any record. Send the correction form with the evidence you want considered; if the editors keep a judgment you dispute, your contradicting evidence is added to the record as a visible claim beside the score, not hidden. Profiles are editorial research judgments, not verdicts on quality, and are revised when better evidence appears.</p>
+  <section id="licence" class="doc-row" data-rise>
+    <h2>Licence and data</h2>
+    <p class="body">The data is published under CC BY-SA 4.0 and the <a href="https://github.com/mikeqtn/FALKIndex">code</a> under the MIT licence. <a href="/data/">Download the dataset</a>, or browse <a href="/sources/">every source</a>.</p>
   </section>
 </Base>
 
 <style>
-  .hero-photo { margin: 0; }
-  .hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-plate); }
-  .hero-photo figcaption { margin-top: var(--s-2); }
+  .jump ul { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); list-style: none; margin: var(--s-2) 0 0; padding: 0; }
+  .jump a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--s-3); border-radius: var(--r-control); background: var(--c-surface); color: var(--c-ink-2); font-size: 15px; text-decoration: none; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .jump a:hover { background: var(--c-surface-2); color: var(--c-ink); }
+  .doc-row { scroll-margin-top: calc(var(--nav-h) + var(--s-4)); }
   .body { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); }
   .body > * + * { margin-top: var(--s-4); }
+  .body p { text-wrap: pretty; }
+  .ties { display: grid; gap: var(--s-3); margin: var(--s-4) 0 0; padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); font: 400 16px/1.55 var(--f-sans); }
+  .ties dt { font-weight: 600; }
+  .ties dd { margin: 2px 0 0; color: var(--c-ink-2); }
+  .ties + p { margin-top: var(--s-2); }
   .stack-l > * + * { margin-top: var(--s-6); }
   .example { max-width: 640px; }
 </style>
