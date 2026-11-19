@@ -27,6 +27,9 @@ function securityHeaders(_req: express.Request,res: express.Response,next: expre
   res.setHeader('X-Content-Type-Options','nosniff');
   res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=(), payment=()');
+  // Lets Chrome prerender a page from the other host (falkindex.com <-> forum.falkindex.com) before the jump to it;
+  // see jumpRules in src/lib/page-csp.ts.
+  res.setHeader('Supports-Loading-Mode','credentialed-prerender');
   // Images only from this site and Clerk (member photos, sign-in icons), so no page can make
   // a visitor's browser report to a server someone else chose.
   res.setHeader('Content-Security-Policy',`base-uri 'self'; object-src 'none'; img-src 'self' data: https://img.clerk.com${production ? "; frame-ancestors 'none'" : ''}`);

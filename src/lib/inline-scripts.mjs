@@ -63,7 +63,9 @@ export const SITE_JUMP_SCRIPT = `(() => {
   const crosses = u => u.host !== location.host ? root(u.hostname) === root(location.hostname) : forumPath(u.pathname) !== forumPath(location.pathname);
   const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const html = document.documentElement;
-  try { const r = document.referrer && new URL(document.referrer); if (r && crosses(r) && !calm()) { html.dataset.arriving = ''; } } catch {}
+  // A page prerendered before the jump (jumpRules in page-csp.ts) waits until it is shown, so the reader sees the fade.
+  const arrive = () => { try { const r = document.referrer && new URL(document.referrer); if (r && crosses(r) && !calm()) html.dataset.arriving = ''; } catch {} };
+  if (document.prerendering) addEventListener('prerenderingchange', arrive, { once: true }); else arrive();
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('a[href]');
     if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.hasAttribute('download') || (a.target && a.target !== '_self')) return;
