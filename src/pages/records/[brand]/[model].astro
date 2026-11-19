@@ -81,7 +81,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
       ? <div class="no-profile"><p>Not enough evidence for a profile yet. See who makes what below.</p></div>
       : <div class="plate scroll profile-plate">
           <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
-          <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Based on the cited sources, not on FALK's own inspection. Select a measure to read its evidence.</p>
+          <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
         </div>}
 
     <aside class="plate summary" aria-label="Summary">
@@ -98,6 +98,8 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
         <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
       </dl>
+      {/* Right of reply: on every record, profile or not (site.test.ts checks it). */}
+      <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
       {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
     </aside>
   </div>
