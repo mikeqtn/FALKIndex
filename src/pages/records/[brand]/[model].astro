@@ -40,10 +40,22 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 >
   {p.is_seed && <ProvisionalBanner slot="banner" />}
 
-  <header class="page-head app-head">
-    <a class="brand-link" href={orgUrl(r.brand)}>{r.brandName}</a>
-    <h1>{r.model}</h1>
-    {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+  <header class="page-head app-head rec-head">
+    <div class="rec-title">
+      <a class="brand-link" href={orgUrl(r.brand)}>{r.brandName}</a>
+      <h1>{r.model}</h1>
+      {details.length > 0 && <dl class="pairs small">{details.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+    </div>
+    <div class="actions rec-actions">
+      <a class="btn" href={correctionUrl(r.id)}>Send a correction</a>
+      <a href={forumHref(`/records/${r.id}/`)}>Discuss this record{discussions ? ` (${discussions})` : ''}</a>
+    </div>
+    <nav class="rec-nav" aria-label="Sections of this record">
+      {!noProfile && <a href="#profile">Profile</a>}
+      <a href="#who-makes-what">Who makes what</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#history">History</a>
+    </nav>
   </header>
 
   {photos.front || photos.back
@@ -62,17 +74,15 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         })}
       </section>
     )
-    : <p class="no-photos small muted">No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
+    : null}
 
-  <div class="grid-2">
-    <div class="stack">
-      {noProfile
-        ? <div class="no-profile"><p>Not enough evidence for a profile yet. Provenance notes are below.</p></div>
-        : <div class="plate scroll profile-plate">
-            <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
-            <p class="small muted">Not a ranking. Darker means more of the work is done inside the brand. Select a measure to read its evidence.</p>
-          </div>}
-    </div>
+  <div class="grid-2 overview" id="profile">
+    {noProfile
+      ? <div class="no-profile"><p>Not enough evidence for a profile yet. See who makes what below.</p></div>
+      : <div class="plate scroll profile-plate">
+          <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
+          <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
+        </div>}
 
     <aside class="plate summary" aria-label="Summary">
       {!noProfile && (
@@ -80,26 +90,44 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
           <h2 class="cls"><a href={archetypeUrl(p.classification[0])}>{classification(p.classification[0], p.methodology).name}</a></h2>
           {p.classification.slice(1).map(c => <p class="muted">with <a href={archetypeUrl(c)}>{classification(c, p.methodology).name}</a> traits</p>)}
           {ARCHETYPES[p.classification[0]] && <p class="cls-short">{ARCHETYPES[p.classification[0]].short}</p>}
-          <p class="small"><a href={archetypeUrl(p.classification[0])}>About this production archetype</a></p>
         </div>
       )}
       {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches. <a href={archetypeUrl(DESCRIPTOR.code)}>About this descriptor</a></p>}
       <dl class="facts">
         <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
-        <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
         <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
-        <div><dt>Provenance</dt><dd>{r.provenance.length} {r.provenance.length === 1 ? 'entry' : 'entries'}, {r.claims.length} {r.claims.length === 1 ? 'claim' : 'claims'}</dd></div>
+        <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
       </dl>
-      <div class="actions">
-        <a class="btn" href={correctionUrl(r.id)}>Send a correction</a>
-        <a href={`/records/${r.id}.json`}>Download JSON</a>
-      </div>
+      {/* Right of reply: on every record, profile or not (site.test.ts checks it). */}
       <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
       {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
     </aside>
   </div>
 
-  <section class="block evidence-section">
+  <section class="block" id="who-makes-what">
+    <h2>Who makes what</h2>
+    {provenanceByDim.length === 0
+      ? <p class="prose">No provenance entries recorded yet.</p>
+      : (
+        <table class="table stack-sm provenance">
+          <thead><tr><th scope="col">Component</th><th scope="col">Made by</th><th scope="col">Relationship</th></tr></thead>
+          {provenanceByDim.map(([d, es]) => (
+            <tbody>
+              <tr class="area"><th scope="colgroup" colspan="3">{dimension[d].label}</th></tr>
+              {es.map(e => (
+                <tr>
+                  <td>{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</td>
+                  <td>{e.performer ? <a href={orgUrl(e.performer)}>{orgs.get(e.performer)!.name}</a> : <span class="muted">Not named</span>}</td>
+                  <td><span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span></td>
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      )}
+  </section>
+
+  <section class="block evidence-section" id="evidence">
     <div class="h2-row">
       <h2>Evidence by dimension</h2>
       <button class="btn secondary" type="button" id="open-all" hidden>Open all</button>
@@ -125,31 +153,10 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     </section>
   )}
 
-  <section class:list={['block', { first: noProfile }]}>
-    <h2>Who makes what</h2>
-    {provenanceByDim.length === 0
-      ? <p class="prose">No provenance entries recorded yet.</p>
-      : (
-        <table class="table stack-sm">
-          <thead><tr><th scope="col">Area</th><th scope="col">Component</th><th scope="col">Made by</th><th scope="col">Relationship</th></tr></thead>
-          <tbody>
-            {provenanceByDim.flatMap(([d, es]) => es.map(e => (
-              <tr>
-                <td>{dimension[d].label}</td>
-                <td>{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</td>
-                <td>{e.performer ? <a href={orgUrl(e.performer)}>{orgs.get(e.performer)!.name}</a> : 'Unknown'}</td>
-                <td><span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span></td>
-              </tr>
-            )))}
-          </tbody>
-        </table>
-      )}
-  </section>
-
-  <section class="block">
+  <section class="block" id="history">
     <h2>History</h2>
-    <ol class="history">
-      {[...r.profiles].reverse().map(v => {
+    {(() => {
+      const entry = (v: typeof p) => {
         const prev = r.profiles.find(x => x.version === v.version - 1);
         const dims = prev ? DIMENSIONS.filter(d => prev.scores[d].value !== v.scores[d].value) : [];
         const changes = prev ? [
@@ -160,35 +167,46 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
         return (
           <li>
             <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {editorName(v.editor)}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
+            {prev && <p class="small">{changes.length ? `Changed from version ${prev.version}: ${changes.join(', ')}.` : `No changes to scores, evidence grade or classification from version ${prev.version}.`}</p>}
             <p class="prose">{v.change_note}</p>
             {prev && (
-              <>
-                <p class="small">{changes.length ? `Changed from version ${prev.version}: ${changes.join(', ')}.` : `No changes to scores, evidence grade or classification from version ${prev.version}.`}</p>
-                <details class="compare">
-                  <summary>Compare with version {prev.version}</summary>
-                  <div class="plate scroll">
-                    <ProfileStrip caption={`Version ${prev.version} and version ${v.version}`} marked={dims} columns={[
-                      { label: `Version ${prev.version}`, scores: prev.scores },
-                      { label: `Version ${v.version}`, scores: v.scores },
-                    ]} />
-                  </div>
-                </details>
-              </>
+              <details class="compare">
+                <summary>Compare with version {prev.version}</summary>
+                <div class="plate scroll">
+                  <ProfileStrip caption={`Version ${prev.version} and version ${v.version}`} marked={dims} columns={[
+                    { label: `Version ${prev.version}`, scores: prev.scores },
+                    { label: `Version ${v.version}`, scores: v.scores },
+                  ]} />
+                </div>
+              </details>
             )}
           </li>
         );
-      })}
-    </ol>
+      };
+      const [latest, ...earlier] = [...r.profiles].reverse();
+      return (
+        <>
+          <ol class="history">{entry(latest)}</ol>
+          {earlier.length > 0 && (
+            <details class="earlier">
+              <summary>Earlier versions ({earlier.length})</summary>
+              <ol class="history">{earlier.map(entry)}</ol>
+            </details>
+          )}
+        </>
+      );
+    })()}
   </section>
 
-  <section class="block">
+  <section class="block use">
     <h2>Use this record</h2>
     <div class="actions">
-      <a href={`/records/${r.id}.json`}>Download JSON</a>
       <a href={correctionUrl(r.id)}>Send a correction</a>
       <a href={forumHref(`/records/${r.id}/`)}>Discuss this record{discussions ? ` (${discussions})` : ''}</a>
+      <a href={`/records/${r.id}.json`}>Download JSON</a>
     </div>
-    {r.notes && <p class="small muted note">{r.notes}</p>}
+    {!photos.front && !photos.back && <p class="small muted">No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
+    {r.notes && <p class="small muted">{r.notes}</p>}
   </section>
 </Base>
 
@@ -204,14 +222,33 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   .photo.empty::before { content: ''; position: absolute; inset: 0; background: var(--pattern-unknown); opacity: .18; }
   .photo.empty p { position: relative; }
   .photo.empty p { padding: var(--s-2) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
-  .no-photos { margin: calc(-1 * var(--s-2)) 0 var(--s-4); }
   @media (max-width: 639px) { .photos { grid-template-columns: 1fr; } }
-  .app-head { padding: var(--s-7) 0 var(--s-6); }
-  .app-head > * + * { margin-top: var(--s-2); }
-  .app-head h1 { font-size: 40px; }
+  /* Header: the watch on the left, the two things a reader does on the right, then the section links under both. */
+  .rec-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-4) var(--s-6); padding: var(--s-7) 0 var(--s-5); }
+  .rec-head > * + * { margin-top: 0; }
+  .rec-title > * + * { margin-top: var(--s-2); }
+  .rec-head h1 { font-size: 40px; }
+  .rec-actions { justify-content: flex-end; }
+  .rec-nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 var(--s-5); padding-top: var(--s-3); border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  .rec-nav a { display: inline-flex; align-items: center; min-height: 40px; font-size: 15px; color: var(--c-ink-2); text-decoration: none; }
+  .rec-nav a:hover { color: var(--c-ink); }
+  @media (max-width: 639px) {
+    .rec-head { grid-template-columns: 1fr; align-items: start; }
+    .rec-actions { justify-content: flex-start; }
+  }
   .brand-link { display: inline-block; padding: 12px 0; margin: -12px 0; font-size: 15px; font-weight: 500; text-decoration: none; }
   .brand-link:hover { text-decoration: underline; }
-  .profile-plate { display: grid; gap: var(--s-4); height: 100%; align-content: space-between; }
+  /* Each panel keeps its own height: a stretched profile left a blank band under the seven rows. */
+  .overview { align-items: start; }
+  .profile-plate { display: grid; gap: var(--s-4); }
+  /* Provenance grouped by area: the area is named once, its components under it. */
+  .provenance .area th { padding: var(--s-4) var(--s-4) var(--s-2); border-bottom: 0; font-size: 15px; font-weight: 600; color: var(--c-ink); }
+  .provenance tbody + tbody .area th { border-top: var(--edge); }
+  @media (min-width: 640px) { .provenance td { padding-block: var(--s-3); } }
+  @media (max-width: 639px) {
+    .provenance tr.area { padding: var(--s-4) var(--s-4) 0; border-bottom: 0; }
+    .provenance .area th { display: block; padding: 0; }
+  }
   .summary { display: grid; align-content: start; gap: var(--s-5); }
   .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
   .cls a { color: var(--c-ink); text-decoration: none; }
@@ -228,8 +265,10 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   .history li > * + * { margin-top: var(--s-2); }
   .compare summary { cursor: pointer; color: var(--c-action); min-height: 44px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
   .compare[open] summary { margin-bottom: var(--s-3); }
-  .note { margin-top: var(--s-4); }
-  .first { order: -1; }
+  .earlier { margin-top: var(--s-5); }
+  .earlier > summary { cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; font-weight: 560; color: var(--c-ink); }
+  .earlier[open] > summary { margin-bottom: var(--s-4); }
+  .use > * + * { margin-top: var(--s-3); }
   .draft-note { padding: var(--s-4) var(--s-5); margin-bottom: var(--s-5); max-width: var(--measure); }
   .draft-note > * + * { margin-top: var(--s-2); }
   .draft-h { margin: var(--s-6) 0 var(--s-4); }
