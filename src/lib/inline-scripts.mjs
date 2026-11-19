@@ -20,9 +20,9 @@ export function saveTheme(theme, { hostname, protocol } = location) {
   try { localStorage.setItem('falk-theme', theme); } catch {}
 }
 
-/** The menu renders open so links work without script; below 1100px it folds behind "Menu". */
+/** The menu renders open so links work without script; below 1200px it folds behind "Menu". */
 export const MENU_SCRIPT = `(() => {
-  const menu = document.querySelector('.nav-menu'), wide = matchMedia('(min-width: 1100px)');
+  const menu = document.querySelector('.nav-menu'), wide = matchMedia('(min-width: 1200px)');
   const fit = () => { menu.open = wide.matches; };
   fit(); wide.addEventListener('change', fit);
 })();`;

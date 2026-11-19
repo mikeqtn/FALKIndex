@@ -32,7 +32,7 @@ a:hover { color: var(--c-action-hover); text-decoration-thickness: 2px; }
 .wrap { max-width: calc(var(--page-max) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
 .prose { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); letter-spacing: 0; }
 .prose > * + * { margin-top: var(--s-4); }
-.lead { font-size: var(--t-lead); line-height: 1.4; font-weight: 400; letter-spacing: -0.012em; max-width: 46ch; }
+.lead { font-size: var(--t-lead); line-height: 1.4; font-weight: 400; letter-spacing: -0.012em; max-width: 46ch; text-wrap: pretty; }
 .small, .meta { font-size: 14px; line-height: 20px; font-weight: 420; letter-spacing: 0; }
 .muted { color: var(--c-ink-2); }
 .stack > * + * { margin-top: var(--s-4); }
@@ -98,10 +98,10 @@ dl.pairs dd { margin: 0; }
 .nav-suggest .ns-model { font-size: 15px; font-weight: 580; line-height: 1.25; color: var(--c-ink); }
 .nav-suggest .ns-variant { font-size: 13px; color: var(--c-ink-2); }
 .nav-suggest .ns-empty { cursor: default; font-size: 14px; color: var(--c-ink-2); }
-@media (max-width: 1099px) {
+@media (max-width: 1199px) {
   .nav-menu { flex: none; margin-left: auto; }
   .nav-menu > summary {
-    display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--s-4); border-radius: var(--r-control);
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4); border-radius: var(--r-control);
     background: var(--c-surface); color: var(--c-ink); font-weight: 520; cursor: pointer; list-style: none;
   }
   .nav-menu > summary::-webkit-details-marker { display: none; }
@@ -144,7 +144,7 @@ dl.pairs dd { margin: 0; }
 .site-nav .account-nav .account-menu-list > :is(a, button):hover { background: var(--c-surface); color: var(--c-ink); }
 .site-nav .account-nav .account-menu-list > button:disabled { color: var(--c-ink-2); cursor: default; }
 .account-menu-list hr { margin: 4px var(--s-2); border: 0; border-top: 1px solid var(--c-edge); }
-@media (max-width: 1099px) {
+@media (max-width: 1199px) {
   .account-menu-list { position: static; margin-top: var(--s-2); box-shadow: none; }
 }
 /* Zero specificity so component styles, such as Clerk's sign-in fields, can override it. */
@@ -368,6 +368,13 @@ picture { display: contents; }
 .turned a { color: inherit; }
 .turned .btn.secondary { background: rgb(255 255 255 / .1); color: #F7F8FA; }
 .turned .btn.secondary:hover { background: rgb(255 255 255 / .18); }
+/* The figures panel on Sources and Data: four counts on the engine-turned ground. */
+.figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
+.figures li { display: grid; align-content: start; gap: var(--s-1); }
+.figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.figures :is(span, a) { font-size: 15px; color: rgb(247 248 250 / .8); }
+.figures a { text-decoration: underline; text-underline-offset: 3px; }
+.figures a:hover { color: #F7F8FA; }
 
 @media print {
   .site-nav, .site-footer, .no-print { display: none; }

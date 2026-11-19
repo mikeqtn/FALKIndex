@@ -2,7 +2,7 @@
 import { execSync } from 'node:child_process';
 import Base from '../../layouts/Base.astro';
 import { DIMENSIONS, fmtDate, getCatalogue, siteOrigin } from '../../lib/data.ts';
-const { dimension, orgs, records, sources, watches } = await getCatalogue(Astro.locals);
+const { dimension, methodologies, orgs, records, sources, watches } = await getCatalogue(Astro.locals);
 
 const commit = (() => { try { return execSync('git rev-parse --short HEAD').toString().trim(); } catch { return ''; } })();
 const built = new Date().toISOString().slice(0, 10);
@@ -19,6 +19,10 @@ const ld = {
     { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${origin}/data/falk.csv` },
   ],
 };
+// The JSON download's size, from the same payload falk.json.ts sends, so the button can say what it costs.
+const jsonBytes = Buffer.byteLength(JSON.stringify({ methodologies: [...methodologies.values()], organizations: [...orgs.values()], sources: [...sources.values()], watches }));
+const jsonSize = jsonBytes >= 1e6 ? `${(jsonBytes / 1e6).toFixed(1)} MB` : `${Math.ceil(jsonBytes / 1e3)} KB`;
+const unpublished = watches.length - records.length;
 // A real excerpt of the CSV: the first rows, the columns that carry the profile.
 const sample = records.filter(r => r.profile.confidence !== 'D').slice(0, 4);
 const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', 'confidence'].join(','),
@@ -33,8 +37,8 @@ const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', '
     <ul class="turned figures">
       <li><b data-roll={records.length}>{records.length}</b><span>records on the site</span></li>
       <li><b data-roll={orgs.size}>{orgs.size}</b><span>makers and suppliers</span></li>
-      <li><b data-roll={sources.size}>{sources.size}</b><span>sources</span></li>
-      <li><b>CC BY-SA</b><span>data licence, 4.0</span></li>
+      <li><b data-roll={sources.size}>{sources.size}</b><a href="/sources/">sources, listed in full</a></li>
+      <li><b>{DIMENSIONS.length}</b><span>criteria scored per record</span></li>
     </ul>
   </header>
 
@@ -42,8 +46,8 @@ const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', '
     <h2 id="full-h" class="sr-only">Full dataset</h2>
     <div class="dl">
       <h3>JSON</h3>
-      <p>All {watches.length} records, including any not yet on the site, with provenance, claims and every profile version (drafts included), plus organizations, sources and the methodology.</p>
-      <a class="btn" href="/data/falk.json" download>Download JSON</a>
+      <p>All {watches.length} records{unpublished > 0 && `, ${unpublished} of them not yet on the site,`} with provenance, claims and every profile version (drafts included), plus organizations, sources and the methodology.</p>
+      <a class="btn" href="/data/falk.json" download>Download JSON <span class="size">{jsonSize}</span></a>
     </div>
     <div class="dl">
       <h3>CSV</h3>
@@ -53,13 +57,16 @@ const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', '
     <figure class="excerpt">
       <pre><code>{csv}</code></pre>
       <figcaption class="small muted">The first rows of the CSV, profile columns only. Empty cells are unknown, not zero.</figcaption>
+      <dl class="key small">
+        {DIMENSIONS.map(d => <div><dt><code>{d.toLowerCase()}</code></dt><dd>{dimension[d].label}</dd></div>)}
+      </dl>
     </figure>
   </section>
 
   <div class="notes" data-rise>
     <section class="note">
       <h2>Single records</h2>
-      <p class="body">Every record has a JSON link at the bottom of its page, for example <a href="/records/jn-shapiro/resurgence.json">/records/jn-shapiro/resurgence.json</a>.</p>
+      <p class="body">Every record has its own JSON, under Download JSON at the top of its page, for example <a href="/records/jn-shapiro/resurgence.json">/records/jn-shapiro/resurgence.json</a>.</p>
     </section>
 
     <section class="note">
@@ -71,28 +78,31 @@ const csv = [['id', ...DIMENSIONS.map(d => d.toLowerCase()), 'classification', '
       <h2>Licence</h2>
       <p class="body">Data: CC BY-SA 4.0. Code: MIT. This build was made on {fmtDate(built)}{commit && <> from commit <a href={`https://github.com/mikeqtn/FALKIndex/commit/${commit}`}>{commit}</a></>}.</p>
     </section>
+
+    <section class="note">
+      <h2>Citing it</h2>
+      <p class="body">FALK Index. Open dataset, built {fmtDate(built)}{commit && `, commit ${commit}`}. CC BY-SA 4.0. {origin}/data/</p>
+    </section>
   </div>
 </Base>
 
 <style>
-  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
-  .figures li { display: grid; gap: var(--s-1); }
-  .figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-  .figures li:last-child b { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.15; }
-  .figures span { font-size: 15px; color: #C9D3E2; }
-
   .downloads { display: grid; gap: var(--s-3); }
   .downloads > * { min-width: 0; }
   @media (min-width: 1024px) { .downloads { grid-template-columns: 1fr 1fr; } }
   .dl { display: flex; flex-direction: column; align-items: start; gap: var(--s-4); padding: var(--s-6); background: var(--c-surface); border-radius: var(--r-plate); }
   .dl h3 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; }
   .dl p { font-size: 17px; line-height: 1.5; max-width: 52ch; flex: 1; }
+  .size { font-weight: 400; opacity: .8; margin-left: var(--s-2); font-variant-numeric: tabular-nums; }
   .excerpt { grid-column: 1 / -1; margin: 0; }
   .excerpt pre { margin: 0; padding: var(--s-5); overflow-x: auto; background: var(--c-surface-sunk); border-radius: var(--r-plate); font-size: 16px; line-height: 1.7; }
   .excerpt figcaption { margin-top: var(--s-2); }
+  .key { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-5); margin: var(--s-3) 0 0; }
+  .key div { display: flex; gap: var(--s-2); }
+  .key dd { margin: 0; color: var(--c-ink-2); }
   .notes { display: grid; gap: var(--s-7); padding-top: var(--s-9); }
-  @media (min-width: 900px) { .notes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .note h2 { font-size: clamp(28px, 2.6vw, 36px); line-height: 1; font-stretch: 74%; font-weight: 630; letter-spacing: -0.025em; margin-bottom: var(--s-4); }
-  .body { font: 400 17px/1.6 var(--f-serif); overflow-wrap: anywhere; }
+  .body { font: 400 17px/1.6 var(--f-serif); max-width: 60ch; overflow-wrap: anywhere; }
   code { font-size: 0.9em; }
 </style>

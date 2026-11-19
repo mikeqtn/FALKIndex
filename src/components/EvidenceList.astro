@@ -5,7 +5,7 @@
 // renders open, so without script the whole profile reads top to bottom.
 import { DIMENSIONS, RELATIONSHIP, SOURCE_TYPE, correctionUrl, editorName, getCatalogue, fmtDate, orgUrl, type Profile, type Record } from '../lib/data.ts';
 import { EVIDENCE_SCRIPT } from '../lib/inline-scripts.mjs';
-const { dimension, methodologies, orgs, sources } = await getCatalogue(Astro.locals);
+const { citedBy, dimension, methodologies, orgs, sources } = await getCatalogue(Astro.locals);
 
 interface Props { profile: Profile; record: Record; idPrefix: string }
 const { profile, record, idPrefix } = Astro.props;
@@ -78,6 +78,7 @@ const unscored = profile.confidence === 'D';
                   {es.map(e => {
                     const c = claims.get(e.claim)!;
                     const src = sources.get(c.source)!;
+                    const cites = citedBy(src.id).length;
                     return (
                       <div class:list={['claim', stance]}>
                         <p class="prose">{c.statement}{c.status === 'disputed' && <span class="provisional-mark"> Disputed</span>}</p>
@@ -86,6 +87,8 @@ const unscored = profile.confidence === 'D';
                           <a href={src.url}>{src.title ?? host(src.url)}</a>
                           <span>{src.tier === 'primary' ? 'Primary' : 'Secondary'} source, {SOURCE_TYPE[src.source_type]}</span>
                           {src.archived_url && <a href={src.archived_url}>Archived copy</a>}
+                          {/* The source's own entry: its tier, archive and every record that cites it. */}
+                          <a href={`/sources/#source-${src.id}`}>{cites > 1 ? `Cited by ${cites} records` : 'Source entry'}</a>
                           <span>Checked {fmtDate(c.date_checked)}</span>
                           {c.editor !== 'falk-index' && <span>Added by {editorName(c.editor)}</span>}
                         </p>
