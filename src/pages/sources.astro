@@ -93,6 +93,13 @@ const archived = all.filter(s => s.archived_url).length;
     .group:not(.solo) .pub { position: sticky; top: calc(var(--nav-h) + 76px); }
     .group.solo .pub { padding-top: var(--s-4); }
   }
+  /* On phones the publisher's name is a button that folds its sources (see the script). */
+  /* :global, since the script creates the button and Astro's scoped styles only reach markup written here. */
+  .pub :global(.pub-btn) { all: unset; display: grid; gap: var(--s-1); width: 100%; min-height: 44px; box-sizing: border-box; padding-right: var(--s-6); position: relative; cursor: pointer; }
+  .pub :global(.pub-btn)::after { content: ''; position: absolute; right: var(--s-2); top: 14px; width: 8px; height: 8px; border: solid var(--c-ink-2); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform var(--d-open) var(--ease); }
+  .group:not(.shut) .pub :global(.pub-btn)::after { transform: translateY(4px) rotate(-135deg); }
+  .pub :global(.pub-btn:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; border-radius: var(--r-control); }
+  @media (prefers-reduced-motion: reduce) { .pub :global(.pub-btn)::after { transition: none; } }
   .pub { display: grid; align-self: start; align-content: start; gap: var(--s-1); font-size: 24px; line-height: 1.15; font-stretch: 84%; font-weight: 620; letter-spacing: -0.015em; overflow-wrap: anywhere; }
   .solo .pub { font-size: 19px; }
   .pub span { font-size: var(--t-small); font-stretch: 100%; font-weight: 400; letter-spacing: 0; }
@@ -108,6 +115,13 @@ const archived = all.filter(s => s.archived_url).length;
   .tier.primary { font-weight: 600; }
   .none { padding: var(--s-8) 0; font-size: var(--t-lead); }
   .link-btn { font: inherit; color: var(--c-action); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+  /* Phones, after the rules above so these win: one size for every publisher, the count small beneath it. */
+  @media (max-width: 1023px) {
+    .group.shut .srcs { display: none; }
+    .group, .group.solo { padding: var(--s-3) 0; border-bottom: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+    .pub, .solo .pub { font-size: 19px; }
+    .pub :global(.pub-btn > span) { font-size: var(--t-small); font-stretch: 100%; font-weight: 400; letter-spacing: 0; }
+  }
 </style>
 
 <script>
@@ -129,6 +143,28 @@ const archived = all.filter(s => s.archived_url).length;
   let sort = params.get('sort') === 'cited' ? 'cited' : 'az';
   q.value = params.get('q') ?? '';
   const by = (el: HTMLElement) => Number(el.dataset.cites);
+  // Phones: each publisher folds to its name, and the name opens it. A search or tier filter opens every publisher
+  // with a match; clearing it folds them again. Wide screens, and pages without script, show every source.
+  const narrow = matchMedia('(max-width: 1023px)');
+  const toggles = groups.map((g, i) => {
+    const ul = g.querySelector('ul')!;
+    ul.id ||= `srcs-${i}`;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pub-btn'; b.setAttribute('aria-controls', ul.id);
+    b.addEventListener('click', () => fold(g, g.classList.contains('shut') === false));
+    return b;
+  });
+  const fold = (g: HTMLElement, shut: boolean) => {
+    g.classList.toggle('shut', shut);
+    toggles[groups.indexOf(g)].setAttribute('aria-expanded', String(!shut));
+  };
+  // The heading's own words move into its button on phones and back out on wide screens.
+  const fit = () => groups.forEach((g, i) => {
+    const h = g.querySelector('.pub')!, b = toggles[i];
+    if (narrow.matches && b.parentNode !== h) { b.append(...h.childNodes); h.append(b); }
+    if (!narrow.matches && b.parentNode === h) { h.append(...b.childNodes); b.remove(); }
+  });
+  let filtering: boolean | null = null;
   const apply = () => {
     const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
@@ -137,6 +173,8 @@ const archived = all.filter(s => s.archived_url).length;
       if (!li.hidden) shown++;
     }
     groups.forEach(g => { g.hidden = !g.querySelector('li:not([hidden])'); });
+    const now = words.length > 0 || tier !== 'all';
+    if (now !== filtering) { filtering = now; groups.forEach(g => fold(g, !now)); }
     // Stable sorts over the alphabetical markup order, so "A to Z" is simply that order again.
     const ordered = sort === 'cited' ? groups.toSorted((a, b) => by(b) - by(a)) : groups;
     list.prepend(...ordered);
@@ -154,8 +192,12 @@ const archived = all.filter(s => s.archived_url).length;
   // A link to one source must find it, whatever the saved filter says.
   const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
   bar.hidden = false;
+  fit();
+  narrow.addEventListener('change', fit);
   apply();
   if (target?.hidden) { q.value = ''; tier = 'all'; apply(); }
+  const home = target?.closest<HTMLElement>('[data-group]');
+  if (home) fold(home, false);
   target?.scrollIntoView({ block: 'start' });
   q.addEventListener('input', apply);
   bar.addEventListener('click', e => {
