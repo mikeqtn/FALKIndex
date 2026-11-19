@@ -35,16 +35,20 @@ provenance:
       - brb01-30-40-parts
   - dimension: EX
     component: Case and bracelet
-    relationship: unknown
-    note: Casing is done at the Chronométrie, but no source names who makes Chronomat cases or bracelets.
+    relationship: external_specialist
+    note: A 2018 WorldTempus report says Breitling outsources case production; a 2025 WorldTempus report places bracelet assembly (not manufacture) in Grenchen. Casing is done at the Chronométrie. No source names the case or bracelet makers.
     claims:
       - brb01-casing
+      - brb01-wt-outsourced-exterior-dial
+      - brb01-wt-bracelet-assembly
   - dimension: DH
     component: Dial and hands
-    relationship: unknown
-    note: Dials are fitted in-house; their maker is not named.
+    relationship: external_specialist
+    note: WorldTempus reports (2018 and 2025) that dials and hands come from sub-contractors; dials are fitted in-house. No source names the dial or hand makers.
     claims:
       - brb01-casing
+      - brb01-wt-outsourced-exterior-dial
+      - brb01-wt-subcontractors
   - dimension: CF
     component: Movement finishing (plates and bridges)
     performer: breitling
@@ -183,6 +187,34 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: brb01-wt-outsourced-exterior-dial
+    statement: A 2018 WorldTempus manufacture report says Breitling outsources the production of its cases, dials and hands, and checks every externally supplied component.
+    excerpt: Breitling outsources the production of its cases, dials and hands, as well as the springs for the movement
+    source: worldtempus-breitling-legendaryfuture
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: brb01-wt-subcontractors
+    statement: A 2025 WorldTempus report on Breitling Chronométrie says the brand works with a network of sub-contractors for hands, dials and movements.
+    excerpt: it also works with an extensive network of sub-contractors for hands, dials and movements
+    source: worldtempus-breitling-chronometrie-2025
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: brb01-wt-bracelet-assembly
+    statement: The same 2025 WorldTempus report says Breitling's Grenchen headquarters employs about 200 people for bracelet assembly, other manufacturing stages and shipping.
+    excerpt: Breitling employs a further 200 people (for bracelet assembly alongside other manufacturing sstages and shipping)
+    source: worldtempus-breitling-chronometrie-2025
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -222,7 +254,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 3 → 2; EX 2 → U; DH 2 → U; WE 5 → 4; confidence A → B. Each score's rationale names its evidence."
@@ -265,6 +297,112 @@ profiles:
         value: null
         rationale: Dials are fitted in-house, but no source names who makes the dials or hands.
         evidence:
+          - claim: brb01-casing
+            stance: context
+            note: Fitting only.
+      CF:
+        value: 2
+        rationale: Milled plates and bridges are checked and hand-finished by watchmakers. That is regular skilled handwork, not central to the product.
+        evidence:
+          - claim: brb01-plates-finish
+            stance: supports
+            note: Hand finishing.
+          - claim: brb01-plates-bridges
+            stance: supports
+            note: Finished at the Chronométrie.
+      WE:
+        value: 4
+        rationale: Up to 346 components are assembled and calibrated at the Chronométrie, and the watches are cased there. This is deep chronograph assembly and adjustment; 5 would need broader internal part production. COSC testing is external.
+        evidence:
+          - claim: brb01-assembled-by-hand
+            stance: supports
+            note: Assembly and calibration.
+          - claim: brb01-chronometrie-role
+            stance: supports
+            note: Assembly at the Chronométrie.
+          - claim: brb01-casing
+            stance: supports
+            note: Casing.
+          - claim: brb01-cosc
+            stance: context
+            note: External certification.
+          - claim: brb01-volume
+            stance: context
+            note: Industrial volume.
+      PD:
+        value: 5
+        rationale: Breitling designed and developed its own chronograph calibre in-house over five years.
+        evidence:
+          - claim: brb01-chronometrie-role
+            stance: supports
+            note: Design and development in-house.
+          - claim: brb01-development
+            stance: supports
+            note: Five years of development.
+          - claim: brb01-first-manufacture
+            stance: supports
+            note: First manufacture calibre.
+    classification:
+      - industrial_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds two WorldTempus reports on Breitling's manufacturing (2018 and 2025). Changes from version 2: EX U → 0; DH U → 0. Confidence stays B. None of the seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: Breitling says the Caliber 01 was its first in-house movement, a column-wheel chronograph with vertical coupling developed over five years at its Chronométrie.
+        evidence:
+          - claim: brb01-first-manufacture
+            stance: supports
+            note: First in-house movement.
+          - claim: brb01-architecture
+            stance: supports
+            note: Column wheel, vertical clutch.
+          - claim: brb01-development
+            stance: supports
+            note: Five years of development.
+      MM:
+        value: 2
+        rationale: Base plates and bridges are made at the Chronométrie, and Breitling has started making its own balance wheel, but only 30–40 of 346 parts are made in-house. Some meaningful components internal.
+        evidence:
+          - claim: brb01-plates-bridges
+            stance: supports
+            note: Plates and bridges made in-house.
+          - claim: brb01-30-40-parts
+            stance: supports
+            note: 30–40 parts in-house.
+          - claim: brb01-own-balance
+            stance: supports
+            note: Own balance wheel.
+      EX:
+        value: 0
+        rationale: A 2018 WorldTempus report (brb01-wt-outsourced-exterior-dial) says, without exception, that Breitling outsources the production of its cases; a 2025 WorldTempus report places only bracelet assembly in Grenchen, and the Chronométrie cases the movements (brb01-casing). Assembly and casing are watchmaking execution, not exterior manufacture. This is borderline because the outsourcing statement predates the current Chronomat B01 (2020) and no later source repeats it for cases, but no source reports internal case or bracelet production.
+        evidence:
+          - claim: brb01-wt-outsourced-exterior-dial
+            stance: supports
+            note: Cases outsourced, brand-wide.
+          - claim: brb01-wt-bracelet-assembly
+            stance: context
+            note: Bracelet assembly, not manufacture.
+          - claim: brb01-casing
+            stance: context
+            note: Casing, not case manufacture.
+      DH:
+        value: 0
+        rationale: WorldTempus reports in 2018 that Breitling outsources the production of its dials and hands (brb01-wt-outsourced-exterior-dial) and in 2025 that it works with sub-contractors for hands and dials (brb01-wt-subcontractors). Dials are fitted at the Chronométrie (brb01-casing), which is assembly, not dial or hand production. No source reports any internal dial or hand manufacturing stage, so not 1.
+        evidence:
+          - claim: brb01-wt-outsourced-exterior-dial
+            stance: supports
+            note: Dials and hands outsourced, brand-wide.
+          - claim: brb01-wt-subcontractors
+            stance: supports
+            note: Sub-contractors for dials and hands.
           - claim: brb01-casing
             stance: context
             note: Fitting only.

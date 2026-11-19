@@ -18,9 +18,13 @@ provenance:
       - ak-koi-ljp
   - dimension: EX
     component: Case (stainless steel, 37 mm)
-    relationship: unknown
-    note: No source names the case maker.
-    claims: []
+    relationship: external_specialist
+    note: No source names the maker of this 37 mm case. Akmaev says in a 2023 interview that after his first few self-designed cases he has bought cases from a supplier in Germany; SJX (2020) describes his cases as stock parts from a Swiss supplier. Both statements cover his cases in general and predate this model; the supplier is not named.
+    claims:
+      - ak-cases-own-design
+      - ak-cases-german-supplier
+      - ak-cases-sjx-stock
+      - ak-cases-expand-options
   - dimension: DH
     component: Dial blank
     relationship: unknown
@@ -122,6 +126,42 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: ak-cases-own-design
+    statement: In a 2023 Monochrome interview, Akmaev says his first few watches had cases of his own design.
+    excerpt: My first few watches had cases of my own design; they were nicely machined.
+    source: monochrome-akmaev-interview-2023
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ak-cases-german-supplier
+    statement: In the same interview, Akmaev says he set aside self-designed cases as too labour-intensive, found a supplier in Germany, and has worked with that supplier since.
+    excerpt: So I found a supplier in Germany, and since then, I have been working with them.
+    source: monochrome-akmaev-interview-2023
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ak-cases-expand-options
+    statement: Akmaev said in 2023 that he was working on expanding his options for movements and cases.
+    excerpt: Right now, I am focused on how I can expand my options for the movements and cases.
+    source: monochrome-akmaev-interview-2023
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ak-cases-sjx-stock
+    statement: SJX Watches reported in 2020 that the cases Akmaev uses are stock offerings from a Swiss supplier. This differs from the German supplier Akmaev named in 2023.
+    excerpt: The watch cases he uses are stock offerings from a Swiss supplier, while his favoured movement is the large and common ETA Unitas.
+    source: sjx-akmaev-battle-city
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
     editor: falk-index
     status: active
 profiles:
@@ -230,7 +270,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: false
     editor: mikeqtn
     change_note: Record narrowed from "Koi / Tide" to the Eternal Koi, the only model with evidence. Scores and evidence unchanged. Reviewed and approved by mikeqtn on 2026-10-14.
@@ -277,6 +317,85 @@ profiles:
       WE:
         value: 3
         rationale: Movements are stripped, engraved, reassembled and tested by Akmaev. The process description dates from 2015 and ETA-based pieces, so it should be reconfirmed for the F200.
+        evidence:
+          - claim: ak-process-strip
+            stance: supports
+            note: Full strip-down in-house.
+          - claim: ak-process-reassembly
+            stance: supports
+            note: Reassembly and testing.
+      PD:
+        value: 3
+        rationale: Akmaev designs the whole watch, from dial to movement decoration, around a supplier movement.
+        evidence:
+          - claim: ak-process-sketch
+            stance: supports
+            note: Original design work.
+    classification:
+      - artisan_atelier
+  - version: 4
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds a 2023 Monochrome Watches interview with Akmaev (monochrome-akmaev-interview-2023) and a 2020 SJX Watches article (sjx-akmaev-battle-city) on where his cases come from. Changes from version 3: EX U → 0 (borderline; both sources describe his case sourcing in general, not this model); confidence stays B. One of seven dimensions remains U (DH)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: Stock La Joux-Perret F200 movement.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: Names the stock caliber.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; engraving changes its decoration, not its manufacture.
+        evidence:
+          - claim: ak-koi-ljp
+            stance: supports
+            note: External movement.
+      EX:
+        value: 0
+        rationale: "No source names the maker of the Eternal Koi's 37 mm case. Akmaev says in a 2023 interview that he stopped making cases of his own design because it was too labour-intensive and has bought them from a supplier in Germany since (ak-cases-own-design, ak-cases-german-supplier); SJX described his cases in 2020 as stock parts from a Swiss supplier (ak-cases-sjx-stock). Both statements are general about his cases, so they are applied to this model, but the score is borderline: they predate the watch, the two sources differ on the supplier's country, and in 2023 he said he was widening his case options (ak-cases-expand-options). No source describes case parts made by Akmaev, so the score is not 1."
+        evidence:
+          - claim: ak-cases-german-supplier
+            stance: supports
+            note: Akmaev's own account that his cases come from an outside supplier.
+          - claim: ak-cases-sjx-stock
+            stance: supports
+            note: Specialist report that his cases are stock parts from a supplier.
+          - claim: ak-cases-own-design
+            stance: context
+            note: Earlier self-designed cases, which he set aside.
+          - claim: ak-cases-expand-options
+            stance: context
+            note: Case sourcing was changing in 2023, before this model.
+      DH:
+        value: null
+        rationale: The engraving and inlay on the dial are counted under CF. No source says who makes the spring-steel dial base or the hands; the 2020 SJX article describes a brass dial for a different model (Battle City), and the 2023 interview does not cover dial blanks. DH stays U (handbook score was 0).
+        evidence:
+          - claim: ak-koi-hands
+            stance: context
+            note: Hands finished by hand; maker not named.
+      CF:
+        value: 5
+        rationale: Akmaev personally engraves and inlays the dial, sculpts the koi, and relief-engraves the movement. This master-level craft defines the watch.
+        evidence:
+          - claim: ak-koi-dial
+            stance: supports
+            note: Dial engraving and inlay.
+          - claim: ak-koi-sculpted
+            stance: supports
+            note: Sculpted silver koi.
+          - claim: ak-koi-movement-engraving
+            stance: supports
+            note: Movement engraving.
+      WE:
+        value: 3
+        rationale: Movements are stripped, engraved, reassembled and tested by Akmaev (ak-process-strip, ak-process-reassembly). The process description dates from 2015 and ETA-based pieces; it is applied to the F200 because the movement is relief-engraved, which requires taking it apart. No claim describes regulation or adjustment, so the score is not higher.
         evidence:
           - claim: ak-process-strip
             stance: supports

@@ -29,10 +29,20 @@ provenance:
     claims:
       - cz-ant-partners
   - dimension: EX
-    component: Case and integrated bracelet
-    relationship: unknown
-    note: No source names the makers.
-    claims: []
+    component: Steel case and integrated bracelet
+    performer: czapek
+    relationship: internal
+    note: Deployant (2024) reports the steel cases and bracelets are made in-house; not stated for the 2020 launch series.
+    claims:
+      - cz-ant-steel-case
+  - dimension: EX
+    component: Titanium case and integrated bracelet
+    performer: ab-product
+    relationship: external_specialist
+    note: Deployant (2024) reports titanium cases and bracelets are outsourced to AB Concept / AB Product, which Czapek says are the same company.
+    claims:
+      - cz-ant-steel-case
+      - cz-ant-ti-case-ab
   - dimension: DH
     component: Dial
     performer: metalem
@@ -41,10 +51,13 @@ provenance:
       - cz-ant-dial
   - dimension: CF
     component: Movement hand finishing
-    relationship: unknown
-    note: Who performs it is not stated.
+    performer: chronode
+    relationship: external_specialist
+    note: Czapek's Antarctique blog says Chronode won the blind test for decorating the SXH5 bridges.
     claims:
       - cz-ant-finishing
+      - cz-ant-chronode-bridges
+      - cz-ant-chronode-handwork
   - dimension: WE
     component: Assembly
     performer: czapek
@@ -118,6 +131,61 @@ claims:
     date_checked: 2026-10-13
     editor: falk-index
     status: active
+  - id: cz-ant-chronode-bridges
+    statement: Czapek's Antarctique blog says Chronode won a blind test among craftsmen to decorate the SXH5 bridges.
+    excerpt: And it comes with no bias and no surprise that one of Czapek’s “historical” first partners, Chronode, triumphed.
+    source: czapek-blog-antarctique-episode-3
+    dimensions:
+      - CF
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cz-ant-chronode-handwork
+    statement: Czapek's Antarctique blog says Chronode specializes in beveling, chamfering, metal drawing and other finishing done by hand.
+    excerpt: They specialize in beveling, chamfering, metal drawing and other finishings, all done manually by hand.
+    source: czapek-blog-antarctique-episode-3
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cz-ant-jewel-bridge
+    statement: Czapek's Antarctique blog says the SXH5 bridges arrive pre-chamfered, sand-blasted and engraved, and are then finished by hand.
+    excerpt: A jewel set on beautiful bridge that has been pre-champfered (we will finish them by hand of course), sand-blasted and engraved!
+    source: czapek-blog-setting-jewels-on-bridges
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cz-ant-lapping
+    statement: Czapek says it extended running-in and quality testing so its watchmakers can fine-tune the SXH5.
+    excerpt: This longer process allows our watchmakers to fine tune the caliber even better and detect possible issues.
+    source: czapek-blog-perpetual-improvement
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cz-ant-steel-case
+    statement: A 2024 Deployant report says Czapek makes the steel Antarctique cases and bracelets in-house and outsources the titanium ones.
+    excerpt: While the steel Antarctique cases and bracelets are made in-house in Czapek, they outsource the titanium cases and bracelets as these require special techniques and know-how.
+    source: deployant-czapek-suppliers-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: cz-ant-ti-case-ab
+    statement: A 2024 Deployant report says Czapek's titanium cases and bracelets are made at AB Concept and AB Product.
+    excerpt: Again, we were fortunate that Czapek CEO, Xavier de Roquemaurel goes in-depth to show us how the enamel dials are made at Donzé Cadrans and how the titanium case and bracelets are made at ABConcept & ABProduct.
+    source: deployant-czapek-suppliers-2024
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -158,7 +226,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: mikeqtn
     change_note: "First evidenced profile. Proposed: MM 1 → 0 (all parts made by named partners), EX 0 → U and CF 3 → U (no source on the case maker or on who finishes the movement). Confidence A → B: one 2020 secondary article; the maker page no longer covers the SXH5. Reviewed and approved by mikeqtn on 2026-10-14."
@@ -219,6 +287,95 @@ profiles:
           - claim: cz-ant-partners
             stance: supports
             note: Supplier direction.
+    classification:
+      - design_led_etablisseur
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds three posts from Czapek's Antarctique Journey blog (Story of the Antarctique episode 3, Setting Jewels on Bridges, Perpetual Improvement) and Deployant's 2024 Czapek suppliers report. Changes from version 2: EX U → 3; CF U → 0; confidence B → B. None of the seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 4
+        rationale: The SXH5 was designed from scratch by Czapek's own constructor (cz-ant-martinez), a proprietary caliber whose parts are made by partners. Level 5 is arguable since the engineering is internal; it is held at 4 until the scope of partner engineering is known.
+        evidence:
+          - claim: cz-ant-martinez
+            stance: supports
+            note: In-house design.
+          - claim: cz-ant-first-in-house
+            stance: context
+            note: Marketing term; the design claim above carries the score.
+      MM:
+        value: 0
+        rationale: The movement parts are made by named partners (cz-ant-partners), and no part is documented as made by Czapek. Earlier calibers were also made with a partner (cz-ant-chronode-past).
+        evidence:
+          - claim: cz-ant-partners
+            stance: supports
+            note: External parts manufacture.
+          - claim: cz-ant-chronode-past
+            stance: context
+            note: Earlier calibers were also made with a partner.
+      EX:
+        value: 3
+        rationale: Deployant reported in 2024 that Czapek makes the steel Antarctique cases and bracelets in-house, while titanium cases and bracelets are made by AB Concept / AB Product (cz-ant-steel-case, cz-ant-ti-case-ab). Case and bracelet are two principal exterior families, which reads as level 3 for the steel version. It is not 4 because the claim rests on one secondary report, does not cover crowns or other hardware, does not state when in-house case making began relative to the 2020 launch, and titanium versions are external. Borderline between 3 and 4.
+        evidence:
+          - claim: cz-ant-steel-case
+            stance: supports
+            note: Steel case and bracelet made in-house; titanium outsourced.
+          - claim: cz-ant-ti-case-ab
+            stance: context
+            note: Names the external maker of titanium cases and bracelets.
+      DH:
+        value: 0
+        rationale: The dial is made by Metalem (cz-ant-dial). No dial or hand work is documented as internal.
+        evidence:
+          - claim: cz-ant-dial
+            stance: supports
+            note: External dial maker.
+      CF:
+        value: 0
+        rationale: The SXH5 is hand-finished (cz-ant-finishing), and Czapek's own blog says Chronode won a blind test to decorate the SXH5 bridges and does its beveling, chamfering and drawing by hand (cz-ant-chronode-bridges, cz-ant-chronode-handwork). External artisan work does not raise CF, so no internal craft is documented. The score is borderline because another Czapek post says of the bridges "we will finish them by hand" (cz-ant-jewel-bridge), which may mean the Czapek supplier network rather than Czapek's own bench; it is read as context, not as internal craft.
+        evidence:
+          - claim: cz-ant-chronode-bridges
+            stance: supports
+            note: Bridge decoration awarded to an external specialist.
+          - claim: cz-ant-chronode-handwork
+            stance: supports
+            note: The hand finishing is Chronode's work.
+          - claim: cz-ant-finishing
+            stance: context
+            note: Finishing exists.
+          - claim: cz-ant-jewel-bridge
+            stance: context
+            note: Ambiguous "we"; does not name an internal performer.
+      WE:
+        value: 4
+        rationale: A Czapek watchmaker assembled the SXH5 prototype (cz-ant-assembly), and Czapek says it extended running-in and quality testing so its watchmakers can fine-tune the caliber (cz-ant-lapping). Fine-tuning by the brand's watchmakers is the adjustment work that §5 requires above 3. Not 5 because no complication work or end-to-end construction is documented.
+        evidence:
+          - claim: cz-ant-assembly
+            stance: supports
+            note: In-house assembly of the movement.
+          - claim: cz-ant-lapping
+            stance: supports
+            note: Adjustment by Czapek's watchmakers.
+      PD:
+        value: 5
+        rationale: Czapek conceived the caliber from scratch (cz-ant-martinez) and directs a network of specialist suppliers (cz-ant-partners), including choosing the bridge finisher by blind test (cz-ant-chronode-bridges).
+        evidence:
+          - claim: cz-ant-martinez
+            stance: supports
+            note: Original engineering.
+          - claim: cz-ant-partners
+            stance: supports
+            note: Supplier direction.
+          - claim: cz-ant-chronode-bridges
+            stance: supports
+            note: Czapek selected the finisher.
     classification:
       - design_led_etablisseur
       - independent_manufacture

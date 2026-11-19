@@ -31,10 +31,12 @@ provenance:
   - dimension: EX
     component: Case (polished steel, 37 mm)
     relationship: unknown
-    note: The P37 case maker is not named. The about page shows some case machining in the workshop, but not for this model.
+    note: The P37 case maker is not named. The about page shows some case machining in the workshop, but not for this model; a 2018 report says an earlier Laine model's case was produced externally, and a 2024 quote says the workshop buys no services, which does not settle who makes the case.
     claims:
       - lp37-case
       - lp37-case-workshop
+      - lp37-classic-chrono-case-outsourced
+      - lp37-no-services
   - dimension: DH
     component: Guilloché dial
     performer: laine
@@ -58,9 +60,12 @@ provenance:
       - lp37-atelier-role
   - dimension: WE
     component: Assembly and regulation
-    relationship: unknown
-    note: No source explicitly describes who assembles and regulates the P37.
-    claims: []
+    performer: laine
+    relationship: internal
+    note: A 2023 workshop visit shows a final-assembly bench in the atelier, and Laine is quoted saying the workshop buys no services. Neither names the P37, and no source describes its regulation.
+    claims:
+      - lp37-final-assembly-bench
+      - lp37-no-services
   - dimension: PD
     component: Design and technical development
     performer: laine
@@ -168,6 +173,34 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: lp37-final-assembly-bench
+    statement: A workshop-visit report by Independent in Time, a Laine retailer, shows a bench for final assembly in Torsti Laine's atelier, without tying it to a specific model.
+    excerpt: Torsti’s bench for final assembly, with the Positive pressure mechanism above to aid in keeping dust from the insides of watches!
+    source: independentintime-laine-dec-2023
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lp37-no-services
+    statement: A 2024 article by The 1916 Company, a retailer, quotes Torsti Laine saying the workshop buys no services and does everything itself.
+    excerpt: We don’t buy any services. It’s faster than and more cost-efficient for us to do everything.
+    source: the1916company-laine-week-on-wrist
+    dimensions:
+      - WE
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lp37-classic-chrono-case-outsourced
+    statement: A 2018 Monochrome article reports that the case of the Laine Classic Chronograph, an earlier model, was designed by Torsti Laine but produced externally.
+    excerpt: The case is designed by Torsti, but the production is outsourced, something that is not uncommon for smaller brands to do considering the high cost to produce a case on your own.
+    source: monochrome-laine-classic-chronograph
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -207,7 +240,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 4 → 2; MM 2 → 3; EX 1 → U; DH 2 → 4; WE 4 → U; PD 4 → 3; classification Watchmaking Atelier → Artisan Atelier. Each score's rationale names its evidence."
@@ -285,6 +318,97 @@ profiles:
         value: null
         rationale: No source describes who assembles and regulates the P37.
         evidence: []
+      PD:
+        value: 3
+        rationale: Laine is directly involved in technical development and designs his own bridges and gears around a conventional gear train. That is bespoke components rather than proprietary systems.
+        evidence:
+          - claim: lp37-atelier-role
+            stance: supports
+            note: Technical development.
+    classification:
+      - artisan_atelier
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds a December 2023 workshop-visit report from Independent in Time, a 2024 article from The 1916 Company quoting Torsti Laine, and a 2018 Monochrome article on the Laine Classic Chronograph. Changes from version 2: WE U → 2; confidence stays B. One of seven dimensions remains U (EX)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 2
+        rationale: The P37 keeps the Peseux 7001 gear train and layout but replaces nearly all structural parts with Laine's own. That is meaningful modification rather than re-engineered architecture; borderline with 3.
+        evidence:
+          - claim: lp37-peseux-base
+            stance: supports
+            note: Peseux 7001 gear train.
+          - claim: lp37-structural-parts
+            stance: supports
+            note: Own structural parts.
+          - claim: lp37-decoration-not-manufacture
+            stance: context
+            note: Focus on decoration.
+      MM:
+        value: 3
+        rationale: Laine makes the bridges, screws and gears in-house. The escapement, balance and springs are presumably from the base, though no source says so explicitly.
+        evidence:
+          - claim: lp37-peseux-base
+            stance: supports
+            note: Own bridges and screws.
+          - claim: lp37-gears
+            stance: supports
+            note: Gears made in-house.
+          - claim: lp37-structural-parts
+            stance: supports
+            note: Own structural parts.
+          - claim: lp37-decoration-not-manufacture
+            stance: contradicts
+            note: Focus is decoration, not manufacture.
+      EX:
+        value: null
+        rationale: No source names the P37 case maker. The workshop shows some case machining, but not for this model; a 2018 report says the case of the earlier Classic Chronograph was produced externally, and Laine's 2024 remark that the workshop buys no services does not say who makes cases.
+        evidence: []
+      DH:
+        value: 4
+        rationale: The dial guilloché is cut in-house on a hand-operated machine, and the hands are made in-house from steel plate, filed by hand and polished. Both processes are deeply internal. Not 5, because no source covers the dial blank or printing.
+        evidence:
+          - claim: lp37-guilloche-dial
+            stance: supports
+            note: In-house guilloché.
+          - claim: lp37-hands
+            stance: supports
+            note: Hands made in-house.
+          - claim: lp37-peseux-base
+            stance: supports
+            note: Own dials and hands.
+      CF:
+        value: 5
+        rationale: A guilloché bridge, black-polished steel bridges, 17 hand-polished steel parts and hand-finished internal angles, with Torsti Laine himself doing guilloché and finishing. Master-level craft defines the watch.
+        evidence:
+          - claim: lp37-movement-finish
+            stance: supports
+            note: Movement finishing.
+          - claim: lp37-guilloche-dial
+            stance: supports
+            note: Guilloché.
+          - claim: lp37-hands
+            stance: supports
+            note: Hand-filed hands.
+          - claim: lp37-atelier-role
+            stance: supports
+            note: Laine's own handwork.
+      WE:
+        value: 2
+        rationale: Torsti Laine is quoted saying the workshop buys no services and does everything itself, a universal statement, and a 2023 workshop visit shows a final-assembly bench in the atelier. Read together, they place assembly of the watches inside the workshop. Both are secondary sources from retailers, and none describes movement preparation, regulation or testing for the P37, so the score stops at 2; borderline with 3.
+        evidence:
+          - claim: lp37-no-services
+            stance: supports
+            note: Universal statement that the workshop does everything itself.
+          - claim: lp37-final-assembly-bench
+            stance: supports
+            note: Final-assembly bench in the atelier.
       PD:
         value: 3
         rationale: Laine is directly involved in technical development and designs his own bridges and gears around a conventional gear train. That is bespoke components rather than proprietary systems.
