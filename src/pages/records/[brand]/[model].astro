@@ -8,13 +8,13 @@ import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import { publisherTie } from '../../../lib/publisher.ts';
 import {
-  DIMENSIONS, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
+  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
 import { forumHref } from '../../../lib/forum.ts';
 import { recordThreadCount } from '../../../../server/forum.ts';
 import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
-const { classification, dimension, records } = await getCatalogue(Astro.locals);
+const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
 if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
@@ -27,9 +27,24 @@ const details = [
   ['Made', r.production_start && `${r.production_start} to ${r.production_end ?? 'present'}`],
 ].filter(([, v]) => v) as [string, string | number][];
 const photos = WATCH_PHOTOS[r.id] ?? {};
+const sides = (['front', 'back'] as const).filter(side => photos[side]);
+const sideName = { front: 'Front', back: 'Back' };
 const origin = siteOrigin(Astro.url);
 const crumbs = [['Records', '/records/'], [r.brandName, orgUrl(r.brand)], [r.model, recordUrl(r.id)]];
 const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${side}-${w}.jpg`;
+// Who makes it, at a glance (records without a photo): the provenance grouped by maker and relationship, the brand's
+// own work first and unnamed makers last. Kept short for the left column; every entry is in full in its panel.
+const REL_ORDER = Object.keys(RELATIONSHIP);
+const glance = [...r.provenance.reduce((by, e) => {
+  const key = `${e.performer ?? ''}|${e.relationship}`;
+  const g = by.get(key) ?? { performer: e.performer, relationship: e.relationship, parts: [] as string[] };
+  const part = e.component.replace(/\s*\([^)]*\)/g, ''); // "Case (904L steel, 41 mm)" reads "Case" here
+  if (!g.parts.includes(part)) g.parts.push(part);
+  return by.set(key, g);
+}, new Map<string, { performer?: string; relationship: keyof typeof RELATIONSHIP; parts: string[] }>()).values()]
+  .sort((a, b) => Number(!a.performer) - Number(!b.performer) || Number(b.performer === r.brand) - Number(a.performer === r.brand)
+    || REL_ORDER.indexOf(a.relationship) - REL_ORDER.indexOf(b.relationship) || b.parts.length - a.parts.length);
+const GLANCE_MAX = 3;
 ---
 <Base
   title={`${r.brandName} ${r.model}`}
@@ -57,24 +72,6 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
     </nav>
   </header>
 
-  {photos.front || photos.back
-    ? (
-      <section class="photos" aria-label="Photographs of this watch">
-        {(['front', 'back'] as const).map(side => {
-          const ph = photos[side];
-          return ph
-            ? (
-              <figure class="photo">
-                <Picture src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w, ${photoSrc(side, 1200)} ${Math.min(1200, ph.w)}w`} sizes="(min-width: 1024px) 40vw, 100vw" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
-                <figcaption><b>{side === 'front' ? 'Front' : 'Back'}</b> Photo by {ph.credit}, <a href={ph.licenceUrl}>{ph.licence}</a>. <a href={ph.source}>Original</a></figcaption>
-              </figure>
-            )
-            : <div class="photo empty"><p><b>{side === 'front' ? 'Front' : 'Back'}</b> No photo yet.</p></div>;
-        })}
-      </section>
-    )
-    : null}
-
   {/* One grid for everything below the header: the profile picker on the left; the summary band, the evidence, the
       history and the closing note in the main column. On wide screens the picker's rows choose the evidence panel
       (EvidenceList's script). Narrow screens stack it all in one column with the summary first. */}
@@ -94,6 +91,55 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
             <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
             <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
           </div>
+        )}
+      {/* The specimen card, under the picker and sticking with it: the watch's photos, or, with none, who makes it. */}
+      {sides.length > 0
+        ? (
+          <section class:list={['plate specimen photos', { one: sides.length === 1 }]} aria-label="Photographs of this watch">
+            <ul class="thumbs">
+              {sides.map(side => {
+                const ph = photos[side]!;
+                return (
+                  <li>
+                    <a class="thumb" href={photoSrc(side, 1200)} data-photo={`photo-${side}`} aria-haspopup="dialog">
+                      <Picture src={photoSrc(side, 600)} srcset={`${photoSrc(side, 600)} ${Math.min(600, ph.w)}w`} sizes="(min-width: 1024px) 360px, 120px" width={ph.w} height={ph.h} alt={`${sideName[side]}, enlarge: ${ph.alt}`} loading="lazy" />
+                    </a>
+                    <p class="credit"><b>{sideName[side]}</b> {ph.credit.replace(/, via .*/, '')}, <a href={ph.licenceUrl}>{ph.licence}</a>{ph.cropped && ', cropped'}</p>
+                  </li>
+                );
+              })}
+            </ul>
+            {sides.map(side => {
+              const ph = photos[side]!;
+              return (
+                <dialog class="photo-dialog" id={`photo-${side}`} aria-label={`${sideName[side]} of the ${r.brandName} ${r.model}`}>
+                  <div class="pd-body">
+                    <Picture src={photoSrc(side, 1200)} srcset={`${photoSrc(side, 1200)} ${ph.w}w`} sizes="min(92vw, 1200px)" width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
+                    <p class="small"><b>{sideName[side]}</b> Photo by {ph.credit}, <a href={ph.licenceUrl}>{ph.licence}</a>, {ph.cropped ? 'cropped and resized' : 'resized'}. <a href={ph.source}>Original</a></p>
+                    <form method="dialog"><button class="btn secondary" type="submit">Close</button></form>
+                  </div>
+                </dialog>
+              );
+            })}
+          </section>
+        )
+        : (
+          <section class="plate specimen glance" aria-labelledby="glance-h">
+            <h2 class="glance-h" id="glance-h">Who makes it, at a glance</h2>
+            {glance.length > 0 && (
+              <ul class="glance-list">
+                {glance.slice(0, GLANCE_MAX).map(g => (
+                  <li>
+                    <span class="g-by">{g.performer ? <a href={orgUrl(g.performer)}>{orgs.get(g.performer)!.name}</a> : <span class="muted">Not named</span>}</span>
+                    <span class:list={['rel', g.relationship]}><span>{RELATIONSHIP[g.relationship]}</span></span>
+                    <span class="g-parts"><span class="g-list">{g.parts.join(', ')}</span>{g.parts.length > 1 && <span class="g-n">{g.parts.length} parts</span>}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {glance.length > GLANCE_MAX && <p class="g-more"><a href="#evidence">{glance.length - GLANCE_MAX} more in the evidence</a></p>}
+            <p class="g-photo">No licensed photo of this watch yet. <a href={correctionUrl(r.id)}>Send one with a correction</a>.</p>
+          </section>
         )}
     </div>
 
@@ -116,7 +162,7 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
         </div>
         <dl class="facts">
           <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
-          <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
+          <div><dt>Version</dt><dd>{p.version} · {fmtDate(p.created_on)}</dd></div>
           <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
         </dl>
       </aside>
@@ -128,6 +174,11 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
         </div>
         <EvidenceList profile={p} record={r} idPrefix="evidence" />
       </section>
+    </div>
+  </div>
+
+  {/* The grid ends with the evidence; the draft, the history and the note read below it at a reading width. */}
+  <div class="rec-after">
 
       {r.draft && (
         <section class="block" id="draft">
@@ -192,31 +243,12 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
         })()}
       </section>
 
-      {(!photos.front && !photos.back) || r.notes
-        ? (
-          <div class="rec-close small muted">
-            {!photos.front && !photos.back && <p>No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
-            {r.notes && <p>{r.notes}</p>}
-          </div>
-        )
-        : null}
-    </div>
+      {r.notes && <p class="rec-close small muted">{r.notes}</p>}
   </div>
 </Base>
 
 <style>
   .scroll { overflow-x: auto; }
-  .photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); margin-bottom: var(--s-4); }
-  .photo { display: flex; flex-direction: column; margin: 0; border-radius: var(--r-plate); overflow: hidden; background: var(--c-surface); }
-  .photo img { display: block; width: 100%; height: clamp(240px, 26vw, 360px); object-fit: contain; background: var(--c-surface-sunk); }
-  .photo figcaption { padding: var(--s-3) var(--s-4); font-size: 13px; color: var(--c-ink-2); }
-  .photo figcaption b { color: var(--c-ink); margin-right: var(--s-2); }
-  /* The site's hatching means "no evidence"; here it marks a missing photo, kept faint behind the label. */
-  .photo.empty { position: relative; display: grid; place-items: center; min-height: clamp(240px, 26vw, 360px); }
-  .photo.empty::before { content: ''; position: absolute; inset: 0; background: var(--pattern-unknown); opacity: .18; }
-  .photo.empty p { position: relative; }
-  .photo.empty p { padding: var(--s-2) var(--s-4); border-radius: var(--r-control); background: var(--c-surface); font-size: 14px; color: var(--c-ink-2); }
-  @media (max-width: 639px) { .photos { grid-template-columns: 1fr; } }
   /* Header: the watch on the left, the two things a reader does on the right, then the section links under both. */
   .rec-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-4) var(--s-6); padding: var(--s-7) 0 var(--s-5); }
   .rec-head > * + * { margin-top: 0; }
@@ -237,11 +269,12 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   .rec-grid { display: grid; gap: var(--s-4); }
   .rec-side { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
   .rec-main { min-width: 0; }
-  /* Narrow screens read the summary before the profile (DESIGN.md §5.3); the markup has the picker first for wide. */
-  /* Narrow: the two columns dissolve into one stack (summary, profile, evidence, history, note). */
+  /* Narrow: the two columns dissolve into one stack: photos (when there are any), summary, profile, who makes it
+     (when there are none), evidence. The markup has the picker first for wide screens. */
   @media (max-width: 1023px) {
     .rec-side, .rec-main { display: contents; }
     .rec-main > .summary { order: -1; }
+    .rec-side > .photos { order: -2; }
   }
   @media (min-width: 1024px) {
     .rec-grid { grid-template-columns: 380px minmax(0, 1fr); gap: var(--s-5); }
@@ -251,9 +284,60 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
     /* Beside the picker the panel's own heading names the dimension; the section heading stays for assistive tech. */
     .evidence-section .h2-row { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   }
-  /* Only the picker sticks, and only when the screen is tall enough to keep it whole. */
-  @media (min-width: 1024px) and (min-height: 761px) {
-    .rec-pick { position: sticky; top: calc(var(--nav-h) + var(--s-4)); }
+  /* The picker and the specimen card stick together, and only when the screen is tall enough to keep both whole. */
+  @media (min-width: 1024px) and (min-height: 900px) {
+    .rec-side { position: sticky; top: calc(var(--nav-h) + var(--s-4)); align-self: start; }
+  }
+  /* The specimen card. With photos: front and back as square thumbnails (one photo spans the card), each opening
+     the full photo and its credit in a dialog. Without: who makes it, grouped by maker, and the photo invitation. */
+  .specimen { display: grid; gap: var(--s-4); padding: var(--s-4); }
+  .thumbs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+  .one .thumbs { grid-template-columns: minmax(0, 1fr); }
+  .thumbs li { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
+  .thumb { display: block; border-radius: var(--r-control); overflow: hidden; background: var(--c-surface-sunk); cursor: zoom-in; }
+  .thumb img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform var(--d-open) var(--ease); }
+  .one .thumb img { aspect-ratio: 3 / 2; }
+  .thumb:hover img { transform: scale(1.03); }
+  .thumb:focus-visible { outline-offset: 3px; }
+  .credit { font-size: 13px; line-height: 1.4; color: var(--c-ink-2); text-wrap: pretty; }
+  .credit b { margin-right: var(--s-1); font-weight: 600; color: var(--c-ink); }
+  .credit a, .pd-body p a { white-space: nowrap; }
+  .glance-h { font-size: 16px; line-height: 1.3; font-weight: 600; }
+  .glance-list { margin: 0; padding: 0; list-style: none; }
+  .glance-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--s-3); align-items: center; padding-block: var(--s-2); border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  .glance-list li:last-child { border-bottom: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  .g-by { font-size: 15px; font-weight: 560; min-width: 0; }
+  .g-by a { color: var(--c-ink); text-decoration: none; }
+  .g-by a:hover { color: var(--c-action); text-decoration: underline; }
+  .glance-list .rel { font-size: 12px; padding-block: 1px; }
+  /* One line of parts per maker: the list is cut with an ellipsis, the count stays whole (all of it is in the panels). */
+  .g-parts { grid-column: 1 / -1; display: flex; gap: var(--s-2); min-width: 0; font-size: 13px; line-height: 1.4; color: var(--c-ink-2); }
+  .g-list { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .g-n { flex: none; margin-left: auto; font-variant-numeric: tabular-nums; }
+  .g-more, .g-photo { font-size: 13px; line-height: 1.45; color: var(--c-ink-2); text-wrap: pretty; }
+  .g-more { margin-top: calc(-1 * var(--s-2)); }
+  /* The full photo over a dimmed page; Esc, the Close button or a click outside closes it. */
+  .photo-dialog { width: fit-content; max-width: 92vw; max-height: 92vh; padding: 0; border: 0; border-radius: var(--r-plate); background: var(--c-surface); color: var(--c-ink); box-shadow: 0 24px 64px rgb(0 0 0 / .35); }
+  .photo-dialog::backdrop { background: rgb(8 12 20 / .78); }
+  .pd-body { display: grid; gap: var(--s-3); padding: var(--s-3) var(--s-3) var(--s-4); }
+  .pd-body img { display: block; width: auto; max-width: min(100%, 1200px); height: auto; max-height: calc(92vh - 120px); object-fit: contain; border-radius: var(--r-control); background: var(--c-surface-sunk); }
+  .pd-body p { width: 0; min-width: 100%; box-sizing: border-box; padding-inline: var(--s-2); color: var(--c-ink-2); text-wrap: pretty; }
+  .pd-body p b { margin-right: var(--s-1); color: var(--c-ink); }
+  .pd-body form { display: flex; justify-content: flex-end; padding-inline: var(--s-2); }
+  html:has(.photo-dialog[open]) { overflow: hidden; }
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-dialog[open] { animation: pd-in var(--d-open) var(--ease); }
+    .photo-dialog[open]::backdrop { animation: pd-fade var(--d-open) var(--ease); }
+  }
+  @media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } .thumb:hover img { transform: none; } }
+  @keyframes pd-in { from { opacity: 0; transform: translateY(6px) scale(.98); } }
+  @keyframes pd-fade { from { opacity: 0; } }
+  /* Phones and tablets: the photos are a compact row of small thumbnails under the header. */
+  @media (max-width: 1023px) {
+    .photos { padding: var(--s-3); }
+    .thumbs, .one .thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .thumbs li { grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: var(--s-3); }
+    .one .thumb img { aspect-ratio: 1; }
   }
   .profile-plate { display: grid; gap: var(--s-4); }
   /* The profile as the picker: the selected row raised, its name underlined with the ruby selection line. */
@@ -284,6 +368,7 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   @media (max-width: 1023px) { .dim-list { display: none; } }
   .summary { display: grid; align-content: start; gap: var(--s-5); }
   .sum-lead { display: grid; gap: var(--s-3); align-content: start; }
+  .sum-lead p, .history p, .draft-note p { text-wrap: pretty; }
   .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
   .cls a { color: var(--c-ink); text-decoration: none; }
   .cls a:hover { color: var(--c-action); text-decoration: underline; }
@@ -303,8 +388,10 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   .earlier { margin-top: var(--s-5); }
   .earlier > summary { cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; font-weight: 560; color: var(--c-ink); }
   .earlier[open] > summary { margin-bottom: var(--s-4); }
-  .rec-close { margin-top: var(--s-8); max-width: var(--measure); }
-  .rec-close > * + * { margin-top: var(--s-2); }
+  /* Below the grid: the draft, History and the note at a reading width on the page's left edge. */
+  .rec-after { max-width: 56rem; margin-top: var(--s-8); }
+  .rec-after > .block:first-child { padding-top: 0; }
+  .rec-close { margin-top: var(--s-8); max-width: var(--measure); text-wrap: pretty; }
   .draft-note { padding: var(--s-4) var(--s-5); margin-bottom: var(--s-5); max-width: var(--measure); }
   .draft-note > * + * { margin-top: var(--s-2); }
   .draft-h { margin: var(--s-6) 0 var(--s-4); }
@@ -335,4 +422,17 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   const label = () => { btn.textContent = published.every(d => d.open) ? 'Close all' : 'Open all'; };
   published.forEach(d => d.addEventListener('toggle', label));
   label();
+
+  // A thumbnail opens its photo and full credit in a dialog; without script it links to the large file. Esc and the
+  // Close button close it natively, as does a click on the dimmed page; focus goes back to the thumbnail.
+  for (const thumb of document.querySelectorAll<HTMLAnchorElement>('a[data-photo]')) {
+    const dialog = document.getElementById(thumb.dataset.photo!) as HTMLDialogElement;
+    thumb.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      dialog.showModal();
+    });
+    dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => thumb.focus());
+  }
 </script>

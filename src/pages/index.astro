@@ -51,7 +51,7 @@ const img = (name: string, w: 800 | 1600) => `/images/movements/${name}-${w}.jpg
 // Open data: three records shown as cards, each a preview of what its page and data carry.
 const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-neomatik'].map(record).filter(Boolean);
 ---
-<Base title="FALK Index" ld={{
+<Base title="FALK Index" movementPhotos ld={{
   '@type': 'WebSite', name: 'FALK Index', url: `${origin}/`,
   potentialAction: { '@type': 'SearchAction', target: `${origin}/records/?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
 }}>
