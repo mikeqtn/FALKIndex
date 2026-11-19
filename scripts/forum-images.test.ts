@@ -1,7 +1,9 @@
-import { test, after, before } from 'node:test';
+import { test, after, before, mock } from 'node:test';
+import { EventEmitter } from 'node:events';
+import { crc32 } from 'node:zlib';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { mkdtemp, rm, readdir } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import sharp from 'sharp';
@@ -9,8 +11,9 @@ import type { PoolClient } from 'pg';
 import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { createApp } from '../server/index.ts';
+import { FORUM_IMAGES_PER_HOUR, rateLimitKey } from '../server/api.ts';
 import { addImage, clearUnattachedImages, createThread, editPost, FORUM_MAX_IMAGES, imageForServing, purgeImage, reply, replyInput, setImageHidden, setPostHidden, threadDetail } from '../server/forum.ts';
-import { acquireImageUploadSlot, loadImage, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage, THUMB_EDGE } from '../server/forumImages.ts';
+import { acquireImageUploadSlot, fromWorker, limitConcurrentImageUploads, loadImage, MAX_INPUT_EDGE, MAX_UPLOAD_BYTES, rebuildImage, removeImage, storeImage, THUMB_EDGE, UPLOAD_DEADLINE_MS } from '../server/forumImages.ts';
 
 let dir = '';
 before(async () => { dir = await mkdtemp(join(tmpdir(), 'falk-images-')); process.env.FORUM_IMAGE_DIR = dir; });
@@ -89,6 +92,99 @@ test('large images shrink, small ones do not grow, and camera rotation is applie
   const sideways = await sharp({ create:{ width:60, height:30, channels:3, background:'#123456' } }).withMetadata({ orientation:6 }).jpeg().toBuffer();
   const turned = await rebuildImage(sideways);
   assert.deepEqual([turned.width, turned.height], [30, 60]);
+});
+
+test('payloads inside the image\'s own comment and text blocks are gone', async () => {
+  const marker = Buffer.from('<script>alert("FALK-PAYLOAD")</script>', 'latin1');
+  // A JPEG comment segment (FF FE) straight after the start marker.
+  const jpeg = await picture('jpeg');
+  const comment = Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from([0, marker.length + 2]), marker]);
+  const jpegWithComment = Buffer.concat([jpeg.subarray(0, 2), comment, jpeg.subarray(2)]);
+  // A PNG tEXt chunk straight after the header chunk.
+  const png = await picture('png');
+  const body = Buffer.concat([Buffer.from('tEXtComment\0', 'latin1'), marker]);
+  const chunk = Buffer.alloc(body.length + 8);
+  chunk.writeUInt32BE(body.length - 4, 0); body.copy(chunk, 4); chunk.writeUInt32BE(crc32(body), body.length + 4);
+  const pngWithText = Buffer.concat([png.subarray(0, 33), chunk, png.subarray(33)]);
+  for (const [name, file] of Object.entries({ jpegWithComment, pngWithText })) {
+    assert.ok(file.toString('latin1').includes('FALK-PAYLOAD'), name);
+    const { data, thumb } = await rebuildImage(file);
+    assert.ok(!data.toString('latin1').includes('FALK-PAYLOAD') && !thumb.toString('latin1').includes('FALK-PAYLOAD'), name);
+  }
+});
+
+test('very wide or very tall images are refused, even when their pixel count is allowed', async () => {
+  for (const [width, height] of [[MAX_INPUT_EDGE + 1, 4], [4, MAX_INPUT_EDGE + 1]]) {
+    const strip = await sharp({ create:{ width, height, channels:3, background:'#000' } }).png().toBuffer();
+    await assert.rejects(rebuildImage(strip), /could not be read/, `${width}x${height}`);
+  }
+});
+
+test('decoding runs in a separate process, which is killed when it runs too long', async () => {
+  await assert.rejects(rebuildImage(await picture('png', 1600, 1200), { timeoutMs:1 }), /could not be read/);
+  assert.equal((await rebuildImage(await picture('png'))).width, 64, 'the next upload still works');
+});
+
+test('a reply from the decoder is checked before it is trusted', async () => {
+  const { data, thumb } = await rebuildImage(await picture('png'));
+  assert.deepEqual(fromWorker({ data, thumb, width:64, height:48 }), { data, thumb, width:64, height:48 }, 'a real reply passes');
+  const html = Buffer.from('<!doctype html><script>alert(1)</script>');
+  for (const [name, reply] of Object.entries({
+    html:{ data:html, thumb, width:64, height:48 }, htmlThumb:{ data, thumb:html, width:64, height:48 },
+    hugeWidth:{ data, thumb, width:1e9, height:48 }, fraction:{ data, thumb, width:1.5, height:48 }, noWidth:{ data, thumb, height:48 },
+    notBytes:{ data:'RIFF....WEBP', thumb, width:64, height:48 }, unknownRejection:{ rejected:'<script>' }, nothing:null,
+  })) assert.deepEqual(fromWorker(reply), { rejected:'crashed' }, name);
+});
+
+test('refused uploads are logged with a reason and size, never their contents', async () => {
+  const lines: string[] = [], php = Buffer.from('<?php system($_GET["c"]); ?> FALK-SECRET');
+  const log = mock.method(console, 'error', (line: string) => { lines.push(line); });
+  try {
+    await assert.rejects(rebuildImage(php));
+    await assert.rejects(rebuildImage((await picture('png')).subarray(0, 60)));
+  } finally { log.mock.restore(); }
+  assert.deepEqual(lines.map(line => JSON.parse(line)), [
+    { event:'forum.image_rejected', reason:'not_an_image', bytes:php.length },
+    { event:'forum.image_rejected', reason:'unreadable', bytes:60 },
+  ]);
+  assert.ok(!lines.join('').includes('FALK-SECRET'));
+});
+
+// The upload middleware with stand-ins for Express's request and response.
+function startUpload(member: string) {
+  const res = Object.assign(new EventEmitter(), { locals:{ member } as Record<string, unknown>, setHeader() {} });
+  const req = Object.assign(new EventEmitter(), { destroyed:false, destroy() { this.destroyed = true; res.emit('close'); } });
+  let error: unknown = 'next was not called';
+  limitConcurrentImageUploads(req as never, res as never, (e?: unknown) => { error = e; });
+  return { req, res, error };
+}
+test('a member uploads one image at a time, and an upload that stalls is cut off', () => {
+  mock.timers.enable({ apis:['setTimeout'] });
+  const open: EventEmitter[] = [];
+  try {
+    const alice = startUpload('alice'); open.push(alice.res);
+    assert.equal(alice.error, undefined);
+    const again = startUpload('alice');
+    assert.match((again.error as Error).message, /other image/, 'a second upload from the same member waits');
+    const bob = startUpload('bob'); open.push(bob.res);
+    assert.equal(bob.error, undefined, 'another member is not held up');
+    mock.timers.tick(UPLOAD_DEADLINE_MS - 1);
+    assert.ok(!alice.req.destroyed);
+    mock.timers.tick(1);
+    assert.ok(alice.req.destroyed && bob.req.destroyed, 'a slow sender cannot hold a slot past the deadline');
+    const next = startUpload('alice'); open.push(next.res);
+    assert.equal(next.error, undefined, 'the cut-off upload gave back its slot');
+  } finally { for (const res of open) res.emit('close'); mock.timers.reset(); }
+});
+
+test('if the small copy cannot be stored, the full image is not left behind', async () => {
+  const id = randomUUID();
+  await mkdir(join(dir, `${id}-thumb.webp`)); // a folder where the file should go makes that write fail
+  try {
+    const { data, thumb } = await rebuildImage(await picture('png'));
+    await assert.rejects(storeImage(id, data, thumb));
+    assert.ok(!(await readdir(dir)).includes(`${id}.webp`));
+  } finally { await rm(join(dir, `${id}-thumb.webp`), { recursive:true, force:true }); }
 });
 
 // The rules for attaching, against the database. Everything is rolled back.
@@ -220,6 +316,26 @@ test('over HTTP: uploads need an account and an allowed type, and unknown images
     assert.equal((await fetch(`${base}/api/forum/images/${randomUUID()}`)).status, 404);
     assert.equal((await fetch(`${base}/api/forum/images/not-an-id`)).status, 400);
   } finally { server.closeAllConnections(); server.close(); }
+});
+
+test('over HTTP: image uploads are capped per hour counting every attempt, and image paths take only ids', async () => {
+  const server = createApp().listen(0, '127.0.0.1');
+  await new Promise(resolve => server.once('listening', resolve));
+  const base = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
+  const key = rateLimitKey('forum-image', '127.0.0.1');
+  const clear = () => pool.query('DELETE FROM falk_rate_limit WHERE key=$1', [key]);
+  await clear();
+  try {
+    // A JPEG name and type on an executable: refused before anything reads it, and still counted.
+    const send = () => fetch(`${base}/api/forum/images?name=malware.php.jpg`, { method:'POST', headers:{ 'Content-Type':'image/jpeg', Origin:base }, body:Buffer.from('MZ\x90\x00', 'latin1') });
+    for (let i = 0; i < FORUM_IMAGES_PER_HOUR; i++) assert.equal((await send()).status, 401);
+    const limited = await send();
+    assert.equal(limited.status, 429);
+    assert.match((await limited.json()).error, /last hour/);
+    for (const path of ['..%2F..%2Fetc%2Fpasswd', '%2E%2E%2Fpackage.json', `${randomUUID()}.webp`]) {
+      assert.equal((await fetch(`${base}/api/forum/images/${path}`)).status, 400, path);
+    }
+  } finally { await clear(); server.closeAllConnections(); server.close(); }
 });
 
 test('a small copy is kept with each image, and made on first request for images stored before them', async () => {
