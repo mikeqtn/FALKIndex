@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
 import { forumHref } from '../lib/forum.ts';
-import { DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED, RETAIL_BRANDS } from '../lib/publisher.ts';
+import { DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED } from '../lib/publisher.ts';
 const { methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
 const brandList = (ids: Set<string>) => new Intl.ListFormat('en').format([...ids].map(id => orgs.get(id)!.name).sort((a, b) => a.localeCompare(b)));
 const archived = [...sources.values()].filter(s => s.archived_url).length;
@@ -50,12 +50,7 @@ const contents = [
     <h2>Who publishes it</h2>
     <div class="body">
       <p>The FALK Index is published by Falk Watches, LLC, a Virginia limited liability company, 3130 Fairview Park Dr Ste 210, Falls Church, VA 22042.</p>
-      <p>Falk Watches is a watch retailer. It buys and sells new and pre-owned watches, including many brands and models covered here, so it can benefit financially from how they are perceived. The records of these brands carry a note saying so.</p>
-      <dl class="ties">
-        <div><dt>Deals directly with</dt><dd>{brandList(DIRECT_BRANDS)}</dd></div>
-        <div><dt>Has sold or listed</dt><dd>{brandList(RETAIL_BRANDS)}</dd></div>
-      </dl>
-      <p class="small muted">This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
+      <p>Falk Watches is a watch retailer. It buys and sells new and pre-owned watches, so it can benefit financially from how brands are perceived. It deals directly with {brandList(DIRECT_BRANDS)}, and the records of those brands carry a note saying so. This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
       <p>Brands cannot pay for placement or scores. There is no paid placement, no paid score improvement and no hidden sponsor weighting.</p>
     </div>
   </section>
@@ -92,10 +87,6 @@ const contents = [
   .body { font: 400 18px/1.62 var(--f-serif); max-width: var(--measure); }
   .body > * + * { margin-top: var(--s-4); }
   .body p { text-wrap: pretty; }
-  .ties { display: grid; gap: var(--s-3); margin: var(--s-4) 0 0; padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); font: 400 16px/1.55 var(--f-sans); }
-  .ties dt { font-weight: 600; }
-  .ties dd { margin: 2px 0 0; color: var(--c-ink-2); }
-  .ties + p { margin-top: var(--s-2); }
   .stack-l > * + * { margin-top: var(--s-6); }
   .example { max-width: 640px; }
 </style>

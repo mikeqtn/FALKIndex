@@ -714,7 +714,7 @@ Caliber Corner
 A prose page in Source Serif at a 68ch measure. The head pairs the title, lead and an "On this page" row of jump links with the figures panel used on Sources and Data: records, sources (with the archived count), criteria and the methodology version, each linked to its page. Sections, in the order a first-time reader asks:
 
 - What FALK is (a single full strip of a real record beside it, linking to that record)
-- Who publishes it: Falk Watches, LLC, its address, that it is a watch retailer, and the brands it deals with directly or has sold, as a two-part list with its review date; no paid placement, no paid score changes, no sponsor weighting
+- Who publishes it: Falk Watches, LLC, its address, that it is a watch retailer, and the brands it deals with directly, with its review date (the brands it has sold are not listed); no paid placement, no paid score changes, no sponsor weighting
 - How the research is done: AI researches and drafts each record; FALK Index publishes each version by hand once every quoted excerpt has been checked automatically, word for word, against its source; claims link to sources and archived copies; scores follow the methodology's level text. This must stay true to how records are actually published.
 - Corrections and right of reply: one section, one button. An editor checks every correction; a disputed score that stands gets the contradicting evidence beside it. Email and the forum as other routes.
 - Licence and data (Q5), linking the dataset, the sources and the code
