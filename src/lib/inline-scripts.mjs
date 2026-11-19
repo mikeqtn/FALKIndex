@@ -49,6 +49,9 @@ export const EVIDENCE_SCRIPT = `(() => {
  * Instead the page you leave dissolves to its own background, and the page you arrive on rises in from the same
  * background (shared.css). Both sites use one page colour and share the theme cookie, so the two halves read as
  * one fade. In development the forum lives under /forum on the same host, so the path decides which site a URL is.
+ * The click is not held back: the page you leave stays on screen while the next one loads, so it fades during the
+ * request rather than before it. The arrival flag stays on the page, which keeps a page's own entrance (the home
+ * page's shutter, the sections rising in) from playing a second fade after this one.
  * Skipped under reduced motion; a page restored from the back/forward cache drops the fade at once.
  */
 export const SITE_JUMP_SCRIPT = `(() => {
@@ -57,15 +60,12 @@ export const SITE_JUMP_SCRIPT = `(() => {
   const crosses = u => u.host !== location.host ? root(u.hostname) === root(location.hostname) : forumPath(u.pathname) !== forumPath(location.pathname);
   const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const html = document.documentElement;
-  try { const r = document.referrer && new URL(document.referrer); if (r && crosses(r) && !calm()) { html.dataset.arriving = ''; setTimeout(() => delete html.dataset.arriving, 600); } } catch {}
+  try { const r = document.referrer && new URL(document.referrer); if (r && crosses(r) && !calm()) { html.dataset.arriving = ''; } } catch {}
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('a[href]');
     if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.hasAttribute('download') || (a.target && a.target !== '_self')) return;
     const u = new URL(a.href, location.href);
-    if (!/^https?:$/.test(u.protocol) || !crosses(u) || calm()) return;
-    e.preventDefault();
-    html.dataset.leaving = '';
-    setTimeout(() => location.assign(u.href), 160);
+    if (/^https?:$/.test(u.protocol) && crosses(u) && !calm()) html.dataset.leaving = '';
   });
   addEventListener('pageshow', () => delete html.dataset.leaving);
 })();`;
