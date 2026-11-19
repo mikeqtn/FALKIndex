@@ -36,7 +36,7 @@ const descriptorSlug = DESCRIPTOR.code.replaceAll('_', '-');
 const shownPhotos = new Set(archetypes.flatMap(a => a.photo ? [a.photo.r.id] : []));
 const descriptorPhoto = photoOf(withDescriptor.filter(r => !shownPhotos.has(r.id))); // each photograph appears once on the page
 ---
-<Base title="Production archetypes" nav="archetypes" description="Eight production archetypes: a shorthand for how a watch is made, drawn from its seven FALK scores.">
+<Base title="Production archetypes" nav="archetypes" movementPhotos description="Eight production archetypes: a shorthand for how a watch is made, drawn from its seven FALK scores.">
   <header class="doc-head" data-rise>
     <div>
       <h1>Production archetypes</h1>

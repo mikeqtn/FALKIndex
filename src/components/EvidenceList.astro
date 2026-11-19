@@ -20,6 +20,8 @@ const GROUPS = [['supports', 'Supporting evidence'], ['contradicts', 'Conflictin
 // The published evidence is picked from the record page's left column on wide screens, one panel at a time; a draft
 // is an accordion at every width.
 const pick = idPrefix === 'evidence';
+// Confidence D publishes no profile, so its panels name the dimension without a score (DESIGN.md §5.3).
+const unscored = profile.confidence === 'D';
 ---
 <div class:list={['evidence', { pick }]}>
   <div class="ev-panels">
@@ -29,8 +31,8 @@ const pick = idPrefix === 'evidence';
       return (
         <details class="ev-panel" id={`${idPrefix}-${d.toLowerCase()}`} open>
           <summary>
-            <span class="code">{d} {s.value ?? 'U'}</span>
-            <span class="sum-text"><b>{dimension[d].label}</b><span class="lvl muted">{s.value === null ? 'Unknown' : `${s.value} of 5: ${levels[d][s.value]}`}</span></span>
+            <span class="code">{unscored ? d : `${d} ${s.value ?? 'U'}`}</span>
+            <span class="sum-text"><b>{dimension[d].label}</b><span class="lvl muted">{unscored ? 'No published score' : s.value === null ? 'Unknown' : `${s.value} of 5: ${levels[d][s.value]}`}</span></span>
           </summary>
           <div class="body">
             {s.rationale && <div class="prose"><p>{readable(s.rationale)}</p></div>}

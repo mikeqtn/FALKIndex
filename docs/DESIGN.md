@@ -520,41 +520,42 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 ├─ 380px ────────────────┬─ main column ────────────────────────────────────┤
 │ ┌ Profile (sticky) ───┐│┌ Summary band (plate) ──────────────────────────┐│
 │ │▐MA ▮▮▮▮▮ 5 Movement▐│││ Integrated Manufacture (h2)   Evidence [A] …   ││
-│ │ MM ▮▮▮▮▮ 5 Movement │││ short description             Version  3, …    ││
+│ │ MM ▮▮▮▮▮ 5 Movement │││ short description             Version  3 · …   ││
 │ │ EX ▮▮▮▮▯ 4 Exterior │││ right-of-reply note           Scored   v0.2    ││
 │ │ …  (7 rows, links)  │││ publisher disclosure                           ││
 │ │ Not a ranking…      ││└────────────────────────────────────────────────┘│
 │ └─────────────────────┘│┌ Selected panel (plate) ────────────────────────┐│
-│                        ││ MA 5  Movement architecture                    ││
-│                        ││       5 of 5: Deep proprietary caliber…        ││
-│                        ││       Rationale (serif prose, 68ch)            ││
-│                        ││       Who makes it                             ││
-│                        ││       component · maker · relationship tag     ││
-│                        ││       Supporting / Conflicting / Context       ││
-│                        ││  (at least as tall as the profile, so          ││
-│                        ││   switching never moves what is below)         ││
+│ ┌ Specimen (sticky) ──┐││ MA 5  Movement architecture                    ││
+│ │ [front ] [back  ]   │││ 5 of 5: Deep proprietary caliber…              ││
+│ │ credit    credit    │││ Rationale (serif prose, 68ch)                  ││
+│ │ or: Who makes it,   │││ Who makes it                                   ││
+│ │ at a glance + photo │││ component · maker · relationship tag           ││
+│ │ invitation          │││ Supporting / Conflicting / Context             ││
+│ └─────────────────────┘││ (at least as tall as the left column)          ││
 │                        │└────────────────────────────────────────────────┘│
-│                        │ Draft under review (only with a draft)           │
-│                        │ History (h2): latest version, Compare, Earlier   │
-│                        │ versions (n) fold                                │
-│                        │ Closing note (small): no photos yet…, notes      │
-└────────────────────────┴──────────────────────────────────────────────────┘
+├────────────────────────┴──────────────────────────────────────────────────┤
+│ Draft under review (only with a draft)       (reading width, page edge)   │
+│ History (h2): latest version, Compare, Earlier versions (n) fold          │
+│ Closing note (small): the record's notes                                  │
+└───────────────────────────────────────────────────────────────────────────┘
 ```
 
 (The caliber name and workshop in the wireframe are placeholders for layout, not research.)
 
-- **One grid below the header (≥1024px):** a 380px left column holding only the profile picker, and the main column, one gap and one set of edges for every section. The photos, when a record has them, run full width between the header and the grid.
+- **One grid below the header (≥1024px):** a 380px left column holding the profile picker and the specimen card, and the main column holding the summary band and the evidence. The grid ends where the evidence ends: the draft, History and the closing note run below it at a reading width (56rem) on the page's left edge, not beside the picker.
 - **Header:** brand, title, details; on the right "Send a correction" (button), "Discuss this record (n)" and "Download JSON". Section links under it: Profile (only when there is one), Evidence, History. There is no separate "Use this record" section.
-- **Left column:** the profile plate is the dimension picker and sticks below the nav while the main column scrolls (not on screens shorter than 761px). Its rows link to `#evidence-mm`; the selected row is raised a tone step and its name carries the 2px ruby selection line (`aria-current`, wide screens only).
-- **Main column:** first a short summary band (classification, its short description, the right-of-reply note and the publisher disclosure on the left; evidence grade, version and methodology on the right), so the verdict and the picker share the first screen; then the selected dimension's panel, the draft (if any), History and a short closing note (the "No photos yet… send it with a correction" invitation and the record's notes), all on the main column's left edge.
+- **Left column:** the profile plate is the dimension picker; the specimen card sits under it, and the two stick together below the nav while the main column scrolls (only on screens at least 900px tall, so both stay whole; below that nothing sticks). Its rows link to `#evidence-mm`; the selected row is raised a tone step and its name carries the 2px ruby selection line (`aria-current`, wide screens only).
+- **Specimen card, with photos** (src/lib/watch-photos.ts): front and back as square thumbnails (`object-fit: cover`, the 600px files as AVIF + JPEG); a single photo spans the card at 3:2. Never the hatched "unknown" pattern for a missing photo. Under each thumbnail a credit line: side, author, licence link, and "cropped" when the served file is cropped from the original. A thumbnail links to the 1200px file; with script it opens a native modal `<dialog>` with that file and the full credit (author, licence, "cropped and resized" or "resized", "Original" link). Esc, Close or a click outside closes it and focus returns to the thumbnail.
+- **Specimen card, without photos: "Who makes it, at a glance".** Built only from the record's provenance: one row per maker and relationship (the brand first, "Not named" last), the maker linked, the relationship tag (§4.2 styles), and the parts on one line (cut with an ellipsis, the count kept). At most three rows, then "n more in the evidence"; every entry is in full in its panel. At its foot: "No licensed photo of this watch yet. Send one with a correction."
+- **Main column:** first a short summary band (classification, its short description, the right-of-reply note and the publisher disclosure on the left; evidence grade, version as "3 · 17 Nov 2026", and methodology on the right), so the verdict and the picker share the first screen; then the selected dimension's panel. The panel's code ("MA 5") sits beside its name at the same size, the level line runs under both, and the body starts at the panel's own padding (no code-column indent on wide screens).
 - **One panel per dimension** (EvidenceList.astro): the score and its level text, the rationale, "Who makes it" (component, maker or "Not named", relationship tag, years when dated), then supporting, conflicting and context claims.
 - **Picking:** a row shows its panel with a 150ms fade (none under reduced motion), updates the URL hash with `history.replaceState`, and scrolls only when the panel's top is off screen. A URL with `#evidence-mm` selects that panel before first paint (an inline script hashed into the CSP).
-- **Narrow screens (<1024px):** one column: header, summary, profile, the evidence accordion, history, closing note. Tapping a profile row opens that dimension and scrolls to it; opening a panel by its heading updates the hash. "Open all" sits at the right of the h2 (phones only) and never rewrites the hash.
+- **Narrow screens (<1024px):** one column: header, the photos as a compact two-up row of small thumbnails with their credits (each opens the same dialog), summary, profile, "Who makes it, at a glance" (records without photos), the evidence accordion, history, closing note. Tapping a profile row opens that dimension and scrolls to it; opening a panel by its heading updates the hash. "Open all" sits at the right of the h2 (phones only) and never rewrites the hash.
 - **Without script** every panel shows, in order, and the profile rows are plain anchor links.
 - **Drafts:** the draft's evidence is a plain accordion in the main column at every width, with no picker of its own.
 - **Rationales** may cite claims by id for editors; the page drops a parenthesis made only of the record's claim ids, since the claims are shown in full below.
 - **Seed records** (no claims yet): each dimension's panel reads "No evidence attached yet. This score comes from the v0.2 reference dataset." with a link to send evidence.
-- **Confidence D:** no profile: the left column shows the hatched notice (§4.1) and a plain list of the seven dimension names (no bars, no scores) that picks panels the same way, and the summary band has no classification; phones show only the notice, since the accordion headings name the dimensions. Each panel still carries its "Who makes it" entries.
+- **Confidence D:** no profile: the left column shows the hatched notice (§4.1) and a plain list of the seven dimension names (no bars, no scores) that picks panels the same way, and the summary band has no classification; phones show only the notice, since the accordion headings name the dimensions. Panels show no score: the heading carries the dimension code and name, and the level line reads "No published score" (never "MA 0" or "0 of 5"). Each panel still carries its rationale, "Who makes it" entries and evidence.
 - **Compare versions:** a simple two-column view of the 7 rows for version N and version N−1, with changed rows marked by a gilt left rule, and the change note above.
 
 ### 5.4 Methodology

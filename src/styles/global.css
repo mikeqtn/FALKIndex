@@ -308,6 +308,7 @@ dl.pairs dd { margin: 0; }
 .src > *::before { content: '·'; position: absolute; left: 0; width: var(--dot); text-align: center; color: var(--c-ink-2); }
 .makers { max-width: 46rem; }
 .ev-panel blockquote.excerpt { max-width: var(--measure); }
+.ev-panel .prose, .ev-panel blockquote.excerpt, .no-profile p { text-wrap: pretty; }
 @media (max-width: 639px) {
   .ev-panel summary { grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; }
   .ev-panel .body { padding-left: var(--s-5); }
@@ -320,13 +321,16 @@ dl.pairs dd { margin: 0; }
      record page), so switching never moves what is below; its heading is a label rather than a toggle. */
   .pick.ev-js .ev-panel:not(.is-current) { display: none; }
   .pick.ev-js .ev-panel { min-height: var(--side-h, auto); }
-  .pick.ev-js .ev-panel summary { cursor: default; min-height: 0; padding: var(--s-6) var(--s-6) var(--s-5); }
+  /* The code sits beside the name and the level line runs under both, so the body starts at the panel's own edge. */
+  .pick.ev-js .ev-panel summary { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s-3); cursor: default; min-height: 0; padding: var(--s-6) var(--s-6) var(--s-5); }
+  .pick.ev-js .ev-panel .sum-text { display: contents; }
+  .pick.ev-js .ev-panel .lvl { grid-column: 1 / -1; }
   .pick.ev-js .ev-panel summary::after { content: none; }
   .pick.ev-js .ev-panel:hover { background: var(--c-surface); }
-  .pick.ev-js .ev-panel .code { font-size: 30px; }
+  .pick.ev-js .ev-panel .code { font-size: 24px; line-height: 1.15; }
   .pick.ev-js .ev-panel .sum-text b { font-size: 24px; line-height: 1.15; letter-spacing: -0.01em; }
   .pick.ev-js .ev-panel .lvl { margin-top: var(--s-2); font-size: 16px; }
-  .pick.ev-js .ev-panel .body { padding: 0 var(--s-6) var(--s-7) calc(var(--s-6) + var(--ev-code) + var(--s-3)); }
+  .pick.ev-js .ev-panel .body { padding: 0 var(--s-6) var(--s-7); }
 }
 blockquote.excerpt { margin: var(--s-2) 0; padding-left: var(--s-4); border-left: 3px solid var(--c-ink); font: italic 400 18px/1.6 var(--f-serif); }
 .claim.contradicts blockquote.excerpt { border-left-color: var(--c-gilt); }
