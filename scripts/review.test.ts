@@ -7,7 +7,7 @@ import { pool } from '../server/db.ts';
 import { realm } from '../server/accounts.ts';
 import { correctionInput, saveCorrection } from '../server/corrections.ts';
 import { loadCatalogue } from '../server/catalogue.ts';
-import { anyArchetype, saveNewWatch } from '../server/newWatch.ts';
+import { anyArchetype, OPEN_PROPOSALS, saveNewWatch } from '../server/newWatch.ts';
 import { notifyAuthor } from '../server/notify.ts';
 import { replyInput, type Account } from '../src/accounts/contracts.ts';
 import { myContributions, replyToRequest, decideSubmission, listSubmissions, nextStatus, reviewDecision, reviewQuery, submissionDetail } from '../server/review.ts';
@@ -177,6 +177,58 @@ test('approving a new-watch proposal publishes it; it needs an archetype and ano
     await assert.rejects(db.query(`INSERT INTO falk_submission(author_id,target_kind,original_proposal,explanation,evidence)
       VALUES(NULL,'watch','{}','A guest proposal','[]')`),/falk_submission_guest_watch_only/);
     await db.query('ROLLBACK TO SAVEPOINT guest');
+  });
+});
+const proposeWatch = (who: {id: string; username: string}, brand: string, model: string, live: Awaited<ReturnType<typeof loadCatalogue>>, db: PoolClient) =>
+  saveNewWatch({id:who.id,username:who.username} as Account,{
+    brand:{id:brand}, model, explanation:'A model FALK does not list yet.',
+    claims:[{statement:'The brand states the case is made in-house.',url:'https://example.com/case',sourceType:'manufacturer',dimensions:['EX']}],
+  },live,db);
+test('a member has a few proposals waiting at a time, more once one has been accepted', async () => {
+  await rolledBack(async db => {
+    const author = await member(db,'contributor');
+    const editor = await member(db,'editor');
+    const live = await loadCatalogue();
+    const brand = (await db.query('SELECT id FROM falk_organization WHERE id IN (SELECT brand_id FROM falk_watch) ORDER BY id LIMIT 1')).rows[0].id;
+    const propose = () => proposeWatch(author,brand,`Capped ${randomUUID().slice(0,8)}`,live,db);
+    const first = await propose();
+    for (let i = 1; i < OPEN_PROPOSALS.first; i++) await propose();
+    await assert.rejects(propose(),/waiting for an editor/);
+    await decideSubmission(editor.id,first.id,{action:'reject',expectedStatus:'pending',note}, db);
+    await propose();
+    await assert.rejects(propose(),/waiting for an editor/,'a rejection frees a place but does not raise the cap');
+    const accepted = (await db.query(`SELECT id FROM falk_submission WHERE author_id=$1 AND status='pending' ORDER BY created_at LIMIT 1`, [author.id])).rows[0].id;
+    await decideSubmission(editor.id,accepted,{action:'approve',expectedStatus:'pending',note,archetype:anyArchetype(live)},db);
+    for (let open = OPEN_PROPOSALS.first - 1; open < OPEN_PROPOSALS.trusted; open++) await propose();
+    await assert.rejects(propose(),/waiting for an editor/);
+  });
+});
+test('the review shows the submitter\'s disclosed ties, their record of decisions, and likely duplicates', async () => {
+  await rolledBack(async db => {
+    const author = await member(db,'contributor');
+    const other = await member(db,'contributor');
+    const editor = await member(db,'editor');
+    const live = await loadCatalogue();
+    const watch = live.watches[0];
+    const competitor = [...live.orgs.keys()].find(id => id !== watch.brand)!;
+    // Ties to this brand and a competitor, and one that ended before the proposal, which does not count.
+    await db.query(`INSERT INTO falk_affiliation(account_id,organization_id,disclosed_at,ended_at) VALUES($1,$2,now(),NULL),($1,$3,now(),NULL),
+      ($1,$4,now()-interval '2 years',now()-interval '1 year')`, [author.id,watch.brand,competitor,[...live.orgs.keys()].find(id => id !== watch.brand && id !== competitor)]);
+    const earlier = await proposeWatch(author,watch.brand,`Earlier ${randomUUID().slice(0,8)}`,live,db);
+    await decideSubmission(editor.id,earlier.id,{action:'reject',expectedStatus:'pending',note},db);
+    const { id } = await proposeWatch(author,watch.brand,`${watch.model} Mark II`,live,db);
+    const rival = await proposeWatch(other,watch.brand,`${watch.model} Mk 2`,live,db);
+    const detail = (await submissionDetail(id,editor.id,db))!;
+    const name = (org: string) => live.orgs.get(org)!.name;
+    assert.deepEqual(detail.submitterTies,[{name:name(watch.brand),onThisSubmission:true},{name:name(competitor),onThisSubmission:false}]
+      .sort((a,b) => a.name.localeCompare(b.name)));
+    assert.deepEqual(detail.submitterHistory,{accepted:0,rejected:1,open:0},'this submission is not counted');
+    assert.ok(detail.similar.records.some(r => r.id === watch.id),'the published record it may duplicate');
+    assert.deepEqual(detail.similar.proposals.map(p => p.id),[rival.id],'and the other open proposal, not itself');
+    // A correction has no proposal to compare, and a guest has no ties or history.
+    const guest = (await guestCorrection(db)).submission;
+    const correction = (await submissionDetail(guest.id,editor.id,db))!;
+    assert.deepEqual([correction.submitterTies,correction.submitterHistory,correction.similar],[[],null,{records:[],proposals:[]}]);
   });
 });
 test('My contributions lists only your own submissions, with editor feedback and the record once it is live', async () => {

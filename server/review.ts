@@ -9,6 +9,8 @@ import { loadCatalogue } from './catalogue.ts';
 import { applyPublish } from '../scripts/publish-record.ts';
 import { buildNewWatch, isArchetype, planNewWatch } from './newWatch.ts';
 import { notifyAuthor } from './notify.ts';
+import { similarRecords } from '../src/lib/similar-records.ts';
+import { variant } from '../src/lib/data.ts';
 
 type Queryable = Pick<Pool | PoolClient, 'query'>;
 const EDITORS = ['editor','admin'] as const;
@@ -123,11 +125,11 @@ export async function myContributions(accountId: string, db: Queryable = pool): 
 }
 
 /**
- * Organizations the reviewer has disclosed ties to that the submission's brand,
+ * Organizations a member (the reviewer, or the submitter) has disclosed ties to that the submission's brand,
  * suppliers or target organization include. A tie ended after the submission
  * arrived still counts, so removing a disclosure cannot clear the conflict.
  */
-async function reviewerConflicts(db: Queryable, actorId: string, submissionId: string) {
+async function disclosedConflicts(db: Queryable, actorId: string, submissionId: string) {
   const rows = await db.query(`SELECT DISTINCT o.payload->>'name' AS name
     FROM falk_submission s JOIN falk_affiliation f ON f.account_id=$1
     JOIN falk_organization o ON o.id=f.organization_id
@@ -146,12 +148,49 @@ async function isSelfAuthored(db: Queryable, actorId: string, submission: {autho
   return !!(await db.query('SELECT 1 FROM falk_account_private WHERE account_id=$1 AND email=lower(trim($2))', [actorId,submission.submitter_email])).rowCount;
 }
 
+/** The submitter's disclosed ties, current or ended after they submitted (as for conflicts), marking the ones this submission is about. */
+async function submitterTies(db: Queryable, authorId: string | null, submissionId: string) {
+  if (!authorId) return [];
+  const onThis = new Set(await disclosedConflicts(db,authorId,submissionId));
+  const rows = await db.query(`SELECT DISTINCT o.payload->>'name' AS name FROM falk_submission s JOIN falk_affiliation f ON f.account_id=$1
+    JOIN falk_organization o ON o.id=f.organization_id
+    WHERE s.id=$2 AND (f.ended_at IS NULL OR f.ended_at>s.created_at) ORDER BY name`, [authorId,submissionId]);
+  return rows.rows.map(r => ({name:r.name as string,onThisSubmission:onThis.has(r.name)}));
+}
+
+/** How the submitter's other submissions were decided, so a run of rejections is visible to the next editor. */
+async function submitterHistory(db: Queryable, authorId: string | null, submissionId: string) {
+  if (!authorId) return null;
+  const row = (await db.query(`SELECT count(*) FILTER (WHERE status='approved')::int AS accepted,count(*) FILTER (WHERE status='rejected')::int AS rejected,
+    count(*) FILTER (WHERE status IN ('pending','needs_info'))::int AS open FROM falk_submission WHERE author_id=$1 AND id<>$2`, [authorId,submissionId])).rows[0];
+  return {accepted:row.accepted as number,rejected:row.rejected as number,open:row.open as number};
+}
+
+/** Published records and other open proposals the proposal may duplicate (see src/lib/similar-records.ts). */
+async function similarToProposal(db: Queryable, submissionId: string, proposal: {proposedId: string; input: any} | null) {
+  if (!proposal) return {records:[],proposals:[]};
+  const live = await loadCatalogue();
+  const brand = proposal.input.brand;
+  const name = 'id' in brand ? {brandId:brand.id as string,model:proposal.input.model as string} : {brandName:brand.name as string,model:proposal.input.model as string};
+  const records = live.watches.map(w => ({id:w.id,brand:w.brand,brandName:live.orgs.get(w.brand)?.name ?? w.brand,model:w.model,variant:variant(w)}));
+  const open = await db.query(`SELECT id,original_proposal AS p FROM falk_submission
+    WHERE id<>$1 AND status IN ('pending','needs_info') AND original_proposal->>'type'='new_watch' ORDER BY created_at,id`, [submissionId]);
+  const proposals = open.rows.map(r => ({id:r.id as string,brand:String(r.p.proposedId).split('/')[0],
+    brandName:'id' in r.p.input.brand ? live.orgs.get(r.p.input.brand.id)?.name ?? '' : r.p.input.brand.name,model:r.p.input.model,variant:r.p.input.reference ?? ''}));
+  return {
+    records:similarRecords(records,name).map(r => ({id:r.id,name:`${r.brandName} ${r.model}`,variant:r.variant})),
+    proposals:similarRecords(proposals,name).map(r => ({id:r.id,name:`${r.brandName} ${r.model}`})),
+  };
+}
+
 export async function submissionDetail(id: string, actorId: string, db: Queryable = pool): Promise<ReviewDetail | null> {
   const row = (await db.query(`SELECT ${summaryColumns},s.explanation,s.evidence,s.submitter_email,s.original_proposal,
     s.original_proposal->>'submitterRole' AS submitter_role,
     (s.watch_id IS NOT NULL AND s.base_revision_id IS DISTINCT FROM w.current_revision_id) AS stale_base
     ${scope} AND s.id=$2`, [realm(),id])).rows[0];
   if (!row) return null;
+  const proposal = row.original_proposal?.type === 'new_watch'
+    ? {proposedId:row.original_proposal.proposedId as string,input:row.original_proposal.input} : null;
   const events = await db.query(`SELECT e.id,e.action,e.payload->>'note' AS note,e.payload->'evidence' AS evidence,e.created_at,
     coalesce('@'||a.username,'Editor') AS actor FROM falk_review_event e
     LEFT JOIN falk_account a ON a.id=e.actor_id WHERE e.submission_id=$1 ORDER BY e.created_at,e.id`, [id]);
@@ -162,10 +201,12 @@ export async function submissionDetail(id: string, actorId: string, db: Queryabl
     submitterRole:row.submitter_role,
     contact:row.author_id ? null : {name:row.submitter_name,email:row.submitter_email},
     authorUsername:row.username,staleBase:row.stale_base,
-    conflicts:await reviewerConflicts(db,actorId,id),
+    conflicts:await disclosedConflicts(db,actorId,id),
     selfAuthored:await isSelfAuthored(db,actorId,row),
-    proposal:row.original_proposal?.type === 'new_watch'
-      ? {proposedId:row.original_proposal.proposedId,input:row.original_proposal.input} : null,
+    submitterTies:await submitterTies(db,row.author_id,id),
+    submitterHistory:await submitterHistory(db,row.author_id,id),
+    proposal,
+    similar:await similarToProposal(db,id,proposal),
     events:events.rows.map(e => ({id:e.id,action:e.action,note:e.note ?? '',evidence:links(e.evidence),createdAt:e.created_at.toISOString(),actor:e.actor})),
   };
 }
@@ -184,7 +225,7 @@ export async function decideSubmission(actorId: string, id: string, input: z.inf
     ${scope} AND s.id=$2 FOR UPDATE OF s`, [realm(),id])).rows[0];
   if (!submission) throw new HttpError(404,'Submission not found.');
   if (await isSelfAuthored(db,actorId,submission)) throw new HttpError(403,'Another editor must review your own submission.');
-  const conflicts = await reviewerConflicts(db,actorId,id);
+  const conflicts = await disclosedConflicts(db,actorId,id);
   if (conflicts.length) throw new HttpError(403,`You have a disclosed relationship with ${conflicts.join(', ')}. Another editor must review this submission.`);
   if (submission.status !== input.expectedStatus) throw new HttpError(409,'Another editor changed this submission while you were reviewing it. Reload it and review again.');
   if (input.action === 'request_info' && !submission.author_id && !submission.submitter_email) {

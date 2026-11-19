@@ -118,6 +118,12 @@ export interface ReviewDetail extends ReviewSummary {
   contact: { name: string | null; email: string | null } | null;
   authorUsername: string | null; staleBase: boolean;
   conflicts: string[]; selfAuthored: boolean;
+  /** Organizations the submitter had disclosed ties to when submitting; onThisSubmission when it is about one of them. */
+  submitterTies: { name: string; onThisSubmission: boolean }[];
+  /** How the submitter's other submissions were decided; null for a guest. */
+  submitterHistory: { accepted: number; rejected: number; open: number } | null;
+  /** For a new-watch proposal, published records and other open proposals it may duplicate. */
+  similar: { records: { id: string; name: string; variant: string }[]; proposals: { id: string; name: string }[] };
   /** Set for a new-watch proposal: what was sent, and the record id it will publish to. */
   proposal: { proposedId: string; input: NewWatchInput } | null;
   events: { id: string; action: ReviewEventAction; note: string; evidence: string[]; createdAt: string; actor: string }[];
