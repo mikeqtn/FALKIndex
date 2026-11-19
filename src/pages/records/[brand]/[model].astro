@@ -14,7 +14,7 @@ import { forumHref } from '../../../lib/forum.ts';
 import { recordThreadCount } from '../../../../server/forum.ts';
 import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
-const { classification, records } = await getCatalogue(Astro.locals);
+const { classification, dimension, records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
 if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
@@ -48,6 +48,7 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
     <div class="actions rec-actions">
       <a class="btn" href={correctionUrl(r.id)}>Send a correction</a>
       <a href={forumHref(`/records/${r.id}/`)}>Discuss this record{discussions ? ` (${discussions})` : ''}</a>
+      <a href={`/records/${r.id}.json`}>Download JSON</a>
     </div>
     <nav class="rec-nav" aria-label="Sections of this record">
       {!noProfile && <a href="#profile">Profile</a>}
@@ -74,115 +75,133 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
     )
     : null}
 
-  <div class="grid-2 overview" id="profile">
-    {noProfile
-      ? <div class="no-profile"><p>Not enough evidence for a profile yet. Who makes each part is listed under each dimension below.</p></div>
-      : <div class="plate scroll profile-plate">
-          <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
-          <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
-        </div>}
+  {/* One grid for everything below the header: the profile picker on the left; the summary band, the evidence, the
+      history and the closing note in the main column. On wide screens the picker's rows choose the evidence panel
+      (EvidenceList's script). Narrow screens stack it all in one column with the summary first. */}
+  <div class="rec-grid">
+    <div class="rec-side">
+      {noProfile
+        ? (
+          <div class="rec-pick" data-picker>
+            <div class="no-profile"><p>Not enough evidence for a profile yet. Who makes each part is listed in each dimension's evidence.</p></div>
+            <nav class="plate dim-list" aria-label="Dimensions">
+              <ol>{DIMENSIONS.map(d => <li><a href={`#evidence-${d.toLowerCase()}`}><span class="dim-code">{d}</span><span>{dimension[d].label}</span></a></li>)}</ol>
+            </nav>
+          </div>
+        )
+        : (
+          <div class="plate scroll profile-plate rec-pick" id="profile" data-picker>
+            <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
+            <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
+          </div>
+        )}
+    </div>
 
-    <aside class="plate summary" aria-label="Summary">
-      {!noProfile && (
-        <div class="cls-block">
-          <h2 class="cls"><a href={archetypeUrl(p.classification[0])}>{classification(p.classification[0], p.methodology).name}</a></h2>
-          {p.classification.slice(1).map(c => <p class="muted">with <a href={archetypeUrl(c)}>{classification(c, p.methodology).name}</a> traits</p>)}
-          {ARCHETYPES[p.classification[0]] && <p class="cls-short">{ARCHETYPES[p.classification[0]].short}</p>}
+    <div class="rec-main">
+      {/* A short band: the verdict and its notes on the left, the facts on the right, so all of it is on the first
+          screen beside the picker. */}
+      <aside class="plate summary" aria-label="Summary">
+        <div class="sum-lead">
+        {!noProfile && (
+          <div class="cls-block">
+            <h2 class="cls"><a href={archetypeUrl(p.classification[0])}>{classification(p.classification[0], p.methodology).name}</a></h2>
+            {p.classification.slice(1).map(c => <p class="muted">with <a href={archetypeUrl(c)}>{classification(c, p.methodology).name}</a> traits</p>)}
+            {ARCHETYPES[p.classification[0]] && <p class="cls-short">{ARCHETYPES[p.classification[0]].short}</p>}
+          </div>
+        )}
+        {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches. <a href={archetypeUrl(DESCRIPTOR.code)}>About this descriptor</a></p>}
+        {/* Right of reply: on every record, profile or not (site.test.ts checks it). */}
+        <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
+        {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
         </div>
+        <dl class="facts">
+          <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
+          <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
+          <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
+        </dl>
+      </aside>
+
+      <section class="block evidence-section" id="evidence">
+        <div class="h2-row">
+          <h2>Evidence by dimension</h2>
+          <button class="btn secondary" type="button" id="open-all" hidden>Open all</button>
+        </div>
+        <EvidenceList profile={p} record={r} idPrefix="evidence" />
+      </section>
+
+      {r.draft && (
+        <section class="block" id="draft">
+          <h2>Draft under review</h2>
+          <div class="provisional draft-note" role="note">
+            <p><b>Version {r.draft.version} has not been checked by an editor yet.</b> It does not change the published profile above until it is approved.</p>
+            <p class="small">{r.draft.change_note}</p>
+          </div>
+          <div class="plate scroll">
+            <ProfileStrip caption="Published and draft profiles" columns={[
+              { label: `Published, version ${p.version}`, scores: p.scores },
+              { label: `Draft, version ${r.draft.version}`, scores: r.draft.scores },
+            ]} />
+          </div>
+          <h3 class="draft-h">Draft evidence by dimension</h3>
+          <EvidenceList profile={r.draft} record={r} idPrefix="draft-evidence" />
+        </section>
       )}
-      {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches. <a href={archetypeUrl(DESCRIPTOR.code)}>About this descriptor</a></p>}
-      <dl class="facts">
-        <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>
-        <div><dt>Version</dt><dd>{p.version}, updated {fmtDate(p.created_on)}</dd></div>
-        <div><dt>Scored with</dt><dd><a href="/methodology/">Methodology {p.methodology}</a></dd></div>
-      </dl>
-      {/* Right of reply: on every record, profile or not (site.test.ts checks it). */}
-      <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
-      {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
-    </aside>
+
+      <section class="block" id="history">
+        <h2>History</h2>
+        {(() => {
+          const entry = (v: typeof p) => {
+            const prev = r.profiles.find(x => x.version === v.version - 1);
+            const dims = prev ? DIMENSIONS.filter(d => prev.scores[d].value !== v.scores[d].value) : [];
+            const changes = prev ? [
+              ...dims.map(d => `${d} ${prev.scores[d].value ?? 'U'} → ${v.scores[d].value ?? 'U'}`),
+              ...(prev.confidence !== v.confidence ? [`evidence ${prev.confidence} → ${v.confidence}`] : []),
+              ...(prev.classification.join() !== v.classification.join() ? ['classification'] : []),
+            ] : [];
+            return (
+              <li>
+                <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {editorName(v.editor)}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
+                {prev && <p class="small">{changes.length ? `Changed from version ${prev.version}: ${changes.join(', ')}.` : `No changes to scores, evidence grade or classification from version ${prev.version}.`}</p>}
+                <p class="prose">{v.change_note}</p>
+                {prev && (
+                  <details class="compare">
+                    <summary>Compare with version {prev.version}</summary>
+                    <div class="plate scroll">
+                      <ProfileStrip caption={`Version ${prev.version} and version ${v.version}`} marked={dims} columns={[
+                        { label: `Version ${prev.version}`, scores: prev.scores },
+                        { label: `Version ${v.version}`, scores: v.scores },
+                      ]} />
+                    </div>
+                  </details>
+                )}
+              </li>
+            );
+          };
+          const [latest, ...earlier] = [...r.profiles].reverse();
+          return (
+            <>
+              <ol class="history">{entry(latest)}</ol>
+              {earlier.length > 0 && (
+                <details class="earlier">
+                  <summary>Earlier versions ({earlier.length})</summary>
+                  <ol class="history">{earlier.map(entry)}</ol>
+                </details>
+              )}
+            </>
+          );
+        })()}
+      </section>
+
+      {(!photos.front && !photos.back) || r.notes
+        ? (
+          <div class="rec-close small muted">
+            {!photos.front && !photos.back && <p>No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
+            {r.notes && <p>{r.notes}</p>}
+          </div>
+        )
+        : null}
+    </div>
   </div>
-
-  <section class="block evidence-section" id="evidence">
-    <div class="h2-row">
-      <h2>Evidence by dimension</h2>
-      <button class="btn secondary" type="button" id="open-all" hidden>Open all</button>
-    </div>
-    <EvidenceList profile={p} record={r} idPrefix="evidence" />
-  </section>
-
-  {r.draft && (
-    <section class="block" id="draft">
-      <h2>Draft under review</h2>
-      <div class="provisional draft-note" role="note">
-        <p><b>Version {r.draft.version} has not been checked by an editor yet.</b> It does not change the published profile above until it is approved.</p>
-        <p class="small">{r.draft.change_note}</p>
-      </div>
-      <div class="plate scroll">
-        <ProfileStrip caption="Published and draft profiles" columns={[
-          { label: `Published, version ${p.version}`, scores: p.scores },
-          { label: `Draft, version ${r.draft.version}`, scores: r.draft.scores },
-        ]} />
-      </div>
-      <h3 class="draft-h">Draft evidence by dimension</h3>
-      <EvidenceList profile={r.draft} record={r} idPrefix="draft-evidence" />
-    </section>
-  )}
-
-  <section class="block" id="history">
-    <h2>History</h2>
-    {(() => {
-      const entry = (v: typeof p) => {
-        const prev = r.profiles.find(x => x.version === v.version - 1);
-        const dims = prev ? DIMENSIONS.filter(d => prev.scores[d].value !== v.scores[d].value) : [];
-        const changes = prev ? [
-          ...dims.map(d => `${d} ${prev.scores[d].value ?? 'U'} → ${v.scores[d].value ?? 'U'}`),
-          ...(prev.confidence !== v.confidence ? [`evidence ${prev.confidence} → ${v.confidence}`] : []),
-          ...(prev.classification.join() !== v.classification.join() ? ['classification'] : []),
-        ] : [];
-        return (
-          <li>
-            <p><b>Version {v.version}</b> <span class="small">{fmtDate(v.created_on)}, {editorName(v.editor)}</span>{v.status !== 'published' && <span class="small muted"> ({v.status})</span>}</p>
-            {prev && <p class="small">{changes.length ? `Changed from version ${prev.version}: ${changes.join(', ')}.` : `No changes to scores, evidence grade or classification from version ${prev.version}.`}</p>}
-            <p class="prose">{v.change_note}</p>
-            {prev && (
-              <details class="compare">
-                <summary>Compare with version {prev.version}</summary>
-                <div class="plate scroll">
-                  <ProfileStrip caption={`Version ${prev.version} and version ${v.version}`} marked={dims} columns={[
-                    { label: `Version ${prev.version}`, scores: prev.scores },
-                    { label: `Version ${v.version}`, scores: v.scores },
-                  ]} />
-                </div>
-              </details>
-            )}
-          </li>
-        );
-      };
-      const [latest, ...earlier] = [...r.profiles].reverse();
-      return (
-        <>
-          <ol class="history">{entry(latest)}</ol>
-          {earlier.length > 0 && (
-            <details class="earlier">
-              <summary>Earlier versions ({earlier.length})</summary>
-              <ol class="history">{earlier.map(entry)}</ol>
-            </details>
-          )}
-        </>
-      );
-    })()}
-  </section>
-
-  <section class="block use">
-    <h2>Use this record</h2>
-    <div class="actions">
-      <a href={correctionUrl(r.id)}>Send a correction</a>
-      <a href={forumHref(`/records/${r.id}/`)}>Discuss this record{discussions ? ` (${discussions})` : ''}</a>
-      <a href={`/records/${r.id}.json`}>Download JSON</a>
-    </div>
-    {!photos.front && !photos.back && <p class="small muted">No photos of this watch yet. Have one you can license to the index? <a href={correctionUrl(r.id)}>Send it with a correction</a>.</p>}
-    {r.notes && <p class="small muted">{r.notes}</p>}
-  </section>
 </Base>
 
 <style>
@@ -213,10 +232,58 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   }
   .brand-link { display: inline-block; padding: 12px 0; margin: -12px 0; font-size: 15px; font-weight: 500; text-decoration: none; }
   .brand-link:hover { text-decoration: underline; }
-  /* Each panel keeps its own height: a stretched profile left a blank band under the seven rows. */
-  .overview { align-items: start; }
+  /* One grid below the header (DESIGN.md §5.3): a 380px left column and the main column, one gap and one set of edges
+     for every section. Narrow screens stack it: summary, profile, evidence, history, closing note. */
+  .rec-grid { display: grid; gap: var(--s-4); }
+  .rec-side { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  .rec-main { min-width: 0; }
+  /* Narrow screens read the summary before the profile (DESIGN.md §5.3); the markup has the picker first for wide. */
+  /* Narrow: the two columns dissolve into one stack (summary, profile, evidence, history, note). */
+  @media (max-width: 1023px) {
+    .rec-side, .rec-main { display: contents; }
+    .rec-main > .summary { order: -1; }
+  }
+  @media (min-width: 1024px) {
+    .rec-grid { grid-template-columns: 380px minmax(0, 1fr); gap: var(--s-5); }
+    /* The summary is a short band above the evidence: the verdict and its notes beside the facts. */
+    .rec-main > .summary { grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-6); align-items: start; margin-bottom: var(--s-5); }
+    .rec-main > .evidence-section { padding-top: 0; }
+    /* Beside the picker the panel's own heading names the dimension; the section heading stays for assistive tech. */
+    .evidence-section .h2-row { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  }
+  /* Only the picker sticks, and only when the screen is tall enough to keep it whole. */
+  @media (min-width: 1024px) and (min-height: 761px) {
+    .rec-pick { position: sticky; top: calc(var(--nav-h) + var(--s-4)); }
+  }
   .profile-plate { display: grid; gap: var(--s-4); }
+  /* The profile as the picker: the selected row raised, its name underlined with the ruby selection line. */
+  @media (min-width: 1024px) {
+    .profile-plate { padding: var(--s-5) var(--s-2) var(--s-4); }
+    .profile-plate > p, .profile-plate :global(caption) { padding-inline: var(--s-3); }
+    .profile-plate :global(.strip) { width: 100%; }
+    .profile-plate :global(.strip th[scope="row"]) { padding-left: var(--s-3); }
+    .profile-plate :global(.strip .seg) { width: 14px; }
+    .profile-plate :global(.strip td.v) { padding-right: var(--s-3); }
+    .profile-plate :global(.strip td.name) { font-size: 15px; line-height: 1.25; }
+    .profile-plate :global(tr.link > *) { transition: background var(--d-quick) var(--ease); }
+    .profile-plate :global(tr.link > :first-child) { border-radius: var(--r-control) 0 0 var(--r-control); }
+    .profile-plate :global(tr.link > :last-child) { border-radius: 0 var(--r-control) var(--r-control) 0; }
+    .profile-plate :global(tr.link:hover > *) { background: color-mix(in srgb, var(--c-ink) 5%, var(--c-surface)); }
+    .profile-plate :global(tr.link:has(a[aria-current]) > *) { background: color-mix(in srgb, var(--c-ink) 10%, var(--c-surface)); }
+    .profile-plate :global(tr.link a[aria-current]) { font-weight: 560; text-decoration: underline 2px var(--c-action); text-underline-offset: 5px; }
+  }
+  /* Confidence D: no bars to draw, so the picker is the seven names. Phones read them as the accordion's headings. */
+  .rec-pick:not(.profile-plate) { display: grid; gap: var(--s-4); }
+  .dim-list { padding: var(--s-2); }
+  .dim-list ol { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+  .dim-list a { display: grid; grid-template-columns: 2.4em minmax(0, 1fr); align-items: center; min-height: 44px; padding: var(--s-2) var(--s-3); border-radius: var(--r-control); font-size: 15px; color: var(--c-ink); text-decoration: none; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .dim-list a:hover { background: color-mix(in srgb, var(--c-ink) 5%, var(--c-surface)); color: var(--c-action); }
+  .dim-list a[aria-current] { background: color-mix(in srgb, var(--c-ink) 10%, var(--c-surface)); font-weight: 560; }
+  .dim-list a[aria-current] span:last-child { text-decoration: underline 2px var(--c-action); text-underline-offset: 5px; }
+  .dim-code { font: 700 18px/1 var(--f-sans); font-stretch: 62%; }
+  @media (max-width: 1023px) { .dim-list { display: none; } }
   .summary { display: grid; align-content: start; gap: var(--s-5); }
+  .sum-lead { display: grid; gap: var(--s-3); align-content: start; }
   .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
   .cls a { color: var(--c-ink); text-decoration: none; }
   .cls a:hover { color: var(--c-action); text-decoration: underline; }
@@ -224,7 +291,7 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   .cls-block > * + * { margin-top: var(--s-1); }
   .iw { font-size: 15px; line-height: 1.5; padding: var(--s-3) var(--s-4); border-radius: var(--r-control); background: var(--c-surface-2); }
   .facts { display: grid; gap: 0; margin: 0; }
-  .facts div { display: grid; grid-template-columns: 8.5em 1fr; gap: var(--s-3); align-items: center; min-height: 44px; border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  .facts div { display: grid; grid-template-columns: 6.5em 1fr; gap: var(--s-3); align-items: center; min-height: 44px; border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
   .facts dt { font-size: 14px; color: var(--c-ink-2); }
   .facts dd { margin: 0; font-size: 15px; }
   @media (min-width: 1024px) { #open-all { display: none; } }
@@ -236,13 +303,26 @@ const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${sid
   .earlier { margin-top: var(--s-5); }
   .earlier > summary { cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; font-weight: 560; color: var(--c-ink); }
   .earlier[open] > summary { margin-bottom: var(--s-4); }
-  .use > * + * { margin-top: var(--s-3); }
+  .rec-close { margin-top: var(--s-8); max-width: var(--measure); }
+  .rec-close > * + * { margin-top: var(--s-2); }
   .draft-note { padding: var(--s-4) var(--s-5); margin-bottom: var(--s-5); max-width: var(--measure); }
   .draft-note > * + * { margin-top: var(--s-2); }
   .draft-h { margin: var(--s-6) 0 var(--s-4); }
 </style>
 
 <script>
+  // The picked panel is at least as tall as the left column (global.css reads --side-h), so the page below it holds
+  // still when the reader switches between a short panel and a long one.
+  const grid = document.querySelector<HTMLElement>('.rec-grid')!;
+  const side = [...document.querySelectorAll<HTMLElement>('.rec-side > *')];
+  const measure = () => {
+    const gap = parseFloat(getComputedStyle(side[0].parentElement!).rowGap) || 0;
+    grid.style.setProperty('--side-h', `${side.reduce((h, el) => h + el.offsetHeight, 0) + gap * (side.length - 1)}px`);
+  };
+  const sizes = new ResizeObserver(measure);
+  side.forEach(el => sizes.observe(el));
+  measure(); // at once, so the panel has its height before the observer's first report and does not grow on load
+
   // "Open all" is for the phone accordion; wide screens show one dimension at a time beside the list.
   const published = [...document.querySelectorAll<HTMLDetailsElement>('.evidence-section .ev-panel')];
   const btn = document.getElementById('open-all')!;
