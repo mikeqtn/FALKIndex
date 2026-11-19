@@ -3,9 +3,7 @@ import Base from '../layouts/Base.astro';
 import ProfileStrip from '../components/ProfileStrip.astro';
 import { correctionUrl, getCatalogue, recordUrl } from '../lib/data.ts';
 import { forumHref } from '../lib/forum.ts';
-import { DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED } from '../lib/publisher.ts';
-const { methodology, orgs, record, records, sources } = await getCatalogue(Astro.locals);
-const brandList = (ids: Set<string>) => new Intl.ListFormat('en').format([...ids].map(id => orgs.get(id)!.name).sort((a, b) => a.localeCompare(b)));
+const { methodology, record, records, sources } = await getCatalogue(Astro.locals);
 const archived = [...sources.values()].filter(s => s.archived_url).length;
 
 const example = record('fleming/series-1');
@@ -50,7 +48,7 @@ const contents = [
     <h2>Who publishes it</h2>
     <div class="body">
       <p>The FALK Index is published by Falk Watches, LLC, a Virginia limited liability company, 3130 Fairview Park Dr Ste 210, Falls Church, VA 22042.</p>
-      <p>Falk Watches is a watch retailer. It buys and sells new and pre-owned watches, so it can benefit financially from how brands are perceived. It deals directly with {brandList(DIRECT_BRANDS)}, and the records of those brands carry a note saying so. This list was last reviewed on {PUBLISHER_BRANDS_REVIEWED}.</p>
+      <p>Falk Watches is a watch retailer. It buys and sells new and pre-owned watches, so it can benefit financially from how brands are perceived.</p>
       <p>Brands cannot pay for placement or scores. There is no paid placement, no paid score improvement and no hidden sponsor weighting.</p>
     </div>
   </section>
