@@ -257,7 +257,7 @@ const shown = ['jn-shapiro/resurgence', 'tudor/black-bay-58', 'nomos/tangente-ne
       <ul class="open-facts">
         <li><b data-roll={records.length}>{records.length}</b><span>records</span></li>
         <li><b data-roll={orgs.size}>{orgs.size}</b><span>makers and suppliers</span></li>
-        <li><b data-roll={sources.size}>{sources.size}</b><span>sources, each archived</span></li>
+        <li><b data-roll={sources.size}>{sources.size}</b><span>sources, {[...sources.values()].filter(s => s.archived_url).length} archived</span></li>
         <li><b>CC BY-SA 4.0</b><span>data licence</span></li>
       </ul>
       <div class="actions">

@@ -15,6 +15,7 @@ const archived = all.filter(s => s.archived_url).length;
     <div>
       <h1>Sources</h1>
       <p class="lead">Every claim on this site links to one of these. Primary sources come from the manufacturer, workshop or a named supplier; secondary sources corroborate them.</p>
+      <p class="small">The whole list is in the dataset too: <a href="/data/">Data downloads</a>.</p>
     </div>
     <ul class="turned figures">
       <li><b data-roll={all.length}>{all.length}</b><span>sources from {groups.length} publishers</span></li>
@@ -29,66 +30,76 @@ const archived = all.filter(s => s.archived_url).length;
       <label class="sr-only" for="src-q">Find a source</label>
       <input id="src-q" type="search" placeholder="Find a source, publisher or record" autocomplete="off" />
     </div>
-    <div class="tiers" role="group" aria-label="Show sources">
+    <div class="seg" role="group" aria-label="Show sources">
       {[['all', 'All'], ['primary', 'Primary'], ['secondary', 'Secondary']].map(([v, label]) =>
-        <button type="button" class="tier-btn" data-tier={v} aria-pressed={v === 'all' ? 'true' : 'false'}>{label}</button>)}
+        <button type="button" class="seg-btn" data-tier={v} aria-pressed={v === 'all' ? 'true' : 'false'}>{label}</button>)}
+    </div>
+    <div class="seg" role="group" aria-label="Order">
+      {[['az', 'A to Z'], ['cited', 'Most cited']].map(([v, label]) =>
+        <button type="button" class="seg-btn" data-sort={v} aria-pressed={v === 'az' ? 'true' : 'false'}>{label}</button>)}
     </div>
     <p class="small muted" id="src-count" aria-live="polite"></p>
   </div>
 
   <div class="groups">
-    {groups.map(([name, list]) => (
-      <section class="group" data-group>
-        <h2 class="pub">{name}<span class="small muted">{list!.length === 1 ? '1 source' : `${list!.length} sources`}</span></h2>
-        <ul class="srcs">
-          {list!.map(s => {
-            const cites = citedBy(s.id);
-            return (
-              <li data-tier={s.tier}>
-                <a class="title" href={s.url}>{s.title ?? host(s.url)}</a>
-                <span class="small muted url">{host(s.url)}{new URL(s.url).pathname.replace(/\/$/, '')}</span>
-                {s.notes && <span class="small muted">{s.notes}</span>}
-                <span class="small meta">
-                  <span class:list={['tier', s.tier]}>{s.tier === 'primary' ? 'Primary' : 'Secondary'}, {SOURCE_TYPE[s.source_type]}</span>
-                  {s.archived_url ? <a href={s.archived_url}>Archived copy</a> : <span class="muted">No archived copy yet</span>}
-                </span>
-                {cites.length > 0
-                  ? <span class="small">Cited by {cites.length === 1 ? '1 record' : `${cites.length} records`}: {cites.map((w, i) => <>{i > 0 && ', '}{records.some(r => r.id === w.id) ? <a href={recordUrl(w.id)}>{orgs.get(w.brand)!.name} {w.model}</a> : <>{orgs.get(w.brand)!.name} {w.model} (not yet published)</>}</>)}</span>
-                  : <span class="small muted">Not yet cited by a claim</span>}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-    ))}
+    {groups.map(([name, list]) => {
+      const total = list!.reduce((n, s) => n + citedBy(s.id).length, 0);
+      return (
+        <section class:list={['group', { solo: list!.length === 1 }]} data-group data-cites={total}>
+          <h2 class="pub">{name}<span class="small muted">{list!.length === 1 ? '1 source' : `${list!.length} sources`}</span></h2>
+          <ul class="srcs">
+            {list!.map(s => {
+              const cites = citedBy(s.id);
+              return (
+                <li id={`source-${s.id}`} data-tier={s.tier} data-cites={cites.length}>
+                  <a class="title" href={s.url}>{s.title ?? host(s.url)}</a>
+                  <span class="small muted url">{host(s.url)}{new URL(s.url).pathname.replace(/\/$/, '')}</span>
+                  {s.notes && <span class="small muted">{s.notes}</span>}
+                  <span class="small meta">
+                    <span class:list={['tier', s.tier]}>{s.tier === 'primary' ? 'Primary' : 'Secondary'}, {SOURCE_TYPE[s.source_type]}</span>
+                    {s.archived_url ? <a href={s.archived_url}>Archived copy</a> : <span class="muted">No archived copy yet</span>}
+                  </span>
+                  {cites.length > 0
+                    ? <span class="small">Cited by {cites.length === 1 ? '1 record' : `${cites.length} records`}: {cites.map((w, i) => <>{i > 0 && ', '}{records.some(r => r.id === w.id) ? <a href={recordUrl(w.id)}>{orgs.get(w.brand)!.name} {w.model}</a> : <>{orgs.get(w.brand)!.name} {w.model} (not yet published)</>}</>)}</span>
+                    : <span class="small muted">Not yet cited by a claim</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
+    })}
     <p class="none" id="src-none" hidden>No source matches. <button type="button" class="link-btn" id="src-clear">Clear the search</button></p>
   </div>
 </Base>
 
 <style>
-  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin: 0; padding: var(--s-5); list-style: none; }
-  .figures li { display: grid; gap: var(--s-1); }
-  .figures b { font-size: clamp(44px, 4.4vw, 64px); line-height: .9; font-stretch: 66%; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-  .figures span { font-size: 15px; color: #C9D3E2; }
-
   .toolbar { position: sticky; top: var(--nav-h); z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-4); padding: var(--s-3) 0; background: var(--c-page); }
+  /* On phones the bar stays in place: sticky, its two rows would hold a quarter of the screen. */
+  @media (max-width: 1023px) { .toolbar { position: static; } }
   .find { flex: 1 1 320px; max-width: 480px; }
   .find input { width: 100%; }
-  .tiers { display: inline-flex; gap: 2px; padding: 3px; background: var(--c-surface); border-radius: var(--r-control); }
-  .tier-btn { font: 560 15px/1 var(--f-sans); min-height: 38px; padding: 0 var(--s-4); border: 0; border-radius: 6px; background: transparent; color: var(--c-ink-2); cursor: pointer; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
-  .tier-btn:hover { color: var(--c-ink); }
-  .tier-btn[aria-pressed="true"] { background: var(--c-surface-2); color: var(--c-ink); }
+  .seg { display: inline-flex; gap: 2px; padding: 3px; background: var(--c-surface); border-radius: var(--r-control); }
+  .seg-btn { font: 560 15px/1 var(--f-sans); min-height: 38px; padding: 0 var(--s-4); border: 0; border-radius: calc(var(--r-control) - 2px); background: transparent; color: var(--c-ink-2); cursor: pointer; transition: background var(--d-quick) var(--ease), color var(--d-quick) var(--ease); }
+  .seg-btn:hover { color: var(--c-ink); }
+  .seg-btn[aria-pressed="true"] { background: var(--c-surface-2); color: var(--c-ink); }
 
   .groups { padding-top: var(--s-5); }
   .group { display: grid; gap: var(--s-3) var(--s-7); padding: var(--s-6) 0; }
+  /* A publisher with one source takes one tight row, not a full section. */
+  .group.solo { padding: var(--s-2) 0; }
   @media (min-width: 1024px) {
     .group { grid-template-columns: 4fr 8fr; }
-    .pub { position: sticky; top: calc(var(--nav-h) + 76px); align-self: start; }
+    .group:not(.solo) .pub { position: sticky; top: calc(var(--nav-h) + 76px); }
+    .group.solo .pub { padding-top: var(--s-4); }
   }
-  .pub { display: grid; gap: var(--s-1); font-size: 24px; line-height: 1.15; font-stretch: 84%; font-weight: 620; letter-spacing: -0.015em; overflow-wrap: anywhere; }
-  .pub span { font-size: 14px; font-stretch: 100%; font-weight: 400; letter-spacing: 0; }
+  .pub { display: grid; align-self: start; align-content: start; gap: var(--s-1); font-size: 24px; line-height: 1.15; font-stretch: 84%; font-weight: 620; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+  .solo .pub { font-size: 19px; }
+  .pub span { font-size: var(--t-small); font-stretch: 100%; font-weight: 400; letter-spacing: 0; }
   .srcs { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; min-width: 0; }
-  .srcs li { display: grid; gap: var(--s-1); padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); overflow-wrap: anywhere; }
+  .srcs li { display: grid; gap: var(--s-1); padding: var(--s-4) var(--s-5); background: var(--c-surface); border-radius: var(--r-plate); overflow-wrap: anywhere; scroll-margin-top: calc(var(--nav-h) + 96px); transition: box-shadow var(--d-open) var(--ease); }
+  /* Arriving from a claim's "Cited by" link: the entry is ringed so it is found at once. */
+  .srcs li:target { box-shadow: inset 0 0 0 2px var(--c-action); }
   .srcs li > * { max-width: 72ch; }
   .srcs .title { font-size: 17px; font-weight: 560; }
   .meta { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-1); }
@@ -100,15 +111,24 @@ const archived = all.filter(s => s.archived_url).length;
 </style>
 
 <script>
-  // Find and filter: text matches the title, address, publisher or citing records; the tier narrows further.
+  // Find, filter and order: text matches the title, address, publisher or citing records; the tier narrows further;
+  // "Most cited" puts the publishers and sources that carry the most claims first. The URL keeps all three, so Back
+  // and a shared link return to the same view.
   const bar = document.querySelector<HTMLElement>('.toolbar')!;
   const q = document.getElementById('src-q') as HTMLInputElement;
   const count = document.getElementById('src-count')!;
   const none = document.getElementById('src-none')!;
-  const buttons = [...bar.querySelectorAll<HTMLButtonElement>('.tier-btn')];
+  const list = document.querySelector<HTMLElement>('.groups')!;
+  const tierBtns = [...bar.querySelectorAll<HTMLButtonElement>('[data-tier]')];
+  const sortBtns = [...bar.querySelectorAll<HTMLButtonElement>('[data-sort]')];
   const groups = [...document.querySelectorAll<HTMLElement>('[data-group]')];
+  const lists = groups.map(g => ({ ul: g.querySelector('ul')!, lis: [...g.querySelectorAll<HTMLElement>('li')] }));
   const items = groups.flatMap(g => [...g.querySelectorAll<HTMLElement>('li')].map(li => ({ li, text: `${g.querySelector('.pub')!.textContent} ${li.textContent}`.toLowerCase() })));
-  let tier = 'all';
+  const params = new URLSearchParams(location.search);
+  let tier = ['primary', 'secondary'].includes(params.get('tier')!) ? params.get('tier')! : 'all';
+  let sort = params.get('sort') === 'cited' ? 'cited' : 'az';
+  q.value = params.get('q') ?? '';
+  const by = (el: HTMLElement) => Number(el.dataset.cites);
   const apply = () => {
     const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
@@ -117,17 +137,33 @@ const archived = all.filter(s => s.archived_url).length;
       if (!li.hidden) shown++;
     }
     groups.forEach(g => { g.hidden = !g.querySelector('li:not([hidden])'); });
+    // Stable sorts over the alphabetical markup order, so "A to Z" is simply that order again.
+    const ordered = sort === 'cited' ? groups.toSorted((a, b) => by(b) - by(a)) : groups;
+    list.prepend(...ordered);
+    for (const { ul, lis } of lists) ul.append(...(sort === 'cited' ? lis.toSorted((a, b) => by(b) - by(a)) : lis));
     none.hidden = shown > 0;
     count.textContent = shown === items.length ? '' : `${shown} of ${items.length} sources`;
+    tierBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tier === tier)));
+    sortBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sort)));
+    const p = new URLSearchParams();
+    if (q.value.trim()) p.set('q', q.value.trim());
+    if (tier !== 'all') p.set('tier', tier);
+    if (sort !== 'az') p.set('sort', sort);
+    history.replaceState(null, '', `${location.pathname}${p.size ? `?${p}` : ''}${location.hash}`);
   };
+  // A link to one source must find it, whatever the saved filter says.
+  const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
   bar.hidden = false;
+  apply();
+  if (target?.hidden) { q.value = ''; tier = 'all'; apply(); }
+  target?.scrollIntoView({ block: 'start' });
   q.addEventListener('input', apply);
   bar.addEventListener('click', e => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.tier-btn');
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.seg-btn');
     if (!btn) return;
-    tier = btn.dataset.tier!;
-    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    if (btn.dataset.tier) tier = btn.dataset.tier;
+    if (btn.dataset.sort) sort = btn.dataset.sort;
     apply();
   });
-  document.getElementById('src-clear')!.addEventListener('click', () => { q.value = ''; apply(); q.focus(); });
+  document.getElementById('src-clear')!.addEventListener('click', () => { q.value = ''; tier = 'all'; apply(); q.focus(); });
 </script>

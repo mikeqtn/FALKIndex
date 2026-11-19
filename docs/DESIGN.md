@@ -375,7 +375,7 @@ PD  ▨▨▨▨▨  U   Product development       ← hatched, "Unknown" in tex
 | **Provisional banner** | Full-width gilt-tint band above the record header, ink text: "Provisional record. This profile comes from the v0.2 reference dataset; evidence for each dimension is still being attached." Link: "How records are evidenced". |
 | **Buttons** | Primary: ruby fill, inverse text, `--r-control`, Archivo `wght 560`. Secondary: ruby text with a 1.5px ruby outline. The label says exactly what happens ("Send correction", "Download CSV"). No trailing arrows. |
 | **Links** | Ruby, underlined with a 1px offset of 3px. Underline thickens to 2px on hover. |
-| **Nav** | Wordmark "FALK Index" in Archivo `wdth 68`, `wght 700`, 21px. Links: Records, Methodology, Sources, About; plus a search field that filters records. Active page: ruby 2px underline. On mobile, the links collapse behind a "Menu" button. |
+| **Nav** | Wordmark "FALK Index" in Archivo `wdth 68`, `wght 700`, 21px. Links: Records, Archetypes, Methodology, Sources, About, Forum; plus a search field that filters records. Data lives in the footer ("Data downloads"), the home page's open-data tile, About and Terms, not the top menu: most readers visit it once. Active page: ruby 2px underline. Below 1200px the links collapse behind a "Menu" button, so the row never pushes the account links off screen. |
 | **Footer** | Short and plain: methodology version (link), data licence, "No paid placement or sponsored scores", contact, and a "Send a correction" link. |
 
 ### 4.3 Archetype components
@@ -400,7 +400,7 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 
 ```
 ┌───────────────────────────────────────────────────────────────────┐
-│ FALK Index        Records  Methodology  Sources  About  [Search…] │
+│ FALK Index  Records Archetypes Methodology Sources About Forum [Search…] │
 ├───────────────────────────────────────────────────────────────────┤
 │                                                                   │
 │  How a watch is actually made,          J.N. Shapiro              │
@@ -662,8 +662,11 @@ Caliber Corner
                                               specialist reference
 ```
 
-- Grouped by publisher, alphabetical. "Archived copy" links to the Wayback snapshot.
-- **Mobile:** same list, single column. The tier and type move under the title.
+- Grouped by publisher, alphabetical, or "Most cited" first. A publisher with one source is a tight row, not a full section. "Archived copy" links to the Wayback snapshot.
+- Search, tier and order live in the URL (`?q=&tier=&sort=`), so Back and shared links keep the view.
+- Every source has an anchor, `/sources/#source-<id>`. Each claim on a record links to it ("Cited by N records", or "Source entry" when only that record cites it), and the entry is ringed in ruby when arrived at. A filter that would hide it is cleared.
+- The lead links to Data, and Data's "sources" figure links back here.
+- **Mobile:** same list, single column. The tier and type move under the title. The search bar scrolls with the page rather than sticking.
 
 ### 5.8 Send a correction
 
@@ -731,7 +734,7 @@ Full dataset
   Built 13 Oct 2026 from commit 1f2310e (link to the repo commit)
 
 Single records
-  Every record has a JSON link at the bottom of its page:
+  Every record has a JSON link in the actions at the top of its page:
   /records/jn-shapiro/resurgence.json
 
 Licence
@@ -741,7 +744,7 @@ Schema
   Field-by-field description (rendered from the Zod schemas)
 ```
 
-The CSV includes the seven dimension columns with `U` as an empty cell plus a `ma_unknown`-style flag. There's no total column.
+The CSV includes the seven dimension columns with `U` as an empty cell plus a `ma_unknown`-style flag. There's no total column. Under the CSV excerpt, a key names each column code (`ma` Movement architecture, …). The JSON button shows the file's size, measured from the same payload. A "Citing it" note gives the build date, commit, licence and URL. The figures panel's fourth count is the criteria per record; the licence is in its own note.
 
 ### 5.11 System states
 

@@ -1,34 +1,39 @@
-# Graph Report - falkindex  (2026-11-08)
+# Graph Report - falkindex  (2026-11-19)
 
 ## Corpus Check
-- 347 files · ~183,919 words
+- 340 files · ~254,301 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 34 file(s) not represented in the graph (top: .avif 20, .ttf 6, (none) 4)
 
 ## Summary
-- 5582 nodes · 7930 edges · 604 communities (602 shown, 2 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 80 edges (avg confidence: 0.87)
-- Token cost: 474,265 input · 0 output
+- 5952 nodes · 8651 edges · 607 communities (596 shown, 11 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 86 edges (avg confidence: 0.87)
+- Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `bfdc4c49`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - Forum Server & Threads
-- Host Routing & CSP
+- index.ts
 - Accounts & API Server
 - Record Schema & Publishing
-- Package Dependencies
+- dependencies
 - Archetypes & Pattern Strip
-- Catalogue Data & Evidence
+- data.ts
 - Review Queue & New Watch
-- Methodology Handbook & Site Docs
+- FALK Index (README)
 - Forum Pages & Layout
 - Forum Post Components
 - Clerk Auth Hosting
 - OG Image Generation
-- Account Contracts
+- handleAccountError
 - CI Validate Workflow
-- Record Pages & Photos
-- Account Editor App
-- Forum Image Uploads
+- site.test.ts
+- api
+- forum-images.test.ts
 - Methodology v0.2 Data
 - Watch data: iwc/ingenieur-automatic-40
 - Watch data: omega/speedmaster-moonwatch-3861
@@ -72,7 +77,7 @@
 - Watch data: vacheron-constantin/overseas
 - DECISIONS.md
 - package.json
-- CompactStrip.astro
+- messages.ts
 - Watch data: artur-akmaev/eternal-koi
 - Watch data: czapek/antarctique-sxh5
 - Watch data: jn-shapiro/infinity
@@ -83,15 +88,15 @@
 - Watch data: tudor/black-bay-58
 - Watch data: unimatic/modello-uno-sellita
 - Watch data: zrc/mn64-metal
-- MyContributionsApp.tsx
-- Watch data: a-lange-sohne/lange-1
-- Watch data: akrivia/ak-06
-- Watch data: atelier-wen/perception-v3
-- Watch data: de-bethune/db25
+- MessagesDock.tsx
+- scores
+- claim
+- scores
+- claim
 - Watch data: rexhep-rexhepi/chronometre-contemporain (2)
-- Watch data: studio-underd0g/01series-gen3
+- scores
 - Watch data: studio-underd0g/03series (2)
-- ModerationApp.tsx
+- react
 - index.astro
 - Watch data: a-lange-sohne/lange-1 (2)
 - Watch data: akrivia/ak-06 (2)
@@ -147,7 +152,7 @@
 - Watch data: lesablier/travelgraph (2)
 - Watch data: lesablier/travelgraph (3)
 - Watch data: longines/spirit-zulu-time (2)
-- Watch data: longines/spirit-zulu-time (3)
+- scores
 - Watch data: longines/spirit-zulu-time (4)
 - Watch data: mbandf/lm-sequential-evo (2)
 - Watch data: mbandf/lm-sequential-evo (3)
@@ -177,32 +182,32 @@
 - Watch data: unimatic/modello-uno-sellita (2)
 - Watch data: vacheron-constantin/overseas (2)
 - Watch data: zrc/mn64-metal (2)
-- Watch data: zrc/mn64-metal (3)
+- scores
 - Watch data: zrc/mn64-metal (4)
 - PLAN.md
 - site-feedback.yml
 - watch.yml
-- inline-scripts.mjs
+- Base.astro
 - v0.2.yaml
-- Watch data: anordain/model-2-porcelain (2)
+- scores
 - Watch data: artur-akmaev/eternal-koi (3)
 - Watch data: czapek/antarctique-sxh5 (3)
-- Watch data: h-moser/endeavour-centre-seconds (2)
+- scores
 - Watch data: jn-shapiro/infinity (3)
-- Watch data: jn-shapiro/infinity-radiant (2)
-- Watch data: laine/p37 (3)
+- scores
+- scores
 - Watch data: laurent-ferrier/classic-micro-rotor (4)
 - Watch data: lesablier/chronosport (4)
 - Watch data: ophion/oph-786-velos (3)
 - Watch data: oris/aquis-calibre-400 (2)
 - Watch data: tudor/black-bay-58 (3)
-- Watch data: unimatic/modello-uno-sellita (3)
+- scores
 - EDITORIAL.md
 - DESIGN.md
 - DESIGN.md (2)
-- Watch data: anordain/model-1-fume (3)
-- Watch data: awake/son-mai-guilloche-main (3)
-- Watch data: fp-journe/chronometre-souverain (3)
+- scores
+- scores
+- scores
 - Watch data: jn-shapiro/infinity-radiant (3)
 - Watch data: kudoke/kudoke-2 (4)
 - Watch data: oris/aquis-calibre-400 (3)
@@ -215,17 +220,17 @@
 - grand-seiko.yaml
 - rolex.yaml
 - tudor.yaml
-- Watch data: a-lange-sohne/lange-1 (3)
-- Watch data: akrivia/ak-06 (3)
+- claim
+- WE
 - Watch data: anordain/model-1-fume (4)
 - Watch data: anordain/model-2-porcelain (3)
-- Watch data: atelier-wen/perception-v3 (3)
+- claim
 - Watch data: awake/son-mai-guilloche-main (4)
-- Watch data: de-bethune/db25 (3)
-- Watch data: fp-journe/chronometre-souverain (4)
-- Watch data: h-moser/endeavour-centre-seconds (3)
+- WE
+- WE
+- claim
 - Watch data: iwc/ingenieur-automatic-40 (4)
-- Watch data: laine/p37 (4)
+- db.ts
 - Watch data: ophion/oph-786-velos (4)
 - Watch data: philippe-dufour/simplicity (4)
 - Watch data: rexhep-rexhepi/chronometre-contemporain (4)
@@ -251,98 +256,98 @@
 - Watch data: a-lange-sohne/lange-1 (5)
 - Watch data: akrivia/ak-06 (4)
 - Watch data: akrivia/ak-06 (5)
-- Watch data: anordain/model-1-fabrik (4)
+- WE
 - Watch data: anordain/model-1-fabrik (5)
 - Watch data: anordain/model-1-fume (5)
 - Watch data: anordain/model-2-porcelain (4)
 - Watch data: anordain/model-2-porcelain (5)
 - Watch data: artur-akmaev/eternal-koi (4)
 - Watch data: atelier-wen/perception-mu (4)
-- Watch data: atelier-wen/perception-mu (5)
+- WE
 - Watch data: atelier-wen/perception-v3 (4)
 - Watch data: atelier-wen/perception-v3 (5)
 - Watch data: audemars-piguet/royal-oak-16202 (3)
-- Watch data: audemars-piguet/royal-oak-16202 (4)
+- WE
 - Watch data: audemars-piguet/royal-oak-16202 (5)
 - Watch data: awake/son-mai-guilloche-main (5)
-- Watch data: baltic/aquascaphe (4)
+- CF
 - Watch data: baltic/aquascaphe (5)
-- Watch data: breitling/chronomat-b01 (3)
+- scores
 - Watch data: breitling/chronomat-b01 (4)
 - Watch data: breitling/chronomat-b01 (5)
-- Watch data: cartier/santos-1847-mc (3)
+- scores
 - Watch data: cartier/santos-1847-mc (4)
 - Watch data: cartier/santos-1847-mc (5)
 - Watch data: christopher-ward/c1-bel-canto (4)
-- Watch data: christopher-ward/c1-bel-canto (5)
+- WE
 - Watch data: christopher-ward/the-twelve (4)
-- Watch data: christopher-ward/the-twelve (5)
+- WE
 - Watch data: czapek/antarctique-sxh5 (4)
 - Watch data: de-bethune/db25 (4)
-- Watch data: farer/three-hand-automatic (3)
+- scores
 - Watch data: farer/three-hand-automatic (4)
 - Watch data: farer/three-hand-automatic (5)
 - Watch data: fleming/series-1 (4)
-- Watch data: fleming/series-1 (5)
+- WE
 - Watch data: fp-journe/chronometre-souverain (5)
 - Watch data: grand-seiko/9f-quartz (3)
-- Watch data: grand-seiko/9f-quartz (4)
+- evidence
 - Watch data: grand-seiko/9f-quartz (5)
-- Watch data: grand-seiko/spring-drive-9r (3)
+- scores
 - Watch data: grand-seiko/spring-drive-9r (4)
 - Watch data: h-moser/endeavour-centre-seconds (4)
 - Watch data: h-moser/endeavour-centre-seconds (5)
 - Watch data: habring2/erwin (3)
-- Watch data: habring2/erwin (4)
+- WE
 - Watch data: habring2/five-minute-repeater (4)
-- Watch data: habring2/five-minute-repeater (5)
+- WE
 - Watch data: jaeger-lecoultre/reverso-tribute (4)
-- Watch data: jaeger-lecoultre/reverso-tribute (5)
+- WE
 - Watch data: jn-shapiro/infinity (4)
 - Watch data: jn-shapiro/infinity-radiant (4)
 - Watch data: jn-shapiro/resurgence (4)
-- Watch data: jn-shapiro/resurgence (5)
+- WE
 - Watch data: kudoke/kudoke-2 (5)
 - Watch data: kurono-tokyo/chronograph-miyota (3)
-- Watch data: kurono-tokyo/chronograph-miyota (4)
+- WE
 - Watch data: laine/p37 (5)
 - Watch data: laurent-ferrier/classic-micro-rotor (5)
 - Watch data: lesablier/chronosport (5)
 - Watch data: lesablier/travelgraph (4)
-- Watch data: lesablier/travelgraph (5)
+- WE
 - Watch data: longines/spirit-zulu-time (5)
 - Watch data: mbandf/lm-sequential-evo (4)
-- Watch data: mbandf/lm-sequential-evo (5)
+- WE
 - Watch data: ming/37-02-minimalist (4)
-- Watch data: ming/37-02-minimalist (5)
+- WE
 - Watch data: moritz-grossmann/benu (4)
-- Watch data: moritz-grossmann/benu (5)
+- WE
 - Watch data: nomos/tangente-neomatik (3)
-- Watch data: nomos/tangente-neomatik (4)
+- WE
 - Watch data: nomos/tangente-neomatik (5)
 - Watch data: omega/speedmaster-moonwatch-3861 (3)
 - Watch data: ophion/oph-786-velos (5)
 - Watch data: oris/aquis-calibre-400 (4)
 - Watch data: rexhep-rexhepi/chronometre-contemporain (5)
 - Watch data: roger-w-smith/series-2 (4)
-- Watch data: roger-w-smith/series-2 (5)
-- Watch data: rolex/submariner-124060 (3)
+- WE
+- FALK Index v0.2 Methodology Handbook
 - Watch data: rolex/submariner-124060 (4)
 - Watch data: rolex/submariner-124060 (5)
 - Watch data: sartory-billard/sb05 (4)
-- Watch data: sartory-billard/sb05 (5)
-- Watch data: serica/5303-cosc (4)
+- WE
+- CF
 - Watch data: serica/5303-cosc (5)
 - Watch data: studio-underd0g/01series-gen3 (5)
-- Watch data: tudor/black-bay-chrono (3)
+- scores
 - Watch data: tudor/black-bay-chrono (4)
 - Watch data: tudor/black-bay-chrono (5)
 - Watch data: unimatic/modello-uno-sellita (4)
 - Watch data: vacheron-constantin/overseas (3)
-- Watch data: vacheron-constantin/overseas (4)
+- WE
 - Watch data: zrc/mn64-metal (5)
 - ACCOUNTS-EDITORIAL-IMPLEMENTATION.md
-- index.astro (2)
+- data/index.astro
 - akrivia.yaml
 - artur-akmaev.yaml
 - atelier-wen.yaml
@@ -463,77 +468,77 @@
 - sellita.yaml
 - swatch-group.yaml
 - uwd.yaml
-- Watch data: a-lange-sohne/lange-1 (6)
-- Watch data: akrivia/ak-06 (6)
+- package.json
+- ref_node_assert
 - Watch data: anordain/model-2-porcelain (6)
-- Watch data: farer/three-hand-automatic (6)
-- Watch data: h-moser/endeavour-centre-seconds (6)
-- Watch data: nomos/tangente-neomatik (6)
+- express
+- check-excerpts.ts
+- clerk-host.test.ts
 - lesablier.yaml
 - zrc.yaml
-- Watch data: a-lange-sohne/lange-1 (7)
-- Watch data: akrivia/ak-06 (7)
+- csp.ts
+- hosts.test.ts
 - Watch data: anordain/model-1-fabrik (6)
 - Watch data: anordain/model-1-fabrik (7)
-- Watch data: anordain/model-1-fume (6)
+- page-limit.test.ts
 - Watch data: artur-akmaev/eternal-koi (7)
-- Watch data: atelier-wen/perception-mu (6)
+- support.test.ts
 - Watch data: atelier-wen/perception-mu (7)
 - Watch data: atelier-wen/perception-v3 (7)
-- Watch data: audemars-piguet/royal-oak-16202 (7)
-- Watch data: audemars-piguet/royal-oak-16202 (8)
-- Watch data: awake/son-mai-guilloche-main (6)
+- claim
+- scores
+- claim
 - Watch data: baltic/aquascaphe (6)
 - Watch data: baltic/aquascaphe (7)
-- Watch data: breitling/chronomat-b01 (7)
+- scores
 - Watch data: breitling/chronomat-b01 (8)
-- Watch data: cartier/santos-1847-mc (7)
+- Movement photograph credits (Wikimedia Commons)
 - Watch data: cartier/santos-1847-mc (8)
-- Watch data: christopher-ward/c1-bel-canto (6)
+- post-text.ts
 - Watch data: christopher-ward/c1-bel-canto (7)
-- Watch data: christopher-ward/the-twelve (6)
+- 03series.yaml
 - Watch data: christopher-ward/the-twelve (7)
 - Watch data: czapek/antarctique-sxh5 (7)
-- Watch data: de-bethune/db25 (7)
+- devDependencies
 - Watch data: farer/three-hand-automatic (7)
-- Watch data: farer/three-hand-automatic (8)
-- Watch data: fleming/series-1 (6)
+- WE
+- WE
 - Watch data: fleming/series-1 (7)
 - Watch data: fp-journe/chronometre-souverain (6)
-- Watch data: grand-seiko/9f-quartz (7)
+- EX
 - Watch data: grand-seiko/9f-quartz (8)
-- Watch data: grand-seiko/spring-drive-9r (7)
+- evidence
 - Watch data: grand-seiko/spring-drive-9r (8)
 - Watch data: habring2/erwin (7)
-- Watch data: habring2/erwin (8)
-- Watch data: habring2/five-minute-repeater (6)
+- scores
+- evidence
 - Watch data: habring2/five-minute-repeater (7)
 - Watch data: iwc/ingenieur-automatic-40 (5)
 - Watch data: iwc/ingenieur-automatic-40 (6)
 - Watch data: iwc/ingenieur-automatic-40 (7)
-- Watch data: jaeger-lecoultre/reverso-tribute (6)
+- evidence
 - Watch data: jaeger-lecoultre/reverso-tribute (7)
-- Watch data: jn-shapiro/infinity-radiant (7)
+- evidence
 - Watch data: jn-shapiro/infinity (7)
-- Watch data: jn-shapiro/resurgence (6)
+- WE
 - Watch data: jn-shapiro/resurgence (7)
 - Watch data: kudoke/kudoke-2 (6)
 - Watch data: kudoke/kudoke-2 (7)
 - Watch data: kurono-tokyo/chronograph-miyota (7)
-- Watch data: kurono-tokyo/chronograph-miyota (8)
+- scores
 - Watch data: laurent-ferrier/classic-micro-rotor (6)
 - Watch data: lesablier/chronosport (6)
-- Watch data: lesablier/travelgraph (6)
+- evidence
 - Watch data: lesablier/travelgraph (7)
-- Watch data: mbandf/lm-sequential-evo (6)
+- evidence
 - Watch data: mbandf/lm-sequential-evo (7)
-- Watch data: ming/37-02-minimalist (6)
+- evidence
 - Watch data: ming/37-02-minimalist (7)
-- Watch data: moritz-grossmann/benu (6)
+- evidence
 - Watch data: moritz-grossmann/benu (7)
 - Watch data: nomos/tangente-neomatik (7)
-- Watch data: nomos/tangente-neomatik (8)
-- Watch data: omega/speedmaster-moonwatch-3861 (6)
+- scores
+- scores
 - Watch data: omega/speedmaster-moonwatch-3861 (7)
 - Watch data: omega/speedmaster-moonwatch-3861 (8)
 - Watch data: oris/aquis-calibre-400 (7)
@@ -543,191 +548,194 @@
 - Watch data: philippe-dufour/simplicity (7)
 - Watch data: rexhep-rexhepi/chronometre-contemporain (6)
 - Watch data: rexhep-rexhepi/chronometre-contemporain (7)
-- Watch data: roger-w-smith/series-2 (6)
+- evidence
 - Watch data: roger-w-smith/series-2 (7)
-- Watch data: rolex/submariner-124060 (7)
+- scores
 - Watch data: rolex/submariner-124060 (8)
-- Watch data: sartory-billard/sb05 (6)
+- WE
 - Watch data: sartory-billard/sb05 (7)
 - Watch data: serica/5303-cosc (6)
 - Watch data: serica/5303-cosc (7)
-- Watch data: studio-underd0g/01series-gen3 (7)
-- Watch data: studio-underd0g/03series (5)
-- Watch data: studio-underd0g/03series (6)
+- evidence
+- evidence
+- scores
 - Watch data: studio-underd0g/03series (7)
 - Watch data: tudor/black-bay-58 (7)
-- Watch data: tudor/black-bay-chrono (7)
+- WE
 - Watch data: tudor/black-bay-chrono (8)
-- Watch data: unimatic/modello-uno-sellita (7)
+- evidence
 - Watch data: vacheron-constantin/overseas (7)
-- Watch data: vacheron-constantin/overseas (8)
+- scores
 - env.d.ts
 - front-1200.jpg
 - front-1200.jpg (2)
-- Watch data: a-lange-sohne/lange-1 (8)
+- evidence
 - Watch data: a-lange-sohne/lange-1 (9)
 - Watch data: akrivia/ak-06 (8)
-- Watch data: akrivia/ak-06 (9)
+- scores
 - Watch data: anordain/model-1-fume (7)
-- Watch data: anordain/model-1-fume (8)
-- Watch data: anordain/model-1-fume (9)
-- Watch data: anordain/model-2-porcelain (7)
-- Watch data: anordain/model-2-porcelain (8)
+- evidence
+- evidence
+- WE
+- evidence
 - Watch data: anordain/model-2-porcelain (9)
-- Watch data: anordain/model-2-porcelain (10)
-- Watch data: artur-akmaev/eternal-koi (8)
-- Watch data: atelier-wen/perception-v3 (8)
-- Watch data: atelier-wen/perception-v3 (9)
+- WE
+- evidence
+- CF
+- evidence
 - Watch data: awake/son-mai-guilloche-main (7)
-- Watch data: awake/son-mai-guilloche-main (8)
-- Watch data: awake/son-mai-guilloche-main (9)
-- Watch data: czapek/antarctique-sxh5 (8)
+- evidence
+- evidence
+- evidence
 - Watch data: de-bethune/db25 (8)
-- Watch data: de-bethune/db25 (9)
-- Watch data: fp-journe/chronometre-souverain (7)
-- Watch data: fp-journe/chronometre-souverain (8)
+- scores
+- evidence
+- evidence
 - Watch data: fp-journe/chronometre-souverain (9)
-- Watch data: h-moser/endeavour-centre-seconds (7)
-- Watch data: h-moser/endeavour-centre-seconds (8)
+- evidence
+- evidence
 - Watch data: h-moser/endeavour-centre-seconds (9)
-- Watch data: h-moser/endeavour-centre-seconds (10)
-- Watch data: jn-shapiro/infinity (8)
-- Watch data: jn-shapiro/infinity-radiant (8)
-- Watch data: laine/p37 (6)
-- Watch data: laine/p37 (7)
+- evidence
+- evidence
+- CF
+- DH
+- CLAUDE.md
 - Watch data: laine/p37 (8)
 - Watch data: laine/p37 (9)
 - Watch data: laurent-ferrier/classic-micro-rotor (7)
 - Watch data: lesablier/chronosport (7)
 - Watch data: longines/spirit-zulu-time (6)
-- Watch data: longines/spirit-zulu-time (7)
+- WE
 - Watch data: ophion/oph-786-velos (6)
-- Watch data: ophion/oph-786-velos (7)
-- Watch data: ophion/oph-786-velos (8)
-- Watch data: ophion/oph-786-velos (9)
-- Watch data: oris/aquis-calibre-400 (9)
-- Watch data: studio-underd0g/01series-gen3 (8)
-- Watch data: studio-underd0g/01series-gen3 (9)
+- PD
+- MM
+- WE
+- MM
+- @astrojs/react
+- httpxy
 - Watch data: tudor/black-bay-58 (8)
-- Watch data: unimatic/modello-uno-sellita (8)
-- Watch data: zrc/mn64-metal (6)
-- Watch data: zrc/mn64-metal (7)
+- react-dom@^19.3.1
+- sharp
+- @types/express@^5.0.6
 - favicon.svg
 - DESIGN.md (6)
+- @types/pg@^8.23.1
+- @types/react@^19.3.0
+- typescript@^7.0.2
 
 ## God Nodes (most connected - your core abstractions)
-1. `HttpError` - 46 edges
-2. `handleAccountError()` - 40 edges
+1. `HttpError` - 55 edges
+2. `handleAccountError()` - 44 edges
 3. `getCatalogue()` - 37 edges
-4. `api()` - 32 edges
-5. `realm()` - 27 edges
-6. `pool` - 24 edges
-7. `AuthProvider()` - 24 edges
-8. `authenticatedAccount()` - 20 edges
-9. `actor()` - 20 edges
-10. `audit()` - 19 edges
+4. `api()` - 36 edges
+5. `realm()` - 34 edges
+6. `actor()` - 30 edges
+7. `pool` - 27 edges
+8. `AuthProvider()` - 27 edges
+9. `authenticatedAccount()` - 22 edges
+10. `transaction()` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `FALK Profile (seven dimensions, 0-5 or U)` --semantically_similar_to--> `FALK Profile dimensions (MA MM EX DH CF WE PD)`  [INFERRED] [semantically similar]
   README.md → docs/FALK_Index_v0.2_Redesigned.pdf
-- `Corrections workflow` --implements--> `Open, community-regulated database principles`  [INFERRED]
-  README.md → docs/FALK_Index_v0.2_Redesigned.pdf
-- `Editor review queue (/editor/review, falk_submission, falk_review_event)` --implements--> `Open, community-regulated database principles`  [INFERRED]
-  replit.md → docs/FALK_Index_v0.2_Redesigned.pdf
 - `PR checklist (one watch per PR, validate, no AI excerpts, editor: ai-draft)` --conceptually_related_to--> `Example evidence record (claim, dimensions, source, excerpt, date checked, editor note)`  [INFERRED]
   .github/pull_request_template.md → docs/FALK_Index_v0.2_Redesigned.pdf
 - `Nomos DUW 6101 photos (Anil Oztas)` --conceptually_related_to--> `56-record reference dataset`  [INFERRED]
   public/images/movements/CREDITS.txt → docs/FALK_Index_v0.2_Redesigned.pdf
+- `Corrections workflow` --implements--> `Open, community-regulated database principles`  [INFERRED]
+  README.md → docs/FALK_Index_v0.2_Redesigned.pdf
+- `Editor review queue (/editor/review, falk_submission, falk_review_event)` --implements--> `Open, community-regulated database principles`  [INFERRED]
+  replit.md → docs/FALK_Index_v0.2_Redesigned.pdf
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Colour meaning system (one meaning per colour)** — docs_design_blued_steel_level_ramp, docs_design_ruby_action_color, docs_design_gilt_provisional_color, docs_design_unknown_hatching [EXTRACTED 1.00]
 - **Archetype vocabulary components** — docs_design_production_archetypes, docs_design_pattern_strip, docs_design_mini_pattern, docs_design_archetype_card, docs_design_archetypes_page, src_lib_archetypes [EXTRACTED 1.00]
-- **Evidence trail from score to source** — docs_design_profile_strip, docs_design_claim_entry, docs_design_source_tier, docs_design_relationship_tag, docs_design_watch_record_screen [INFERRED 0.85]
-- **Conflict-of-interest review controls** — docs_plan_brand_ties_conflict, docs_decisions_q13_reviewed_edits, docs_editorial_publisher_conflicts, docs_accounts_editorial_implementation_conflicts_and_overrides [INFERRED 0.85]
+- **Colour meaning system (one meaning per colour)** — docs_design_blued_steel_level_ramp, docs_design_ruby_action_color, docs_design_gilt_provisional_color, docs_design_unknown_hatching [EXTRACTED 1.00]
 - **Evidence chain from source to score** — docs_plan_source_table, docs_plan_claim_table, docs_plan_score_evidence_table, docs_plan_profile_score_table, docs_plan_profile_table [EXTRACTED 1.00]
-- **Storage migration from git YAML to Replit PostgreSQL** — docs_decisions_q1_git_backed_yaml, docs_decisions_q14_postgres_source_of_truth, docs_plan_replit_postgresql, docs_accounts_editorial_implementation_server_architecture, docs_accounts_editorial_implementation_deployment_rollout [INFERRED 0.85]
 - **FALK methodology: provenance -> profile -> confidence -> classification** — docs_falk_index_v0_2_redesigned_provenance_fields, docs_falk_index_v0_2_redesigned_falk_profile, docs_falk_index_v0_2_redesigned_evidence_confidence, docs_falk_index_v0_2_redesigned_classifications, docs_falk_index_v0_2_redesigned_usage_steps [EXTRACTED 1.00]
 - **Corrections and editorial review flow** — readme_corrections, replit_editor_review_queue, docs_falk_index_v0_2_redesigned_community_database, _github_pull_request_template_pr_checklist [INFERRED 0.75]
 - **Server request protections** — readme_page_rate_limit, readme_site_host_allowlist, readme_csp_policy, replit_forum_spam_controls [INFERRED 0.75]
+- **Conflict-of-interest review controls** — docs_plan_brand_ties_conflict, docs_decisions_q13_reviewed_edits, docs_editorial_publisher_conflicts, docs_accounts_editorial_implementation_conflicts_and_overrides [INFERRED 0.85]
+- **Evidence trail from score to source** — docs_design_profile_strip, docs_design_claim_entry, docs_design_source_tier, docs_design_relationship_tag, docs_design_watch_record_screen [INFERRED 0.85]
 - **Mechanical movement photo set** — public_images_movements_escapement_jewels_1600_escapement_jewels, public_images_movements_omega_1861_1600_omega_1861, public_images_movements_omega_321_1600_omega_321 [INFERRED 0.85]
+- **Storage migration from git YAML to Replit PostgreSQL** — docs_decisions_q1_git_backed_yaml, docs_decisions_q14_postgres_source_of_truth, docs_plan_replit_postgresql, docs_accounts_editorial_implementation_server_architecture, docs_accounts_editorial_implementation_deployment_rollout [INFERRED 0.85]
 - **Caseback photos of the same Tangente 4361 showing DUW 6101 (No. 17507)** — public_images_movements_nomos_duw_6101_angled_1600, public_images_movements_nomos_duw_6101_caseback_1600, public_images_watches_nomos_tangente_neomatik_back_1200 [INFERRED 0.95]
 
-## Communities (604 total, 2 thin omitted)
+## Communities (607 total, 11 thin omitted)
 
 ### Community 0 - "Forum Server & Threads"
-Cohesion: 0.05
-Nodes (76): members(), thread, audit(), deleteAccount(), HttpError, FORUM_THREADS_PER_HOUR, actor(), attachImages() (+68 more)
-
-### Community 1 - "Host Routing & CSP"
 Cohesion: 0.06
-Nodes (49): RFC-7230, express, serve(), policy(), serve(), address, app, missing (+41 more)
+Nodes (41): thread, FORUM_THREADS_PER_HOUR, body, categoryNames, IMAGE_CACHE, imageQuery, images, listAllThreads() (+33 more)
+
+### Community 1 - "index.ts"
+Cohesion: 0.23
+Nodes (11): RFC-7230, api, waitForDatabase(), attachProductionSite(), createApp(), securityHeaders(), start(), CLERK_PROXY_PATH (+3 more)
 
 ### Community 2 - "Accounts & API Server"
-Cohesion: 0.05
-Nodes (61): @clerk/express@^2.1.80, zod@^4.6.7, @clerk/express, zod, address, profile, server, withMember() (+53 more)
+Cohesion: 0.06
+Nodes (53): @clerk/express, address, profile, server, withMember(), members(), members(), guestCorrection() (+45 more)
 
 ### Community 3 - "Record Schema & Publishing"
 Cohesion: 0.07
-Nodes (40): dir, walk(), checked, checksum, applyPublish(), Catalogue, changedIds(), claimCore() (+32 more)
+Nodes (37): zod, checked, checksum, applyPublish(), Catalogue, changedIds(), claimCore(), claimEdited() (+29 more)
 
-### Community 4 - "Package Dependencies"
-Cohesion: 0.05
-Nodes (49): dependencies, astro@^7.3.8, @astrojs/node@^11.1.9, @astrojs/react@^7.1.0, @clerk/react@^6.17.8, @clerk/shared@^4.40.0, compression@^1.8.2, express@^5.3.0 (+41 more)
+### Community 4 - "dependencies"
+Cohesion: 0.11
+Nodes (18): dependencies, @astrojs/node@^11.1.9, @clerk/express@^2.1.80, @clerk/react@^6.17.8, compression@^1.8.2, express@^5.3.0, @fontsource-variable/source-serif-4@^5.3.1, pg@^8.23.1 (+10 more)
 
 ### Community 5 - "Archetypes & Pattern Strip"
-Cohesion: 0.07
-Nodes (39): Props, ArchetypeCopy, archetypeUrl(), Band, BAND_TEXT, browseUrl(), DESCRIPTOR, DimPattern (+31 more)
+Cohesion: 0.06
+Nodes (45): Props, avif, Props, ArchetypeCopy, archetypeUrl(), Band, BAND_TEXT, browseUrl() (+37 more)
 
-### Community 6 - "Catalogue Data & Evidence"
+### Community 6 - "data.ts"
 Cohesion: 0.07
-Nodes (29): claims, GROUPS, levels, Props, links, Props, signedIn, site (+21 more)
+Nodes (29): recordThreadCount(), Props, Props, Props, catalogue(), Catalogue, CONFIDENCE, correctionUrl() (+21 more)
 
 ### Community 7 - "Review Queue & New Watch"
-Cohesion: 0.10
-Nodes (38): pg, ctx, address, member(), server, realm(), anyArchetype(), buildNewWatch() (+30 more)
+Cohesion: 0.09
+Nodes (42): ctx, address, proposeWatch(), server, loadCatalogue(), querySeries(), anyArchetype(), buildNewWatch() (+34 more)
 
-### Community 8 - "Methodology Handbook & Site Docs"
-Cohesion: 0.06
-Nodes (31): PR checklist (one watch per PR, validate, no AI excerpts, editor: ai-draft), Caliber Corner (secondary source), FALK classifications (production archetypes), Edge cases (Shapiro, Fleming, Akmaev, AWAKE vs anOrdain, Czapek), Evidence confidence A-D, Example evidence record (claim, dimensions, source, excerpt, date checked, editor note), FALK Profile dimensions (MA MM EX DH CF WE PD), FALK Index v0.2 Methodology Handbook (+23 more)
+### Community 8 - "FALK Index (README)"
+Cohesion: 0.11
+Nodes (13): PR checklist (one watch per PR, validate, no AI excerpts, editor: ai-draft), Example evidence record (claim, dimensions, source, excerpt, date checked, editor note), Astro + Node/Express + PostgreSQL + Clerk stack, Check pipeline (validate, typecheck, build, test), Corrections workflow, FALK Index (README), Accounts/editorial phased scope (Phase 1), db:setup / db:import / db:export (+5 more)
 
 ### Community 9 - "Forum Pages & Layout"
-Cohesion: 0.10
-Nodes (26): navCategories(), pageQuery, Props, Thread, canonical, isDark(), Props, signedIn (+18 more)
+Cohesion: 0.07
+Nodes (37): listQuery, navCategories(), pageQuery, THREAD_SORTS, ThreadSort, pages, Props, quiet (+29 more)
 
 ### Community 10 - "Forum Post Components"
-Cohesion: 0.11
-Nodes (33): AccountCheck(), api(), imageUrl(), TYPES, useImagePicker(), FormSkeleton(), NewThreadForm(), Props (+25 more)
+Cohesion: 0.12
+Nodes (28): ModerationApp(), Queue(), Report, Props, ReasonDialog(), ReasonRequest, Author(), conversations() (+20 more)
 
 ### Community 11 - "Clerk Auth Hosting"
 Cohesion: 0.11
-Nodes (23): @clerk/react, clerkHostFor(), clerkProxyFor(), hostname(), isSubdomain(), Check(), AccountNavigation(), AccountNavigationInner() (+15 more)
+Nodes (24): @clerk/react, setSessionHint(), AccountMenu(), AccountNavigation(), AccountNavigationInner(), forget(), ICONS, Item() (+16 more)
 
 ### Community 12 - "OG Image Generation"
-Cohesion: 0.12
-Nodes (23): astro, getCatalogue(), C, DimensionLabels, esc(), FONT_DIR, fontFiles, png() (+15 more)
+Cohesion: 0.08
+Nodes (29): astro@^7.4.12, astro, getCatalogue(), C, DimensionLabels, esc(), FONT_DIR, fontFiles (+21 more)
 
-### Community 13 - "Account Contracts"
-Cohesion: 0.09
-Nodes (21): AdminMember, DIMENSION_CODES, httpUrl, MemberProfile, PublicProfile, qualificationOptions, ReplyInput, REVIEW_ACTIONS (+13 more)
+### Community 13 - "handleAccountError"
+Cohesion: 0.21
+Nodes (17): AdminMember, ROLES, Verification, AdminConsole(), addVerification(), applySearch(), invite(), loadDetail() (+9 more)
 
 ### Community 14 - "CI Validate Workflow"
 Cohesion: 0.08
 Nodes (27): CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY, DATABASE_URL, POSTGRES_PASSWORD, jobs, validate, name, on (+19 more)
 
-### Community 15 - "Record Pages & Photos"
-Cohesion: 0.09
-Nodes (19): recordThreadCount(), avif, Props, DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED, publisherTie(), RETAIL_BRANDS, BY_SA_4 (+11 more)
+### Community 15 - "site.test.ts"
+Cohesion: 0.16
+Nodes (11): address, app, cache, dataset, files, server, DIRECT_BRANDS, PUBLISHER_BRANDS_REVIEWED (+3 more)
 
-### Community 16 - "Account Editor App"
-Cohesion: 0.14
-Nodes (25): ProfileInput, AccountApp(), AccountEditor(), addBrand(), save(), toggleBrand(), toggleQualification(), update() (+17 more)
+### Community 16 - "api"
+Cohesion: 0.11
+Nodes (29): ProfileInput, AccountApp(), AccountEditor(), addBrand(), save(), toggleBrand(), toggleQualification(), update() (+21 more)
 
-### Community 17 - "Forum Image Uploads"
-Cohesion: 0.17
-Nodes (18): sharp@0.35.5, sharp, image(), members(), addImage(), clearUnattachedImages(), FORUM_MAX_IMAGES, replyInput (+10 more)
+### Community 17 - "forum-images.test.ts"
+Cohesion: 0.08
+Nodes (44): image(), startUpload(), FORUM_IMAGES_PER_HOUR, addImage(), FORUM_MAX_IMAGES, replyInput, acquireImageUploadSlot(), cache (+36 more)
 
 ### Community 18 - "Methodology v0.2 Data"
 Cohesion: 0.10
@@ -738,56 +746,56 @@ Cohesion: 0.15
 Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 20 - "Watch data: omega/speedmaster-moonwatch-3861"
-Cohesion: 0.15
-Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 21 - "Watch data: philippe-dufour/simplicity"
 Cohesion: 0.15
 Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 22 - "Watch data: studio-underd0g/03series"
+Cohesion: 0.17
+Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+
+### Community 23 - "Editorial Rules & Plan"
+Cohesion: 0.16
+Nodes (14): Existing system and migration baseline, AI-assisted drafts (editor: ai-draft), archived_url required for published-profile sources, Confidence grading (4+ U means D), FALK Index Editorial Guide, Confidence D shows provenance notes only, Evidence confidence A-D, FALK Index MVP Plan (+6 more)
+
+### Community 24 - "New Watch Proposal App"
+Cohesion: 0.11
+Nodes (22): NEW_BRAND_KINDS, SOURCE_TYPES, blank, blankClaim, Claim, fieldId(), Form, Gate() (+14 more)
+
+### Community 25 - "Editor Review App"
+Cohesion: 0.08
+Nodes (32): DIMENSION_CODES, httpUrl, MemberProfile, MyContribution, PublicProfile, qualificationOptions, ReplyInput, REVIEW_ACTIONS (+24 more)
+
+### Community 26 - "Organization Pages & URLs"
+Cohesion: 0.15
+Nodes (16): orgUrl(), recordUrl(), siteOrigin(), byDim, KIND, org, own, OWNERSHIP (+8 more)
+
+### Community 27 - "Accounts Editorial Design"
+Cohesion: 0.11
+Nodes (19): Approval transaction, Conflicts of interest and overrides, Deployment, migration and rollout, Editor review queue /editor/review, Decisions to confirm (first admin, overrides, privacy), Pending proposal visibility policy, Phase 1: server foundation, accounts, safe import, Phase 2: contributions and editorial workflow (+11 more)
+
+### Community 28 - "Support & Notifications"
+Cohesion: 0.24
+Nodes (11): alertModerators(), decisionEmail(), notifyAuthor(), site(), emailSupportInbox(), sendEmail(), sendSupportMessage(), supportInput (+3 more)
+
+### Community 29 - "Watch data: anordain/model-1-fabrik"
 Cohesion: 0.15
 Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
-### Community 23 - "Editorial Rules & Plan"
-Cohesion: 0.14
-Nodes (15): Existing system and migration baseline, AI-assisted drafts (editor: ai-draft), archived_url required for published-profile sources, Confidence grading (4+ U means D), FALK Index Editorial Guide, Confidence D shows provenance notes only, Evidence confidence A-D, FALK Index MVP Plan (+7 more)
-
-### Community 24 - "New Watch Proposal App"
-Cohesion: 0.14
-Nodes (19): NEW_BRAND_KINDS, SOURCE_TYPES, blank, blankClaim, Claim, fieldId(), Form, Gate() (+11 more)
-
-### Community 25 - "Editor Review App"
-Cohesion: 0.15
-Nodes (18): REVIEW_STATUSES, ReviewAction, actionLabels, EditorReviewApp(), isOpen(), Labels, newBrandKinds, ProposalDetail() (+10 more)
-
-### Community 26 - "Organization Pages & URLs"
-Cohesion: 0.14
-Nodes (17): orgUrl(), recordUrl(), RELATIONSHIP, siteOrigin(), byDim, KIND, org, own (+9 more)
-
-### Community 27 - "Accounts Editorial Design"
-Cohesion: 0.14
-Nodes (16): Approval transaction, Conflicts of interest and overrides, Deployment, migration and rollout, Decisions to confirm (first admin, overrides, privacy), Pending proposal visibility policy, Phase 1: server foundation, accounts, safe import, Phase 2: contributions and editorial workflow, Phase 3: public transparency, comparisons, reversions (+8 more)
-
-### Community 28 - "Support & Notifications"
-Cohesion: 0.17
-Nodes (12): nobody, sent, alertModerators(), decisionEmail(), notifyAuthor(), site(), emailSupportInbox(), sendEmail() (+4 more)
-
-### Community 29 - "Watch data: anordain/model-1-fabrik"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, claim, note, stance, evidence, rationale (+8 more)
-
 ### Community 30 - "Watch data: atelier-wen/perception-mu"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 31 - "Watch data: audemars-piguet/royal-oak-16202"
 Cohesion: 0.17
 Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
 
 ### Community 32 - "Watch data: baltic/aquascaphe"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, claim, note, stance, evidence, rationale (+8 more)
+Cohesion: 0.15
+Nodes (13): rationale, value, rationale, value, rationale, value, scores, DH (+5 more)
 
 ### Community 33 - "Watch data: breitling/chronomat-b01"
 Cohesion: 0.17
@@ -798,24 +806,24 @@ Cohesion: 0.17
 Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 35 - "Watch data: christopher-ward/c1-bel-canto"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 36 - "Watch data: christopher-ward/the-twelve"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 37 - "Watch data: farer/three-hand-automatic"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, claim, note, stance, evidence, rationale (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 38 - "Watch data: fleming/series-1"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 39 - "Watch data: grand-seiko/9f-quartz"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 40 - "Watch data: grand-seiko/spring-drive-9r"
 Cohesion: 0.17
@@ -823,19 +831,19 @@ Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence 
 
 ### Community 41 - "Watch data: habring2/erwin"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 42 - "Watch data: habring2/five-minute-repeater"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 43 - "Watch data: jaeger-lecoultre/reverso-tribute"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 44 - "Watch data: jn-shapiro/resurgence"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 45 - "Watch data: kudoke/kudoke-2"
 Cohesion: 0.17
@@ -843,47 +851,47 @@ Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence 
 
 ### Community 46 - "Watch data: kurono-tokyo/chronograph-miyota"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 47 - "Watch data: lesablier/travelgraph"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 48 - "Watch data: mbandf/lm-sequential-evo"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 49 - "Watch data: ming/37-02-minimalist"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 50 - "Watch data: moritz-grossmann/benu"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 51 - "Watch data: nomos/tangente-neomatik"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 52 - "Watch data: rexhep-rexhepi/chronometre-contemporain"
 Cohesion: 0.17
 Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 53 - "Watch data: roger-w-smith/series-2"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 54 - "Watch data: rolex/submariner-124060"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, claim, note, stance, evidence, rationale (+8 more)
-
-### Community 55 - "Watch data: sartory-billard/sb05"
-Cohesion: 0.17
 Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
 
+### Community 55 - "Watch data: sartory-billard/sb05"
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
+
 ### Community 56 - "Watch data: serica/5303-cosc"
-Cohesion: 0.17
-Nodes (16): evidence, rationale, value, claim, note, stance, evidence, rationale (+8 more)
+Cohesion: 0.15
+Nodes (13): rationale, value, rationale, value, rationale, value, scores, DH (+5 more)
 
 ### Community 57 - "Watch data: tudor/black-bay-chrono"
 Cohesion: 0.17
@@ -891,99 +899,99 @@ Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence 
 
 ### Community 58 - "Watch data: vacheron-constantin/overseas"
 Cohesion: 0.17
-Nodes (16): evidence, rationale, value, evidence, rationale, value, claim, note (+8 more)
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 59 - "DECISIONS.md"
-Cohesion: 0.14
-Nodes (10): Editor review queue /editor/review, Appendix A owner decisions (provisional), Data corrections at import, FALK Index Decisions, Q10: Publish all 56, unevidenced as provisional, Q2: 9 classifications + seed_label, Q3: Secondary classification allowed, Q4: Corrections form saves to PostgreSQL (+2 more)
+Cohesion: 0.16
+Nodes (8): Appendix A owner decisions (provisional), Data corrections at import, FALK Index Decisions, Q10: Publish all 56, unevidenced as provisional, Q2: 9 classifications + seed_label, Q3: Secondary classification allowed, Appendix A: classification normalization, Open questions Q1-Q11
 
 ### Community 60 - "package.json"
-Cohesion: 0.12
-Nodes (16): scripts, bootstrap:admin, build, db:export, db:import, db:publish, db:setup, dev (+8 more)
+Cohesion: 0.11
+Nodes (18): scripts, bootstrap:admin, build, check:excerpts, cleanup:forum-images, db:export, db:import, db:publish (+10 more)
 
-### Community 61 - "CompactStrip.astro"
-Cohesion: 0.15
-Nodes (10): label, Props, Props, Props, Props, CONFIDENCE, Record, Scores (+2 more)
+### Community 61 - "messages.ts"
+Cohesion: 0.07
+Nodes (66): Members, members(), audit(), deleteAccount(), enforceAccount(), HttpError, saveProfile(), createInvitation() (+58 more)
 
 ### Community 62 - "Watch data: artur-akmaev/eternal-koi"
-Cohesion: 0.23
-Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 63 - "Watch data: czapek/antarctique-sxh5"
-Cohesion: 0.23
-Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 64 - "Watch data: jn-shapiro/infinity"
-Cohesion: 0.23
-Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 65 - "Watch data: jn-shapiro/infinity-radiant"
 Cohesion: 0.23
-Nodes (14): evidence, evidence, claim, note, stance, evidence, evidence, rationale (+6 more)
+Nodes (14): evidence, evidence, rationale, value, claim, note, stance, evidence (+6 more)
 
 ### Community 66 - "Watch data: laurent-ferrier/classic-micro-rotor"
 Cohesion: 0.23
-Nodes (14): evidence, claim, note, stance, evidence, rationale, value, evidence (+6 more)
+Nodes (14): evidence, claim, note, stance, evidence, evidence, rationale, value (+6 more)
 
 ### Community 67 - "Watch data: lesablier/chronosport"
 Cohesion: 0.23
 Nodes (14): evidence, claim, note, stance, evidence, rationale, value, evidence (+6 more)
 
 ### Community 68 - "Watch data: longines/spirit-zulu-time"
-Cohesion: 0.23
-Nodes (14): evidence, claim, note, stance, evidence, rationale, value, evidence (+6 more)
+Cohesion: 0.50
+Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
 
 ### Community 69 - "Watch data: tudor/black-bay-58"
 Cohesion: 0.23
 Nodes (14): evidence, claim, note, stance, evidence, evidence, rationale, value (+6 more)
 
 ### Community 70 - "Watch data: unimatic/modello-uno-sellita"
-Cohesion: 0.23
-Nodes (14): claim, note, stance, evidence, evidence, rationale, value, evidence (+6 more)
+Cohesion: 0.50
+Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
 
 ### Community 71 - "Watch data: zrc/mn64-metal"
 Cohesion: 0.23
-Nodes (14): claim, note, stance, evidence, rationale, value, evidence, rationale (+6 more)
+Nodes (14): claim, note, stance, evidence, rationale, value, evidence, evidence (+6 more)
 
-### Community 72 - "MyContributionsApp.tsx"
-Cohesion: 0.20
-Nodes (13): MyContribution, ReviewEventAction, ReviewStatus, reviewStatusLabels, acceptedHelp(), actionLabels, Contribution(), Contributions() (+5 more)
+### Community 72 - "MessagesDock.tsx"
+Cohesion: 0.12
+Nodes (35): IMAGE_TYPES, imageUrl(), TYPES, uploadError(), uploadImage(), useImagePicker(), Lightbox(), openInLightbox() (+27 more)
 
-### Community 73 - "Watch data: a-lange-sohne/lange-1"
-Cohesion: 0.15
-Nodes (13): rationale, value, rationale, value, rationale, value, scores, CF (+5 more)
+### Community 73 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
-### Community 74 - "Watch data: akrivia/ak-06"
-Cohesion: 0.15
-Nodes (13): rationale, value, rationale, value, rationale, value, scores, CF (+5 more)
+### Community 74 - "claim"
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
-### Community 75 - "Watch data: atelier-wen/perception-v3"
-Cohesion: 0.15
-Nodes (13): rationale, value, rationale, value, rationale, value, rationale, value (+5 more)
+### Community 75 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
-### Community 76 - "Watch data: de-bethune/db25"
-Cohesion: 0.15
-Nodes (13): rationale, value, rationale, value, rationale, value, scores, CF (+5 more)
+### Community 76 - "claim"
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 77 - "Watch data: rexhep-rexhepi/chronometre-contemporain (2)"
 Cohesion: 0.15
 Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
-### Community 78 - "Watch data: studio-underd0g/01series-gen3"
-Cohesion: 0.15
-Nodes (13): rationale, value, rationale, value, rationale, value, rationale, value (+5 more)
+### Community 78 - "scores"
+Cohesion: 0.14
+Nodes (14): rationale, value, evidence, rationale, value, rationale, value, rationale (+6 more)
 
 ### Community 79 - "Watch data: studio-underd0g/03series (2)"
-Cohesion: 0.15
-Nodes (12): brand, claims, date_checked, dimensions, editor, excerpt, id, source (+4 more)
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 80 - "ModerationApp.tsx"
-Cohesion: 0.31
-Nodes (8): react, ModerationApp(), Queue(), Report, Inbox, NotificationsApp(), ReasonDialog(), forumDay()
+### Community 80 - "react"
+Cohesion: 0.39
+Nodes (7): react, Account, AccountCheck(), Check(), FormSkeleton(), NewThreadForm(), Writer
 
 ### Community 81 - "index.astro"
-Cohesion: 0.17
-Nodes (11): ARCHETYPES, apply(), archetypes, DIMS, form, isDefault(), levels, rows (+3 more)
+Cohesion: 0.15
+Nodes (14): ARCHETYPES, apply(), archetypes, DIMS, form, isDefault(), levels, reduceMotion (+6 more)
 
 ### Community 82 - "Watch data: a-lange-sohne/lange-1 (2)"
 Cohesion: 0.17
@@ -1201,9 +1209,9 @@ Nodes (12): profiles, change_note, classification, confidence, created_on, edito
 Cohesion: 0.17
 Nodes (11): brand, id, model, notes, provenance, claims, component, dimension (+3 more)
 
-### Community 136 - "Watch data: longines/spirit-zulu-time (3)"
-Cohesion: 0.17
-Nodes (12): evidence, rationale, value, rationale, value, evidence, rationale, value (+4 more)
+### Community 136 - "scores"
+Cohesion: 0.15
+Nodes (13): rationale, value, rationale, value, rationale, value, scores, DH (+5 more)
 
 ### Community 137 - "Watch data: longines/spirit-zulu-time (4)"
 Cohesion: 0.17
@@ -1321,9 +1329,9 @@ Nodes (12): profiles, change_note, classification, confidence, created_on, edito
 Cohesion: 0.17
 Nodes (11): brand, id, model, notes, provenance, claims, component, dimension (+3 more)
 
-### Community 166 - "Watch data: zrc/mn64-metal (3)"
-Cohesion: 0.17
-Nodes (12): evidence, rationale, value, evidence, rationale, value, rationale, value (+4 more)
+### Community 166 - "scores"
+Cohesion: 0.18
+Nodes (11): evidence, rationale, value, rationale, value, rationale, value, scores (+3 more)
 
 ### Community 167 - "Watch data: zrc/mn64-metal (4)"
 Cohesion: 0.17
@@ -1341,41 +1349,41 @@ Nodes (11): description, label, body, attributes, id, type, validations, descrip
 Cohesion: 0.17
 Nodes (11): description, label, body, attributes, id, type, validations, description (+3 more)
 
-### Community 171 - "inline-scripts.mjs"
-Cohesion: 0.27
-Nodes (6): CLERK_PROTECT_CONNECT, CLERK_PROTECT_SCRIPTS, INLINE_SCRIPTS, MENU_SCRIPT, saveTheme(), THEME_SCRIPT
+### Community 171 - "Base.astro"
+Cohesion: 0.08
+Nodes (20): links, Props, signedIn, site, suggestJson, variant(), CLERK_PROTECT_CONNECT, CLERK_PROTECT_SCRIPTS (+12 more)
 
 ### Community 172 - "v0.2.yaml"
 Cohesion: 0.18
 Nodes (11): dimensions, code, levels, name, question, 0, 1, 2 (+3 more)
 
-### Community 173 - "Watch data: anordain/model-2-porcelain (2)"
-Cohesion: 0.18
-Nodes (11): rationale, value, evidence, rationale, value, scores, CF, EX (+3 more)
+### Community 173 - "scores"
+Cohesion: 0.15
+Nodes (13): rationale, value, rationale, value, rationale, value, rationale, value (+5 more)
 
 ### Community 174 - "Watch data: artur-akmaev/eternal-koi (3)"
-Cohesion: 0.18
-Nodes (11): rationale, value, evidence, rationale, value, rationale, value, scores (+3 more)
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 175 - "Watch data: czapek/antarctique-sxh5 (3)"
-Cohesion: 0.18
-Nodes (11): rationale, value, evidence, rationale, value, rationale, value, scores (+3 more)
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
-### Community 176 - "Watch data: h-moser/endeavour-centre-seconds (2)"
-Cohesion: 0.18
-Nodes (11): rationale, value, rationale, value, scores, CF, EX, WE (+3 more)
+### Community 176 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 177 - "Watch data: jn-shapiro/infinity (3)"
-Cohesion: 0.18
-Nodes (11): rationale, value, evidence, rationale, value, rationale, value, scores (+3 more)
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
-### Community 178 - "Watch data: jn-shapiro/infinity-radiant (2)"
-Cohesion: 0.18
-Nodes (11): rationale, value, rationale, value, scores, CF, DH, WE (+3 more)
+### Community 178 - "scores"
+Cohesion: 0.20
+Nodes (10): rationale, value, rationale, value, rationale, value, scores, CF (+2 more)
 
-### Community 179 - "Watch data: laine/p37 (3)"
-Cohesion: 0.18
-Nodes (11): rationale, value, rationale, value, scores, CF, MA, WE (+3 more)
+### Community 179 - "scores"
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 180 - "Watch data: laurent-ferrier/classic-micro-rotor (4)"
 Cohesion: 0.18
@@ -1387,19 +1395,19 @@ Nodes (11): evidence, rationale, value, rationale, value, rationale, value, scor
 
 ### Community 182 - "Watch data: ophion/oph-786-velos (3)"
 Cohesion: 0.18
-Nodes (11): rationale, value, rationale, value, scores, CF, MA, WE (+3 more)
+Nodes (11): rationale, value, rationale, value, scores, CF, MM, WE (+3 more)
 
 ### Community 183 - "Watch data: oris/aquis-calibre-400 (2)"
-Cohesion: 0.18
-Nodes (11): evidence, rationale, value, rationale, value, rationale, value, scores (+3 more)
+Cohesion: 0.14
+Nodes (14): evidence, rationale, value, rationale, value, rationale, value, rationale (+6 more)
 
 ### Community 184 - "Watch data: tudor/black-bay-58 (3)"
 Cohesion: 0.18
 Nodes (11): evidence, rationale, value, rationale, value, rationale, value, scores (+3 more)
 
-### Community 185 - "Watch data: unimatic/modello-uno-sellita (3)"
-Cohesion: 0.18
-Nodes (11): evidence, rationale, value, rationale, value, rationale, value, scores (+3 more)
+### Community 185 - "scores"
+Cohesion: 0.15
+Nodes (13): rationale, value, rationale, value, rationale, value, rationale, value (+5 more)
 
 ### Community 186 - "EDITORIAL.md"
 Cohesion: 0.20
@@ -1413,21 +1421,21 @@ Nodes (8): FALK Index: Design direction (DESIGN.md), Blued-steel level ramp (sin
 Cohesion: 0.20
 Nodes (11): Brand screen (§5.5), Claim entry (ClaimEntry.astro), Classification label, Send a correction form (§5.8), Gilt = provisional or disputed, Organization / supplier screen (§5.6), Provisional banner (ProvisionalBanner.astro), Relationship tag (RelationshipTag.astro) (+3 more)
 
-### Community 189 - "Watch data: anordain/model-1-fume (3)"
-Cohesion: 0.20
-Nodes (10): rationale, value, rationale, value, scores, CF, MA, WE (+2 more)
+### Community 189 - "scores"
+Cohesion: 0.18
+Nodes (11): rationale, value, evidence, rationale, value, rationale, value, scores (+3 more)
 
-### Community 190 - "Watch data: awake/son-mai-guilloche-main (3)"
-Cohesion: 0.20
-Nodes (10): rationale, value, rationale, value, scores, CF, MA, WE (+2 more)
+### Community 190 - "scores"
+Cohesion: 0.18
+Nodes (11): rationale, value, evidence, rationale, value, rationale, value, scores (+3 more)
 
-### Community 191 - "Watch data: fp-journe/chronometre-souverain (3)"
-Cohesion: 0.20
-Nodes (10): rationale, value, rationale, value, scores, CF, MA, WE (+2 more)
+### Community 191 - "scores"
+Cohesion: 0.15
+Nodes (20): evidence, rationale, value, evidence, rationale, value, claim, note (+12 more)
 
 ### Community 192 - "Watch data: jn-shapiro/infinity-radiant (3)"
-Cohesion: 0.20
-Nodes (10): profiles, change_note, classification, confidence, created_on, editor, independent_watchmaker, methodology (+2 more)
+Cohesion: 0.18
+Nodes (11): profiles, change_note, classification, confidence, created_on, editor, independent_watchmaker, is_seed (+3 more)
 
 ### Community 193 - "Watch data: kudoke/kudoke-2 (4)"
 Cohesion: 0.20
@@ -1473,53 +1481,53 @@ Nodes (8): country, id, kind, name, ownership, parent, scale, website
 Cohesion: 0.22
 Nodes (8): country, id, kind, name, ownership, parent, scale, website
 
-### Community 204 - "Watch data: a-lange-sohne/lange-1 (3)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+### Community 204 - "claim"
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
-### Community 205 - "Watch data: akrivia/ak-06 (3)"
+### Community 205 - "WE"
 Cohesion: 0.50
-Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 206 - "Watch data: anordain/model-1-fume (4)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+Cohesion: 0.23
+Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
 
 ### Community 207 - "Watch data: anordain/model-2-porcelain (3)"
 Cohesion: 0.50
 Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
 
-### Community 208 - "Watch data: atelier-wen/perception-v3 (3)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+### Community 208 - "claim"
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 209 - "Watch data: awake/son-mai-guilloche-main (4)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+Cohesion: 0.23
+Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
 
-### Community 210 - "Watch data: de-bethune/db25 (3)"
+### Community 210 - "WE"
 Cohesion: 0.50
-Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
+Nodes (4): WE, evidence, rationale, value
 
-### Community 211 - "Watch data: fp-journe/chronometre-souverain (4)"
+### Community 211 - "WE"
 Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+Nodes (4): WE, evidence, rationale, value
 
-### Community 212 - "Watch data: h-moser/endeavour-centre-seconds (3)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+### Community 212 - "claim"
+Cohesion: 0.17
+Nodes (16): evidence, evidence, rationale, value, claim, note, stance, evidence (+8 more)
 
 ### Community 213 - "Watch data: iwc/ingenieur-automatic-40 (4)"
 Cohesion: 0.22
 Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 214 - "Watch data: laine/p37 (4)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+### Community 214 - "db.ts"
+Cohesion: 0.12
+Nodes (16): pg, yaml, dir, CATEGORIES, Starter, { values: { author } }, walk(), pool (+8 more)
 
 ### Community 215 - "Watch data: ophion/oph-786-velos (4)"
-Cohesion: 0.50
-Nodes (9): evidence, evidence, claim, note, stance, evidence, evidence, evidence (+1 more)
+Cohesion: 0.23
+Nodes (14): evidence, evidence, claim, note, stance, evidence, rationale, value (+6 more)
 
 ### Community 216 - "Watch data: philippe-dufour/simplicity (4)"
 Cohesion: 0.22
@@ -1530,8 +1538,8 @@ Cohesion: 0.22
 Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 218 - "Watch data: studio-underd0g/01series-gen3 (3)"
-Cohesion: 0.50
-Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
+Cohesion: 0.23
+Nodes (14): evidence, claim, note, stance, evidence, rationale, value, evidence (+6 more)
 
 ### Community 219 - "Watch data: studio-underd0g/01series-gen3 (4)"
 Cohesion: 0.22
@@ -1550,12 +1558,12 @@ Cohesion: 0.25
 Nodes (9): Escapement and Jewels Macro (1600px), Jewel Bearings and Lever Escapement, Escapement and Jewels Macro (800px), Omega Calibre 1861 Photo (1600px), Omega Calibre 1861, Omega Calibre 1861 Photo (800px), Omega Calibre 321 Photo (1600px), Omega Calibre 321 (+1 more)
 
 ### Community 223 - "sources.astro"
-Cohesion: 0.25
-Nodes (7): all, buttons, groups, host(), items, publisherName(), q
+Cohesion: 0.18
+Nodes (12): all, apply(), by(), groups, host(), items, lists, params (+4 more)
 
 ### Community 224 - "a-lange-sohne.yaml"
-Cohesion: 0.25
-Nodes (7): country, id, kind, name, ownership, parent, website
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, ownership, parent, scale, website
 
 ### Community 225 - "anordain.yaml"
 Cohesion: 0.25
@@ -1582,8 +1590,8 @@ Cohesion: 0.25
 Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 231 - "kenissi.yaml"
-Cohesion: 0.25
-Nodes (7): country, id, kind, name, notes, parent, website
+Cohesion: 0.20
+Nodes (9): country, id, kind, name, notes, ownership, parent, scale (+1 more)
 
 ### Community 232 - "longines.yaml"
 Cohesion: 0.25
@@ -1602,388 +1610,388 @@ Cohesion: 0.25
 Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 236 - "Watch data: a-lange-sohne/lange-1 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 237 - "Watch data: a-lange-sohne/lange-1 (5)"
-Cohesion: 0.25
-Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
+Cohesion: 0.15
+Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
 ### Community 238 - "Watch data: akrivia/ak-06 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 239 - "Watch data: akrivia/ak-06 (5)"
-Cohesion: 0.25
-Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_to
+Cohesion: 0.15
+Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
-### Community 240 - "Watch data: anordain/model-1-fabrik (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, CF, WE, rationale, value
+### Community 240 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 241 - "Watch data: anordain/model-1-fabrik (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 242 - "Watch data: anordain/model-1-fume (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 243 - "Watch data: anordain/model-2-porcelain (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 244 - "Watch data: anordain/model-2-porcelain (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 245 - "Watch data: artur-akmaev/eternal-koi (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 246 - "Watch data: atelier-wen/perception-mu (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 247 - "Watch data: atelier-wen/perception-mu (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 247 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 248 - "Watch data: atelier-wen/perception-v3 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 249 - "Watch data: atelier-wen/perception-v3 (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 250 - "Watch data: audemars-piguet/royal-oak-16202 (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 251 - "Watch data: audemars-piguet/royal-oak-16202 (4)"
-Cohesion: 0.25
-Nodes (8): rationale, value, scores, MM, WE, evidence, rationale, value
+### Community 251 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 252 - "Watch data: audemars-piguet/royal-oak-16202 (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 253 - "Watch data: awake/son-mai-guilloche-main (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 254 - "Watch data: baltic/aquascaphe (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, CF, WE, rationale, value
+### Community 254 - "CF"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, CF
 
 ### Community 255 - "Watch data: baltic/aquascaphe (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 256 - "Watch data: breitling/chronomat-b01 (3)"
+### Community 256 - "scores"
 Cohesion: 0.25
-Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 257 - "Watch data: breitling/chronomat-b01 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 258 - "Watch data: breitling/chronomat-b01 (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
-### Community 259 - "Watch data: cartier/santos-1847-mc (3)"
+### Community 259 - "scores"
 Cohesion: 0.25
-Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 260 - "Watch data: cartier/santos-1847-mc (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 261 - "Watch data: cartier/santos-1847-mc (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 262 - "Watch data: christopher-ward/c1-bel-canto (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 263 - "Watch data: christopher-ward/c1-bel-canto (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 263 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 264 - "Watch data: christopher-ward/the-twelve (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 265 - "Watch data: christopher-ward/the-twelve (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 265 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 266 - "Watch data: czapek/antarctique-sxh5 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 267 - "Watch data: de-bethune/db25 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 268 - "Watch data: farer/three-hand-automatic (3)"
+### Community 268 - "scores"
 Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, CF, WE, rationale, value
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 269 - "Watch data: farer/three-hand-automatic (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 270 - "Watch data: farer/three-hand-automatic (5)"
-Cohesion: 0.25
-Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
+Cohesion: 0.15
+Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
 ### Community 271 - "Watch data: fleming/series-1 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 272 - "Watch data: fleming/series-1 (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 272 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 273 - "Watch data: fp-journe/chronometre-souverain (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 274 - "Watch data: grand-seiko/9f-quartz (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 275 - "Watch data: grand-seiko/9f-quartz (4)"
-Cohesion: 0.25
-Nodes (8): rationale, value, evidence, rationale, value, scores, EX, PD
+### Community 275 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 276 - "Watch data: grand-seiko/9f-quartz (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
-### Community 277 - "Watch data: grand-seiko/spring-drive-9r (3)"
+### Community 277 - "scores"
 Cohesion: 0.25
-Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 278 - "Watch data: grand-seiko/spring-drive-9r (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 279 - "Watch data: h-moser/endeavour-centre-seconds (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 280 - "Watch data: h-moser/endeavour-centre-seconds (5)"
-Cohesion: 0.25
-Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_to
+Cohesion: 0.15
+Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
 ### Community 281 - "Watch data: habring2/erwin (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 282 - "Watch data: habring2/erwin (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, MA, WE, rationale, value
+### Community 282 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 283 - "Watch data: habring2/five-minute-repeater (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 284 - "Watch data: habring2/five-minute-repeater (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 284 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 285 - "Watch data: jaeger-lecoultre/reverso-tribute (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 286 - "Watch data: jaeger-lecoultre/reverso-tribute (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 286 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 287 - "Watch data: jn-shapiro/infinity (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 288 - "Watch data: jn-shapiro/infinity-radiant (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 289 - "Watch data: jn-shapiro/resurgence (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 290 - "Watch data: jn-shapiro/resurgence (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 290 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 291 - "Watch data: kudoke/kudoke-2 (5)"
 Cohesion: 0.25
 Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 292 - "Watch data: kurono-tokyo/chronograph-miyota (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 293 - "Watch data: kurono-tokyo/chronograph-miyota (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, MA, WE, rationale, value
+### Community 293 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 294 - "Watch data: laine/p37 (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 295 - "Watch data: laurent-ferrier/classic-micro-rotor (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 296 - "Watch data: lesablier/chronosport (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 297 - "Watch data: lesablier/travelgraph (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 298 - "Watch data: lesablier/travelgraph (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 298 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 299 - "Watch data: longines/spirit-zulu-time (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 300 - "Watch data: mbandf/lm-sequential-evo (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 301 - "Watch data: mbandf/lm-sequential-evo (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 301 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 302 - "Watch data: ming/37-02-minimalist (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 303 - "Watch data: ming/37-02-minimalist (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 303 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 304 - "Watch data: moritz-grossmann/benu (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 305 - "Watch data: moritz-grossmann/benu (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 305 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 306 - "Watch data: nomos/tangente-neomatik (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 307 - "Watch data: nomos/tangente-neomatik (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, MA, WE, rationale, value
+### Community 307 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 308 - "Watch data: nomos/tangente-neomatik (5)"
-Cohesion: 0.25
-Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
+Cohesion: 0.15
+Nodes (12): brand, id, model, notes, provenance, claims, component, dimension (+4 more)
 
 ### Community 309 - "Watch data: omega/speedmaster-moonwatch-3861 (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 310 - "Watch data: ophion/oph-786-velos (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 311 - "Watch data: oris/aquis-calibre-400 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 312 - "Watch data: rexhep-rexhepi/chronometre-contemporain (5)"
 Cohesion: 0.25
 Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 313 - "Watch data: roger-w-smith/series-2 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 314 - "Watch data: roger-w-smith/series-2 (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 314 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
-### Community 315 - "Watch data: rolex/submariner-124060 (3)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, rationale, value, scores, CF, MM
+### Community 315 - "FALK Index v0.2 Methodology Handbook"
+Cohesion: 0.17
+Nodes (12): Caliber Corner (secondary source), FALK classifications (production archetypes), Edge cases (Shapiro, Fleming, Akmaev, AWAKE vs anOrdain, Czapek), Evidence confidence A-D, FALK Profile dimensions (MA MM EX DH CF WE PD), FALK Index v0.2 Methodology Handbook, Provenance fields, 56-record reference dataset (+4 more)
 
 ### Community 316 - "Watch data: rolex/submariner-124060 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 317 - "Watch data: rolex/submariner-124060 (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 318 - "Watch data: sartory-billard/sb05 (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 319 - "Watch data: sartory-billard/sb05 (5)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, EX, WE, rationale, value
+### Community 319 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
-### Community 320 - "Watch data: serica/5303-cosc (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, CF, WE, rationale, value
+### Community 320 - "CF"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, CF
 
 ### Community 321 - "Watch data: serica/5303-cosc (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 322 - "Watch data: studio-underd0g/01series-gen3 (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 323 - "Watch data: tudor/black-bay-chrono (3)"
+### Community 323 - "scores"
 Cohesion: 0.25
-Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 324 - "Watch data: tudor/black-bay-chrono (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 325 - "Watch data: tudor/black-bay-chrono (5)"
 Cohesion: 0.25
 Nodes (8): provenance, claims, component, dimension, note, performer, relationship, valid_from
 
 ### Community 326 - "Watch data: unimatic/modello-uno-sellita (4)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 327 - "Watch data: vacheron-constantin/overseas (3)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
-### Community 328 - "Watch data: vacheron-constantin/overseas (4)"
-Cohesion: 0.25
-Nodes (8): evidence, rationale, value, scores, MA, WE, rationale, value
+### Community 328 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 329 - "Watch data: zrc/mn64-metal (5)"
-Cohesion: 0.25
-Nodes (8): claims, date_checked, dimensions, editor, excerpt, id, source, statement
+Cohesion: 0.22
+Nodes (9): claims, date_checked, dimensions, editor, excerpt, id, source, statement (+1 more)
 
 ### Community 330 - "ACCOUNTS-EDITORIAL-IMPLEMENTATION.md"
 Cohesion: 0.25
 Nodes (7): Database design supporting all phases, Important modeling rules (immutable versions, base revision), Private data kept out of public snapshots and exports, Q5: Data CC BY-SA 4.0, code MIT, Open data JSON/CSV export, revision table (append-only edits), MVP website pages
 
-### Community 331 - "index.astro (2)"
-Cohesion: 0.25
-Nodes (6): built, commit, csv, ld, origin, sample
+### Community 331 - "data/index.astro"
+Cohesion: 0.12
+Nodes (11): label, Props, Props, Scores, built, commit, csv, jsonBytes (+3 more)
 
 ### Community 332 - "akrivia.yaml"
 Cohesion: 0.29
@@ -1994,100 +2002,100 @@ Cohesion: 0.29
 Nodes (6): id, kind, name, ownership, scale, website
 
 ### Community 334 - "atelier-wen.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 335 - "awake.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 336 - "baltic.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 337 - "breitling.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, scale, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 338 - "czapek.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 339 - "h-moser.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, parent
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, parent, scale
 
 ### Community 340 - "horologium.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 341 - "kudoke.yaml"
 Cohesion: 0.29
 Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 342 - "les-boitiers-de-geneve.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 343 - "les-cadraniers-de-geneve.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 344 - "mbandf.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 345 - "nivarox.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 346 - "nomos.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 347 - "ophion.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 348 - "oris.yaml"
 Cohesion: 0.29
 Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 349 - "pequignet.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, website
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, scale, website
 
 ### Community 350 - "precision-engineering.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 351 - "rexhep-rexhepi.yaml"
 Cohesion: 0.29
 Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 352 - "seagull.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, website
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, scale, website
 
 ### Community 353 - "seiko-epson.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, website
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, scale, website
 
 ### Community 354 - "studio-underd0g.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 355 - "synergies-horlogeres.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 356 - "vacheron-constantin.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, ownership, parent
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, parent, scale
 
 ### Community 357 - "valfleurier.yaml"
-Cohesion: 0.29
-Nodes (6): country, id, kind, name, notes, parent
+Cohesion: 0.22
+Nodes (8): country, id, kind, name, notes, ownership, parent, scale
 
 ### Community 358 - "Watch data: artur-akmaev/eternal-koi (5)"
 Cohesion: 0.29
@@ -2154,192 +2162,192 @@ Cohesion: 0.38
 Nodes (7): Archetype card and panel, Production archetypes page /archetypes/ (§5.12), Archetypes update, 29 Oct 2026, Independent Watchmaker descriptor, Mini pattern, Pattern strip (PatternStrip.astro), Production archetypes
 
 ### Community 374 - "armin-strom.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 375 - "audemars-piguet.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 376 - "boninchi.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 377 - "bripoli.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 378 - "c-l-rochat.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 379 - "cador.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 380 - "cadramont.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 381 - "carl-haas.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 382 - "cheng-yucai.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 383 - "christopher-ward.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 384 - "chronode.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 385 - "comblemine.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 386 - "de-bethune.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 387 - "detech.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 388 - "dubois-depraz.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 389 - "eric-giroud.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 390 - "estima.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 391 - "eta.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, parent
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, parent, scale
 
 ### Community 392 - "farer.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 393 - "fleming.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 394 - "fp-journe.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 395 - "hans-wilsdorf-foundation.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 396 - "joseph-baume.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 397 - "kurono-tokyo.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 398 - "la-fabrique-du-temps.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 399 - "laurent-ferrier.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 400 - "liaoning-peacock.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 401 - "melb-holding.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 402 - "metalem.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 403 - "mhvj.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 404 - "miyota.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 405 - "montremo.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 406 - "moritz-grossmann.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, website
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, ownership, scale, website
 
 ### Community 407 - "novocristal.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 408 - "orolux.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 409 - "renzetti.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 410 - "roventa-henex.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 411 - "sartory-billard.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 412 - "schwab-feller.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 413 - "serica.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 414 - "soprod.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 415 - "stephen-mcdonnell.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 416 - "technotime.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 417 - "unimatic.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, ownership
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 418 - "viquodeco.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 419 - "voutilainen-cattin.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 420 - "waeber-hms.yaml"
-Cohesion: 0.33
-Nodes (5): country, id, kind, name, notes
+Cohesion: 0.25
+Nodes (7): country, id, kind, name, notes, ownership, scale
 
 ### Community 421 - "Watch data: artur-akmaev/eternal-koi (6)"
 Cohesion: 0.33
@@ -2422,88 +2430,88 @@ Cohesion: 0.33
 Nodes (5): astro/tsconfigs/strict, compilerOptions, allowImportingTsExtensions, extends, include
 
 ### Community 441 - "ab-product.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 442 - "atokalpa.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 443 - "generale-ressorts.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 444 - "la-joux-perret.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 445 - "laine.yaml"
-Cohesion: 0.40
-Nodes (4): id, kind, name, ownership
+Cohesion: 0.33
+Nodes (5): id, kind, name, ownership, scale
 
 ### Community 446 - "ming.yaml"
-Cohesion: 0.40
-Nodes (4): id, kind, name, ownership
+Cohesion: 0.33
+Nodes (5): id, kind, name, ownership, scale
 
 ### Community 447 - "richemont.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 448 - "seiko-group.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 449 - "sellita.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 450 - "swatch-group.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
 ### Community 451 - "uwd.yaml"
-Cohesion: 0.40
-Nodes (4): country, id, kind, name
+Cohesion: 0.29
+Nodes (6): country, id, kind, name, ownership, scale
 
-### Community 452 - "Watch data: a-lange-sohne/lange-1 (6)"
-Cohesion: 0.40
-Nodes (4): brand, id, model, notes
+### Community 452 - "package.json"
+Cohesion: 0.13
+Nodes (14): @clerk/shared@^4.40.0, @fontsource-variable/archivo@^5.3.0, @resvg/resvg-js@^2.6.2, engines, node, license, name, overrides (+6 more)
 
-### Community 453 - "Watch data: akrivia/ak-06 (6)"
-Cohesion: 0.40
-Nodes (4): brand, id, model, notes
+### Community 453 - "ref_node_assert"
+Cohesion: 0.16
+Nodes (7): nobody, sent, address, app, missing, pages, server
 
 ### Community 454 - "Watch data: anordain/model-2-porcelain (6)"
 Cohesion: 0.40
 Nodes (4): brand, id, model, notes
 
-### Community 455 - "Watch data: farer/three-hand-automatic (6)"
-Cohesion: 0.40
-Nodes (4): brand, id, model, notes
+### Community 455 - "express"
+Cohesion: 0.23
+Nodes (5): express, serve(), FixedProxyOptions, ProxyHooks, forumHost()
 
-### Community 456 - "Watch data: h-moser/endeavour-centre-seconds (6)"
-Cohesion: 0.40
-Nodes (4): brand, id, model, notes
+### Community 456 - "check-excerpts.ts"
+Cohesion: 0.21
+Nodes (10): allClaims, args, extra, get(), ids, normalize(), page(), pages (+2 more)
 
-### Community 457 - "Watch data: nomos/tangente-neomatik (6)"
-Cohesion: 0.40
-Nodes (4): brand, id, model, notes
+### Community 457 - "clerk-host.test.ts"
+Cohesion: 0.36
+Nodes (8): clerkHostFor(), clerkProxyFor(), hostname(), isSubdomain(), sharedCookieDomain(), SESSION_HINT, write(), allowClerkForHost()
 
 ### Community 458 - "lesablier.yaml"
-Cohesion: 0.50
-Nodes (3): id, kind, name
+Cohesion: 0.33
+Nodes (5): id, kind, name, ownership, scale
 
 ### Community 459 - "zrc.yaml"
-Cohesion: 0.50
-Nodes (3): id, kind, name
+Cohesion: 0.33
+Nodes (5): id, kind, name, ownership, scale
 
-### Community 460 - "Watch data: a-lange-sohne/lange-1 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 460 - "csp.ts"
+Cohesion: 0.27
+Nodes (10): ENFORCE(), Headers, keepBaseline(), pagePolicy(), path(), REPORT_PATH, reportReceiver(), toReportOnly() (+2 more)
 
-### Community 461 - "Watch data: akrivia/ak-06 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, DH
+### Community 461 - "hosts.test.ts"
+Cohesion: 0.40
+Nodes (7): policy(), first(), hostname(), HostPolicy, hostPolicy(), resolveHost(), siteHost()
 
 ### Community 462 - "Watch data: anordain/model-1-fabrik (6)"
 Cohesion: 0.50
@@ -2513,17 +2521,17 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
 
-### Community 464 - "Watch data: anordain/model-1-fume (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, EX
+### Community 464 - "page-limit.test.ts"
+Cohesion: 0.33
+Nodes (6): serve(), clientKey(), LimitMode, minuteCounter(), pageLimit(), PageLimitOptions
 
 ### Community 465 - "Watch data: artur-akmaev/eternal-koi (7)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 466 - "Watch data: atelier-wen/perception-mu (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+### Community 466 - "support.test.ts"
+Cohesion: 0.20
+Nodes (6): address, keys, sent, server, valid, SUPPORT_PER_HOUR
 
 ### Community 467 - "Watch data: atelier-wen/perception-mu (7)"
 Cohesion: 0.50
@@ -2533,53 +2541,53 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 469 - "Watch data: audemars-piguet/royal-oak-16202 (7)"
+### Community 469 - "claim"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, EX
+Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
 
-### Community 470 - "Watch data: audemars-piguet/royal-oak-16202 (8)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 470 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, EX, PD
 
-### Community 471 - "Watch data: awake/son-mai-guilloche-main (6)"
+### Community 471 - "claim"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, EX
+Nodes (9): evidence, claim, note, stance, evidence, evidence, evidence, evidence (+1 more)
 
 ### Community 472 - "Watch data: baltic/aquascaphe (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+Cohesion: 0.67
+Nodes (3): rationale, value, MM
 
 ### Community 473 - "Watch data: baltic/aquascaphe (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+Cohesion: 0.67
+Nodes (3): rationale, value, PD
 
-### Community 474 - "Watch data: breitling/chronomat-b01 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+### Community 474 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 475 - "Watch data: breitling/chronomat-b01 (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 476 - "Watch data: cartier/santos-1847-mc (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+### Community 476 - "Movement photograph credits (Wikimedia Commons)"
+Cohesion: 0.33
+Nodes (6): Escapement and jewels photo (Hustvedt), Generated guilloche pattern, Movement photograph credits (Wikimedia Commons), Omega Cal. 1861 / 321 photos (Shane Lin), Licence: code MIT, data CC BY-SA 4.0, Archivo font, SIL Open Font License 1.1
 
 ### Community 477 - "Watch data: cartier/santos-1847-mc (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 478 - "Watch data: christopher-ward/c1-bel-canto (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+### Community 478 - "post-text.ts"
+Cohesion: 0.53
+Nodes (3): PostBody(), Piece, postParagraphs()
 
 ### Community 479 - "Watch data: christopher-ward/c1-bel-canto (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 480 - "Watch data: christopher-ward/the-twelve (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+### Community 480 - "03series.yaml"
+Cohesion: 0.40
+Nodes (4): brand, id, model, notes
 
 ### Community 481 - "Watch data: christopher-ward/the-twelve (7)"
 Cohesion: 0.50
@@ -2589,21 +2597,21 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 483 - "Watch data: de-bethune/db25 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, DH
+### Community 483 - "devDependencies"
+Cohesion: 0.40
+Nodes (5): devDependencies, playwright@1.63.0, @types/compression@^1.8.1, playwright, @types/compression
 
 ### Community 484 - "Watch data: farer/three-hand-automatic (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 485 - "Watch data: farer/three-hand-automatic (8)"
+### Community 485 - "WE"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+Nodes (4): WE, evidence, rationale, value
 
-### Community 486 - "Watch data: fleming/series-1 (6)"
+### Community 486 - "WE"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 487 - "Watch data: fleming/series-1 (7)"
 Cohesion: 0.50
@@ -2613,17 +2621,17 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
 
-### Community 489 - "Watch data: grand-seiko/9f-quartz (7)"
+### Community 489 - "EX"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, EX
 
 ### Community 490 - "Watch data: grand-seiko/9f-quartz (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 491 - "Watch data: grand-seiko/spring-drive-9r (7)"
+### Community 491 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 492 - "Watch data: grand-seiko/spring-drive-9r (8)"
 Cohesion: 0.50
@@ -2633,13 +2641,13 @@ Nodes (4): WE, evidence, rationale, value
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 494 - "Watch data: habring2/erwin (8)"
+### Community 494 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
+
+### Community 495 - "evidence"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
-
-### Community 495 - "Watch data: habring2/five-minute-repeater (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
 
 ### Community 496 - "Watch data: habring2/five-minute-repeater (7)"
 Cohesion: 0.50
@@ -2657,25 +2665,25 @@ Nodes (4): evidence, rationale, value, PD
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 500 - "Watch data: jaeger-lecoultre/reverso-tribute (6)"
+### Community 500 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 501 - "Watch data: jaeger-lecoultre/reverso-tribute (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 502 - "Watch data: jn-shapiro/infinity-radiant (7)"
+### Community 502 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, EX
+Nodes (4): evidence, rationale, value, MA
 
 ### Community 503 - "Watch data: jn-shapiro/infinity (7)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 504 - "Watch data: jn-shapiro/resurgence (6)"
+### Community 504 - "WE"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 505 - "Watch data: jn-shapiro/resurgence (7)"
 Cohesion: 0.50
@@ -2693,9 +2701,9 @@ Nodes (4): WE, evidence, rationale, value
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 509 - "Watch data: kurono-tokyo/chronograph-miyota (8)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 509 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 510 - "Watch data: laurent-ferrier/classic-micro-rotor (6)"
 Cohesion: 0.50
@@ -2705,33 +2713,33 @@ Nodes (4): evidence, rationale, value, EX
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 512 - "Watch data: lesablier/travelgraph (6)"
+### Community 512 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 513 - "Watch data: lesablier/travelgraph (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 514 - "Watch data: mbandf/lm-sequential-evo (6)"
+### Community 514 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 515 - "Watch data: mbandf/lm-sequential-evo (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 516 - "Watch data: ming/37-02-minimalist (6)"
+### Community 516 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 517 - "Watch data: ming/37-02-minimalist (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 518 - "Watch data: moritz-grossmann/benu (6)"
+### Community 518 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 519 - "Watch data: moritz-grossmann/benu (7)"
 Cohesion: 0.50
@@ -2741,13 +2749,13 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 521 - "Watch data: nomos/tangente-neomatik (8)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 521 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
-### Community 522 - "Watch data: omega/speedmaster-moonwatch-3861 (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+### Community 522 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, MM
 
 ### Community 523 - "Watch data: omega/speedmaster-moonwatch-3861 (7)"
 Cohesion: 0.50
@@ -2785,49 +2793,49 @@ Nodes (4): evidence, rationale, value, MM
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 532 - "Watch data: roger-w-smith/series-2 (6)"
+### Community 532 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 533 - "Watch data: roger-w-smith/series-2 (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 534 - "Watch data: rolex/submariner-124060 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 534 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, EX, PD
 
 ### Community 535 - "Watch data: rolex/submariner-124060 (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 536 - "Watch data: sartory-billard/sb05 (6)"
+### Community 536 - "WE"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MA
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 537 - "Watch data: sartory-billard/sb05 (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
 ### Community 538 - "Watch data: serica/5303-cosc (6)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+Cohesion: 0.67
+Nodes (3): rationale, value, MM
 
 ### Community 539 - "Watch data: serica/5303-cosc (7)"
+Cohesion: 0.67
+Nodes (3): rationale, value, PD
+
+### Community 540 - "evidence"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
 
-### Community 540 - "Watch data: studio-underd0g/01series-gen3 (7)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, DH
-
-### Community 541 - "Watch data: studio-underd0g/03series (5)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
-
-### Community 542 - "Watch data: studio-underd0g/03series (6)"
+### Community 541 - "evidence"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, PD
+
+### Community 542 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, EX, PD
 
 ### Community 543 - "Watch data: studio-underd0g/03series (7)"
 Cohesion: 0.50
@@ -2837,25 +2845,25 @@ Nodes (4): WE, evidence, rationale, value
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 545 - "Watch data: tudor/black-bay-chrono (7)"
+### Community 545 - "WE"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, MM
+Nodes (4): WE, evidence, rationale, value
 
 ### Community 546 - "Watch data: tudor/black-bay-chrono (8)"
 Cohesion: 0.50
 Nodes (4): WE, evidence, rationale, value
 
-### Community 547 - "Watch data: unimatic/modello-uno-sellita (7)"
+### Community 547 - "evidence"
 Cohesion: 0.50
-Nodes (4): evidence, rationale, value, DH
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 548 - "Watch data: vacheron-constantin/overseas (7)"
 Cohesion: 0.50
 Nodes (4): evidence, rationale, value, MM
 
-### Community 549 - "Watch data: vacheron-constantin/overseas (8)"
-Cohesion: 0.50
-Nodes (4): evidence, rationale, value, PD
+### Community 549 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 550 - "env.d.ts"
 Cohesion: 0.50
@@ -2869,137 +2877,133 @@ Nodes (3): Roger W. Smith Series 2, Roger W. Smith Series 2 front photo (1200 sl
 Cohesion: 1.00
 Nodes (3): Tudor Black Bay Chrono, Tudor Black Bay Chrono front photo (1200 slot), Tudor Black Bay Chrono front photo (600)
 
-### Community 553 - "Watch data: a-lange-sohne/lange-1 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 553 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 554 - "Watch data: a-lange-sohne/lange-1 (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
 ### Community 555 - "Watch data: akrivia/ak-06 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
-### Community 556 - "Watch data: akrivia/ak-06 (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 556 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
 ### Community 557 - "Watch data: anordain/model-1-fume (7)"
 Cohesion: 0.67
 Nodes (3): rationale, value, DH
 
-### Community 558 - "Watch data: anordain/model-1-fume (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+### Community 558 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 559 - "Watch data: anordain/model-1-fume (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 559 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 560 - "Watch data: anordain/model-2-porcelain (7)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 560 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
-### Community 561 - "Watch data: anordain/model-2-porcelain (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MA
+### Community 561 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 562 - "Watch data: anordain/model-2-porcelain (9)"
 Cohesion: 0.67
 Nodes (3): rationale, value, MM
 
-### Community 563 - "Watch data: anordain/model-2-porcelain (10)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 563 - "WE"
+Cohesion: 0.50
+Nodes (4): WE, evidence, rationale, value
 
-### Community 564 - "Watch data: artur-akmaev/eternal-koi (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 564 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 565 - "Watch data: atelier-wen/perception-v3 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, EX
+### Community 565 - "CF"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, CF
 
-### Community 566 - "Watch data: atelier-wen/perception-v3 (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+### Community 566 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 567 - "Watch data: awake/son-mai-guilloche-main (7)"
 Cohesion: 0.67
 Nodes (3): rationale, value, DH
 
-### Community 568 - "Watch data: awake/son-mai-guilloche-main (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+### Community 568 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 569 - "Watch data: awake/son-mai-guilloche-main (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 569 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 570 - "Watch data: czapek/antarctique-sxh5 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 570 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MA
 
 ### Community 571 - "Watch data: de-bethune/db25 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
-### Community 572 - "Watch data: de-bethune/db25 (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 572 - "scores"
+Cohesion: 0.25
+Nodes (8): rationale, value, evidence, rationale, value, scores, CF, PD
 
-### Community 573 - "Watch data: fp-journe/chronometre-souverain (7)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 573 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 574 - "Watch data: fp-journe/chronometre-souverain (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, EX
+### Community 574 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MA
 
 ### Community 575 - "Watch data: fp-journe/chronometre-souverain (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
-### Community 576 - "Watch data: h-moser/endeavour-centre-seconds (7)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 576 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 577 - "Watch data: h-moser/endeavour-centre-seconds (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MA
+### Community 577 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MA
 
 ### Community 578 - "Watch data: h-moser/endeavour-centre-seconds (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
-### Community 579 - "Watch data: h-moser/endeavour-centre-seconds (10)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+### Community 579 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MA
 
-### Community 580 - "Watch data: jn-shapiro/infinity (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
+### Community 580 - "evidence"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
-### Community 581 - "Watch data: jn-shapiro/infinity-radiant (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MA
+### Community 581 - "CF"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, CF
 
-### Community 582 - "Watch data: laine/p37 (6)"
-Cohesion: 0.67
-Nodes (3): rationale, value, DH
-
-### Community 583 - "Watch data: laine/p37 (7)"
-Cohesion: 0.67
-Nodes (3): rationale, value, EX
+### Community 582 - "DH"
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, DH
 
 ### Community 584 - "Watch data: laine/p37 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, MM
 
 ### Community 585 - "Watch data: laine/p37 (9)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
+Cohesion: 0.50
+Nodes (4): evidence, rationale, value, PD
 
 ### Community 586 - "Watch data: laurent-ferrier/classic-micro-rotor (7)"
 Cohesion: 0.67
@@ -3013,7 +3017,7 @@ Nodes (3): rationale, value, PD
 Cohesion: 0.67
 Nodes (3): rationale, value, MM
 
-### Community 589 - "Watch data: longines/spirit-zulu-time (7)"
+### Community 589 - "WE"
 Cohesion: 0.67
 Nodes (3): WE, rationale, value
 
@@ -3021,79 +3025,59 @@ Nodes (3): WE, rationale, value
 Cohesion: 0.67
 Nodes (3): rationale, value, DH
 
-### Community 591 - "Watch data: ophion/oph-786-velos (7)"
-Cohesion: 0.67
-Nodes (3): rationale, value, EX
-
-### Community 592 - "Watch data: ophion/oph-786-velos (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
-
-### Community 593 - "Watch data: ophion/oph-786-velos (9)"
+### Community 591 - "PD"
 Cohesion: 0.67
 Nodes (3): rationale, value, PD
 
-### Community 594 - "Watch data: oris/aquis-calibre-400 (9)"
+### Community 592 - "MM"
 Cohesion: 0.67
 Nodes (3): rationale, value, MM
 
-### Community 595 - "Watch data: studio-underd0g/01series-gen3 (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, MM
-
-### Community 596 - "Watch data: studio-underd0g/01series-gen3 (9)"
+### Community 593 - "WE"
 Cohesion: 0.67
 Nodes (3): WE, rationale, value
+
+### Community 594 - "MM"
+Cohesion: 0.67
+Nodes (3): rationale, value, MM
 
 ### Community 597 - "Watch data: tudor/black-bay-58 (8)"
 Cohesion: 0.67
 Nodes (3): rationale, value, MM
-
-### Community 598 - "Watch data: unimatic/modello-uno-sellita (8)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
-
-### Community 599 - "Watch data: zrc/mn64-metal (6)"
-Cohesion: 0.67
-Nodes (3): rationale, value, PD
-
-### Community 600 - "Watch data: zrc/mn64-metal (7)"
-Cohesion: 0.67
-Nodes (3): WE, rationale, value
 
 ### Community 601 - "favicon.svg"
 Cohesion: 0.67
 Nodes (3): FalkIndex Favicon (F monogram), Guilloche Background (1200px), Guilloche Background (1600px)
 
 ## Ambiguous Edges - Review These
-- `src/styles/global.css` → `src/styles/tokens.css`  [AMBIGUOUS]
-  docs/DESIGN.md · relation: semantically_similar_to
 - `Q7: In-group scored as recorded; rule in v0.3` → `In-group credit rule`  [AMBIGUOUS]
   docs/EDITORIAL.md · relation: conceptually_related_to
+- `src/styles/global.css` → `src/styles/tokens.css`  [AMBIGUOUS]
+  docs/DESIGN.md · relation: semantically_similar_to
 
 ## Knowledge Gaps
-- **36 isolated node(s):** `RFC-7230`, `astro/tsconfigs/strict`, `docs/PLAN.md`, `public/images/movements/CREDITS.txt`, `Classification label` (+31 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 3460 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **36 isolated node(s):** `RFC-7230`, `astro/tsconfigs/strict`, `Supplier / organization pages`, `WE above 3 needs regulation/adjustment evidence`, `Nav and footer` (+31 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 3691 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `src/styles/global.css` connect `DESIGN.md (4)` to `Catalogue Data & Evidence`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **What connects `RFC-7230`, `astro/tsconfigs/strict`, `docs/PLAN.md` to the rest of the system?**
+- **Why does `src/styles/global.css` connect `DESIGN.md (4)` to `Base.astro`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **What connects `RFC-7230`, `astro/tsconfigs/strict`, `Supplier / organization pages` to the rest of the system?**
   _36 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Forum Server & Threads` be split into smaller, more focused modules?**
-  _Cohesion score 0.05266106442577031 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06290471785383904 - nodes in this community are weakly interconnected._
 - **Why does `Colour tokens (light and dark mode)` connect `DESIGN.md (4)` to `DESIGN.md`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Should `Host Routing & CSP` be split into smaller, more focused modules?**
-  _Cohesion score 0.059125085440874914 - nodes in this community are weakly interconnected._
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Should `Accounts & API Server` be split into smaller, more focused modules?**
+  _Cohesion score 0.06253652834599649 - nodes in this community are weakly interconnected._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
 
-- **What is the exact relationship between `src/styles/global.css` and `src/styles/tokens.css`?**
-  _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
 - **What is the exact relationship between `Q7: In-group scored as recorded; rule in v0.3` and `In-group credit rule`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
+- **What is the exact relationship between `src/styles/global.css` and `src/styles/tokens.css`?**
+  _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
