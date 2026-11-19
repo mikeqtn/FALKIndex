@@ -415,6 +415,6 @@ abbr[title] { text-decoration: none; }
 
 /* ── Entrances: parts of a section rise in once as it arrives; content never depends on them ── */
 @media (prefers-reduced-motion: no-preference) {
-  .js [data-rise] > * { opacity: 0; translate: 0 24px; transition: opacity 600ms var(--ease), translate 700ms var(--ease); transition-delay: calc(var(--n, 0) * 80ms); }
+  .js:not([data-arriving]) [data-rise] > * { opacity: 0; translate: 0 24px; transition: opacity 600ms var(--ease), translate 700ms var(--ease); transition-delay: calc(var(--n, 0) * 80ms); }
   .js [data-rise].in > * { opacity: 1; translate: 0 0; }
 }
