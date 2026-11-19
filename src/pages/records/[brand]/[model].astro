@@ -6,7 +6,6 @@ import ProvisionalBanner from '../../../components/ProvisionalBanner.astro';
 import EvidenceList from '../../../components/EvidenceList.astro';
 import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
-import { publisherTie } from '../../../lib/publisher.ts';
 import {
   DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
@@ -158,7 +157,6 @@ const GLANCE_MAX = 3;
         {p.independent_watchmaker && <p class="iw">Independent watchmaker: an identifiable watchmaker personally performs substantial watchmaking and craft on these watches. <a href={archetypeUrl(DESCRIPTOR.code)}>About this descriptor</a></p>}
         {/* Right of reply: on every record, profile or not (site.test.ts checks it). */}
         <p class="small muted">Based on the cited sources below, not on FALK's own inspection. Brands can <a href={correctionUrl(r.id)}>reply with evidence here</a>.</p>
-        {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
         </div>
         <dl class="facts">
           <div><dt>Evidence</dt><dd><ConfidenceMark grade={p.confidence} /></dd></div>

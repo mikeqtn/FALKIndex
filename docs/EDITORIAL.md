@@ -83,11 +83,10 @@ Relationship is `internal`, `in_group` (owned by the same group, per rule "Group
 
 ## 8. Publisher conflicts
 
-FALK's publisher, Falk Watches, LLC, sells watches, including many brands in this index. `src/lib/publisher.ts` lists them.
+FALK's publisher, Falk Watches, LLC, sells watches, including many brands in this index. The About page says so in general terms; the site does not name the brands it deals with or has sold.
 
-- For a record of one of those brands, anyone with a stake in Falk Watches, or paid by it, cannot be the only reviewer. A reviewer with no such tie must approve the version.
-- Review the list every quarter against the store and the inventory, and update the date in that file. Add a brand once the company sells or lists it.
-- Only brand names go in the list. Inventory counts, costs and customer details are private and stay out of this public repo.
+- For a record of a brand Falk Watches sells, anyone with a stake in Falk Watches, or paid by it, cannot be the only reviewer. A reviewer with no such tie must approve the version.
+- Inventory, suppliers, costs and customer details are private and stay out of this public repo.
 
 ## 9. AI-assisted drafts
 
