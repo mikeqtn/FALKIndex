@@ -29,8 +29,10 @@ provenance:
   - dimension: DH
     component: Dial, indices and hands
     relationship: unknown
-    note: The product page lists materials and finishes; no source names the dial or hand maker.
-    claims: []
+    note: "Fratello and SJX report brand-wide that Laurent Ferrier's dials come from Les Cadraniers de Genève (owned by F.P. Journe, not by Laurent Ferrier); neither names this model, and no source names the hand maker, so the relationship stays unknown for this watch."
+    claims:
+      - lfcmr-cdg-dials-fratello
+      - lfcmr-cdg-dials-sjx
   - dimension: CF
     component: Movement decoration and hand finishing
     performer: laurent-ferrier
@@ -175,6 +177,24 @@ claims:
     dimensions:
       - PD
     date_checked: 2026-10-21
+    editor: falk-index
+    status: active
+  - id: lfcmr-cdg-dials-fratello
+    statement: A Fratello visit report says Laurent Ferrier's dials come from Les Cadraniers de Genève, the F.P. Journe dial workshop; it does not name a model.
+    excerpt: The link with Laurent Ferrier is in the dials, which come from Cadraniers de Genève.
+    source: fratello-lf-fpj-behind-the-scenes
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lfcmr-cdg-dials-sjx
+    statement: An SJX visit report names Laurent Ferrier among the third-party clients for which F.P. Journe's dial workshop CDG makes dials; it does not name a model.
+    excerpt: CDG makes dials for F.P. Journe as well as third-party clients like Vacheron Constantin, Laurent Ferrier, and numerous other elite brands
+    source: sjx-fp-journe-manufacture
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
     editor: falk-index
     status: active
 profiles:

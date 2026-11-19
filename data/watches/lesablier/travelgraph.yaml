@@ -45,12 +45,15 @@ provenance:
       - lstg-rotor
   - dimension: WE
     component: Final assembly, quality control, pressure testing and regulation
-    relationship: unknown
-    note: Brand statement that this happens in the greater Washington, D.C. area; the page does not say whether it is the brand's own staff or a local contractor.
+    performer: lesablier
+    relationship: internal
+    note: Lesablier's Travelgraph landing page says this work happens in "our facility in Hagerstown, Maryland". The performer rests on that brand statement alone; no independent source describes the facility or who staffs it.
     claims:
       - lstg-built-dc
       - lstg-parts-overseas
       - lstg-assembled-usa
+      - lstg-hand-assembled-dc
+      - lstg-hagerstown-facility
   - dimension: PD
     component: Product design
     performer: lesablier
@@ -138,6 +141,27 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: lstg-hand-assembled-dc
+    statement: Lesablier says each Travelgraph undergoes final assembly, quality control, regulation and pressure testing in the greater Washington, D.C. area.
+    excerpt: The Travelgraph is proudly assembled in the greater Washington D.C. area, where each timepiece undergoes meticulous final assembly, quality control, regulation, and pressure testing
+    source: lesablier-travelgraph-landing
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: lstg-hagerstown-facility
+    statement: Lesablier says it works with global partners on the parts, naming Miyota in Japan for the movements, and that the Travelgraph is completed in its own facility in Hagerstown, Maryland. The page does not describe the facility or name who works there.
+    excerpt: While we work with various global partners on the parts (such as Miyota in Japan for the movements), the Travelgraph truly comes to life in our facility in Hagerstown, Maryland.
+    source: lesablier-travelgraph-landing
+    dimensions:
+      - MM
+      - EX
+      - DH
+      - WE
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -177,7 +201,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MA 0 → 1; CF 0 → U; WE 0 → U; confidence A → B. Each score's rationale names its evidence."
@@ -250,5 +274,102 @@ profiles:
           - claim: lstg-wt-modification
             stance: supports
             note: Specified modification.
+    classification:
+      - contract_microbrand
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds Lesablier's Travelgraph landing page (lesablierwatches.com/travelgraph, source lesablier-travelgraph-landing), which says each watch undergoes final assembly, quality control, regulation and pressure testing in the brand's facility in Hagerstown, Maryland, with parts from global partners. Changes from version 2: WE U → 2; confidence stays B. One of seven dimensions remains U (CF): no source says who makes or engraves the custom rotor or describes any finishing done by Lesablier."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 1
+        rationale: A Miyota 9075 whose GMT function is modified to drive a 24-hour world-time disc (lstg-miyota-9075, lstg-wt-modification). No source says who engineered or executed the change, so this is read as custom specification of a supplier calibre; borderline with 2.
+        evidence:
+          - claim: lstg-miyota-9075
+            stance: supports
+            note: Miyota 9075, modified.
+          - claim: lstg-wt-modification
+            stance: supports
+            note: World-time modification.
+      MM:
+        value: 0
+        rationale: The brand says parts, including the Miyota movement, are sourced from overseas (lstg-parts-overseas, lstg-miyota-9075), and its landing page names Miyota in Japan as the movement partner (lstg-hagerstown-facility). No movement parts are made by the brand.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+          - claim: lstg-miyota-9075
+            stance: supports
+            note: External movement.
+          - claim: lstg-hagerstown-facility
+            stance: supports
+            note: Miyota named as movement partner.
+      EX:
+        value: 0
+        rationale: The brand says its parts are sourced from overseas and that it works with global partners on them (lstg-parts-overseas, lstg-hagerstown-facility). The case and bracelet maker is not named; the finish description (lstg-case-finish) says nothing about who does the work.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+          - claim: lstg-hagerstown-facility
+            stance: supports
+            note: Parts from global partners.
+          - claim: lstg-case-finish
+            stance: context
+            note: Finish only.
+      DH:
+        value: 0
+        rationale: Dial, city ring, disc and hands are among the parts the brand says are sourced from overseas and from global partners (lstg-parts-overseas, lstg-hagerstown-facility). No dial or hand stage is described as done by Lesablier.
+        evidence:
+          - claim: lstg-parts-overseas
+            stance: supports
+            note: Parts from overseas.
+          - claim: lstg-hagerstown-facility
+            stance: supports
+            note: Parts from global partners.
+      CF:
+        value: null
+        rationale: A custom engraved rotor is fitted (lstg-rotor), but no source says who makes or engraves it, and no source documents any finishing done by Lesablier. The Hagerstown facility is described only for assembly, testing and regulation, so the dimension stays U.
+        evidence:
+          - claim: lstg-rotor
+            stance: context
+            note: Maker not stated.
+      WE:
+        value: 2
+        rationale: Lesablier says each Travelgraph undergoes final assembly, quality control, regulation and pressure testing (lstg-hand-assembled-dc, lstg-built-dc) in its own facility in Hagerstown, Maryland (lstg-hagerstown-facility), with parts bought in from overseas (lstg-parts-overseas); a review confirms US assembly (lstg-assembled-usa). That matches complete casing and assembly with basic regulation. Not 3, because no source says the brand prepares or adjusts the movement or carries out the world-time modification. The internal performer rests on the brand's own wording ("our facility") with no independent description of the workshop, so the score is borderline with 1.
+        evidence:
+          - claim: lstg-hand-assembled-dc
+            stance: supports
+            note: Final assembly, QC, regulation, pressure testing.
+          - claim: lstg-hagerstown-facility
+            stance: supports
+            note: Brand's own facility named.
+          - claim: lstg-built-dc
+            stance: supports
+            note: Built, tested and regulated in the D.C. area.
+          - claim: lstg-parts-overseas
+            stance: context
+            note: Components arrive finished; final assembly local.
+          - claim: lstg-assembled-usa
+            stance: context
+            note: Country only.
+      PD:
+        value: 2
+        rationale: The founder designs the watches (lstg-founder-design) and specified a world-time modification and a custom rotor on a stock Miyota base (lstg-wt-modification, lstg-rotor). No source describes bespoke tooling or supplier-directed engineering for the Travelgraph, so not 3; borderline with 3.
+        evidence:
+          - claim: lstg-founder-design
+            stance: supports
+            note: Founder design.
+          - claim: lstg-wt-modification
+            stance: supports
+            note: Specified modification.
+          - claim: lstg-rotor
+            stance: supports
+            note: Custom rotor specified.
     classification:
       - contract_microbrand

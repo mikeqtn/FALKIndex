@@ -28,11 +28,12 @@ provenance:
       - mgbenu-bought-parts
   - dimension: EX
     component: Case (three-part gold or platinum, 41 mm)
-    relationship: unknown
-    note: Case maker not named in any source reached.
+    relationship: external_specialist
+    note: The founder says the brand develops its cases in-house but has them manufactured by partners, whom she does not name.
     claims:
       - mgbenu-case-spec
       - mgbenu-rest-of-watch
+      - mgbenu-cases-partners
   - dimension: DH
     component: Dial (solid silver)
     relationship: unknown
@@ -40,6 +41,7 @@ provenance:
     claims:
       - mgbenu-dial-spec
       - mgbenu-dials-some
+      - mgbenu-dials-partly
   - dimension: DH
     component: Hands (annealed steel)
     performer: moritz-grossmann
@@ -220,6 +222,25 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: mgbenu-cases-partners
+    statement: In a 2021 Monochrome interview, the founder and CEO says the brand develops its cases in-house but has them manufactured by partners.
+    excerpt: We develop cases in-house, although these are manufactured by partners.
+    source: grossmann-monochrome-hutter-interview
+    dimensions:
+      - EX
+      - PD
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: mgbenu-dials-partly
+    statement: In the same interview, the founder says the brand only partly manufactures dials in-house, citing a tremblage dial engraved with a Glashütte engraver.
+    excerpt: We partly manufacture dials in-house, like the tremblage dial on which we worked with an engraver from Glashütte and then finished in-house.
+    source: grossmann-monochrome-hutter-interview
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -259,7 +280,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 4 → 3; EX 3 → U; WE 5 → 3; confidence A → B; classification Integrated Manufacture → Independent Manufacture. Each score's rationale names its evidence."
@@ -347,5 +368,108 @@ profiles:
           - claim: mgbenu-develop
             stance: supports
             note: Own construction and development.
+    classification:
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds a 2021 Monochrome Watches interview with founder Christine Hutter (grossmann-monochrome-hutter-interview), which says cases are developed in-house but manufactured by partners, and that dials are only partly made in-house. Changes from version 2: EX U → 0; confidence stays B. None of the seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: Manufacture calibre 100.0, a 2/3-plate construction with German-silver pillars, which the brand set out to construct and develop itself.
+        evidence:
+          - claim: mgbenu-cal100
+            stance: supports
+            note: Manufacture calibre.
+          - claim: mgbenu-plate
+            stance: supports
+            note: Own construction.
+          - claim: mgbenu-develop
+            stance: supports
+            note: Self-developed movements.
+      MM:
+        value: 3
+        rationale: The brand aimed for over 90% movement integration and makes the balance rim in-house; jewels, balance spring and mainsprings are bought in. The integration figure is an aim, not a measured outcome, so this is 3.
+        evidence:
+          - claim: mgbenu-balance-rim
+            stance: supports
+            note: Balance rim in-house.
+          - claim: mgbenu-cal100
+            stance: supports
+            note: Manufacture calibre.
+          - claim: mgbenu-bought-parts
+            stance: context
+            note: Bought-in springs and jewels.
+          - claim: mgbenu-integration
+            stance: context
+            note: An aim, not an outcome.
+      EX:
+        value: 0
+        rationale: The founder says, as a statement about all of the brand's cases, that they are developed in-house but manufactured by partners (mgbenu-cases-partners), which fits the CEO's remark that the rest of the watch is not held to the movement's in-house standard (mgbenu-rest-of-watch). No source names any exterior part, including the gold crown, as made internally, so this is 0 rather than 1. The statement dates from 2021 and rests on a secondary source; case development counts under PD, not EX.
+        evidence:
+          - claim: mgbenu-cases-partners
+            stance: supports
+            note: Cases made by partners.
+          - claim: mgbenu-rest-of-watch
+            stance: supports
+            note: Exterior less integrated.
+          - claim: mgbenu-case-spec
+            stance: context
+            note: Maker not named.
+      DH:
+        value: 3
+        rationale: The hands are made entirely in-house, which is substantial hand manufacture. The brand makes only a few of its own dials, and the founder says dials are only partly made in-house; the Benu's solid silver dial is unattributed, so this stays at 3.
+        evidence:
+          - claim: mgbenu-hands-inhouse
+            stance: supports
+            note: Hands in-house.
+          - claim: mgbenu-hands-spec
+            stance: supports
+            note: Hand-crafted hands.
+          - claim: mgbenu-dials-some
+            stance: supports
+            note: Own hands, few dials.
+          - claim: mgbenu-dial-spec
+            stance: context
+            note: Dial maker not named.
+          - claim: mgbenu-dials-partly
+            stance: context
+            note: Dials only partly in-house.
+      CF:
+        value: 5
+        rationale: The 2/3 plate and balance and escape-wheel cocks are engraved by hand, and raw parts are deburred and hand-bevelled, polished and decorated. Master-level finishing defines the watch.
+        evidence:
+          - claim: mgbenu-engraving
+            stance: supports
+            note: Hand engraving.
+          - claim: mgbenu-finishing
+            stance: supports
+            note: Hand finishing.
+      WE:
+        value: 3
+        rationale: The bought-in balance spring is shaped by hand in-house, and each watch is rate-tested for at least 30 days. No claim says who assembles the movement, so this is 3.
+        evidence:
+          - claim: mgbenu-spring-shaping
+            stance: supports
+            note: Hand-shaped balance spring.
+          - claim: mgbenu-rate-test
+            stance: supports
+            note: 30-day rate test.
+      PD:
+        value: 5
+        rationale: The brand constructs and develops its own movements, and the founder says it also develops its cases in-house while partners make them.
+        evidence:
+          - claim: mgbenu-develop
+            stance: supports
+            note: Own construction and development.
+          - claim: mgbenu-cases-partners
+            stance: supports
+            note: Case development in-house.
     classification:
       - independent_manufacture

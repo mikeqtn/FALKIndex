@@ -37,8 +37,9 @@ provenance:
   - dimension: WE
     component: Assembly
     relationship: unknown
-    note: No source says where or by whom.
-    claims: []
+    note: The October 2024 Son Mai launch press release places assembly in La Chaux-de-Fonds; it predates the 38mm Guilloché Main, does not name it, and does not name the assembler.
+    claims:
+      - aw-gm-sonmai-2024-assembly
   - dimension: PD
     component: Design and direction of the artisan network
     performer: awake
@@ -115,6 +116,15 @@ claims:
       - WE
       - PD
     date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: aw-gm-sonmai-2024-assembly
+    statement: An AWAKE press release reproduced by Europa Star says the 2024 Son Mai launch (four 39mm models) uses a La Joux-Perret movement with assembly in La Chaux-de-Fonds. It does not name the assembler or the later Guilloché Main.
+    excerpt: integrating a La Joux-Perret movement with assembly in La Chaux-de-Fonds
+    source: europastar-awake-son-mai-2024
+    dimensions:
+      - WE
+    date_checked: 2026-11-17
     editor: falk-index
     status: active
 profiles:

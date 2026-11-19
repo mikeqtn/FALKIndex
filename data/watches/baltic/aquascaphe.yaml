@@ -28,11 +28,14 @@ provenance:
       - aqs-bezel-crystal
   - dimension: DH
     component: Dial and hands
-    relationship: unknown
-    note: Brand says most components are made in Hong Kong, but no source names the dial or hand maker.
+    relationship: contract
+    note: Baltic lists Hong Kong for the production of most components and France only for assembly, adjustment and straps, and Europa Star reports the components are shipped from Hong Kong to Besançon. That places dial and hand making outside Baltic; no source names the maker.
     claims:
       - aqs-hk-components
       - aqs-dial
+      - aqs-france-scope
+      - aqs-partner-makers
+      - aqs-es-components-hk
   - dimension: WE
     component: Assembly, adjustment and regulation (Besançon)
     performer: baltic
@@ -135,6 +138,33 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: aqs-france-scope
+    statement: The brand lists the work it places in France as the assembly and adjustment of its watches and the production of straps.
+    excerpt: In France for the assembly and adjustment of our watches and the production of straps
+    source: baltic-about
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: aqs-partner-makers
+    statement: The brand says it partners with outside manufacturers for its components.
+    excerpt: We are proud to partner with some of the best manufacturers in horology and to provide the best quality on the market at this price range.
+    source: baltic-about
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: aqs-es-components-hk
+    statement: A Europa Star interview with co-founder Etienne Malec reports that Baltic's components are transported from Hong Kong to Besançon, where the watches are assembled.
+    excerpt: The components are transported from Hong Kong to Besançon, where the models are assembled and shipped.
+    source: europastar-baltic-blueprint
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -174,7 +204,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: DH 0 → U; CF 0 → U; confidence A → B. Each score's rationale names its evidence."
@@ -243,6 +273,97 @@ profiles:
       PD:
         value: 2
         rationale: The watches are conceived in France around a conventional supplier movement.
+        evidence:
+          - claim: aqs-designed-france
+            stance: supports
+            note: Conceived in France.
+    classification:
+      - contract_microbrand
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds a second reading of Baltic's About page (what it places in France, and its outside manufacturing partners) and a 2021 Europa Star interview with Etienne Malec. Changes from version 2: DH U → 0; confidence stays B. One of seven dimensions remains U (CF)."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: A Worn & Wound launch article reports a stock Miyota 9039 (aqs-miyota-9039), and SJX reports the movement is made in Japan (aqs-made-japan). No source describes any change to the calibre by Baltic, so it does not reach 1.
+        evidence:
+          - claim: aqs-miyota-9039
+            stance: supports
+            note: Miyota 9039.
+          - claim: aqs-made-japan
+            stance: supports
+            note: Made in Japan.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in (aqs-miyota-9039), a Time+Tide review says movements come from Asia (aqs-parts-asia), and Baltic says most components are made in Hong Kong (aqs-hk-components). No movement part is documented as made by Baltic.
+        evidence:
+          - claim: aqs-miyota-9039
+            stance: supports
+            note: External movement.
+          - claim: aqs-parts-asia
+            stance: supports
+            note: Movements from Asia.
+          - claim: aqs-hk-components
+            stance: supports
+            note: Components from Hong Kong.
+      EX:
+        value: 0
+        rationale: Baltic says most components are made in Hong Kong (aqs-hk-components), and a Time+Tide review says the cases come from Asia (aqs-parts-asia). The supplier is not named, and no exterior part is documented as made by Baltic.
+        evidence:
+          - claim: aqs-hk-components
+            stance: supports
+            note: Components from Hong Kong.
+          - claim: aqs-parts-asia
+            stance: supports
+            note: Cases from Asia.
+          - claim: aqs-bezel-crystal
+            stance: context
+            note: Specification only.
+      DH:
+        value: 0
+        rationale: Baltic lists Hong Kong for most of its components and France only for assembly, adjustment and straps (aqs-hk-components, aqs-france-scope), and says it partners with outside manufacturers (aqs-partner-makers). Europa Star reports the components are shipped from Hong Kong to Besançon for assembly (aqs-es-components-hk). Read together, these place dial and hand making outside Baltic. Borderline with U, because no source names the dial or hand maker and none speaks of the dial or hands specifically.
+        evidence:
+          - claim: aqs-france-scope
+            stance: supports
+            note: France work is assembly, adjustment and straps only.
+          - claim: aqs-hk-components
+            stance: supports
+            note: Most components made in Hong Kong.
+          - claim: aqs-partner-makers
+            stance: supports
+            note: Components come from partner manufacturers.
+          - claim: aqs-es-components-hk
+            stance: supports
+            note: Components shipped from Hong Kong.
+          - claim: aqs-dial
+            stance: context
+            note: Construction, not maker.
+      CF:
+        value: null
+        rationale: No source documents craft or finishing work by Baltic. Baltic's own list of French work covers assembly, adjustment and straps (aqs-france-scope), which says what happens in Besançon but not that no finishing is done there, so CF stays U rather than 0.
+        evidence: []
+      WE:
+        value: 3
+        rationale: Baltic says components are assembled and adjusted at its Besançon atelier (aqs-besancon-atelier); Time+Tide reports final assembly, adjustment and regulation there (aqs-final-assembly), and SJX says the movements are tested and adjusted in Besançon (aqs-made-japan). That is movement adjustment plus full assembly, regulation and testing; no source describes deeper movement assembly or complication work, so it does not reach 4.
+        evidence:
+          - claim: aqs-besancon-atelier
+            stance: supports
+            note: Assembled and adjusted in Besançon.
+          - claim: aqs-final-assembly
+            stance: supports
+            note: Assembly and regulation.
+          - claim: aqs-made-japan
+            stance: supports
+            note: Movements tested and adjusted.
+      PD:
+        value: 2
+        rationale: Baltic says its watches are conceived in France (aqs-designed-france), around a conventional supplier movement. No source describes technical development beyond design and supplier selection, so it does not reach 3.
         evidence:
           - claim: aqs-designed-france
             stance: supports

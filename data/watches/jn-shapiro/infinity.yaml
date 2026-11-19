@@ -19,10 +19,23 @@ provenance:
       - jns-inf-uwd
       - jns-inf-partner-movements
   - dimension: EX
-    component: Case
+    component: Case (tantalum, Infinity Tantalum edition, 2021)
+    performer: jn-shapiro
+    relationship: internal
+    note: The maker and three specialist launch articles (SJX, Time+Tide, Worn & Wound, all December 2021) say the tantalum case of the UWD 33.1 Infinity Tantalum is made in-house. Crown and crystal makers are not stated.
+    claims:
+      - jns-inf-about-tantalum-cases
+      - jns-inf-sjx-tantalum-in-house
+      - jns-inf-sjx-tantalum-uwd
+      - jns-inf-tt-tantalum-in-house
+      - jns-inf-ww-cases-in-house
+      - jns-inf-ww-tantalum-uwd
+  - dimension: EX
+    component: Case (18k gold, platinum or steel, 2019)
     relationship: unknown
-    note: No source names the case maker.
-    claims: []
+    note: SJX (2019) describes the original Infinity in a rose gold case and says case options are offered; no source names who made these cases.
+    claims:
+      - jns-inf-case-options
   - dimension: DH
     component: Dial, engine-turned
     performer: jn-shapiro
@@ -133,6 +146,71 @@ claims:
       - CF
       - WE
     date_checked: 2026-10-13
+    editor: falk-index
+    status: active
+  - id: jns-inf-about-tantalum-cases
+    statement: Joshua Shapiro says that in December 2021 the brand produced tantalum watch cases for the Infinity Series, the first made outside Switzerland.
+    excerpt: we produced the first tantalum wrist watch cases made outside of Switzerland for the Infinity Series
+    source: jns-about-page
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-sjx-tantalum-in-house
+    statement: An SJX launch article on the Infinity Tantalum reports that both its case and chapter ring are produced in-house.
+    excerpt: the challenge of fabricating tantalum parts makes it a laudable achievement that both the case and chapter ring are produced in house
+    source: sjx-jn-shapiro-infinity-tantalum
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-sjx-tantalum-uwd
+    statement: SJX reports that the Infinity Tantalum uses the same UWD 33.1 as the maker's other watches.
+    excerpt: The Infinity Tantalum is powered by the same UWD 33.1 found in Mr Shapiro’s other watches.
+    source: sjx-jn-shapiro-infinity-tantalum
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-tt-tantalum-in-house
+    statement: A Time+Tide launch article reports that the maker fabricates the Infinity Tantalum's case in-house.
+    excerpt: has become the first manufacturer outside of Switzerland to fabricate a tantalum case in-house
+    source: timeandtide-jn-shapiro-infinity-tantalum
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-ww-cases-in-house
+    statement: A Worn & Wound launch article reports that the maker has made the cases, and tantalum dial components, for the new Infinity Series watches in-house.
+    excerpt: Shapiro has made cases (and tantalum dial components) for the new watches in the Infinity Series in-house
+    source: wornandwound-jn-shapiro-infinity-tantalum
+    dimensions:
+      - EX
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-ww-tantalum-uwd
+    statement: Worn & Wound reports that the tantalum case of the new Infinity Series watches houses the UWD Caliber 33.1.
+    excerpt: That tantalum case used for each of the new watches in the Infinity Series measures 39mm in diameter, and houses the UWD Caliber 33.1
+    source: wornandwound-jn-shapiro-infinity-tantalum
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jns-inf-case-options
+    statement: SJX (2019) reports that the maker offers case and dial colour options and that the watch reviewed has a rose gold case.
+    excerpt: Though Josh offers a variety of options for the case and dial colours, this watch hews closely to the prototype, with a rose gold case
+    source: sjx-jn-shapiro-infinity
+    dimensions:
+      - EX
+    date_checked: 2026-11-17
     editor: falk-index
     status: active
 profiles:
@@ -250,7 +328,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: true
-    status: published
+    status: superseded
     is_seed: false
     editor: mikeqtn
     change_note: Record split by production route. This record now covers the Infinity with the UWD 33.1; the Infinity Radiant (La Joux-Perret 5000-4) has its own record. Scores unchanged; Radiant-only evidence removed from the rationale; PD now cites the in-house dial claims (jns-inf-dial-hours, jns-inf-own-guilloche), which were tagged PD for this. Reviewed and approved by mikeqtn on 2026-10-14.
@@ -313,6 +391,109 @@ profiles:
       PD:
         value: 3
         rationale: Original dial design and in-house dial production around a conventional supplier movement.
+        evidence:
+          - claim: jns-inf-dial-hours
+            stance: supports
+            note: Bespoke dial production.
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: Original engine-turned patterns.
+    classification:
+      - artisan_atelier
+  - version: 4
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: true
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds SJX's, Time+Tide's and Worn & Wound's December 2021 launch articles on the Infinity Tantalum (UWD 33.1), and cites the maker's About page for its tantalum Infinity Series cases. Changes from version 3: EX U → 2. Confidence stays B: EX now rests on a primary statement that names the Infinity Series, backed by three secondary sources, while DH, CF, WE and PD still rest mainly on SJX. None of the seven dimensions remains U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 0
+        rationale: Stock UWD 33.1 caliber from Uhren-Werke Dresden (jns-inf-uwd-caliber, jns-inf-uwd). No source describes modification beyond decoration, so the score is not higher.
+        evidence:
+          - claim: jns-inf-uwd-caliber
+            stance: supports
+            note: Stock caliber.
+          - claim: jns-inf-uwd
+            stance: supports
+            note: Names the movement maker.
+      MM:
+        value: 0
+        rationale: The complete movement is bought in; the maker says it pairs its work with partner movements (jns-inf-partner-movements) and SJX names Uhren-Werke Dresden (jns-inf-uwd).
+        evidence:
+          - claim: jns-inf-partner-movements
+            stance: supports
+            note: Primary statement that movements come from partners.
+          - claim: jns-inf-uwd
+            stance: supports
+            note: Names the movement maker.
+      EX:
+        value: 2
+        rationale: The maker says it produced tantalum cases for the Infinity Series in December 2021 (jns-inf-about-tantalum-cases), and SJX, Time+Tide and Worn & Wound report that the case of that UWD 33.1 Infinity Tantalum is made in-house (jns-inf-sjx-tantalum-in-house, jns-inf-tt-tantalum-in-house, jns-inf-ww-cases-in-house, jns-inf-ww-tantalum-uwd, jns-inf-sjx-tantalum-uwd). That is one important component family made internally. It is not 3 because no source names who makes the crown or crystal, nor who made the 2019 gold, platinum and steel cases (jns-inf-case-options). Borderline between 1 and 2 for the record as a whole, since the in-house case evidence covers the tantalum edition and not the earlier case materials; 2 is applied because the case is the principal exterior part and the maker's statement names the series.
+        evidence:
+          - claim: jns-inf-about-tantalum-cases
+            stance: supports
+            note: Primary statement of in-house tantalum case production for the Infinity Series, dated December 2021.
+          - claim: jns-inf-sjx-tantalum-in-house
+            stance: supports
+            note: Secondary report that the Infinity Tantalum's case is produced in house.
+          - claim: jns-inf-tt-tantalum-in-house
+            stance: supports
+            note: Secondary report that the tantalum case is fabricated in-house.
+          - claim: jns-inf-ww-cases-in-house
+            stance: supports
+            note: Secondary report that the cases for the new Infinity Series watches are made in-house.
+          - claim: jns-inf-ww-tantalum-uwd
+            stance: context
+            note: Ties the in-house tantalum case to the UWD 33.1 route this record covers.
+          - claim: jns-inf-sjx-tantalum-uwd
+            stance: context
+            note: Confirms the Infinity Tantalum uses the UWD 33.1.
+          - claim: jns-inf-case-options
+            stance: context
+            note: The 2019 watch came in other case metals; their maker is not stated.
+      DH:
+        value: 5
+        rationale: Josh Shapiro engine-turns every dial himself, around 150 hours each (jns-inf-own-guilloche, jns-inf-dial-hours). On the Infinity Tantalum, SJX and Worn & Wound report that the tantalum chapter ring and dial components are also made in-house (jns-inf-sjx-tantalum-in-house, jns-inf-ww-cases-in-house). Hands are finished by hand, though who does it is not stated (jns-inf-hands). The dial is the defining internal manufacture of the watch.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: All engine-turning is done by Shapiro.
+          - claim: jns-inf-dial-hours
+            stance: supports
+            note: Depth of dial production.
+          - claim: jns-inf-sjx-tantalum-in-house
+            stance: context
+            note: Tantalum chapter ring produced in house on the tantalum edition.
+          - claim: jns-inf-ww-cases-in-house
+            stance: context
+            note: Tantalum dial components made in-house on the tantalum edition.
+          - claim: jns-inf-hands
+            stance: context
+            note: Hand finishing of hands; maker not named.
+      CF:
+        value: 5
+        rationale: Master-level engine-turning by Shapiro defines the watch (jns-inf-own-guilloche), and a staff engraver decorates the movement (jns-inf-engraver). Both are internal.
+        evidence:
+          - claim: jns-inf-own-guilloche
+            stance: supports
+            note: Defining craft performed by the watchmaker himself.
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Movement engraving done by a staff member.
+      WE:
+        value: 3
+        rationale: Movement engraving by a staff watchmaker (jns-inf-engraver) implies the movement is stripped, decorated and reassembled in the workshop. No source describes casing, regulation or testing, so this rests on inference and is borderline between 2 and 3; it cannot go above 3 without a claim on regulation or adjustment.
+        evidence:
+          - claim: jns-inf-engraver
+            stance: supports
+            note: Engraving requires in-house disassembly and reassembly.
+      PD:
+        value: 3
+        rationale: Original dial design and in-house dial production around a conventional supplier movement (jns-inf-dial-hours, jns-inf-own-guilloche). No source describes movement engineering or supplier direction beyond the dial, so it is not higher.
         evidence:
           - claim: jns-inf-dial-hours
             stance: supports

@@ -2054,3 +2054,176 @@
   tier: secondary
   published_on: 2024-10-02
   notes: Paperjam (Luxembourg) profile of ZRC CEO Georges Brunet, in French.
+- id: monochrome-akmaev-interview-2023
+  url: https://monochrome-watches.com/interview-artur-akmaev-independent-watchmaking-epic-fan-ancient-east-asia-press-strat-volume-3-carbon-collection/
+  archived_url: https://web.archive.org/web/20260421074056/https://monochrome-watches.com/interview-artur-akmaev-independent-watchmaking-epic-fan-ancient-east-asia-press-strat-volume-3-carbon-collection/
+  title: The Expressive Watchmaking Style of Artur Akmaev (Robin Nooy, Monochrome Watches)
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2023-10-03
+- id: sjx-akmaev-battle-city
+  url: https://watchesbysjx.com/2020/11/artur-akmaev-battle-city.html
+  archived_url: https://web.archive.org/web/20260415002607/https://watchesbysjx.com/2020/11/artur-akmaev-battle-city.html
+  title: Artur Akmaev Introduces the Battle City (SJX Watches)
+  source_type: press
+  tier: secondary
+  published_on: 2020-11-22
+- id: europastar-awake-son-mai-2024
+  url: https://www.europastar.com/time-keeper/1004114646-awake-son-mai-a-new-approach-to-metiers-d-art.html
+  archived_url: https://web.archive.org/web/20250425023547/https://www.europastar.com/time-keeper/1004114646-awake-son-mai-a-new-approach-to-metiers-d-art.html
+  title: "Awake Son Mai: a new approach to Métiers d'Art (Europa Star, press release)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-10-01
+  notes: Reproduces the AWAKE press release for the 39mm Son Mai launch (October 2024); exact day not shown.
+- id: europastar-baltic-blueprint
+  url: https://www.europastar.com/the-watch-files/new-watch-brands/1004092614-baltic-and-the-blueprint-for-creating-a-watch.html
+  archived_url: https://web.archive.org/web/20260521013113/https://www.europastar.com/the-watch-files/new-watch-brands/1004092614-baltic-and-the-blueprint-for-creating-a-watch.html
+  title: "Baltic and the blueprint for creating a watch brand in the 21st century (Europa Star)"
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2021-04-12
+  notes: Interview with co-founder Etienne Malec.
+- id: worldtempus-breitling-legendaryfuture
+  url: https://en.worldtempus.com/article/industry-news/brands/breitling-manufacturing-the-legendaryfuture-26157.html
+  archived_url: https://web.archive.org/web/20230602183824/https://en.worldtempus.com/article/industry-news/brands/breitling-manufacturing-the-legendaryfuture-26157.html
+  title: "Breitling: Manufacturing the #legendaryfuture (WorldTempus)"
+  source_type: press
+  tier: secondary
+  published_on: 2018-07-09
+- id: worldtempus-breitling-chronometrie-2025
+  url: https://en.worldtempus.com/article/watch-knowledge/breitling-chronometrie-consistency-performance-sixth-sense-breitling-79607.html
+  archived_url: https://web.archive.org/web/20250725170233/https://en.worldtempus.com/article/watch-knowledge/breitling-chronometrie-consistency-performance-sixth-sense-breitling-79607.html
+  title: "Breitling Chronométrie: Consistency, Performance, Sixth Sense (WorldTempus)"
+  source_type: press
+  tier: secondary
+  published_on: 2025-01-04
+- id: czapek-blog-antarctique-episode-3
+  url: https://blogantarctique.czapek.com/2020/11/29/the-story-of-the-antarctique-episode-3/
+  archived_url: https://web.archive.org/web/20211027104927/https://blogantarctique.czapek.com/2020/11/29/the-story-of-the-antarctique-episode-3/
+  title: The Story of the Antarctique – Episode 3 (Czapek, The Antarctique Journey blog)
+  publisher: czapek
+  source_type: manufacturer
+  tier: primary
+  published_on: 2020-11-29
+- id: czapek-blog-setting-jewels-on-bridges
+  url: https://blogantarctique.czapek.com/2020/10/28/setting-jewels-on-bridges/
+  archived_url: https://web.archive.org/web/20210411030702/https://blogantarctique.czapek.com/2020/10/28/setting-jewels-on-bridges/
+  title: Setting Jewels on Bridges (Czapek, The Antarctique Journey blog)
+  publisher: czapek
+  source_type: manufacturer
+  tier: primary
+  published_on: 2020-10-28
+- id: czapek-blog-perpetual-improvement
+  url: https://blogantarctique.czapek.com/2021/02/23/perpetual-improvement/
+  archived_url: https://web.archive.org/web/20210411030258/https://blogantarctique.czapek.com/2021/02/23/perpetual-improvement/
+  title: Perpetual Improvement (Czapek, The Antarctique Journey blog)
+  publisher: czapek
+  source_type: manufacturer
+  tier: primary
+  published_on: 2021-02-23
+- id: deployant-czapek-suppliers-2024
+  url: https://deployant.com/new-video-czapek-manufacture-the-suppliers/
+  archived_url: https://web.archive.org/web/20260616181259/https://deployant.com/new-video-czapek-manufacture-the-suppliers/
+  title: "New Video: Czapek Manufacture – the Suppliers (Peter Chong, Deployant)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-12-11
+- id: bespokeunit-jlc-manufacture-tour
+  url: https://bespokeunit.com/articles/watches/jaeger-lecoultre-manufacture/
+  archived_url: https://web.archive.org/web/20260116131236/https://bespokeunit.com/articles/watches/jaeger-lecoultre-manufacture/
+  title: Behind The Scenes At Jaeger-LeCoultre | Manufacture Factory Tour (Roberta Naas, Bespoke Unit)
+  source_type: press
+  tier: secondary
+  published_on: 2019-05-01
+  notes: Date from the page's datePublished metadata (modified 2019-06-28). Dial-room and "makes its own cases, bracelets, dials and movements" excerpts confirmed in the archived copy.
+- id: jlc-reverso-tribute-enamel-turner-page
+  url: https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-enamel-turner-q39334w2
+  archived_url: https://web.archive.org/web/20261014204955/https://www.jaeger-lecoultre.com/us-en/watches/reverso/reverso-tribute/reverso-tribute-enamel-turner-q39334w2
+  title: Reverso Tribute Enamel Turner Q39334W2 (Jaeger-LeCoultre)
+  publisher: jaeger-lecoultre
+  source_type: manufacturer
+  tier: primary
+  notes: Limited "Venice" series within the Reverso Tribute line, calibre 822. Atelier heading and guilloché-dial excerpts confirmed in the archived copy.
+- id: sjx-jn-shapiro-infinity-tantalum
+  url: https://watchesbysjx.com/2021/12/jn-shapiro-infinity-tantalum.html
+  archived_url: https://web.archive.org/web/20260121130938/https://watchesbysjx.com/2021/12/jn-shapiro-infinity-tantalum.html
+  title: J.N. Shapiro Introduces the Infinity Tantalum (JX Su, SJX)
+  source_type: press
+  tier: secondary
+  published_on: 2021-12-07
+- id: timeandtide-jn-shapiro-infinity-tantalum
+  url: https://timeandtidewatches.com/the-new-j-n-shapiro-infinity-tantalum-limited-edition-marks-the-first-tantalum-case-made-in-house-outside-of-switzerland/
+  archived_url: https://web.archive.org/web/20260808073115/https://timeandtidewatches.com/the-new-j-n-shapiro-infinity-tantalum-limited-edition-marks-the-first-tantalum-case-made-in-house-outside-of-switzerland/
+  title: The J.N. Shapiro Infinity Tantalum Limited Edition marks the first tantalum case made in-house outside of Switzerland (Zach Blass, Time+Tide)
+  source_type: press
+  tier: secondary
+  published_on: 2021-12-08
+- id: wornandwound-jn-shapiro-infinity-tantalum
+  url: https://wornandwound.com/j-n-shapiros-latest-entry-in-the-infinity-series-is-a-tantalum-cased-engine-turned-tour-de-force/
+  archived_url: https://web.archive.org/web/20260309091420/https://wornandwound.com/j-n-shapiros-latest-entry-in-the-infinity-series-is-a-tantalum-cased-engine-turned-tour-de-force/
+  title: J.N. Shapiro's Latest Entry in the Infinity Series is a Tantalum Cased Engine-Turned Tour de Force (Worn & Wound)
+  source_type: press
+  tier: secondary
+  published_on: 2021-12-07
+- id: independentintime-laine-dec-2023
+  url: https://www.independentintime.com/watchmakerworkshop-visits/category/Torsti+Laine
+  archived_url: https://web.archive.org/web/20261119011211/https://www.independentintime.com/watchmakerworkshop-visits/category/Torsti+Laine
+  title: Neuchâtel, Dec 2023 Part Six- Torsti Laine (Independent in Time)
+  source_type: press
+  tier: secondary
+  published_on: 2024-03-08
+  notes: Workshop-visit report by Tim Jackson of Independent in Time, a retailer that stocks Laine watches. The url is the blog's Torsti Laine category page, which carries the full post; the post's own page (/watchmakerworkshop-visits/neuchtel-dec-2023-part-six-torsti-laine) could not be archived.
+- id: the1916company-laine-week-on-wrist
+  url: https://www.the1916company.com/blog/independents-to-watch-a-week-on-the-wrist-with-torsti-laine.html
+  archived_url: https://web.archive.org/web/20250617020259/https://www.the1916company.com/blog/independents-to-watch-a-week-on-the-wrist-with-torsti-laine.html
+  title: "Independents To Watch: A Week on The Wrist With Torsti Laine (The 1916 Company)"
+  source_type: press
+  tier: secondary
+  published_on: 2024-04-04
+  notes: Retailer blog article that quotes Torsti Laine from a workshop visit.
+- id: monochrome-laine-classic-chronograph
+  url: https://monochrome-watches.com/the-laine-classic-chronograph-powered-by-a-highly-decorated-restored-valjoux-22/
+  archived_url: https://web.archive.org/web/20260712152134/https://monochrome-watches.com/the-laine-classic-chronograph-powered-by-a-highly-decorated-restored-valjoux-22/
+  title: The Laine Classic Chronograph, Powered by a Highly-Decorated, Restored Valjoux 22 (Monochrome Watches)
+  source_type: press
+  tier: secondary
+  published_on: 2018-09-13
+- id: fratello-lf-fpj-behind-the-scenes
+  url: https://www.fratellowatches.com/behind-the-scenes-in-geneva-visiting-the-craftspeople-at-laurent-ferrier-and-f-p-journe/
+  archived_url: https://web.archive.org/web/20260310154134/https://www.fratellowatches.com/behind-the-scenes-in-geneva-visiting-the-craftspeople-at-laurent-ferrier-and-f-p-journe/
+  title: "Behind The Scenes In Geneva: Visiting The Craftspeople At Laurent Ferrier And F.P.Journe (Fratello)"
+  source_type: press
+  tier: secondary
+  published_on: 2023-09-20
+  notes: Cadraniers de Genève dial excerpt and 'bring more processes in-house' excerpt confirmed in the archived copy.
+- id: lesablier-travelgraph-landing
+  url: https://www.lesablierwatches.com/travelgraph
+  archived_url: https://web.archive.org/web/20260714032120/https://www.lesablierwatches.com/travelgraph
+  title: LS-04 Travelgraph (Lesablier)
+  publisher: lesablier
+  source_type: manufacturer
+  tier: primary
+  notes: Travelgraph landing page on the old lesablierwatches.com site, separate from /product-page/ls-04-travelgraph. 'Hand-assembled' section with the Hagerstown, Maryland facility excerpt confirmed in the archived copy. The new lesablier.com domain now hosts an unrelated fragrance line.
+- id: grossmann-monochrome-hutter-interview
+  url: https://monochrome-watches.com/interview-christine-hutter-founder-and-ceo-of-german-independent-watchmaker-moritz-grossmann/
+  archived_url: https://web.archive.org/web/20260210172052/https://monochrome-watches.com/interview-christine-hutter-founder-and-ceo-of-german-independent-watchmaker-moritz-grossmann/
+  title: Interview Christine Hutter, Founder and CEO of German Independent Watchmaker Moritz Grossmann
+  source_type: technical_interview
+  tier: secondary
+  published_on: 2021-12-04
+  notes: Monochrome Watches interview with the founder and CEO.
+- id: nomos-parts-production
+  url: https://nomos-glashuette.com/en/watchmaking/production/parts-production
+  archived_url: https://web.archive.org/web/20260818111846/https://nomos-glashuette.com/en/watchmaking/production/parts-production
+  title: Parts production at the watch manufacture NOMOS Glashütte
+  publisher: nomos
+  source_type: manufacturer
+  tier: primary
+- id: nomos-tangente-neomatik-175
+  url: https://nomos-glashuette.com/en/tangente/tangente-neomatik-175
+  archived_url: https://web.archive.org/web/20260314125232/https://nomos-glashuette.com/en/tangente/tangente-neomatik-175
+  title: Tangente neomatik (ref. 175) (NOMOS Glashütte)
+  publisher: nomos
+  source_type: manufacturer
+  tier: primary

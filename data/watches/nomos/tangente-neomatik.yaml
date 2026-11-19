@@ -7,9 +7,10 @@ provenance:
     component: Calibre DUW 3001 architecture
     performer: nomos
     relationship: internal
-    note: Tangente neomatik is assumed to use DUW 3001 (35 mm references); a model page confirming this could not be fetched in this pass.
+    note: NOMOS's page for Tangente neomatik ref. 175 (35 mm) names calibre DUW 3001.
     claims:
       - ntn-duw3001
+      - ntn-model-duw3001
   - dimension: MM
     component: Plates, bridges, wheels and pinions
     performer: nomos
@@ -35,9 +36,10 @@ provenance:
   - dimension: EX
     component: Case, strap and clasp
     relationship: external_specialist
-    note: Sourced externally per a 2024 visit report; suppliers not named.
+    note: Sourced externally per a 2024 visit report; suppliers not named. NOMOS says the winged clasp is polished by hand, without naming who does it.
     claims:
       - ntn-external
+      - ntn-clasp-hand
   - dimension: DH
     component: Dial
     relationship: external_specialist
@@ -54,9 +56,12 @@ provenance:
     component: Movement finishing (Glashütte ribbing, perlage)
     performer: nomos
     relationship: internal
+    note: NOMOS describes an in-house finishing department for its calibre parts; no source says whether the decoration is applied by hand or by machine.
     claims:
       - ntn-finish
       - ntn-onsite
+      - ntn-finishing-dept
+      - ntn-striped-finish
   - dimension: WE
     component: Assembly and regulation
     performer: nomos
@@ -184,6 +189,43 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: ntn-model-duw3001
+    statement: NOMOS's page for Tangente neomatik ref. 175 says the watch is powered by calibre DUW 3001.
+    excerpt: It is powered by the revolutionary and, at only 3.2 millimeters in height, ultra-thin NOMOS caliber DUW 3001.
+    source: nomos-tangente-neomatik-175
+    dimensions:
+      - MA
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ntn-finishing-dept
+    statement: NOMOS says its finishing department sets stones, smooths edges and polishes NOMOS calibre parts.
+    excerpt: Setting stones, smoothing edges, adding a refined polish—in the finishing department, everything revolves around the beauty and perfection of NOMOS caliber parts.
+    source: nomos-parts-production
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ntn-striped-finish
+    statement: A 2024 visit report on the Schlottwitz parts facility says striped finishing is applied to the balance cock, bridges and three-quarter plate.
+    excerpt: Meanwhile, striped finishing is applied to the balance cock, bridges, and the three-quarter plate.
+    source: nomos-swisswatches-visit
+    dimensions:
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: ntn-clasp-hand
+    statement: NOMOS's Tangente neomatik page says the NOMOS winged clasp is polished by hand.
+    excerpt: Designed in Berlin, elaborately produced, and polished by hand, the NOMOS winged clasp exudes elegance through its beautiful minimalism.
+    source: nomos-tangente-neomatik-175
+    dimensions:
+      - EX
+      - CF
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -223,7 +265,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: EX 3 → 0; DH 3 → 0; CF 2 → U; PD 5 → 3; confidence A → B; classification Integrated Manufacture → Independent Manufacture. Each score's rationale names its evidence."
@@ -295,6 +337,103 @@ profiles:
       PD:
         value: 3
         rationale: NOMOS has its own design department, Berlinerblau. The calibre and escapement engineering is credited under MA and MM, and no claim describes the department's technical development, so this is 3.
+        evidence:
+          - claim: ntn-berlinerblau
+            stance: supports
+            note: In-house design department.
+    classification:
+      - independent_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds NOMOS's parts-production page and its Tangente neomatik ref. 175 model page, plus a further excerpt from the 2024 Swisswatches visit report. Changes from version 2: CF U → 1; confidence stays B. MA, MM, EX, DH, WE and PD are unchanged; the model page now confirms the DUW 3001 calibre that version 2 assumed. No dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: NOMOS's model page for Tangente neomatik ref. 175 says the watch is powered by calibre DUW 3001 (ntn-model-duw3001), which NOMOS describes as an in-house built automatic calibre (ntn-duw3001) with its own swing system escapement. That confirms the calibre version 2 assumed, so the score of 5 stands.
+        evidence:
+          - claim: ntn-model-duw3001
+            stance: supports
+            note: Model page names DUW 3001.
+          - claim: ntn-duw3001
+            stance: supports
+            note: In-house calibre.
+      MM:
+        value: 4
+        rationale: About 95% of movement components are made in-house, including wheels, pinions and shafts at Schlottwitz and the swing system (ntn-95pct, ntn-schlottwitz, ntn-swing, ntn-escapement-2014, ntn-onsite). In 2014 the balance spring came from a German supplier (ntn-hairspring-2014), so this is 4 rather than 5.
+        evidence:
+          - claim: ntn-95pct
+            stance: supports
+            note: About 95% in-house.
+          - claim: ntn-schlottwitz
+            stance: supports
+            note: Turned parts.
+          - claim: ntn-swing
+            stance: supports
+            note: Own escapement.
+          - claim: ntn-escapement-2014
+            stance: supports
+            note: Escapement parts in-house.
+          - claim: ntn-onsite
+            stance: supports
+            note: Made on site.
+          - claim: ntn-hairspring-2014
+            stance: context
+            note: External balance spring.
+      EX:
+        value: 0
+        rationale: A 2024 visit report says the case, strap and clasp are sourced externally (ntn-external). NOMOS says the winged clasp is polished by hand (ntn-clasp-hand) but does not say who polishes it, so it does not change the score.
+        evidence:
+          - claim: ntn-external
+            stance: supports
+            note: Exterior external.
+          - claim: ntn-clasp-hand
+            stance: context
+            note: Hand polishing, performer not named.
+      DH:
+        value: 0
+        rationale: The same 2024 report says the dial and hands are sourced externally (ntn-external). No source names an internal dial or hand operation for this model.
+        evidence:
+          - claim: ntn-external
+            stance: supports
+            note: Dial and hands external.
+      CF:
+        value: 1
+        rationale: NOMOS says its own finishing department sets stones, smooths edges and polishes NOMOS calibre parts (ntn-finishing-dept), and a 2024 visit report places striped finishing of the balance cock, bridges and three-quarter plate in its Schlottwitz parts production (ntn-striped-finish); DUW 3001 carries Glashütte ribbing and perlage (ntn-finish). That is internal decorative work on this calibre, read here as limited decorative operations. Borderline with 0, because no source says the decoration is done by hand; 2 would need a source describing regular handwork. The hand-polished clasp (ntn-clasp-hand) has no named performer and the clasp is sourced externally, so it does not count.
+        evidence:
+          - claim: ntn-finishing-dept
+            stance: supports
+            note: In-house finishing department for calibre parts.
+          - claim: ntn-striped-finish
+            stance: supports
+            note: Striped finishing in parts production; method not stated.
+          - claim: ntn-finish
+            stance: supports
+            note: DUW 3001 decoration listed.
+          - claim: ntn-clasp-hand
+            stance: context
+            note: External part; does not raise CF.
+      WE:
+        value: 5
+        rationale: "Watches are made almost entirely on site, from parts to final quality control: pre-assembly, assembly, regulation in six positions and fitting (ntn-onsite, ntn-assembly, ntn-six-positions). Regulation and adjustment by the brand carry this above 3."
+        evidence:
+          - claim: ntn-onsite
+            stance: supports
+            note: Parts to final QC.
+          - claim: ntn-assembly
+            stance: supports
+            note: Assembly and regulation.
+          - claim: ntn-six-positions
+            stance: supports
+            note: Six-position adjustment.
+      PD:
+        value: 3
+        rationale: NOMOS has its own design department, Berlinerblau (ntn-berlinerblau). The calibre and escapement engineering is credited under MA and MM, and no claim describes the department's technical development, so this is 3.
         evidence:
           - claim: ntn-berlinerblau
             stance: supports

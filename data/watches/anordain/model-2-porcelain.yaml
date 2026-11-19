@@ -21,7 +21,7 @@ provenance:
   - dimension: EX
     component: Case
     relationship: unknown
-    note: Case maker not named.
+    note: Case maker not named. Searched the brand's Model 2 Porcelain product pages and watchmaking page, and reviews by SJX, Deployant, Time+Tide, Fratello and Quill & Pad; they give size, steel grade and finish only. A 2019 anOrdain blog post refers to prototypes coming back "from the casemaker" but does not name it or tie it to this model.
     claims: []
   - dimension: DH
     component: Porcelain dial (forming, glazing, firing)

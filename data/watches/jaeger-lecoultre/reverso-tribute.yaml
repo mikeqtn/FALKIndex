@@ -28,15 +28,26 @@ provenance:
   - dimension: EX
     component: Milanese bracelet (Monoface pink gold)
     relationship: unknown
-    note: Process described by the brand; where it is made is not stated.
+    note: Process described by the brand; where it is made is not stated. A 2019 manufacture-tour report says Jaeger-LeCoultre makes its own bracelets, but does not name this bracelet.
     claims:
       - jlcrt-milanese
+      - jlcrt-naas-own-dials
   - dimension: DH
     component: Dial and applied indexes
     relationship: unknown
-    note: The brand describes the dial process but does not say whether dials are made in-house.
+    note: The brand describes the dial process but does not say whether the standard Tribute dials are made in-house. A 2019 manufacture-tour report says Jaeger-LeCoultre makes its own dials, with rooms for cutting, polishing, plating and piercing them, but it does not name the Tribute.
     claims:
       - jlcrt-dial-indexes
+      - jlcrt-naas-own-dials
+      - jlcrt-naas-dial-rooms
+  - dimension: DH
+    component: Guilloché Grand Feu enamel dial (Reverso Tribute Enamel Turner series)
+    performer: jaeger-lecoultre
+    relationship: internal
+    note: Limited series within the Reverso Tribute line; the brand says the series is crafted in its Métiers Rares atelier. No source covers hands.
+    claims:
+      - jlcrt-turner-atelier
+      - jlcrt-turner-dial
   - dimension: CF
     component: Movement decoration
     performer: jaeger-lecoultre
@@ -136,6 +147,43 @@ claims:
     date_checked: 2026-10-21
     editor: falk-index
     status: active
+  - id: jlcrt-naas-own-dials
+    statement: A 2019 manufacture-tour report by Roberta Naas says Jaeger-LeCoultre makes its own cases, bracelets, dials and movements; it does not name the Reverso Tribute.
+    excerpt: Additionally, the Manufacture makes its own cases, bracelets, dials and movements.
+    source: bespokeunit-jlc-manufacture-tour
+    dimensions:
+      - DH
+      - EX
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jlcrt-naas-dial-rooms
+    statement: The same report describes a manufacture area where dials are pierced for hand and applied-numeral feet, after rooms where base-metal dials are cut, polished and plated.
+    excerpt: In an additional area, the dials are cut with the holes into which the feet of the hands, or numerals that are applied will be placed.
+    source: bespokeunit-jlc-manufacture-tour
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jlcrt-turner-atelier
+    statement: Jaeger-LeCoultre says its Reverso Tribute Enamel Turner series is crafted in its Métiers Rares atelier.
+    excerpt: DISCOVER THE REVERSO TRIBUTE ENAMEL TURNER “VENICE” SERIES CRAFTED IN OUR MÉTIERS RARES™ ATELIER
+    source: jlc-reverso-tribute-enamel-turner-page
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
+  - id: jlcrt-turner-dial
+    statement: The brand says the Reverso Tribute Enamel Turner dial has a hand-guilloché rice-grain pattern under translucent Grand Feu enamel.
+    excerpt: To complement the painting on the reverse side of the watch, the colourful dial feature a rice-grain hand-guilloché pattern beneath translucent Grand Feu enamel, chosen to match caseback paintings.
+    source: jlc-reverso-tribute-enamel-turner-page
+    dimensions:
+      - DH
+    date_checked: 2026-11-17
+    editor: falk-index
+    status: active
 profiles:
   - version: 1
     methodology: v0.2
@@ -175,7 +223,7 @@ profiles:
     methodology: v0.2
     confidence: B
     independent_watchmaker: false
-    status: published
+    status: superseded
     is_seed: false
     editor: falk-index
     change_note: "First evidenced profile, drafted with AI from primary and secondary sources. Changes from version 1: MM 5 → 4; EX 4 → 2; DH 4 → U; CF 4 → 3; WE 5 → 3; PD 5 → 4; confidence A → B. Each score's rationale names its evidence."
@@ -218,6 +266,100 @@ profiles:
           - claim: jlcrt-dial-indexes
             stance: context
             note: Process, not maker.
+      CF:
+        value: 3
+        rationale: Movements are decorated within the manufacture, including hand decoration of hidden parts. That is substantial hand finishing; 4 would need a source on métiers d'art for this model.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Decorated in-house.
+          - claim: jlcrt-finish-step
+            stance: supports
+            note: Hand decoration.
+          - claim: jlcrt-crafts
+            stance: supports
+            note: Crafts under one roof.
+      WE:
+        value: 3
+        rationale: Calibres are assembled within the manufacture. No claim mentions regulation or adjustment, which caps this at 3.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Assembled in-house.
+          - claim: jlcrt-crafts
+            stance: supports
+            note: Single Manufacture-Atelier.
+      PD:
+        value: 4
+        rationale: Designers work with technical designers and movement constructors in-house. That is extensive original development; 5 would need a source on the engineering defining this reference.
+        evidence:
+          - claim: jlcrt-design-step
+            stance: supports
+            note: Integrated design and construction.
+    classification:
+      - integrated_manufacture
+  - version: 3
+    methodology: v0.2
+    confidence: B
+    independent_watchmaker: false
+    status: published
+    is_seed: false
+    editor: falk-index
+    change_note: "Adds Jaeger-LeCoultre's Reverso Tribute Enamel Turner product page and a 2019 manufacture-tour report by Roberta Naas (Bespoke Unit). Changes from version 2: DH U → 2; confidence B unchanged. None of the seven dimensions remain U."
+    created_on: 2026-11-17
+    scores:
+      MA:
+        value: 5
+        rationale: Jaeger-LeCoultre says calibres 822 and 854 used in the Tribute are designed and developed in-house.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Calibre 822 designed in-house.
+          - claim: jlcrt-854-inhouse
+            stance: supports
+            note: Calibre 854 conceived in-house.
+      MM:
+        value: 4
+        rationale: Both calibres are produced within the manufacture. No source covers the hairspring or escapement specifically, so this is 4 rather than 5.
+        evidence:
+          - claim: jlcrt-822-inhouse
+            stance: supports
+            note: Produced in-house.
+          - claim: jlcrt-854-inhouse
+            stance: supports
+            note: Produced in-house.
+      EX:
+        value: 2
+        rationale: A 2012 report says the Le Sentier site makes Reverso cases. Only the case family is evidenced, from an older report on another Reverso, and the bracelet maker is not stated. A 2019 report says the manufacture makes its own bracelets, but it names no model, so it is context and does not raise the score.
+        evidence:
+          - claim: jlcrt-cases-made
+            stance: supports
+            note: Reverso cases made at Le Sentier.
+          - claim: jlcrt-milanese
+            stance: context
+            note: Bracelet location not stated.
+          - claim: jlcrt-naas-own-dials
+            stance: context
+            note: Brand-wide bracelet capability; Tribute not named.
+      DH:
+        value: 2
+        rationale: Jaeger-LeCoultre says the Reverso Tribute Enamel Turner series, whose dial is hand-guilloché under Grand Feu enamel, is crafted in its Métiers Rares atelier, so at least one meaningful dial stage is internal for watches in the Tribute line. A 2019 tour report says the manufacture makes its own dials and describes rooms for cutting, polishing, plating and piercing them, which fits that reading but names no model. Not 3, because no source names the maker of the standard Monoface and Duoface dials or covers hands. Borderline, because the line-specific evidence comes from a limited enamel series rather than the core references.
+        evidence:
+          - claim: jlcrt-turner-atelier
+            stance: supports
+            note: Tribute Enamel series crafted in the Métiers Rares atelier.
+          - claim: jlcrt-turner-dial
+            stance: supports
+            note: Hand-guilloché Grand Feu enamel dial.
+          - claim: jlcrt-naas-own-dials
+            stance: context
+            note: Brand-wide dial making; Tribute not named.
+          - claim: jlcrt-naas-dial-rooms
+            stance: context
+            note: Dial production stages at the manufacture.
+          - claim: jlcrt-dial-indexes
+            stance: context
+            note: Standard dial process, maker not named.
       CF:
         value: 3
         rationale: Movements are decorated within the manufacture, including hand decoration of hidden parts. That is substantial hand finishing; 4 would need a source on métiers d'art for this model.
