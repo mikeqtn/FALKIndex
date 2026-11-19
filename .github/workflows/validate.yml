@@ -22,6 +22,8 @@ jobs:
       CLERK_SECRET_KEY: sk_test_ci_placeholder
     steps:
       - uses: actions/checkout@v5
+        # The full history, so the quote check below can compare this pull request with its base branch.
+        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v5
         with: { node-version: 24, cache: npm }
       # Publishing from Replit rewrites package-lock.json to Replit's package mirror, which only resolves inside
@@ -30,6 +32,10 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run validate
+      # Every quote a pull request adds or changes must appear word for word on its source's archived page
+      # (scripts/check-excerpts.ts). This is the gate on AI-drafted research; unchanged claims are not refetched.
+      - if: github.event_name == 'pull_request'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE" && npm run check:excerpts -- --since "origin/${{ github.base_ref }}"
       - run: npm run db:setup
       - run: npm run db:import
       - run: npm run build

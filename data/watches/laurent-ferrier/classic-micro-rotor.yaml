@@ -29,7 +29,7 @@ provenance:
   - dimension: DH
     component: Dial, indices and hands
     relationship: unknown
-    note: "Fratello and SJX report brand-wide that Laurent Ferrier's dials come from Les Cadraniers de Genève (owned by F.P. Journe, not by Laurent Ferrier); neither names this model, and no source names the hand maker, so the relationship stays unknown for this watch."
+    note: Fratello and SJX report brand-wide that Laurent Ferrier's dials come from Les Cadraniers de Genève (owned by F.P. Journe, not by Laurent Ferrier); neither names this model, and no source names the hand maker, so the relationship stays unknown for this watch.
     claims:
       - lfcmr-cdg-dials-fratello
       - lfcmr-cdg-dials-sjx
