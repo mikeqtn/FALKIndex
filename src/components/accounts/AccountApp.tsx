@@ -1,8 +1,9 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useClerk } from '@clerk/react';
 import { profileInput, qualificationOptions, type Account, type ProfileInput } from '../../accounts/contracts';
 import { api, dateLabel, handleAccountError } from './api';
 import { AuthProvider } from './AuthProvider';
+import { Section, roleName } from './AccountRow';
 
 type Meta = { qualificationOptions: { value: string; label: string }[]; organizations: { id: string; name: string }[] };
 const blank: ProfileInput = {
@@ -53,16 +54,6 @@ function DeleteAccount() {
   );
 }
 
-// One settings row: what the section is, beside its fields.
-function Section({ id, title, help, children }: { id: string; title: string; help?: string; children: ReactNode }) {
-  return (
-    <section className="acct-row" aria-labelledby={id}>
-      <div className="acct-row-label"><h2 id={id}>{title}</h2>{help && <p>{help}</p>}</div>
-      <div className="acct-row-body">{children}</div>
-    </section>
-  );
-}
-const ROLE_NAMES: Record<string, string> = { contributor: 'Contributor', editor: 'Editor', admin: 'Administrator' };
 
 function AccountEditor() {
   const clerk = useClerk();
@@ -191,7 +182,7 @@ function AccountEditor() {
           <p className="acct-facts">
             <span>{email}</span>
             <span className={verified ? 'acct-ok' : 'acct-warn'}>{statusText}</span>
-            {account && <span>{ROLE_NAMES[account.role] ?? account.role}</span>}
+            {account && <span>{roleName(account.role)}</span>}
             {account?.createdAt && <span>Joined {dateLabel(account.createdAt)}</span>}
           </p>
         </div>
