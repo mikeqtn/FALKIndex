@@ -76,10 +76,13 @@ Relationship is `internal`, `in_group` (owned by the same group, per rule "Group
 
 ## 7. Publish a new version
 
+Versions are not reviewed by a second person before they are published. FALK Index publishes each one by hand once its quotes pass the excerpt check. The About page says so; keep the two in step.
+
 - Add a new profile with `version` one higher, `status: draft`, and a `change_note`.
-- A second person reviews the draft: they open every source, check every excerpt word for word, and challenge each rationale.
-- On approval: set the new profile to `published` and the previous one to `superseded`. Run `npm run validate`; it rejects a published profile that lacks a rationale or a supporting claim.
-- Load it into the live catalogue with `npm run db:publish -- <brand/model> --reviewer <username>`. It prints the plan; add `--apply` to write it. The reviewer must be an editor or admin who did not write the version. Existing versions and claims cannot be rewritten, only superseded. Then run `npm run db:export` and commit, so `data/` matches.
+- Run `npm run check:excerpts -- <brand/model>`. Every quoted excerpt must appear word for word on its source's archived page. CI runs the same check on every pull request, for each claim the pull request adds or changes, and fails it if one does not match.
+- Check the judgment calls yourself: each score against the level text of the methodology in use, and no rationale written to "a reviewer".
+- Promote it: set the new profile to `published`, the previous one to `superseded`, and `editor: ai-draft` to `falk-index` on the profile and its claims. Run `npm run validate`; it rejects a published profile that lacks a rationale or a supporting claim.
+- Load it into the live catalogue with `npm run db:publish -- <brand/model> --reviewer <username>` (or `--all`). `--reviewer` names the account that publishes it: an active, verified editor or admin, other than the version's author. It is kept in the revision log, not shown on the site. The command prints the plan; add `--apply` to write it. Existing versions and claims cannot be rewritten, only superseded. Then run `npm run db:export` and commit, so `data/` matches.
 
 ## 8. Publisher conflicts
 
@@ -90,4 +93,4 @@ FALK's publisher, Falk Watches, LLC, sells watches, including many brands in thi
 
 ## 9. AI-assisted drafts
 
-Drafts prepared with AI use `editor: ai-draft` and stay `draft` until a human reviewer has checked every excerpt against the live page. The reviewer replaces `ai-draft` with their own handle on the claims they verify.
+Records are researched and drafted by AI agents working from public sources. While a version is a draft, its profile and new claims carry `editor: ai-draft`. The excerpt check (§7) stands in for a person checking each quote against the page. When the version is published, `ai-draft` becomes `falk-index`, which the site shows as FALK Index.

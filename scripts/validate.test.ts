@@ -1,5 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { stringify } from 'yaml';
 import { check, load } from './validate.ts';
 
 const data = load('data');
@@ -19,6 +21,18 @@ const broken = (mutate: (profile: any, watch: any) => void) => {
 };
 
 test('data/ is valid', () => assert.deepEqual(check(data).errors, []));
+
+// db:export writes data/ back from the live catalogue (scripts/export-catalogue.ts). A file edited by hand into a
+// different shape (key order, quoting) would be rewritten by the next export, burying real changes in the diff.
+test('data/ is in the form db:export writes', () => {
+  const { orgs, sources, watches } = check(data).parsed;
+  const drift = [
+    ...[...orgs].filter(([id, o]) => stringify(o, { lineWidth: 0 }) !== readFileSync(`data/organizations/${id}.yaml`, 'utf8')).map(([id]) => `organizations/${id}.yaml`),
+    ...watches.filter(w => stringify(w, { lineWidth: 0 }) !== readFileSync(`data/watches/${w.id}.yaml`, 'utf8')).map(w => `watches/${w.id}.yaml`),
+    ...(stringify([...sources.values()], { lineWidth: 0 }) !== readFileSync('data/sources.yaml', 'utf8') ? ['sources.yaml'] : []),
+  ];
+  assert.deepEqual(drift, [], 'Rewrite these in export form (see the test) so the next db:export leaves them alone');
+});
 
 test('a sum field is rejected', () => assert.match(broken(p => { p.total = 30; }), /Unrecognized key.*total/));
 
