@@ -60,9 +60,21 @@ const unscored = profile.confidence === 'D';
             </div>
             {GROUPS.map(([stance, title]) => {
               const es = s.evidence.filter(e => e.stance === stance);
-              return es.length > 0 && (
-                <div class="ev-group">
-                  <h3 class="small-h">{title} ({es.length})</h3>
+              if (es.length === 0) return null;
+              // Supporting evidence and context fold away behind a line that still says what they rest on: how many
+              // sources, how many primary, and when they were last checked. Conflicting evidence always stays open
+              // ("Visible disputes", EDITORIAL.md).
+              const fold = stance !== 'contradicts';
+              const tiers = es.map(e => sources.get(claims.get(e.claim)!.source)!.tier);
+              const primary = tiers.filter(t => t === 'primary').length;
+              const latest = es.map(e => claims.get(e.claim)!.date_checked).sort().at(-1)!;
+              const gist = [primary && `${primary} primary`, es.length - primary && `${es.length - primary} secondary`].filter(Boolean).join(', ');
+              const Group = fold ? 'details' : 'div';
+              return (
+                <Group class:list={['ev-group', { 'ev-fold': fold }]}>
+                  {fold
+                    ? <summary><h3 class="small-h">{title} ({es.length})</h3><span class="fold-gist small muted">{gist}, last checked {fmtDate(latest)}</span></summary>
+                    : <h3 class="small-h">{title} ({es.length})</h3>}
                   {es.map(e => {
                     const c = claims.get(e.claim)!;
                     const src = sources.get(c.source)!;
@@ -81,7 +93,7 @@ const unscored = profile.confidence === 'D';
                       </div>
                     );
                   })}
-                </div>
+                </Group>
               );
             })}
           </div>
@@ -96,6 +108,15 @@ const unscored = profile.confidence === 'D';
   .small-h { font-size: 16px; line-height: 23px; font-stretch: 100%; }
   .claim > * + * { margin-top: var(--s-2); }
   .claim.contradicts { border-left: 3px solid var(--c-gilt); padding-left: var(--s-4); }
+  /* A fold's summary: the heading, then what the evidence rests on, and a chevron that turns when it opens. */
+  .ev-fold > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--s-3); min-height: 44px; padding: var(--s-2) var(--s-6) var(--s-2) 0; position: relative; cursor: pointer; list-style: none; border-radius: var(--r-control); }
+  .ev-fold > summary::-webkit-details-marker { display: none; }
+  .ev-fold > summary::after { content: ''; position: absolute; right: var(--s-2); top: 50%; width: 7px; height: 7px; border: solid var(--c-ink-2); border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); transition: transform var(--d-open) var(--ease); }
+  .ev-fold[open] > summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .ev-fold > summary:hover .small-h { color: var(--c-action); }
+  .ev-fold > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+  .ev-fold:not([open]) > summary { border-bottom: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
+  @media (prefers-reduced-motion: reduce) { .ev-fold > summary::after { transition: none; } }
 </style>
 
 <script>
@@ -126,7 +147,7 @@ const unscored = profile.confidence === 'D';
       if (!pick) return;
       for (const p of panels) {
         p.open = wide.matches || p.classList.contains('is-current');
-        const summary = p.querySelector('summary')!;
+        const summary = p.querySelector(':scope > summary')!;
         summary.tabIndex = wide.matches ? -1 : 0;
         // On wide screens the summary is the panel's heading, not a toggle, so assistive tech should hear a heading.
         if (wide.matches) { summary.setAttribute('role', 'heading'); summary.setAttribute('aria-level', '3'); }
@@ -156,7 +177,7 @@ const unscored = profile.confidence === 'D';
     // must not leave the hash pointing at whichever opened last.
     let clicked: HTMLDetailsElement | null = null;
     for (const p of panels) {
-      p.querySelector('summary')!.addEventListener('click', e => { if (picking()) e.preventDefault(); else clicked = p; });
+      p.querySelector(':scope > summary')!.addEventListener('click', e => { if (picking()) e.preventDefault(); else clicked = p; });
       p.addEventListener('toggle', () => {
         const byReader = clicked === p;
         if (byReader) clicked = null;
@@ -168,4 +189,11 @@ const unscored = profile.confidence === 'D';
     wide.addEventListener('change', fit);
     fit();
   }
+  // On paper every evidence fold prints open; the reader's own open and closed choices come back afterwards.
+  let printed: HTMLDetailsElement[] = [];
+  addEventListener('beforeprint', () => {
+    printed = [...document.querySelectorAll<HTMLDetailsElement>('.ev-fold:not([open])')];
+    printed.forEach(d => { d.open = true; });
+  });
+  addEventListener('afterprint', () => { printed.forEach(d => { d.open = false; }); printed = []; });
 </script>
