@@ -10,8 +10,9 @@ import { CLERK_PROTECT_CONNECT } from './inline-scripts.mjs';
  * main site's proxy (src/accounts/clerk-host.ts). The hostname is checked before it enters the policy. Astro.url is no
  * help here: without an allowedDomains list Astro reports every host as localhost, so the host is read the way the
  * server's Clerk middleware reads it. Astro.csp exists only in built pages, not under `astro dev`.
+ * `otherSite` is the origin of the other site (the forum, seen from FALK Index), allowed for prefetching it.
  */
-export function allowClerkForHost(astro: Pick<AstroGlobal, 'csp' | 'request'>) {
+export function allowClerkForHost(astro: Pick<AstroGlobal, 'csp' | 'request'>, otherSite = '') {
   const host = (getClerkProxyHost({ headers: Object.fromEntries(astro.request.headers) }) ?? '').toLowerCase().replace(/:\d+$/, '');
   if (!astro.csp || !/^[a-z0-9.-]+$/.test(host)) return;
   const clerkHost = clerkHostFor(host);
@@ -19,5 +20,7 @@ export function allowClerkForHost(astro: Pick<AstroGlobal, 'csp' | 'request'>) {
   const proxyOrigin = proxy ? new URL(proxy).origin : '';
   astro.csp.insertScriptResource(`https://clerk.${clerkHost}`);
   if (proxyOrigin) astro.csp.insertScriptResource(proxyOrigin);
-  astro.csp.insertDirective(`connect-src 'self' https://clerk.${clerkHost}${proxyOrigin ? ` ${proxyOrigin}` : ''} ${CLERK_PROTECT_CONNECT}`);
+  // The other site's origin (the forum's, from FALK Index), so a link to it can be prefetched (SITE_JUMP_SCRIPT).
+  const other = /^https:\/\/[a-z0-9.-]+$/.test(otherSite) && otherSite !== proxyOrigin ? ` ${otherSite}` : '';
+  astro.csp.insertDirective(`connect-src 'self' https://clerk.${clerkHost}${proxyOrigin ? ` ${proxyOrigin}` : ''}${other} ${CLERK_PROTECT_CONNECT}`);
 }

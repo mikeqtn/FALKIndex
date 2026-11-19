@@ -53,6 +53,9 @@ export const EVIDENCE_SCRIPT = `(() => {
  * request rather than before it. The arrival flag stays on the page, which keeps a page's own entrance (the home
  * page's shutter, the sections rising in) from playing a second fade after this one.
  * Skipped under reduced motion; a page restored from the back/forward cache drops the fade at once.
+ * Pointing at or focusing a link to the other site prefetches that page, so the jump has less to wait for; not on a
+ * data-saving connection. The browser keeps the prefetched page for a few minutes (both sites send it as private,
+ * not no-store), and page-csp.ts allows the other host under connect-src, which governs prefetches.
  */
 export const SITE_JUMP_SCRIPT = `(() => {
   const root = h => h.split('.').slice(-2).join('.');
@@ -68,6 +71,19 @@ export const SITE_JUMP_SCRIPT = `(() => {
     if (/^https?:$/.test(u.protocol) && crosses(u) && !calm()) html.dataset.leaving = '';
   });
   addEventListener('pageshow', () => delete html.dataset.leaving);
+  const warmed = new Set();
+  const warm = e => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a || (navigator.connection && navigator.connection.saveData)) return;
+    const u = new URL(a.href, location.href);
+    if (!/^https?:$/.test(u.protocol) || !crosses(u) || warmed.has(u.href)) return;
+    warmed.add(u.href);
+    const link = document.createElement('link');
+    link.rel = 'prefetch'; link.href = u.href;
+    document.head.append(link);
+  };
+  document.addEventListener('pointerover', warm);
+  document.addEventListener('focusin', warm);
 })();`;
 
 export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT, EVIDENCE_SCRIPT, SITE_JUMP_SCRIPT];

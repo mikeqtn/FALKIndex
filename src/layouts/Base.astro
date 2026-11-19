@@ -8,7 +8,7 @@ import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 // Hashed for the Content Security Policy in astro.config.mjs.
 import { MENU_SCRIPT, SITE_JUMP_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
 import { allowClerkForHost } from '../lib/page-csp.ts';
-allowClerkForHost(Astro);
+allowClerkForHost(Astro, forumHref('/').startsWith('https://') ? new URL(forumHref('/')).origin : '');
 const { methodology, records } = await getCatalogue(Astro.locals);
 // Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
 // fields, in the same order, as the records page searches; `u` is the record page a chosen suggestion opens.

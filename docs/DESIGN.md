@@ -666,7 +666,7 @@ Caliber Corner
 - Search, tier and order live in the URL (`?q=&tier=&sort=`), so Back and shared links keep the view.
 - Every source has an anchor, `/sources/#source-<id>`. Each claim on a record links to it ("Cited by N records", or "Source entry" when only that record cites it), and the entry is ringed in ruby when arrived at. A filter that would hide it is cleared.
 - The lead links to Data, and Data's "sources" figure links back here.
-- **Mobile:** same list, single column. The tier and type move under the title. The search bar scrolls with the page rather than sticking.
+- **Mobile:** single column. Each publisher folds to its name and source count, with a chevron, and tapping it opens that publisher's sources. A search or tier filter opens every publisher with a match; a link to one source opens its publisher. Without script every source shows. The tier and type move under the title. The search bar scrolls with the page rather than sticking.
 
 ### 5.8 Send a correction
 
