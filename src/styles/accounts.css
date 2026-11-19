@@ -64,6 +64,13 @@
 .account-avatar { display: grid; place-items: center; width: 78px; height: 78px; border: 1px solid var(--c-edge); border-radius: 50%; background: var(--c-surface-sunk); color: var(--c-ink); font: 650 25px/1 var(--f-serif); overflow: hidden; }
 .account-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .account-profile-head { display: flex; align-items: center; gap: 20px; }
+.account-profile-head .account-meta { margin-top: 8px; }
+/* Public profile: contribution counts as figures, and a verification's badge beside its evidence link. */
+.account-counts { display: flex; flex-wrap: wrap; gap: 8px 32px; margin: 0; }
+.account-counts div { display: grid; gap: 2px; }
+.account-counts dt { order: 2; font-size: 13px; color: var(--c-ink-2); }
+.account-counts dd { order: 1; margin: 0; font: 600 28px/1 var(--f-sans); font-stretch: 80%; font-variant-numeric: tabular-nums; }
+.account-verified { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .account-list { margin: 0; padding: 0; list-style: none; }
 .account-list li { padding: 14px 0; border-bottom: var(--edge); }
 .account-list li:last-child { border-bottom: 0; }
@@ -169,25 +176,17 @@ fieldset.account-field[aria-invalid="true"] .account-toggle { border-color: var(
 .acct-inline small { font-size: 13px; color: var(--c-ink-2); }
 .acct-save { display: flex; justify-content: flex-end; align-items: center; gap: var(--s-4); padding: 0 0 var(--s-7); }
 .acct-saved { color: var(--c-ink-2); font-size: 14px; }
+/* With unsaved changes the save bar sticks to the foot of the screen, so a field edited near the top can be saved
+   without scrolling down. It sits on the page colour with a hairline above it, and settles back once saved. */
+.acct-save.is-dirty { position: sticky; bottom: 0; z-index: 5; padding: var(--s-4) 0; margin-bottom: var(--s-7); background: var(--c-page); border-top: 1px solid var(--c-edge); }
+.acct-save.is-dirty .acct-saved { color: var(--c-ink); }
+.acct-photo { flex: none; width: 40px; height: 40px; font-size: 16px; }
 .acct-delete > summary { list-style: none; }
 .acct-delete > summary::-webkit-details-marker { display: none; }
 .acct-delete-form { display: grid; gap: var(--s-4); max-width: 420px; margin-top: var(--s-4); }
 .acct .account-button.danger:hover { background: color-mix(in srgb, var(--c-action) 10%, transparent); color: var(--c-action); }
 .acct .account-button.danger:disabled { cursor: not-allowed; }
 .acct .account-skeleton { height: 16px; background: var(--c-surface); animation: none; }
-/* The public profile (PublicProfileApp.tsx) shares the rows; these are its own parts. */
-.acct-bio { max-width: 66ch; padding-bottom: var(--s-7); font: 400 18px/1.6 var(--f-serif); color: var(--c-ink); text-wrap: pretty; }
-.acct-prose { max-width: 66ch; font-size: 15px; line-height: 1.55; }
-.acct-row-body .account-chips { margin: 0; padding: 0; list-style: none; }
-.acct-row-body .account-label { margin-right: 6px; }
-.acct-counts { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-7); margin: 0; }
-.acct-counts div { display: grid; gap: 2px; }
-.acct-counts dt { order: 2; font-size: 13px; color: var(--c-ink-2); }
-.acct-counts dd { order: 1; margin: 0; font: 600 28px/1 var(--f-sans); font-stretch: 80%; font-variant-numeric: tabular-nums; }
-.acct-missing { display: grid; gap: var(--s-3); justify-items: start; }
-.acct-missing h1 { font: 600 28px/1.15 var(--f-sans); letter-spacing: -.02em; }
-.acct-head .acct-head-text .account-skeleton { width: 40%; }
-.acct-head .acct-head-text .account-skeleton:first-child { width: 60%; height: 24px; }
 @media (max-width: 760px) {
   .acct { padding-top: var(--s-5); }
   .acct-head { flex-wrap: wrap; }
