@@ -166,9 +166,16 @@ function ReviewConsole({ labels }: { labels: Labels }) {
                 <div className="account-heading"><div><p className="account-kicker">{detail.proposal ? 'New watch proposal' : 'Correction'} · {dateLabel(detail.createdAt)}</p><h2>{detail.proposal && detail.status === 'approved' ? <a href={`/records/${detail.proposal.proposedId}/`} target="_blank" rel="noreferrer">{detail.subject}</a> : detail.record ? <a href={`/records/${detail.record.id}/`} target="_blank" rel="noreferrer">{detail.record.name}</a> : detail.subject}</h2></div><StatusChip status={detail.status} /></div>
                 {detail.selfAuthored && <div className="account-error">You submitted this. Another editor must review it.</div>}
                 {detail.conflicts.length > 0 && <div className="account-error">You have a disclosed relationship with {detail.conflicts.join(', ')}. Another editor must review this submission.</div>}
+                {detail.submitterTies.some(t => t.onThisSubmission) && <div className="account-notice">The submitter has disclosed a relationship with {detail.submitterTies.filter(t => t.onThisSubmission).map(t => t.name).join(', ')}, which this submission is about. Check its evidence with that in mind.</div>}
+                {(detail.similar.records.length > 0 || detail.similar.proposals.length > 0) && <div className="account-notice"><p><b>Possible duplicates.</b> Check this is not one of these before accepting it.</p><ul className="account-list">
+                  {detail.similar.records.map(r => <li key={r.id}><a href={`/records/${r.id}/`} target="_blank" rel="noreferrer">{r.name}</a>{r.variant && <span className="account-help"> · {r.variant}</span>}</li>)}
+                  {detail.similar.proposals.map(p => <li key={p.id}>{p.name}<span className="account-help"> · open proposal</span></li>)}
+                </ul></div>}
                 {detail.staleBase && <div className="account-notice">The record has changed since this was submitted. Check the correction against the current version.</div>}
                 <dl className="review-facts">
                   <div><dt>Submitted by</dt><dd>{detail.authorUsername ? <a href={`/people/${detail.authorUsername}`}>{detail.submitter.label}</a> : detail.submitter.label}{detail.submitterRole && <span className="account-help"> · {submitterRoles[detail.submitterRole] ?? detail.submitterRole}</span>}</dd></div>
+                  {detail.submitterHistory && <div><dt>Their other submissions</dt><dd>{detail.submitterHistory.accepted} accepted · {detail.submitterHistory.rejected} rejected · {detail.submitterHistory.open} open</dd></div>}
+                  {detail.submitterTies.length > 0 && <div><dt>Disclosed ties</dt><dd>{detail.submitterTies.map(t => t.name).join(', ')}</dd></div>}
                   {detail.contact && <div><dt>Private contact</dt><dd>{detail.contact.email ? <a href={`mailto:${encodeURIComponent(detail.contact.email)}`}>{detail.contact.email}</a> : 'None provided'}<span className="account-help"> · for editorial follow-up only, never published</span></dd></div>}
                 </dl>
                 <div><p className="account-label">{detail.proposal ? 'Why it belongs in the index' : 'What should change, and why'}</p><blockquote className="review-quote">{detail.explanation}</blockquote></div>

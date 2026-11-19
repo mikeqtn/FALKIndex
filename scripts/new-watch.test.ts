@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { check, load } from './validate.ts';
 import { newWatchInput, type NewWatchInput } from '../src/accounts/contracts.ts';
 import { anyArchetype, buildNewWatch, isArchetype, planNewWatch, slugify } from '../server/newWatch.ts';
+import { similarRecords } from '../src/lib/similar-records.ts';
 
 // The YAML catalogue stands in for the live one, so these run without a database.
 const live = check(load(fileURLToPath(new URL('../data', import.meta.url)))).parsed;
@@ -75,4 +76,18 @@ test('the archetype must come from the methodology, and the contract refuses bad
     { ...ok, scores: {} },
   ]) assert.equal(newWatchInput.safeParse(bad).success, false);
   assert.equal(slugify('  Ref. 5711/1A  '), 'ref-5711-1a');
+});
+
+test('likely duplicates: same brand and a shared model word, or a new brand named like a listed one', () => {
+  const rec = (id: string, brand: string, brandName: string, model: string, variant = '') => ({ id, brand, brandName, model, variant });
+  const records = [rec('rolex/submariner-date', 'rolex', 'Rolex', 'Submariner Date', 'Ref. 126610LN'), rec('rolex/datejust', 'rolex', 'Rolex', 'Datejust'),
+    rec('tudor/submariner', 'tudor', 'Tudor', 'Submariner'), rec('oris/aquis', 'oris', 'Oris', 'Aquis Calibre 400')];
+  const ids = (found: { id: string }[]) => found.map(r => r.id);
+  assert.deepEqual(ids(similarRecords(records, { brandId:'rolex', model:'Submariner 126610LN' })), ['rolex/submariner-date'], 'not the other brand\'s Submariner');
+  assert.deepEqual(ids(similarRecords(records, { brandId:'rolex', model:'Ref 126610LN' })), ['rolex/submariner-date'], 'the reference counts');
+  assert.deepEqual(ids(similarRecords(records, { brandId:'rolex', model:'Daytona' })), []);
+  assert.deepEqual(ids(similarRecords(records, { brandName:'Oris SA', model:'Aquis' })), [], 'a new brand matches only if every word of its name is in a listed one');
+  assert.deepEqual(ids(similarRecords(records, { brandName:'Oris', model:'Aquis Date' })), ['oris/aquis']);
+  assert.deepEqual(ids(similarRecords(records, { model:'Submariner' })), ['rolex/submariner-date', 'tudor/submariner'], 'no brand yet: any model word');
+  assert.deepEqual(ids(similarRecords(records, { model:'' })), []);
 });

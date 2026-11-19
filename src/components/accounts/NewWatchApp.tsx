@@ -3,6 +3,7 @@ import { useAuth } from '@clerk/react';
 import type { Account } from '../../accounts/contracts';
 import { NEW_BRAND_KINDS, SOURCE_TYPES, newWatchInput } from '../../accounts/contracts';
 import { api, handleAccountError } from './api';
+import { similarRecords } from '../../lib/similar-records';
 import { AuthProvider } from './AuthProvider';
 
 type SourceType = typeof SOURCE_TYPES[number];
@@ -48,20 +49,6 @@ function message(path: string, code: string, text: string) {
 }
 
 const fieldId = (path: string) => `nw-${path.replaceAll('.', '-')}`;
-const words = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').split(/[^a-z0-9]+/).filter(w => w.length > 1);
-
-/** Published records that share the brand, or a model word, with what is being typed. */
-function similarRecords(records: Props['records'], f: Form) {
-  const model = words(f.model);
-  const brandName = f.brandId === NEW ? words(f.brandName) : [];
-  const hasBrand = (f.brandId && f.brandId !== NEW) || brandName.length > 0;
-  if (!hasBrand && !model.length) return [];
-  return records.filter(r => {
-    const sameBrand = f.brandId && f.brandId !== NEW ? r.brand === f.brandId : brandName.length > 0 && brandName.every(w => words(r.brandName).includes(w));
-    const modelHit = model.some(w => words(`${r.model} ${r.variant}`).includes(w));
-    return hasBrand ? sameBrand && (!model.length || modelHit) : modelHit;
-  }).slice(0, 6);
-}
 
 function Proposal({ organizations, records, dimensions, sourceTypes }: Props) {
   const [form, setForm] = useState<Form>(blank);
@@ -114,7 +101,7 @@ function Proposal({ organizations, records, dimensions, sourceTypes }: Props) {
     <div className="account-actions"><a className="account-button secondary" href="/records/">Back to records</a></div>
   </div>;
 
-  const similar = similarRecords(records, form);
+  const similar = similarRecords(records, form.brandId === NEW ? { brandName:form.brandName, model:form.model } : { brandId:form.brandId || undefined, model:form.model });
   return <form className="account-stack" onSubmit={submit} noValidate>
     {error && <div id="nw-error" className="account-error" role="alert" tabIndex={-1}>{error}</div>}
 

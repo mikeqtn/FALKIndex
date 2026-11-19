@@ -99,10 +99,25 @@ export const anyArchetype = (live: Catalogue) =>
 export const isArchetype = (live: Catalogue, code: string) =>
   live.methodologies.get(CURRENT_METHODOLOGY)!.classifications.some(c => c.kind === 'archetype' && c.code === code);
 
+/** How many of a member's proposals may wait for an editor at once: the review queue is shared, so one member cannot fill
+ * it. A member with an accepted proposal has shown they propose real watches, and gets more. */
+export const OPEN_PROPOSALS = { first:3, trusted:10 };
+async function capOpenProposals(accountId: string, db: Pick<PoolClient, 'query'>) {
+  // Two proposals sent at once would both see room for one; this makes the second wait for the first.
+  await db.query('SELECT 1 FROM falk_account WHERE id=$1 FOR UPDATE', [accountId]);
+  const { open, accepted } = (await db.query(`SELECT count(*) FILTER (WHERE status IN ('pending','needs_info'))::int AS open,
+    count(*) FILTER (WHERE status='approved')::int AS accepted
+    FROM falk_submission WHERE author_id=$1 AND original_proposal->>'type'='new_watch'`, [accountId])).rows[0];
+  if (open >= (accepted ? OPEN_PROPOSALS.trusted : OPEN_PROPOSALS.first)) {
+    throw new HttpError(429, `You have ${open} proposals waiting for an editor. Please wait for a decision on one before proposing another.`);
+  }
+}
+
 /** Save a member's proposal. The public catalogue does not change until an editor approves it. */
 export async function saveNewWatch(account: Account, body: unknown, live: Catalogue, db: Pick<PoolClient, 'query'>) {
   const input = newWatchInput.parse(body);
   if (!account.username) throw new HttpError(403, 'Choose a public username on your account page before proposing a watch.');
+  await capOpenProposals(account.id, db);
   const today = new Date().toISOString().slice(0, 10);
   // Build and plan it now, so a proposal that could never publish is refused while the member is still here.
   planNewWatch(live, buildNewWatch(input, live, { username: account.username, archetype: anyArchetype(live), checkedOn: today, today }));
