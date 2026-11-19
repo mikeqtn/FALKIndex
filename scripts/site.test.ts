@@ -101,7 +101,8 @@ test('pages prerender the other site, never account pages, with rules the script
   assert.equal(parsed.prerender[0].eagerness,'moderate');
   const where = JSON.stringify(parsed.prerender[0].where);
   for (const page of ['sign-in','account','api']) assert.match(where,new RegExp(`"not":\\{"href_matches":"[^"]*${page}\\*"`));
-  const policy = res.headers.get('content-security-policy') ?? res.headers.get('content-security-policy-report-only') ?? '';
+  // The page's script policy is report-only for now (server/csp.ts); the enforced header is the baseline. Read both.
+  const policy = `${res.headers.get('content-security-policy-report-only') ?? ''} ${res.headers.get('content-security-policy') ?? ''}`;
   assert.ok(policy.includes(`sha256-${createHash('sha256').update(rules).digest('base64')}`),'the rules are hashed into script-src');
 });
 
