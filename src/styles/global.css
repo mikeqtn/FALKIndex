@@ -284,10 +284,10 @@ dl.pairs dd { margin: 0; }
 .ev-panels { display: grid; gap: 4px; }
 .ev-panel { background: var(--c-surface); border-radius: var(--r-plate); transition: background var(--d-quick) var(--ease); }
 .ev-panel:not([open]):hover { background: var(--c-surface-2); }
-.ev-panel summary { display: grid; grid-template-columns: var(--ev-code) minmax(0, 1fr) auto; column-gap: var(--s-3); align-items: baseline; min-height: 56px; padding: var(--s-4) var(--s-5); cursor: pointer; list-style: none; border-radius: var(--r-plate); }
-.ev-panel summary::-webkit-details-marker { display: none; }
-.ev-panel summary::after { content: ''; flex: none; width: 8px; height: 8px; border: solid var(--c-ink-2); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); align-self: center; transition: transform var(--d-open) var(--ease); }
-.ev-panel[open] summary::after { transform: rotate(-135deg); }
+.ev-panel > summary { display: grid; grid-template-columns: var(--ev-code) minmax(0, 1fr) auto; column-gap: var(--s-3); align-items: baseline; min-height: 56px; padding: var(--s-4) var(--s-5); cursor: pointer; list-style: none; border-radius: var(--r-plate); }
+.ev-panel > summary::-webkit-details-marker { display: none; }
+.ev-panel > summary::after { content: ''; flex: none; width: 8px; height: 8px; border: solid var(--c-ink-2); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); align-self: center; transition: transform var(--d-open) var(--ease); }
+.ev-panel[open] > summary::after { transform: rotate(-135deg); }
 .ev-panel .code { font: 700 22px/1 var(--f-sans); font-stretch: 62%; white-space: nowrap; }
 .ev-panel .sum-text b { display: block; font-weight: 600; }
 .ev-panel .lvl { display: block; margin-top: 2px; font-size: 15px; line-height: 1.4; }
@@ -310,7 +310,7 @@ dl.pairs dd { margin: 0; }
 .ev-panel blockquote.excerpt { max-width: var(--measure); }
 .ev-panel .prose, .ev-panel blockquote.excerpt, .no-profile p { text-wrap: pretty; }
 @media (max-width: 639px) {
-  .ev-panel summary { grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; }
+  .ev-panel > summary { grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; }
   .ev-panel .body { padding-left: var(--s-5); }
   .makers li { grid-template-columns: minmax(0, 1fr) auto; }
   .makers .m-comp { grid-column: 1 / -1; }
@@ -322,10 +322,10 @@ dl.pairs dd { margin: 0; }
   .pick.ev-js .ev-panel:not(.is-current) { display: none; }
   .pick.ev-js .ev-panel { min-height: var(--side-h, auto); }
   /* The code sits beside the name and the level line runs under both, so the body starts at the panel's own edge. */
-  .pick.ev-js .ev-panel summary { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s-3); cursor: default; min-height: 0; padding: var(--s-6) var(--s-6) var(--s-5); }
+  .pick.ev-js .ev-panel > summary { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s-3); cursor: default; min-height: 0; padding: var(--s-6) var(--s-6) var(--s-5); }
   .pick.ev-js .ev-panel .sum-text { display: contents; }
   .pick.ev-js .ev-panel .lvl { grid-column: 1 / -1; }
-  .pick.ev-js .ev-panel summary::after { content: none; }
+  .pick.ev-js .ev-panel > summary::after { content: none; }
   .pick.ev-js .ev-panel:hover { background: var(--c-surface); }
   .pick.ev-js .ev-panel .code { font-size: 24px; line-height: 1.15; }
   .pick.ev-js .ev-panel .sum-text b { font-size: 24px; line-height: 1.15; letter-spacing: -0.01em; }
