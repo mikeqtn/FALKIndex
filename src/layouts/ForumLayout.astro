@@ -10,8 +10,10 @@ import { navCategories } from '../../server/forum.ts';
 import { forumCanonical, forumLinks, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 // The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
 import { SITE_JUMP_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
-import { allowClerkForHost } from '../lib/page-csp.ts';
+import { allowClerkForHost, jumpRules } from '../lib/page-csp.ts';
 allowClerkForHost(Astro);
+// In the frontmatter, so its hash joins the script policy before the headers are sent.
+const speculation = jumpRules(Astro, siteHref('/') || '/');
 
 interface Props {
   title: string; description?: string;
@@ -47,6 +49,7 @@ const q = Astro.url.searchParams.get('q') ?? '';
     {/* FALK Index's host, when the forum has its own: connect early so the jump back is short. */}
     {siteHref('/').startsWith('http') && <link rel="preconnect" href={new URL(siteHref('/')).origin} />}
     <script is:inline set:html={SITE_JUMP_SCRIPT} />
+    <script is:inline type="speculationrules" set:html={speculation} />
   </head>
   <body class="f-body">
     <a class="sr-only f-skip" href="#main">Skip to content</a>

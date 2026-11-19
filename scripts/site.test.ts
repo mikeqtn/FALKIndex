@@ -94,10 +94,23 @@ test('the sitemap lists every record and no private page; robots.txt points to i
   assert.match(robots,/^Sitemap: .+\/sitemap\.xml$/m);
 });
 
+test('pages prerender the other site, never account pages, with rules the script policy allows', async () => {
+  const res = await fetch(`${base}/records/`);
+  const rules = (await res.text()).match(/<script type="speculationrules">([^<]*)<\/script>/)?.[1] ?? '';
+  const parsed = JSON.parse(rules);
+  assert.equal(parsed.prerender[0].eagerness,'moderate');
+  const where = JSON.stringify(parsed.prerender[0].where);
+  for (const page of ['sign-in','account','api']) assert.match(where,new RegExp(`"not":\\{"href_matches":"[^"]*${page}\\*"`));
+  const policy = res.headers.get('content-security-policy') ?? res.headers.get('content-security-policy-report-only') ?? '';
+  assert.ok(policy.includes(`sha256-${createHash('sha256').update(rules).digest('base64')}`),'the rules are hashed into script-src');
+});
+
 test('pages carry baseline security headers, and production also blocks framing', async () => {
   const dev = await fetch(`${base}/`);
   assert.equal(dev.headers.get('x-content-type-options'),'nosniff');
   assert.equal(dev.headers.get('referrer-policy'),'strict-origin-when-cross-origin');
+  // Lets Chrome prerender a page from the other host before the jump between FALK Index and the forum.
+  assert.equal(dev.headers.get('supports-loading-mode'),'credentialed-prerender');
   assert.equal(dev.headers.get('x-frame-options'),null,'the Replit preview frame must keep working in development');
   assert.match(dev.headers.get('content-security-policy') ?? '',/img-src 'self' data: https:\/\/img\.clerk\.com(;|$)/);
   const env = process.env.NODE_ENV;

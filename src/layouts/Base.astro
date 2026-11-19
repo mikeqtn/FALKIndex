@@ -7,8 +7,10 @@ import { forumHref } from '../lib/forum.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 // Hashed for the Content Security Policy in astro.config.mjs.
 import { MENU_SCRIPT, SITE_JUMP_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
-import { allowClerkForHost } from '../lib/page-csp.ts';
+import { allowClerkForHost, jumpRules } from '../lib/page-csp.ts';
 allowClerkForHost(Astro, forumHref('/').startsWith('https://') ? new URL(forumHref('/')).origin : '');
+// In the frontmatter, so its hash joins the script policy before the headers are sent.
+const speculation = jumpRules(Astro, forumHref('/'));
 const { methodology, records } = await getCatalogue(Astro.locals);
 // Header search suggestions: every listed record, matched in the browser as the reader types. `s` holds the same
 // fields, in the same order, as the records page searches; `u` is the record page a chosen suggestion opens.
@@ -72,6 +74,7 @@ const links = [
     {/* The forum's own host, when it has one: connect early so the jump to it is short. */}
     {forumHref('/').startsWith('http') && <link rel="preconnect" href={new URL(forumHref('/')).origin} />}
     <script is:inline set:html={SITE_JUMP_SCRIPT} />
+    <script is:inline type="speculationrules" set:html={speculation} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
