@@ -6,7 +6,7 @@ import { correctionUrl, getCatalogue, recordUrl, variant } from '../lib/data.ts'
 import { forumHref } from '../lib/forum.ts';
 import AccountNavigation from '../components/accounts/AccountNavigation.tsx';
 // Hashed for the Content Security Policy in astro.config.mjs.
-import { MENU_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
+import { MENU_SCRIPT, SITE_JUMP_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
 import { allowClerkForHost } from '../lib/page-csp.ts';
 allowClerkForHost(Astro);
 const { methodology, records } = await getCatalogue(Astro.locals);
@@ -70,6 +70,9 @@ const links = [
     <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
     {ldJson && <script type="application/ld+json" set:html={ldJson} />}
     <script is:inline set:html={THEME_SCRIPT} />
+    {/* The forum's own host, when it has one: connect early so the jump to it is short. */}
+    {forumHref('/').startsWith('http') && <link rel="preconnect" href={new URL(forumHref('/')).origin} />}
+    <script is:inline set:html={SITE_JUMP_SCRIPT} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

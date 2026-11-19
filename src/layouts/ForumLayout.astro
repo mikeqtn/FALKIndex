@@ -9,7 +9,7 @@ import MessagesDock from '../components/forum/MessagesDock.tsx';
 import { navCategories } from '../../server/forum.ts';
 import { forumCanonical, forumLinks, forumPath, hasSession, siteHref } from '../lib/forum.ts';
 // The theme script is hashed for the Content Security Policy in astro.config.mjs; never write an is:inline script here.
-import { THEME_SCRIPT } from '../lib/inline-scripts.mjs';
+import { SITE_JUMP_SCRIPT, THEME_SCRIPT } from '../lib/inline-scripts.mjs';
 import { allowClerkForHost } from '../lib/page-csp.ts';
 allowClerkForHost(Astro);
 
@@ -44,6 +44,9 @@ const q = Astro.url.searchParams.get('q') ?? '';
     <meta name="twitter:card" content="summary" />
     {ldJson && <script type="application/ld+json" set:html={ldJson} />}
     <script is:inline set:html={THEME_SCRIPT} />
+    {/* FALK Index's host, when the forum has its own: connect early so the jump back is short. */}
+    {siteHref('/').startsWith('http') && <link rel="preconnect" href={new URL(siteHref('/')).origin} />}
+    <script is:inline set:html={SITE_JUMP_SCRIPT} />
   </head>
   <body class="f-body">
     <a class="sr-only f-skip" href="#main">Skip to content</a>
