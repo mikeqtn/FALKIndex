@@ -77,7 +77,17 @@ function AccountEditor() {
   const [metaWarning, setMetaWarning] = useState('');
   const [notice, setNotice] = useState('');
   const [orgQuery, setOrgQuery] = useState('');
+  // The form as last loaded or saved, to tell whether anything is waiting to be saved.
+  const [savedForm, setSavedForm] = useState('');
   const isSetup = !account?.username;
+  const dirty = !loading && JSON.stringify(form) !== savedForm;
+  // Leaving with unsaved edits asks first, as the browser allows.
+  useEffect(() => {
+    if (!dirty) return;
+    const warn = (e: BeforeUnloadEvent) => { e.preventDefault(); };
+    addEventListener('beforeunload', warn);
+    return () => removeEventListener('beforeunload', warn);
+  }, [dirty]);
 
   useEffect(() => {
     let alive = true;
@@ -92,7 +102,7 @@ function AccountEditor() {
       setAccount(result.account);
       setEmail(result.email);
       const profile = result.account.profile;
-      setForm({
+      const loaded: ProfileInput = {
         username: result.account.username ?? '',
         displayName: profile.displayName ?? '',
         realName: profile.realName ?? '',
@@ -103,7 +113,9 @@ function AccountEditor() {
         professionalAffiliations: profile.professionalAffiliations ?? '',
         website: profile.website ?? '',
         brandTies: profile.brandTies ?? [],
-      });
+      };
+      setForm(loaded);
+      setSavedForm(JSON.stringify(loaded));
       setMeta(metadata);
     }).catch((reason: unknown) => setError(handleAccountError(reason)))
       .finally(() => { if (alive) setLoading(false); });
@@ -158,6 +170,7 @@ function AccountEditor() {
     try {
       const result = await api<{ account: Account }>('/api/account', { method: 'PATCH', body: JSON.stringify(parsed.data) });
       setAccount(result.account);
+      setSavedForm(JSON.stringify(form));
       setNotice('Saved.');
     } catch (reason) {
       setError(handleAccountError(reason));
@@ -215,7 +228,7 @@ function AccountEditor() {
             <div className="account-field"><label htmlFor="realName">Real name</label><input id="realName" {...invalid('realName')} maxLength={150} autoComplete="name" value={form.realName} onChange={e => update('realName', e.target.value)} /><label className="acct-check"><input type="checkbox" checked={form.showRealName} onChange={e => update('showRealName', e.target.checked)} /><span>Show it on my public profile</span></label></div>
             <div className="account-field"><label htmlFor="website">Website</label><input id="website" {...invalid('website')} type="url" placeholder="https://" value={form.website} onChange={e => update('website', e.target.value)} /></div>
             <div className="account-field acct-wide"><label htmlFor="bio">Biography</label><textarea id="bio" {...invalid('bio')} maxLength={2000} value={form.bio} onChange={e => update('bio', e.target.value)} /></div>
-            <div className="account-field acct-wide"><span className="account-label">Photo</span><div className="acct-inline"><button className="account-button secondary" type="button" onClick={() => clerk.openUserProfile()}>Change photo</button><small>It comes from your sign-in account. Reload this page after changing it.</small></div></div>
+            <div className="account-field acct-wide"><span className="account-label">Photo</span><div className="acct-inline"><span className="account-avatar acct-photo" aria-hidden="true">{account?.profile.imageUrl ? <img src={account.profile.imageUrl} alt="" /> : initial}</span><button className="account-button secondary" type="button" onClick={() => clerk.openUserProfile()}>Change photo</button><small>It comes from your sign-in account. Reload this page after changing it.</small></div></div>
           </div>
         </Section>
 
@@ -242,13 +255,14 @@ function AccountEditor() {
           </div> : <p className="account-help">No organizations are available to disclose yet.</p>}
         </Section>
 
-        <div className="acct-save">
-          <span className="acct-saved" role="status">{notice}</span>
-          <button className="account-button" type="submit" disabled={busy}>{busy ? 'Saving…' : isSetup ? 'Create profile' : 'Save changes'}</button>
+        {/* Waits at the foot of the form, and follows the reader up the page once something has changed. */}
+        <div className={`acct-save${dirty ? ' is-dirty' : ''}`}>
+          <span className="acct-saved" role="status">{dirty ? 'Unsaved changes' : notice}</span>
+          <button className="account-button" type="submit" disabled={busy || (!dirty && !isSetup)}>{busy ? 'Saving…' : isSetup ? 'Create profile' : 'Save changes'}</button>
         </div>
       </form>
 
-      <DeleteAccount />
+      {!isSetup && <DeleteAccount />}
     </div>
   );
 }
