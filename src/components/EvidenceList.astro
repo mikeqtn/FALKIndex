@@ -1,7 +1,8 @@
 ---
 // One profile's evidence, one panel per dimension: score, rationale, who makes it, then supporting, conflicting and
-// context claims. Wide screens list the dimensions on the left and show one panel beside them; narrow screens open
-// each panel in place. Every panel renders open, so without script the whole profile reads top to bottom.
+// context claims. Wide screens show the published panel picked in the page's left column (any element marked
+// data-picker, its links pointing at #evidence-xx); narrow screens, and drafts, open each panel in place. Every panel
+// renders open, so without script the whole profile reads top to bottom.
 import { DIMENSIONS, RELATIONSHIP, SOURCE_TYPE, correctionUrl, editorName, getCatalogue, fmtDate, orgUrl, type Profile, type Record } from '../lib/data.ts';
 import { EVIDENCE_SCRIPT } from '../lib/inline-scripts.mjs';
 const { dimension, methodologies, orgs, sources } = await getCatalogue(Astro.locals);
@@ -16,28 +17,11 @@ const readable = (text: string) => text.replace(/\s*\(([^()]*)\)/g, (whole, inne
   inner.split(/[,;]\s*/).every(id => claims.has(id.trim())) ? '' : whole);
 const host = (url: string) => new URL(url).host.replace(/^www\./, '');
 const GROUPS = [['supports', 'Supporting evidence'], ['contradicts', 'Conflicting evidence'], ['context', 'Context']] as const;
-// Confidence D has no profile (DESIGN.md §4.1), so the list names the dimensions without drawing their bars.
-const bars = profile.confidence !== 'D';
-const draft = idPrefix !== 'evidence';
+// The published evidence is picked from the record page's left column on wide screens, one panel at a time; a draft
+// is an accordion at every width.
+const pick = idPrefix === 'evidence';
 ---
-<div class="evidence">
-  <nav class="ev-nav" aria-label={draft ? 'Draft dimensions' : 'Dimensions'}>
-    <ol>
-      {DIMENSIONS.map(d => {
-        const v = profile.scores[d].value;
-        return (
-          <li>
-            <a href={`#${idPrefix}-${d.toLowerCase()}`} aria-controls={`${idPrefix}-${d.toLowerCase()}`}>
-              <span class="nav-code">{d}</span>
-              {/* The profile strip above is the one chart; the list repeats only the number. */}
-              {bars && <span class="nav-score"><span class="nav-num" aria-hidden="true">{v ?? 'U'}</span></span>}
-              <span class="nav-name">{dimension[d].label}{bars && <span class="sr-only">, {v === null ? 'unknown' : `${v} of 5`}</span>}</span>
-            </a>
-          </li>
-        );
-      })}
-    </ol>
-  </nav>
+<div class:list={['evidence', { pick }]}>
   <div class="ev-panels">
     {DIMENSIONS.map(d => {
       const s = profile.scores[d];
@@ -113,21 +97,31 @@ const draft = idPrefix !== 'evidence';
 </style>
 
 <script>
-  // Wide screens: the list on the left picks the one panel shown beside it. Narrow: each panel opens in place.
+  // Wide screens: the published panel shown is the one picked in the left column (the profile strip, or the plain
+  // list on a record with no profile). Narrow screens, and drafts at any width: each panel opens in place.
   // Either way the URL hash names the dimension in view, so evidence can be linked directly.
   const wide = matchMedia('(min-width: 1024px)');
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
   for (const ev of document.querySelectorAll<HTMLElement>('.evidence')) {
+    const pick = ev.classList.contains('pick');
+    const picking = () => pick && wide.matches;
     const panels = [...ev.querySelectorAll<HTMLDetailsElement>('.ev-panel')];
-    const links = [...ev.querySelectorAll<HTMLAnchorElement>('.ev-nav a')];
+    const links = pick ? [...document.querySelectorAll<HTMLAnchorElement>('[data-picker] a[href^="#"]')] : [];
     const current = () => panels.find(p => p.classList.contains('is-current')) ?? panels[0];
     const select = (panel: HTMLDetailsElement) => {
+      const was = current();
       panels.forEach(p => p.classList.toggle('is-current', p === panel));
-      links.forEach(a => a.getAttribute('aria-controls') === panel.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+      // "Current" is a picker state: on narrow screens the profile only opens panels, so no row is marked.
+      links.forEach(a => picking() && a.hash === `#${panel.id}` ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+      // The plate stays put and only its words change: the new content fades in over 150ms.
+      if (picking() && panel !== was && !calm.matches) {
+        for (const child of panel.children) child.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 150, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+      }
     };
-    // Wide: every panel open (only the current one shows), and its heading is a label, not a toggle.
-    // Narrow: only the current panel stays open, so a resize never leaves a wall of open panels.
+    // Wide: every published panel open (only the current one shows), and its heading is a label, not a toggle.
+    // Narrow: only the current panel stays open, so a resize never leaves a wall of open panels. Drafts are left alone.
     const fit = () => {
+      if (!pick) return;
       for (const p of panels) {
         p.open = wide.matches || p.classList.contains('is-current');
         const summary = p.querySelector('summary')!;
@@ -137,16 +131,17 @@ const draft = idPrefix !== 'evidence';
         else { summary.removeAttribute('role'); summary.removeAttribute('aria-level'); }
       }
       if (wide.matches) select(current());
+      else links.forEach(a => a.removeAttribute('aria-current'));
     };
     const show = (panel: HTMLDetailsElement) => {
-      if (wide.matches) select(panel); else panel.open = true;
+      if (picking()) select(panel); else panel.open = true;
       if (location.hash !== `#${panel.id}`) history.replaceState(null, '', `#${panel.id}`);
-      // Bring the panel's top into view only when it is off screen: a click in the list beside it should not jump.
+      // Bring the panel's top into view only when it is off screen: a pick beside it should not move the page.
       const top = panel.getBoundingClientRect().top;
       if (top < 0 || top > innerHeight * 0.8) panel.scrollIntoView({ block: 'start', behavior: calm.matches ? 'auto' : 'smooth' });
     };
     const target = (hash: string) => panels.find(p => `#${p.id}` === hash);
-    // Any link to a panel (this list, or the profile strip above) selects it rather than jumping to it.
+    // Any link to a panel (the picker, or a link in the text) selects it rather than jumping to it.
     document.addEventListener('click', e => {
       const a = (e.target as Element).closest?.<HTMLAnchorElement>('a[href^="#"]');
       const panel = a && target(a.hash);
@@ -159,11 +154,11 @@ const draft = idPrefix !== 'evidence';
     // must not leave the hash pointing at whichever opened last.
     let clicked: HTMLDetailsElement | null = null;
     for (const p of panels) {
-      p.querySelector('summary')!.addEventListener('click', e => { if (wide.matches) e.preventDefault(); else clicked = p; });
+      p.querySelector('summary')!.addEventListener('click', e => { if (picking()) e.preventDefault(); else clicked = p; });
       p.addEventListener('toggle', () => {
         const byReader = clicked === p;
         if (byReader) clicked = null;
-        if (wide.matches || !p.open || !byReader) return;
+        if (picking() || !p.open || !byReader) return;
         select(p);
         if (location.hash !== `#${p.id}`) history.replaceState(null, '', `#${p.id}`);
       });

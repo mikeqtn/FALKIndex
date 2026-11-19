@@ -29,15 +29,18 @@ export const MENU_SCRIPT = `(() => {
 
 /**
  * Evidence renders every dimension open so it all reads without script. Before paint, this picks the one to show:
- * on wide screens the linked (or first) dimension beside the list, on narrow ones only the linked one stays open.
- * EvidenceList's own script handles clicks after that.
+ * on wide screens the published evidence shows the linked (or first) dimension and marks it in the page's picker;
+ * on narrow screens, and for a draft, only the linked one stays open. EvidenceList's own script handles clicks after that.
  */
 export const EVIDENCE_SCRIPT = `(() => {
   const ev = document.currentScript.previousElementSibling, panels = [...ev.querySelectorAll('.ev-panel')];
   const hit = panels.find(p => '#' + p.id === location.hash);
   ev.classList.add('ev-js');
-  if (matchMedia('(min-width: 1024px)').matches) (hit ?? panels[0]).classList.add('is-current');
-  else { panels.forEach(p => { p.open = p === hit; }); hit?.classList.add('is-current'); }
+  if (ev.classList.contains('pick') && matchMedia('(min-width: 1024px)').matches) {
+    const cur = hit ?? panels[0];
+    cur.classList.add('is-current');
+    document.querySelectorAll('[data-picker] a[href="#' + cur.id + '"]').forEach(a => a.setAttribute('aria-current', 'true'));
+  } else { panels.forEach(p => { p.open = p === hit; }); hit?.classList.add('is-current'); }
 })();`;
 
 export const INLINE_SCRIPTS = [THEME_SCRIPT, MENU_SCRIPT, EVIDENCE_SCRIPT];

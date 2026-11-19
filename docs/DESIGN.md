@@ -504,77 +504,58 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 
 ### 5.3 Watch record
 
-**Concept:** a provenance sheet. The profile comes first, the judgment (classification) after it, and every measure can be opened to show its evidence in place. This is the most important screen.
+**Concept:** a provenance sheet. The judgment (classification) and the profile sit together on the left; the evidence for the measure being read fills the rest. This is the most important screen.
 
 ```
-┌───────────────────────────────────────────────────────────────────┐
-│ nav                                                               │
-├───────────────────────────────────────────────────────────────────┤
-│ ▒ Provisional record. This profile comes from the v0.2 reference  │
-│ ▒ dataset; evidence is still being attached. How records are      │
-│ ▒ evidenced (link)                          (gilt tint band)      │
-├───────────────────────────────────────────────────────────────────┤
-│ J.N. Shapiro (link, small)                                        │
-│ Resurgence                                    (display 48)        │
-│ Reference: —   Caliber: JNS-2   Made: 2023 to present (dl, small) │
-│                                                                   │
-│ ┌ Profile (bridge plate) ──────────────┐ ┌ Summary (bridge) ────┐ │
-│ │ MA ▮▮▮▮▮ 5 Movement architecture  ⌄  │ │ Classification       │ │
-│ │ MM ▮▮▮▮▮ 5 Movement manufacturing ⌄  │ │ Integrated           │ │
-│ │ EX ▮▮▮▮▮ 5 Exterior manufacturing ⌄  │ │ Manufacture (h3)     │ │
-│ │ DH ▮▮▮▮▮ 5 Dial and hands         ⌄  │ │ Independent          │ │
-│ │ CF ▮▮▮▮▮ 5 Craft and finishing    ⌄  │ │ watchmaker: Joshua   │ │
-│ │ WE ▮▮▮▮▮ 5 Watchmaking execution  ⌄  │ │ Shapiro works on…    │ │
-│ │ PD ▮▮▮▮▮ 5 Product development    ⌄  │ │ Evidence: [A] Strong │ │
-│ └──────────────────────────────────────┘ │ primary evidence     │ │
-│                                          │ Scored with v0.2,    │ │
-│  Not a ranking. Darker means more of     │ version 3, updated   │ │
-│  the work is done inside the brand.      │ 13 Oct 2026          │ │
-│  (small, ink-2, under strip)             │ [Send a correction]  │ │
-│                                          └──────────────────────┘ │
-├───────────────────────────────────────────────────────────────────┤
-│ Evidence by dimension                                     (h2)    │
-│ ┌───────────────────────────────────────────────────────────────┐ │
-│ │ MA 5  Deep proprietary caliber engineering mastered          ⌃ │ │
-│ │       internally (level descriptor, h3)                        │ │
-│ │  Rationale (serif prose, 68ch):                                │ │
-│ │  The movement was conceived and engineered in the workshop…   │ │
-│ │                                                                │ │
-│ │  Supporting evidence (3)                                       │ │
-│ │  ┃ Movement designed and built in the Los Angeles workshop.   │ │
-│ │  ┃ "…every component is made by hand in our workshop…"       │ │
-│ │  ┃ (italic excerpt)                                           │ │
-│ │    jnshapirowatches.com: Watches   Primary source,           │ │
-│ │    manufacturer statement   Checked 7 Oct 2026   Added by mt │ │
-│ │                                                                │ │
-│ │  Conflicting evidence (0): none recorded (only shown if >0)   │ │
-│ ├───────────────────────────────────────────────────────────────┤ │
-│ │ MM 5  Exceptional integration including escapement…        ⌄ │ │
-│ │ …                                                             │ │
-│ └───────────────────────────────────────────────────────────────┘ │
-├───────────────────────────────────────────────────────────────────┤
-│ History                                            (h2)           │
-│ Version 3   13 Oct 2026   editor-handle                           │
-│   Added hairspring evidence; DH unchanged. (change note, serif)   │
-│   Compare with version 2 (link)                                   │
-│ Version 2   …                                                     │
-│ Version 1   7 Oct 2026   Imported from the v0.2 reference dataset │
-├───────────────────────────────────────────────────────────────────┤
-│ Use this record: Download JSON (link)    Send a correction (link) │
-└───────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────┐
+│ nav (sticky)                                                              │
+├───────────────────────────────────────────────────────────────────────────┤
+│ ▒ Provisional record banner (seed records only, gilt tint band)           │
+├───────────────────────────────────────────────────────────────────────────┤
+│ J.N. Shapiro (link)                       [Send a correction]             │
+│ Resurgence (h1)                           Discuss this record (n)         │
+│ Caliber: JNS-2   Made: 2023 to present    Download JSON                   │
+│ ───────────────────────────────────────────────────────────────────────── │
+│ Profile   Evidence   History  (section links)                             │
+├─ 380px ────────────────┬─ main column ────────────────────────────────────┤
+│ ┌ Profile (sticky) ───┐│┌ Summary band (plate) ──────────────────────────┐│
+│ │▐MA ▮▮▮▮▮ 5 Movement▐│││ Integrated Manufacture (h2)   Evidence [A] …   ││
+│ │ MM ▮▮▮▮▮ 5 Movement │││ short description             Version  3, …    ││
+│ │ EX ▮▮▮▮▯ 4 Exterior │││ right-of-reply note           Scored   v0.2    ││
+│ │ …  (7 rows, links)  │││ publisher disclosure                           ││
+│ │ Not a ranking…      ││└────────────────────────────────────────────────┘│
+│ └─────────────────────┘│┌ Selected panel (plate) ────────────────────────┐│
+│                        ││ MA 5  Movement architecture                    ││
+│                        ││       5 of 5: Deep proprietary caliber…        ││
+│                        ││       Rationale (serif prose, 68ch)            ││
+│                        ││       Who makes it                             ││
+│                        ││       component · maker · relationship tag     ││
+│                        ││       Supporting / Conflicting / Context       ││
+│                        ││  (at least as tall as the profile, so          ││
+│                        ││   switching never moves what is below)         ││
+│                        │└────────────────────────────────────────────────┘│
+│                        │ Draft under review (only with a draft)           │
+│                        │ History (h2): latest version, Compare, Earlier   │
+│                        │ versions (n) fold                                │
+│                        │ Closing note (small): no photos yet…, notes      │
+└────────────────────────┴──────────────────────────────────────────────────┘
 ```
 
-(The caliber name, quotation and workshop location in the wireframe are placeholders for layout, not research.)
+(The caliber name and workshop in the wireframe are placeholders for layout, not research.)
 
-- **One panel per dimension** (EvidenceList.astro): the score and its level text, the rationale, "Who makes it" (that dimension's provenance entries: component, maker or "Not named", relationship tag, years when dated), then supporting, conflicting and context claims. There is no separate "Who makes what" table; each entry lives in its dimension's panel.
-- **Wide screens (≥1024px):** a sticky list of the seven dimensions on the left (code, score number, name) and the selected panel beside it. Clicking a dimension, here or in the profile strip, shows its panel and updates the URL hash (`#evidence-mm`) so evidence can be linked directly. The selected item is raised with the ruby selection line.
-- **Narrow screens:** the panels are an accordion that opens in place; they start closed except the one named in the hash, and an "Open all" toggle sits at the right of the h2.
-- **Without script** every panel shows, in order.
+- **One grid below the header (≥1024px):** a 380px left column holding only the profile picker, and the main column, one gap and one set of edges for every section. The photos, when a record has them, run full width between the header and the grid.
+- **Header:** brand, title, details; on the right "Send a correction" (button), "Discuss this record (n)" and "Download JSON". Section links under it: Profile (only when there is one), Evidence, History. There is no separate "Use this record" section.
+- **Left column:** the profile plate is the dimension picker and sticks below the nav while the main column scrolls (not on screens shorter than 761px). Its rows link to `#evidence-mm`; the selected row is raised a tone step and its name carries the 2px ruby selection line (`aria-current`, wide screens only).
+- **Main column:** first a short summary band (classification, its short description, the right-of-reply note and the publisher disclosure on the left; evidence grade, version and methodology on the right), so the verdict and the picker share the first screen; then the selected dimension's panel, the draft (if any), History and a short closing note (the "No photos yet… send it with a correction" invitation and the record's notes), all on the main column's left edge.
+- **One panel per dimension** (EvidenceList.astro): the score and its level text, the rationale, "Who makes it" (component, maker or "Not named", relationship tag, years when dated), then supporting, conflicting and context claims.
+- **Picking:** a row shows its panel with a 150ms fade (none under reduced motion), updates the URL hash with `history.replaceState`, and scrolls only when the panel's top is off screen. A URL with `#evidence-mm` selects that panel before first paint (an inline script hashed into the CSP).
+- **Narrow screens (<1024px):** one column: header, summary, profile, the evidence accordion, history, closing note. Tapping a profile row opens that dimension and scrolls to it; opening a panel by its heading updates the hash. "Open all" sits at the right of the h2 (phones only) and never rewrites the hash.
+- **Without script** every panel shows, in order, and the profile rows are plain anchor links.
+- **Drafts:** the draft's evidence is a plain accordion in the main column at every width, with no picker of its own.
 - **Rationales** may cite claims by id for editors; the page drops a parenthesis made only of the record's claim ids, since the claims are shown in full below.
 - **Seed records** (no claims yet): each dimension's panel reads "No evidence attached yet. This score comes from the v0.2 reference dataset." with a link to send evidence.
-- **Confidence D:** the profile plate becomes the hatched notice (§4.1), the Summary panel omits the classification, and the dimension list shows names without scores; each panel still carries its "Who makes it" entries.
+- **Confidence D:** no profile: the left column shows the hatched notice (§4.1) and a plain list of the seven dimension names (no bars, no scores) that picks panels the same way, and the summary band has no classification; phones show only the notice, since the accordion headings name the dimensions. Each panel still carries its "Who makes it" entries.
 - **Compare versions:** a simple two-column view of the 7 rows for version N and version N−1, with changed rows marked by a gilt left rule, and the change note above.
-- **Mobile:** header → banner → profile plate (full width) → summary as a plain stacked section below it → evidence accordion (each panel with its "Who makes it" entries stacked: component, then maker and relationship tag) → history.
 
 ### 5.4 Methodology
 
