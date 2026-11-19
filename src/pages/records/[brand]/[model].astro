@@ -8,13 +8,13 @@ import Picture from '../../../components/Picture.astro';
 import { WATCH_PHOTOS } from '../../../lib/watch-photos.ts';
 import { publisherTie } from '../../../lib/publisher.ts';
 import {
-  DIMENSIONS, RELATIONSHIP, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
+  DIMENSIONS, orgUrl, getCatalogue, correctionUrl, editorName, fmtDate, recordUrl, siteOrigin,
 } from '../../../lib/data.ts';
 import { forumHref } from '../../../lib/forum.ts';
 import { recordThreadCount } from '../../../../server/forum.ts';
 import { ARCHETYPES, DESCRIPTOR, archetypeUrl } from '../../../lib/archetypes.ts';
 
-const { classification, dimension, orgs, records } = await getCatalogue(Astro.locals);
+const { classification, records } = await getCatalogue(Astro.locals);
 const r = records.find(r => r.id === `${Astro.params.brand}/${Astro.params.model}`);
 if (!r) return new Response('Record not found',{status:404});
 const p = r.profile;
@@ -30,7 +30,6 @@ const photos = WATCH_PHOTOS[r.id] ?? {};
 const origin = siteOrigin(Astro.url);
 const crumbs = [['Records', '/records/'], [r.brandName, orgUrl(r.brand)], [r.model, recordUrl(r.id)]];
 const photoSrc = (side: string, w: 600 | 1200) => `/images/watches/${r.id}/${side}-${w}.jpg`;
-const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimension === d)] as const).filter(([, es]) => es.length);
 ---
 <Base
   title={`${r.brandName} ${r.model}`}
@@ -52,7 +51,6 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
     </div>
     <nav class="rec-nav" aria-label="Sections of this record">
       {!noProfile && <a href="#profile">Profile</a>}
-      <a href="#who-makes-what">Who makes what</a>
       <a href="#evidence">Evidence</a>
       <a href="#history">History</a>
     </nav>
@@ -78,7 +76,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 
   <div class="grid-2 overview" id="profile">
     {noProfile
-      ? <div class="no-profile"><p>Not enough evidence for a profile yet. See who makes what below.</p></div>
+      ? <div class="no-profile"><p>Not enough evidence for a profile yet. Who makes each part is listed under each dimension below.</p></div>
       : <div class="plate scroll profile-plate">
           <ProfileStrip caption="Profile" columns={[{ scores: p.scores }]} linkRows />
           <p class="small muted">Not a ranking: darker means more of the work happens inside the brand. Select a measure to read its evidence.</p>
@@ -103,29 +101,6 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
       {publisherTie(r.brand) && <p class="small muted">Disclosure: FALK's publisher, Falk Watches, LLC, {publisherTie(r.brand)}. <a href="/about/">Read more</a>.</p>}
     </aside>
   </div>
-
-  <section class="block" id="who-makes-what">
-    <h2>Who makes what</h2>
-    {provenanceByDim.length === 0
-      ? <p class="prose">No provenance entries recorded yet.</p>
-      : (
-        <table class="table stack-sm provenance">
-          <thead><tr><th scope="col">Component</th><th scope="col">Made by</th><th scope="col">Relationship</th></tr></thead>
-          {provenanceByDim.map(([d, es]) => (
-            <tbody>
-              <tr class="area"><th scope="colgroup" colspan="3">{dimension[d].label}</th></tr>
-              {es.map(e => (
-                <tr>
-                  <td>{e.component}{e.valid_from && <span class="small muted"> {e.valid_from} to {e.valid_to ?? 'present'}</span>}</td>
-                  <td>{e.performer ? <a href={orgUrl(e.performer)}>{orgs.get(e.performer)!.name}</a> : <span class="muted">Not named</span>}</td>
-                  <td><span class:list={['rel', e.relationship]}><span>{RELATIONSHIP[e.relationship]}</span></span></td>
-                </tr>
-              ))}
-            </tbody>
-          ))}
-        </table>
-      )}
-  </section>
 
   <section class="block evidence-section" id="evidence">
     <div class="h2-row">
@@ -241,14 +216,6 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   /* Each panel keeps its own height: a stretched profile left a blank band under the seven rows. */
   .overview { align-items: start; }
   .profile-plate { display: grid; gap: var(--s-4); }
-  /* Provenance grouped by area: the area is named once, its components under it. */
-  .provenance .area th { padding: var(--s-4) var(--s-4) var(--s-2); border-bottom: 0; font-size: 15px; font-weight: 600; color: var(--c-ink); }
-  .provenance tbody + tbody .area th { border-top: var(--edge); }
-  @media (min-width: 640px) { .provenance td { padding-block: var(--s-3); } }
-  @media (max-width: 639px) {
-    .provenance tr.area { padding: var(--s-4) var(--s-4) 0; border-bottom: 0; }
-    .provenance .area th { display: block; padding: 0; }
-  }
   .summary { display: grid; align-content: start; gap: var(--s-5); }
   .cls { font-size: 28px; line-height: 1.15; font-stretch: 84%; }
   .cls a { color: var(--c-ink); text-decoration: none; }
@@ -260,6 +227,7 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
   .facts div { display: grid; grid-template-columns: 8.5em 1fr; gap: var(--s-3); align-items: center; min-height: 44px; border-top: 1px solid color-mix(in srgb, var(--c-edge) 55%, transparent); }
   .facts dt { font-size: 14px; color: var(--c-ink-2); }
   .facts dd { margin: 0; font-size: 15px; }
+  @media (min-width: 1024px) { #open-all { display: none; } }
   .h2-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); }
   .history { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
   .history li > * + * { margin-top: var(--s-2); }
@@ -275,22 +243,16 @@ const provenanceByDim = DIMENSIONS.map(d => [d, r.provenance.filter(e => e.dimen
 </style>
 
 <script>
-  const all = [...document.querySelectorAll<HTMLDetailsElement>('.evidence details')];
-  const published = [...document.querySelectorAll<HTMLDetailsElement>('.evidence-section details')];
-  const openFromHash = () => {
-    const el = /^#(draft-)?evidence-/.test(location.hash) && document.getElementById(location.hash.slice(1));
-    if (el instanceof HTMLDetailsElement) { el.open = true; el.scrollIntoView({ block: 'start' }); }
-  };
-  addEventListener('hashchange', openFromHash);
-  openFromHash();
-  for (const d of all) d.addEventListener('toggle', () => {
-    if (d.open && location.hash !== `#${d.id}`) history.replaceState(null, '', `#${d.id}`);
-  });
+  // "Open all" is for the phone accordion; wide screens show one dimension at a time beside the list.
+  const published = [...document.querySelectorAll<HTMLDetailsElement>('.evidence-section .ev-panel')];
   const btn = document.getElementById('open-all')!;
   btn.hidden = false;
   btn.addEventListener('click', () => {
     const open = !published.every(d => d.open);
     published.forEach(d => { d.open = open; });
-    btn.textContent = open ? 'Close all' : 'Open all';
   });
+  // The label follows the panels, however they changed: this button, a tap on one panel, or a resize.
+  const label = () => { btn.textContent = published.every(d => d.open) ? 'Close all' : 'Open all'; };
+  published.forEach(d => d.addEventListener('toggle', label));
+  label();
 </script>

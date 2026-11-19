@@ -553,13 +553,6 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 │ │ …                                                             │ │
 │ └───────────────────────────────────────────────────────────────┘ │
 ├───────────────────────────────────────────────────────────────────┤
-│ Who makes what                                     (h2)           │
-│ Area                  Component    Made by         Relationship   │
-│ Movement manufacture  Plates       J.N. Shapiro   [Internal]      │
-│ Movement manufacture  Hairspring   Unknown        [▨ Unknown]     │
-│ Exterior              Case         J.N. Shapiro   [Internal]      │
-│ …   (grouped by dimension; years shown when an entry is dated)    │
-├───────────────────────────────────────────────────────────────────┤
 │ History                                            (h2)           │
 │ Version 3   13 Oct 2026   editor-handle                           │
 │   Added hairspring evidence; DH unchanged. (change note, serif)   │
@@ -573,12 +566,15 @@ The ASCII wireframes are desktop (≥1024px) unless noted. On mobile, everything
 
 (The caliber name, quotation and workshop location in the wireframe are placeholders for layout, not research.)
 
-- **Clicking a strip row** (in the profile plate) scrolls to that dimension in "Evidence by dimension" and opens it. Rows are `<button aria-expanded>`, and opening one updates the URL hash (`#evidence-mm`) so evidence can be linked directly.
-- **All rows start closed**, except when a hash is present. An "Open all" toggle sits at the right of the h2.
+- **One panel per dimension** (EvidenceList.astro): the score and its level text, the rationale, "Who makes it" (that dimension's provenance entries: component, maker or "Not named", relationship tag, years when dated), then supporting, conflicting and context claims. There is no separate "Who makes what" table; each entry lives in its dimension's panel.
+- **Wide screens (≥1024px):** a sticky list of the seven dimensions on the left (code, score number, name) and the selected panel beside it. Clicking a dimension, here or in the profile strip, shows its panel and updates the URL hash (`#evidence-mm`) so evidence can be linked directly. The selected item is raised with the ruby selection line.
+- **Narrow screens:** the panels are an accordion that opens in place; they start closed except the one named in the hash, and an "Open all" toggle sits at the right of the h2.
+- **Without script** every panel shows, in order.
+- **Rationales** may cite claims by id for editors; the page drops a parenthesis made only of the record's claim ids, since the claims are shown in full below.
 - **Seed records** (no claims yet): each dimension's panel reads "No evidence attached yet. This score comes from the v0.2 reference dataset." with a link to send evidence.
-- **Confidence D:** the profile plate becomes the hatched notice (§4.1), the Summary panel omits the classification, and "Who makes what" moves up to sit directly under the header.
+- **Confidence D:** the profile plate becomes the hatched notice (§4.1), the Summary panel omits the classification, and the dimension list shows names without scores; each panel still carries its "Who makes it" entries.
 - **Compare versions:** a simple two-column view of the 7 rows for version N and version N−1, with changed rows marked by a gilt left rule, and the change note above.
-- **Mobile:** header → banner → profile plate (full width) → summary as a plain stacked section below it → evidence accordion → "Who makes what" as stacked entries (area heading, then component, maker, and relationship tag per item) → history.
+- **Mobile:** header → banner → profile plate (full width) → summary as a plain stacked section below it → evidence accordion (each panel with its "Who makes it" entries stacked: component, then maker and relationship tag) → history.
 
 ### 5.4 Methodology
 
